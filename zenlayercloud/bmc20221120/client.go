@@ -322,7 +322,7 @@ func NewModifyInstancesAttributeRequest() (request *ModifyInstancesAttributeRequ
 	request = &ModifyInstancesAttributeRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyInstanceAttribute")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyInstancesAttribute")
 
 	return
 }
@@ -428,6 +428,28 @@ func (c *Client) ModifyInstanceBandwidth(request *ModifyInstanceBandwidthRequest
 	return
 }
 
+func NewInquiryPriceInstanceBandwidthRequest() (request *InquiryPriceInstanceBandwidthRequest) {
+	request = &InquiryPriceInstanceBandwidthRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryPriceInstanceBandwidth")
+
+	return
+}
+
+func NewInquiryPriceInstanceBandwidthResponse() (response *InquiryPriceInstanceBandwidthResponse) {
+	response = &InquiryPriceInstanceBandwidthResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) InquiryPriceInstanceBandwidth(request *InquiryPriceInstanceBandwidthRequest) (response *InquiryPriceInstanceBandwidthResponse, err error) {
+	response = NewInquiryPriceInstanceBandwidthResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewCancelInstanceBandwidthDowngradeRequest() (request *CancelInstanceBandwidthDowngradeRequest) {
 	request = &CancelInstanceBandwidthDowngradeRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -472,11 +494,33 @@ func (c *Client) ModifyInstanceTrafficPackage(request *ModifyInstanceTrafficPack
 	return
 }
 
+func NewInquiryPriceInstanceTrafficPackageRequest() (request *InquiryPriceInstanceTrafficPackageRequest) {
+	request = &InquiryPriceInstanceTrafficPackageRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryPriceInstanceTrafficPackage")
+
+	return
+}
+
+func NewInquiryPriceInstanceTrafficPackageResponse() (response *InquiryPriceInstanceTrafficPackageResponse) {
+	response = &InquiryPriceInstanceTrafficPackageResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) InquiryPriceInstanceTrafficPackage(request *InquiryPriceInstanceTrafficPackageRequest) (response *InquiryPriceInstanceTrafficPackageResponse, err error) {
+	response = NewInquiryPriceInstanceTrafficPackageResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewCancelInstanceTrafficPackageDowngradeRequest() (request *CancelInstanceTrafficPackageDowngradeRequest) {
 	request = &CancelInstanceTrafficPackageDowngradeRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CancelInstanceBandwidthDowngrade")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CancelInstanceTrafficPackageDowngrade")
 
 	return
 }
@@ -558,6 +602,28 @@ func NewDescribeEipAvailableResourcesResponse() (response *DescribeEipAvailableR
 
 func (c *Client) DescribeEipAvailableResources(request *DescribeEipAvailableResourcesRequest) (response *DescribeEipAvailableResourcesResponse, err error) {
 	response = NewDescribeEipAvailableResourcesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeInstanceAvailableEipResourcesRequest() (request *DescribeInstanceAvailableEipResourcesRequest) {
+	request = &DescribeInstanceAvailableEipResourcesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeInstanceAvailableEipResources")
+
+	return
+}
+
+func NewDescribeInstanceAvailableEipResourcesResponse() (response *DescribeInstanceAvailableEipResourcesResponse) {
+	response = &DescribeInstanceAvailableEipResourcesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) DescribeInstanceAvailableEipResources(request *DescribeInstanceAvailableEipResourcesRequest) (response *DescribeInstanceAvailableEipResourcesResponse, err error) {
+	response = NewDescribeInstanceAvailableEipResourcesResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -740,6 +806,28 @@ func (c *Client) DescribeDdosAvailableResources(request *DescribeDdosIpAvailable
 	return
 }
 
+func NewDescribeInstanceAvailableDdosResourcesRequest() (request *DescribeInstanceAvailableDdosResourcesRequest) {
+	request = &DescribeInstanceAvailableDdosResourcesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeInstanceAvailableDdosIpResources")
+
+	return
+}
+
+func NewDescribeInstanceAvailableDdosResourcesResponse() (response *DescribeInstanceAvailableDdosResourcesResponse) {
+	response = &DescribeInstanceAvailableDdosResourcesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) DescribeInstanceAvailableDdosResources(request *DescribeInstanceAvailableDdosResourcesRequest) (response *DescribeInstanceAvailableDdosResourcesResponse, err error) {
+	response = NewDescribeInstanceAvailableDdosResourcesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewAllocateDdosIpAddressesRequest() (request *AllocateDdosIpAddressesRequest) {
 	request = &AllocateDdosIpAddressesRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -806,24 +894,24 @@ func (c *Client) TerminateDdosIpAddress(request *TerminateDdosIpAddressRequest) 
 	return
 }
 
-func NewReleaseDdosIPAddressesRequest() (request *ReleaseDdosIPAddressesRequest) {
-	request = &ReleaseDdosIPAddressesRequest{
+func NewReleaseDdosIpAddressesRequest() (request *ReleaseDdosIpAddressesRequest) {
+	request = &ReleaseDdosIpAddressesRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ReleaseDdosIPAddresses")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ReleaseDdosIpAddresses")
 
 	return
 }
 
-func NewReleaseDdosIPAddressesResponse() (response *ReleaseDdosIPAddressesResponse) {
-	response = &ReleaseDdosIPAddressesResponse{
+func NewReleaseDdosIpAddressesResponse() (response *ReleaseDdosIpAddressesResponse) {
+	response = &ReleaseDdosIpAddressesResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-func (c *Client) ReleaseDdosIPAddresses(request *ReleaseDdosIPAddressesRequest) (response *ReleaseDdosIPAddressesResponse, err error) {
-	response = NewReleaseDdosIPAddressesResponse()
+func (c *Client) ReleaseDdosIpAddresses(request *ReleaseDdosIpAddressesRequest) (response *ReleaseDdosIpAddressesResponse, err error) {
+	response = NewReleaseDdosIpAddressesResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -1222,6 +1310,346 @@ func NewAssociateSubnetInstancesResponse() (response *AssociateSubnetInstancesRe
 
 func (c *Client) AssociateSubnetInstances(request *AssociateSubnetInstancesRequest) (response *AssociateSubnetInstancesResponse, err error) {
 	response = NewAssociateSubnetInstancesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewAssociateVpcSubnetRequest() (request *AssociateVpcSubnetRequest) {
+	request = &AssociateVpcSubnetRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "AssociateVpcSubnet")
+
+	return
+}
+
+func NewAssociateVpcSubnetResponse() (response *AssociateVpcSubnetResponse) {
+	response = &AssociateVpcSubnetResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) AssociateVpcSubnet(request *AssociateVpcSubnetRequest) (response *AssociateVpcSubnetResponse, err error) {
+	response = NewAssociateVpcSubnetResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeSubnetAvailableResourcesRequest() (request *DescribeSubnetAvailableResourcesRequest) {
+	request = &DescribeSubnetAvailableResourcesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeSubnetAvailableResources")
+
+	return
+}
+
+func NewDescribeSubnetAvailableResourcesResponse() (response *DescribeSubnetAvailableResourcesResponse) {
+	response = &DescribeSubnetAvailableResourcesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) DescribeSubnetAvailableResources(request *DescribeSubnetAvailableResourcesRequest) (response *DescribeSubnetAvailableResourcesResponse, err error) {
+	response = NewDescribeSubnetAvailableResourcesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+//////////////////////////// CIDR Block //////////////////////////////
+
+func NewDescribeCidrBlocksRequest() (request *DescribeCidrBlocksRequest) {
+	request = &DescribeCidrBlocksRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeCidrBlocks")
+	return
+}
+
+func NewDescribeCidrBlocksResponse() (response *DescribeCidrBlocksResponse) {
+	response = &DescribeCidrBlocksResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) DescribeCidrBlocks(request *DescribeCidrBlocksRequest) (response *DescribeCidrBlocksResponse, err error) {
+	response = NewDescribeCidrBlocksResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeCidrBlockIpsRequest() (request *DescribeCidrBlockIpsRequest) {
+	request = &DescribeCidrBlockIpsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeCidrBlockIps")
+	return
+}
+
+func NewDescribeCidrBlockIpsResponse() (response *DescribeCidrBlockIpsResponse) {
+	response = &DescribeCidrBlockIpsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) DescribeCidrBlockIps(request *DescribeCidrBlockIpsRequest) (response *DescribeCidrBlockIpsResponse, err error) {
+	response = NewDescribeCidrBlockIpsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeAvailableIpv4ResourcesRequest() (request *DescribeAvailableIpv4ResourcesRequest) {
+	request = &DescribeAvailableIpv4ResourcesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeAvailableIpv4Resources")
+	return
+}
+
+func NewDescribeAvailableIpv4ResourcesResponse() (response *DescribeAvailableIpv4ResourcesResponse) {
+	response = &DescribeAvailableIpv4ResourcesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) DescribeAvailableIpv4Resources(request *DescribeAvailableIpv4ResourcesRequest) (response *DescribeAvailableIpv4ResourcesResponse, err error) {
+	response = NewDescribeAvailableIpv4ResourcesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeAvailableIpv6ResourcesRequest() (request *DescribeAvailableIpv6ResourcesRequest) {
+	request = &DescribeAvailableIpv6ResourcesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeAvailableIpv6Resources")
+	return
+}
+
+func NewDescribeAvailableIpv6ResourcesResponse() (response *DescribeAvailableIpv6ResourcesResponse) {
+	response = &DescribeAvailableIpv6ResourcesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) DescribeAvailableIpv6Resources(request *DescribeAvailableIpv6ResourcesRequest) (response *DescribeAvailableIpv6ResourcesResponse, err error) {
+	response = NewDescribeAvailableIpv6ResourcesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeInstanceAvailableCidrBlockRequest() (request *DescribeInstanceAvailableCidrBlockRequest) {
+	request = &DescribeInstanceAvailableCidrBlockRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeInstanceAvailableCidrBlock")
+	return
+}
+
+func NewDescribeInstanceAvailableCidrBlockResponse() (response *DescribeInstanceAvailableCidrBlockResponse) {
+	response = &DescribeInstanceAvailableCidrBlockResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) DescribeInstanceAvailableCidrBlock(request *DescribeInstanceAvailableCidrBlockRequest) (response *DescribeInstanceAvailableCidrBlockResponse, err error) {
+	response = NewDescribeInstanceAvailableCidrBlockResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewInquiryPriceCreateIpv4BlockRequest() (request *InquiryPriceCreateIpv4BlockRequest) {
+	request = &InquiryPriceCreateIpv4BlockRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryPriceCreateIpv4Block")
+	return
+}
+
+func NewInquiryPriceCreateIpv4BlockResponse() (response *InquiryPriceCreateIpv4BlockResponse) {
+	response = &InquiryPriceCreateIpv4BlockResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) InquiryPriceCreateIpv4Block(request *InquiryPriceCreateIpv4BlockRequest) (response *InquiryPriceCreateIpv4BlockResponse, err error) {
+	response = NewInquiryPriceCreateIpv4BlockResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewCreateIpv4BlockRequest() (request *CreateIpv4BlockRequest) {
+	request = &CreateIpv4BlockRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateIpv4Block")
+	return
+}
+
+func NewCreateIpv4BlockResponse() (response *CreateIpv4BlockResponse) {
+	response = &CreateIpv4BlockResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) CreateIpv4Block(request *CreateIpv4BlockRequest) (response *CreateIpv4BlockResponse, err error) {
+	response = NewCreateIpv4BlockResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewCreateIpv6BlockRequest() (request *CreateIpv6BlockRequest) {
+	request = &CreateIpv6BlockRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateIpv6Block")
+	return
+}
+
+func NewCreateIpv6BlockResponse() (response *CreateIpv6BlockResponse) {
+	response = &CreateIpv6BlockResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) CreateIpv6Block(request *CreateIpv6BlockRequest) (response *CreateIpv6BlockResponse, err error) {
+	response = NewCreateIpv6BlockResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyCidrBlocksAttributeRequest() (request *ModifyCidrBlocksAttributeRequest) {
+	request = &ModifyCidrBlocksAttributeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyCidrBlocksAttribute")
+	return
+}
+
+func NewModifyCidrBlocksAttributeResponse() (response *ModifyCidrBlocksAttributeResponse) {
+	response = &ModifyCidrBlocksAttributeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) ModifyCidrBlocksAttribute(request *ModifyCidrBlocksAttributeRequest) (response *ModifyCidrBlocksAttributeResponse, err error) {
+	response = NewModifyCidrBlocksAttributeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewRenewCidrBlockRequest() (request *RenewCidrBlockRequest) {
+	request = &RenewCidrBlockRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "RenewCidrBlock")
+	return
+}
+
+func NewRenewCidrBlockResponse() (response *RenewCidrBlockResponse) {
+	response = &RenewCidrBlockResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) RenewCidrBlock(request *RenewCidrBlockRequest) (response *RenewCidrBlockResponse, err error) {
+	response = NewRenewCidrBlockResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewTerminateCidrBlockRequest() (request *TerminateCidrBlockRequest) {
+	request = &TerminateCidrBlockRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "TerminateCidrBlock")
+	return
+}
+
+func NewTerminateCidrBlockResponse() (response *TerminateCidrBlockResponse) {
+	response = &TerminateCidrBlockResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) TerminateCidrBlock(request *TerminateCidrBlockRequest) (response *TerminateCidrBlockResponse, err error) {
+	response = NewTerminateCidrBlockResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewReleaseCidrBlocksRequest() (request *ReleaseCidrBlocksRequest) {
+	request = &ReleaseCidrBlocksRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ReleaseCidrBlocks")
+	return
+}
+
+func NewReleaseCidrBlocksResponse() (response *ReleaseCidrBlocksResponse) {
+	response = &ReleaseCidrBlocksResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) ReleaseCidrBlocks(request *ReleaseCidrBlocksRequest) (response *ReleaseCidrBlocksResponse, err error) {
+	response = NewReleaseCidrBlocksResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewBindCidrBlockIpsRequest() (request *BindCidrBlockIpsRequest) {
+	request = &BindCidrBlockIpsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "BindCidrBlockIps")
+	return
+}
+
+func NewBindCidrBlockIpsResponse() (response *BindCidrBlockIpsResponse) {
+	response = &BindCidrBlockIpsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) BindCidrBlockIps(request *BindCidrBlockIpsRequest) (response *BindCidrBlockIpsResponse, err error) {
+	response = NewBindCidrBlockIpsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewUnbindCidrBlockIpsRequest() (request *UnbindCidrBlockIpsRequest) {
+	request = &UnbindCidrBlockIpsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "UnbindCidrBlockIps")
+	return
+}
+
+func NewUnbindCidrBlockIpsResponse() (response *UnbindCidrBlockIpsResponse) {
+	response = &UnbindCidrBlockIpsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) UnbindCidrBlockIps(request *UnbindCidrBlockIpsRequest) (response *UnbindCidrBlockIpsResponse, err error) {
+	response = NewUnbindCidrBlockIpsResponse()
 	err = c.ApiCall(request, response)
 	return
 }
