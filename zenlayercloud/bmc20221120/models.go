@@ -12,6 +12,7 @@ type DescribeZonesResponse struct {
 	RequestId string                       `json:"requestId,omitempty"`
 	Response  *DescribeZonesResponseParams `json:"response"`
 }
+
 type DescribeZonesResponseParams struct {
 	RequestId string      `json:"requestId,omitempty"`
 	ZoneSet   []*ZoneInfo `json:"zoneSet,omitempty"`
@@ -336,7 +337,7 @@ type ReleaseInstancesResponse struct {
 
 type RenewInstanceRequest struct {
 	*common.BaseRequest
-	InstanceId string `json:"instanceIds,omitempty"`
+	InstanceId string `json:"instanceId,omitempty"`
 }
 
 type RenewInstanceResponse struct {
@@ -438,6 +439,21 @@ type StepPrice struct {
 	DiscountUnitPrice *float64 `json:"discountUnitPrice,omitempty"`
 }
 
+type InquiryPriceInstanceBandwidthRequest struct {
+	*common.BaseRequest
+	InstanceId       string `json:"instanceId,omitempty"`
+	BandwidthOutMbps int    `json:"bandwidthOutMbps,omitempty"`
+}
+type InquiryPriceInstanceBandwidthResponse struct {
+	*common.BaseResponse
+	RequestId string                                       `json:"requestId,omitempty"`
+	Response  *InquiryPriceInstanceBandwidthResponseParams `json:"response"`
+}
+type InquiryPriceInstanceBandwidthResponseParams struct {
+	RequestId      string   `json:"requestId,omitempty"`
+	BandwidthPrice []*Price `json:"bandwidthPrice,omitempty"`
+}
+
 type ModifyInstanceBandwidthRequest struct {
 	*common.BaseRequest
 	InstanceId       string `json:"instanceId,omitempty"`
@@ -483,6 +499,21 @@ type ModifyInstanceTrafficPackageResponse struct {
 	*common.BaseResponse
 	RequestId string                                          `json:"requestId,omitempty"`
 	Response  *ModifyInstanceTrafficPackageSizeResponseParams `json:"response"`
+}
+
+type InquiryPriceInstanceTrafficPackageRequest struct {
+	*common.BaseRequest
+	InstanceId         string  `json:"instanceId,omitempty"`
+	TrafficPackageSize float64 `json:"trafficPackageSize,omitempty"`
+}
+type InquiryPriceInstanceTrafficPackageResponse struct {
+	*common.BaseResponse
+	RequestId string                                            `json:"requestId,omitempty"`
+	Response  *InquiryPriceInstanceTrafficPackageResponseParams `json:"response"`
+}
+type InquiryPriceInstanceTrafficPackageResponseParams struct {
+	RequestId           string   `json:"requestId,omitempty"`
+	TrafficPackagePrice []*Price `json:"trafficPackagePrice,omitempty"`
 }
 
 type CancelInstanceTrafficPackageDowngradeRequest struct {
@@ -551,16 +582,33 @@ type DescribeEipAvailableResourcesResponseParams struct {
 	RequestId    string                  `json:"requestId,omitempty"`
 	EipResources []*EipAvailableResource `json:"eipResources,omitempty"`
 }
-
 type EipAvailableResource struct {
 	ZoneId string `json:"zoneId,omitempty"`
 	Status string `json:"status,omitempty"`
 }
 
+type DescribeInstanceAvailableEipResourcesRequest struct {
+	*common.BaseRequest
+	InstanceId string `json:"instanceId,omitempty"`
+}
+type DescribeInstanceAvailableEipResourcesResponse struct {
+	*common.BaseResponse
+	RequestId string                                               `json:"requestId,omitempty"`
+	Response  *DescribeInstanceAvailableEipResourcesResponseParams `json:"response,omitempty"`
+}
+type DescribeInstanceAvailableEipResourcesResponseParams struct {
+	RequestId            string                          `json:"requestId,omitempty"`
+	InstanceEipResources []*InstanceAvailableEipResource `json:"instanceEipResources,omitempty"`
+}
+type InstanceAvailableEipResource struct {
+	EipId     string `json:"eipId,omitempty"`
+	IpAddress string `json:"ipAddress,omitempty"`
+}
+
 type AllocateEipAddressesRequest struct {
 	*common.BaseRequest
 	EipChargeType    string         `json:"eipChargeType,omitempty"`
-	EipChargePrepaid *ChargePrepaid `json:"instanceChargePrepaid,omitempty"`
+	EipChargePrepaid *ChargePrepaid `json:"eipChargePrepaid,omitempty"`
 	ZoneId           string         `json:"zoneId,omitempty"`
 	ResourceGroupId  string         `json:"resourceGroupId,omitempty"`
 	Amount           int            `json:"amount,omitempty"`
@@ -579,7 +627,7 @@ type AllocateEipAddressesResponseParams struct {
 
 type TerminateEipAddressRequest struct {
 	*common.BaseRequest
-	EipId string `json:"EipId,omitempty"`
+	EipId string `json:"eipId,omitempty"`
 }
 
 type TerminateEipAddressResponse struct {
@@ -592,7 +640,7 @@ type TerminateEipAddressResponse struct {
 
 type ReleaseEipAddressesRequest struct {
 	*common.BaseRequest
-	EipIds []string `json:"EipIds,omitempty"`
+	EipIds []string `json:"eipIds,omitempty"`
 }
 
 type ReleaseEipAddressesResponse struct {
@@ -605,7 +653,7 @@ type ReleaseEipAddressesResponse struct {
 
 type RenewEipAddressRequest struct {
 	*common.BaseRequest
-	EipId string `json:"EipId,omitempty"`
+	EipId string `json:"eipId,omitempty"`
 }
 
 type RenewEipAddressResponse struct {
@@ -658,7 +706,6 @@ type InquiryPriceCreateEipAddressResponse struct {
 }
 
 type InquiryPriceCreateEipAddressResponseParams struct {
-	*common.BaseResponse
 	RequestId string `json:"requestId,omitempty"`
 	EipPrice  *Price `json:"eipPrice,omitempty"`
 }
@@ -695,6 +742,24 @@ type DescribeDdosIpAvailableResourcesResponseParams struct {
 type DdosIpAvailableResource struct {
 	ZoneId string `json:"zoneId,omitempty"`
 	Status string `json:"status,omitempty"`
+}
+
+type DescribeInstanceAvailableDdosResourcesRequest struct {
+	*common.BaseRequest
+	InstanceId string `json:"instanceId,omitempty"`
+}
+type DescribeInstanceAvailableDdosResourcesResponse struct {
+	*common.BaseResponse
+	RequestId string                                                `json:"requestId,omitempty"`
+	Response  *DescribeInstanceAvailableDdosResourcesResponseParams `json:"response,omitempty"`
+}
+type DescribeInstanceAvailableDdosResourcesResponseParams struct {
+	RequestId               string                             `json:"requestId,omitempty"`
+	InstanceDdosIpResources []*InstanceAvailableDdosIpResource `json:"instanceDdosIpResources,omitempty"`
+}
+type InstanceAvailableDdosIpResource struct {
+	DdosIpId  string `json:"ddosIpId,omitempty"`
+	IpAddress string `json:"ipAddress,omitempty"`
 }
 
 type AllocateDdosIpAddressesRequest struct {
@@ -759,7 +824,7 @@ type DdosIpAddress struct {
 
 type TerminateDdosIpAddressRequest struct {
 	*common.BaseRequest
-	DdosIpId string `json:"DdosIpId,omitempty"`
+	DdosIpId string `json:"ddosIpId,omitempty"`
 }
 
 type TerminateDdosIpAddressResponse struct {
@@ -770,12 +835,12 @@ type TerminateDdosIpAddressResponse struct {
 	} `json:"response"`
 }
 
-type ReleaseDdosIPAddressesRequest struct {
+type ReleaseDdosIpAddressesRequest struct {
 	*common.BaseRequest
 	DdosIpIds []string `json:"ddosIpIds,omitempty"`
 }
 
-type ReleaseDdosIPAddressesResponse struct {
+type ReleaseDdosIpAddressesResponse struct {
 	*common.BaseResponse
 	RequestId string `json:"requestId,omitempty"`
 	Response  struct {
@@ -785,7 +850,7 @@ type ReleaseDdosIPAddressesResponse struct {
 
 type RenewDdosIpAddressRequest struct {
 	*common.BaseRequest
-	DdosIp string `json:"ddosIp,omitempty"`
+	DdosIpId string `json:"ddosIpId,omitempty"`
 }
 
 type RenewDdosIpAddressResponse struct {
@@ -811,7 +876,7 @@ type AssociateDdosIpAddressResponse struct {
 
 type UnassociateDdosIpAddressRequest struct {
 	*common.BaseRequest
-	DdosIp string `json:"ddosIp,omitempty"`
+	DdosIpId string `json:"ddosIpId,omitempty"`
 }
 
 type UnassociateDdosIpAddressResponse struct {
@@ -825,7 +890,7 @@ type UnassociateDdosIpAddressResponse struct {
 type InquiryPriceCreateDdosIpAddressRequest struct {
 	*common.BaseRequest
 	ZoneId              string         `json:"zoneId,omitempty"`
-	DdosIpChargeType    string         `json:"DdosIpChargeType,omitempty"`
+	DdosIpChargeType    string         `json:"ddosIpChargeType,omitempty"`
 	DdosIpChargePrepaid *ChargePrepaid `json:"ddosIpChargePrepaid,omitempty"`
 	Amount              int            `json:"amount,omitempty"`
 }
@@ -837,7 +902,6 @@ type InquiryPriceCreateDdosIpAddressResponse struct {
 }
 
 type InquiryPriceCreateDdosIpAddressResponseParams struct {
-	*common.BaseResponse
 	RequestId   string `json:"requestId,omitempty"`
 	DdosIpPrice *Price `json:"ddosIpPrice,omitempty"`
 }
@@ -1006,14 +1070,13 @@ type Subnet struct {
 	ResourceGroupId   string                     `json:"resourceGroupId,omitempty"`
 	ResourceGroupName string                     `json:"resourceGroupName,omitempty"`
 	SubnetStatus      string                     `json:"subnetStatus,omitempty"`
-	TotalIpCount      int                        `json:"totalIpCount,omitempty"`
-	InstanceSet       []*SubnetAssociateInstance `json:"instanceSet,omitempty"`
+	SubnetInstanceSet []*SubnetAssociateInstance `json:"subnetInstanceSet,omitempty"`
 }
 
 type SubnetAssociateInstance struct {
 	InstanceId       string `json:"instanceId,omitempty"`
 	PrivateIpAddress string `json:"privateIpAddress,omitempty"`
-	AssociateStatus  string `json:"associateStatus,omitempty"`
+	PrivateIpStatus  string `json:"privateIpStatus,omitempty"`
 }
 
 type DescribeSubnetsRequest struct {
@@ -1084,8 +1147,8 @@ type ModifySubnetsResourceGroupResponse struct {
 
 type UnAssociateSubnetInstanceRequest struct {
 	*common.BaseRequest
-	SubnetId    string   `json:"subnetId,omitempty"`
-	InstanceIds []string `json:"instanceIds,omitempty"`
+	SubnetId   string `json:"subnetId,omitempty"`
+	InstanceId string `json:"instanceId,omitempty"`
 }
 
 type UnAssociateSubnetInstanceResponse struct {
@@ -1098,8 +1161,8 @@ type UnAssociateSubnetInstanceResponse struct {
 
 type AssociateSubnetInstancesRequest struct {
 	*common.BaseRequest
-	SubnetId  string                              `json:"subnetId,omitempty"`
-	Instances []*AssociateSubnetInstanceIpAddress `json:"instances,omitempty"`
+	SubnetId           string                              `json:"subnetId,omitempty"`
+	SubnetInstanceList []*AssociateSubnetInstanceIpAddress `json:"subnetInstanceList,omitempty"`
 }
 
 type AssociateSubnetInstanceIpAddress struct {
@@ -1108,6 +1171,324 @@ type AssociateSubnetInstanceIpAddress struct {
 }
 
 type AssociateSubnetInstancesResponse struct {
+	*common.BaseResponse
+	RequestId string `json:"requestId,omitempty"`
+	Response  struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response"`
+}
+
+type AssociateVpcSubnetRequest struct {
+	*common.BaseRequest
+	SubnetId string `json:"subnetId,omitempty"`
+	VpcId    string `json:"vpcId,omitempty"`
+}
+
+type AssociateVpcSubnetResponse struct {
+	*common.BaseResponse
+	RequestId string `json:"requestId,omitempty"`
+	Response  struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response"`
+}
+
+type DescribeSubnetAvailableResourcesRequest struct {
+	*common.BaseRequest
+	ZoneId string `json:"zoneId,omitempty"`
+}
+
+type DescribeSubnetAvailableResourcesResponse struct {
+	*common.BaseResponse
+	RequestId string                                          `json:"requestId,omitempty"`
+	Response  *DescribeSubnetAvailableResourcesResponseParams `json:"response,omitempty"`
+}
+type DescribeSubnetAvailableResourcesResponseParams struct {
+	RequestId string   `json:"requestId,omitempty"`
+	ZoneIdSet []string `json:"zoneIdSet,omitempty"`
+}
+
+type DescribeCidrBlocksRequest struct {
+	*common.BaseRequest
+	CidrBlockIds    []string `json:"cidrBlockIds,omitempty"`
+	CidrBlock       string   `json:"cidrBlock,omitempty"`
+	CidrBlockName   string   `json:"cidrBlockName,omitempty"`
+	ZoneId          string   `json:"zoneId,omitempty"`
+	CidrBlockType   string   `json:"cidrBlockType,omitempty"`
+	Gateway         string   `json:"gateway,omitempty"`
+	ChargeType      string   `json:"chargeType,omitempty"`
+	ResourceGroupId string   `json:"resourceGroupId,omitempty"`
+	PageNum         int      `json:"pageNum,omitempty"`
+	PageSize        int      `json:"pageSize,omitempty"`
+}
+
+type DescribeCidrBlocksResponse struct {
+	*common.BaseResponse
+	RequestId string                            `json:"requestId"`
+	Response  *DescribeCidrBlocksResponseParams `json:"response"`
+}
+
+type DescribeCidrBlocksResponseParams struct {
+	RequestId  string           `json:"requestId,omitempty"`
+	TotalCount int              `json:"totalCount,omitempty"`
+	DataSet    []*CidrBlockInfo `json:"dataSet,omitempty"`
+}
+
+type CidrBlockInfo struct {
+	CidrBlockId       string   `json:"cidrBlockId,omitempty"`
+	CidrBlockType     string   `json:"cidrBlockType,omitempty"`
+	CidrBlockName     string   `json:"cidrBlockName,omitempty"`
+	ZoneId            string   `json:"zoneId,omitempty"`
+	CidrBlock         string   `json:"cidrBlock,omitempty"`
+	Gateway           string   `json:"gateway,omitempty"`
+	AvailableIpStart  string   `json:"availableIpStart,omitempty"`
+	AvailableIpEnd    string   `json:"availableIpEnd,omitempty"`
+	AvailableIpCount  int      `json:"availableIpCount,omitempty"`
+	InstanceIds       []string `json:"instanceIds,omitempty"`
+	Status            string   `json:"status,omitempty"`
+	ChargeType        string   `json:"chargeType,omitempty"`
+	CreateTime        string   `json:"createTime,omitempty"`
+	ExpireTime        *string  `json:"expireTime,omitempty"`
+	ResourceGroupId   string   `json:"resourceGroupId,omitempty"`
+	ResourceGroupName string   `json:"resourceGroupName,omitempty"`
+}
+
+type DescribeCidrBlockIpsRequest struct {
+	*common.BaseRequest
+	CidrBlockId string `json:"cidrBlockId,omitempty"`
+	InstanceId  string `json:"instanceId,omitempty"`
+	Ip          string `json:"ip,omitempty"`
+}
+
+type DescribeCidrBlockIpsResponse struct {
+	*common.BaseResponse
+	RequestId string                              `json:"requestId,omitempty"`
+	Response  *DescribeCidrBlockIpsResponseParams `json:"response"`
+}
+
+type DescribeCidrBlockIpsResponseParams struct {
+	RequestId    string                               `json:"requestId,omitempty"`
+	CidrBlockIps []*DescribeCidrBlockIpsResponseParam `json:"CidrBlockIps,omitempty"`
+}
+
+type DescribeCidrBlockIpsResponseParam struct {
+	CidrBlockId   string  `json:"cidrBlockId,omitempty"`
+	CidrBlockType string  `json:"cidrBlockType,omitempty"`
+	Ip            string  `json:"ip,omitempty"`
+	InstanceId    *string `json:"instanceId,omitempty"`
+	Status        string  `json:"status,omitempty"`
+}
+
+type DescribeAvailableIpv4ResourcesRequest struct {
+	*common.BaseRequest
+	ChargeType string `json:"chargeType,omitempty"`
+	ZoneId     string `json:"zoneId,omitempty"`
+}
+
+type DescribeAvailableIpv4ResourcesResponse struct {
+	*common.BaseResponse
+	RequestId string                                        `json:"requestId,omitempty"`
+	Response  *DescribeAvailableIpv4ResourcesResponseParams `json:"response"`
+}
+
+type DescribeAvailableIpv4ResourcesResponseParams struct {
+	RequestId              string                                         `json:"requestId,omitempty"`
+	AvailableIpv4Resources []*DescribeAvailableIpv4ResourcesResponseParam `json:"availableIpv4Resources,omitempty"`
+}
+
+type DescribeAvailableIpv4ResourcesResponseParam struct {
+	ZoneId     string `json:"zoneId,omitempty"`
+	Netmask    int    `json:"netmask,omitempty"`
+	SellStatus string `json:"sellStatus,omitempty"`
+}
+
+type DescribeAvailableIpv6ResourcesRequest struct {
+	*common.BaseRequest
+	ZoneId string `json:"zoneId,omitempty"`
+}
+
+type DescribeAvailableIpv6ResourcesResponse struct {
+	*common.BaseResponse
+	RequestId string                                        `json:"requestId,omitempty"`
+	Response  *DescribeAvailableIpv6ResourcesResponseParams `json:"response"`
+}
+
+type DescribeAvailableIpv6ResourcesResponseParams struct {
+	RequestId              string                                         `json:"requestId,omitempty"`
+	AvailableIpv6Resources []*DescribeAvailableIpv6ResourcesResponseParam `json:"availableIpv6Resources,omitempty"`
+}
+
+type DescribeAvailableIpv6ResourcesResponseParam struct {
+	ZoneId     string `json:"zoneId,omitempty"`
+	SellStatus string `json:"sellStatus,omitempty"`
+}
+
+type DescribeInstanceAvailableCidrBlockRequest struct {
+	*common.BaseRequest
+	InstanceId    string `json:"instanceId,omitempty"`
+	CidrBlockType string `json:"cidrBlockType,omitempty"`
+}
+
+type DescribeInstanceAvailableCidrBlockResponse struct {
+	*common.BaseResponse
+	RequestId string                                            `json:"requestId,omitempty"`
+	Response  *DescribeInstanceAvailableCidrBlockResponseParams `json:"response"`
+}
+
+type DescribeInstanceAvailableCidrBlockResponseParams struct {
+	RequestId                   string                                             `json:"requestId,omitempty"`
+	InstanceAvailableCidrBlocks []*DescribeInstanceAvailableCidrBlockResponseParam `json:"instanceAvailableCidrBlocks,omitempty"`
+}
+
+type DescribeInstanceAvailableCidrBlockResponseParam struct {
+	CidrBlockId      string   `json:"cidrBlockId,omitempty"`
+	ZoneId           string   `json:"zoneId,omitempty"`
+	CidrBlockType    string   `json:"cidrBlockType,omitempty"`
+	CidrBlock        string   `json:"cidrBlock,omitempty"`
+	AvailableIps     []string `json:"availableIps,omitempty"`
+	AvailableIpCount int      `json:"availableIpCount,omitempty"`
+}
+
+type InquiryPriceCreateIpv4BlockRequest struct {
+	*common.BaseRequest
+	ZoneId        string         `json:"zoneId,omitempty"`
+	ChargeType    string         `json:"chargeType,omitempty"`
+	ChargePrepaid *ChargePrepaid `json:"chargePrepaid,omitempty"`
+	Netmask       int            `json:"netmask,omitempty"`
+	Amount        *int           `json:"amount,omitempty"`
+}
+
+type InquiryPriceCreateIpv4BlockResponse struct {
+	*common.BaseResponse
+	RequestId string                                    `json:"requestId,omitempty"`
+	Response  *InquiryPriceCreateIpv4BlockResponseParam `json:"response"`
+}
+
+type InquiryPriceCreateIpv4BlockResponseParam struct {
+	RequestId string `json:"requestId,omitempty"`
+	Price     *Price `json:"price,omitempty"`
+}
+
+type CreateIpv4BlockRequest struct {
+	*common.BaseRequest
+	ZoneId          string         `json:"zoneId,omitempty"`
+	Name            string         `json:"name,omitempty"`
+	ChargeType      string         `json:"chargeType,omitempty"`
+	ChargePrepaid   *ChargePrepaid `json:"chargePrepaid,omitempty"`
+	Netmask         int            `json:"netmask,omitempty"`
+	Amount          *int           `json:"amount,omitempty"`
+	ResourceGroupId string         `json:"resourceGroupId,omitempty"`
+}
+
+type CreateIpv4BlockResponse struct {
+	*common.BaseResponse
+	RequestId string                        `json:"requestId,omitempty"`
+	Response  *CreateIpv4BlockResponseParam `json:"response"`
+}
+
+type CreateIpv4BlockResponseParam struct {
+	RequestId    string   `json:"requestId,omitempty"`
+	OrderNumber  string   `json:"orderNumber,omitempty"`
+	CidrBlockIds []string `json:"cidrBlockIds,omitempty"`
+}
+
+type CreateIpv6BlockRequest struct {
+	*common.BaseRequest
+	ZoneId          string `json:"zoneId,omitempty"`
+	Name            string `json:"name,omitempty"`
+	Amount          *int   `json:"amount,omitempty"`
+	ResourceGroupId string `json:"resourceGroupId,omitempty"`
+}
+
+type CreateIpv6BlockResponse struct {
+	*common.BaseResponse
+	RequestId string                        `json:"requestId,omitempty"`
+	Response  *CreateIpv6BlockResponseParam `json:"response"`
+}
+
+type CreateIpv6BlockResponseParam struct {
+	RequestId    string   `json:"requestId,omitempty"`
+	CidrBlockIds []string `json:"cidrBlockIds,omitempty"`
+}
+
+type ModifyCidrBlocksAttributeRequest struct {
+	*common.BaseRequest
+	CidrBlockIds []string `json:"cidrBlockIds,omitempty"`
+	Name         string   `json:"name,omitempty"`
+}
+
+type ModifyCidrBlocksAttributeResponse struct {
+	*common.BaseResponse
+	RequestId string `json:"requestId,omitempty"`
+	Response  struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response"`
+}
+
+type RenewCidrBlockRequest struct {
+	*common.BaseRequest
+	CidrBlockId string `json:"cidrBlockId,omitempty"`
+}
+
+type RenewCidrBlockResponse struct {
+	*common.BaseResponse
+	RequestId string `json:"requestId,omitempty"`
+	Response  struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response"`
+}
+
+type TerminateCidrBlockRequest struct {
+	*common.BaseRequest
+	CidrBlockId string `json:"cidrBlockId,omitempty"`
+}
+
+type TerminateCidrBlockResponse struct {
+	*common.BaseResponse
+	RequestId string `json:"requestId,omitempty"`
+	Response  struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response"`
+}
+
+type ReleaseCidrBlocksRequest struct {
+	*common.BaseRequest
+	CidrBlockIds []string `json:"cidrBlockIds,omitempty"`
+}
+
+type ReleaseCidrBlocksResponse struct {
+	*common.BaseResponse
+	RequestId string `json:"requestId,omitempty"`
+	Response  struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response"`
+}
+
+type BindCidrBlockIpsRequest struct {
+	*common.BaseRequest
+	CidrBlockId string         `json:"cidrBlockId,omitempty"`
+	IpBindList  []*IpBindParam `json:"ipBindList,omitempty"`
+}
+
+type IpBindParam struct {
+	InstanceId string `json:"instanceId,omitempty"`
+	Ip         string `json:"ip,omitempty"`
+}
+
+type BindCidrBlockIpsResponse struct {
+	*common.BaseResponse
+	RequestId string `json:"requestId,omitempty"`
+	Response  struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response"`
+}
+
+type UnbindCidrBlockIpsRequest struct {
+	*common.BaseRequest
+	CidrBlockId string   `json:"cidrBlockId,omitempty"`
+	IpList      []string `json:"ipList,omitempty"`
+}
+
+type UnbindCidrBlockIpsResponse struct {
 	*common.BaseResponse
 	RequestId string `json:"requestId,omitempty"`
 	Response  struct {
