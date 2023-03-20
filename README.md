@@ -51,7 +51,7 @@ func main() {
 }
 ```
 
-# Quick Examples
+# Other Configurations
 
 Before creating client, if needed, you can specify some other configuration by setting `common.NewConfig`
 
