@@ -4,527 +4,1180 @@ import "github.com/zenlayer/zenlayercloud-sdk-go/zenlayercloud/common"
 
 type DescribeZonesRequest struct {
 	*common.BaseRequest
+
+	// The languages of zones available. The optional values are as follows:
+	// zh-CN: Chinese
+	// en-US: English
+	// Default value: en-US.
 	AcceptLanguage string `json:"acceptLanguage,omitempty"`
 }
 
 type DescribeZonesResponse struct {
 	*common.BaseResponse
-	RequestId string                       `json:"requestId,omitempty"`
-	Response  *DescribeZonesResponseParams `json:"response"`
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeZonesResponseParams `json:"response"`
 }
 
 type DescribeZonesResponseParams struct {
-	RequestId string      `json:"requestId,omitempty"`
-	ZoneSet   []*ZoneInfo `json:"zoneSet,omitempty"`
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	// The list of zones available.
+	ZoneSet []*ZoneInfo `json:"zoneSet,omitempty"`
 }
 
 type ZoneInfo struct {
-	ZoneId   string `json:"zoneId,omitempty"`
+	// Zone ID. For example, SEL-A.
+	ZoneId string `json:"zoneId,omitempty"`
+
+	// Zone name.
 	ZoneName string `json:"zoneName,omitempty"`
+
+	// City name of the zone.
 	CityName string `json:"cityName,omitempty"`
+
+	// Region name of the zone.
 	AreaName string `json:"areaName,omitempty"`
 }
 
 type CreateInstancesRequest struct {
 	*common.BaseRequest
-	ZoneId                  string         `json:"zoneId,omitempty"`
-	InstanceChargeType      string         `json:"instanceChargeType,omitempty"`
-	InstanceChargePrepaid   *ChargePrepaid `json:"instanceChargePrepaid,omitempty"`
-	InstanceTypeId          string         `json:"instanceTypeId,omitempty"`
-	ImageId                 string         `json:"imageId,omitempty"`
-	ResourceGroupId         string         `json:"resourceGroupId,omitempty"`
-	InstanceName            string         `json:"instanceName,omitempty"`
-	Hostname                string         `json:"hostname,omitempty"`
-	Amount                  int            `json:"amount,omitempty"`
-	Password                string         `json:"password,omitempty"`
-	SshKeys                 []string       `json:"sshKeys,omitempty"`
-	InternetChargeType      string         `json:"internetChargeType,omitempty"`
-	InternetMaxBandwidthOut int            `json:"internetMaxBandwidthOut,omitempty"`
-	TrafficPackageSize      float64        `json:"trafficPackageSize,omitempty"`
-	SubnetId                string         `json:"subnetId,omitempty"`
-	RaidConfig              *RaidConfig    `json:"raidConfig,omitempty"`
-	Partitions              []*Partition   `json:"partitions,omitempty"`
-	Nic                     *Nic           `json:"nic,omitempty"`
+
+	// Zone ID to which the instances belong.
+	ZoneId string `json:"zoneId,omitempty"`
+
+	// Instance pricing model.
+	// PREPAID: subscription
+	// POSTPAID: pay-as-you-go
+	InstanceChargeType string `json:"instanceChargeType,omitempty"`
+
+	// Details of the monthly subscription, including the purchase period, auto-renewal. It is required if the instanceChargeType is PREPAID.
+	InstanceChargePrepaid *ChargePrepaid `json:"instanceChargePrepaid,omitempty"`
+
+	// Instance model ID.
+	// To view specific values, you can call DescribeInstanceTypes.
+	InstanceTypeId string `json:"instanceTypeId,omitempty"`
+
+	// Valid image ID.
+	// To obtain valid image ID, you can call DescribeImages , pass in instanceTypeId to retrieve the list of images supported by the current model, and then find the imageId in the response.
+	ImageId string `json:"imageId,omitempty"`
+
+	// Resource group ID where the instances reside
+	ResourceGroupId string `json:"resourceGroupId,omitempty"`
+
+	// Instance name to be displayed.
+	// Default value: instance.
+	// This parameter can contain up to 64 characters. Only letters, numbers, - and periods (.) are supported.
+	// If you purchase multiple instances at the same time, you can specify a pattern string [begin_number,bits].
+	// begin_number: the starting value of an ordered number, value range: [0,99999], default value: 0.
+	// bits: the number of digits occupied by an ordered value, value range: [1,6], default value: 6.
+	// For example, if you purchase 1 instance and the instance name body is server_[3,3], the instance name will be server003; if you purchase 2 instances, the instance names will be server003, server004.
+	// Note:
+	// Spaces are not supported in the pattern string.
+	// Multiple pattern strings are supported, such as server_[3,3]_[1,1].
+	InstanceName string `json:"instanceName,omitempty"`
+
+	// Instance hostname.
+	// Default value: hostname.
+	// This parameter can contain up to 64 . characters. Only letters, numbers, - and periods (.) are supported.
+	// If you purchase multiple instances at the same time, you can specify a pattern string [begin_number,bits].
+	// begin_number: the starting value of an ordered number, value range: [0,99999], default value: 0.
+	// bits: the number of digits occupied by an ordered value, value range: [1,6], default value: 6.
+	// For example, if you purchase 1 instance and the instance name body is server_[3,3], the instance name will be server003; if you purchase 2 instances, the instance names will be server003, server004.
+	// Note:
+	// Spaces are not supported in the pattern string.
+	// Multiple pattern strings are supported, such as server_[3,3]_[1,1].
+	Hostname string `json:"hostname,omitempty"`
+
+	// The number of instances to be purchased.
+	// Value range: [1,100]. Default value: 1.
+	Amount int `json:"amount,omitempty"`
+
+	// Instance password.
+	// The parameter must be 8-16 characters, including uppercase letters, lowercase letters, numbers and special characters like 1~!@$^*-_=+. This password is also used as the password for IPMI login. Please keep it safe.
+	// If no password is specified and sshKeys is not set, the system will generate a random password and send it to the creator's mailbox after the instance is successfully created.
+	Password string `json:"password,omitempty"`
+
+	// List of SSH keys.
+	// sshKeys and password cannot be specified at the same time. If an SSH key is used to log in, password login will be disabled. Up to 5 keys are supported.
+	// Note:
+	// For instances of Windows and EXSi operating systems, ignore this parameter. Default value is empty. Even if this parameter is filled in, only the value of password will be passed in.
+	// If imageId is not specified, then sshKeys will be ignored.
+	SshKeys []string `json:"sshKeys,omitempty"`
+
+	// Network pricing model.
+	// See InternetChargeType for details.
+	InternetChargeType string `json:"internetChargeType,omitempty"`
+
+	// Public network bandwidth cap (Mbps).
+	// Default value: 1 Mbps.
+	// The parameter value differs with different instance models. See bandwidth configuration for details.
+	InternetMaxBandwidthOut int `json:"internetMaxBandwidthOut,omitempty"`
+
+	// Traffic package size (TB).
+	// The parameter is valid only when internetChargeType is ByTrafficPackage.
+	// If not passed in, the default value will be the size of the free traffic package.
+	TrafficPackageSize float64 `json:"trafficPackageSize,omitempty"`
+
+	// Subnet ID.
+	// Call DescribeVpcSubnets to check information on subnets created.
+	SubnetId string `json:"subnetId,omitempty"`
+
+	// Disk RAID configuration, including custom RAID settings.
+	RaidConfig *RaidConfig `json:"raidConfig,omitempty"`
+
+	// Disk partition configuration.
+	// If the operating system is not installed, the partition cannot be set.
+	Partitions []*Partition `json:"partitions,omitempty"`
+
+	// NIC configuration.
+	Nic *Nic `json:"nic,omitempty"`
 }
 
 type RaidConfig struct {
-	RaidType    *int          `json:"raidType,omitempty"`
+	// RAID levels for rapid RAID settings.
+	// Value possible: 0, 1, 5, 10.
+	// Only one of raidType and customRaids can be specified.
+	RaidType *int `json:"raidType,omitempty"`
+
+	// RAID levels for custom RAID settings.
+	// Only one of raidType and customRaids can be specified.
 	CustomRaids []*CustomRaid `json:"customRaids,omitempty"`
 }
 
 type CustomRaid struct {
-	RaidType     *int  `json:"raidType,omitempty"`
+	// RAID levels.
+	// Value possible: 0, 1, 5, 10.
+	RaidType *int `json:"raidType,omitempty"`
+
+	// Serial number of the disk
+	// Numbered sequentially starting from 1. Multiple disk serial numbers should be consecutive.
 	DiskSequence []int `json:"diskSequence,omitempty"`
 }
 
 type Partition struct {
+	// Partition letter.
+	// Linux: must start with "/", and the first system partition must be "/".
+	// Windows: support C~H, the first system partition must be designated as "C".
 	FsPath string `json:"fsPath,omitempty"`
+
+	// File type of partition.
+	// Linux: ext2, ext3, ext4, ext type is needed.
+	// Windows: NTFS.
 	FsType string `json:"fsType,omitempty"`
-	Size   int    `json:"size,omitempty"`
+
+	// Partition size.
+	// Unit: GB.
+	Size int `json:"size,omitempty"`
 }
 
 type Nic struct {
+	// Public NIC name.
+	// Only numbers, uppercase and lowercase letters are allowed, starting with a letter with a length limit of 4 to 10 characters.
+	// For non-high-availability models, the default public NIC name is wan0. It cannot start with lan.
+	// For high-availability models, the default public NIC name is bond0.
+	// Public and private NIC names cannot be the same.
 	WanName string `json:"wanName,omitempty"`
+
+	// Private NIC name.
+	// Only numbers, uppercase and lowercase letters are allowed, starting with a letter with a length limit of 4 to 10 characters.
+	// For non-high-availability models, the default private NIC name is lan0. It cannot start with wan.
+	// For high-availability models, the default private NIC name is bond1.
+	// Public and private NIC names cannot be the same.
 	LanName string `json:"lanName,omitempty"`
 }
 
 type CreateInstancesResponse struct {
 	*common.BaseResponse
-	RequestId string                        `json:"requestId,omitempty"`
-	Response  *CreateInstanceResponseParams `json:"response"`
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *CreateInstanceResponseParams `json:"response"`
 }
 
 type CreateInstanceResponseParams struct {
-	RequestId     *string   `json:"requestId,omitempty"`
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId *string `json:"requestId,omitempty"`
+
+	// List of instance IDs.
+	// The returned instance ID list does not mean the creation has been completed. The status of the instance will be PENDING or CREATING during the creation. You can call DescribeInstances to query the status of the instance according to dataSet. If the status changes from PENDING or Creating to Running, it means that the instance has been created successfully; CREATE_FAILED means the instance has been created failed.
 	InstanceIdSet []*string `json:"instanceIdSet,omitempty"`
-	OrderNumber   *string   `json:"orderNumber,omitempty"`
+
+	// Number of order.
+	OrderNumber *string `json:"orderNumber,omitempty"`
 }
 
 type ChargePrepaid struct {
+	// Period of subscription.
+	// Unit: month.
 	Period int `json:"period,omitempty"`
 }
 
 type DescribeInstanceTypesRequest struct {
 	*common.BaseRequest
-	ImageId             string   `json:"imageId,omitempty"`
-	InstanceTypeIds     []string `json:"instanceTypeIds,omitempty"`
-	MinimumCpuCoreCount *int     `json:"minimumCpuCoreCount,omitempty"`
-	MaximumCpuCoreCount *int     `json:"maximumCpuCoreCount,omitempty"`
-	MinimumMemorySize   *int     `json:"minimumMemorySize,omitempty"`
-	MaximumMemorySize   *int     `json:"maximumMemorySize,omitempty"`
-	MinimumBandwidth    *int     `json:"minimumBandwidth,omitempty"`
-	SupportRaids        []int    `json:"supportRaids,omitempty"`
-	SupportSubnet       *bool    `json:"supportSubnet,omitempty"`
-	MinimumDiskSize     *int     `json:"minimumDiskSize,omitempty"`
-	MaximumDiskSize     *int     `json:"maximumDiskSize,omitempty"`
-	IsHA                *bool    `json:"isHA,omitempty"`
+
+	// Instance models that support specified image.
+	ImageId string `json:"imageId,omitempty"`
+
+	// Instance model ID.
+	// Maximum number: 100
+	InstanceTypeIds []string `json:"instanceTypeIds,omitempty"`
+
+	// Desired minimum number of CPU cores.
+	// Value range: positive integer.
+	MinimumCpuCoreCount *int `json:"minimumCpuCoreCount,omitempty"`
+
+	// Desired maximum number of CPU cores.
+	// Value range: positive integer.
+	MaximumCpuCoreCount *int `json:"maximumCpuCoreCount,omitempty"`
+
+	// Desired minimum memory size.
+	// Value range: positive integer.
+	// Unit: GB.
+	MinimumMemorySize *int `json:"minimumMemorySize,omitempty"`
+
+	// Desired maximum memory size.
+	// Value range: positive integer.
+	// Unit: GB.
+	MaximumMemorySize *int `json:"maximumMemorySize,omitempty"`
+
+	// Desired minimum public inbound bandwidth cap.
+	// Unit: Mbps.
+	MinimumBandwidth *int `json:"minimumBandwidth,omitempty"`
+
+	// Supported RAID levels.
+	// Value range: 0, 1, 5, 10.
+	SupportRaids []int `json:"supportRaids,omitempty"`
+
+	// Subnet supported or not.
+	SupportSubnet *bool `json:"supportSubnet,omitempty"`
+
+	// Desired minimum disk size.
+	// Value range: positive integer.
+	// Unit: GB.
+	MinimumDiskSize *int `json:"minimumDiskSize,omitempty"`
+
+	// Desired maximum memory size.
+	// Value range: positive integer.
+	// Unit: GB.
+	MaximumDiskSize *int `json:"maximumDiskSize,omitempty"`
+
+	// High availability supported or not.
+	IsHA *bool `json:"isHA,omitempty"`
 }
 
 type DescribeInstanceTypesResponse struct {
 	*common.BaseResponse
-	RequestId string                               `json:"requestId,omitempty"`
-	Response  *DescribeInstanceTypesResponseParams `json:"response"`
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeInstanceTypesResponseParams `json:"response"`
 }
 
 type DescribeInstanceTypesResponseParams struct {
-	RequestId     string          `json:"requestId,omitempty"`
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	// Information on instance model.
 	InstanceTypes []*InstanceType `json:"instanceTypes,omitempty"`
 }
 
 type InstanceType struct {
-	ImageIds         []string          `json:"imageIds,omitempty"`
-	InstanceTypeId   string            `json:"instanceTypeId,omitempty"`
-	Description      string            `json:"description,omitempty"`
-	CpuCoreCount     int               `json:"cpuCoreCount,omitempty"`
-	MemorySize       int               `json:"memorySize,omitempty"`
-	MaximumBandwidth int               `json:"maximumBandwidth,omitempty"`
-	SupportRaids     []int             `json:"supportRaids,omitempty"`
-	SupportSubnet    bool              `json:"supportSubnet,omitempty"`
-	IsHA             bool              `json:"isHA,omitempty"`
-	DiskInfo         *InstanceDiskInfo `json:"diskInfo,omitempty"`
+	// Image ID supported.
+	ImageIds []string `json:"imageIds,omitempty"`
+
+	// Instance model ID.
+	InstanceTypeId string `json:"instanceTypeId,omitempty"`
+
+	// Model description, including memory size, disk, etc.
+	Description string `json:"description,omitempty"`
+
+	// Quantity of CPU cores.
+	CpuCoreCount int `json:"cpuCoreCount,omitempty"`
+
+	// Memory size.
+	// Unit: GB.
+	MemorySize int `json:"memorySize,omitempty"`
+
+	// Outbound bandwidth cap.
+	// Unit: Mbps.
+	MaximumBandwidth int `json:"maximumBandwidth,omitempty"`
+
+	// RAID level supported.
+	SupportRaids []int `json:"supportRaids,omitempty"`
+
+	// Subnet supported or not.
+	SupportSubnet bool `json:"supportSubnet,omitempty"`
+
+	// High availability supported or not.
+	IsHA bool `json:"isHA,omitempty"`
+
+	// Disk size.
+	// Unit: GB.
+	DiskInfo *InstanceDiskInfo `json:"diskInfo,omitempty"`
 }
 
 type InstanceDiskInfo struct {
-	TotalDiskSize   int     `json:"totalDiskSize,omitempty"`
-	DiskDescription string  `json:"diskDescription,omitempty"`
-	Disks           []*Disk `json:"disks,omitempty"`
+	// Total disk size.
+	// Unit: GB.
+	// The available storage space is relatively less than the total disk size to create partitions successfully. What remains actually will be added to the last partition.
+	TotalDiskSize int `json:"totalDiskSize,omitempty"`
+
+	// Description of the disks.
+	DiskDescription string `json:"diskDescription,omitempty"`
+
+	// Disk information available for RAID and partition.
+	// Numbered sequentially. For example, for 880 x 2 and 220 x 2, the disk serial numbers 1, 2, 3, and 4 respectively correspond to disk sizes of 880 GB, 880 GB, 220 GB, and 220 GB.
+	Disks []*Disk `json:"disks,omitempty"`
 }
 
 type Disk struct {
-	DiskSize  int `json:"diskSize,omitempty"`
+	// Disk size.
+	// Unit: GB.
+	DiskSize int `json:"diskSize,omitempty"`
+
+	// Quantity of disks of the size.
 	DiskCount int `json:"diskCount,omitempty"`
 }
 
 type DescribeAvailableResourcesRequest struct {
 	*common.BaseRequest
-	InstanceTypeId     string `json:"instanceTypeId,omitempty"`
+
+	// Instance model ID.
+	InstanceTypeId string `json:"instanceTypeId,omitempty"`
+
+	// Instance pricing model.
+	// PREPAID: subscription
+	// POSTPAID: pay-as-you-go
 	InstanceChargeType string `json:"instanceChargeType,omitempty"`
-	ZoneId             string `json:"zoneId,omitempty"`
-	SellStatus         string `json:"sellStatus,omitempty"`
+
+	// Zone ID.
+	ZoneId string `json:"zoneId,omitempty"`
+
+	// Status of sale.
+	// SELL: available for sale, stock > 10.
+	// SELL_SHORTAGE: available for sale, stock < 10.
+	// SOLD_OUT: sold out.
+	SellStatus string `json:"sellStatus,omitempty"`
 }
 
 type DescribeAvailableResourcesResponse struct {
 	*common.BaseResponse
-	RequestId string                                    `json:"requestId,omitempty"`
-	Response  *DescribeAvailableResourcesResponseParams `json:"response"`
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeAvailableResourcesResponseParams `json:"response"`
 }
 
 type DescribeAvailableResourcesResponseParams struct {
-	RequestId          string               `json:"requestId,omitempty"`
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	// Status of available resources.
 	AvailableResources []*AvailableResource `json:"availableResources,omitempty"`
 }
 type AvailableResource struct {
-	ZoneId                    string   `json:"zoneId,omitempty"`
-	SellStatus                string   `json:"sellStatus,omitempty"`
-	InternetChargeTypes       []string `json:"internetChargeTypes,omitempty"`
-	InstanceTypeId            string   `json:"instanceTypeId,omitempty"`
-	MaximumBandwidthOut       int      `json:"maximumBandwidthOut,omitempty"`
-	DefaultBandwidthOut       int      `json:"defaultBandwidthOut,omitempty"`
-	DefaultTrafficPackageSize float64  `json:"defaultTrafficPackageSize,omitempty"`
+	// Zone ID
+	ZoneId string `json:"zoneId,omitempty"`
+
+	// Status for sale.
+	// SELL: available for sale, stock > 10.
+	// SELL_SHORTAGE: available for sale, stock < 10.
+	// SOLD_OUT: sold out.
+	SellStatus string `json:"sellStatus,omitempty"`
+
+	// Network pricing model.
+	// See InternetChargeType for details.
+	InternetChargeTypes []string `json:"internetChargeTypes,omitempty"`
+
+	// ID of the instance model.
+	InstanceTypeId string `json:"instanceTypeId,omitempty"`
+
+	// Public outbound bandwidth cap.
+	// Unit: Mbps.
+	MaximumBandwidthOut int `json:"maximumBandwidthOut,omitempty"`
+
+	// Default free public bandwidth for the pricing model of flat rate.
+	// Unit: GB.
+	DefaultBandwidthOut int `json:"defaultBandwidthOut,omitempty"`
+
+	// Default free traffic package for the pricing model of data transfer.
+	// Unit: TB.
+	DefaultTrafficPackageSize float64 `json:"defaultTrafficPackageSize,omitempty"`
 }
 
 type DescribeImagesRequest struct {
 	*common.BaseRequest
-	ImageIds       []string `json:"imageIds,omitempty"`
-	ImageName      string   `json:"imageName,omitempty"`
-	Catalog        string   `json:"catalog,omitempty"`
-	ImageType      string   `json:"imageType,omitempty"`
-	OsType         string   `json:"osType,omitempty"`
-	InstanceTypeId string   `json:"instanceTypeId,omitempty"`
+
+	// List of image IDs.
+	ImageIds []string `json:"imageIds,omitempty"`
+
+	// Image name.
+	ImageName string `json:"imageName,omitempty"`
+
+	// Image catalog. The optional values are as follows:
+	// CentOS
+	// Windows
+	// Ubuntu
+	// Debian
+	// ESXi
+	Catalog string `json:"catalog,omitempty"`
+
+	// Image type. The optional values are as follows:
+	// PUBLIC_IMAGE: public images
+	// CUSTOM_IMAGE: custom images
+	// You cannot create a custom image by yourself currently. If necessary, please submit a ticket.
+	ImageType string `json:"imageType,omitempty"`
+
+	// Operating system type. The optional values are as follows:
+	// Windows
+	// Linux
+	OsType string `json:"osType,omitempty"`
+
+	// Supported instance model ID.
+	InstanceTypeId string `json:"instanceTypeId,omitempty"`
 }
 
 type DescribeImagesResponse struct {
 	*common.BaseResponse
-	RequestId string                        `json:"requestId,omitempty"`
-	Response  *DescribeImagesResponseParams `json:"response"`
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeImagesResponseParams `json:"response"`
 }
 
 type DescribeImagesResponseParams struct {
-	RequestId string       `json:"requestId,omitempty"`
-	Images    []*ImageInfo `json:"images,omitempty"`
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	// Information on images.
+	Images []*ImageInfo `json:"images,omitempty"`
 }
 
 type ImageInfo struct {
-	ImageId   string `json:"imageId,omitempty"`
+	// Image ID.
+	ImageId string `json:"imageId,omitempty"`
+
+	// Image name.
 	ImageName string `json:"imageName,omitempty"`
-	Catalog   string `json:"catalog,omitempty"`
+
+	// Image catalog.
+	// The optional values are as follows:
+	// CentOS
+	// Windows
+	// Ubuntu
+	// Debian
+	// ESXi
+	Catalog string `json:"catalog,omitempty"`
+
+	// Image type.
+	// The optional values are as follows:
+	// PUBLIC_IMAGE: public image.
+	// CUSTOM_IMAGE: custom image.
+	// You cannot create a custom image by yourself currently. If necessary, please submit a ticket.
 	ImageType string `json:"imageType,omitempty"`
-	OsType    string `json:"osType,omitempty"`
+
+	// Operating system type.
+	// The optional values are as follows:
+	// Windows
+	// Linux
+	OsType string `json:"osType,omitempty"`
 }
 
 type DescribeInstancesRequest struct {
 	*common.BaseRequest
-	InstanceIds        []string `json:"instanceIds,omitempty"`
-	ZoneId             string   `json:"zoneId,omitempty"`
-	ResourceGroupId    string   `json:"resourceGroupId,omitempty"`
-	InstanceTypeId     string   `json:"instanceTypeId,omitempty"`
-	InternetChargeType string   `json:"internetChargeType,omitempty"`
-	ImageId            string   `json:"imageId,omitempty"`
-	SubnetId           string   `json:"subnetId,omitempty"`
-	InstanceStatus     string   `json:"instanceStatus,omitempty"`
-	InstanceName       string   `json:"instanceName,omitempty"`
-	Hostname           string   `json:"hostname,omitempty"`
-	PublicIpAddresses  []string `json:"publicIpAddresses,omitempty"`
+	// Instance IDs.
+	// You can query up to 100 instances in each request.
+	InstanceIds []string `json:"instanceIds,omitempty"`
+
+	// Zone ID to which the instances belong.
+	ZoneId string `json:"zoneId,omitempty"`
+
+	// Resource group ID.
+	// If the value is null, then return all the instances in the authorized resource groups.
+	ResourceGroupId string `json:"resourceGroupId,omitempty"`
+
+	// Instance model ID.
+	// You can call DescribeInstanceTypes to obtain the latest specification.
+	InstanceTypeId string `json:"instanceTypeId,omitempty"`
+
+	// Network pricing model.
+	// See InternetChargeType for details.
+	InternetChargeType string `json:"internetChargeType,omitempty"`
+
+	// Image ID.
+	ImageId string `json:"imageId,omitempty"`
+
+	// Subnet ID.
+	// You can call DescribeVpcSubnets to query information on subnet.
+	SubnetId string `json:"subnetId,omitempty"`
+
+	// Instance status.
+	// See InstanceStatus for details.
+	InstanceStatus string `json:"instanceStatus,omitempty"`
+
+	// Instance name.
+	// If the value ends with *, a fuzzy match will be performed on instanceName, otherwise an exact match will be performed.
+	InstanceName string `json:"instanceName,omitempty"`
+
+	// Instance hostname.
+	// If the value ends with *, a fuzzy match will be performed on hostname, otherwise an exact match will be performed.
+	Hostname string `json:"hostname,omitempty"`
+
+	// List of public IPs of the instance.
+	PublicIpAddresses []string `json:"publicIpAddresses,omitempty"`
+
+	// List of private IPs of the instance.
 	PrivateIpAddresses []string `json:"privateIpAddresses,omitempty"`
-	PageNum            int      `json:"pageNum,omitempty"`
-	PageSize           int      `json:"pageSize,omitempty"`
+
+	// Number of pages returned.
+	// Default value: 1
+	PageNum int `json:"pageNum,omitempty"`
+
+	// Number of items in the current page result.
+	// Default value: 20
+	// Maximum value: 1000
+	PageSize int `json:"pageSize,omitempty"`
 }
 
 type InstanceInfo struct {
-	InstanceId             string       `json:"instanceId,omitempty"`
-	ZoneId                 string       `json:"zoneId,omitempty"`
-	InstanceName           string       `json:"instanceName,omitempty"`
-	Hostname               string       `json:"hostname,omitempty"`
-	InstanceTypeId         string       `json:"instanceTypeId,omitempty"`
-	ImageId                *string      `json:"imageId,omitempty"`
-	ImageName              string       `json:"imageName,omitempty"`
-	InstanceChargeType     string       `json:"instanceChargeType,omitempty"`
-	BandwidthOutMbps       *int         `json:"bandwidthOutMbps,omitempty"`
-	TrafficPackageSize     *float64     `json:"trafficPackageSize,omitempty"`
-	InternetChargeType     string       `json:"internetChargeType,omitempty"`
-	Period                 *int         `json:"period,omitempty"`
-	PrimaryPublicIpAddress *string      `json:"primaryPublicIpAddress,omitempty"`
-	PublicIpAddresses      []string     `json:"publicIpAddresses,omitempty"`
-	PrivateIpAddresses     []string     `json:"privateIpAddresses,omitempty"`
-	Ipv6Addresses          []string     `json:"ipv6Addresses,omitempty"`
-	SubnetIds              []string     `json:"subnetIds,omitempty"`
-	CreateTime             string       `json:"createTime,omitempty"`
-	ExpiredTime            *string      `json:"expiredTime,omitempty"`
-	ResourceGroupId        string       `json:"resourceGroupId,omitempty"`
-	ResourceGroupName      string       `json:"resourceGroupName,omitempty"`
-	InstanceStatus         string       `json:"instanceStatus,omitempty"`
-	Partitions             []*Partition `json:"partitions,omitempty"`
-	RaidConfig             *RaidConfig  `json:"raidConfig,omitempty"`
-	Nic                    *Nic         `json:"nic,omitempty"`
+	// Instance ID.
+	InstanceId string `json:"instanceId,omitempty"`
+
+	// Zone ID to which the instances belong.
+	ZoneId string `json:"zoneId,omitempty"`
+
+	// Instance name to be displayed.
+	InstanceName string `json:"instanceName,omitempty"`
+
+	// Instance hostname.
+	Hostname string `json:"hostname,omitempty"`
+
+	// Instance model ID.
+	InstanceTypeId string `json:"instanceTypeId,omitempty"`
+
+	// Image ID.
+	ImageId *string `json:"imageId,omitempty"`
+
+	// Image name.
+	ImageName string `json:"imageName,omitempty"`
+
+	// Instance pricing model.
+	// PREPAID: monthly subscription.
+	// POSTPAID: pay-as-you-go.
+	InstanceChargeType string `json:"instanceChargeType,omitempty"`
+
+	// Public outbound bandwidth.
+	// Unit: Mbps.
+	// Value 0 means no limit, but not exceeds the upper limit of the instance model supported.
+	BandwidthOutMbps *int `json:"bandwidthOutMbps,omitempty"`
+
+	// Traffic package size purchased.
+	// Unit: TB.
+	TrafficPackageSize *float64 `json:"trafficPackageSize,omitempty"`
+
+	// Network pricing model.
+	// See InternetChargeType for details.
+	InternetChargeType string `json:"internetChargeType,omitempty"`
+
+	// Period of instance subscription.
+	// Unit: month.
+	// For postpaid instances, the value is empty.
+	Period *int `json:"period,omitempty"`
+
+	// Instance primary IP.
+	PrimaryPublicIpAddress *string `json:"primaryPublicIpAddress,omitempty"`
+
+	// List of public IPv4 addresses.
+	// If the instance primary IP is not added to the public network interface, the primary IP will not be available., and its value will not be returned.
+	PublicIpAddresses []string `json:"publicIpAddresses,omitempty"`
+
+	// List of private IPv4 addresses.
+	PrivateIpAddresses []string `json:"privateIpAddresses,omitempty"`
+
+	// Instance IPv6 addresses.
+	// The value may be empty, which means no available IPv6 address exists.
+	Ipv6Addresses []string `json:"ipv6Addresses,omitempty"`
+
+	// List of subnet IDs.
+	SubnetIds []string `json:"subnetIds,omitempty"`
+
+	// Creation time.
+	// Use UTC time according to the ISO8601 standard. Format: YYYY-MM-DDThh:mm:ssZ.
+	CreateTime string `json:"createTime,omitempty"`
+
+	// Expiration time.
+	// Use UTC time according to the ISO8601 standard. Format: YYYY-MM-DDThh:mm:ssZ.
+	ExpiredTime *string `json:"expiredTime,omitempty"`
+
+	// Resource group ID to which instances belong.
+	ResourceGroupId string `json:"resourceGroupId,omitempty"`
+
+	// Resource group name to which instances belong.
+	ResourceGroupName string `json:"resourceGroupName,omitempty"`
+
+	// Status of instances.
+	// See InstanceStatus for details.
+	InstanceStatus string `json:"instanceStatus,omitempty"`
+
+	// Partition configuration.
+	Partitions []*Partition `json:"partitions,omitempty"`
+
+	// Disk array configuration.
+	RaidConfig *RaidConfig `json:"raidConfig,omitempty"`
+
+	// NIC configuration.
+	Nic *Nic `json:"nic,omitempty"`
 }
 
 type DescribeInstancesResponseParams struct {
-	RequestId  string          `json:"requestId,omitempty"`
-	TotalCount int             `json:"totalCount,omitempty"`
-	DataSet    []*InstanceInfo `json:"dataSet,omitempty"`
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	// Number of instances meeting the filtering conditions.
+	TotalCount int `json:"totalCount,omitempty"`
+
+	// Information on an instance.
+	DataSet []*InstanceInfo `json:"dataSet,omitempty"`
 }
 
 type DescribeInstancesResponse struct {
 	*common.BaseResponse
-	RequestId string                           `json:"requestId,omitempty"`
-	Response  *DescribeInstancesResponseParams `json:"response"`
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeInstancesResponseParams `json:"response"`
 }
 
 type StartInstancesRequest struct {
 	*common.BaseRequest
+
+	// Instance ID(s).
+	// To obtain the instance IDs, you can call DescribeInstances and look for instanceId in the response. The maximum number of instances in each request is 100.
 	InstanceIds []string `json:"instanceIds,omitempty"`
 }
 
 type StartInstancesResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
 
 type StopInstancesRequest struct {
 	*common.BaseRequest
+
+	// Instance ID(s).
+	// To obtain the instance IDs, you can call DescribeInstances and look for instanceId in the response. The maximum number of instances in each request is 100.
 	InstanceIds []string `json:"instanceIds,omitempty"`
 }
 
 type StopInstancesResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
 
 type RebootInstancesRequest struct {
 	*common.BaseRequest
+
+	// Instance ID(s).
+	// To obtain the instance IDs, you can call DescribeInstances and look for instanceId in the response. The maximum number of instances in each request is 100.
 	InstanceIds []string `json:"instanceIds,omitempty"`
 }
 
 type RebootInstancesResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
 
 type ReinstallInstanceRequest struct {
 	*common.BaseRequest
-	InstanceId string       `json:"instanceId,omitempty"`
-	ImageId    string       `json:"imageId,omitempty"`
-	Hostname   string       `json:"hostname,omitempty"`
-	Password   string       `json:"password,omitempty"`
-	SshKeys    []string     `json:"sshKeys,omitempty"`
-	RaidConfig *RaidConfig  `json:"raidConfig,omitempty"`
+
+	// Instance ID.
+	// To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response.
+	InstanceId string `json:"instanceId,omitempty"`
+
+	// Valid image ID.
+	// To obtain valid image ID, you can call DescribeImages , pass in instanceTypeId to retrieve the list of images supported by the current model, and then find the imageId in the response.
+	ImageId string `json:"imageId,omitempty"`
+
+	// Instance hostname.
+	// Default value: hostname.
+	// This parameter can contain up to 64 . characters. Only letters, numbers, - and periods (.) are supported.
+	Hostname string `json:"hostname,omitempty"`
+
+	// Instance password.
+	// The parameter must be 8-16 characters, including uppercase letters, lowercase letters, numbers and special characters like 1~!@$^*-_=+. This password is also used as the password for IPMI login. Please keep it safe.
+	// If no password is specified and sshKeys is not set, the system will generate a random password and send it to the creator's mailbox after the instance is successfully created.
+	Password string `json:"password,omitempty"`
+
+	// List of SSH keys.
+	// sshKeys and password cannot be specified at the same time. If an SSH key is used to log in, password login will be disabled. Up to 5 keys are supported.
+	// Note:
+	// For instances of Windows and EXSi operating systems, ignore this parameter. Default value is empty. Even if this parameter is filled in, only the value of password will be passed in.
+	// If imageId is not specified, then sshKeys will be ignored.
+	SshKeys []string `json:"sshKeys,omitempty"`
+
+	// Disk array configuration.
+	RaidConfig *RaidConfig `json:"raidConfig,omitempty"`
+
+	// Disk partition configuration.
+	// If the operating system is not installed, the partition cannot be set.
 	Partitions []*Partition `json:"partitions,omitempty"`
-	Nic        *Nic         `json:"nic,omitempty"`
+
+	// NIC configuration.
+	Nic *Nic `json:"nic,omitempty"`
 }
 
 type ReInstallInstanceResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
 
 type TerminateInstanceRequest struct {
 	*common.BaseRequest
+
+	// Instance ID.
+	// To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response.
 	InstanceId string `json:"instanceId,omitempty"`
 }
 
 type TerminateInstanceResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
 
 type ReleaseInstancesRequest struct {
 	*common.BaseRequest
+
+	// Instance ID(s).
+	// To obtain the instance IDs, you can call DescribeInstances and look for instanceId in the response. The maximum number of instances in each request is 100.
 	InstanceIds []string `json:"instanceIds,omitempty"`
 }
 
 type ReleaseInstancesResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
 
 type RenewInstanceRequest struct {
 	*common.BaseRequest
+
+	// Instance ID.
+	// To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response.
 	InstanceId string `json:"instanceId,omitempty"`
 }
 
 type RenewInstanceResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
 
 type ModifyInstancesAttributeRequest struct {
 	*common.BaseRequest
-	InstanceIds  []string `json:"instanceIds,omitempty"`
-	InstanceName string   `json:"instanceName,omitempty"`
+
+	// Instance ID(s).
+	// To obtain the instance IDs, you can call DescribeInstances and look for instanceId in the response. The maximum number of instances in each request is 100.
+	InstanceIds []string `json:"instanceIds,omitempty"`
+
+	// Instance name to be displayed.
+	// This parameter can contain up to 64 characters. Only letters, numbers, - and periods (.) are supported.
+	InstanceName string `json:"instanceName,omitempty"`
 }
 
 type ModifyInstancesAttributeResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
 
 type DescribeInstanceInternetStatusRequest struct {
 	*common.BaseRequest
+
+	// Instance ID.
+	// To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response.
 	InstanceId string `json:"instanceId,omitempty"`
 }
 
 type DescribeInstanceInternetStatusResponse struct {
 	*common.BaseResponse
-	RequestId string                  `json:"requestId,omitempty"`
-	Response  *InstanceInternetStatus `json:"response"`
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *InstanceInternetStatus `json:"response"`
 }
 
 type InstanceInternetStatus struct {
-	RequestId                       string   `json:"requestId,omitempty"`
-	InstanceId                      string   `json:"instanceId,omitempty"`
-	InstanceName                    string   `json:"instanceName,omitempty"`
-	InternetMaxBandwidthOut         *int     `json:"internetMaxBandwidthOut,omitempty"`
-	ModifiedInternetMaxBandwidthOut *int     `json:"modifiedInternetMaxBandwidthOut,omitempty"`
-	ModifiedBandwidthStatus         string   `json:"modifiedBandwidthStatus,omitempty"`
-	TrafficPackageSize              *float64 `json:"trafficPackageSize,omitempty"`
-	ModifiedTrafficPackageSize      *float64 `json:"modifiedTrafficPackageSize,omitempty"`
-	ModifiedTrafficPackageStatus    string   `json:"modifiedTrafficPackageStatus,omitempty"`
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	// Instance ID.
+	InstanceId string `json:"instanceId,omitempty"`
+
+	// Instance name.
+	InstanceName string `json:"instanceName,omitempty"`
+
+	// Current instance bandwidth.
+	InternetMaxBandwidthOut *int `json:"internetMaxBandwidthOut,omitempty"`
+
+	// Modified instance bandwidth.
+	ModifiedInternetMaxBandwidthOut *int `json:"modifiedInternetMaxBandwidthOut,omitempty"`
+
+	// Status of instance bandwidth.
+	// Processing: modifying.
+	// Enable: effective now.
+	// WaitToEnable: effective in next billing cycle.
+	ModifiedBandwidthStatus string `json:"modifiedBandwidthStatus,omitempty"`
+
+	// Current instance traffic package
+	TrafficPackageSize *float64 `json:"trafficPackageSize,omitempty"`
+
+	// Modified instance traffic package
+	ModifiedTrafficPackageSize *float64 `json:"modifiedTrafficPackageSize,omitempty"`
+
+	// Status of instance traffic package
+	// Processing: modifying.
+	// Enable: effective now.
+	// WaitToEnable: effective in next billing cycle.
+	ModifiedTrafficPackageStatus string `json:"modifiedTrafficPackageStatus,omitempty"`
 }
 
 type ModifyInstancesResourceGroupRequest struct {
 	*common.BaseRequest
-	InstanceIds     []string `json:"instanceIds,omitempty"`
-	ResourceGroupId string   `json:"resourceGroupId,omitempty"`
+
+	// List of instance IDs.
+	// The maximum number of instances in each request is 100.
+	InstanceIds []string `json:"instanceIds,omitempty"`
+
+	// Resource group ID.
+	ResourceGroupId string `json:"resourceGroupId,omitempty"`
 }
 
 type ModifyInstancesResourceGroupResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
 
 type InquiryPriceCreateInstanceRequest struct {
 	*common.BaseRequest
-	ZoneId                  string         `json:"zoneId,omitempty"`
-	InstanceTypeId          string         `json:"instanceTypeId,omitempty"`
-	InstanceChargeType      string         `json:"instanceChargeType,omitempty"`
-	InstanceChargePrepaid   *ChargePrepaid `json:"instanceChargePrepaid,omitempty"`
-	TrafficPackageSize      float64        `json:"trafficPackageSize,omitempty"`
-	InternetMaxBandwidthOut int            `json:"internetMaxBandwidthOut,omitempty"`
-	InternetChargeType      string         `json:"internetChargeType,omitempty"`
+
+	// Zone ID of the instance.
+	ZoneId string `json:"zoneId,omitempty"`
+
+	// Instance model ID.
+	// To view specific values, you can call DescribeInstanceTypes.
+	InstanceTypeId string `json:"instanceTypeId,omitempty"`
+
+	// Instance pricing model.
+	// PREPAID: subscription
+	// POSTPAID: pay-as-you-go
+	InstanceChargeType string `json:"instanceChargeType,omitempty"`
+
+	// Details of the monthly subscription, including the purchase period, auto-renewal. It is required if the instanceChargeType is PREPAID.
+	InstanceChargePrepaid *ChargePrepaid `json:"instanceChargePrepaid,omitempty"`
+
+	// Traffic package size (TB).
+	// The parameter is valid only when internetChargeType is ByTrafficPackage.
+	// If not passed in, the default value will be the size of the free traffic package.
+	TrafficPackageSize float64 `json:"trafficPackageSize,omitempty"`
+
+	// Public network bandwidth cap (Mbps).
+	// Default value: 1 Mbps.
+	// The parameter value differs by different instance models. See bandwidth configuration for details.
+	InternetMaxBandwidthOut int `json:"internetMaxBandwidthOut,omitempty"`
+
+	// Network pricing model.
+	// See InternetChargeType for details.
+	InternetChargeType string `json:"internetChargeType,omitempty"`
 }
 
 type InquiryPriceCreateInstanceResponse struct {
 	*common.BaseResponse
-	RequestId string                                    `json:"requestId,omitempty"`
-	Response  *InquiryPriceCreateInstanceResponseParams `json:"response"`
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *InquiryPriceCreateInstanceResponseParams `json:"response"`
 }
 
 type InquiryPriceCreateInstanceResponseParams struct {
-	RequestId      string   `json:"requestId,omitempty"`
-	InstancePrice  *Price   `json:"instancePrice,omitempty"`
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	// Price of the instance.
+	InstancePrice *Price `json:"instancePrice,omitempty"`
+
+	// Price of public bandwidth.
+	// Kinds of prices may exist. For example, traffic package billing method may contain the package price and overage price.
 	BandwidthPrice []*Price `json:"bandwidthPrice,omitempty"`
 }
 
 type Price struct {
-	Discount          *float64     `json:"discount,omitempty"`
-	DiscountPrice     *float64     `json:"discountPrice,omitempty"`
-	OriginalPrice     *float64     `json:"originalPrice,omitempty"`
-	UnitPrice         *float64     `json:"unitPrice,omitempty"`
-	DiscountUnitPrice *float64     `json:"discountUnitPrice,omitempty"`
-	ChargeUnit        *string      `json:"chargeUnit,omitempty"`
-	StepPrices        []*StepPrice `json:"stepPrices,omitempty"`
+	// Discount.
+	// For example, 80.0 means 20% off.
+	Discount *float64 `json:"discount,omitempty"`
+
+	// Discount price of prepaid resources.
+	// Only used in subscription model. For pay-as-you-go model, the value is empty.
+	DiscountPrice *float64 `json:"discountPrice,omitempty"`
+
+	// Original price of prepaid resources.
+	// Only used in subscription model. For pay-as-you-go model, the value is empty.
+	OriginalPrice *float64 `json:"originalPrice,omitempty"`
+
+	// Original unit price of postpaid resources.
+	// Only used in pay-as-you-go model. For tiered billing, the value is empty.
+	UnitPrice *float64 `json:"unitPrice,omitempty"`
+
+	// Discount unit price of postpaid resources.
+	// Only used in pay-as-you-go model. For tiered billing, the value is empty.
+	DiscountUnitPrice *float64 `json:"discountUnitPrice,omitempty"`
+
+	// Unit of postpaid billing.
+	// Only used in pay-as-you-go model.
+	// Value range:
+	// HOUR: you will be billed by hour.
+	// DAY: you will be billed by day.
+	// MONTH: you will be billed by month. For example, the burstable 95th pricing model.
+	ChargeUnit *string `json:"chargeUnit,omitempty"`
+
+	// Tiered price of postpaid billing.
+	// Only used in pay-as-you-go model. If it is not tiered price, the value is empty.
+	StepPrices []*StepPrice `json:"stepPrices,omitempty"`
 }
 
 type StepPrice struct {
-	StepStart         *float64 `json:"stepStart,omitempty"`
-	StepEnd           *float64 `json:"stepEnd,omitempty"`
-	UnitPrice         *float64 `json:"unitPrice,omitempty"`
+	// First price range of a tiered price.
+	StepStart *float64 `json:"stepStart,omitempty"`
+
+	// Last price range of a tiered price.
+	StepEnd *float64 `json:"stepEnd,omitempty"`
+
+	// Original unit price of current price range.
+	// Only used in pay-as-you-go model.
+	UnitPrice *float64 `json:"unitPrice,omitempty"`
+
+	// Discount unit price of current price range.
+	// Only used in pay-as-you-go model.
 	DiscountUnitPrice *float64 `json:"discountUnitPrice,omitempty"`
 }
 
 type InquiryPriceInstanceBandwidthRequest struct {
 	*common.BaseRequest
-	InstanceId       string `json:"instanceId,omitempty"`
-	BandwidthOutMbps int    `json:"bandwidthOutMbps,omitempty"`
+
+	// Instance ID.
+	// To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response.
+	InstanceId string `json:"instanceId,omitempty"`
+
+	// Bandwidth size.
+	BandwidthOutMbps int `json:"bandwidthOutMbps,omitempty"`
 }
 type InquiryPriceInstanceBandwidthResponse struct {
 	*common.BaseResponse
-	RequestId string                                       `json:"requestId,omitempty"`
-	Response  *InquiryPriceInstanceBandwidthResponseParams `json:"response"`
+
+	// // The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *InquiryPriceInstanceBandwidthResponseParams `json:"response"`
 }
 type InquiryPriceInstanceBandwidthResponseParams struct {
-	RequestId      string   `json:"requestId,omitempty"`
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	// Price of public bandwidth.
+	// Kinds of prices may exist. For example, traffic package billing method may contain the package price and overage price.
 	BandwidthPrice []*Price `json:"bandwidthPrice,omitempty"`
 }
 
 type ModifyInstanceBandwidthRequest struct {
 	*common.BaseRequest
-	InstanceId       string `json:"instanceId,omitempty"`
-	BandwidthOutMbps *int   `json:"bandwidthOutMbps,omitempty"`
+
+	// Instance ID.
+	// To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response.
+	InstanceId string `json:"instanceId,omitempty"`
+
+	// Bandwidth.
+	// Value range: from 1 to maximum supported for the instance model.
+	BandwidthOutMbps *int `json:"bandwidthOutMbps,omitempty"`
 }
 
 type ModifyInstanceBandwidthResponse struct {
 	*common.BaseResponse
-	RequestId string                                 `json:"requestId,omitempty"`
-	Response  *ModifyInstanceBandwidthResponseParams `json:"response"`
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *ModifyInstanceBandwidthResponseParams `json:"response"`
 }
 
 type ModifyInstanceBandwidthResponseParams struct {
-	RequestId   string `json:"requestId,omitempty"`
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	// Number of order.
 	OrderNumber string `json:"orderNumber,omitempty"`
 }
 
 type CancelInstanceBandwidthDowngradeRequest struct {
 	*common.BaseRequest
+
+	// Instance ID.
+	// To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response.
 	InstanceId string `json:"instanceId,omitempty"`
 }
 
 type CancelInstanceBandwidthDowngradeResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
 
 type ModifyInstanceTrafficPackageRequest struct {
 	*common.BaseRequest
-	InstanceId         string   `json:"instanceId,omitempty"`
+
+	// Instance ID.
+	// To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response.
+	InstanceId string `json:"instanceId,omitempty"`
+
+	// Traffic package size.
 	TrafficPackageSize *float64 `json:"trafficPackageSize,omitempty"`
 }
 
 type ModifyInstanceTrafficPackageSizeResponseParams struct {
-	RequestId   string `json:"requestId,omitempty"`
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	// Number of order.
 	OrderNumber string `json:"orderNumber,omitempty"`
 }
 
 type ModifyInstanceTrafficPackageResponse struct {
 	*common.BaseResponse
-	RequestId string                                          `json:"requestId,omitempty"`
-	Response  *ModifyInstanceTrafficPackageSizeResponseParams `json:"response"`
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *ModifyInstanceTrafficPackageSizeResponseParams `json:"response"`
 }
 
 type InquiryPriceInstanceTrafficPackageRequest struct {
 	*common.BaseRequest
-	InstanceId         string  `json:"instanceId,omitempty"`
+
+	// Instance ID.
+	// To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response.
+	InstanceId string `json:"instanceId,omitempty"`
+
+	// Traffic package size.
 	TrafficPackageSize float64 `json:"trafficPackageSize,omitempty"`
 }
 type InquiryPriceInstanceTrafficPackageResponse struct {
 	*common.BaseResponse
-	RequestId string                                            `json:"requestId,omitempty"`
-	Response  *InquiryPriceInstanceTrafficPackageResponseParams `json:"response"`
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *InquiryPriceInstanceTrafficPackageResponseParams `json:"response"`
 }
 type InquiryPriceInstanceTrafficPackageResponseParams struct {
-	RequestId           string   `json:"requestId,omitempty"`
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	// Price of traffic package.
+	// Kinds of prices may exist. For example, traffic package billing method may contain the package price and overage price.
 	TrafficPackagePrice []*Price `json:"trafficPackagePrice,omitempty"`
 }
 
 type CancelInstanceTrafficPackageDowngradeRequest struct {
 	*common.BaseRequest
+
+	// Instance ID.
+	// To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response.
 	InstanceId string `json:"instanceId,omitempty"`
 }
 
 type CancelInstanceTrafficPackageDowngradeResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
@@ -546,432 +1199,819 @@ type EipAddress struct {
 
 type DescribeEipAddressesRequest struct {
 	*common.BaseRequest
-	EipIds          []string `json:"eipIds,omitempty"`
-	EipChargeType   string   `json:"eipChargeType,omitempty"`
-	IpAddress       string   `json:"ipAddress,omitempty"`
-	ZoneId          string   `json:"zoneId,omitempty"`
-	ResourceGroupId string   `json:"resourceGroupId,omitempty"`
-	EipStatus       string   `json:"eipStatus,omitempty"`
-	InstanceId      string   `json:"instanceId,omitempty"`
-	InstanceName    string   `json:"instanceName,omitempty"`
-	PageSize        int      `json:"pageSize,omitempty"`
-	PageNum         int      `json:"pageNum,omitempty"`
+
+	// ID list of elastic IPs.
+	// The maximum number of elastic IPs in each request is 100.
+	EipIds []string `json:"eipIds,omitempty"`
+
+	// Elastic IP pricing model.
+	// PREPAID: subscription
+	// POSTPAID: pay-as-you-go
+	EipChargeType string `json:"eipChargeType,omitempty"`
+
+	// IP address.
+	IpAddress string `json:"ipAddress,omitempty"`
+
+	// Zone ID to which the elastic IPs belong.
+	ZoneId string `json:"zoneId,omitempty"`
+
+	// Resource group ID.
+	// If this parameter is not passed in, all the elastic IPs in authorized resource group return.
+	ResourceGroupId string `json:"resourceGroupId,omitempty"`
+
+	// Status of elastic IPs.
+	EipStatus string `json:"eipStatus,omitempty"`
+
+	// Instance ID.
+	InstanceId string `json:"instanceId,omitempty"`
+
+	// Instance name.
+	InstanceName string `json:"instanceName,omitempty"`
+
+	// Number of items in the current page result.
+	// Default value: 20
+	// Maximum value: 1000
+	PageSize int `json:"pageSize,omitempty"`
+
+	// Number of pages returned.
+	// Default value: 1
+	PageNum int `json:"pageNum,omitempty"`
 }
 type DescribeEipAddressesResponse struct {
 	*common.BaseResponse
-	RequestId string                              `json:"requestId,omitempty"`
-	Response  *DescribeEipAddressesResponseParams `json:"response,omitempty"`
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeEipAddressesResponseParams `json:"response,omitempty"`
 }
 type DescribeEipAddressesResponseParams struct {
-	RequestId  string        `json:"requestId,omitempty"`
-	DataSet    []*EipAddress `json:"dataSet,omitempty"`
-	TotalCount int           `json:"totalCount,omitempty"`
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	// List of elastic IPs.
+	DataSet []*EipAddress `json:"dataSet,omitempty"`
+
+	// The total number of elastic IPs.
+	TotalCount int `json:"totalCount,omitempty"`
 }
 
 type DescribeEipAvailableResourcesRequest struct {
 	*common.BaseRequest
+
+	// Elastic IP pricing model.
+	// PREPAID: subscription
+	// POSTPAID: pay-as-you-go
 	EipChargeType string `json:"eipChargeType,omitempty"`
-	ZoneId        string `json:"zoneId,omitempty"`
+
+	// Zone ID to which the elastic IPs belong.
+	// If this parameter is not passed in, the elastic IPs in all zones return.
+	ZoneId string `json:"zoneId,omitempty"`
 }
 type DescribeEipAvailableResourcesResponse struct {
 	*common.BaseResponse
-	RequestId string                                       `json:"requestId,omitempty"`
-	Response  *DescribeEipAvailableResourcesResponseParams `json:"response,omitempty"`
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeEipAvailableResourcesResponseParams `json:"response,omitempty"`
 }
 type DescribeEipAvailableResourcesResponseParams struct {
-	RequestId    string                  `json:"requestId,omitempty"`
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	// Zone list of available elastic IPs.
 	EipResources []*EipAvailableResource `json:"eipResources,omitempty"`
 }
 type EipAvailableResource struct {
+	// Zone ID to which the elastic IPs belong.
 	ZoneId string `json:"zoneId,omitempty"`
+
+	// Status for sale.
+	// SELL: available for sale, stock > 10.
+	// SELL_SHORTAGE: available for sale, stock < 10.
+	// SOLD_OUT: sold out.
 	Status string `json:"status,omitempty"`
 }
 
 type DescribeInstanceAvailableEipResourcesRequest struct {
 	*common.BaseRequest
+
+	// Instance ID.
+	// To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response.
 	InstanceId string `json:"instanceId,omitempty"`
 }
 type DescribeInstanceAvailableEipResourcesResponse struct {
 	*common.BaseResponse
-	RequestId string                                               `json:"requestId,omitempty"`
-	Response  *DescribeInstanceAvailableEipResourcesResponseParams `json:"response,omitempty"`
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeInstanceAvailableEipResourcesResponseParams `json:"response,omitempty"`
 }
 type DescribeInstanceAvailableEipResourcesResponseParams struct {
-	RequestId            string                          `json:"requestId,omitempty"`
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	// List of available elastic IPs that can be bound to an instance.
 	InstanceEipResources []*InstanceAvailableEipResource `json:"instanceEipResources,omitempty"`
 }
 type InstanceAvailableEipResource struct {
-	EipId     string `json:"eipId,omitempty"`
+	// ID of an elastic IP.
+	// To obtain the elastic IP ID, you can call DescribeEipAddresses and look for eipId in the response.
+	EipId string `json:"eipId,omitempty"`
+
+	// IP address.
 	IpAddress string `json:"ipAddress,omitempty"`
 }
 
 type AllocateEipAddressesRequest struct {
 	*common.BaseRequest
-	EipChargeType    string         `json:"eipChargeType,omitempty"`
+
+	// Elastic IP pricing model.
+	// PREPAID: subscription
+	// POSTPAID: pay-as-you-go
+	EipChargeType string `json:"eipChargeType,omitempty"`
+
+	// Details of the monthly subscription, including the purchase period, auto-renewal. It is required if the eipChargeType is PREPAID.
 	EipChargePrepaid *ChargePrepaid `json:"eipChargePrepaid,omitempty"`
-	ZoneId           string         `json:"zoneId,omitempty"`
-	ResourceGroupId  string         `json:"resourceGroupId,omitempty"`
-	Amount           int            `json:"amount,omitempty"`
+
+	// Zone ID to which the elastic IPs belong.
+	ZoneId string `json:"zoneId,omitempty"`
+
+	// Resource group ID
+	// If the value is not passed in, the elastic IP will be put into the default resource group. If no authorized default resource group found, the request will fail.
+	ResourceGroupId string `json:"resourceGroupId,omitempty"`
+
+	// Quantity of elastic IPs.
+	// Value range: 1-100.
+	// Default value: 1.
+	Amount int `json:"amount,omitempty"`
 }
 type AllocateEipAddressesResponse struct {
 	*common.BaseResponse
-	RequestId string                              `json:"requestId,omitempty"`
-	Response  *AllocateEipAddressesResponseParams `json:"response,omitempty"`
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *AllocateEipAddressesResponseParams `json:"response,omitempty"`
 }
 
 type AllocateEipAddressesResponseParams struct {
-	RequestId   *string   `json:"requestId,omitempty"`
-	EipIdSet    []*string `json:"eipIdSet,omitempty"`
-	OrderNumber *string   `json:"orderNumber,omitempty"`
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId *string `json:"requestId,omitempty"`
+
+	// ID list of elastic IPs.
+	// The returned ID list does not mean the creation has been completed. You can call DescribeEipAddresses to query the status of the elastic IPs. If the status changes from Creating to Available, it means that the elastic IPs have been created successfully.
+	EipIdSet []*string `json:"eipIdSet,omitempty"`
+
+	// Number of order.
+	// This parameter returns when eipChargeType is PREPAID.
+	OrderNumber *string `json:"orderNumber,omitempty"`
 }
 
 type TerminateEipAddressRequest struct {
 	*common.BaseRequest
+
+	// ID of an elastic IP.
+	// To obtain the elastic IP ID, you can call DescribeEipAddresses and look for eipId in the response.
 	EipId string `json:"eipId,omitempty"`
 }
 
 type TerminateEipAddressResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
 
 type ReleaseEipAddressesRequest struct {
 	*common.BaseRequest
+
+	// IDs of elastic IPs.
+	// To obtain IDs of the elastic IPs, you can call DescribeEipAddresses and look for eipId in the response.
 	EipIds []string `json:"eipIds,omitempty"`
 }
 
 type ReleaseEipAddressesResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
 
 type RenewEipAddressRequest struct {
 	*common.BaseRequest
+
+	// ID of an elastic IP.
+	// To obtain the elastic IP ID, you can call DescribeEipAddresses and look for eipId in the response.
 	EipId string `json:"eipId,omitempty"`
 }
 
 type RenewEipAddressResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
 
 type AssociateEipAddressRequest struct {
 	*common.BaseRequest
-	EipId      string `json:"eipId,omitempty"`
+
+	// ID of an elastic IP.
+	// To obtain the elastic IP ID, you can call DescribeEipAddresses and look for eipId in the response.
+	EipId string `json:"eipId,omitempty"`
+
+	// Instance ID.
+	// To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response.
 	InstanceId string `json:"instanceId,omitempty"`
 }
 
 type AssociateEipAddressResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
 
 type UnassociateEipAddressRequest struct {
 	*common.BaseRequest
+
+	// ID of an elastic IP.
+	// To obtain the elastic IP ID, you can call DescribeEipAddresses and look for eipId in the response.
 	EipId string `json:"eipId,omitempty"`
 }
 
 type UnassociateEipAddressResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
 
 type InquiryPriceCreateEipAddressRequest struct {
 	*common.BaseRequest
-	ZoneId           string         `json:"zoneId,omitempty"`
-	EipChargeType    string         `json:"eipChargeType,omitempty"`
+
+	// Zone ID to which the elastic IP belongs.
+	ZoneId string `json:"zoneId,omitempty"`
+
+	// Elastic IP pricing model.
+	// PREPAID: subscription
+	// POSTPAID: pay-as-you-go
+	EipChargeType string `json:"eipChargeType,omitempty"`
+
+	// Details of the monthly subscription, including the purchase period, auto-renewal. It is required if the eipChargeType is PREPAID.
 	EipChargePrepaid *ChargePrepaid `json:"eipChargePrepaid,omitempty"`
-	Amount           int            `json:"amount,omitempty"`
+
+	// Quantity of elastic IPs.
+	// Value range: 1-100.
+	// Default value: 1.
+	Amount int `json:"amount,omitempty"`
 }
 
 type InquiryPriceCreateEipAddressResponse struct {
 	*common.BaseResponse
-	RequestId string                                      `json:"requestId,omitempty"`
-	Response  *InquiryPriceCreateEipAddressResponseParams `json:"response"`
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *InquiryPriceCreateEipAddressResponseParams `json:"response"`
 }
 
 type InquiryPriceCreateEipAddressResponseParams struct {
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	EipPrice  *Price `json:"eipPrice,omitempty"`
+
+	// Price of the elastic IP.
+	EipPrice *Price `json:"eipPrice,omitempty"`
 }
 
 type ModifyEipAddressesResourceGroupRequest struct {
 	*common.BaseRequest
-	EipIds          []string `json:"eipIds,omitempty"`
-	ResourceGroupId string   `json:"resourceGroupId,omitempty"`
+
+	// List of EIP IDs.
+	// The maximum number of eip in each request is 100.
+	EipIds []string `json:"eipIds,omitempty"`
+
+	// Resource group ID.
+	ResourceGroupId string `json:"resourceGroupId,omitempty"`
 }
 
 type ModifyEipAddressesResourceGroupResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
 
 type DescribeDdosIpAvailableResourcesRequest struct {
 	*common.BaseRequest
+
+	// DDoS protected IP pricing model.
+	// PREPAID: subscription
+	// POSTPAID: pay-as-you-go
 	DdosIpChargeType string `json:"ddosIpChargeType,omitempty"`
-	ZoneId           string `json:"zoneId,omitempty"`
+
+	// Zone ID to which the DDoS protected IPs belong.
+	// If this parameter is not passed in, the DDoS protected IPs in all zones return.
+	ZoneId string `json:"zoneId,omitempty"`
 }
 type DescribeDdosIpAvailableResourcesResponse struct {
 	*common.BaseResponse
-	RequestId string                                          `json:"requestId,omitempty"`
-	Response  *DescribeDdosIpAvailableResourcesResponseParams `json:"response,omitempty"`
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeDdosIpAvailableResourcesResponseParams `json:"response,omitempty"`
 }
 type DescribeDdosIpAvailableResourcesResponseParams struct {
-	RequestId       string                     `json:"requestId,omitempty"`
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	// Zone list of available DDoS protected IPs.
 	DdosIpResources []*DdosIpAvailableResource `json:"ddosIpResources,omitempty"`
 }
 
 type DdosIpAvailableResource struct {
+	// Zone ID to which the DDoS protected IPs belong.
 	ZoneId string `json:"zoneId,omitempty"`
+
+	// Status for sale.
+	// SELL: available for sale, stock > 10.
+	// SELL_SHORTAGE: available for sale, stock < 10.
+	// SOLD_OUT: sold out.
 	Status string `json:"status,omitempty"`
 }
 
 type DescribeInstanceAvailableDdosResourcesRequest struct {
 	*common.BaseRequest
+
+	// Instance ID.
+	// To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response.
 	InstanceId string `json:"instanceId,omitempty"`
 }
 type DescribeInstanceAvailableDdosResourcesResponse struct {
 	*common.BaseResponse
-	RequestId string                                                `json:"requestId,omitempty"`
-	Response  *DescribeInstanceAvailableDdosResourcesResponseParams `json:"response,omitempty"`
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeInstanceAvailableDdosResourcesResponseParams `json:"response,omitempty"`
 }
 type DescribeInstanceAvailableDdosResourcesResponseParams struct {
-	RequestId               string                             `json:"requestId,omitempty"`
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	// List of available DDoS protected IPs that can be bound to an instance.
 	InstanceDdosIpResources []*InstanceAvailableDdosIpResource `json:"instanceDdosIpResources,omitempty"`
 }
 type InstanceAvailableDdosIpResource struct {
-	DdosIpId  string `json:"ddosIpId,omitempty"`
+	// ID of a DDoS protected IP.
+	// To obtain the DDoS protected IP ID, you can call DescribeDdosIpAddresses and look for ddosIpId in the response.
+	DdosIpId string `json:"ddosIpId,omitempty"`
+
+	// IP address.
 	IpAddress string `json:"ipAddress,omitempty"`
 }
 
 type AllocateDdosIpAddressesRequest struct {
 	*common.BaseRequest
-	DdosIpChargeType    string         `json:"ddosIpChargeType,omitempty"`
+
+	// DDoS protected IP pricing model.
+	// PREPAID: subscription
+	// POSTPAID: pay-as-you-go
+	DdosIpChargeType string `json:"ddosIpChargeType,omitempty"`
+
+	// Details of the monthly subscription, including the purchase period, auto-renewal. It is required if the ddosIpChargeType is PREPAID.
 	DdosIpChargePrepaid *ChargePrepaid `json:"ddosIpChargePrepaid,omitempty"`
-	ZoneId              string         `json:"zoneId,omitempty"`
-	ResourceGroupId     string         `json:"resourceGroupId,omitempty"`
-	Amount              int            `json:"amount,omitempty"`
+
+	// Zone ID to which the DDoS protected IPs belong.
+	ZoneId string `json:"zoneId,omitempty"`
+
+	// Resource group ID
+	// If the value is not passed in, the DDoS protected IP will be put into the default resource group. If no authorized default resource group found, the request will fail.
+	ResourceGroupId string `json:"resourceGroupId,omitempty"`
+
+	// Quantity of DDoS protected IPs.
+	// Value range: 1-100.
+	// Default value: 1.
+	Amount int `json:"amount,omitempty"`
 }
 type AllocateDdosIpAddressesResponse struct {
 	*common.BaseResponse
-	RequestId string                                 `json:"requestId,omitempty"`
-	Response  *AllocateDdosIpAddressesResponseParams `json:"response,omitempty"`
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *AllocateDdosIpAddressesResponseParams `json:"response,omitempty"`
 }
 
 type AllocateDdosIpAddressesResponseParams struct {
-	RequestId   *string   `json:"requestId,omitempty"`
-	DdosIdSet   []*string `json:"ddosIdSet,omitempty"`
-	OrderNumber *string   `json:"orderNumber,omitempty"`
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId *string `json:"requestId,omitempty"`
+
+	// ID list of DDoS protected IPs.
+	// The returned ID list does not mean the creation has been completed. You can call DescribeDdosIpAddresses to query the status of the DDoS protected IPs. If the status changes from Creating to Available, it means that the DDoS protected IPs have been created successfully.
+	DdosIdSet []*string `json:"ddosIdSet,omitempty"`
+
+	// Number of order.
+	// This parameter returns when ddosIpChargeType is PREPAID.
+	OrderNumber *string `json:"orderNumber,omitempty"`
 }
 
 type DescribeDdosIpAddressesResponse struct {
 	*common.BaseResponse
-	RequestId string                                 `json:"requestId,omitempty"`
-	Response  *DescribeDdosIpAddressesResponseParams `json:"response,omitempty"`
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeDdosIpAddressesResponseParams `json:"response,omitempty"`
 }
 type DescribeDdosIpAddressesResponseParams struct {
-	RequestId  string           `json:"requestId,omitempty"`
-	DataSet    []*DdosIpAddress `json:"dataSet,omitempty"`
-	TotalCount int              `json:"totalCount,omitempty"`
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	// List of DDoS protected IPs.
+	DataSet []*DdosIpAddress `json:"dataSet,omitempty"`
+
+	// The total number of DDoS protected IPs.
+	TotalCount int `json:"totalCount,omitempty"`
 }
 
 type DescribeDdosIpAddressesRequest struct {
 	*common.BaseRequest
-	DdosIpIds        []string `json:"ddosIpIds,omitempty"`
-	DdosIpChargeType string   `json:"ddosIpChargeType,omitempty"`
-	IpAddress        string   `json:"ipAddress,omitempty"`
-	ZoneId           string   `json:"zoneId,omitempty"`
-	ResourceGroupId  string   `json:"resourceGroupId,omitempty"`
-	DdosIpStatus     string   `json:"ddosIpStatus,omitempty"`
-	InstanceId       string   `json:"instanceId,omitempty"`
-	InstanceName     string   `json:"instanceName,omitempty"`
-	PageSize         int      `json:"pageSize,omitempty"`
-	PageNum          int      `json:"pageNum,omitempty"`
+
+	// ID list of DDoS protected IPs.
+	// The maximum number of DDoS protected IPs in each request is 100.
+	DdosIpIds []string `json:"ddosIpIds,omitempty"`
+
+	// DDoS protected IP pricing model.
+	// PREPAID: subscription
+	// POSTPAID: pay-as-you-go
+	DdosIpChargeType string `json:"ddosIpChargeType,omitempty"`
+
+	// IP address.
+	IpAddress string `json:"ipAddress,omitempty"`
+
+	// Zone ID to which the DDoS protected IPs belong.
+	ZoneId string `json:"zoneId,omitempty"`
+
+	// Resource group ID.
+	// If this parameter is not passed in, all the DDoS protected IPs in authorized resource group return.
+	ResourceGroupId string `json:"resourceGroupId,omitempty"`
+
+	// Status of DDoS protected IP.
+	DdosIpStatus string `json:"ddosIpStatus,omitempty"`
+
+	// Instance ID.
+	InstanceId string `json:"instanceId,omitempty"`
+
+	// Instance name.
+	InstanceName string `json:"instanceName,omitempty"`
+
+	// Number of items in the current page result.
+	// Default value: 20
+	// Maximum value: 1000
+	PageSize int `json:"pageSize,omitempty"`
+
+	// Number of pages returned.
+	// Default value: 1
+	PageNum int `json:"pageNum,omitempty"`
 }
 
 type DdosIpAddress struct {
-	DdosIpId          string `json:"ddosIpId,omitempty"`
-	ZoneId            string `json:"zoneId,omitempty"`
-	IpAddress         string `json:"ipAddress,omitempty"`
-	InstanceId        string `json:"instanceId,omitempty"`
-	InstanceName      string `json:"instanceName,omitempty"`
-	DdosIpChargeType  string `json:"ddosIpChargeType,omitempty"`
-	Period            *int   `json:"period,omitempty"`
-	CreateTime        string `json:"createTime,omitempty"`
-	ExpiredTime       string `json:"expiredTime,omitempty"`
-	ResourceGroupId   string `json:"resourceGroupId,omitempty"`
+	// ID of the DDoS protected IP.
+	DdosIpId string `json:"ddosIpId,omitempty"`
+
+	// Zone ID to which the DDoS protected IPs belong.
+	ZoneId string `json:"zoneId,omitempty"`
+
+	// IP address.
+	IpAddress string `json:"ipAddress,omitempty"`
+
+	// Instance ID.
+	InstanceId string `json:"instanceId,omitempty"`
+
+	// Instance name.
+	InstanceName string `json:"instanceName,omitempty"`
+
+	// Pricing model.
+	// PREPAID: monthly subscription.
+	// POSTPAID: pay-as-you-go.
+	DdosIpChargeType string `json:"ddosIpChargeType,omitempty"`
+
+	// Period of DDoS protected IP subscription.
+	// Unit: month.
+	// The value is empty for pay-as-you-go DDoS protected IPs.
+	Period *int `json:"period,omitempty"`
+
+	// Creation time.
+	// Use UTC time according to the ISO8601 standard. Format: YYYY-MM-DDThh:mm:ssZ.
+	CreateTime string `json:"createTime,omitempty"`
+
+	// Expiration time.
+	// Use UTC time according to the ISO8601 standard. Format: YYYY-MM-DDThh:mm:ssZ.
+	// Note:
+	// The value is empty for pay-as-you-go resources.
+	ExpiredTime string `json:"expiredTime,omitempty"`
+
+	// Resource group ID.
+	ResourceGroupId string `json:"resourceGroupId,omitempty"`
+
+	// Resource group name.
 	ResourceGroupName string `json:"resourceGroupName,omitempty"`
-	DdosIpStatus      string `json:"ddosIpStatus,omitempty"`
+
+	// Status of DDoS protected IP.
+	DdosIpStatus string `json:"ddosIpStatus,omitempty"`
 }
 
 type TerminateDdosIpAddressRequest struct {
 	*common.BaseRequest
+
+	// ID of a DDoS protected IP.
+	// To obtain the DDoS protected IP ID, you can call DescribeDdosIpAddresses and look for ddosIpId in the response.
 	DdosIpId string `json:"ddosIpId,omitempty"`
 }
 
 type TerminateDdosIpAddressResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
 
 type ReleaseDdosIpAddressesRequest struct {
 	*common.BaseRequest
+
+	// IDs of DDoS protected IPs.
+	// To obtain IDs of the DDoS protected IPs, you can call DescribeDdosIpAddresses and look for ddosIpId in the response.
 	DdosIpIds []string `json:"ddosIpIds,omitempty"`
 }
 
 type ReleaseDdosIpAddressesResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
 
 type RenewDdosIpAddressRequest struct {
 	*common.BaseRequest
+
+	// ID of a DDoS protected IP.
+	// To obtain the DDoS protected IP ID, you can call DescribeDdosIpAddresses and look for ddosIpId in the response.
 	DdosIpId string `json:"ddosIpId,omitempty"`
 }
 
 type RenewDdosIpAddressResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
 type AssociateDdosIpAddressRequest struct {
 	*common.BaseRequest
-	DdosIpId   string `json:"ddosIpId,omitempty"`
+
+	// ID of a DDoS protected IP.
+	// To obtain the DDoS protected IP ID, you can call DescribeDdosIpAddresses and look for ddosIpId in the response.
+	DdosIpId string `json:"ddosIpId,omitempty"`
+
+	// Instance ID.
+	// To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response.
 	InstanceId string `json:"instanceId,omitempty"`
 }
 
 type AssociateDdosIpAddressResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
 
 type UnassociateDdosIpAddressRequest struct {
 	*common.BaseRequest
+
+	// ID of a DDoS protected IP.
+	// To obtain the DDoS protected IP ID, you can call DescribeDdosIpAddresses and look for ddosIpId in the response.
 	DdosIpId string `json:"ddosIpId,omitempty"`
 }
 
 type UnassociateDdosIpAddressResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
 
 type InquiryPriceCreateDdosIpAddressRequest struct {
 	*common.BaseRequest
-	ZoneId              string         `json:"zoneId,omitempty"`
-	DdosIpChargeType    string         `json:"ddosIpChargeType,omitempty"`
+
+	// Zone ID to which the DDoS protected IP belongs.
+	ZoneId string `json:"zoneId,omitempty"`
+
+	// DDoS protected IP pricing model.
+	// PREPAID: subscription
+	// POSTPAID: pay-as-you-go
+	DdosIpChargeType string `json:"ddosIpChargeType,omitempty"`
+
+	// Details of the monthly subscription, including the purchase period, auto-renewal. It is required if the ddosIpChargeType is PREPAID.
 	DdosIpChargePrepaid *ChargePrepaid `json:"ddosIpChargePrepaid,omitempty"`
-	Amount              int            `json:"amount,omitempty"`
+
+	// Quantity of DDoS protected IPs.
+	// Value range: 1-100.
+	// Default value: 1.
+	Amount int `json:"amount,omitempty"`
 }
 
 type InquiryPriceCreateDdosIpAddressResponse struct {
 	*common.BaseResponse
-	RequestId string                                         `json:"requestId,omitempty"`
-	Response  *InquiryPriceCreateDdosIpAddressResponseParams `json:"response"`
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *InquiryPriceCreateDdosIpAddressResponseParams `json:"response"`
 }
 
 type InquiryPriceCreateDdosIpAddressResponseParams struct {
-	RequestId   string `json:"requestId,omitempty"`
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	// Price of the DDoS protected IP.
 	DdosIpPrice *Price `json:"ddosIpPrice,omitempty"`
 }
 
 type ModifyDdosIpAddressesResourceGroupRequest struct {
 	*common.BaseRequest
-	DdosIpIds       []string `json:"ddosIpIds,omitempty"`
-	ResourceGroupId string   `json:"resourceGroupId,omitempty"`
+
+	// List of DDoS IP IDs.
+	// The maximum number of DDoS IP in each request is 100.
+	DdosIpIds []string `json:"ddosIpIds,omitempty"`
+
+	// Resource group ID.
+	ResourceGroupId string `json:"resourceGroupId,omitempty"`
 }
 
 type ModifyDdosIpAddressesResourceGroupResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
 
 type DescribeVpcAvailableRegionsRequest struct {
 	*common.BaseRequest
-	ZoneId      string `json:"zoneId,omitempty"`
+
+	// Zone ID to which the VPCs belong.
+	ZoneId string `json:"zoneId,omitempty"`
+
+	// IDs of availability regions for VPCs.
 	VpcRegionId string `json:"vpcRegionId,omitempty"`
 }
 
 type DescribeVpcAvailableRegionsResponse struct {
 	*common.BaseResponse
-	RequestId string                                     `json:"requestId,omitempty"`
-	Response  *DescribeVpcAvailableRegionsResponseParams `json:"response,omitempty"`
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeVpcAvailableRegionsResponseParams `json:"response,omitempty"`
 }
 
 type DescribeVpcAvailableRegionsResponseParams struct {
-	RequestId    string       `json:"requestId,omitempty"`
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	// Information on availability regions for VPCs.
 	VpcRegionSet []*VpcRegion `json:"vpcRegionSet,omitempty"`
 }
 
 type VpcRegion struct {
-	VpcRegionId   string   `json:"vpcRegionId,omitempty"`
-	VpcRegionName string   `json:"vpcRegionName,omitempty"`
-	ZoneIds       []string `json:"zoneIds,omitempty"`
+	// Availability region ID of VPC.
+	VpcRegionId string `json:"vpcRegionId,omitempty"`
+
+	// Availability region name of VPC.
+	VpcRegionName string `json:"vpcRegionName,omitempty"`
+
+	// List if zone IDs.
+	ZoneIds []string `json:"zoneIds,omitempty"`
 }
 
 type CreateVpcRequest struct {
 	*common.BaseRequest
-	CidrBlock       string `json:"cidrBlock,omitempty"`
-	VpcRegionId     string `json:"vpcRegionId,omitempty"`
+
+	// CIDR block of VPC.
+	CidrBlock string `json:"cidrBlock,omitempty"`
+
+	// Availability region ID of VPC.
+	VpcRegionId string `json:"vpcRegionId,omitempty"`
+
+	// Resource group ID.
+	// If the value is not passed in, the VPC will be put into the default resource group. If no authorized default resource group found, the request will fail.
 	ResourceGroupId string `json:"resourceGroupId,omitempty"`
-	VpcName         string `json:"vpcName,omitempty"`
+
+	// VPC name to be displayed.
+	// This parameter can contain up to 64 characters. Only letters, numbers, - and periods (.) are supported.
+	VpcName string `json:"vpcName,omitempty"`
 }
 
 type CreateVpcResponse struct {
 	*common.BaseResponse
-	RequestId string                   `json:"requestId,omitempty"`
-	Response  *CreateVpcResponseParams `json:"response,omitempty"`
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *CreateVpcResponseParams `json:"response,omitempty"`
 }
 
 type CreateVpcResponseParams struct {
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	VpcId     string `json:"vpcId,omitempty"`
+
+	// VPC ID.
+	VpcId string `json:"vpcId,omitempty"`
 }
 
 type ModifyVpcsAttributeRequest struct {
 	*common.BaseRequest
-	VpcIds  []string `json:"vpcIds,omitempty"`
-	VpcName string   `json:"vpcName,omitempty"`
+
+	// VPC ID(s).
+	// To obtain the VPC IDs, you can call DescribeVpcs and look for vpcId in the response.
+	// The maximum number of VPCs in each request is 100.
+	VpcIds []string `json:"vpcIds,omitempty"`
+
+	// VPC name to be displayed.
+	// This parameter can contain up to 64 characters. Only letters, numbers, - and periods (.) are supported.
+	VpcName string `json:"vpcName,omitempty"`
 }
 
 type ModifyVpcsAttributeResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
@@ -992,141 +2032,289 @@ type ModifyVpcsResourceGroupResponse struct {
 
 type DeleteVpcRequest struct {
 	*common.BaseRequest
+
+	// VPC ID.
 	VpcId string `json:"vpcId,omitempty"`
 }
 
 type DeleteVpcResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response,omitempty"`
 }
 
 type DescribeVpcsRequest struct {
 	*common.BaseRequest
-	VpcIds          []string `json:"vpcIds,omitempty"`
-	CidrBlock       string   `json:"cidrBlock,omitempty"`
-	VpcStatus       string   `json:"vpcStatus,omitempty"`
-	VpcName         string   `json:"vpcName,omitempty"`
-	VpcRegionId     string   `json:"vpcRegionId,omitempty"`
-	ResourceGroupId string   `json:"resourceGroupId,omitempty"`
-	PageSize        int      `json:"pageSize,omitempty"`
-	PageNum         int      `json:"pageNum,omitempty"`
+
+	// VPC ID(s).
+	// The maximum number of VPCs in each request is 100.
+	VpcIds []string `json:"vpcIds,omitempty"`
+
+	// CIDR block of VPC.
+	CidrBlock string `json:"cidrBlock,omitempty"`
+
+	// Status of VPC.
+	VpcStatus string `json:"vpcStatus,omitempty"`
+
+	// Name of VPC.
+	VpcName string `json:"vpcName,omitempty"`
+
+	// Availability region ID of VPC.
+	VpcRegionId string `json:"vpcRegionId,omitempty"`
+
+	// Resource group ID.
+	// If the value is null, then return all the VPCs in the authorized resource groups.
+	ResourceGroupId string `json:"resourceGroupId,omitempty"`
+
+	// Number of items in the current page result.
+	// Default value: 20;
+	// Maximum value: 1000.
+	PageSize int `json:"pageSize,omitempty"`
+
+	// Number of pages returned.
+	// Default value: 1.
+	PageNum int `json:"pageNum,omitempty"`
 }
 
 type DescribeVpcsResponse struct {
 	*common.BaseResponse
-	RequestId string                      `json:"requestId,omitempty"`
-	Response  *DescribeVpcsResponseParams `json:"response,omitempty"`
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeVpcsResponseParams `json:"response,omitempty"`
 }
 
 type DescribeVpcsResponseParams struct {
-	RequestId  string     `json:"requestId,omitempty"`
-	TotalCount int        `json:"totalCount,omitempty"`
-	DataSet    []*VpcInfo `json:"dataSet,omitempty"`
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	// Number of VPCs meeting the filtering conditions.
+	TotalCount int `json:"totalCount,omitempty"`
+
+	// Information on VPCs.
+	DataSet []*VpcInfo `json:"dataSet,omitempty"`
 }
 
 type VpcInfo struct {
-	VpcId             string `json:"vpcId,omitempty"`
-	VpcRegionId       string `json:"vpcRegionId,omitempty"`
-	VpcRegionName     string `json:"vpcRegionName,omitempty"`
-	VpcName           string `json:"vpcName,omitempty"`
-	CidrBlock         string `json:"cidrBlock,omitempty"`
-	ResourceGroupId   string `json:"resourceGroupId,omitempty"`
+	// VPC ID.
+	VpcId string `json:"vpcId,omitempty"`
+
+	// Availability region ID of VPC.
+	VpcRegionId string `json:"vpcRegionId,omitempty"`
+
+	// Availability region name of VPC.
+	VpcRegionName string `json:"vpcRegionName,omitempty"`
+
+	// VPC name.
+	VpcName string `json:"vpcName,omitempty"`
+
+	// CIDR block of VPC.
+	CidrBlock string `json:"cidrBlock,omitempty"`
+
+	// Resource group ID.
+	ResourceGroupId string `json:"resourceGroupId,omitempty"`
+
+	// Resource group name.
 	ResourceGroupName string `json:"resourceGroupName,omitempty"`
-	CreateTime        string `json:"createTime,omitempty"`
-	VpcStatus         string `json:"vpcStatus,omitempty"`
+
+	// Creation time.
+	// Format: YYYY-MM-DDThh:mm:ssZ.
+	CreateTime string `json:"createTime,omitempty"`
+
+	// Status of VPC.
+	VpcStatus string `json:"vpcStatus,omitempty"`
 }
 
 type CreateSubnetRequest struct {
 	*common.BaseRequest
-	CidrBlock       string `json:"cidrBlock,omitempty"`
-	ZoneId          string `json:"zoneId,omitempty"`
+
+	// CIDR block of the subnet. The optional values are as follows:
+	// 10.0.0.0/16, 172.16.0.0/16, 192.168.0.0/16 and their subsets.
+	// If the subnet is going to be added into a VPC, the value should be in the range of VPC CIDR block and not overlap with IP ranges of other subnets in this VPC.
+	CidrBlock string `json:"cidrBlock,omitempty"`
+
+	// Zone ID to which the subnet belongs.
+	ZoneId string `json:"zoneId,omitempty"`
+
+	// Resource group ID.
+	// If the value is not passed in, the subnet will be put into the default resource group. If no authorized default resource group found, the request will fail.
+	// If the subnet is going to be added into a VPC, this parameter will be ignored. The created subnet will be added into the resource group of the VPC.
 	ResourceGroupId string `json:"resourceGroupId,omitempty"`
-	SubnetName      string `json:"subnetName,omitempty"`
-	VpcId           string `json:"vpcId,omitempty"`
+
+	// Subnet name to be displayed.
+	// This parameter can contain up to 64 characters. Only letters, numbers, - and periods (.) are supported.
+	SubnetName string `json:"subnetName,omitempty"`
+
+	// VPC ID.
+	VpcId string `json:"vpcId,omitempty"`
 }
 
 type CreateSubnetResponse struct {
 	*common.BaseResponse
-	RequestId string                      `json:"requestId,omitempty"`
-	Response  *CreateSubnetResponseParams `json:"response,omitempty"`
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *CreateSubnetResponseParams `json:"response,omitempty"`
 }
 
 type CreateSubnetResponseParams struct {
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	SubnetId  string `json:"subnetId,omitempty"`
+
+	// Subnet的ID。
+	SubnetId string `json:"subnetId,omitempty"`
 }
 
 type Subnet struct {
-	SubnetId          string                     `json:"subnetId,omitempty"`
-	ZoneId            string                     `json:"zoneId,omitempty"`
-	SubnetName        string                     `json:"subnetName,omitempty"`
-	VpcId             string                     `json:"vpcId,omitempty"`
-	VpcName           string                     `json:"vpcName,omitempty"`
-	CidrBlock         string                     `json:"cidrBlock,omitempty"`
-	CreateTime        string                     `json:"createTime,omitempty"`
-	ResourceGroupId   string                     `json:"resourceGroupId,omitempty"`
-	ResourceGroupName string                     `json:"resourceGroupName,omitempty"`
-	SubnetStatus      string                     `json:"subnetStatus,omitempty"`
+	// Subnet ID.
+	SubnetId string `json:"subnetId,omitempty"`
+
+	// Zone ID to which the subnet belongs.
+	ZoneId string `json:"zoneId,omitempty"`
+
+	// Subnet name.
+	SubnetName string `json:"subnetName,omitempty"`
+
+	// VPC ID.
+	VpcId string `json:"vpcId,omitempty"`
+
+	// VPC name.
+	VpcName string `json:"vpcName,omitempty"`
+
+	// CIDR block of subnet.
+	CidrBlock string `json:"cidrBlock,omitempty"`
+
+	// Creation time.
+	// Use UTC time according to the ISO8601 standard. Format: YYYY-MM-DDThh:mm:ssZ.
+	CreateTime string `json:"createTime,omitempty"`
+
+	// Resource group ID.
+	ResourceGroupId string `json:"resourceGroupId,omitempty"`
+
+	// Resource group name.
+	ResourceGroupName string `json:"resourceGroupName,omitempty"`
+
+	// Status of subnet.
+	SubnetStatus string `json:"subnetStatus,omitempty"`
+
+	// Information about instances in the subnet.
 	SubnetInstanceSet []*SubnetAssociateInstance `json:"subnetInstanceSet,omitempty"`
 }
 
 type SubnetAssociateInstance struct {
-	InstanceId       string `json:"instanceId,omitempty"`
+	// Instance ID.
+	InstanceId string `json:"instanceId,omitempty"`
+
+	// Private IP address.
 	PrivateIpAddress string `json:"privateIpAddress,omitempty"`
-	PrivateIpStatus  string `json:"privateIpStatus,omitempty"`
+
+	// Status of private IP address.
+	PrivateIpStatus string `json:"privateIpStatus,omitempty"`
 }
 
 type DescribeSubnetsRequest struct {
 	*common.BaseRequest
-	SubnetIds       []string `json:"subnetIds,omitempty"`
-	CidrBlock       string   `json:"cidrBlock,omitempty"`
-	ZoneId          string   `json:"zoneId,omitempty"`
-	SubnetName      string   `json:"subnetName,omitempty"`
-	VpcId           string   `json:"vpcId,omitempty"`
-	ResourceGroupId string   `json:"resourceGroupId,omitempty"`
-	SubnetStatus    string   `json:"subnetStatus,omitempty"`
-	PageSize        int      `json:"pageSize,omitempty"`
-	PageNum         int      `json:"pageNum,omitempty"`
+
+	// Subnet ID(s).
+	// The maximum number of subnets in each request is 100.
+	SubnetIds []string `json:"subnetIds,omitempty"`
+
+	// CIDR block of subnet.
+	CidrBlock string `json:"cidrBlock,omitempty"`
+
+	// Zone ID to which subnets belong.
+	ZoneId string `json:"zoneId,omitempty"`
+
+	// Name of subnet.
+	SubnetName string `json:"subnetName,omitempty"`
+
+	// VPC ID.
+	VpcId string `json:"vpcId,omitempty"`
+
+	// Resource group ID.
+	ResourceGroupId string `json:"resourceGroupId,omitempty"`
+
+	// Status of subnet.
+	SubnetStatus string `json:"subnetStatus,omitempty"`
+
+	// Number of items in the current page result.
+	// Default value: 20;
+	// Maximum value: 1000.
+	PageSize int `json:"pageSize,omitempty"`
+
+	// Number of pages returned.
+	// Default value: 1.
+	PageNum int `json:"pageNum,omitempty"`
 }
 
 type DescribeSubnetsResponse struct {
 	*common.BaseResponse
-	RequestId string                         `json:"requestId,omitempty"`
-	Response  *DescribeSubnetsResponseParams `json:"response,omitempty"`
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeSubnetsResponseParams `json:"response,omitempty"`
 }
 
 type DescribeSubnetsResponseParams struct {
-	RequestId  string    `json:"requestId,omitempty"`
-	DataSet    []*Subnet `json:"dataSet,omitempty"`
-	TotalCount int       `json:"totalCount,omitempty"`
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	// Information on subnets.
+	DataSet []*Subnet `json:"dataSet,omitempty"`
+
+	// Number of subnets meeting the filtering conditions.
+	TotalCount int `json:"totalCount,omitempty"`
 }
 
 type DeleteSubnetRequest struct {
 	*common.BaseRequest
+
+	// Subnet ID.
 	SubnetId string `json:"subnetId,omitempty"`
 }
 
 type DeleteSubnetResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response,omitempty"`
 }
 
 type ModifySubnetsAttributeRequest struct {
 	*common.BaseRequest
-	SubnetIds  []string `json:"subnetIds,omitempty"`
-	SubnetName string   `json:"subnetName,omitempty"`
+
+	// Subnet ID(s).
+	// To obtain the subnet IDs, you can call DescribeSubnets and look for subnetId in the response.
+	// The maximum number of subnets in each request is 100.
+	SubnetIds []string `json:"subnetIds,omitempty"`
+
+	// Subnet name to be displayed.
+	// This parameter can contain up to 64 characters. Only letters, numbers, - and periods (.) are supported.
+	SubnetName string `json:"subnetName,omitempty"`
 }
 
 type ModifySubnetsAttributeResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
@@ -1147,351 +2335,668 @@ type ModifySubnetsResourceGroupResponse struct {
 
 type UnAssociateSubnetInstanceRequest struct {
 	*common.BaseRequest
-	SubnetId   string `json:"subnetId,omitempty"`
+
+	// Subnet ID.
+	SubnetId string `json:"subnetId,omitempty"`
+
+	// Instance ID.
 	InstanceId string `json:"instanceId,omitempty"`
 }
 
 type UnAssociateSubnetInstanceResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
 
 type AssociateSubnetInstancesRequest struct {
 	*common.BaseRequest
-	SubnetId           string                              `json:"subnetId,omitempty"`
+
+	// Subnet ID.
+	SubnetId string `json:"subnetId,omitempty"`
+
+	// List of instances.
 	SubnetInstanceList []*AssociateSubnetInstanceIpAddress `json:"subnetInstanceList,omitempty"`
 }
 
 type AssociateSubnetInstanceIpAddress struct {
-	InstanceId       string `json:"instanceId,omitempty"`
+	// Instance ID.
+	InstanceId string `json:"instanceId,omitempty"`
+
+	// Private IPv4 address.
+	// The value should be in the range of subnet CIDR block. If the value is not passed in, any available private IP addresses will be assigned to the instance randomly.
 	PrivateIpAddress string `json:"privateIpAddress,omitempty"`
 }
 
 type AssociateSubnetInstancesResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
 
 type AssociateVpcSubnetRequest struct {
 	*common.BaseRequest
+
+	// Subnet ID.
 	SubnetId string `json:"subnetId,omitempty"`
-	VpcId    string `json:"vpcId,omitempty"`
+
+	// VPC ID.
+	VpcId string `json:"vpcId,omitempty"`
 }
 
 type AssociateVpcSubnetResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
 
 type DescribeSubnetAvailableResourcesRequest struct {
 	*common.BaseRequest
+
+	// Zone ID.
+	// If the value is empty, return information about all the zones available for subnet.
 	ZoneId string `json:"zoneId,omitempty"`
 }
 
 type DescribeSubnetAvailableResourcesResponse struct {
 	*common.BaseResponse
-	RequestId string                                          `json:"requestId,omitempty"`
-	Response  *DescribeSubnetAvailableResourcesResponseParams `json:"response,omitempty"`
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeSubnetAvailableResourcesResponseParams `json:"response,omitempty"`
 }
 type DescribeSubnetAvailableResourcesResponseParams struct {
-	RequestId string   `json:"requestId,omitempty"`
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	// Information about zones available.
 	ZoneIdSet []string `json:"zoneIdSet,omitempty"`
 }
 
 type DescribeCidrBlocksRequest struct {
 	*common.BaseRequest
-	CidrBlockIds    []string `json:"cidrBlockIds,omitempty"`
-	CidrBlock       string   `json:"cidrBlock,omitempty"`
-	CidrBlockName   string   `json:"cidrBlockName,omitempty"`
-	ZoneId          string   `json:"zoneId,omitempty"`
-	CidrBlockType   string   `json:"cidrBlockType,omitempty"`
-	Gateway         string   `json:"gateway,omitempty"`
-	ChargeType      string   `json:"chargeType,omitempty"`
-	ResourceGroupId string   `json:"resourceGroupId,omitempty"`
-	PageNum         int      `json:"pageNum,omitempty"`
-	PageSize        int      `json:"pageSize,omitempty"`
+
+	// IDs of the CIDR blocks.
+	// You can query up to 100 CIDR blocks in each request.
+	CidrBlockIds []string `json:"cidrBlockIds,omitempty"`
+
+	// IP range of CIDR block.
+	CidrBlock string `json:"cidrBlock,omitempty"`
+
+	// Name of CIDR block.
+	CidrBlockName string `json:"cidrBlockName,omitempty"`
+
+	// Zone ID to which the CIDR blocks belong.
+	ZoneId string `json:"zoneId,omitempty"`
+
+	// Type of CIDR block. The optional values are as follows:
+	// IPv4
+	// IPv6
+	CidrBlockType string `json:"cidrBlockType,omitempty"`
+
+	// IP address of the gateway.
+	Gateway string `json:"gateway,omitempty"`
+
+	// CIDR block pricing model.
+	// PREPAID: subscription
+	// POSTPAID: pay-as-you-go
+	ChargeType string `json:"chargeType,omitempty"`
+
+	// Resource group ID.
+	// If the value is null, then return all the CIDR blocks in the authorized resource groups.
+	ResourceGroupId string `json:"resourceGroupId,omitempty"`
+
+	// Number of pages returned.
+	// Default value: 1.
+	PageNum int `json:"pageNum,omitempty"`
+
+	// Number of items in the current page result.
+	// Default value: 20;
+	// Maximum value: 1000.
+	PageSize int `json:"pageSize,omitempty"`
 }
 
 type DescribeCidrBlocksResponse struct {
 	*common.BaseResponse
-	RequestId string                            `json:"requestId"`
-	Response  *DescribeCidrBlocksResponseParams `json:"response"`
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId"`
+
+	Response *DescribeCidrBlocksResponseParams `json:"response"`
 }
 
 type DescribeCidrBlocksResponseParams struct {
-	RequestId  string           `json:"requestId,omitempty"`
-	TotalCount int              `json:"totalCount,omitempty"`
-	DataSet    []*CidrBlockInfo `json:"dataSet,omitempty"`
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	// Number of CIDR blocks meeting the filtering conditions.
+	TotalCount int `json:"totalCount,omitempty"`
+
+	// Information on a CIDR block.
+	DataSet []*CidrBlockInfo `json:"dataSet,omitempty"`
 }
 
 type CidrBlockInfo struct {
-	CidrBlockId       string   `json:"cidrBlockId,omitempty"`
-	CidrBlockType     string   `json:"cidrBlockType,omitempty"`
-	CidrBlockName     string   `json:"cidrBlockName,omitempty"`
-	ZoneId            string   `json:"zoneId,omitempty"`
-	CidrBlock         string   `json:"cidrBlock,omitempty"`
-	Gateway           string   `json:"gateway,omitempty"`
-	AvailableIpStart  string   `json:"availableIpStart,omitempty"`
-	AvailableIpEnd    string   `json:"availableIpEnd,omitempty"`
-	AvailableIpCount  int      `json:"availableIpCount,omitempty"`
-	InstanceIds       []string `json:"instanceIds,omitempty"`
-	Status            string   `json:"status,omitempty"`
-	ChargeType        string   `json:"chargeType,omitempty"`
-	CreateTime        string   `json:"createTime,omitempty"`
-	ExpireTime        *string  `json:"expireTime,omitempty"`
-	ResourceGroupId   string   `json:"resourceGroupId,omitempty"`
-	ResourceGroupName string   `json:"resourceGroupName,omitempty"`
+	// ID of CIDR block.
+	CidrBlockId string `json:"cidrBlockId,omitempty"`
+
+	// Type of CIDR block. The optional values are as follows:
+	// IPv4
+	// IPv6
+	CidrBlockType string `json:"cidrBlockType,omitempty"`
+
+	// CIDR block name.
+	CidrBlockName string `json:"cidrBlockName,omitempty"`
+
+	// Zone ID to which the CIDR block belong.
+	ZoneId string `json:"zoneId,omitempty"`
+
+	// CIDR block.
+	CidrBlock string `json:"cidrBlock,omitempty"`
+
+	// Gateway address.
+	Gateway string `json:"gateway,omitempty"`
+
+	// Available IP starts.
+	AvailableIpStart string `json:"availableIpStart,omitempty"`
+
+	// Available IP ends.
+	AvailableIpEnd string `json:"availableIpEnd,omitempty"`
+
+	// Quantity of available IPs.
+	AvailableIpCount int `json:"availableIpCount,omitempty"`
+
+	// List of instance IDs.
+	InstanceIds []string `json:"instanceIds,omitempty"`
+
+	// Status of CIDR block.
+	Status string `json:"status,omitempty"`
+
+	// Pricing model.
+	// PREPAID: monthly subscription.
+	// POSTPAID: pay-as-you-go.
+	ChargeType string `json:"chargeType,omitempty"`
+
+	// Creation time.
+	// Format: YYYY-MM-DDThh:mm:ssZ.
+	CreateTime string `json:"createTime,omitempty"`
+
+	// Expiration time.
+	// Format: YYYY-MM-DDThh:mm:ssZ.
+	ExpireTime *string `json:"expireTime,omitempty"`
+
+	// Resource group ID.
+	ResourceGroupId string `json:"resourceGroupId,omitempty"`
+
+	// Resource group name.
+	ResourceGroupName string `json:"resourceGroupName,omitempty"`
 }
 
 type DescribeCidrBlockIpsRequest struct {
 	*common.BaseRequest
+
+	// ID of the CIDR block.
+	// You can find the cidrBlockId in the response by calling DescribeCidrBlocks.
 	CidrBlockId string `json:"cidrBlockId,omitempty"`
-	InstanceId  string `json:"instanceId,omitempty"`
-	Ip          string `json:"ip,omitempty"`
+
+	// ID of the instance.
+	// You can find the instanceId in the response by calling DescribeInstances.
+	InstanceId string `json:"instanceId,omitempty"`
+
+	// IP address.
+	Ip string `json:"ip,omitempty"`
 }
 
 type DescribeCidrBlockIpsResponse struct {
 	*common.BaseResponse
-	RequestId string                              `json:"requestId,omitempty"`
-	Response  *DescribeCidrBlockIpsResponseParams `json:"response"`
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeCidrBlockIpsResponseParams `json:"response"`
 }
 
 type DescribeCidrBlockIpsResponseParams struct {
-	RequestId    string                               `json:"requestId,omitempty"`
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	// IPs of the CIDR block.
 	CidrBlockIps []*DescribeCidrBlockIpsResponseParam `json:"CidrBlockIps,omitempty"`
 }
 
 type DescribeCidrBlockIpsResponseParam struct {
-	CidrBlockId   string  `json:"cidrBlockId,omitempty"`
-	CidrBlockType string  `json:"cidrBlockType,omitempty"`
-	Ip            string  `json:"ip,omitempty"`
-	InstanceId    *string `json:"instanceId,omitempty"`
-	Status        string  `json:"status,omitempty"`
+	// ID of CIDR block.
+	CidrBlockId string `json:"cidrBlockId,omitempty"`
+
+	// Type of CIDR block. The optional values are as follows:
+	// IPv4
+	// IPv6
+	CidrBlockType string `json:"cidrBlockType,omitempty"`
+
+	// IP address.
+	Ip string `json:"ip,omitempty"`
+
+	// List of instance IDs.
+	InstanceId *string `json:"instanceId,omitempty"`
+
+	// Status of IPs.
+	Status string `json:"status,omitempty"`
 }
 
 type DescribeAvailableIpv4ResourcesRequest struct {
 	*common.BaseRequest
+
+	// CIDR block pricing model.
+	// PREPAID: subscription
+	// POSTPAID: pay-as-you-go
 	ChargeType string `json:"chargeType,omitempty"`
-	ZoneId     string `json:"zoneId,omitempty"`
+
+	// Zone ID to which the CIDR blocks belong.
+	ZoneId string `json:"zoneId,omitempty"`
 }
 
 type DescribeAvailableIpv4ResourcesResponse struct {
 	*common.BaseResponse
-	RequestId string                                        `json:"requestId,omitempty"`
-	Response  *DescribeAvailableIpv4ResourcesResponseParams `json:"response"`
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeAvailableIpv4ResourcesResponseParams `json:"response"`
 }
 
 type DescribeAvailableIpv4ResourcesResponseParams struct {
-	RequestId              string                                         `json:"requestId,omitempty"`
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	// List of available IPv4 CIDR blocks.
 	AvailableIpv4Resources []*DescribeAvailableIpv4ResourcesResponseParam `json:"availableIpv4Resources,omitempty"`
 }
 
 type DescribeAvailableIpv4ResourcesResponseParam struct {
-	ZoneId     string `json:"zoneId,omitempty"`
-	Netmask    int    `json:"netmask,omitempty"`
+	// Zone ID to which the CIDR block belongs.
+	ZoneId string `json:"zoneId,omitempty"`
+
+	// Netmask.
+	Netmask int `json:"netmask,omitempty"`
+
+	// Status for sale.
+	// SELL: available for sale, stock > 10.
+	// SELL_SHORTAGE: available for sale, stock < 10.
+	// SOLD_OUT: sold out.
 	SellStatus string `json:"sellStatus,omitempty"`
 }
 
 type DescribeAvailableIpv6ResourcesRequest struct {
 	*common.BaseRequest
+
+	// Zone ID to which the CIDR blocks belong.
 	ZoneId string `json:"zoneId,omitempty"`
 }
 
 type DescribeAvailableIpv6ResourcesResponse struct {
 	*common.BaseResponse
-	RequestId string                                        `json:"requestId,omitempty"`
-	Response  *DescribeAvailableIpv6ResourcesResponseParams `json:"response"`
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeAvailableIpv6ResourcesResponseParams `json:"response"`
 }
 
 type DescribeAvailableIpv6ResourcesResponseParams struct {
-	RequestId              string                                         `json:"requestId,omitempty"`
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	// List of available IPv6 CIDR blocks.
 	AvailableIpv6Resources []*DescribeAvailableIpv6ResourcesResponseParam `json:"availableIpv6Resources,omitempty"`
 }
 
 type DescribeAvailableIpv6ResourcesResponseParam struct {
-	ZoneId     string `json:"zoneId,omitempty"`
+	// Zone ID to which the CIDR block belongs.
+	ZoneId string `json:"zoneId,omitempty"`
+
+	// Status for sale.
+	// SELL: available for sale, stock > 10.
+	// SELL_SHORTAGE: available for sale, stock < 10.
+	// SOLD_OUT: sold out.
 	SellStatus string `json:"sellStatus,omitempty"`
 }
 
 type DescribeInstanceAvailableCidrBlockRequest struct {
 	*common.BaseRequest
-	InstanceId    string `json:"instanceId,omitempty"`
+
+	// ID of the instance.
+	// You can find the instanceId in the response by calling DescribeInstances.
+	InstanceId string `json:"instanceId,omitempty"`
+
+	// Type of CIDR block. The optional values are as follows:
+	// IPv4
+	// IPv6
 	CidrBlockType string `json:"cidrBlockType,omitempty"`
 }
 
 type DescribeInstanceAvailableCidrBlockResponse struct {
 	*common.BaseResponse
-	RequestId string                                            `json:"requestId,omitempty"`
-	Response  *DescribeInstanceAvailableCidrBlockResponseParams `json:"response"`
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeInstanceAvailableCidrBlockResponseParams `json:"response"`
 }
 
 type DescribeInstanceAvailableCidrBlockResponseParams struct {
-	RequestId                   string                                             `json:"requestId,omitempty"`
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	// List of available CIDR blocks for the instance.
 	InstanceAvailableCidrBlocks []*DescribeInstanceAvailableCidrBlockResponseParam `json:"instanceAvailableCidrBlocks,omitempty"`
 }
 
 type DescribeInstanceAvailableCidrBlockResponseParam struct {
-	CidrBlockId      string   `json:"cidrBlockId,omitempty"`
-	ZoneId           string   `json:"zoneId,omitempty"`
-	CidrBlockType    string   `json:"cidrBlockType,omitempty"`
-	CidrBlock        string   `json:"cidrBlock,omitempty"`
-	AvailableIps     []string `json:"availableIps,omitempty"`
-	AvailableIpCount int      `json:"availableIpCount,omitempty"`
+	// ID of CIDR block.
+	CidrBlockId string `json:"cidrBlockId,omitempty"`
+
+	// Zone ID to which the CIDR block belongs.
+	ZoneId string `json:"zoneId,omitempty"`
+
+	// Type of CIDR block. The optional values are as follows:
+	// IPv4
+	// IPv6
+	CidrBlockType string `json:"cidrBlockType,omitempty"`
+
+	// CIDR block.
+	CidrBlock string `json:"cidrBlock,omitempty"`
+
+	// List of available IPs.
+	AvailableIps []string `json:"availableIps,omitempty"`
+
+	// Quantity of available IPs.
+	AvailableIpCount int `json:"availableIpCount,omitempty"`
 }
 
 type InquiryPriceCreateIpv4BlockRequest struct {
 	*common.BaseRequest
-	ZoneId        string         `json:"zoneId,omitempty"`
-	ChargeType    string         `json:"chargeType,omitempty"`
+
+	// Zone ID to which the CIDR blocks belong.
+	ZoneId string `json:"zoneId,omitempty"`
+
+	// CIDR block pricing model.
+	// PREPAID: subscription
+	// POSTPAID: pay-as-you-go
+	ChargeType string `json:"chargeType,omitempty"`
+
+	// Details of the monthly subscription, including the purchase period, auto-renewal. It is required if the chargeType is PREPAID.
 	ChargePrepaid *ChargePrepaid `json:"chargePrepaid,omitempty"`
-	Netmask       int            `json:"netmask,omitempty"`
-	Amount        *int           `json:"amount,omitempty"`
+
+	// Netmasks you want to purchase.
+	// Value range: [1,32].
+	// You can find the available netmasks in the response by calling DescribeAvailableIpv4Resource.
+	Netmask int `json:"netmask,omitempty"`
+
+	// Quantity of IPv4 CIDR blocks you want to purchase.
+	// Default value: 1.
+	Amount *int `json:"amount,omitempty"`
 }
 
 type InquiryPriceCreateIpv4BlockResponse struct {
 	*common.BaseResponse
-	RequestId string                                    `json:"requestId,omitempty"`
-	Response  *InquiryPriceCreateIpv4BlockResponseParam `json:"response"`
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *InquiryPriceCreateIpv4BlockResponseParam `json:"response"`
 }
 
 type InquiryPriceCreateIpv4BlockResponseParam struct {
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Price     *Price `json:"price,omitempty"`
+
+	// Price of IPv4 CIDR blocks.
+	Price *Price `json:"price,omitempty"`
 }
 
 type CreateIpv4BlockRequest struct {
 	*common.BaseRequest
-	ZoneId          string         `json:"zoneId,omitempty"`
-	Name            string         `json:"name,omitempty"`
-	ChargeType      string         `json:"chargeType,omitempty"`
-	ChargePrepaid   *ChargePrepaid `json:"chargePrepaid,omitempty"`
-	Netmask         int            `json:"netmask,omitempty"`
-	Amount          *int           `json:"amount,omitempty"`
-	ResourceGroupId string         `json:"resourceGroupId,omitempty"`
+
+	// Zone ID to which the CIDR blocks belong.
+	ZoneId string `json:"zoneId,omitempty"`
+
+	// CIDR block name to be displayed.
+	// This parameter can contain up to 64 characters.
+	Name string `json:"name,omitempty"`
+
+	// CIDR block pricing model.
+	// PREPAID: subscription
+	// POSTPAID: pay-as-you-go
+	ChargeType string `json:"chargeType,omitempty"`
+
+	// Details of the monthly subscription, including the purchase period, auto-renewal. It is required if the chargeType is PREPAID.
+	ChargePrepaid *ChargePrepaid `json:"chargePrepaid,omitempty"`
+
+	// Netmasks you want to purchase.
+	// Value range: [1,32].
+	// You can find the available netmasks in the response by calling DescribeAvailableIpv4Resource.
+	Netmask int `json:"netmask,omitempty"`
+
+	// Quantity of IPv4 CIDR blocks you want to purchase.
+	// Default value: 1.
+	Amount *int `json:"amount,omitempty"`
+
+	// Resource group ID where the CIDR blocks reside.
+	// If an available VLAN exists in the specified zone, this parameter will be ignored. The created CIDR blocks will be added to the resource group of the VLAN.
+	ResourceGroupId string `json:"resourceGroupId,omitempty"`
 }
 
 type CreateIpv4BlockResponse struct {
 	*common.BaseResponse
-	RequestId string                        `json:"requestId,omitempty"`
-	Response  *CreateIpv4BlockResponseParam `json:"response"`
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *CreateIpv4BlockResponseParam `json:"response"`
 }
 
 type CreateIpv4BlockResponseParam struct {
-	RequestId    string   `json:"requestId,omitempty"`
-	OrderNumber  string   `json:"orderNumber,omitempty"`
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	// Number of order.
+	OrderNumber string `json:"orderNumber,omitempty"`
+
+	// List of CIDR block IDs.
 	CidrBlockIds []string `json:"cidrBlockIds,omitempty"`
 }
 
 type CreateIpv6BlockRequest struct {
 	*common.BaseRequest
-	ZoneId          string `json:"zoneId,omitempty"`
-	Name            string `json:"name,omitempty"`
-	Amount          *int   `json:"amount,omitempty"`
+
+	// Zone ID to which the CIDR blocks belong.
+	ZoneId string `json:"zoneId,omitempty"`
+
+	// CIDR block name to be displayed.
+	// This parameter can contain up to 64 characters.
+	Name string `json:"name,omitempty"`
+
+	// Quantity of IPv6 CIDR blocks you want to purchase.
+	// Default value: 1.
+	Amount *int `json:"amount,omitempty"`
+
+	// Resource group ID where the CIDR blocks reside.
+	// If an available VLAN exists in the specified zone, this parameter will be ignored. The created CIDR blocks will be added to the resource group of the VLAN.
 	ResourceGroupId string `json:"resourceGroupId,omitempty"`
 }
 
 type CreateIpv6BlockResponse struct {
 	*common.BaseResponse
-	RequestId string                        `json:"requestId,omitempty"`
-	Response  *CreateIpv6BlockResponseParam `json:"response"`
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *CreateIpv6BlockResponseParam `json:"response"`
 }
 
 type CreateIpv6BlockResponseParam struct {
-	RequestId    string   `json:"requestId,omitempty"`
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
 	CidrBlockIds []string `json:"cidrBlockIds,omitempty"`
 }
 
 type ModifyCidrBlocksAttributeRequest struct {
 	*common.BaseRequest
+
+	// CIDR block ID(s).
+	// To obtain the CIDR block IDs, you can call DescribeCidrBlocks and look for cidrBlockId in the response.
+	// The maximum number of CIDR blocks in each request is 100.
 	CidrBlockIds []string `json:"cidrBlockIds,omitempty"`
-	Name         string   `json:"name,omitempty"`
+
+	// CIDR block name to be displayed.
+	// This parameter can contain up to 64 characters.
+	Name string `json:"name,omitempty"`
 }
 
 type ModifyCidrBlocksAttributeResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
 
 type RenewCidrBlockRequest struct {
 	*common.BaseRequest
+
+	// ID of the CIDR block.
+	// You can find the cidrBlockId in the response by calling DescribeCidrBlocks.
 	CidrBlockId string `json:"cidrBlockId,omitempty"`
 }
 
 type RenewCidrBlockResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
 
 type TerminateCidrBlockRequest struct {
 	*common.BaseRequest
+
+	// ID of the CIDR block.
+	// You can find the cidrBlockId in the response by calling DescribeCidrBlocks.
 	CidrBlockId string `json:"cidrBlockId,omitempty"`
 }
 
 type TerminateCidrBlockResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
 
 type ReleaseCidrBlocksRequest struct {
 	*common.BaseRequest
+
+	// CIDR block ID(s).
+	// To obtain the CIDR block IDs, you can call DescribeCidrBlocks and look for cidrBlockId in the response.
+	// The maximum number of CIDR blocks in each request is 100.
 	CidrBlockIds []string `json:"cidrBlockIds,omitempty"`
 }
 
 type ReleaseCidrBlocksResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
 
 type BindCidrBlockIpsRequest struct {
 	*common.BaseRequest
-	CidrBlockId string         `json:"cidrBlockId,omitempty"`
-	IpBindList  []*IpBindParam `json:"ipBindList,omitempty"`
+
+	// ID of the CIDR block.
+	// You can find the cidrBlockId in the response by calling DescribeCidrBlocks.
+	CidrBlockId string `json:"cidrBlockId,omitempty"`
+
+	// List of IPs to be assigned.
+	IpBindList []*IpBindParam `json:"ipBindList,omitempty"`
 }
 
 type IpBindParam struct {
+	// Instance ID.
 	InstanceId string `json:"instanceId,omitempty"`
-	Ip         string `json:"ip,omitempty"`
+
+	// CIDR block IP.
+	// To obtain the CIDR block IP, you can call DescribeInstanceAvailableCidrBlock and look for availableIps in the response.
+	Ip string `json:"ip,omitempty"`
 }
 
 type BindCidrBlockIpsResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
 
 type UnbindCidrBlockIpsRequest struct {
 	*common.BaseRequest
-	CidrBlockId string   `json:"cidrBlockId,omitempty"`
-	IpList      []string `json:"ipList,omitempty"`
+
+	// ID of the CIDR block.
+	// You can find the cidrBlockId in the response by calling DescribeCidrBlocks.
+	CidrBlockId string `json:"cidrBlockId,omitempty"`
+
+	// List of IPs to be unassigned.
+	IpList []string `json:"ipList,omitempty"`
 }
 
 type UnbindCidrBlockIpsResponse struct {
 	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
-	Response  struct {
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
