@@ -505,6 +505,29 @@ func (c *Client) ModifyInstancesResourceGroup(request *ModifyInstancesResourceGr
 	return
 }
 
+func NewDescribeInstanceTrafficRequest() (request *DescribeInstanceTrafficRequest) {
+	request = &DescribeInstanceTrafficRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeInstanceTraffic")
+
+	return
+}
+
+func NewDescribeInstanceTrafficResponse() (response *DescribeInstanceTrafficResponse) {
+	response = &DescribeInstanceTrafficResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeInstanceTraffic
+func (c *Client) DescribeInstanceTraffic(request *DescribeInstanceTrafficRequest) (response *DescribeInstanceTrafficResponse, err error) {
+	response = NewDescribeInstanceTrafficResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewDescribeInstanceInternetStatusRequest() (request *DescribeInstanceInternetStatusRequest) {
 	request = &DescribeInstanceInternetStatusRequest{
 		BaseRequest: &common.BaseRequest{},

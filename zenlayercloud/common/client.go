@@ -12,6 +12,7 @@ import (
 	"net/http/httputil"
 	"net/url"
 	"os"
+	"regexp"
 	"strconv"
 	"time"
 )
@@ -28,6 +29,7 @@ type Client struct {
 	config             *Config
 	debug              bool
 	signatureAlgorithm string
+	requestClient      string
 }
 
 func (c *Client) InitWithCredential(credential *Credential) (err error) {
@@ -77,6 +79,27 @@ func (c *Client) WithConfig(config *Config) error {
 	return nil
 }
 
+func (c *Client) WithRequestClient(rc string) *Client {
+	const reRequestClient = "^[0-9a-zA-Z-_ ,;.]+$"
+
+	if len(rc) > 128 {
+		c.logger.Println("the length of RequestClient should be within 128 characters, it will be truncated")
+		rc = rc[:128]
+	}
+
+	match, err := regexp.MatchString(reRequestClient, rc)
+	if err != nil {
+		c.logger.Println("regexp is wrong", reRequestClient)
+		return c
+	}
+	if !match {
+		c.logger.Printf("RequestClient not match the regexp: %s, ignored", reRequestClient)
+		return c
+	}
+	c.requestClient = rc
+	return c
+}
+
 func (c *Client) ApiCall(request Request, response Response) (err error) {
 	// client validation
 	//err = Validate(request)
@@ -98,6 +121,10 @@ func (c *Client) ApiCall(request Request, response Response) (err error) {
 	headers["x-zc-sdk-version"] = version
 	headers["x-zc-sdk-lang"] = SdkLang
 	headers["Host"] = request.GetDomain()
+	if c.requestClient != "" {
+		headers["x-zc-request-client"] = c.requestClient
+	}
+
 	request.SetContentType("application/json")
 
 	body, err := json.Marshal(request)

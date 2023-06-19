@@ -90,6 +90,28 @@ func NewDescribeZonesResponse() (response *DescribeZonesResponse) {
 	return
 }
 
+func NewDescribeImageRequest() (request *DescribeImageRequest) {
+	request = &DescribeImageRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeImage")
+
+	return
+}
+
+func (c *Client) DescribeImage(request *DescribeImageRequest) (response *DescribeImageResponse, err error) {
+	response = NewDescribeImageResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeImageResponse() (response *DescribeImageResponse) {
+	response = &DescribeImageResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
 func NewDescribeImagesRequest() (request *DescribeImagesRequest) {
 	request = &DescribeImagesRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -1078,6 +1100,28 @@ func (c *Client) ModifyDisksAttributes(request *ModifyDisksAttributesRequest) (r
 	return
 }
 
+func NewModifyDisksResourceGroupRequest() (request *ModifyDisksResourceGroupRequest) {
+	request = &ModifyDisksResourceGroupRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyDisksResourceGroup")
+
+	return
+}
+
+func NewModifyDisksResourceGroupResponse() (response *ModifyDisksResourceGroupResponse) {
+	response = &ModifyDisksResourceGroupResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) ModifyDisksResourceGroup(request *ModifyDisksResourceGroupRequest) (response *ModifyDisksResourceGroupResponse, err error) {
+	response = NewModifyDisksResourceGroupResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewInquiryPriceCreateDisksRequest() (request *InquiryPriceCreateDisksRequest) {
 	request = &InquiryPriceCreateDisksRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -1162,6 +1206,28 @@ func NewRenewDiskResponse() (response *RenewDiskResponse) {
 
 func (c *Client) RenewDisk(request *RenewDiskRequest) (response *RenewDiskResponse, err error) {
 	response = NewRenewDiskResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeDiskCategoryRequest() (request *DescribeDiskCategoryRequest) {
+	request = &DescribeDiskCategoryRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeDiskCategory")
+
+	return
+}
+
+func NewDescribeDiskCategoryResponse() (response *DescribeDiskCategoryResponse) {
+	response = &DescribeDiskCategoryResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) DescribeDiskCategory(request *DescribeDiskCategoryRequest) (response *DescribeDiskCategoryResponse, err error) {
+	response = NewDescribeDiskCategoryResponse()
 	err = c.ApiCall(request, response)
 	return
 }
