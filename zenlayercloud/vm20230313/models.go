@@ -66,6 +66,11 @@ type ZoneInfo struct {
 	ZoneName string `json:"zoneName,omitempty"`
 }
 
+type DescribeImageRequest struct {
+	*common.BaseRequest
+	ImageId string `json:"imageId,omitempty"`
+}
+
 type DescribeImagesRequest struct {
 	*common.BaseRequest
 
@@ -115,6 +120,15 @@ type DescribeImagesRequest struct {
 	PageSize int `json:"pageSize,omitempty"`
 }
 
+type DescribeImageResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeImageResponseParams `json:"response"`
+}
+
 type DescribeImagesResponse struct {
 	*common.BaseResponse
 
@@ -122,6 +136,52 @@ type DescribeImagesResponse struct {
 	RequestId string `json:"requestId,omitempty"`
 
 	Response *DescribeImagesResponseParams `json:"response"`
+}
+
+type DescribeImageResponseParams struct {
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	// Image ID.
+	ImageId string `json:"imageId,omitempty"`
+
+	// Image name.
+	ImageName string `json:"imageName,omitempty"`
+
+	// Image type.
+	// PUBLIC_IMAGE: the default images.
+	// CUSTOM_IMAGE: the newly created images by yourself.
+	ImageType string `json:"imageType,omitempty"`
+
+	// Image size.
+	// Unit: GB.
+	ImageSize string `json:"imageSize,omitempty"`
+
+	// Image description.
+	ImageDescription string `json:"imageDescription,omitempty"`
+
+	// Image version.
+	ImageVersion string `json:"imageVersion,omitempty"`
+
+	// Image status.
+	// CREATING: creating.
+	// AVAILABLE: able to use.
+	// UNAVAILABLE: unable to use.
+	ImageStatus string `json:"imageStatus,omitempty"`
+
+	// Image category.
+	// Available values:
+	// CentOS
+	// Windows
+	// Ubuntu
+	// Debian
+	Category string `json:"category,omitempty"`
+
+	// Operating system type.
+	// Available values:
+	// Windows
+	// Linux
+	OsType string `json:"osType,omitempty"`
 }
 
 type DescribeImagesResponseParams struct {
@@ -844,15 +904,22 @@ type InstanceInfo struct {
 }
 
 type SystemDisk struct {
-	DiskId   string `json:"diskId,omitempty"`
-	DiskSize int    `json:"diskSize,omitempty"`
+	DiskId       string `json:"diskId,omitempty"`
+	DiskSize     int    `json:"diskSize,omitempty"`
+	DiskCategory string `json:"diskCategory,omitempty"`
 }
 
 type DataDisk struct {
-	DiskId   string `json:"diskId,omitempty"`
-	DiskSize int    `json:"diskSize,omitempty"`
-	DiskName string `json:"diskName,omitempty"`
-	Portable bool   `json:"portable,omitempty"`
+	DiskId       string `json:"diskId,omitempty"`
+	DiskSize     int    `json:"diskSize,omitempty"`
+	DiskName     string `json:"diskName,omitempty"`
+	Portable     bool   `json:"portable,omitempty"`
+	DiskCategory string `json:"diskCategory,omitempty"`
+}
+
+type DiskCategory struct {
+	ZoneId      string   `json:"zoneId,omitempty"`
+	CategorySet []string `json:"categorySet,omitempty"`
 }
 
 type DescribeInstancesStatusRequest struct {
@@ -1018,6 +1085,7 @@ type CreateDisksRequest struct {
 	ChargePrepaid   *ChargePrepaid `json:"chargePrepaid,omitempty"`
 	DiskName        string         `json:"diskName,omitempty"`
 	DiskSize        *int           `json:"diskSize,omitempty"`
+	DiskCategory    string         `json:"diskCategory,omitempty"`
 	InstanceId      string         `json:"instanceId,omitempty"`
 	ZoneId          string         `json:"zoneId,omitempty"`
 	DiskAmount      *int           `json:"diskAmount,omitempty"`
@@ -1038,16 +1106,17 @@ type CreateDiskResponseParams struct {
 
 type DescribeDisksRequest struct {
 	*common.BaseRequest
-	DiskIds    []string `json:"diskIds,omitempty"`
-	DiskName   string   `json:"diskName,omitempty"`
-	DiskStatus string   `json:"diskStatus,omitempty"`
-	DiskType   string   `json:"diskType,omitempty"`
-	DiskSize   *int     `json:"diskSize,omitempty"`
-	Portable   *bool    `json:"portable,omitempty"`
-	InstanceId string   `json:"instanceId,omitempty"`
-	ZoneId     string   `json:"zoneId,omitempty"`
-	PageSize   int      `json:"pageSize,omitempty"`
-	PageNum    int      `json:"pageNum,omitempty"`
+	DiskIds      []string `json:"diskIds,omitempty"`
+	DiskName     string   `json:"diskName,omitempty"`
+	DiskStatus   string   `json:"diskStatus,omitempty"`
+	DiskType     string   `json:"diskType,omitempty"`
+	DiskSize     *int     `json:"diskSize,omitempty"`
+	DiskCategory string   `json:"diskCategory,omitempty"`
+	Portable     *bool    `json:"portable,omitempty"`
+	InstanceId   string   `json:"instanceId,omitempty"`
+	ZoneId       string   `json:"zoneId,omitempty"`
+	PageSize     int      `json:"pageSize,omitempty"`
+	PageNum      int      `json:"pageNum,omitempty"`
 }
 
 type DiskStatus struct {
@@ -1138,6 +1207,20 @@ type ModifyDisksAttributesResponse struct {
 	} `json:"response"`
 }
 
+type ModifyDisksResourceGroupRequest struct {
+	*common.BaseRequest
+	DiskIds         []string `json:"diskIds,omitempty"`
+	ResourceGroupId string   `json:"resourceGroupId,omitempty"`
+}
+
+type ModifyDisksResourceGroupResponse struct {
+	*common.BaseResponse
+	RequestId string `json:"requestId,omitempty"`
+	Response  struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response"`
+}
+
 type InquiryPriceCreateDisksRequest struct {
 	*common.BaseRequest
 	ZoneId        string         `json:"zoneId,omitempty"`
@@ -1145,6 +1228,7 @@ type InquiryPriceCreateDisksRequest struct {
 	DiskAmount    *int           `json:"diskAmount,omitempty"`
 	ChargeType    string         `json:"chargeType,omitempty"`
 	ChargePrepaid *ChargePrepaid `json:"chargePrepaid,omitempty"`
+	DiskCategory  string         `json:"diskCategory,omitempty"`
 }
 
 type InquiryPriceCreateDisksResponse struct {
@@ -1198,6 +1282,24 @@ type RenewDiskResponse struct {
 type RenewDiskResponseParams struct {
 	RequestId   string `json:"requestId,omitempty"`
 	OrderNumber string `json:"orderNumber,omitempty"`
+}
+
+type DescribeDiskCategoryRequest struct {
+	*common.BaseRequest
+	ZoneId             string `json:"zoneId,omitempty"`
+	InstanceChargeType string `json:"instanceChargeType,omitempty"`
+	DiskCategory       string `json:"diskCategory,omitempty"`
+}
+
+type DescribeDiskCategoryResponse struct {
+	*common.BaseResponse
+	RequestId string                              `json:"requestId,omitempty"`
+	Response  *DescribeDiskCategoryResponseParams `json:"response"`
+}
+
+type DescribeDiskCategoryResponseParams struct {
+	RequestId       string         `json:"requestId,omitempty"`
+	CategoryZoneSet []DiskCategory `json:"categoryZoneSet,omitempty"`
 }
 
 type CreateSubnetRequest struct {
@@ -1278,6 +1380,7 @@ type SubnetInfo struct {
 	SubnetDescription string   `json:"subnetDescription,omitempty"`
 	SubnetStatus      string   `json:"subnetStatus,omitempty"`
 	CidrBlock         string   `json:"cidrBlock,omitempty"`
+	CidrBlockList     []string `json:"cidrBlockList,omitempty"`
 	UsageIpCount      int      `json:"usageIpCount,omitempty"`
 	TotalIpCount      int      `json:"totalIpCount,omitempty"`
 	CreateTime        string   `json:"createTime,omitempty"`

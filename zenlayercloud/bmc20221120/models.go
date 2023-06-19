@@ -927,6 +927,70 @@ type ModifyInstancesResourceGroupResponse struct {
 	} `json:"response"`
 }
 
+type DescribeInstanceTrafficRequest struct {
+	*common.BaseRequest
+
+	InstanceId string `json:"instanceId,omitempty"`
+
+	StartTime string `json:"startTime,omitempty"`
+
+	EndTime string `json:"endTime,omitempty"`
+}
+
+type DescribeInstanceTrafficResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *InstanceTrafficDataResponse `json:"response"`
+}
+
+type InstanceTrafficDataResponse struct {
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	DataList []*InstanceTrafficData `json:"dataList,omitempty"`
+
+	In95 float64 `json:"in95,omitempty"`
+
+	In95Time string `json:"in95Time,omitempty"`
+
+	InAvg float64 `json:"inAvg,omitempty"`
+
+	InMax float64 `json:"inMax,omitempty"`
+
+	InMin float64 `json:"inMin,omitempty"`
+
+	InTotal float64 `json:"inTotal,omitempty"`
+
+	MaxBandwidth95ValueMbps float64 `json:"maxBandwidth95ValueMbps,omitempty"`
+
+	Out95 float64 `json:"out95,omitempty"`
+
+	Out95Time string `json:"out95Time,omitempty"`
+
+	OutAvg float64 `json:"outAvg,omitempty"`
+
+	OutMax float64 `json:"outMax,omitempty"`
+
+	OutMin float64 `json:"outMin,omitempty"`
+
+	OutTotal float64 `json:"outTotal,omitempty"`
+
+	TotalUnit string `json:"totalUnit,omitempty"`
+
+	Unit string `json:"unit,omitempty"`
+}
+
+type InstanceTrafficData struct {
+	InternetRX float64 `json:"internetRX,omitempty"`
+
+	InternetTX float64 `json:"internetTX,omitempty"`
+
+	Time string `json:"time,omitempty"`
+}
+
 type InquiryPriceCreateInstanceRequest struct {
 	*common.BaseRequest
 
