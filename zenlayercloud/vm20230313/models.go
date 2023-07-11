@@ -901,6 +901,7 @@ type InstanceInfo struct {
 	SecurityGroupIds        []string    `json:"securityGroupIds,omitempty"`
 	SystemDisk              *SystemDisk `json:"systemDisk,omitempty"`
 	DataDisks               []*DataDisk `json:"dataDisks,omitempty"`
+	AutoRenew               bool        `json:"autoRenew,omitempty"`
 }
 
 type SystemDisk struct {
@@ -1079,6 +1080,103 @@ type DescribeInstanceInternetStatusResponseParams struct {
 	ModifiedTrafficPackageStatus    string   `json:"modifiedTrafficPackageStatus,omitempty"`
 }
 
+type DescribeInstanceTrafficRequest struct {
+	*common.BaseRequest
+
+	InstanceId string `json:"instanceId,omitempty"`
+
+	StartTime string `json:"startTime,omitempty"`
+
+	EndTime string `json:"endTime,omitempty"`
+}
+
+type DescribeInstanceTrafficResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *InstanceTrafficDataResponse `json:"response"`
+}
+
+type InstanceTrafficDataResponse struct {
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	DataList []*InstanceTrafficData `json:"dataList,omitempty"`
+
+	In95 int64 `json:"in95,omitempty"`
+
+	In95Time string `json:"in95Time,omitempty"`
+
+	InAvg int64 `json:"inAvg,omitempty"`
+
+	InMax int64 `json:"inMax,omitempty"`
+
+	InMin int64 `json:"inMin,omitempty"`
+
+	InTotal int64 `json:"inTotal,omitempty"`
+
+	MaxBandwidth95ValueMbps float64 `json:"maxBandwidth95ValueMbps,omitempty"`
+
+	Out95 int64 `json:"out95,omitempty"`
+
+	Out95Time string `json:"out95Time,omitempty"`
+
+	OutAvg int64 `json:"outAvg,omitempty"`
+
+	OutMax int64 `json:"outMax,omitempty"`
+
+	OutMin int64 `json:"outMin,omitempty"`
+
+	OutTotal int64 `json:"outTotal,omitempty"`
+
+	TotalUnit string `json:"totalUnit,omitempty"`
+
+	Unit string `json:"unit,omitempty"`
+}
+
+type InstanceTrafficData struct {
+	InternetRX int64 `json:"internetRX,omitempty"`
+
+	InternetTX int64 `json:"internetTX,omitempty"`
+
+	Time string `json:"time,omitempty"`
+}
+
+type DescribeInstanceCpuMonitorRequest struct {
+	*common.BaseRequest
+
+	InstanceId string `json:"instanceId,omitempty"`
+
+	StartTime string `json:"startTime,omitempty"`
+
+	EndTime string `json:"endTime,omitempty"`
+}
+
+type DescribeInstanceCpuMonitorResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *InstanceCpuMonitorResponse `json:"response"`
+}
+
+type InstanceCpuMonitorResponse struct {
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	DataList []*InstanceCpuMonitorData `json:"dataList,omitempty"`
+}
+
+type InstanceCpuMonitorData struct {
+	Cpu string `json:"cpu,omitempty"`
+
+	Time string `json:"time,omitempty"`
+}
+
 type CreateDisksRequest struct {
 	*common.BaseRequest
 	ChargeType      string         `json:"chargeType,omitempty"`
@@ -1150,6 +1248,7 @@ type DiskInfo struct {
 	CreateTime   string `json:"createTime,omitempty"`
 	ExpiredTime  string `json:"expiredTime,omitempty"`
 	Period       *int   `json:"period,omitempty"`
+	AutoRenew    bool   `json:"autoRenew,omitempty"`
 }
 
 type AttachDisksRequest struct {
