@@ -635,6 +635,9 @@ type InstanceInfo struct {
 
 	// NIC configuration.
 	Nic *Nic `json:"nic,omitempty"`
+
+	// 是否自动续费.
+	AutoRenew bool `json:"autoRenew,omitempty"`
 }
 
 type DescribeInstancesResponseParams struct {
@@ -952,31 +955,31 @@ type InstanceTrafficDataResponse struct {
 
 	DataList []*InstanceTrafficData `json:"dataList,omitempty"`
 
-	In95 float64 `json:"in95,omitempty"`
+	In95 int64 `json:"in95,omitempty"`
 
 	In95Time string `json:"in95Time,omitempty"`
 
-	InAvg float64 `json:"inAvg,omitempty"`
+	InAvg int64 `json:"inAvg,omitempty"`
 
-	InMax float64 `json:"inMax,omitempty"`
+	InMax int64 `json:"inMax,omitempty"`
 
-	InMin float64 `json:"inMin,omitempty"`
+	InMin int64 `json:"inMin,omitempty"`
 
-	InTotal float64 `json:"inTotal,omitempty"`
+	InTotal int64 `json:"inTotal,omitempty"`
 
 	MaxBandwidth95ValueMbps float64 `json:"maxBandwidth95ValueMbps,omitempty"`
 
-	Out95 float64 `json:"out95,omitempty"`
+	Out95 int64 `json:"out95,omitempty"`
 
 	Out95Time string `json:"out95Time,omitempty"`
 
-	OutAvg float64 `json:"outAvg,omitempty"`
+	OutAvg int64 `json:"outAvg,omitempty"`
 
-	OutMax float64 `json:"outMax,omitempty"`
+	OutMax int64 `json:"outMax,omitempty"`
 
-	OutMin float64 `json:"outMin,omitempty"`
+	OutMin int64 `json:"outMin,omitempty"`
 
-	OutTotal float64 `json:"outTotal,omitempty"`
+	OutTotal int64 `json:"outTotal,omitempty"`
 
 	TotalUnit string `json:"totalUnit,omitempty"`
 
@@ -984,9 +987,9 @@ type InstanceTrafficDataResponse struct {
 }
 
 type InstanceTrafficData struct {
-	InternetRX float64 `json:"internetRX,omitempty"`
+	InternetRX int64 `json:"internetRX,omitempty"`
 
-	InternetTX float64 `json:"internetTX,omitempty"`
+	InternetTX int64 `json:"internetTX,omitempty"`
 
 	Time string `json:"time,omitempty"`
 }
