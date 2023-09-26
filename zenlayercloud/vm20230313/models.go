@@ -64,6 +64,11 @@ type ZoneInfo struct {
 
 	// Zone name.
 	ZoneName string `json:"zoneName,omitempty"`
+
+	// Zone support securityGroup.
+	SupportSecurityGroup bool `json:"supportSecurityGroup,omitempty"`
+
+	SupportNetworkType string `json:"supportNetworkType,omitempty"`
 }
 
 type DescribeImageRequest struct {
@@ -400,12 +405,6 @@ type RuleInfo struct {
 	// Only accept strategy is supported for now.
 	Policy string `json:"policy,omitempty"`
 
-	// Priority of rules.
-	// Available values:
-	// [1,100].
-	// Default value: 1.
-	Priority int `json:"priority,omitempty"`
-
 	// Transport protocol. The value is case sensitive.
 	// Available value:
 	// tcp: TCP protocol.
@@ -574,7 +573,6 @@ type AuthorizeSecurityGroupRuleRequest struct {
 	SecurityGroupId string `json:"securityGroupId,omitempty"`
 	Direction       string `json:"direction,omitempty"`
 	Policy          string `json:"policy,omitempty"`
-	Priority        int    `json:"priority,omitempty"`
 	IpProtocol      string `json:"ipProtocol,omitempty"`
 	PortRange       string `json:"portRange,omitempty"`
 	CidrIp          string `json:"cidrIp,omitempty"`
@@ -1177,6 +1175,74 @@ type InstanceCpuMonitorData struct {
 	Time string `json:"time,omitempty"`
 }
 
+type ModifyInstanceTypeRequest struct {
+	*common.BaseRequest
+
+	InstanceId string `json:"instanceId,omitempty"`
+
+	InstanceTypeId string `json:"instanceTypeId,omitempty"`
+}
+
+type ModifyInstanceTypeResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *ModifyInstanceTypeResponseParams `json:"response"`
+}
+
+type ModifyInstanceTypeResponseParams struct {
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	OrderNumber string `json:"orderNumber,omitempty"`
+}
+
+type CancelInstanceDowngradeRequest struct {
+	*common.BaseRequest
+
+	InstanceId string `json:"instanceId,omitempty"`
+}
+
+type CancelInstanceDowngradeResponse struct {
+	*common.BaseResponse
+	RequestId string `json:"requestId,omitempty"`
+	Response  struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response"`
+}
+
+type DescribeInstanceTypeStatusRequest struct {
+	*common.BaseRequest
+
+	InstanceId string `json:"instanceId,omitempty"`
+}
+
+type DescribeInstanceTypeStatusResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeInstanceTypeStatusResponseParams `json:"response"`
+}
+
+type DescribeInstanceTypeStatusResponseParams struct {
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	InstanceId string `json:"instanceId,omitempty"`
+
+	InstanceName string `json:"instanceName,omitempty"`
+
+	InstanceType string `json:"instanceType,omitempty"`
+
+	ModifiedInstanceType string `json:"modifiedInstanceType,omitempty"`
+
+	ModifiedInstanceTypeStatus string `json:"modifiedInstanceTypeStatus,omitempty"`
+}
+
 type CreateDisksRequest struct {
 	*common.BaseRequest
 	ChargeType      string         `json:"chargeType,omitempty"`
@@ -1401,12 +1467,173 @@ type DescribeDiskCategoryResponseParams struct {
 	CategoryZoneSet []DiskCategory `json:"categoryZoneSet,omitempty"`
 }
 
+type CreateVpcRequest struct {
+	*common.BaseRequest
+	ZoneId          string `json:"zoneId,omitempty"`
+	VpcName         string `json:"vpcName,omitempty"`
+	VpcCidrBlock    string `json:"vpcCidrBlock,omitempty"`
+	SubnetName      string `json:"subnetName,omitempty"`
+	SubnetCidrBlock string `json:"subnetCidrBlock,omitempty"`
+}
+
+type CreateVpcResponse struct {
+	*common.BaseResponse
+	RequestId string                   `json:"requestId,omitempty"`
+	Response  *CreateVpcResponseParams `json:"response"`
+}
+
+type CreateVpcResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+	VpcId     string `json:"vpcId,omitempty"`
+}
+
+type DeleteVpcRequest struct {
+	*common.BaseRequest
+	VpcId string `json:"vpcId,omitempty"`
+}
+
+type DeleteVpcResponse struct {
+	*common.BaseResponse
+	RequestId string `json:"requestId,omitempty"`
+	Response  struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response"`
+}
+
+type ModifyVpcsAttributeRequest struct {
+	*common.BaseRequest
+	VpcIds  []string `json:"vpcIds,omitempty"`
+	VpcName string   `json:"vpcName,omitempty"`
+}
+
+type ModifyVpcsAttributeResponse struct {
+	*common.BaseResponse
+	RequestId string `json:"requestId,omitempty"`
+	Response  struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response"`
+}
+
+type DescribeVpcsRequest struct {
+	*common.BaseRequest
+	VpcIds    []string `json:"vpcIds,omitempty"`
+	CidrBlock string   `json:"cidrBlock,omitempty"`
+	ZoneId    string   `json:"zoneId,omitempty"`
+	VpcStatus string   `json:"vpcStatus,omitempty"`
+	VpcName   string   `json:"vpcName,omitempty"`
+	PageSize  int      `json:"pageSize,omitempty"`
+	PageNum   int      `json:"pageNum,omitempty"`
+}
+
+type DescribeVpcsResponse struct {
+	*common.BaseResponse
+	RequestId string                      `json:"requestId,omitempty"`
+	Response  *DescribeVpcsResponseParams `json:"response"`
+}
+
+type DescribeVpcsResponseParams struct {
+	RequestId  string            `json:"requestId,omitempty"`
+	DataSet    []*VpcNetworkInfo `json:"dataSet,omitempty"`
+	TotalCount int               `json:"totalCount,omitempty"`
+}
+
+type VpcNetworkInfo struct {
+	VpcId        string   `json:"vpcId,omitempty"`
+	ZoneId       string   `json:"zoneId,omitempty"`
+	VpcName      string   `json:"vpcName,omitempty"`
+	VpcStatus    string   `json:"vpcStatus,omitempty"`
+	CidrBlock    string   `json:"cidrBlock,omitempty"`
+	SubnetIdList []string `json:"subnetIdList,omitempty"`
+	CreateTime   string   `json:"createTime,omitempty"`
+	IsDefault    bool     `json:"isDefault,omitempty"`
+}
+
+type CreateVpcSubnetRequest struct {
+	*common.BaseRequest
+	CidrBlock  string `json:"cidrBlock,omitempty"`
+	SubnetName string `json:"subnetName,omitempty"`
+	VpcId      string `json:"vpcId,omitempty"`
+}
+
+type CreateVpcSubnetResponse struct {
+	*common.BaseResponse
+	RequestId string                         `json:"requestId,omitempty"`
+	Response  *CreateVpcSubnetResponseParams `json:"response"`
+}
+
+type CreateVpcSubnetResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+	SubnetId  string `json:"subnetId,omitempty"`
+}
+
+type DeleteVpcSubnetRequest struct {
+	*common.BaseRequest
+	SubnetId string `json:"subnetId,omitempty"`
+}
+
+type DeleteVpcSubnetResponse struct {
+	*common.BaseResponse
+	RequestId string `json:"requestId,omitempty"`
+	Response  struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response"`
+}
+
+type ModifyVpcSubnetsAttributeRequest struct {
+	*common.BaseRequest
+	SubnetIds  []string `json:"subnetIds,omitempty"`
+	SubnetName string   `json:"subnetName,omitempty"`
+}
+
+type ModifyVpcSubnetsAttributeResponse struct {
+	*common.BaseResponse
+	RequestId string `json:"requestId,omitempty"`
+	Response  struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response"`
+}
+
+type DescribeVpcSubnetsRequest struct {
+	*common.BaseRequest
+	SubnetIds    []string `json:"subnetIds,omitempty"`
+	CidrBlock    string   `json:"cidrBlock,omitempty"`
+	VpcId        string   `json:"vpcId,omitempty"`
+	SubnetStatus string   `json:"subnetStatus,omitempty"`
+	SubnetName   string   `json:"subnetName,omitempty"`
+	PageSize     int      `json:"pageSize,omitempty"`
+	PageNum      int      `json:"pageNum,omitempty"`
+}
+
+type DescribeVpcSubnetsResponse struct {
+	*common.BaseResponse
+	RequestId string                            `json:"requestId,omitempty"`
+	Response  *DescribeVpcSubnetsResponseParams `json:"response"`
+}
+
+type DescribeVpcSubnetsResponseParams struct {
+	RequestId  string           `json:"requestId,omitempty"`
+	DataSet    []*VpcSubnetInfo `json:"dataSet,omitempty"`
+	TotalCount int              `json:"totalCount,omitempty"`
+}
+
+type VpcSubnetInfo struct {
+	SubnetId       string   `json:"subnetId,omitempty"`
+	VpcId          string   `json:"vpcId,omitempty"`
+	SubnetName     string   `json:"subnetName,omitempty"`
+	SubnetStatus   string   `json:"subnetStatus,omitempty"`
+	CidrBlock      string   `json:"cidrBlock,omitempty"`
+	InstanceIdList []string `json:"instanceIdList,omitempty"`
+	CreateTime     string   `json:"createTime,omitempty"`
+	UsageIpCount   int      `json:"usageIpCount,omitempty"`
+	TotalIpCount   int      `json:"totalIpCount,omitempty"`
+	IsDefault      bool     `json:"isDefault,omitempty"`
+}
+
 type CreateSubnetRequest struct {
 	*common.BaseRequest
-	CidrBlock         string `json:"cidrBlock,omitempty"`
-	SubnetName        string `json:"subnetName,omitempty"`
-	SubnetDescription string `json:"subnetDescription,omitempty"`
-	ZoneId            string `json:"zoneId,omitempty"`
+	CidrBlock  string `json:"cidrBlock,omitempty"`
+	SubnetName string `json:"subnetName,omitempty"`
+	ZoneId     string `json:"zoneId,omitempty"`
 }
 
 type CreateSubnetResponse struct {
