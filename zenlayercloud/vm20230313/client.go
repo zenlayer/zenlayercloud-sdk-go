@@ -1012,6 +1012,75 @@ func (c *Client) DescribeInstanceCpuMonitor(request *DescribeInstanceCpuMonitorR
 	return
 }
 
+func NewModifyInstanceTypeRequest() (request *ModifyInstanceTypeRequest) {
+	request = &ModifyInstanceTypeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyInstanceType")
+
+	return
+}
+
+func NewModifyInstanceTypeResponse() (response *ModifyInstanceTypeResponse) {
+	response = &ModifyInstanceTypeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyInstanceType
+func (c *Client) ModifyInstanceType(request *ModifyInstanceTypeRequest) (response *ModifyInstanceTypeResponse, err error) {
+	response = NewModifyInstanceTypeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewCancelInstanceDowngradeRequest() (request *CancelInstanceDowngradeRequest) {
+	request = &CancelInstanceDowngradeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CancelInstanceDowngrade")
+
+	return
+}
+
+func NewCancelInstanceDowngradeResponse() (response *CancelInstanceDowngradeResponse) {
+	response = &CancelInstanceDowngradeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CancelInstanceDowngrade
+func (c *Client) CancelInstanceDowngrade(request *CancelInstanceDowngradeRequest) (response *CancelInstanceDowngradeResponse, err error) {
+	response = NewCancelInstanceDowngradeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeInstanceTypeStatusRequest() (request *DescribeInstanceTypeStatusRequest) {
+	request = &DescribeInstanceTypeStatusRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeInstanceTypeStatus")
+
+	return
+}
+
+func NewDescribeInstanceTypeStatusResponse() (response *DescribeInstanceTypeStatusResponse) {
+	response = &DescribeInstanceTypeStatusResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeInstanceTypeStatus
+func (c *Client) DescribeInstanceTypeStatus(request *DescribeInstanceTypeStatusRequest) (response *DescribeInstanceTypeStatusResponse, err error) {
+	response = NewDescribeInstanceTypeStatusResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 //////////////////////////// Disk //////////////////////////////
 
 func NewCreateDisksRequest() (request *CreateDisksRequest) {
@@ -1274,6 +1343,184 @@ func NewDescribeDiskCategoryResponse() (response *DescribeDiskCategoryResponse) 
 
 func (c *Client) DescribeDiskCategory(request *DescribeDiskCategoryRequest) (response *DescribeDiskCategoryResponse, err error) {
 	response = NewDescribeDiskCategoryResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+//////////////////////////// VPC Subnet //////////////////////////////
+
+func NewCreateVpcRequest() (request *CreateVpcRequest) {
+	request = &CreateVpcRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateVpc")
+
+	return
+}
+
+func NewCreateVpcResponse() (response *CreateVpcResponse) {
+	response = &CreateVpcResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) CreateVpc(request *CreateVpcRequest) (response *CreateVpcResponse, err error) {
+	response = NewCreateVpcResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteVpcRequest() (request *DeleteVpcRequest) {
+	request = &DeleteVpcRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteVpc")
+
+	return
+}
+
+func NewDeleteVpcResponse() (response *DeleteVpcResponse) {
+	response = &DeleteVpcResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) DeleteVpc(request *DeleteVpcRequest) (response *DeleteVpcResponse, err error) {
+	response = NewDeleteVpcResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyVpcsAttributeRequest() (request *ModifyVpcsAttributeRequest) {
+	request = &ModifyVpcsAttributeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyVpcsAttribute")
+
+	return
+}
+
+func NewModifyVpcsAttributeResponse() (response *ModifyVpcsAttributeResponse) {
+	response = &ModifyVpcsAttributeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) ModifyVpcsAttribute(request *ModifyVpcsAttributeRequest) (response *ModifyVpcsAttributeResponse, err error) {
+	response = NewModifyVpcsAttributeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeVpcsRequest() (request *DescribeVpcsRequest) {
+	request = &DescribeVpcsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeVpcs")
+
+	return
+}
+
+func NewDescribeVpcsResponse() (response *DescribeVpcsResponse) {
+	response = &DescribeVpcsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) DescribeVpcs(request *DescribeVpcsRequest) (response *DescribeVpcsResponse, err error) {
+	response = NewDescribeVpcsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewCreateVpcSubnetRequest() (request *CreateVpcSubnetRequest) {
+	request = &CreateVpcSubnetRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateVpcSubnet")
+
+	return
+}
+
+func NewCreateVpcSubnetResponse() (response *CreateVpcSubnetResponse) {
+	response = &CreateVpcSubnetResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) CreateVpcSubnet(request *CreateVpcSubnetRequest) (response *CreateVpcSubnetResponse, err error) {
+	response = NewCreateVpcSubnetResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteVpcSubnetRequest() (request *DeleteVpcSubnetRequest) {
+	request = &DeleteVpcSubnetRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteVpcSubnet")
+
+	return
+}
+
+func NewDeleteVpcSubnetResponse() (response *DeleteVpcSubnetResponse) {
+	response = &DeleteVpcSubnetResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) DeleteVpcSubnet(request *DeleteVpcSubnetRequest) (response *DeleteVpcSubnetResponse, err error) {
+	response = NewDeleteVpcSubnetResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyVpcSubnetsAttributeRequest() (request *ModifyVpcSubnetsAttributeRequest) {
+	request = &ModifyVpcSubnetsAttributeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyVpcSubnetsAttribute")
+
+	return
+}
+
+func NewModifyVpcSubnetsAttributeResponse() (response *ModifyVpcSubnetsAttributeResponse) {
+	response = &ModifyVpcSubnetsAttributeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) ModifyVpcSubnetsAttribute(request *ModifyVpcSubnetsAttributeRequest) (response *ModifyVpcSubnetsAttributeResponse, err error) {
+	response = NewModifyVpcSubnetsAttributeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeVpcSubnetsRequest() (request *DescribeVpcSubnetsRequest) {
+	request = &DescribeVpcSubnetsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeVpcSubnets")
+
+	return
+}
+
+func NewDescribeVpcSubnetsResponse() (response *DescribeVpcSubnetsResponse) {
+	response = &DescribeVpcSubnetsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) DescribeVpcSubnets(request *DescribeVpcSubnetsRequest) (response *DescribeVpcSubnetsResponse, err error) {
+	response = NewDescribeVpcSubnetsResponse()
 	err = c.ApiCall(request, response)
 	return
 }
