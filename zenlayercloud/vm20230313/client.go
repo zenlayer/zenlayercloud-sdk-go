@@ -1614,3 +1614,91 @@ func (c *Client) DescribeSubnets(request *DescribeSubnetsRequest) (response *Des
 	err = c.ApiCall(request, response)
 	return
 }
+
+func NewDescribeKeyPairsRequest() (request *DescribeKeyPairsRequest) {
+	request = &DescribeKeyPairsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeKeyPairs")
+
+	return
+}
+
+func NewDescribeKeyPairsResponse() (response *DescribeKeyPairsResponse) {
+	response = &DescribeKeyPairsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) DescribeKeyPairs(request *DescribeKeyPairsRequest) (response *DescribeKeyPairsResponse, err error) {
+	response = NewDescribeKeyPairsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyKeyPairAttributeRequest() (request *ModifyKeyPairAttributeRequest) {
+	request = &ModifyKeyPairAttributeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyKeyPairAttribute")
+
+	return
+}
+
+func NewModifyKeyPairAttributeResponse() (response *ModifyKeyPairAttributeResponse) {
+	response = &ModifyKeyPairAttributeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) ModifyKeyPairAttribute(request *ModifyKeyPairAttributeRequest) (response *ModifyKeyPairAttributeResponse, err error) {
+	response = NewModifyKeyPairAttributeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteKeyPairsRequest() (request *DeleteKeyPairsRequest) {
+	request = &DeleteKeyPairsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteKeyPairs")
+
+	return
+}
+
+func NewDeleteKeyPairsResponse() (response *DeleteKeyPairsResponse) {
+	response = &DeleteKeyPairsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) DeleteKeyPairs(request *DeleteKeyPairsRequest) (response *DeleteKeyPairsResponse, err error) {
+	response = NewDeleteKeyPairsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewImportKeyPairRequest() (request *ImportKeyPairRequest) {
+	request = &ImportKeyPairRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ImportKeyPair")
+
+	return
+}
+
+func NewImportKeyPairResponse() (response *ImportKeyPairResponse) {
+	response = &ImportKeyPairResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) ImportKeyPair(request *ImportKeyPairRequest) (response *ImportKeyPairResponse, err error) {
+	response = NewImportKeyPairResponse()
+	err = c.ApiCall(request, response)
+	return
+}
