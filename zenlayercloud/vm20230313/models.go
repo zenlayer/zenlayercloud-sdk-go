@@ -700,6 +700,7 @@ type ResetInstanceRequest struct {
 	InstanceId string `json:"instanceId,omitempty"`
 	ImageId    string `json:"imageId,omitempty"`
 	Password   string `json:"password,omitempty"`
+	KeyId      string `json:"keyId,omitempty"`
 }
 
 type ResetInstanceResponse struct {
@@ -852,6 +853,7 @@ type DescribeInstancesRequest struct {
 	InstanceType       string   `json:"instanceType,omitempty"`
 	InternetChargeType string   `json:"internetChargeType,omitempty"`
 	ImageId            string   `json:"imageId,omitempty"`
+	KeyId              string   `json:"keyId,omitempty"`
 	SubnetId           string   `json:"subnetId,omitempty"`
 	InstanceStatus     string   `json:"instanceStatus,omitempty"`
 	InstanceName       string   `json:"instanceName,omitempty"`
@@ -900,6 +902,7 @@ type InstanceInfo struct {
 	SystemDisk              *SystemDisk `json:"systemDisk,omitempty"`
 	DataDisks               []*DataDisk `json:"dataDisks,omitempty"`
 	AutoRenew               bool        `json:"autoRenew,omitempty"`
+	KeyId                   string      `json:"keyId,omitempty"`
 }
 
 type SystemDisk struct {
@@ -973,6 +976,7 @@ type CreateInstancesRequest struct {
 	InstanceName            string         `json:"instanceName,omitempty"`
 	InstanceCount           int            `json:"instanceCount,omitempty"`
 	Password                string         `json:"password,omitempty"`
+	KeyId                   string         `json:"keyId,omitempty"`
 	InternetChargeType      string         `json:"internetChargeType,omitempty"`
 	InternetMaxBandwidthOut int            `json:"internetMaxBandwidthOut,omitempty"`
 	TrafficPackageSize      *float64       `json:"trafficPackageSize,omitempty"`
@@ -1631,9 +1635,10 @@ type VpcSubnetInfo struct {
 
 type CreateSubnetRequest struct {
 	*common.BaseRequest
-	CidrBlock  string `json:"cidrBlock,omitempty"`
-	SubnetName string `json:"subnetName,omitempty"`
-	ZoneId     string `json:"zoneId,omitempty"`
+	CidrBlock         string `json:"cidrBlock,omitempty"`
+	SubnetName        string `json:"subnetName,omitempty"`
+	ZoneId            string `json:"zoneId,omitempty"`
+	SubnetDescription string `json:"subnetDescription,omitempty"`
 }
 
 type CreateSubnetResponse struct {
@@ -1711,4 +1716,106 @@ type SubnetInfo struct {
 	TotalIpCount      int      `json:"totalIpCount,omitempty"`
 	CreateTime        string   `json:"createTime,omitempty"`
 	InstanceIdList    []string `json:"instanceIdList,omitempty"`
+}
+
+type DescribeKeyPairsRequest struct {
+	*common.BaseRequest
+	KeyIds   []string `json:"keyIds,omitempty"`
+	KeyName  string   `json:"keyName,omitempty"`
+	PageNum  int      `json:"pageNum,omitempty"`
+	PageSize int      `json:"pageSize,omitempty"`
+}
+
+type DescribeKeyPairsResponse struct {
+	*common.BaseResponse
+	RequestId string                          `json:"requestId,omitempty"`
+	Response  *DescribeKeyPairsResponseParams `json:"response"`
+}
+
+type DescribeKeyPairsResponseParams struct {
+	RequestId  string     `json:"requestId,omitempty"`
+	DataSet    []*KeyPair `json:"dataSet,omitempty"`
+	TotalCount int        `json:"totalCount,omitempty"`
+}
+
+type KeyPair struct {
+	// 密钥对ID。
+	KeyId string `json:"keyId,omitempty"`
+
+	// 密钥对名称。
+	KeyName string `json:"keyName,omitempty"`
+
+	// 密钥对的公钥内容。
+	PublicKey string `json:"publicKey,omitempty"`
+
+	// 密钥对描述信息。
+	KeyDescription string `json:"keyDescription,omitempty"`
+
+	// 创建时间。
+	CreateTime string `json:"createTime,omitempty"`
+}
+
+type ModifyKeyPairAttributeRequest struct {
+	*common.BaseRequest
+
+	// 密钥对ID。
+	KeyId string `json:"keyId,omitempty"`
+
+	// 密钥对描述信息。
+	KeyDescription *string `json:"keyDescription,omitempty"`
+}
+
+type ModifyKeyPairAttributeResponse struct {
+	*common.BaseResponse
+
+	RequestId string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response"`
+}
+
+type DeleteKeyPairsRequest struct {
+	*common.BaseRequest
+
+	// 一个或多个待操作的密钥对ID。
+	KeyIds []string `json:"keyIds,omitempty"`
+}
+
+type DeleteKeyPairsResponse struct {
+	*common.BaseResponse
+
+	RequestId string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response"`
+}
+
+type ImportKeyPairRequest struct {
+	*common.BaseRequest
+
+	// 密钥对名称。
+	KeyName string `json:"keyName,omitempty"`
+
+	// 密钥对的公钥内容
+	PublicKey string `json:"publicKey,omitempty"`
+
+	// 密钥对描述信息。
+	KeyDescription *string `json:"keyDescription,omitempty"`
+}
+
+type ImportKeyPairResponse struct {
+	*common.BaseResponse
+
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *ImportKeyPairResponseParams `json:"response"`
+}
+
+type ImportKeyPairResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+
+	// 镜像ID。
+	KeyId string `json:"keyId,omitempty"`
 }
