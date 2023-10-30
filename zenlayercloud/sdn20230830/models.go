@@ -1249,7 +1249,7 @@ type ModifyCloudRouterEdgePointBandwidthResponse struct {
 	} `json:"response,omitempty"`
 }
 
-type DescribeCloudRouteEdgePointTrafficRequest struct {
+type DescribeCloudRouterEdgePointTrafficRequest struct {
 	*common.BaseRequest
 
 	// 三层网络连接点的ID。
@@ -1262,7 +1262,7 @@ type DescribeCloudRouteEdgePointTrafficRequest struct {
 	EndTime string `json:"endTime,omitempty"`
 }
 
-type DescribeCloudRouteEdgePointTrafficResponse struct {
+type DescribeCloudRouterEdgePointTrafficResponse struct {
 	*common.BaseResponse
 
 	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
