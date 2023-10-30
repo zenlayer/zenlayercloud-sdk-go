@@ -838,11 +838,11 @@ func NewModifyCloudRouterEdgePointBandwidthResponse() (response *ModifyCloudRout
 	return
 }
 
-func NewDescribeCloudRouteEdgePointTrafficRequest() (request *DescribeCloudRouteEdgePointTrafficRequest) {
-	request = &DescribeCloudRouteEdgePointTrafficRequest{
+func NewDescribeCloudRouterEdgePointTrafficRequest() (request *DescribeCloudRouterEdgePointTrafficRequest) {
+	request = &DescribeCloudRouterEdgePointTrafficRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeCloudRouteEdgePointTraffic")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeCloudRouterEdgePointTraffic")
 
 	return
 }
@@ -851,14 +851,14 @@ func NewDescribeCloudRouteEdgePointTrafficRequest() (request *DescribeCloudRoute
 // 调用本接口用于查询三层网络连接点在指定时间段内的带宽数据。
 //
 // Possible error codes to return:
-func (c *Client) DescribeCloudRouteEdgePointTraffic(request *DescribeCloudRouteEdgePointTrafficRequest) (response *DescribeCloudRouteEdgePointTrafficResponse, err error) {
-	response = NewDescribeCloudRouteEdgePointTrafficResponse()
+func (c *Client) DescribeCloudRouterEdgePointTraffic(request *DescribeCloudRouterEdgePointTrafficRequest) (response *DescribeCloudRouterEdgePointTrafficResponse, err error) {
+	response = NewDescribeCloudRouterEdgePointTrafficResponse()
 	err = c.ApiCall(request, response)
 	return
 }
 
-func NewDescribeCloudRouteEdgePointTrafficResponse() (response *DescribeCloudRouteEdgePointTrafficResponse) {
-	response = &DescribeCloudRouteEdgePointTrafficResponse{
+func NewDescribeCloudRouterEdgePointTrafficResponse() (response *DescribeCloudRouterEdgePointTrafficResponse) {
+	response = &DescribeCloudRouterEdgePointTrafficResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
