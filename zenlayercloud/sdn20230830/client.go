@@ -847,7 +847,7 @@ func NewDescribeCloudRouterEdgePointTrafficRequest() (request *DescribeCloudRout
 	return
 }
 
-// DescribeCloudRouteEdgePointTraffic
+// DescribeCloudRouterEdgePointTraffic
 // 调用本接口用于查询三层网络连接点在指定时间段内的带宽数据。
 //
 // Possible error codes to return:

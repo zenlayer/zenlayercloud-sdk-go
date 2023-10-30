@@ -768,6 +768,32 @@ func (c *Client) CancelInstanceTrafficPackageDowngrade(request *CancelInstanceTr
 	return
 }
 
+func NewDescribeInstancesMonitorHealthRequest() (request *DescribeInstancesMonitorHealthRequest) {
+	request = &DescribeInstancesMonitorHealthRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeInstancesMonitorHealth")
+
+	return
+}
+
+func NewDescribeInstancesMonitorHealthResponse() (response *DescribeInstancesMonitorHealthResponse) {
+	response = &DescribeInstancesMonitorHealthResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeInstancesMonitorHealth
+// The API is used to cancel traffic package downgrade order.
+//
+// Possible error codes to return:
+func (c *Client) DescribeInstancesMonitorHealth(request *DescribeInstancesMonitorHealthRequest) (response *DescribeInstancesMonitorHealthResponse, err error) {
+	response = NewDescribeInstancesMonitorHealthResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 //////////////////////////// EIP //////////////////////////////
 
 func NewAllocateEipAddressesRequest() (request *AllocateEipAddressesRequest) {
