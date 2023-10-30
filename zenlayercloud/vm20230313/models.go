@@ -68,6 +68,7 @@ type ZoneInfo struct {
 	// Zone support securityGroup.
 	SupportSecurityGroup bool `json:"supportSecurityGroup,omitempty"`
 
+	// Zone support networkType
 	SupportNetworkType string `json:"supportNetworkType,omitempty"`
 }
 

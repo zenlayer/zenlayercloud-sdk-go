@@ -120,6 +120,14 @@ type DescribePortsRequest struct {
 
 	// 城市名称。
 	CityName string `json:"cityName,omitempty"`
+
+	// 返回的分页数。
+	// 默认为1。
+	PageNum int `json:"pageNum,omitempty"`
+
+	// 返回的分页大小。
+	// 默认为20，最大为1000。
+	PageSize int `json:"pageSize,omitempty"`
 }
 
 type DescribePortsResponse struct {
@@ -173,6 +181,9 @@ type PortInfo struct {
 
 	// LOA 的下载地址。
 	LoaDownloadUrl string `json:"loaDownloadUrl,omitempty"`
+
+	// 商业实体的名称。用于LOA。
+	BusinessEntityName string `json:"businessEntityName,omitempty"`
 
 	// 创建时间。
 	// 格式为：YYYY-MM-DDThh:mm:ssZ。
@@ -504,6 +515,12 @@ type DatacenterInfo struct {
 
 	// 地区名称。
 	AreaName string `json:"areaName,omitempty"`
+
+	// 数据中心所在地理位置的经度。
+	Longitude float64 `json:"longitude,omitempty"`
+
+	//数据中心所在地理位置的纬度
+	Latitude float64 `json:"latitude,omitempty"`
 }
 
 type DescribePrivateConnectAvailablePortsRequest struct {
@@ -1268,10 +1285,10 @@ type DescribeCloudRouterEdgePointTrafficResponse struct {
 	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
 
-	Response *DescribeCloudRouteEdgePointTrafficResponseParams `json:"response,omitempty"`
+	Response *DescribeCloudRouterEdgePointTrafficResponseParams `json:"response,omitempty"`
 }
 
-type DescribeCloudRouteEdgePointTrafficResponseParams struct {
+type DescribeCloudRouterEdgePointTrafficResponseParams struct {
 	RequestId string `json:"requestId,omitempty"`
 
 	// 带宽数据列表。

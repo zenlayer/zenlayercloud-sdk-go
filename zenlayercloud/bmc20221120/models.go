@@ -1212,6 +1212,7 @@ type InquiryPriceInstanceTrafficPackageRequest struct {
 	// Traffic package size.
 	TrafficPackageSize float64 `json:"trafficPackageSize,omitempty"`
 }
+
 type InquiryPriceInstanceTrafficPackageResponse struct {
 	*common.BaseResponse
 
@@ -1220,6 +1221,7 @@ type InquiryPriceInstanceTrafficPackageResponse struct {
 
 	Response *InquiryPriceInstanceTrafficPackageResponseParams `json:"response"`
 }
+
 type InquiryPriceInstanceTrafficPackageResponseParams struct {
 	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 	RequestId string `json:"requestId,omitempty"`
@@ -1247,6 +1249,83 @@ type CancelInstanceTrafficPackageDowngradeResponse struct {
 		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
+}
+
+type DescribeInstancesMonitorHealthRequest struct {
+	*common.BaseRequest
+
+	// Instance ID.
+	// To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response.
+	InstanceIds []string `json:"instanceIds,omitempty"`
+}
+
+type DescribeInstancesMonitorHealthResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeInstancesMonitorHealthResponseParams `json:"response"`
+}
+
+type DescribeInstancesMonitorHealthResponseParams struct {
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	// Price of traffic package.
+	// Kinds of prices may exist. For example, traffic package billing method may contain the package price and overage price.
+	MonitorHealthList []*InstanceHealth `json:"monitorHealthList,omitempty"`
+}
+
+type InstanceHealth struct {
+	// 实例ID。
+	InstanceId string `json:"instanceId,omitempty"`
+
+	// CPU状态。
+	CpuStatus string `json:"cpuStatus,omitempty"`
+
+	// Disk状态。
+	DiskStatus string `json:"diskStatus,omitempty"`
+
+	// Ipmi IP状态。
+	IpmiPing string `json:"ipmiPing,omitempty"`
+
+	// Ipmi状态。
+	IpmiStatus string `json:"ipmiStatus,omitempty"`
+
+	// Memory状态。
+	MemoryStatus string `json:"memoryStatus,omitempty"`
+
+	// Power Supply状态。
+	PsuStatus string `json:"psuStatus,omitempty"`
+
+	// 服务器公网口连接的交换机端口的状态。
+	WanPortStatus string `json:"wanPortStatus,omitempty"`
+
+	// 风扇状态。
+	FanStatus string `json:"fanStatus,omitempty"`
+
+	// 服务器供应商品牌。
+	ServerBrand string `json:"serverBrand,omitempty"`
+
+	// 服务器供应商型号。
+	ServerModel string `json:"serverModel,omitempty"`
+
+	// 超微 Supermicro 对于刀片机单 CPU 的温度。
+	CpuTemp int `json:"cpuTemp,omitempty"`
+
+	// CPU 的温度。
+	Cpu0Temp int `json:"cpu0Temp,omitempty"`
+
+	Cpu1Temp int `json:"cpu1Temp,omitempty"`
+
+	Cpu2Temp int `json:"cpu2Temp,omitempty"`
+
+	// 服务器在机房的温度。
+	InletTemp int `json:"inletTemp,omitempty"`
+
+	// 温度单位。
+	TempUnit string `json:"tempUnit,omitempty"`
 }
 
 type EipAddress struct {
