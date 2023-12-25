@@ -889,3 +889,159 @@ func NewModifyCloudRouterEdgePointResponse() (response *ModifyCloudRouterEdgePoi
 	}
 	return
 }
+
+func NewDescribeAWSRegionsRequest() (request *DescribeAWSRegionsRequest) {
+	request = &DescribeAWSRegionsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeAWSRegions")
+
+	return
+}
+
+// DescribeAWSRegions
+// 调用本接口用户查询AWS云连接支持的接入点区域信息。
+//
+// Possible error codes to return:
+func (c *Client) DescribeAWSRegions(request *DescribeAWSRegionsRequest) (response *DescribeAWSRegionsResponse, err error) {
+	response = NewDescribeAWSRegionsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeAWSRegionsResponse() (response *DescribeAWSRegionsResponse) {
+	response = &DescribeAWSRegionsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func NewDescribeAWSVlanUsageRequest() (request *DescribeAWSVlanUsageRequest) {
+	request = &DescribeAWSVlanUsageRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeAWSVlanUsage")
+
+	return
+}
+
+// DescribeAWSVlanUsage
+// 调用本接口用户查询AWS接入点VLAN的使用情况。
+//
+// Possible error codes to return:
+func (c *Client) DescribeAWSVlanUsage(request *DescribeAWSVlanUsageRequest) (response *DescribeAWSVlanUsageResponse, err error) {
+	response = NewDescribeAWSVlanUsageResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeAWSVlanUsageResponse() (response *DescribeAWSVlanUsageResponse) {
+	response = &DescribeAWSVlanUsageResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func NewDescribeTencentRegionsRequest() (request *DescribeTencentRegionsRequest) {
+	request = &DescribeTencentRegionsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeTencentRegions")
+
+	return
+}
+
+// DescribeTencentRegions
+// 调用本接口用户查询腾讯云连接支持的接入点区域信息。
+//
+// Possible error codes to return:
+func (c *Client) DescribeTencentRegions(request *DescribeTencentRegionsRequest) (response *DescribeTencentRegionsResponse, err error) {
+	response = NewDescribeTencentRegionsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeTencentRegionsResponse() (response *DescribeTencentRegionsResponse) {
+	response = &DescribeTencentRegionsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func NewDescribeTencentVlanUsageRequest() (request *DescribeTencentVlanUsageRequest) {
+	request = &DescribeTencentVlanUsageRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeTencentVlanUsage")
+
+	return
+}
+
+// DescribeTencentVlanUsage
+// 调用本接口用户查询腾讯云接入点VLAN的使用情况。
+//
+// Possible error codes to return:
+func (c *Client) DescribeTencentVlanUsage(request *DescribeTencentVlanUsageRequest) (response *DescribeTencentVlanUsageResponse, err error) {
+	response = NewDescribeTencentVlanUsageResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeTencentVlanUsageResponse() (response *DescribeTencentVlanUsageResponse) {
+	response = &DescribeTencentVlanUsageResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func NewDescribeGoogleRegionsRequest() (request *DescribeGoogleRegionsRequest) {
+	request = &DescribeGoogleRegionsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeGoogleRegions")
+
+	return
+}
+
+// DescribeGoogleRegions
+// 调用本接口用户查询腾讯云连接支持的接入点区域信息。
+//
+// Possible error codes to return:
+func (c *Client) DescribeGoogleRegions(request *DescribeGoogleRegionsRequest) (response *DescribeGoogleRegionsResponse, err error) {
+	response = NewDescribeGoogleRegionsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeGoogleRegionsResponse() (response *DescribeGoogleRegionsResponse) {
+	response = &DescribeGoogleRegionsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func NewDescribeGoogleVlanUsageRequest() (request *DescribeGoogleVlanUsageRequest) {
+	request = &DescribeGoogleVlanUsageRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeGoogleVlanUsage")
+
+	return
+}
+
+// DescribeGoogleVlanUsage
+// 调用本接口用户查询Google接入点VLAN的使用情况。
+//
+// Possible error codes to return:
+func (c *Client) DescribeGoogleVlanUsage(request *DescribeGoogleVlanUsageRequest) (response *DescribeGoogleVlanUsageResponse, err error) {
+	response = NewDescribeGoogleVlanUsageResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeGoogleVlanUsageResponse() (response *DescribeGoogleVlanUsageResponse) {
+	response = &DescribeGoogleVlanUsageResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
