@@ -483,6 +483,14 @@ type PrivateConnectEndpoint struct {
 	// 连接点的名称。
 	EndpointName string `json:"endpointName,omitempty"`
 
+	//公有云区域ID。
+	//有且为Google, Tencent, AWS 类型的接入点可取到值。
+	CloudRegionId string `json:"cloudRegionId,omitempty"`
+
+	//云接入的账号。
+	//有且为Google, Tencent, AWS 类型的接入点可取到值。
+	CloudAccountId string `json:"cloudAccountId,omitempty"`
+
 	// 连接点的类型。
 	EndpointType string `json:"endpointType,omitempty"`
 
@@ -586,6 +594,20 @@ type CreateEndpointParam struct {
 
 	// VLAN ID。
 	VlanId int `json:"vlanId,omitempty"`
+
+	//云平台账号。
+	//Google 云此处为Pairing Key
+	CloudAccountId string `json:"cloudAccountId,omitempty"`
+
+	//公有云区域ID。
+	CloudRegionId string `json:"cloudRegionId,omitempty"`
+
+	//连接云接入点的数据中心ID。
+	DcId string `json:"dcId,omitempty"`
+
+	//云连接类型可选值：
+	//AWS / TENCENT / GOOGLE
+	CloudType string `json:"cloudType,omitempty"`
 }
 
 type CreatePrivateConnectResponse struct {
@@ -944,6 +966,12 @@ type CloudRouterEdgePoint struct {
 
 	// 物理端口的ID.
 	PortId string `json:"portId,omitempty"`
+
+	// 云连接的区域。
+	CloudRegionId string `json:"cloudRegionId,omitempty"`
+
+	// 云连接的账号。
+	CloudAccountId string `json:"CloudAccountId,omitempty"`
 
 	// 边缘连接点配置的VLAN ID。
 	VlanId int `json:"vlanId,omitempty"`
@@ -1357,4 +1385,169 @@ type ModifyCloudRouterEdgePointResponse struct {
 		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response,omitempty"`
+}
+
+type DescribeAWSRegionsRequest struct {
+	*common.BaseRequest
+
+	//当前AWS云接入点支持的产品。可用值：
+	//PrivateConnect: 二层网络
+	//CloudRouter: 三层网络
+	Product string `json:"product,omitempty"`
+}
+
+type DescribeAWSRegionsResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeAWSRegionsResponseParams `json:"response,omitempty"`
+}
+
+type DescribeAWSRegionsResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+
+	// AWS的接入点相关的区域信息。
+	CloudRegions []*CloudRegion `json:"cloudRegions,omitempty"`
+}
+
+type CloudRegion struct {
+
+	// 公有云区域ID。
+	CloudRegionId string `json:"cloudRegionId,omitempty"`
+
+	//云接入点所在的数据中心信息。
+	DataCenter *DatacenterInfo `json:"dataCenter,omitempty"`
+
+	//当前云节点点支持的产品。
+	Products []string `json:"products,omitempty"`
+}
+
+type DescribeAWSVlanUsageRequest struct {
+	*common.BaseRequest
+
+	DcId string `json:"dcId,omitempty"`
+}
+
+type DescribeAWSVlanUsageResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeAWSVlanUsageResponseParams `json:"response,omitempty"`
+}
+
+type DescribeAWSVlanUsageResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+
+	Start int `json:"start,omitempty"`
+
+	End int `json:"end,omitempty"`
+
+	UsedVlans []int `json:"usedVlans,omitempty"`
+}
+
+type DescribeTencentRegionsRequest struct {
+	*common.BaseRequest
+
+	//当前Tencent云接入点支持的产品。可用值：
+	//PrivateConnect: 二层网络
+	//CloudRouter: 三层网络
+	Product string `json:"product,omitempty"`
+}
+
+type DescribeTencentRegionsResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeAWSRegionsResponseParams `json:"response,omitempty"`
+}
+
+type DescribeTencentRegionsResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+
+	// AWS的接入点相关的区域信息。
+	CloudRegions []*CloudRegion `json:"cloudRegions,omitempty"`
+}
+
+type DescribeTencentVlanUsageRequest struct {
+	*common.BaseRequest
+
+	DcId string `json:"dcId,omitempty"`
+}
+
+type DescribeTencentVlanUsageResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeTencentVlanUsageResponseParams `json:"response,omitempty"`
+}
+
+type DescribeTencentVlanUsageResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+
+	Start int `json:"start,omitempty"`
+
+	End int `json:"end,omitempty"`
+
+	UsedVlans []int `json:"usedVlans,omitempty"`
+}
+
+type DescribeGoogleRegionsRequest struct {
+	*common.BaseRequest
+
+	//Google 配对密钥。
+	PairingKey string `json:"pairingKey,omitempty"`
+
+	//当前Google云接入点支持的产品。可用值：
+	//PrivateConnect: 二层网络
+	//CloudRouter: 三层网络
+	Product string `json:"product,omitempty"`
+}
+
+type DescribeGoogleRegionsResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeAWSRegionsResponseParams `json:"response,omitempty"`
+}
+
+type DescribeGoogleRegionsResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+
+	// AWS的接入点相关的区域信息。
+	CloudRegions []*CloudRegion `json:"cloudRegions,omitempty"`
+}
+
+type DescribeGoogleVlanUsageRequest struct {
+	*common.BaseRequest
+
+	DcId string `json:"dcId,omitempty"`
+}
+
+type DescribeGoogleVlanUsageResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeGoogleVlanUsageResponseParams `json:"response,omitempty"`
+}
+
+type DescribeGoogleVlanUsageResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+
+	Start int `json:"start,omitempty"`
+
+	End int `json:"end,omitempty"`
+
+	UsedVlans []int `json:"usedVlans,omitempty"`
 }
