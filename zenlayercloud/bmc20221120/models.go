@@ -410,6 +410,9 @@ type AvailableResource struct {
 	// Default free traffic package for the pricing model of data transfer.
 	// Unit: TB.
 	DefaultTrafficPackageSize float64 `json:"defaultTrafficPackageSize,omitempty"`
+
+	// The inventory quantity.
+	Qty int `json:"qty"`
 }
 
 type DescribeImagesRequest struct {
