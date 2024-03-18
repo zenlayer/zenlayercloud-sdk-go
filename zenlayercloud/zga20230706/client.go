@@ -603,3 +603,83 @@ func NewCloseAcceleratorAccessControlResponse() (response *CloseAcceleratorAcces
 	}
 	return
 }
+
+func NewDescribeAcceleratorsAlertsRequest() (request *DescribeAcceleratorsAlertsRequest) {
+	request = &DescribeAcceleratorsAlertsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeAcceleratorsAlerts")
+	return
+}
+
+// DescribeAcceleratorsAlerts
+// 调用本接口用于查询加速器警报。
+//
+//	 Possible error codes to return:
+//		INVALID_FROM_TIME_MUST_BEFORE_TO_TIME = "Invalid.From.Time.Must.Before.To.Time"
+func (c *Client) DescribeAcceleratorsAlerts(request *DescribeAcceleratorsAlertsRequest) (response *DescribeAcceleratorsAlertsResponse, err error) {
+	response = NewDescribeAcceleratorsAlertsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeAcceleratorsAlertsResponse() (response *DescribeAcceleratorsAlertsResponse) {
+	response = &DescribeAcceleratorsAlertsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func NewDescribeAcceleratorLogsRequest() (request *DescribeAcceleratorLogsRequest) {
+	request = &DescribeAcceleratorLogsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeAcceleratorLogs")
+	return
+}
+
+// DescribeAcceleratorLogs
+// 调用本接口用于查询加速器代理日志。
+//
+//	 Possible error codes to return:
+//		NOT_EXIST_VIRTUAL_IP = "Not.Exist.Virtual.Ip"
+//		INVALID_START_TIME_MUST_BEFORE_END_TIME = "Invalid.Start.Time.Must.Before.End.Time"
+func (c *Client) DescribeAcceleratorLogs(request *DescribeAcceleratorLogsRequest) (response *DescribeAcceleratorLogsResponse, err error) {
+	response = NewDescribeAcceleratorLogsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeAcceleratorLogsResponse() (response *DescribeAcceleratorLogsResponse) {
+	response = &DescribeAcceleratorLogsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func NewDescribeAcceleratorTrafficRequest() (request *DescribeAcceleratorTrafficRequest) {
+	request = &DescribeAcceleratorTrafficRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeAcceleratorTraffic")
+	return
+}
+
+// DescribeAcceleratorTraffic
+// 调用本接口用于查询加速器带宽流量。
+//
+//	Possible error codes to return:
+//		INVALID_START_TIME_MUST_BEFORE_END_TIME = "Invalid.Start.Time.Must.Before.End.Time"
+//		INVALID_REGION_NOT_FOUND = "Invalid.Region.Not.Found"
+func (c *Client) DescribeAcceleratorTraffic(request *DescribeAcceleratorTrafficRequest) (response *DescribeAcceleratorTrafficResponse, err error) {
+	response = NewDescribeAcceleratorTrafficResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeAcceleratorTrafficResponse() (response *DescribeAcceleratorTrafficResponse) {
+	response = &DescribeAcceleratorTrafficResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}

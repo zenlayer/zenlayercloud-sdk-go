@@ -24,4 +24,16 @@ const (
 
 	//证书名或内容已重复
 	CERTIFICATE_DUPLICATED = "Certificate.Duplicated"
+
+	// Not.Exist.Virtual.Ip
+	NOT_EXIST_VIRTUAL_IP = "Not.Exist.Virtual.Ip"
+
+	// Invalid.Start.Time.Must.Before.End.Time
+	INVALID_START_TIME_MUST_BEFORE_END_TIME = "Invalid.Start.Time.Must.Before.End.Time"
+
+	// Invalid.Region.Not.Found
+	INVALID_REGION_NOT_FOUND = "Invalid.Region.Not.Found"
+
+	// Invalid.From.Time.Must.Before.To.Time
+	INVALID_FROM_TIME_MUST_BEFORE_TO_TIME = "Invalid.From.Time.Must.Before.To.Time"
 )

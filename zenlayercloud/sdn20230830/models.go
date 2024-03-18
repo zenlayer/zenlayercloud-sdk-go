@@ -846,7 +846,7 @@ type ModifyPrivateConnectBandwidthRequest struct {
 	PrivateConnectId string `json:"privateConnectId,omitempty"`
 
 	// 需要修改的带宽限速。
-	BandwidthMbps string `json:"bandwidthMbps,omitempty"`
+	BandwidthMbps int `json:"bandwidthMbps,omitempty"`
 }
 
 type ModifyPrivateConnectBandwidthResponse struct {

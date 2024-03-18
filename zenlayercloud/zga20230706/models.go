@@ -247,6 +247,8 @@ type AccelerationRuleProtocolOpts struct {
 	Websocket     *bool `json:"websocket,omitempty"`
 	ProxyProtocol *bool `json:"proxyProtocol,omitempty"`
 	Gzip          *bool `json:"gzip,omitempty"`
+	SniCheck      *bool `json:"sniCheck,omitempty"`
+	HttpRedirect  *bool `json:"httpRedirect,omitempty"`
 }
 
 type AccessControl struct {
@@ -579,4 +581,198 @@ type CloseAcceleratorAccessControlResponse struct {
 	Response struct {
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
+}
+
+type DescribeAcceleratorsAlertsRequest struct {
+	*common.BaseRequest
+
+	// ID of accelerators.
+	// You can query up to 100 accelerators in each request.
+	AcceleratorIds []string `json:"acceleratorIds,omitempty"`
+
+	// Resource group ID.
+	// If the value is null, then return all the accelerators in the authorized resource groups.
+	ResourceGroupId string `json:"resourceGroupId,omitempty"`
+
+	// Type of alert.
+	// OrginNotAvaliable: The origin endpoint is unavailable.
+	// VipDetectionNotAvaliable: Virtual IP of accelerate region is blocked.
+	AlertType string `json:"alertType,omitempty"`
+
+	// ID of alert.
+	AlertId string `json:"alertId,omitempty"`
+
+	// The alert that is firing.
+	// Null: Return the all alert.
+	// True: Return the alert that is firing.
+	// False: Return restored alert.
+	Firing *bool `json:"firing,omitempty"`
+
+	// Time range start, query alert start time.
+	// Required with StartTimeTo.
+	StartTimeFrom string `json:"startTimeFrom,omitempty"`
+
+	// Time range end, query alert start time.
+	// Required with StartTimeFrom.
+	StartTimeTo string `json:"startTimeTo,omitempty"`
+
+	// Time range start, query alert end time.
+	// Required with EndTimeFrom.
+	EndTimeFrom string `json:"endTimeFrom,omitempty"`
+
+	// Time range end, query alert end time.
+	// Required with EndTimeTo.
+	EndTimeTo string `json:"endTimeTo,omitempty"`
+
+	// Number of pages returned.
+	// Default value: 1
+	PageNum int `json:"pageNum,omitempty"`
+
+	// Number of items in the current page result.
+	// Default value: 20
+	// Maximum value: 1000
+	PageSize int `json:"pageSize,omitempty"`
+}
+
+type DescribeAcceleratorsAlertsResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId"`
+
+	Response *DescribeAcceleratorsAlertsResponseParams `json:"response"`
+}
+
+type DescribeAcceleratorsAlertsResponseParams struct {
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId"`
+
+	TotalCount int `json:"totalCount"`
+
+	DataSet []*AcceleratorAlert `json:"dataSet"`
+}
+
+type AcceleratorAlert struct {
+	// ID of accelerator.
+	AcceleratorId string `json:"acceleratorId"`
+
+	// ID of alert.
+	AlertId string `json:"alertId"`
+
+	// Type of alert.
+	AlertType string `json:"alertType"`
+
+	// Message of alert.
+	Message string `json:"message"`
+
+	// StartTime of alert.
+	StartTime string `json:"startTime"`
+
+	// EndTime of alert.
+	// Null: The alert is firing now.
+	EndTime *string `json:"endTime"`
+}
+
+type DescribeAcceleratorLogsRequest struct {
+	*common.BaseRequest
+
+	// ID of accelerator.
+	AcceleratorId string `json:"acceleratorId,omitempty"`
+
+	// Vip of accelerate region.
+	Vips []string `json:"vips,omitempty"`
+
+	// StartTime of log.
+	StartTime string `json:"startTime,omitempty"`
+
+	// EndTime of log.
+	EndTime string `json:"endTime,omitempty"`
+}
+
+type DescribeAcceleratorLogsResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId"`
+
+	Response *DescribeAcceleratorLogsResponseParams `json:"response"`
+}
+
+type DescribeAcceleratorLogsResponseParams struct {
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId"`
+
+	TotalCount int `json:"totalCount"`
+
+	LogSet []*AcceleratorLog `json:"logSet"`
+}
+
+type AcceleratorLog struct {
+	// Download url of log.
+	LogUrl string `json:"logUrl"`
+
+	// Name of log.
+	LogName string `json:"logName"`
+
+	// Size of log.
+	LogSize int `json:"logSize"`
+}
+
+type DescribeAcceleratorTrafficRequest struct {
+	*common.BaseRequest
+
+	// ID of accelerator.
+	AcceleratorId string `json:"acceleratorId,omitempty"`
+
+	// ID of accelerate region.
+	AccelerateRegionId string `json:"accelerateRegionId,omitempty"`
+
+	// Listener of accelerator.
+	Listener string `json:"listener,omitempty"`
+
+	// StartTime of traffic.
+	StartTime string `json:"startTime,omitempty"`
+
+	// EndTime of traffic.
+	EndTime string `json:"endTime,omitempty"`
+}
+
+type DescribeAcceleratorTrafficResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId"`
+
+	Response *DescribeAcceleratorTrafficResponseParams `json:"response"`
+}
+
+type DescribeAcceleratorTrafficResponseParams struct {
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId"`
+
+	DataList []*AcceleratorTrafficData `json:"dataList"`
+
+	InMax int64 `json:"inMax"`
+
+	InMin int64 `json:"inMin"`
+
+	InTotal int64 `json:"inTotal"`
+
+	OutMax int64 `json:"outMax"`
+
+	OutMin int64 `json:"outMin"`
+
+	OutTotal int64 `json:"outTotal"`
+
+	TotalUnit string `json:"totalUnit"`
+
+	Unit string `json:"unit"`
+}
+
+type AcceleratorTrafficData struct {
+	InternetRX int64 `json:"internetRX"`
+
+	InternetTX int64 `json:"internetTX"`
+
+	Time string `json:"time"`
 }
