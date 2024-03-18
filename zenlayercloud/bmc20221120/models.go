@@ -65,6 +65,9 @@ type CreateInstancesRequest struct {
 	// To obtain valid image ID, you can call DescribeImages , pass in instanceTypeId to retrieve the list of images supported by the current model, and then find the imageId in the response.
 	ImageId string `json:"imageId,omitempty"`
 
+	// IpxeUrl
+	IpxeUrl string `json:"ipxeUrl,omitempty"`
+
 	// Resource group ID where the instances reside
 	ResourceGroupId string `json:"resourceGroupId,omitempty"`
 
@@ -572,6 +575,9 @@ type InstanceInfo struct {
 	// Image name.
 	ImageName string `json:"imageName,omitempty"`
 
+	// IpxeUrl.
+	IpxeUrl string `json:"ipxeUrl,omitempty"`
+
 	// Instance pricing model.
 	// PREPAID: monthly subscription.
 	// POSTPAID: pay-as-you-go.
@@ -733,6 +739,9 @@ type ReinstallInstanceRequest struct {
 	// Valid image ID.
 	// To obtain valid image ID, you can call DescribeImages , pass in instanceTypeId to retrieve the list of images supported by the current model, and then find the imageId in the response.
 	ImageId string `json:"imageId,omitempty"`
+
+	// IpxeUrl。
+	IpxeUrl string `json:"ipxeUrl,omitempty"`
 
 	// Instance hostname.
 	// Default value: hostname.
