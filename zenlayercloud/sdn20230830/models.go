@@ -1551,3 +1551,99 @@ type DescribeGoogleVlanUsageResponseParams struct {
 
 	UsedVlans []int `json:"usedVlans,omitempty"`
 }
+
+type DescribeAliCloudRegionsRequest struct {
+	*common.BaseRequest
+
+	Product string `json:"product,omitempty"`
+}
+
+type DescribeAliCloudRegionsResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeAliCloudRegionsResponseParams `json:"response,omitempty"`
+}
+
+type DescribeAliCloudRegionsResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+
+	CloudRegions []*CloudRegion `json:"cloudRegions,omitempty"`
+}
+
+type DescribeAliCloudVlanUsageRequest struct {
+	*common.BaseRequest
+
+	DcId string `json:"dcId,omitempty"`
+}
+
+type DescribeAliCloudVlanUsageResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeAliCloudVlanUsageResponseParams `json:"response,omitempty"`
+}
+
+type DescribeAliCloudVlanUsageResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+
+	Start int `json:"start,omitempty"`
+
+	End int `json:"end,omitempty"`
+
+	UsedVlans []int `json:"usedVlans,omitempty"`
+}
+
+type DescribeAzureRegionsRequest struct {
+	*common.BaseRequest
+
+	PairingKey string `json:"pairingKey,omitempty"`
+
+	Product string `json:"product,omitempty"`
+}
+
+type DescribeAzureRegionsResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeAzureRegionsResponseParams `json:"response,omitempty"`
+}
+
+type DescribeAzureRegionsResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+
+	CloudRegions []*CloudRegion `json:"cloudRegions,omitempty"`
+}
+
+type DescribeAzureVlanUsageRequest struct {
+	*common.BaseRequest
+
+	DcId string `json:"dcId,omitempty"`
+
+	PairingKey string `json:"pairingKey,omitempty"`
+}
+
+type DescribeAzureVlanUsageResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeAzureVlanUsageResponseParams `json:"response,omitempty"`
+}
+
+type DescribeAzureVlanUsageResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+
+	Start int `json:"start,omitempty"`
+
+	End int `json:"end,omitempty"`
+
+	UsedVlans []int `json:"usedVlans,omitempty"`
+}

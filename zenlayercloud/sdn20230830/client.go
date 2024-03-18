@@ -1045,3 +1045,107 @@ func NewDescribeGoogleVlanUsageResponse() (response *DescribeGoogleVlanUsageResp
 	}
 	return
 }
+
+func NewDescribeAliCloudRegionsRequest() (request *DescribeAliCloudRegionsRequest) {
+	request = &DescribeAliCloudRegionsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeAliCloudRegions")
+
+	return
+}
+
+// DescribeAliCloudRegions
+// 调用本接口用户查询AliCloud云连接支持的接入点区域信息。
+//
+// Possible error codes to return:
+func (c *Client) DescribeAliCloudRegions(request *DescribeAliCloudRegionsRequest) (response *DescribeAliCloudRegionsResponse, err error) {
+	response = NewDescribeAliCloudRegionsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeAliCloudRegionsResponse() (response *DescribeAliCloudRegionsResponse) {
+	response = &DescribeAliCloudRegionsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func NewDescribeAliCloudVlanUsageRequest() (request *DescribeAliCloudVlanUsageRequest) {
+	request = &DescribeAliCloudVlanUsageRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeAliCloudVlanUsage")
+
+	return
+}
+
+// DescribeAliCloudVlanUsage
+// 调用本接口用户查询AliCloud接入点VLAN的使用情况。
+//
+// Possible error codes to return:
+func (c *Client) DescribeAliCloudVlanUsage(request *DescribeAliCloudVlanUsageRequest) (response *DescribeAliCloudVlanUsageResponse, err error) {
+	response = NewDescribeAliCloudVlanUsageResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeAliCloudVlanUsageResponse() (response *DescribeAliCloudVlanUsageResponse) {
+	response = &DescribeAliCloudVlanUsageResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func NewDescribeAzureRegionsRequest() (request *DescribeAzureRegionsRequest) {
+	request = &DescribeAzureRegionsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeAzureRegions")
+
+	return
+}
+
+// DescribeAzureRegions
+// 调用本接口用户查询Azure云连接支持的接入点区域信息。
+//
+// Possible error codes to return:
+func (c *Client) DescribeAzureRegions(request *DescribeAzureRegionsRequest) (response *DescribeAzureRegionsResponse, err error) {
+	response = NewDescribeAzureRegionsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeAzureRegionsResponse() (response *DescribeAzureRegionsResponse) {
+	response = &DescribeAzureRegionsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func NewDescribeAzureVlanUsageRequest() (request *DescribeAzureVlanUsageRequest) {
+	request = &DescribeAzureVlanUsageRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeAzureVlanUsage")
+
+	return
+}
+
+// DescribeAzureVlanUsage
+// 调用本接口用户查询Azure云连接支持的接入点区域信息。
+//
+// Possible error codes to return:
+func (c *Client) DescribeAzureVlanUsage(request *DescribeAzureVlanUsageRequest) (response *DescribeAzureVlanUsageResponse, err error) {
+	response = NewDescribeAzureVlanUsageResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeAzureVlanUsageResponse() (response *DescribeAzureVlanUsageResponse) {
+	response = &DescribeAzureVlanUsageResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
