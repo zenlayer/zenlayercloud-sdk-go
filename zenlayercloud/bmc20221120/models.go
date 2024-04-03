@@ -101,7 +101,7 @@ type CreateInstancesRequest struct {
 
 	// Instance password.
 	// The parameter must be 8-16 characters, including uppercase letters, lowercase letters, numbers and special characters like 1~!@$^*-_=+. This password is also used as the password for IPMI login. Please keep it safe.
-	// If no password is specified and sshKeys is not set, the system will generate a random password and send it to the creator's mailbox after the instance is successfully created.
+	// You must and can only pass the value of either password or sshKeys.
 	Password string `json:"password,omitempty"`
 
 	// List of SSH keys.
@@ -750,7 +750,7 @@ type ReinstallInstanceRequest struct {
 
 	// Instance password.
 	// The parameter must be 8-16 characters, including uppercase letters, lowercase letters, numbers and special characters like 1~!@$^*-_=+. This password is also used as the password for IPMI login. Please keep it safe.
-	// If no password is specified and sshKeys is not set, the system will generate a random password and send it to the creator's mailbox after the instance is successfully created.
+	// You must and can only pass the value of either password or sshKeys.
 	Password string `json:"password,omitempty"`
 
 	// List of SSH keys.
