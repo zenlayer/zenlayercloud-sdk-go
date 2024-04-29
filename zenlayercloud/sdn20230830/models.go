@@ -97,10 +97,15 @@ type PortPrice struct {
 	PortType string `json:"portType,omitempty"`
 
 	// 端口 天价格。
+	// Deprecated: 请使用 PortPrice 替代
 	PortDailyPrice float64 `json:"portDailyPrice,omitempty"`
 
 	// 端口 月价格。
+	// Deprecated: 请使用 PortPrice 替代
 	PortMonthlyPrice float64 `json:"portMonthlyPrice,omitempty"`
+
+	// 端口价格
+	PortPrice *Price `json:"portPrice,omitempty"`
 }
 
 type DescribePortsRequest struct {
