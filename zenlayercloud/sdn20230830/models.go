@@ -1126,6 +1126,21 @@ type CreateCloudRouterEdgePoint struct {
 
 	// 静态路由配置信息。
 	StaticRoutes []*IPRoute `json:"staticRoutes,omitempty"`
+
+	// 云连接类型。
+	CloudType string `json:"cloudType,omitempty"`
+
+	// 云平台账号。
+	AccountId string `json:"accountId,omitempty"`
+
+	// 接入点的名称。
+	EdgePointName string `json:"edgePointName,omitempty"`
+
+	// 公有云区域ID。
+	CloudRegionId string `json:"cloudRegionId,omitempty"`
+
+	// 连接云接入点的数据中心ID。
+	DcId string `json:"dcId,omitempty"`
 }
 
 type CreateCloudRouterResponse struct {
