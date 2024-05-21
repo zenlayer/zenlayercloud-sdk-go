@@ -976,7 +976,7 @@ type CloudRouterEdgePoint struct {
 	CloudRegionId string `json:"cloudRegionId,omitempty"`
 
 	// 云连接的账号。
-	CloudAccountId string `json:"CloudAccountId,omitempty"`
+	CloudAccountId string `json:"cloudAccountId,omitempty"`
 
 	// 边缘连接点配置的VLAN ID。
 	VlanId int `json:"vlanId,omitempty"`
@@ -1131,7 +1131,7 @@ type CreateCloudRouterEdgePoint struct {
 	CloudType string `json:"cloudType,omitempty"`
 
 	// 云平台账号。
-	AccountId string `json:"accountId,omitempty"`
+	CloudAccountId string `json:"cloudAccountId,omitempty"`
 
 	// 接入点的名称。
 	EdgePointName string `json:"edgePointName,omitempty"`
