@@ -534,6 +534,10 @@ type DatacenterInfo struct {
 
 	//数据中心所在地理位置的纬度
 	Latitude float64 `json:"latitude,omitempty"`
+
+	//数据中心是否支持物理端口。
+	//该字段仅在 DesscribeDatacenters 可取值。
+	IsPortAvailable *bool `json:"isPortAvailable,omitempty"`
 }
 
 type DescribePrivateConnectAvailablePortsRequest struct {
@@ -613,6 +617,12 @@ type CreateEndpointParam struct {
 	//云连接类型可选值：
 	//AWS / TENCENT / GOOGLE
 	CloudType string `json:"cloudType,omitempty"`
+
+	//连接点名称
+	EndpointName string `json:"endpointName,omitempty"`
+
+	//高可用类型
+	HaType string `json:"haType,omitempty"`
 }
 
 type CreatePrivateConnectResponse struct {
@@ -1118,6 +1128,21 @@ type CreateCloudRouterEdgePoint struct {
 	// VLAN ID。
 	VlanId int `json:"vlanId,omitempty"`
 
+	// 公有云区域ID。
+	CloudRegionId string `json:"cloudRegionId,omitempty"`
+
+	// 接入点的名称。
+	EdgePointName string `json:"edgePointName,omitempty"`
+
+	// 云平台账号。
+	CloudAccountId string `json:"cloudAccountId,omitempty"`
+
+	// 连接云接入点的数据中心ID。
+	DcId string `json:"dcId,omitempty"`
+
+	// 云连接类型。
+	CloudType string `json:"cloudType,omitempty"`
+
 	// IP地址信息。
 	IpAddress string `json:"ipAddress,omitempty"`
 
@@ -1127,20 +1152,8 @@ type CreateCloudRouterEdgePoint struct {
 	// 静态路由配置信息。
 	StaticRoutes []*IPRoute `json:"staticRoutes,omitempty"`
 
-	// 云连接类型。
-	CloudType string `json:"cloudType,omitempty"`
-
-	// 云平台账号。
-	CloudAccountId string `json:"cloudAccountId,omitempty"`
-
-	// 接入点的名称。
-	EdgePointName string `json:"edgePointName,omitempty"`
-
-	// 公有云区域ID。
-	CloudRegionId string `json:"cloudRegionId,omitempty"`
-
-	// 连接云接入点的数据中心ID。
-	DcId string `json:"dcId,omitempty"`
+	// 高可用类型。
+	HaType string `json:"haType,omitempty"`
 }
 
 type CreateCloudRouterResponse struct {
@@ -1442,6 +1455,14 @@ type CloudRegion struct {
 
 	//当前云节点点支持的产品。
 	Products []string `json:"products,omitempty"`
+
+	HaTypes []*HAType `json:"haTypes,omitempty"`
+}
+
+type HAType struct {
+	HaType string `json:"haType,omitempty"`
+
+	IsUsed bool `json:"isUsed,omitempty"`
 }
 
 type DescribeAWSVlanUsageRequest struct {
