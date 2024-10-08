@@ -136,6 +136,32 @@ func NewCreateCertificateResponse() (response *CreateCertificateResponse) {
 	return
 }
 
+func NewModifyCertificateRequest() (request *ModifyCertificateRequest) {
+	request = &ModifyCertificateRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyCertificate")
+
+	return
+}
+
+// ModifyCertificate
+// 调用本接口用于修改证书。
+//
+// Possible error codes to return:
+func (c *Client) ModifyCertificate(request *ModifyCertificateRequest) (response *ModifyCertificateResponse, err error) {
+	response = NewModifyCertificateResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyCertificateResponse() (response *ModifyCertificateResponse) {
+	response = &ModifyCertificateResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
 func NewDeleteCertificateRequest() (request *DeleteCertificateRequest) {
 	request = &DeleteCertificateRequest{
 		BaseRequest: &common.BaseRequest{},
