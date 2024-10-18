@@ -125,6 +125,26 @@ type CreateCertificateResponseParams struct {
 	CertificateId string `json:"certificateId,omitempty"`
 }
 
+type ModifyCertificateRequest struct {
+	*common.BaseRequest
+
+	CertificateId      string `json:"certificateId,omitempty"`
+	CertificateContent string `json:"certificateContent,omitempty"`
+	CertificateKey     string `json:"certificateKey,omitempty"`
+}
+
+type ModifyCertificateResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId     string `json:"requestId,omitempty"`
+		CertificateId string `json:"certificateId,omitempty"`
+	} `json:"response"`
+}
+
 type DeleteCertificateRequest struct {
 	*common.BaseRequest
 
