@@ -291,7 +291,7 @@ type DescribeInstanceTypesResponseParams struct {
 }
 
 type InstanceType struct {
-	// Image ID supported.
+	// Image ID supported. Hint: only accessible in DescribeInstanceType
 	ImageIds []string `json:"imageIds,omitempty"`
 
 	// Instance model ID.
@@ -568,6 +568,9 @@ type InstanceInfo struct {
 
 	// Instance model ID.
 	InstanceTypeId string `json:"instanceTypeId,omitempty"`
+
+	// Instance model information.
+	InstanceType *InstanceType `json:"instanceType,omitempty"`
 
 	// Image ID.
 	ImageId *string `json:"imageId,omitempty"`
