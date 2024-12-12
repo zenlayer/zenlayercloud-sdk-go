@@ -2,6 +2,7 @@ package bmc
 
 import (
 	"github.com/zenlayer/zenlayercloud-sdk-go/zenlayercloud/common"
+	"github.com/zenlayer/zenlayercloud-sdk-go/zenlayercloud/inner"
 )
 
 const (
@@ -2228,5 +2229,31 @@ func NewUnbindCidrBlockIpsResponse() (response *UnbindCidrBlockIpsResponse) {
 func (c *Client) UnbindCidrBlockIps(request *UnbindCidrBlockIpsRequest) (response *UnbindCidrBlockIpsResponse, err error) {
 	response = NewUnbindCidrBlockIpsResponse()
 	err = c.ApiCall(request, response)
+	return
+}
+
+
+
+////// INNER API
+
+func (c *Client) CreateIpBlockEvent(request *inner.CreateIpBlockEventRequest) (response *inner.CreateIpBlockEventResponse, err error) {
+	response = NewCreateIpBlockEventResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewCreateIpBlockEventRequest() (request *inner.CreateIpBlockEventRequest) {
+	request = &inner.CreateIpBlockEventRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateIpBlockEvent")
+
+	return
+}
+
+func NewCreateIpBlockEventResponse() (response *inner.CreateIpBlockEventResponse) {
+	response = &inner.CreateIpBlockEventResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
 	return
 }
