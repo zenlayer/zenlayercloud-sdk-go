@@ -2,6 +2,7 @@ package vm
 
 import (
 	"github.com/zenlayer/zenlayercloud-sdk-go/zenlayercloud/common"
+	"github.com/zenlayer/zenlayercloud-sdk-go/zenlayercloud/inner"
 )
 
 const (
@@ -1700,5 +1701,29 @@ func NewImportKeyPairResponse() (response *ImportKeyPairResponse) {
 func (c *Client) ImportKeyPair(request *ImportKeyPairRequest) (response *ImportKeyPairResponse, err error) {
 	response = NewImportKeyPairResponse()
 	err = c.ApiCall(request, response)
+	return
+}
+
+// Inner API
+
+func (c *Client) CreateIpBlockEvent(request *inner.CreateIpBlockEventRequest) (response *inner.CreateIpBlockEventResponse, err error) {
+	response = NewCreateIpBlockEventResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewCreateIpBlockEventRequest() (request *inner.CreateIpBlockEventRequest) {
+	request = &inner.CreateIpBlockEventRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateIpBlockEvent")
+
+	return
+}
+
+func NewCreateIpBlockEventResponse() (response *inner.CreateIpBlockEventResponse) {
+	response = &inner.CreateIpBlockEventResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
 	return
 }
