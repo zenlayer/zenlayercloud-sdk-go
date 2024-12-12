@@ -20,7 +20,7 @@ supported for SDK.
 Use go get to install SDK：
 
 ```shell
-$ go get -u github.com/zenlayer/zenlayercloud-sdk-go
+$ go get -u gitlab.zenlayer.net/zenconsole/zenlayercloud-sdk-go
 ```
 
 # Quick Examples
@@ -32,8 +32,8 @@ package main
 
 import (
 	"fmt"
-	bmc "github.com/zenlayer/zenlayercloud-sdk-go/zenlayercloud/bmc20221120"
-	"github.com/zenlayer/zenlayercloud-sdk-go/zenlayercloud/common"
+	bmc "gitlab.zenlayer.net/zenconsole/zenlayercloud-sdk-go/zenlayercloud/bmc20221120"
+	"gitlab.zenlayer.net/zenconsole/zenlayercloud-sdk-go/zenlayercloud/common"
 	"os"
 )
 
@@ -91,8 +91,8 @@ You can enable request reties on all API interfaces or just on a specified one.
 package main
 
 import (
-	bmc "github.com/zenlayer/zenlayercloud-sdk-go/zenlayercloud/bmc20221120"
-	"github.com/zenlayer/zenlayercloud-sdk-go/zenlayercloud/common"
+	bmc "gitlab.zenlayer.net/zenconsole/zenlayercloud-sdk-go/zenlayercloud/bmc20221120"
+	"gitlab.zenlayer.net/zenconsole/zenlayercloud-sdk-go/zenlayercloud/common"
 	"os"
 )
 

@@ -1,6 +1,6 @@
 package sdn
 
-import "github.com/zenlayer/zenlayercloud-sdk-go/zenlayercloud/common"
+import "gitlab.zenlayer.net/zenconsole/zenlayercloud-sdk-go/zenlayercloud/common"
 
 type DescribeDatacentersRequest struct {
 	*common.BaseRequest
