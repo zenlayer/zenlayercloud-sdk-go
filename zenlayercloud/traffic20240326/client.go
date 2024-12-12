@@ -1,7 +1,7 @@
 package traffic
 
 import (
-	"github.com/zenlayer/zenlayercloud-sdk-go/zenlayercloud/common"
+	"gitlab.zenlayer.net/zenconsole/zenlayercloud-sdk-go/zenlayercloud/common"
 )
 
 const (

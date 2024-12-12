@@ -18,7 +18,7 @@ Quick Start[(English)](./README.md)
 使用 go get 下载安装 SDK
 
 ```shell
-$ go get -u github.com/zenlayer/zenlayercloud-sdk-go
+$ go get -u gitlab.zenlayer.net/zenconsole/zenlayercloud-sdk-go
 ```
 
 # 快速使用
@@ -33,8 +33,8 @@ package main
 
 import (
 	"fmt"
-	bmc "github.com/zenlayer/zenlayercloud-sdk-go/zenlayercloud/bmc20221120"
-	"github.com/zenlayer/zenlayercloud-sdk-go/zenlayercloud/common"
+	bmc "gitlab.zenlayer.net/zenconsole/zenlayercloud-sdk-go/zenlayercloud/bmc20221120"
+	"gitlab.zenlayer.net/zenconsole/zenlayercloud-sdk-go/zenlayercloud/common"
 	"os"
 )
 
@@ -91,8 +91,8 @@ conf.Debug = Bool(true)
 package main
 
 import (
-	bmc "github.com/zenlayer/zenlayercloud-sdk-go/zenlayercloud/bmc20221120"
-	"github.com/zenlayer/zenlayercloud-sdk-go/zenlayercloud/common"
+	bmc "gitlab.zenlayer.net/zenconsole/zenlayercloud-sdk-go/zenlayercloud/bmc20221120"
+	"gitlab.zenlayer.net/zenconsole/zenlayercloud-sdk-go/zenlayercloud/common"
 	"os"
 )
 

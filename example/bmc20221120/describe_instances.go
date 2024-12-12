@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	bmc "github.com/zenlayer/zenlayercloud-sdk-go/zenlayercloud/bmc20221120"
-	"github.com/zenlayer/zenlayercloud-sdk-go/zenlayercloud/common"
+	bmc "gitlab.zenlayer.net/zenconsole/zenlayercloud-sdk-go/zenlayercloud/bmc20221120"
+	"gitlab.zenlayer.net/zenconsole/zenlayercloud-sdk-go/zenlayercloud/common"
 	"os"
 )
 

@@ -1,6 +1,6 @@
 package inner
 
-import "github.com/zenlayer/zenlayercloud-sdk-go/zenlayercloud/common"
+import "gitlab.zenlayer.net/zenconsole/zenlayercloud-sdk-go/zenlayercloud/common"
 
 // CreateIpBlockEventRequest BMC / VOB IP 封堵事件请求
 type CreateIpBlockEventRequest struct {
