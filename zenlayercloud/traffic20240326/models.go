@@ -34,9 +34,18 @@ type BandwidthClusterInfo struct {
 	// Location to which the bandwidthCluster belong.
 	Location string `json:"location,omitempty"`
 
+	// Cities The city information contained in the bandwidth cluster.
+	Cities []*CityInfo `json:"cities,omitempty"`
+	
 	// Creation time.
 	// Use UTC time according to the ISO8601 standard. Format: YYYY-MM-DDThh:mm:ssZ.
 	CreateTime string `json:"createTime,omitempty"`
+}
+
+type CityInfo struct {
+	CityName string `json:"cityName,omitempty"`
+
+	CityCode string `json:"cityCode,omitempty"`
 }
 
 type DescribeBandwidthClustersResponseParams struct {
@@ -67,6 +76,8 @@ type DescribeBandwidthClusterTrafficRequest struct {
 	StartTime string `json:"startTime,omitempty"`
 
 	EndTime string `json:"endTime,omitempty"`
+
+	City string `json:"city,omitempty"`
 }
 
 type DescribeBandwidthClusterTrafficResponse struct {
@@ -122,3 +133,5 @@ type BandwidthClusterTrafficData struct {
 
 	Time string `json:"time,omitempty"`
 }
+
+

@@ -70,6 +70,10 @@ type ZoneInfo struct {
 
 	// Zone support networkType
 	SupportNetworkType string `json:"supportNetworkType,omitempty"`
+
+	SupportIpv6 bool `json:"supportIpv6,omitempty"`
+
+	SupportCpuPassThrough bool `json:"supportCpuPassThrough,omitempty"`
 }
 
 type DescribeImageRequest struct {
@@ -424,6 +428,8 @@ type RuleInfo struct {
 	// Source IP address range.
 	// Default value: 0.0.XX.XX/0.
 	CidrIp string `json:"cidrIp,omitempty"`
+
+	Description string `json:"description,omitempty"`
 }
 
 type ModifySecurityGroupsAttributeRequest struct {
@@ -577,6 +583,7 @@ type AuthorizeSecurityGroupRuleRequest struct {
 	IpProtocol      string `json:"ipProtocol,omitempty"`
 	PortRange       string `json:"portRange,omitempty"`
 	CidrIp          string `json:"cidrIp,omitempty"`
+	Description     string `json:"description,omitempty"`
 }
 
 type AuthorizeSecurityGroupRuleResponse struct {
@@ -702,6 +709,8 @@ type ResetInstanceRequest struct {
 	ImageId    string `json:"imageId,omitempty"`
 	Password   string `json:"password,omitempty"`
 	KeyId      string `json:"keyId,omitempty"`
+	WanName    string `json:"wanName,omitempty"`
+	LanName    string `json:"lanName,omitempty"`
 }
 
 type ResetInstanceResponse struct {
@@ -891,6 +900,7 @@ type InstanceInfo struct {
 	InternetChargeType      string      `json:"internetChargeType,omitempty"`
 	Period                  *int        `json:"period,omitempty"`
 	PublicIpAddresses       []string    `json:"publicIpAddresses,omitempty"`
+	PublicIpv6Addresses     []string    `json:"publicIpv6Addresses,omitempty"`
 	PrivateIpAddresses      []string    `json:"privateIpAddresses,omitempty"`
 	SubnetId                string      `json:"subnetId,omitempty"`
 	CreateTime              string      `json:"createTime,omitempty"`
@@ -904,6 +914,7 @@ type InstanceInfo struct {
 	DataDisks               []*DataDisk `json:"dataDisks,omitempty"`
 	AutoRenew               bool        `json:"autoRenew,omitempty"`
 	KeyId                   string      `json:"keyId,omitempty"`
+	Nic                     *Nic        `json:"nic,omitempty"`
 }
 
 type SystemDisk struct {
@@ -982,9 +993,26 @@ type CreateInstancesRequest struct {
 	InternetMaxBandwidthOut int            `json:"internetMaxBandwidthOut,omitempty"`
 	TrafficPackageSize      *float64       `json:"trafficPackageSize,omitempty"`
 	SubnetId                string         `json:"subnetId,omitempty"`
+	EnableIpv6              bool           `json:"enableIpv6,omitempty"`
+	CpuPassThrough          bool           `json:"cpuPassThrough,omitempty"`
+	InitScript              string         `json:"initScript,omitempty"`
 	SystemDisk              *SystemDisk    `json:"systemDisk,omitempty"`
 	DataDisks               []*DataDisk    `json:"dataDisks,omitempty"`
 	SecurityGroupId         string         `json:"securityGroupId,omitempty"`
+	Nic                     *Nic           `json:"nic,omitempty"`
+	ClusterId               string         `json:"clusterId,omitempty"`
+	NetworkMode             string         `json:"networkMode,omitempty"`
+	DiskPreAllocated        bool           `json:"diskPreAllocated,omitempty"`
+}
+
+type Nic struct {
+	// Public NIC name.
+	// Only numbers, uppercase and lowercase letters are allowed, starting with a letter with a length limit of 4 to 15 characters.
+	WanName string `json:"wanName,omitempty"`
+
+	// Private NIC name.
+	// Only numbers, uppercase and lowercase letters are allowed, starting with a letter with a length limit of 4 to 15 characters.
+	LanName string `json:"lanName,omitempty"`
 }
 
 type CreateInstancesResponse struct {

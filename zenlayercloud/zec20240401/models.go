@@ -600,9 +600,13 @@ type RebootInstancesResponse struct {
 	// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 requestId。
 	RequestId string `json:"requestId,omitempty"`
 
-	Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response"`
+	Response *RebootInstancesResponseParams `json:"response"`
+}
+
+type RebootInstancesResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+
+	InstanceIds []string `json:"instanceIds,omitempty"`
 }
 
 type RebootInstancesRequest struct {
@@ -638,7 +642,7 @@ type ResetInstanceRequest struct {
 	EnableAgent bool `json:"enableAgent,omitempty"`
 }
 
-type ResetInstancesPasswordResponse struct {
+type ResetInstancePasswordResponse struct {
 	*common.BaseResponse
 
 	// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 requestId。
@@ -649,10 +653,10 @@ type ResetInstancesPasswordResponse struct {
 	} `json:"response"`
 }
 
-type ResetInstancesPasswordRequest struct {
+type ResetInstancePasswordRequest struct {
 	*common.BaseRequest
 
-	InstanceIds []string `json:"instanceIds,omitempty"`
+	InstanceId string `json:"instanceId,omitempty"`
 
 	Password string `json:"password,omitempty"`
 }
@@ -663,9 +667,13 @@ type StartInstancesResponse struct {
 	// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 requestId。
 	RequestId string `json:"requestId,omitempty"`
 
-	Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response"`
+	Response *StartInstancesResponseParams `json:"response"`
+}
+
+type StartInstancesResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+
+	InstanceIds []string `json:"instanceIds,omitempty"`
 }
 
 type StartInstancesRequest struct {
@@ -680,9 +688,13 @@ type StopInstancesResponse struct {
 	// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 requestId。
 	RequestId string `json:"requestId,omitempty"`
 
-	Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response"`
+	Response *StopInstancesResponseParams `json:"response"`
+}
+
+type StopInstancesResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+
+	InstanceIds []string `json:"instanceIds,omitempty"`
 }
 
 type StopInstancesRequest struct {
@@ -727,17 +739,15 @@ type CidrInfo struct {
 
 	Source string `json:"source,omitempty"`
 
-	NetworkType string `json:"networkType,omitempty"`
+	EipV4Type string `json:"eipV4Type,omitempty"`
 
 	Netmask int `json:"netmask,omitempty"`
+
+	PoolId string `json:"poolId,omitempty"`
 
 	CreateTime string `json:"createTime,omitempty"`
 
 	ExpiredTime string `json:"expiredTime,omitempty"`
-
-	Period int `json:"period,omitempty"`
-
-	InstanceChargeType string `json:"instanceChargeType,omitempty"`
 
 	ResourceGroupId string `json:"resourceGroupId,omitempty"`
 
@@ -762,6 +772,47 @@ type DescribeCidrsRequest struct {
 	PageNum int `json:"pageNum,omitempty"`
 }
 
+type DescribePoolsResponse struct {
+	*common.BaseResponse
+
+	// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 requestId。
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribePoolsResponseParams `json:"response"`
+}
+
+type DescribePoolsResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+
+	DataSet []*PoolInfo `json:"dataSet,omitempty"`
+
+	TotalCount int `json:"totalCount,omitempty"`
+}
+
+type PoolInfo struct {
+	PoolId string `json:"poolId,omitempty"`
+
+	RegionId string `json:"regionId,omitempty"`
+
+	Name string `json:"name,omitempty"`
+
+	CreateTime string `json:"createTime,omitempty"`
+}
+
+type DescribePoolsRequest struct {
+	*common.BaseRequest
+
+	PoolIds []string `json:"poolIds,omitempty"`
+
+	RegionId string `json:"regionId,omitempty"`
+
+	Name string `json:"name,omitempty"`
+
+	PageSize int `json:"pageSize,omitempty"`
+
+	PageNum int `json:"pageNum,omitempty"`
+}
+
 type DescribeCidrRegionsResponse struct {
 	*common.BaseResponse
 
@@ -779,8 +830,6 @@ type DescribeCidrRegionsResponseParams struct {
 
 type DescribeCidrRegionsRequest struct {
 	*common.BaseRequest
-
-	InstanceChargeType string `json:"instanceChargeType,omitempty"`
 }
 
 type ChargePrepaid struct {
@@ -845,35 +894,6 @@ type StepPrice struct {
 	DiscountUnitPrice *float64 `json:"discountUnitPrice,omitempty"`
 }
 
-type DescribeOwnCidrPriceResponse struct {
-	*common.BaseResponse
-
-	// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 requestId。
-	RequestId string `json:"requestId,omitempty"`
-
-	Response *DescribeOwnCidrPriceResponseParams `json:"response"`
-}
-
-type DescribeOwnCidrPriceResponseParams struct {
-	RequestId string `json:"requestId,omitempty"`
-
-	BandwidthPrice *Price `json:"bandwidthPrice,omitempty"`
-}
-
-type DescribeOwnCidrPriceRequest struct {
-	*common.BaseRequest
-
-	RegionId string `json:"regionId,omitempty"`
-
-	ChargeType string `json:"chargeType,omitempty"`
-
-	InstanceChargePrepaid *ChargePrepaid `json:"instanceChargePrepaid,omitempty"`
-
-	NetworkType string `json:"networkType,omitempty"`
-
-	CidrBlock string `json:"cidrBlock,omitempty"`
-}
-
 type DescribeCidrPriceResponse struct {
 	*common.BaseResponse
 
@@ -886,8 +906,6 @@ type DescribeCidrPriceResponse struct {
 type DescribeCidrPriceResponseParams struct {
 	RequestId string `json:"requestId,omitempty"`
 
-	BandwidthPrice *Price `json:"bandwidthPrice,omitempty"`
-
 	CidrPrice *Price `json:"cidrPrice,omitempty"`
 }
 
@@ -896,11 +914,7 @@ type DescribeCidrPriceRequest struct {
 
 	RegionId string `json:"regionId,omitempty"`
 
-	ChargeType string `json:"chargeType,omitempty"`
-
-	InstanceChargePrepaid *ChargePrepaid `json:"instanceChargePrepaid,omitempty"`
-
-	NetworkType string `json:"networkType,omitempty"`
+	EipV4Type string `json:"eipV4Type,omitempty"`
 
 	Netmask *NetmaskInfo `json:"netmask,omitempty"`
 }
@@ -911,86 +925,6 @@ type NetmaskInfo struct {
 	Netmask int `json:"netmask,omitempty"`
 
 	Amount int `json:"amount,omitempty"`
-}
-
-type DescribeCidrUsedIpsResponse struct {
-	*common.BaseResponse
-
-	// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 requestId。
-	RequestId string `json:"requestId,omitempty"`
-
-	Response *DescribeCidrUsedIpsResponseParams `json:"response"`
-}
-
-type DescribeCidrUsedIpsResponseParams struct {
-	RequestId string `json:"requestId,omitempty"`
-
-	DataSet []*CidrUsedIpInfo `json:"dataSet,omitempty"`
-
-	TotalCount int `json:"totalCount,omitempty"`
-}
-
-type CidrUsedIpInfo struct {
-	PublicIp string `json:"publicIp,omitempty"`
-
-	LanIp string `json:"lanIp,omitempty"`
-
-	NicId string `json:"nicId,omitempty"`
-
-	NicName string `json:"nicName,omitempty"`
-
-	InstanceId string `json:"instanceId,omitempty"`
-
-	InstanceName string `json:"instanceName,omitempty"`
-}
-
-type DescribeCidrUsedIpsRequest struct {
-	*common.BaseRequest
-
-	CidrId string `json:"cidrId,omitempty"`
-
-	PublicIp string `json:"publicIp,omitempty"`
-
-	InstanceId string `json:"instanceId,omitempty"`
-
-	InstanceName string `json:"instanceName,omitempty"`
-
-	NicId string `json:"nicId,omitempty"`
-
-	NicName string `json:"nicName,omitempty"`
-
-	PageSize int `json:"pageSize,omitempty"`
-
-	PageNum int `json:"pageNum,omitempty"`
-}
-
-type CreateOwnCidrResponse struct {
-	*common.BaseResponse
-
-	// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 requestId。
-	RequestId string `json:"requestId,omitempty"`
-
-	Response *CreateOwnCidrResponseParams `json:"response"`
-}
-
-type CreateOwnCidrResponseParams struct {
-	RequestId string `json:"requestId,omitempty"`
-}
-
-type CreateOwnCidrRequest struct {
-	*common.BaseRequest
-
-	RegionId string `json:"regionId,omitempty"`
-
-	ChargeType string `json:"chargeType,omitempty"`
-
-	ResourceGroupId string `json:"resourceGroupId,omitempty"`
-
-	InstanceChargePrepaid *ChargePrepaid `json:"instanceChargePrepaid,omitempty"`
-
-	NetworkType string `json:"networkType,omitempty"`
-
-	CidrBlock string `json:"cidrBlock,omitempty"`
 }
 
 type CreateCidrResponse struct {
@@ -1011,13 +945,9 @@ type CreateCidrRequest struct {
 
 	RegionId string `json:"regionId,omitempty"`
 
-	ChargeType string `json:"chargeType,omitempty"`
-
 	ResourceGroupId string `json:"resourceGroupId,omitempty"`
 
-	InstanceChargePrepaid *ChargePrepaid `json:"instanceChargePrepaid,omitempty"`
-
-	NetworkType string `json:"networkType,omitempty"`
+	EipV4Type string `json:"eipV4Type,omitempty"`
 
 	Netmask *NetmaskInfo `json:"netmask,omitempty"`
 }
@@ -1058,144 +988,10 @@ type RenewCidrRequest struct {
 	CidrId string `json:"cidrId,omitempty"`
 }
 
-type UnAssignCidrIpResponse struct {
-	*common.BaseResponse
-
-	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
-	RequestId string `json:"requestId,omitempty"`
-
-	Response struct {
-		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-}
-
-type UnAssignCidrIpRequest struct {
+type AvailableLanIpRequest struct {
 	*common.BaseRequest
 
-	CidrId string `json:"cidrId,omitempty"`
-
-	PublicIp string `json:"publicIp,omitempty"`
-}
-
-type AssignCidrIpResponse struct {
-	*common.BaseResponse
-
-	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
-	RequestId string `json:"requestId,omitempty"`
-
-	Response struct {
-		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-}
-
-type AssignCidrIpRequest struct {
-	*common.BaseRequest
-
-	CidrId string `json:"cidrId,omitempty"`
-
-	NicId string `json:"nicId,omitempty"`
-
-	PublicIp string `json:"publicIp,omitempty"`
-
-	LanIp string `json:"lanIp,omitempty"`
-}
-
-type BatchAssignCidrIpResponse struct {
-	*common.BaseResponse
-
-	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
-	RequestId string `json:"requestId,omitempty"`
-
-	Response struct {
-		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-}
-
-type BatchAssignCidrIpRequest struct {
-	*common.BaseRequest
-
-	CidrId string `json:"cidrId,omitempty"`
-
-	CidrIpBinds []*CidrIpBind `json:"cidrIpBinds,omitempty"`
-}
-
-type CidrIpBind struct {
-	NicId string `json:"nicId,omitempty"`
-
-	PublicIp string `json:"publicIp,omitempty"`
-
-	LanIp string `json:"lanIp,omitempty"`
-}
-
-type AvailableCidrIpResponse struct {
-	*common.BaseResponse
-
-	// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 requestId。
-	RequestId string `json:"requestId,omitempty"`
-
-	Response *AvailableCidrIpResponseParams `json:"response"`
-}
-
-type AvailableCidrIpResponseParams struct {
-	RequestId string `json:"requestId,omitempty"`
-
-	Ips []string `json:"ips,omitempty"`
-}
-
-type AvailableCidrIpRequest struct {
-	*common.BaseRequest
-
-	CidrId string `json:"cidrId,omitempty"`
-}
-
-type ConfigEgressIpResponse struct {
-	*common.BaseResponse
-
-	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
-	RequestId string `json:"requestId,omitempty"`
-
-	Response struct {
-		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-}
-
-type ConfigEgressIpRequest struct {
-	*common.BaseRequest
-
-	CidrId string `json:"cidrId,omitempty"`
-
-	PublicIp string `json:"publicIp,omitempty"`
-}
-
-type DescribeOwnCidrsResponse struct {
-	*common.BaseResponse
-
-	// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 requestId。
-	RequestId string `json:"requestId,omitempty"`
-
-	Response *DescribeOwnCidrsResponseParams `json:"response"`
-}
-
-type DescribeOwnCidrsResponseParams struct {
-	RequestId string `json:"requestId,omitempty"`
-
-	Cidrs []*OwnCidr `json:"cidrs,omitempty"`
-}
-
-type OwnCidr struct {
-	CidrBlock   string `json:"cidrBlock,omitempty"`
-	IpNum       int    `json:"ipNum,omitempty"`
-	NetworkType string `json:"networkType,omitempty"`
-}
-
-type DescribeOwnCidrsRequest struct {
-	*common.BaseRequest
-
-	RegionId string `json:"regionId,omitempty"`
+	EipId string `json:"eipId,omitempty"`
 }
 
 type AvailableLanIpResponse struct {
@@ -1219,12 +1015,6 @@ type PrivateIpInfo struct {
 	NicName      string `json:"nicName,omitempty"`
 	InstanceId   string `json:"instanceId,omitempty"`
 	InstanceName string `json:"instanceName,omitempty"`
-}
-
-type AvailableLanIpRequest struct {
-	*common.BaseRequest
-
-	CidrId string `json:"cidrId,omitempty"`
 }
 
 type DescribeDiskRegionsRequest struct {
@@ -1824,9 +1614,13 @@ type CreateNicRequest struct {
 
 	PackageSize float64 `json:"packageSize"`
 
+	Bandwidth int `json:"bandwidth"`
+
 	InternetChargeType string `json:"internetChargeType,omitempty"`
 
 	ResourceGroupId string `json:"resourceGroupId,omitempty"`
+
+	ClusterId string `json:"clusterId,omitempty"`
 }
 
 type DeleteNicResponse struct {
@@ -1881,6 +1675,10 @@ type AssignNicIpv6Request struct {
 	InternetChargeType string `json:"internetChargeType,omitempty"`
 
 	PackageSize float64 `json:"packageSize"`
+
+	Bandwidth int `json:"bandwidth"`
+
+	ClusterId string `json:"clusterId"`
 }
 
 type UnAssignNicIpv4Response struct {
@@ -1977,6 +1775,8 @@ type InquiryPricePublicIpv6Request struct {
 	RegionId string `json:"regionId,omitempty"`
 
 	PackageSize float64 `json:"packageSize"`
+
+	Bandwidth int `json:"bandwidth"`
 }
 
 type InquiryPricePublicIpv6Response struct {
@@ -2032,7 +1832,11 @@ type CreateZecInstancesRequest struct {
 
 	TrafficPackageSize float64 `json:"trafficPackageSize,omitempty"`
 
+	Bandwidth int `json:"bandwidth,omitempty"`
+
 	SubnetId string `json:"subnetId,omitempty"`
+
+	LanIp string `json:"lanIp,omitempty"`
 
 	SystemDisk *SystemDisk `json:"systemDisk,omitempty"`
 
@@ -2045,6 +1849,8 @@ type CreateZecInstancesRequest struct {
 	EnableIpForward bool `json:"enableIpForward"`
 
 	EipV4Type string `json:"eipV4Type,omitempty"`
+
+	ClusterId string `json:"clusterId,omitempty"`
 }
 
 type CreateZecInstancesResponse struct {
@@ -2090,6 +1896,8 @@ type CreateInstancesRequest struct {
 	InternetChargeType string `json:"internetChargeType,omitempty"`
 
 	TrafficPackageSize float64 `json:"trafficPackageSize,omitempty"`
+
+	Bandwidth float64 `json:"bandwidth,omitempty"`
 
 	SubnetId string `json:"subnetId,omitempty"`
 
@@ -2241,6 +2049,8 @@ type ImageInfo struct {
 
 	ImageStatus string `json:"imageStatus,omitempty"`
 
+	NicNetworkType []string `json:"nicNetworkType,omitempty"`
+
 	Category string `json:"category,omitempty"`
 
 	OsType string `json:"osType,omitempty"`
@@ -2281,4 +2091,744 @@ type KeyPair struct {
 
 	// 创建时间。
 	CreateTime string `json:"createTime,omitempty"`
+}
+
+type DescribeEipRegionsRequest struct {
+	*common.BaseRequest
+}
+
+type DescribeEipRegionsResponse struct {
+	*common.BaseResponse
+
+	// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 requestId。
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeEipRegionsResponseParams `json:"response"`
+}
+
+type DescribeEipRegionsResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+
+	RegionIds []string `json:"regionIds,omitempty"`
+}
+
+type DescribeEipRemoteRegionsRequest struct {
+	*common.BaseRequest
+
+	RegionId string `json:"regionId,omitempty"`
+
+	EipV4Type string `json:"eipV4Type,omitempty"`
+}
+
+type DescribeEipRemoteRegionsResponse struct {
+	*common.BaseResponse
+
+	// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 requestId。
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeEipRemoteRegionsResponseParams `json:"response"`
+}
+
+type DescribeEipRemoteRegionsResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+
+	PeerRegionIds []string `json:"peerRegionIds,omitempty"`
+}
+
+type DescribeEipInternetChargeTypesRequest struct {
+	*common.BaseRequest
+
+	RegionId string `json:"regionId,omitempty"`
+
+	EipV4Type string `json:"eipV4Type,omitempty"`
+}
+
+type DescribeEipInternetChargeTypesResponse struct {
+	*common.BaseResponse
+
+	// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 requestId。
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeEipInternetChargeTypesResponseParams `json:"response"`
+}
+
+type DescribeEipInternetChargeTypesResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+
+	InternetChargeTypes []string `json:"internetChargeTypes,omitempty"`
+}
+
+type DescribeEipsRequest struct {
+	*common.BaseRequest
+
+	EipIds []string `json:"eipIds,omitempty"`
+
+	RegionId string `json:"regionId,omitempty"`
+
+	Name string `json:"name,omitempty"`
+
+	Status string `json:"status,omitempty"`
+
+	IsDefault bool `json:"isDefault,omitempty"`
+
+	PageSize int `json:"pageSize,omitempty"`
+
+	PageNum int `json:"pageNum,omitempty"`
+}
+
+type DescribeEipsResponse struct {
+	*common.BaseResponse
+
+	// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 requestId。
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeEipsResponseParams `json:"response"`
+}
+
+type DescribeEipsResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+
+	DataSet []*EipInfo `json:"dataSet,omitempty"`
+
+	TotalCount int `json:"totalCount,omitempty"`
+}
+
+type EipInfo struct {
+	EipId string `json:"eipId,omitempty"`
+
+	Name string `json:"name,omitempty"`
+
+	RegionId string `json:"regionId,omitempty"`
+
+	PeerRegionId string `json:"peerRegionId,omitempty"`
+
+	IsDefault bool `json:"isDefault,omitempty"`
+
+	Status string `json:"status,omitempty"`
+
+	PublicIpAddresses []string `json:"publicIpAddresses,omitempty"`
+
+	EipV4Type string `json:"eipV4Type,omitempty"`
+
+	InternetChargeType string `json:"internetChargeType,omitempty"`
+
+	CidrId string `json:"cidrId,omitempty"`
+
+	NicId string `json:"nicId,omitempty"`
+
+	FlowPackage float64 `json:"flowPackage,omitempty"`
+
+	Bandwidth int `json:"bandwidth,omitempty"`
+
+	CreateTime string `json:"createTime,omitempty"`
+
+	ExpiredTime string `json:"expiredTime,omitempty"`
+
+	ResourceGroupId string `json:"resourceGroupId,omitempty"`
+
+	ResourceGroupName string `json:"resourceGroupName,omitempty"`
+}
+
+type CreateEipsRequest struct {
+	*common.BaseRequest
+
+	RegionId string `json:"regionId,omitempty"`
+
+	Amount int `json:"amount,omitempty"`
+
+	Name string `json:"name,omitempty"`
+
+	InternetChargeType string `json:"internetChargeType,omitempty"`
+
+	EipV4Type string `json:"eipV4Type,omitempty"`
+
+	PrimaryIsp string `json:"primaryIsp,omitempty"`
+
+	Bandwidth int `json:"bandwidth,omitempty"`
+
+	FlowPackage float64 `json:"flowPackage,omitempty"`
+
+	CidrId string `json:"cidrId,omitempty"`
+
+	PublicIp string `json:"publicIp,omitempty"`
+
+	ResourceGroupId string `json:"resourceGroupId,omitempty"`
+
+	ClusterId string `json:"clusterId,omitempty"`
+
+	PeerRegionId string `json:"peerRegionId,omitempty"`
+}
+
+type CreateEipsResponse struct {
+	*common.BaseResponse
+
+	// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 requestId。
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *CreateEipsResponseParams `json:"response"`
+}
+
+type CreateEipsResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+
+	EipIds []string `json:"eipIds,omitempty"`
+
+	OrderNumber string `json:"orderNumber,omitempty"`
+}
+
+type DeleteEipRequest struct {
+	*common.BaseRequest
+
+	EipId string `json:"eipId,omitempty"`
+}
+
+type DeleteEipResponse struct {
+	*common.BaseResponse
+
+	RequestId string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response"`
+}
+
+type RenewEipRequest struct {
+	*common.BaseRequest
+
+	EipId string `json:"eipId,omitempty"`
+}
+
+type RenewEipResponse struct {
+	*common.BaseResponse
+
+	RequestId string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response"`
+}
+
+type BatchAttachEipLanIpRequest struct {
+	*common.BaseRequest
+
+	NicId string `json:"nicId,omitempty"`
+
+	LanIp string `json:"lanIp,omitempty"`
+
+	EipIds []string `json:"eipIds,omitempty"`
+}
+
+type BatchAttachEipLanIpResponse struct {
+	*common.BaseResponse
+
+	RequestId string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response"`
+}
+
+type DetachEipLanIpRequest struct {
+	*common.BaseRequest
+
+	EipId string `json:"eipId,omitempty"`
+}
+
+type DetachEipLanIpResponse struct {
+	*common.BaseResponse
+
+	RequestId string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response"`
+}
+
+type ConfigEipEgressIpRequest struct {
+	*common.BaseRequest
+
+	EipId string `json:"eipId,omitempty"`
+}
+
+type ConfigEipEgressIpResponse struct {
+	*common.BaseResponse
+
+	RequestId string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response"`
+}
+
+type DescribeEipPriceRequest struct {
+	*common.BaseRequest
+
+	RegionId string `json:"regionId,omitempty"`
+
+	Amount int `json:"amount,omitempty"`
+
+	InternetChargeType string `json:"internetChargeType,omitempty"`
+
+	EipV4Type string `json:"eipV4Type,omitempty"`
+
+	Bandwidth int `json:"bandwidth,omitempty"`
+
+	FlowPackage float64 `json:"flowPackage,omitempty"`
+
+	CidrId string `json:"cidrId,omitempty"`
+
+	PeerRegionId string `json:"peerRegionId,omitempty"`
+}
+
+type DescribeEipPriceResponse struct {
+	*common.BaseResponse
+
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeEipPriceResponseParams `json:"response"`
+}
+
+type DescribeEipPriceResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+
+	EipPrice *Price `json:"eipPrice,omitempty"`
+
+	BandwidthPrice *Price `json:"bandwidthPrice,omitempty"`
+}
+
+type ChangeEipInternetChargeTypeRequest struct {
+	*common.BaseRequest
+
+	EipId string `json:"eipId,omitempty"`
+
+	InternetChargeType string `json:"internetChargeType,omitempty"`
+
+	ClusterId string `json:"clusterId,omitempty"`
+}
+
+type ChangeEipInternetChargeTypeResponse struct {
+	*common.BaseResponse
+
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *ChangeEipInternetChargeTypeResponseParams `json:"response"`
+}
+
+type ChangeEipInternetChargeTypeResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+
+	OrderNumber string `json:"orderNumber,omitempty"`
+}
+
+type InquiryPriceCreateInstanceRequest struct {
+	*common.BaseRequest
+
+	ZoneId string `json:"zoneId,omitempty"`
+
+	InstanceType string `json:"instanceType,omitempty"`
+
+	EipV4Type string `json:"eipV4Type,omitempty"`
+
+	InternetChargeType string `json:"internetChargeType,omitempty"`
+
+	TrafficPackageSize float64 `json:"trafficPackageSize,omitempty"`
+
+	Bandwidth int `json:"bandwidth,omitempty"`
+
+	InstanceCount int `json:"instanceCount,omitempty"`
+
+	SystemDisk *SystemDisk `json:"systemDisk,omitempty"`
+
+	DataDisk *DataDisk `json:"dataDisk,omitempty"`
+}
+
+type InquiryPriceCreateInstanceResponse struct {
+	*common.BaseResponse
+
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *InquiryPriceCreateInstanceResponseParams `json:"response"`
+}
+
+type InquiryPriceCreateInstanceResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+
+	SpecPrice *Price `json:"specPrice,omitempty"`
+
+	GpuPrice *Price `json:"gpuPrice,omitempty"`
+
+	Ipv4Price *Price `json:"ipv4Price,omitempty"`
+
+	Ipv6Price *Price `json:"ipv6Price,omitempty"`
+
+	Ipv4BandwidthPrice *Price `json:"ipv4BandwidthPrice,omitempty"`
+
+	Ipv6BandwidthPrice *Price `json:"ipv6BandwidthPrice,omitempty"`
+
+	SystemDiskPrice *Price `json:"systemDiskPrice,omitempty"`
+
+	DataDiskPrice *Price `json:"dataDiskPrice,omitempty"`
+}
+
+type ReleaseInstancesResponse struct {
+	*common.BaseResponse
+
+	// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 requestId。
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *ReleaseInstancesResponseParams `json:"response"`
+}
+
+type ReleaseInstancesResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+
+	InstanceIds []string `json:"instanceIds,omitempty"`
+}
+
+type ReleaseInstancesRequest struct {
+	*common.BaseRequest
+
+	InstanceIds []string `json:"instanceIds,omitempty"`
+}
+
+type ModifyInstanceTypeResponse struct {
+	*common.BaseResponse
+
+	// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 requestId。
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *ModifyInstanceTypeResponseParams `json:"response"`
+}
+
+type ModifyInstanceTypeResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+
+	OrderNumber string `json:"orderNumber,omitempty"`
+}
+
+type ModifyInstanceTypeRequest struct {
+	*common.BaseRequest
+
+	InstanceId string `json:"instanceId,omitempty"`
+
+	InstanceType string `json:"instanceType,omitempty"`
+}
+
+type DescribeTimeZonesResponse struct {
+	*common.BaseResponse
+
+	// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 requestId。
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeTimeZonesResponseParams `json:"response"`
+}
+
+type DescribeTimeZonesResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+
+	TimeZones []string `json:"timeZones,omitempty"`
+}
+
+type DescribeTimeZonesRequest struct {
+	*common.BaseRequest
+}
+
+type StartIpForwardResponse struct {
+	*common.BaseResponse
+
+	// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 requestId。
+	RequestId string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response"`
+}
+
+type StartIpForwardRequest struct {
+	*common.BaseRequest
+
+	InstanceId string `json:"instanceId,omitempty"`
+}
+
+type StopIpForwardResponse struct {
+	*common.BaseResponse
+
+	// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 requestId。
+	RequestId string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response"`
+}
+
+type StopIpForwardRequest struct {
+	*common.BaseRequest
+
+	InstanceId string `json:"instanceId,omitempty"`
+}
+
+type StartAgentMonitorResponse struct {
+	*common.BaseResponse
+
+	// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 requestId。
+	RequestId string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response"`
+}
+
+type StartAgentMonitorRequest struct {
+	*common.BaseRequest
+
+	InstanceId string `json:"instanceId,omitempty"`
+}
+
+type StopAgentMonitorResponse struct {
+	*common.BaseResponse
+
+	// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 requestId。
+	RequestId string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response"`
+}
+
+type StopAgentMonitorRequest struct {
+	*common.BaseRequest
+
+	InstanceId string `json:"instanceId,omitempty"`
+}
+
+type DescribeVncUrlResponse struct {
+	*common.BaseResponse
+
+	// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 requestId。
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeVncUrlResponseParams `json:"response"`
+}
+
+type DescribeVncUrlResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+
+	Url string `json:"url,omitempty"`
+}
+
+type DescribeVncUrlRequest struct {
+	*common.BaseRequest
+
+	InstanceId string `json:"instanceId,omitempty"`
+}
+
+type ChangeNicNetworkTypeResponse struct {
+	*common.BaseResponse
+
+	// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 requestId。
+	RequestId string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response"`
+}
+
+type ChangeNicNetworkTypeRequest struct {
+	*common.BaseRequest
+
+	InstanceId string `json:"instanceId,omitempty"`
+
+	NicNetworkType string `json:"nicNetworkType,omitempty"`
+}
+
+type DescribeEipTrafficRequest struct {
+	*common.BaseRequest
+
+	EipId string `json:"eipId,omitempty"`
+
+	StartTime string `json:"startTime,omitempty"`
+
+	EndTime string `json:"endTime,omitempty"`
+
+	Step int `json:"step,omitempty"`
+
+	WanIp string `json:"wanIp,omitempty"`
+}
+
+type DescribeEipTrafficResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *EipTrafficDataResponse `json:"response"`
+}
+
+type EipTrafficDataResponse struct {
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	DataList []*EipTrafficData `json:"dataList,omitempty"`
+
+	In95 int64 `json:"in95,omitempty"`
+
+	InAvg int64 `json:"inAvg,omitempty"`
+
+	InMax int64 `json:"inMax,omitempty"`
+
+	InMin int64 `json:"inMin,omitempty"`
+
+	InTotal int64 `json:"inTotal,omitempty"`
+
+	Out95 int64 `json:"out95,omitempty"`
+
+	OutAvg int64 `json:"outAvg,omitempty"`
+
+	OutMax int64 `json:"outMax,omitempty"`
+
+	OutMin int64 `json:"outMin,omitempty"`
+
+	OutTotal int64 `json:"outTotal,omitempty"`
+}
+
+type EipTrafficData struct {
+	InternetRX int64 `json:"internetRX,omitempty"`
+
+	InternetTX int64 `json:"internetTX,omitempty"`
+
+	Time string `json:"time,omitempty"`
+}
+
+type CreateBorderGatewayRequest struct {
+	*common.BaseRequest
+
+	RegionId string `json:"regionId,omitempty"`
+
+	VpcId string `json:"vpcId,omitempty"`
+
+	Label string `json:"label,omitempty"`
+
+	Asn int `json:"asn,omitempty"`
+}
+
+type CreateBorderGatewayResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *CreateBorderGatewayResponseParams `json:"response"`
+}
+
+type CreateBorderGatewayResponseParams struct {
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	ZbgId string `json:"zbgId,omitempty"`
+}
+
+type DeleteBorderGatewayRequest struct {
+	*common.BaseRequest
+
+	ZbgId string `json:"zbgId,omitempty"`
+
+	Asn int `json:"asn,omitempty"`
+}
+
+type DeleteBorderGatewayResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response"`
+}
+
+type DescribeBorderGatewaysRequest struct {
+	*common.BaseRequest
+
+	ZbgIds []string `json:"zbgIds,omitempty"`
+
+	Name string `json:"name,omitempty"`
+
+	RegionId string `json:"regionId,omitempty"`
+
+	PageSize int `json:"pageSize,omitempty"`
+
+	PageNum int `json:"pageNum,omitempty"`
+}
+
+type DescribeBorderGatewaysResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeBorderGatewaysResponseParams `json:"response"`
+}
+
+type DescribeBorderGatewaysResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+
+	DataSet []*ZbgInfo `json:"dataSet,omitempty"`
+
+	TotalCount int `json:"totalCount,omitempty"`
+}
+
+type ZbgInfo struct {
+	ZbgId string `json:"zbgId,omitempty"`
+
+	Name string `json:"name,omitempty"`
+
+	VpcId string `json:"vpcId,omitempty"`
+
+	RegionId string `json:"regionId,omitempty"`
+
+	Asn int `json:"asn,omitempty"`
+
+	InterConnectCidr string `json:"interConnectCidr,omitempty"`
+
+	CreateTime string `json:"createTime,omitempty"`
+
+	CloudRouterIds []string `json:"cloudRouterIds,omitempty"`
+}
+
+type ModifyBorderGatewaysAttributeRequest struct {
+	*common.BaseRequest
+
+	ZbgIds []string `json:"zbgIds,omitempty"`
+
+	Name string `json:"name,omitempty"`
+}
+
+type ModifyBorderGatewaysAttributeResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response"`
+}
+
+type ModifyBorderGatewayAsnRequest struct {
+	*common.BaseRequest
+
+	ZbgId string `json:"zbgId,omitempty"`
+
+	Asn int `json:"asn,omitempty"`
+}
+
+type ModifyBorderGatewayAsnResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response"`
 }
