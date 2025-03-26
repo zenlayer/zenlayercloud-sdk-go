@@ -472,24 +472,24 @@ func (c *Client) ResetInstance(request *ResetInstanceRequest) (response *ResetIn
 	return
 }
 
-func NewResetInstancesPasswordRequest() (request *ResetInstancesPasswordRequest) {
-	request = &ResetInstancesPasswordRequest{
+func NewResetInstancePasswordRequest() (request *ResetInstancePasswordRequest) {
+	request = &ResetInstancePasswordRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ResetInstancesPassword")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ResetInstancePassword")
 
 	return
 }
 
-func NewResetInstancesPasswordResponse() (response *ResetInstancesPasswordResponse) {
-	response = &ResetInstancesPasswordResponse{
+func NewResetInstancePasswordResponse() (response *ResetInstancePasswordResponse) {
+	response = &ResetInstancePasswordResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-func (c *Client) ResetInstancesPassword(request *ResetInstancesPasswordRequest) (response *ResetInstancesPasswordResponse, err error) {
-	response = NewResetInstancesPasswordResponse()
+func (c *Client) ResetInstancePassword(request *ResetInstancePasswordRequest) (response *ResetInstancePasswordResponse, err error) {
+	response = NewResetInstancePasswordResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -560,6 +560,28 @@ func (c *Client) DescribeCidrs(request *DescribeCidrsRequest) (response *Describ
 	return
 }
 
+func NewDescribePoolsRequest() (request *DescribePoolsRequest) {
+	request = &DescribePoolsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribePools")
+
+	return
+}
+
+func NewDescribePoolsResponse() (response *DescribePoolsResponse) {
+	response = &DescribePoolsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) DescribePools(request *DescribePoolsRequest) (response *DescribePoolsResponse, err error) {
+	response = NewDescribePoolsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewDescribeCidrRegionsRequest() (request *DescribeCidrRegionsRequest) {
 	request = &DescribeCidrRegionsRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -582,28 +604,6 @@ func (c *Client) DescribeCidrRegions(request *DescribeCidrRegionsRequest) (respo
 	return
 }
 
-func NewDescribeOwnCidrPriceRequest() (request *DescribeOwnCidrPriceRequest) {
-	request = &DescribeOwnCidrPriceRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeOwnCidrPrice")
-
-	return
-}
-
-func NewDescribeOwnCidrPriceResponse() (response *DescribeOwnCidrPriceResponse) {
-	response = &DescribeOwnCidrPriceResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-func (c *Client) DescribeOwnCidrPrice(request *DescribeOwnCidrPriceRequest) (response *DescribeOwnCidrPriceResponse, err error) {
-	response = NewDescribeOwnCidrPriceResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
 func NewDescribeCidrPriceRequest() (request *DescribeCidrPriceRequest) {
 	request = &DescribeCidrPriceRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -622,50 +622,6 @@ func NewDescribeCidrPriceResponse() (response *DescribeCidrPriceResponse) {
 
 func (c *Client) DescribeCidrPrice(request *DescribeCidrPriceRequest) (response *DescribeCidrPriceResponse, err error) {
 	response = NewDescribeCidrPriceResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeCidrUsedIpsRequest() (request *DescribeCidrUsedIpsRequest) {
-	request = &DescribeCidrUsedIpsRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeCidrUsedIps")
-
-	return
-}
-
-func NewDescribeCidrUsedIpsResponse() (response *DescribeCidrUsedIpsResponse) {
-	response = &DescribeCidrUsedIpsResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-func (c *Client) DescribeCidrUsedIps(request *DescribeCidrUsedIpsRequest) (response *DescribeCidrUsedIpsResponse, err error) {
-	response = NewDescribeCidrUsedIpsResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewCreateOwnCidrRequest() (request *CreateOwnCidrRequest) {
-	request = &CreateOwnCidrRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateOwnCidr")
-
-	return
-}
-
-func NewCreateOwnCidrResponse() (response *CreateOwnCidrResponse) {
-	response = &CreateOwnCidrResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-func (c *Client) CreateOwnCidr(request *CreateOwnCidrRequest) (response *CreateOwnCidrResponse, err error) {
-	response = NewCreateOwnCidrResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -732,138 +688,6 @@ func NewRenewCidrResponse() (response *RenewCidrResponse) {
 
 func (c *Client) RenewCidr(request *RenewCidrRequest) (response *RenewCidrResponse, err error) {
 	response = NewRenewCidrResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewUnAssignCidrIpRequest() (request *UnAssignCidrIpRequest) {
-	request = &UnAssignCidrIpRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "UnAssignCidrIp")
-
-	return
-}
-
-func NewUnAssignCidrIpResponse() (response *UnAssignCidrIpResponse) {
-	response = &UnAssignCidrIpResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-func (c *Client) UnAssignCidrIp(request *UnAssignCidrIpRequest) (response *UnAssignCidrIpResponse, err error) {
-	response = NewUnAssignCidrIpResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewAssignCidrIpRequest() (request *AssignCidrIpRequest) {
-	request = &AssignCidrIpRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "AssignCidrIp")
-
-	return
-}
-
-func NewAssignCidrIpResponse() (response *AssignCidrIpResponse) {
-	response = &AssignCidrIpResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-func (c *Client) AssignCidrIp(request *AssignCidrIpRequest) (response *AssignCidrIpResponse, err error) {
-	response = NewAssignCidrIpResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewBatchAssignCidrIpRequest() (request *BatchAssignCidrIpRequest) {
-	request = &BatchAssignCidrIpRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "BatchAssignCidrIp")
-
-	return
-}
-
-func NewBatchAssignCidrIpResponse() (response *BatchAssignCidrIpResponse) {
-	response = &BatchAssignCidrIpResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-func (c *Client) BatchAssignCidrIp(request *BatchAssignCidrIpRequest) (response *BatchAssignCidrIpResponse, err error) {
-	response = NewBatchAssignCidrIpResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewAvailableCidrIpRequest() (request *AvailableCidrIpRequest) {
-	request = &AvailableCidrIpRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "AvailableCidrIp")
-
-	return
-}
-
-func NewAvailableCidrIpResponse() (response *AvailableCidrIpResponse) {
-	response = &AvailableCidrIpResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-func (c *Client) AvailableCidrIp(request *AvailableCidrIpRequest) (response *AvailableCidrIpResponse, err error) {
-	response = NewAvailableCidrIpResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewConfigEgressIpRequest() (request *ConfigEgressIpRequest) {
-	request = &ConfigEgressIpRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ConfigEgressIp")
-
-	return
-}
-
-func NewConfigEgressIpResponse() (response *ConfigEgressIpResponse) {
-	response = &ConfigEgressIpResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-func (c *Client) ConfigEgressIp(request *ConfigEgressIpRequest) (response *ConfigEgressIpResponse, err error) {
-	response = NewConfigEgressIpResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeOwnCidrsRequest() (request *DescribeOwnCidrsRequest) {
-	request = &DescribeOwnCidrsRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeOwnCidrs")
-
-	return
-}
-
-func NewDescribeOwnCidrsResponse() (response *DescribeOwnCidrsResponse) {
-	response = &DescribeOwnCidrsResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-func (c *Client) DescribeOwnCidrs(request *DescribeOwnCidrsRequest) (response *DescribeOwnCidrsResponse, err error) {
-	response = NewDescribeOwnCidrsResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -1744,6 +1568,628 @@ func NewDescribeKeyPairsResponse() (response *DescribeKeyPairsResponse) {
 
 func (c *Client) DescribeKeyPairs(request *DescribeKeyPairsRequest) (response *DescribeKeyPairsResponse, err error) {
 	response = NewDescribeKeyPairsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeEipRegionsRequest() (request *DescribeEipRegionsRequest) {
+	request = &DescribeEipRegionsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeEipRegions")
+
+	return
+}
+
+func NewDescribeEipRegionsResponse() (response *DescribeEipRegionsResponse) {
+	response = &DescribeEipRegionsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) DescribeEipRegions(request *DescribeEipRegionsRequest) (response *DescribeEipRegionsResponse, err error) {
+	response = NewDescribeEipRegionsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeEipRemoteRegionsRequest() (request *DescribeEipRemoteRegionsRequest) {
+	request = &DescribeEipRemoteRegionsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeEipRemoteRegions")
+
+	return
+}
+
+func NewDescribeEipRemoteRegionsResponse() (response *DescribeEipRemoteRegionsResponse) {
+	response = &DescribeEipRemoteRegionsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) DescribeEipRemoteRegions(request *DescribeEipRemoteRegionsRequest) (response *DescribeEipRemoteRegionsResponse, err error) {
+	response = NewDescribeEipRemoteRegionsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeEipInternetChargeTypesRequest() (request *DescribeEipInternetChargeTypesRequest) {
+	request = &DescribeEipInternetChargeTypesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeEipInternetChargeTypes")
+
+	return
+}
+
+func NewDescribeEipInternetChargeTypesResponse() (response *DescribeEipInternetChargeTypesResponse) {
+	response = &DescribeEipInternetChargeTypesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) DescribeEipInternetChargeTypes(request *DescribeEipInternetChargeTypesRequest) (response *DescribeEipInternetChargeTypesResponse, err error) {
+	response = NewDescribeEipInternetChargeTypesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeEipsRequest() (request *DescribeEipsRequest) {
+	request = &DescribeEipsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeEips")
+
+	return
+}
+
+func NewDescribeEipsResponse() (response *DescribeEipsResponse) {
+	response = &DescribeEipsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) DescribeEips(request *DescribeEipsRequest) (response *DescribeEipsResponse, err error) {
+	response = NewDescribeEipsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewCreateEipsRequest() (request *CreateEipsRequest) {
+	request = &CreateEipsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateEips")
+
+	return
+}
+
+func NewCreateEipsResponse() (response *CreateEipsResponse) {
+	response = &CreateEipsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) CreateEips(request *CreateEipsRequest) (response *CreateEipsResponse, err error) {
+	response = NewCreateEipsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteEipRequest() (request *DeleteEipRequest) {
+	request = &DeleteEipRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteEip")
+
+	return
+}
+
+func NewDeleteEipResponse() (response *DeleteEipResponse) {
+	response = &DeleteEipResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) DeleteEip(request *DeleteEipRequest) (response *DeleteEipResponse, err error) {
+	response = NewDeleteEipResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewRenewEipRequest() (request *RenewEipRequest) {
+	request = &RenewEipRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "RenewEip")
+
+	return
+}
+
+func NewRenewEipResponse() (response *RenewEipResponse) {
+	response = &RenewEipResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) RenewEip(request *RenewEipRequest) (response *RenewEipResponse, err error) {
+	response = NewRenewEipResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewBatchAttachEipLanIpRequest() (request *BatchAttachEipLanIpRequest) {
+	request = &BatchAttachEipLanIpRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "BatchAttachEipLanIp")
+
+	return
+}
+
+func NewBatchAttachEipLanIpResponse() (response *BatchAttachEipLanIpResponse) {
+	response = &BatchAttachEipLanIpResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) BatchAttachEipLanIp(request *BatchAttachEipLanIpRequest) (response *BatchAttachEipLanIpResponse, err error) {
+	response = NewBatchAttachEipLanIpResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDetachEipLanIpRequest() (request *DetachEipLanIpRequest) {
+	request = &DetachEipLanIpRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DetachEipLanIp")
+
+	return
+}
+
+func NewDetachEipLanIpResponse() (response *DetachEipLanIpResponse) {
+	response = &DetachEipLanIpResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) DetachEipLanIp(request *DetachEipLanIpRequest) (response *DetachEipLanIpResponse, err error) {
+	response = NewDetachEipLanIpResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewConfigEipEgressIpRequest() (request *ConfigEipEgressIpRequest) {
+	request = &ConfigEipEgressIpRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ConfigEipEgressIp")
+
+	return
+}
+
+func NewConfigEipEgressIpResponse() (response *ConfigEipEgressIpResponse) {
+	response = &ConfigEipEgressIpResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) ConfigEipEgressIp(request *ConfigEipEgressIpRequest) (response *ConfigEipEgressIpResponse, err error) {
+	response = NewConfigEipEgressIpResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeEipPriceRequest() (request *DescribeEipPriceRequest) {
+	request = &DescribeEipPriceRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeEipPrice")
+
+	return
+}
+
+func NewDescribeEipPriceResponse() (response *DescribeEipPriceResponse) {
+	response = &DescribeEipPriceResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) DescribeEipPrice(request *DescribeEipPriceRequest) (response *DescribeEipPriceResponse, err error) {
+	response = NewDescribeEipPriceResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewChangeEipInternetChargeTypeRequest() (request *ChangeEipInternetChargeTypeRequest) {
+	request = &ChangeEipInternetChargeTypeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ChangeEipInternetChargeType")
+
+	return
+}
+
+func NewChangeEipInternetChargeTypeResponse() (response *ChangeEipInternetChargeTypeResponse) {
+	response = &ChangeEipInternetChargeTypeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) ChangeEipInternetChargeType(request *ChangeEipInternetChargeTypeRequest) (response *ChangeEipInternetChargeTypeResponse, err error) {
+	response = NewChangeEipInternetChargeTypeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewInquiryPriceCreateInstanceRequest() (request *InquiryPriceCreateInstanceRequest) {
+	request = &InquiryPriceCreateInstanceRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryPriceCreateInstance")
+
+	return
+}
+
+func NewInquiryPriceCreateInstanceResponse() (response *InquiryPriceCreateInstanceResponse) {
+	response = &InquiryPriceCreateInstanceResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) InquiryPriceCreateInstance(request *InquiryPriceCreateInstanceRequest) (response *InquiryPriceCreateInstanceResponse, err error) {
+	response = NewInquiryPriceCreateInstanceResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewReleaseInstancesRequest() (request *ReleaseInstancesRequest) {
+	request = &ReleaseInstancesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ReleaseInstances")
+
+	return
+}
+
+func NewReleaseInstancesResponse() (response *ReleaseInstancesResponse) {
+	response = &ReleaseInstancesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) ReleaseInstances(request *ReleaseInstancesRequest) (response *ReleaseInstancesResponse, err error) {
+	response = NewReleaseInstancesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyInstanceTypeRequest() (request *ModifyInstanceTypeRequest) {
+	request = &ModifyInstanceTypeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyInstanceType")
+
+	return
+}
+
+func NewModifyInstanceTypeResponse() (response *ModifyInstanceTypeResponse) {
+	response = &ModifyInstanceTypeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) ModifyInstanceType(request *ModifyInstanceTypeRequest) (response *ModifyInstanceTypeResponse, err error) {
+	response = NewModifyInstanceTypeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeTimeZonesRequest() (request *DescribeTimeZonesRequest) {
+	request = &DescribeTimeZonesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeTimeZones")
+
+	return
+}
+
+func NewDescribeTimeZonesResponse() (response *DescribeTimeZonesResponse) {
+	response = &DescribeTimeZonesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) DescribeTimeZones(request *DescribeTimeZonesRequest) (response *DescribeTimeZonesResponse, err error) {
+	response = NewDescribeTimeZonesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewStartIpForwardRequest() (request *StartIpForwardRequest) {
+	request = &StartIpForwardRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "StartIpForward")
+
+	return
+}
+
+func NewStartIpForwardResponse() (response *StartIpForwardResponse) {
+	response = &StartIpForwardResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) StartIpForward(request *StartIpForwardRequest) (response *StartIpForwardResponse, err error) {
+	response = NewStartIpForwardResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewStopIpForwardRequest() (request *StopIpForwardRequest) {
+	request = &StopIpForwardRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "StopIpForward")
+
+	return
+}
+
+func NewStopIpForwardResponse() (response *StopIpForwardResponse) {
+	response = &StopIpForwardResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) StopIpForward(request *StopIpForwardRequest) (response *StopIpForwardResponse, err error) {
+	response = NewStopIpForwardResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewStartAgentMonitorRequest() (request *StartAgentMonitorRequest) {
+	request = &StartAgentMonitorRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "StartAgentMonitor")
+
+	return
+}
+
+func NewStartAgentMonitorResponse() (response *StartAgentMonitorResponse) {
+	response = &StartAgentMonitorResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) StartAgentMonitor(request *StartAgentMonitorRequest) (response *StartAgentMonitorResponse, err error) {
+	response = NewStartAgentMonitorResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewStopAgentMonitorRequest() (request *StopAgentMonitorRequest) {
+	request = &StopAgentMonitorRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "StopAgentMonitor")
+
+	return
+}
+
+func NewStopAgentMonitorResponse() (response *StopAgentMonitorResponse) {
+	response = &StopAgentMonitorResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) StopAgentMonitor(request *StopAgentMonitorRequest) (response *StopAgentMonitorResponse, err error) {
+	response = NewStopAgentMonitorResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeVncUrlRequest() (request *DescribeVncUrlRequest) {
+	request = &DescribeVncUrlRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeVncUrl")
+
+	return
+}
+
+func NewDescribeVncUrlResponse() (response *DescribeVncUrlResponse) {
+	response = &DescribeVncUrlResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) DescribeVncUrl(request *DescribeVncUrlRequest) (response *DescribeVncUrlResponse, err error) {
+	response = NewDescribeVncUrlResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewChangeNicNetworkTypeRequest() (request *ChangeNicNetworkTypeRequest) {
+	request = &ChangeNicNetworkTypeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ChangeNicNetworkType")
+
+	return
+}
+
+func NewChangeNicNetworkTypeResponse() (response *ChangeNicNetworkTypeResponse) {
+	response = &ChangeNicNetworkTypeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) ChangeNicNetworkType(request *ChangeNicNetworkTypeRequest) (response *ChangeNicNetworkTypeResponse, err error) {
+	response = NewChangeNicNetworkTypeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeEipTrafficRequest() (request *DescribeEipTrafficRequest) {
+	request = &DescribeEipTrafficRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeEipTraffic")
+
+	return
+}
+
+func NewDescribeEipTrafficResponse() (response *DescribeEipTrafficResponse) {
+	response = &DescribeEipTrafficResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeEipTraffic
+func (c *Client) DescribeEipTraffic(request *DescribeEipTrafficRequest) (response *DescribeEipTrafficResponse, err error) {
+	response = NewDescribeEipTrafficResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewCreateBorderGatewayRequest() (request *CreateBorderGatewayRequest) {
+	request = &CreateBorderGatewayRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateBorderGateway")
+
+	return
+}
+
+func NewCreateBorderGatewayResponse() (response *CreateBorderGatewayResponse) {
+	response = &CreateBorderGatewayResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CreateBorderGateway
+func (c *Client) CreateBorderGateway(request *CreateBorderGatewayRequest) (response *CreateBorderGatewayResponse, err error) {
+	response = NewCreateBorderGatewayResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteBorderGatewayRequest() (request *DeleteBorderGatewayRequest) {
+	request = &DeleteBorderGatewayRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteBorderGateway")
+
+	return
+}
+
+func NewDeleteBorderGatewayResponse() (response *DeleteBorderGatewayResponse) {
+	response = &DeleteBorderGatewayResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeleteBorderGateway
+func (c *Client) DeleteBorderGateway(request *DeleteBorderGatewayRequest) (response *DeleteBorderGatewayResponse, err error) {
+	response = NewDeleteBorderGatewayResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeBorderGatewaysRequest() (request *DescribeBorderGatewaysRequest) {
+	request = &DescribeBorderGatewaysRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeBorderGateways")
+
+	return
+}
+
+func NewDescribeBorderGatewaysResponse() (response *DescribeBorderGatewaysResponse) {
+	response = &DescribeBorderGatewaysResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeBorderGateways
+func (c *Client) DescribeBorderGateways(request *DescribeBorderGatewaysRequest) (response *DescribeBorderGatewaysResponse, err error) {
+	response = NewDescribeBorderGatewaysResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyBorderGatewaysAttributeRequest() (request *ModifyBorderGatewaysAttributeRequest) {
+	request = &ModifyBorderGatewaysAttributeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyBorderGatewaysAttribute")
+
+	return
+}
+
+func NewModifyBorderGatewaysAttributeResponse() (response *ModifyBorderGatewaysAttributeResponse) {
+	response = &ModifyBorderGatewaysAttributeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyBorderGatewaysAttribute
+func (c *Client) ModifyBorderGatewaysAttribute(request *ModifyBorderGatewaysAttributeRequest) (response *ModifyBorderGatewaysAttributeResponse, err error) {
+	response = NewModifyBorderGatewaysAttributeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyBorderGatewayAsnRequest() (request *ModifyBorderGatewayAsnRequest) {
+	request = &ModifyBorderGatewayAsnRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyBorderGatewayAsn")
+
+	return
+}
+
+func NewModifyBorderGatewayAsnResponse() (response *ModifyBorderGatewayAsnResponse) {
+	response = &ModifyBorderGatewayAsnResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyBorderGatewayAsn
+func (c *Client) ModifyBorderGatewayAsn(request *ModifyBorderGatewayAsnRequest) (response *ModifyBorderGatewayAsnResponse, err error) {
+	response = NewModifyBorderGatewayAsnResponse()
 	err = c.ApiCall(request, response)
 	return
 }
