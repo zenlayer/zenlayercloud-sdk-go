@@ -58,6 +58,161 @@ func NewDescribeDatacentersResponse() (response *DescribeDatacentersResponse) {
 	return
 }
 
+func NewDescribeDatacentersWithServiceRequest() (request *DescribeDatacentersWithServiceRequest) {
+	request = &DescribeDatacentersWithServiceRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeDatacentersWithService")
+
+	return
+}
+
+// DescribeDatacentersWithService
+// 本接口用于查询包含服务的数据中心列表。
+//
+// Possible error codes to return:
+func (c *Client) DescribeDatacentersWithService(request *DescribeDatacentersWithServiceRequest) (response *DescribeDatacentersWithServiceResponse, err error) {
+	response = NewDescribeDatacentersWithServiceResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeDatacentersWithServiceResponse() (response *DescribeDatacentersWithServiceResponse) {
+	response = &DescribeDatacentersWithServiceResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func NewDescribeVirtualEdgeDatacentersRequest() (request *DescribeVirtualEdgeDatacentersRequest) {
+	request = &DescribeVirtualEdgeDatacentersRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeVirtualEdgeDatacenters")
+	return
+}
+
+func NewDescribeVirtualEdgeDatacentersResponse() (response *DescribeVirtualEdgeDatacentersResponse) {
+	response = &DescribeVirtualEdgeDatacentersResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeVirtualEdgeDatacenters
+// 本接口用于查询端口列表。
+//
+// Possible error codes to return:
+func (c *Client) DescribeVirtualEdgeDatacenters(request *DescribeVirtualEdgeDatacentersRequest) (response *DescribeVirtualEdgeDatacentersResponse, err error) {
+	response = NewDescribeVirtualEdgeDatacentersResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewQueryDataCenterPortPriceRequest() (request *QueryDataCenterPortPriceRequest) {
+	request = &QueryDataCenterPortPriceRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "QueryDataCenterPortPrice")
+
+	return
+}
+
+// QueryDataCenterPortPrice
+// 本接口用于数据中心端口询价。
+//
+// Possible error codes to return:
+func (c *Client) QueryDataCenterPortPrice(request *QueryDataCenterPortPriceRequest) (response *QueryDataCenterPortPriceResponse, err error) {
+	response = NewQueryDataCenterPortPriceResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewQueryDataCenterPortPriceResponse() (response *QueryDataCenterPortPriceResponse) {
+	response = &QueryDataCenterPortPriceResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func NewQueryPrivateConnectBandwidthPriceRequest() (request *QueryPrivateConnectBandwidthPriceRequest) {
+	request = &QueryPrivateConnectBandwidthPriceRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "QueryPrivateConnectBandwidthPrice")
+
+	return
+}
+
+// QueryPrivateConnectBandwidthPrice
+// 本接口用于二层网络专线骨干网带宽询价。
+//
+// Possible error codes to return:
+func (c *Client) QueryPrivateConnectBandwidthPrice(request *QueryPrivateConnectBandwidthPriceRequest) (response *QueryPrivateConnectBandwidthPriceResponse, err error) {
+	response = NewQueryPrivateConnectBandwidthPriceResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewQueryPrivateConnectBandwidthPriceResponse() (response *QueryPrivateConnectBandwidthPriceResponse) {
+	response = &QueryPrivateConnectBandwidthPriceResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func NewQueryCloudRouterBandwidthPriceRequest() (request *QueryCloudRouterBandwidthPriceRequest) {
+	request = &QueryCloudRouterBandwidthPriceRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "QueryCloudRouterBandwidthPrice")
+
+	return
+}
+
+// QueryCloudRouterBandwidthPrice
+// 本接口用于三层网络骨干网带宽询价。
+//
+// Possible error codes to return:
+func (c *Client) QueryCloudRouterBandwidthPrice(request *QueryCloudRouterBandwidthPriceRequest) (response *QueryCloudRouterBandwidthPriceResponse, err error) {
+	response = NewQueryCloudRouterBandwidthPriceResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewQueryCloudRouterBandwidthPriceResponse() (response *QueryCloudRouterBandwidthPriceResponse) {
+	response = &QueryCloudRouterBandwidthPriceResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func NewQueryCloudOnrampPriceRequest() (request *QueryCloudOnrampPriceRequest) {
+	request = &QueryCloudOnrampPriceRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "QueryCloudOnrampPrice")
+
+	return
+}
+
+// QueryCloudOnrampPrice
+// 本接口用于云连接带宽询价。
+//
+// Possible error codes to return:
+func (c *Client) QueryCloudOnrampPrice(request *QueryCloudOnrampPriceRequest) (response *QueryCloudOnrampPriceResponse, err error) {
+	response = NewQueryCloudOnrampPriceResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewQueryCloudOnrampPriceResponse() (response *QueryCloudOnrampPriceResponse) {
+	response = &QueryCloudOnrampPriceResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
 func NewCreatePortRequest() (request *CreatePortRequest) {
 	request = &CreatePortRequest{
 		BaseRequest: &common.BaseRequest{},

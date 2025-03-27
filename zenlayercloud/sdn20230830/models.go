@@ -29,6 +29,187 @@ type DescribeDatacentersResponseParams struct {
 	DcSet []*DatacenterInfo `json:"dcSet,omitempty"`
 }
 
+type DescribeDatacentersWithServiceRequest struct {
+	*common.BaseRequest
+
+	CloudRegionId string `json:"cloudRegionId,omitempty"`
+
+	DcId string `json:"dcId,omitempty"`
+
+	ServiceType string `json:"serviceType,omitempty"`
+}
+
+type DescribeDatacentersWithServiceResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeDatacentersWithServiceResponseParams `json:"response"`
+}
+
+type DescribeDatacentersWithServiceResponseParams struct {
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	DcSet []*DatacenterWithServiceInfo `json:"dcSet,omitempty"`
+}
+
+type DescribeVirtualEdgeDatacentersRequest struct {
+	*common.BaseRequest
+
+	// 主数据中心ID
+	PrimaryDcId string `json:"primaryDcId,omitempty"`
+}
+
+type DescribeVirtualEdgeDatacentersResponse struct {
+	*common.BaseResponse
+	Response *DescribeVirtualEdgeDatacentersResponseParams `json:"response"`
+}
+
+type DescribeVirtualEdgeDatacentersResponseParams struct {
+	RequestId string            `json:"requestId,omitempty"`
+	DcSet     []*DatacenterInfo `json:"dcSet,omitempty"`
+}
+
+type QueryDataCenterPortPriceRequest struct {
+	*common.BaseRequest
+
+	DcId string `json:"dcId,omitempty"`
+
+	PortType string `json:"portType,omitempty"`
+
+	BuildCrossConnectWithAssisted bool `json:"buildCrossConnectWithAssisted,omitempty"`
+}
+
+type QueryDataCenterPortPriceResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *QueryDataCenterPortPriceResponseParams `json:"response"`
+}
+
+type QueryDataCenterPortPriceResponseParams struct {
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Price *Price `json:"price,omitempty"`
+
+	CrossConnectPrice *Price `json:"crossConnectPrice,omitempty"`
+
+	CrossConnectOneTimeConstructionPrice *Price `json:"crossConnectOneTimeConstructionPrice,omitempty"`
+
+	Stock int `json:"stock,omitempty"`
+}
+
+type QueryPrivateConnectBandwidthPriceRequest struct {
+	*common.BaseRequest
+
+	SourceDcId string `json:"sourceDcId,omitempty"`
+
+	DestinationDcId string `json:"destinationDcId,omitempty"`
+
+	InternetType string `json:"internetType,omitempty"`
+
+	BandwidthMbps int `json:"bandwidthMbps,omitempty"`
+}
+
+type QueryPrivateConnectBandwidthPriceResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *QueryPrivateConnectBandwidthPriceResponseParams `json:"response"`
+}
+
+type QueryPrivateConnectBandwidthPriceResponseParams struct {
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Price *Price `json:"price,omitempty"`
+
+	Stock int `json:"stock,omitempty"`
+}
+
+type QueryCloudRouterBandwidthPriceRequest struct {
+	*common.BaseRequest
+
+	DcId string `json:"dcId,omitempty"`
+
+	BandwidthMbps int `json:"bandwidthMbps,omitempty"`
+}
+
+type QueryCloudRouterBandwidthPriceResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *QueryCloudRouterBandwidthPriceResponseParams `json:"response"`
+}
+
+type QueryCloudRouterBandwidthPriceResponseParams struct {
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Price *Price `json:"price,omitempty"`
+
+	Stock int `json:"stock,omitempty"`
+}
+
+type QueryCloudOnrampPriceRequest struct {
+	*common.BaseRequest
+
+	DcId string `json:"dcId,omitempty"`
+
+	CloudType string `json:"cloudType,omitempty"`
+
+	VlanId int `json:"vlanId,omitempty"`
+
+	CloudRegionId string `json:"cloudRegionId,omitempty"`
+
+	BandwidthMbps int `json:"bandwidthMbps,omitempty"`
+}
+
+type QueryCloudOnrampPriceResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *QueryCloudOnrampPriceResponseParams `json:"response"`
+}
+
+type QueryCloudOnrampPriceResponseParams struct {
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Price *Price `json:"price,omitempty"`
+
+	Stock int `json:"stock,omitempty"`
+}
+
+type DatacenterWithServiceInfo struct {
+	DcId string `json:"dcId,omitempty"`
+
+	DcName string `json:"dcName,omitempty"`
+
+	AreaName string `json:"areaName,omitempty"`
+
+	CityName string `json:"cityName,omitempty"`
+
+	CloudRegionId string `json:"cloudRegionId,omitempty"`
+
+	ServiceTypes []string `json:"serviceTypes,omitempty"`
+
+	Latitude float64 `json:"latitude,omitempty"`
+
+	Longitude float64 `json:"longitude,omitempty"`
+}
+
 type CreatePortRequest struct {
 	*common.BaseRequest
 
@@ -538,6 +719,8 @@ type DatacenterInfo struct {
 	//数据中心是否支持物理端口。
 	//该字段仅在 DesscribeDatacenters 可取值。
 	IsPortAvailable *bool `json:"isPortAvailable,omitempty"`
+
+	AvailableBandwidth int `json:"availableBandwidth,omitempty"`
 }
 
 type DescribePrivateConnectAvailablePortsRequest struct {
@@ -713,6 +896,12 @@ type Price struct {
 	// DAY: 表示计价单元是按天来计算。
 	// MONTH: 表示计价单元是按月来计算，95计费则是这种。
 	ChargeUnit string `json:"chargeUnit,omitempty"`
+
+	ExcessUnitPrice *float64 `json:"excessUnitPrice,omitempty"`
+
+	ExcessDiscountUnitPrice *float64 `json:"excessDiscountUnitPrice,omitempty"`
+
+	ExcessAmountUnit string `json:"excessAmountUnit,omitempty"`
 
 	// 后付费阶梯价格。
 	// 后付费模式使用，如果非阶梯价格，该项为null。
@@ -1122,6 +1311,9 @@ type CreateCloudRouterEdgePoint struct {
 	// 接入的带宽大小。
 	BandwidthMbps int `json:"bandwidthMbps,omitempty"`
 
+	// 弹性算力产品内边界网关 ID。
+	ZbgId string `json:"zbgId,omitempty"`
+
 	// 物理端口ID。
 	PortId string `json:"portId,omitempty"`
 
@@ -1154,6 +1346,62 @@ type CreateCloudRouterEdgePoint struct {
 
 	// 高可用类型。
 	HaType string `json:"haType,omitempty"`
+
+	// IPSec隧道。
+	IpSecTunnel string `json:"ipSecTunnel,omitempty"`
+
+	// 预共享密钥。
+	Psk string `json:"psk,omitempty"`
+
+	// 公网IP地址
+	CustomerPublicIP string `json:"customerPublicIP,omitempty"`
+
+	// 内网IP地址
+	CustomerPrivateIP string `json:"customerPrivateIP,omitempty"`
+
+	// 边缘网关内网IP地址
+	VirtualEdgePrivateIP string `json:"virtualEdgePrivateIP,omitempty"`
+
+	// 启用健康检查
+	EnableHealthCheck bool `json:"enableHealthCheck,omitempty"`
+
+	// BGP连接配置信息。
+	IpSecBgpConnection *IPSecBGPConnection `json:"ipSecBgpConnection,omitempty"`
+
+	// 静态路由配置信息
+	IpSecStaticRoutes []*IPSecStaticRoute `json:"ipSecStaticRoutes,omitempty"`
+
+	// 备用IPSec配置
+	BackupIpSec *BackupIPSecConfig `json:"backupIpSec,omitempty"`
+}
+
+type IPSecBGPConnection struct {
+	// 您的 ASN。
+	CustomerAsn int `json:"customerAsn,omitempty"`
+
+	// 边缘网关的 ASN。
+	VirtualEdgeAsn int `json:"virtualEdgeAsn,omitempty"`
+
+	// 用于验证 BGP MD5 认证的对等体的共享密钥。
+	Password string `json:"password,omitempty"`
+}
+
+type IPSecStaticRoute struct {
+	// 用于路由到下一跳的 IPv4 前缀。
+	Cidr string `json:"cidr,omitempty"`
+}
+
+type BackupIPSecConfig struct {
+	// 数据中心四字码
+	DcId string `json:"dcId,omitempty"`
+	// 预共享密钥
+	Psk string `json:"psk,omitempty"`
+	// 客户内网IP地址
+	CustomerPrivateIP string `json:"customerPrivateIP,omitempty"`
+	// 虚拟边缘节点内网IP
+	VirtualEdgePrivateIP string `json:"virtualEdgePrivateIP,omitempty"`
+	// BGP MD5认证密码
+	Password string `json:"password,omitempty"`
 }
 
 type CreateCloudRouterResponse struct {
