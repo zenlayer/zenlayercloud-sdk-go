@@ -72,6 +72,43 @@ type DescribeVirtualEdgeDatacentersResponseParams struct {
 	DcSet     []*DatacenterInfo `json:"dcSet,omitempty"`
 }
 
+
+
+type QueryDataCenterPortPricesRequest struct {
+    *common.BaseRequest
+
+    DcIds                      []string `json:"dcIds,omitempty"`
+
+    PortType                   string   `json:"portType,omitempty"`
+
+    BuildCrossConnectWithAssisted bool    `json:"buildCrossConnectWithAssisted,omitempty"`
+}
+
+type QueryDataCenterPortPricesResponse struct {
+    *common.BaseResponse
+
+    Response *QueryDataCenterPortPricesResponseParams `json:"response"`
+}
+
+type QueryDataCenterPortPricesResponseParams struct {
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+    Prices []*DatacenterPortPrice `json:"prices"`
+}
+
+type DatacenterPortPrice struct {
+    Price *Price `json:"price,omitempty"`
+
+    CrossConnectPrice *Price `json:"crossConnectPrice,omitempty"`
+
+   	CrossConnectOneTimeConstructionPrice *Price `json:"crossConnectOneTimeConstructionPrice,omitempty"`
+
+  	Stock int `json:"stock,omitempty"`
+
+  	DcId string `json:"dcId,omitempty"`
+}
+
 type QueryDataCenterPortPriceRequest struct {
 	*common.BaseRequest
 
@@ -104,6 +141,64 @@ type QueryDataCenterPortPriceResponseParams struct {
 	Stock int `json:"stock,omitempty"`
 }
 
+<<<<<<< HEAD
+=======
+
+type QueryPrivateConnectPriceRequest struct {
+    *common.BaseRequest
+
+    InternetType    string                       `json:"internetType,omitempty"`
+
+    BandwidthMbps   int                          `json:"bandwidthMbps,omitempty"`
+
+    EndpointA       PrivateConnectEndpointInfo   `json:"endpointA,omitempty"`
+
+    EndpointZ       PrivateConnectEndpointInfo   `json:"endpointZ,omitempty"`
+}
+
+
+// 相关依赖结构体（若不存在需要补充）
+type PrivateConnectEndpointInfo struct {
+    DcId      string `json:"dcId,omitempty"`
+
+    PortType string `json:"portType,omitempty"`
+
+    BuildCrossConnectWithAssisted bool `json:"buildCrossConnectWithAssisted,omitempty"`
+
+    CloudType string `json:"cloudType,omitempty"`
+
+    VlanId int `json:"vlanId,omitempty"`
+
+    CloudRegionId string `json:"cloudRegionId,omitempty"`
+
+    BandwidthMbps  int  `json:"bandwidthMbps,omitempty"`
+}
+
+type QueryPrivateConnectPriceResponse struct {
+    *common.BaseResponse
+
+    RequestId       string                        `json:"requestId,omitempty"`
+
+    Price           *Price                         `json:"price,omitempty"`
+
+    Stock           int                           `json:"stock,omitempty"`
+
+    EndpointAPrice  *PrivateConnectEndpointPrice   `json:"endpointAPrice,omitempty"`
+
+    EndpointZPrice  *PrivateConnectEndpointPrice   `json:"endpointZPrice,omitempty"`
+}
+
+type PrivateConnectEndpointPrice struct {
+   Price  *Price  `json:"price,omitempty"`
+
+   Stock  int  `json:"stock,omitempty"`
+
+   CrossConnectPrice  *Price  `json:"crossConnectPrice,omitempty"`
+
+   CrossConnectOneTimeConstructionPrice  *Price  `json:"crossConnectOneTimeConstructionPrice,omitempty"`
+}
+
+>>>>>>> origin/sdn
 type QueryPrivateConnectBandwidthPriceRequest struct {
 	*common.BaseRequest
 

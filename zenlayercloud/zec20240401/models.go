@@ -1600,9 +1600,14 @@ type CreateNicResponse struct {
 
 	RequestId string `json:"requestId,omitempty"`
 
-	Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response"`
+	Response *CreateNicResponseParams `json:"response"`
+}
+
+type CreateNicResponseParams struct {
+	// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 requestId。
+	RequestId string `json:"requestId,omitempty"`
+
+	NicId string `json:"nicId,omitempty"`
 }
 
 type CreateNicRequest struct {
@@ -2328,6 +2333,30 @@ type BatchAttachEipLanIpResponse struct {
 	} `json:"response"`
 }
 
+
+type AssociateEipAddressRequest struct {
+    *common.BaseRequest
+
+    LoadBalancerId string   `json:"loadBalancerId,omitempty"`
+
+    EipIds         []string `json:"eipIds,omitempty"`
+}
+
+type AssociateEipAddressResponse struct {
+    *common.BaseResponse
+
+    RequestId string `json:"requestId,omitempty"`
+
+    Response *AssociateEipAddressResponseParams `json:"response"`
+}
+
+type AssociateEipAddressResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+
+	FailedEipIds []string `json:"failedEipIds,omitempty"`
+}
+
+>>>>>>> origin/zec
 type DetachEipLanIpRequest struct {
 	*common.BaseRequest
 
@@ -2342,6 +2371,26 @@ type DetachEipLanIpResponse struct {
 	Response struct {
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
+}
+
+type UnassociateEipAddressRequest struct {
+    *common.BaseRequest
+
+    EipIds []string `json:"eipIds,omitempty"`  // 需要解绑的EIP ID列表
+}
+
+type UnassociateEipAddressResponse struct {
+    *common.BaseResponse
+
+    RequestId string                                 `json:"requestId,omitempty"`
+
+    Response  *UnassociateEipAddressResponseParams   `json:"response"`
+}
+
+type UnassociateEipAddressResponseParams struct {
+    RequestId     string   `json:"requestId,omitempty"`
+
+    FailedEipIds  []string `json:"failedEipIds,omitempty"`  // 解绑失败的EIP ID列表
 }
 
 type ConfigEipEgressIpRequest struct {
@@ -2376,6 +2425,8 @@ type DescribeEipPriceRequest struct {
 	FlowPackage float64 `json:"flowPackage,omitempty"`
 
 	CidrId string `json:"cidrId,omitempty"`
+
+	ClusterId string `json:"clusterId,omitempty"`
 
 	PeerRegionId string `json:"peerRegionId,omitempty"`
 }
