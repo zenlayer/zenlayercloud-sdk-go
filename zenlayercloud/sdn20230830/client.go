@@ -135,6 +135,51 @@ func NewQueryDataCenterPortPriceResponse() (response *QueryDataCenterPortPriceRe
 	return
 }
 
+
+func (c *Client) QueryDataCenterPortPrices(request *QueryDataCenterPortPricesRequest) (response *QueryDataCenterPortPricesResponse, err error) {
+    response = NewQueryDataCenterPortPricesResponse()
+    err = c.ApiCall(request, response)
+    return
+}
+
+func NewQueryDataCenterPortPricesResponse() (response *QueryDataCenterPortPricesResponse) {
+    response = &QueryDataCenterPortPricesResponse{
+        BaseResponse: &common.BaseResponse{},
+    }
+    return
+}
+
+func NewQueryDataCenterPortPricesRequest() (request *QueryDataCenterPortPricesRequest) {
+    request = &QueryDataCenterPortPricesRequest{
+        BaseRequest: &common.BaseRequest{},
+    }
+    request.Init().InitWithApiInfo(SERVICE, APIVersion, "QueryDataCenterPortPrices")
+    return
+}
+
+
+func NewQueryPrivateConnectPriceRequest() (request *QueryPrivateConnectPriceRequest) {
+    request = &QueryPrivateConnectPriceRequest{
+        BaseRequest: &common.BaseRequest{},
+    }
+    request.Init().InitWithApiInfo(SERVICE, APIVersion, "QueryPrivateConnectPrice")
+    return
+}
+
+func (c *Client) QueryPrivateConnectPrice(request *QueryPrivateConnectPriceRequest) (response *QueryPrivateConnectPriceResponse, err error) {
+    response = NewQueryPrivateConnectPriceResponse()
+    err = c.ApiCall(request, response)
+    return
+}
+
+func NewQueryPrivateConnectPriceResponse() (response *QueryPrivateConnectPriceResponse) {
+    response = &QueryPrivateConnectPriceResponse{
+        BaseResponse: &common.BaseResponse{},
+    }
+    return
+}
+
+
 func NewQueryPrivateConnectBandwidthPriceRequest() (request *QueryPrivateConnectBandwidthPriceRequest) {
 	request = &QueryPrivateConnectBandwidthPriceRequest{
 		BaseRequest: &common.BaseRequest{},

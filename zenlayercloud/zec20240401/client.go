@@ -1748,6 +1748,30 @@ func (c *Client) BatchAttachEipLanIp(request *BatchAttachEipLanIpRequest) (respo
 	return
 }
 
+
+
+func NewAssociateEipAddressRequest() (request *AssociateEipAddressRequest) {
+    request = &AssociateEipAddressRequest{
+        BaseRequest: &common.BaseRequest{},
+    }
+    request.Init().InitWithApiInfo(SERVICE, APIVersion, "AssociateEipAddress")
+    return
+}
+
+func NewAssociateEipAddressResponse() (response *AssociateEipAddressResponse) {
+    response = &AssociateEipAddressResponse{
+        BaseResponse: &common.BaseResponse{},
+    }
+    return
+}
+
+func (c *Client) AssociateEipAddress(request *AssociateEipAddressRequest) (response *AssociateEipAddressResponse, err error) {
+    response = NewAssociateEipAddressResponse()
+    err = c.ApiCall(request, response)
+    return
+}
+
+
 func NewDetachEipLanIpRequest() (request *DetachEipLanIpRequest) {
 	request = &DetachEipLanIpRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -1769,6 +1793,31 @@ func (c *Client) DetachEipLanIp(request *DetachEipLanIpRequest) (response *Detac
 	err = c.ApiCall(request, response)
 	return
 }
+
+
+
+
+func (c *Client) UnassociateEipAddress(request *UnassociateEipAddressRequest) (response *UnassociateEipAddressResponse, err error) {
+    response = NewUnassociateEipAddressResponse()
+    err = c.ApiCall(request, response)
+    return
+}
+
+func NewUnassociateEipAddressRequest() (request *UnassociateEipAddressRequest) {
+    request = &UnassociateEipAddressRequest{
+        BaseRequest: &common.BaseRequest{},
+    }
+    request.Init().InitWithApiInfo(SERVICE, APIVersion, "UnassociateEipAddress")
+    return
+}
+
+func NewUnassociateEipAddressResponse() (response *UnassociateEipAddressResponse) {
+    response = &UnassociateEipAddressResponse{
+        BaseResponse: &common.BaseResponse{},
+    }
+    return
+}
+
 
 func NewConfigEipEgressIpRequest() (request *ConfigEipEgressIpRequest) {
 	request = &ConfigEipEgressIpRequest{
