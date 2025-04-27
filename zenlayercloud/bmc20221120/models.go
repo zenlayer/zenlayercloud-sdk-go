@@ -138,6 +138,8 @@ type CreateInstancesRequest struct {
 
 	// NIC configuration.
 	Nic *Nic `json:"nic,omitempty"`
+
+	ClusterId string `json:"clusterId,omitempty"`
 }
 
 type RaidConfig struct {
