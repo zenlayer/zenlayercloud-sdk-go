@@ -666,6 +666,8 @@ type StartInstancesResponse struct {
 type StopInstancesRequest struct {
 	*common.BaseRequest
 	InstanceIds []string `json:"instanceIds,omitempty"`
+	ForceShutdown *bool   `json:"forceShutdown,omitempty"`
+
 }
 
 type StopInstancesResponse struct {

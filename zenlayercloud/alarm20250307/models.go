@@ -28,6 +28,7 @@ type DescribeIpBlockEventsResponseParams struct {
 
 type IpBlockEventInfo struct {
 	Ip            string `json:"ip,omitempty"`
+	InternalIps   string `json:"internalIps,omitempty"`
 	Region        string `json:"region,omitempty"`
 	ResourceGroup string `json:"resourceGroup,omitempty"`
 	BlockTime     string `json:"blockTime,omitempty"`
