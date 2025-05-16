@@ -2356,7 +2356,6 @@ type AssociateEipAddressResponseParams struct {
 	FailedEipIds []string `json:"failedEipIds,omitempty"`
 }
 
->>>>>>> origin/zec
 type DetachEipLanIpRequest struct {
 	*common.BaseRequest
 
