@@ -3163,3 +3163,100 @@ type UnbindCidrBlockIpsResponse struct {
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
+
+
+
+// DescribeManagedInstancesRequest 实例列表请求参数
+type DescribeManagedInstancesRequest struct {
+    *common.BaseRequest
+
+    // InstanceIds 实例ID。取值可以由多个实例ID组成一个。最多支持100个ID查询。
+    InstanceIds []string `json:"instanceIds,omitempty"`
+
+    // InstanceName 实例名称。
+    InstanceName *string `json:"instanceName,omitempty"`
+
+    // Ip 公网IP地址。
+    Ip *string `json:"ip,omitempty"`
+
+    // LanIp 内网IP地址。
+    LanIp *string `json:"lanIp,omitempty"`
+
+    // FacName 地域名称。
+    FacName *string `json:"facName,omitempty"`
+
+    // CityCode 城市代码。
+    CityCode *string `json:"cityCode,omitempty"`
+
+    // PageNum 返回的分页数。
+    PageNum *int `json:"pageNum,omitempty"`
+
+    // PageSize 返回的分页大小。
+    PageSize *int `json:"pageSize,omitempty"`
+
+}
+
+// DescribeManagedInstancesResponseParams 托管实例查询结果。
+type DescribeManagedInstancesResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // TotalCount 实例数量。
+    TotalCount *int `json:"totalCount,omitempty"`
+
+    // DataSet 实例列表。
+    DataSet []*ManagedInstanceInfo `json:"dataSet,omitempty"`
+
+}
+
+// ManagedInstanceInfo 托管实例信息。
+type ManagedInstanceInfo struct {
+
+    // InstanceId 实例ID。
+    InstanceId *string `json:"instanceId,omitempty"`
+
+    // InstanceName 实例名称。
+    InstanceName *string `json:"instanceName,omitempty"`
+
+    // FacName 地域名称。
+    FacName *string `json:"facName,omitempty"`
+
+    // Ips 公网IP列表。
+    Ips []string `json:"ips,omitempty"`
+
+    // LanIps 内网IP列表。
+    LanIps []string `json:"lanIps,omitempty"`
+
+    // CreateTime 创建时间。
+    CreateTime *string `json:"createTime,omitempty"`
+
+}
+
+type DescribeManagedInstancesResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeManagedInstancesResponseParams `json:"response,omitempty"`
+}
+
+
+
+type DescribeManagedInstanceTrafficRequest struct {
+	*common.BaseRequest
+
+	InstanceId *string `json:"instanceId,omitempty"`
+
+	StartTime *string `json:"startTime,omitempty"`
+
+	EndTime *string `json:"endTime,omitempty"`
+}
+
+type DescribeManagedInstanceTrafficResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId *string `json:"requestId,omitempty"`
+
+	Response *InstanceTrafficDataResponse `json:"response"`
+}

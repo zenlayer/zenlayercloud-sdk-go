@@ -796,3 +796,50 @@ type AcceleratorTrafficData struct {
 
 	Time string `json:"time"`
 }
+
+type DescribeAcceleratorMetricsRequest struct {
+	*common.BaseRequest
+
+	// ID of accelerator.
+	AcceleratorId string `json:"acceleratorId,omitempty"`
+
+	// StartTime of traffic.
+	StartTime string `json:"startTime,omitempty"`
+
+	// EndTime of traffic.
+	EndTime string `json:"endTime,omitempty"`
+}
+
+type DescribeAcceleratorMetricsResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId"`
+
+	Response *DescribeAcceleratorMetricsResponseParams `json:"response"`
+}
+
+type DescribeAcceleratorMetricsResponseParams struct {
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId"`
+
+	SpeedUnit string `json:"speedUnit"`
+
+	TimeUnit string `json:"timeUnit"`
+
+	DataList []*AcceleratorMetricsData `json:"dataList"`
+}
+
+type AcceleratorMetricsData struct {
+	RequestCount int64 `json:"requestCount"`
+
+	AverageDownloadSpeed float64 `json:"averageDownloadSpeed"`
+
+	AverageFirstByteTime float64 `json:"averageFirstByteTime"`
+
+	AverageSslHandshakeTime float64 `json:"averageSslHandshakeTime"`
+
+	AverageRequestTime float64 `json:"averageRequestTime"`
+
+	Time string `json:"time"`
+}
