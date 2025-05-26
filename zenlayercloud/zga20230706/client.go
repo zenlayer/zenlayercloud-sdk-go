@@ -709,3 +709,29 @@ func NewDescribeAcceleratorTrafficResponse() (response *DescribeAcceleratorTraff
 	}
 	return
 }
+
+func NewDescribeAcceleratorMetricsRequest() (request *DescribeAcceleratorMetricsRequest) {
+	request = &DescribeAcceleratorMetricsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeAcceleratorMetrics")
+	return
+}
+
+// DescribeAcceleratorMetrics
+// 调用本接口用于查询加速器指标。
+//
+//	Possible error codes to return:
+//		INVALID_START_TIME_MUST_BEFORE_END_TIME = "Invalid.Start.Time.Must.Before.End.Time"
+func (c *Client) DescribeAcceleratorMetrics(request *DescribeAcceleratorMetricsRequest) (response *DescribeAcceleratorMetricsResponse, err error) {
+	response = NewDescribeAcceleratorMetricsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeAcceleratorMetricsResponse() (response *DescribeAcceleratorMetricsResponse) {
+	response = &DescribeAcceleratorMetricsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}

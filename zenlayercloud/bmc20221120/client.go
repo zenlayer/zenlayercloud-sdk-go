@@ -2230,3 +2230,54 @@ func (c *Client) UnbindCidrBlockIps(request *UnbindCidrBlockIpsRequest) (respons
 	err = c.ApiCall(request, response)
 	return
 }
+
+
+
+func NewDescribeManagedInstancesRequest() (request *DescribeManagedInstancesRequest) {
+	request = &DescribeManagedInstancesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeManagedInstances")
+
+	return
+}
+
+func NewDescribeManagedInstancesResponse() (response *DescribeManagedInstancesResponse) {
+	response = &DescribeManagedInstancesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeManagedInstances 查询一台或多台实例的信息。用户可以根据实例ID、实例名称等条件来查询实例的详细信息。
+func (c *Client) DescribeManagedInstances(request *DescribeManagedInstancesRequest) (response *DescribeManagedInstancesResponse, err error) {
+	response = NewDescribeManagedInstancesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+
+
+
+func NewDescribeManagedInstanceTrafficRequest() (request *DescribeManagedInstanceTrafficRequest) {
+	request = &DescribeManagedInstanceTrafficRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeManagedInstanceTraffic")
+
+	return
+}
+
+func NewDescribeManagedInstanceTrafficResponse() (response *DescribeManagedInstanceTrafficResponse) {
+	response = &DescribeManagedInstanceTrafficResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeManagedInstanceTraffic
+func (c *Client) DescribeManagedInstanceTraffic(request *DescribeManagedInstanceTrafficRequest) (response *DescribeManagedInstanceTrafficResponse, err error) {
+	response = NewDescribeManagedInstanceTrafficResponse()
+	err = c.ApiCall(request, response)
+	return
+}
