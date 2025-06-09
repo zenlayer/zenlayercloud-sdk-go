@@ -846,6 +846,29 @@ func (c *Client) DetachDisks(request *DetachDisksRequest) (response *DetachDisks
 	return
 }
 
+func NewResizeDiskRequest() (request *ResizeDiskRequest) {
+	request = &ResizeDiskRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ResizeDisk")
+
+	return
+}
+
+func NewResizeDiskResponse() (response *ResizeDiskResponse) {
+	response = &ResizeDiskResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ResizeDisk 将一个云硬盘扩容到指定大小。
+func (c *Client) ResizeDisk(request *ResizeDiskRequest) (response *ResizeDiskResponse, err error) {
+	response = NewResizeDiskResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewModifyDisksAttributesRequest() (request *ModifyDisksAttributesRequest) {
 	request = &ModifyDisksAttributesRequest{
 		BaseRequest: &common.BaseRequest{},
