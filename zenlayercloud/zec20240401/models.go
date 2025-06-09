@@ -502,6 +502,8 @@ type InstanceInfo struct {
 
 	ImageName string `json:"imageName,omitempty"`
 
+	InstanceType *string `json:"instanceType,omitempty"`
+
 	Status string `json:"status,omitempty"`
 
 	SystemDisk *SystemDisk `json:"systemDisk,omitempty"`
@@ -1144,6 +1146,8 @@ type DiskInfo struct {
 	ResourceGroupId string `json:"resourceGroupId,omitempty"`
 
 	ResourceGroupName string `json:"resourceGroupName,omitempty"`
+
+	Serial string `json:"serial,omitempty"`
 }
 
 type AttachDisksRequest struct {
@@ -1186,6 +1190,8 @@ type DetachDisksRequest struct {
 	*common.BaseRequest
 
 	DiskIds []string `json:"diskIds,omitempty"`
+
+	InstanceCheckFlag *bool `json:"instanceCheckFlag,omitempty"`
 }
 
 type DetachDisksResponse struct {
@@ -1196,6 +1202,29 @@ type DetachDisksResponse struct {
 	Response struct {
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
+}
+
+
+type ResizeDiskRequest struct {
+	*common.BaseRequest
+
+	// DiskId 云硬盘ID。通过DescribeDisks接口查询。
+	DiskId *string `json:"diskId,omitempty"`
+
+	// DiskSize 云硬盘扩容后的大小。单位GB。必须大于当前云硬盘大小。云盘最大限制为32768GB。
+	DiskSize *int `json:"diskSize,omitempty"`
+
+}
+
+type ResizeDiskResponse struct {
+	*common.BaseResponse
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
 }
 
 type ModifyDisksAttributesRequest struct {
@@ -1569,6 +1598,9 @@ type DescribeNicsRequest struct {
 	VpcId string `json:"vpcId,omitempty"`
 
 	SubnetId string `json:"subnetId,omitempty"`
+
+	// 根据网卡关联的实例ID过滤。
+	InstanceId string `json:"instanceId,omitempty"`
 
 	Status string `json:"status,omitempty"`
 
@@ -2179,6 +2211,18 @@ type DescribeEipsRequest struct {
 	PageSize int `json:"pageSize,omitempty"`
 
 	PageNum int `json:"pageNum,omitempty"`
+
+	// PrivateIpAddress 按照 EIP 绑定的内网 IP 过滤。
+	PrivateIpAddress *string `json:"privateIpAddress,omitempty"`
+
+	// IpAddress 按照 EIP 的 IP 过滤。
+	IpAddress *string `json:"ipAddress,omitempty"`
+
+	// InstanceId 按照 EIP 绑定的实例 ID 过滤。该字段过滤出该实例所绑定的网卡上的 EIP。
+	InstanceId *string `json:"instanceId,omitempty"`
+
+	// AssociatedId 按照 EIP 绑定的资源 ID 过滤。
+	AssociatedId *string `json:"associatedId,omitempty"`
 }
 
 type DescribeEipsResponse struct {
@@ -2220,6 +2264,12 @@ type EipInfo struct {
 	CidrId string `json:"cidrId,omitempty"`
 
 	NicId string `json:"nicId,omitempty"`
+
+	// AssociatedId EIP 绑定的资源ID。可能为实例ID、网卡ID或者NAT网关ID。
+	AssociatedId *string `json:"associatedId,omitempty"`
+
+	// AssociatedType EIP 资源类型。可能为实例ID、网卡ID或者NAT网关ID。
+	AssociatedType *string `json:"associatedType,omitempty"`
 
 	FlowPackage float64 `json:"flowPackage,omitempty"`
 
@@ -2333,21 +2383,20 @@ type BatchAttachEipLanIpResponse struct {
 	} `json:"response"`
 }
 
-
 type AssociateEipAddressRequest struct {
-    *common.BaseRequest
+	*common.BaseRequest
 
-    LoadBalancerId string   `json:"loadBalancerId,omitempty"`
+	LoadBalancerId string `json:"loadBalancerId,omitempty"`
 
-    EipIds         []string `json:"eipIds,omitempty"`
+	EipIds []string `json:"eipIds,omitempty"`
 }
 
 type AssociateEipAddressResponse struct {
-    *common.BaseResponse
+	*common.BaseResponse
 
-    RequestId string `json:"requestId,omitempty"`
+	RequestId string `json:"requestId,omitempty"`
 
-    Response *AssociateEipAddressResponseParams `json:"response"`
+	Response *AssociateEipAddressResponseParams `json:"response"`
 }
 
 type AssociateEipAddressResponseParams struct {
@@ -2373,23 +2422,23 @@ type DetachEipLanIpResponse struct {
 }
 
 type UnassociateEipAddressRequest struct {
-    *common.BaseRequest
+	*common.BaseRequest
 
-    EipIds []string `json:"eipIds,omitempty"`  // 需要解绑的EIP ID列表
+	EipIds []string `json:"eipIds,omitempty"` // 需要解绑的EIP ID列表
 }
 
 type UnassociateEipAddressResponse struct {
-    *common.BaseResponse
+	*common.BaseResponse
 
-    RequestId string                                 `json:"requestId,omitempty"`
+	RequestId string `json:"requestId,omitempty"`
 
-    Response  *UnassociateEipAddressResponseParams   `json:"response"`
+	Response *UnassociateEipAddressResponseParams `json:"response"`
 }
 
 type UnassociateEipAddressResponseParams struct {
-    RequestId     string   `json:"requestId,omitempty"`
+	RequestId string `json:"requestId,omitempty"`
 
-    FailedEipIds  []string `json:"failedEipIds,omitempty"`  // 解绑失败的EIP ID列表
+	FailedEipIds []string `json:"failedEipIds,omitempty"` // 解绑失败的EIP ID列表
 }
 
 type ConfigEipEgressIpRequest struct {
