@@ -2231,8 +2231,6 @@ func (c *Client) UnbindCidrBlockIps(request *UnbindCidrBlockIpsRequest) (respons
 	return
 }
 
-
-
 func NewDescribeManagedInstancesRequest() (request *DescribeManagedInstancesRequest) {
 	request = &DescribeManagedInstancesRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -2256,9 +2254,6 @@ func (c *Client) DescribeManagedInstances(request *DescribeManagedInstancesReque
 	return
 }
 
-
-
-
 func NewDescribeManagedInstanceTrafficRequest() (request *DescribeManagedInstanceTrafficRequest) {
 	request = &DescribeManagedInstanceTrafficRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -2278,6 +2273,424 @@ func NewDescribeManagedInstanceTrafficResponse() (response *DescribeManagedInsta
 // DescribeManagedInstanceTraffic
 func (c *Client) DescribeManagedInstanceTraffic(request *DescribeManagedInstanceTrafficRequest) (response *DescribeManagedInstanceTrafficResponse, err error) {
 	response = NewDescribeManagedInstanceTrafficResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeLoadBalancerZonesRequest() (request *DescribeLoadBalancerZonesRequest) {
+	request = &DescribeLoadBalancerZonesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeLoadBalancerZones")
+
+	return
+}
+
+func NewDescribeLoadBalancerZonesResponse() (response *DescribeLoadBalancerZonesResponse) {
+	response = &DescribeLoadBalancerZonesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) DescribeLoadBalancerZones(request *DescribeLoadBalancerZonesRequest) (response *DescribeLoadBalancerZonesResponse, err error) {
+	response = NewDescribeLoadBalancerZonesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeLoadBalancerSpecsRequest() (request *DescribeLoadBalancerSpecsRequest) {
+	request = &DescribeLoadBalancerSpecsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeLoadBalancerSpecs")
+
+	return
+}
+
+func NewDescribeLoadBalancerSpecsResponse() (response *DescribeLoadBalancerSpecsResponse) {
+	response = &DescribeLoadBalancerSpecsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) DescribeLoadBalancerSpecs(request *DescribeLoadBalancerSpecsRequest) (response *DescribeLoadBalancerSpecsResponse, err error) {
+	response = NewDescribeLoadBalancerSpecsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeLoadBalancersRequest() (request *DescribeLoadBalancersRequest) {
+	request = &DescribeLoadBalancersRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeLoadBalancers")
+
+	return
+}
+
+func NewDescribeLoadBalancersResponse() (response *DescribeLoadBalancersResponse) {
+	response = &DescribeLoadBalancersResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) DescribeLoadBalancers(request *DescribeLoadBalancersRequest) (response *DescribeLoadBalancersResponse, err error) {
+	response = NewDescribeLoadBalancersResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewCreateLoadBalancerRequest() (request *CreateLoadBalancerRequest) {
+	request = &CreateLoadBalancerRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateLoadBalancer")
+
+	return
+}
+
+func NewCreateLoadBalancerResponse() (response *CreateLoadBalancerResponse) {
+	response = &CreateLoadBalancerResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) CreateLoadBalancer(request *CreateLoadBalancerRequest) (response *CreateLoadBalancerResponse, err error) {
+	response = NewCreateLoadBalancerResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyLoadBalancersNameRequest() (request *ModifyLoadBalancersNameRequest) {
+	request = &ModifyLoadBalancersNameRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyLoadBalancersName")
+
+	return
+}
+
+func NewModifyLoadBalancersNameResponse() (response *ModifyLoadBalancersNameResponse) {
+	response = &ModifyLoadBalancersNameResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) ModifyLoadBalancersName(request *ModifyLoadBalancersNameRequest) (response *ModifyLoadBalancersNameResponse, err error) {
+	response = NewModifyLoadBalancersNameResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeListenersRequest() (request *DescribeListenersRequest) {
+	request = &DescribeListenersRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeListeners")
+
+	return
+}
+
+func NewDescribeListenersResponse() (response *DescribeListenersResponse) {
+	response = &DescribeListenersResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) DescribeListeners(request *DescribeListenersRequest) (response *DescribeListenersResponse, err error) {
+	response = NewDescribeListenersResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewCreateListenerRequest() (request *CreateListenerRequest) {
+	request = &CreateListenerRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateListener")
+
+	return
+}
+
+func NewCreateListenerResponse() (response *CreateListenerResponse) {
+	response = &CreateListenerResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) CreateListener(request *CreateListenerRequest) (response *CreateListenerResponse, err error) {
+	response = NewCreateListenerResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyListenerAttributeRequest() (request *ModifyListenerAttributeRequest) {
+	request = &ModifyListenerAttributeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyListenerAttribute")
+
+	return
+}
+
+func NewModifyListenerAttributeResponse() (response *ModifyListenerAttributeResponse) {
+	response = &ModifyListenerAttributeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) ModifyListenerAttribute(request *ModifyListenerAttributeRequest) (response *ModifyListenerAttributeResponse, err error) {
+	response = NewModifyListenerAttributeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteListenerRequest() (request *DeleteListenerRequest) {
+	request = &DeleteListenerRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteListener")
+
+	return
+}
+
+func NewDeleteListenerResponse() (response *DeleteListenerResponse) {
+	response = &DeleteListenerResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) DeleteListener(request *DeleteListenerRequest) (response *DeleteListenerResponse, err error) {
+	response = NewDeleteListenerResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeBackendsRequest() (request *DescribeBackendsRequest) {
+	request = &DescribeBackendsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeBackends")
+
+	return
+}
+
+func NewDescribeBackendsResponse() (response *DescribeBackendsResponse) {
+	response = &DescribeBackendsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) DescribeBackends(request *DescribeBackendsRequest) (response *DescribeBackendsResponse, err error) {
+	response = NewDescribeBackendsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewRegisterBackendRequest() (request *RegisterBackendRequest) {
+	request = &RegisterBackendRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "RegisterBackend")
+
+	return
+}
+
+func NewRegisterBackendResponse() (response *RegisterBackendResponse) {
+	response = &RegisterBackendResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) RegisterBackend(request *RegisterBackendRequest) (response *RegisterBackendResponse, err error) {
+	response = NewRegisterBackendResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeregisterBackendRequest() (request *DeregisterBackendRequest) {
+	request = &DeregisterBackendRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeregisterBackend")
+
+	return
+}
+
+func NewDeregisterBackendResponse() (response *DeregisterBackendResponse) {
+	response = &DeregisterBackendResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) DeregisterBackend(request *DeregisterBackendRequest) (response *DeregisterBackendResponse, err error) {
+	response = NewDeregisterBackendResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyBackendWeightRequest() (request *ModifyBackendWeightRequest) {
+	request = &ModifyBackendWeightRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyBackendWeight")
+
+	return
+}
+
+func NewModifyBackendWeightResponse() (response *ModifyBackendWeightResponse) {
+	response = &ModifyBackendWeightResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) ModifyBackendWeight(request *ModifyBackendWeightRequest) (response *ModifyBackendWeightResponse, err error) {
+	response = NewModifyBackendWeightResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewCreateLoadBalancerVIPsRequest() (request *CreateLoadBalancerVIPsRequest) {
+	request = &CreateLoadBalancerVIPsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateLoadBalancerVIPs")
+
+	return
+}
+
+func NewCreateLoadBalancerVIPsResponse() (response *CreateLoadBalancerVIPsResponse) {
+	response = &CreateLoadBalancerVIPsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) CreateLoadBalancerVIPs(request *CreateLoadBalancerVIPsRequest) (response *CreateLoadBalancerVIPsResponse, err error) {
+	response = NewCreateLoadBalancerVIPsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteLoadBalancerVIPRequest() (request *DeleteLoadBalancerVIPRequest) {
+	request = &DeleteLoadBalancerVIPRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteLoadBalancerVIP")
+
+	return
+}
+
+func NewDeleteLoadBalancerVIPResponse() (response *DeleteLoadBalancerVIPResponse) {
+	response = &DeleteLoadBalancerVIPResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) DeleteLoadBalancerVIP(request *DeleteLoadBalancerVIPRequest) (response *DeleteLoadBalancerVIPResponse, err error) {
+	response = NewDeleteLoadBalancerVIPResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyLoadBalancerBandwidthRequest() (request *ModifyLoadBalancerBandwidthRequest) {
+	request = &ModifyLoadBalancerBandwidthRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyLoadBalancerBandwidth")
+
+	return
+}
+
+func NewModifyLoadBalancerBandwidthResponse() (response *ModifyLoadBalancerBandwidthResponse) {
+	response = &ModifyLoadBalancerBandwidthResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) ModifyLoadBalancerBandwidth(request *ModifyLoadBalancerBandwidthRequest) (response *ModifyLoadBalancerBandwidthResponse, err error) {
+	response = NewModifyLoadBalancerBandwidthResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewTerminateLoadBalancerRequest() (request *TerminateLoadBalancerRequest) {
+	request = &TerminateLoadBalancerRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "TerminateLoadBalancer")
+
+	return
+}
+
+func NewTerminateLoadBalancerResponse() (response *TerminateLoadBalancerResponse) {
+	response = &TerminateLoadBalancerResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) TerminateLoadBalancer(request *TerminateLoadBalancerRequest) (response *TerminateLoadBalancerResponse, err error) {
+	response = NewTerminateLoadBalancerResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewReleaseLoadBalancerRequest() (request *ReleaseLoadBalancerRequest) {
+	request = &ReleaseLoadBalancerRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ReleaseLoadBalancer")
+
+	return
+}
+
+func NewReleaseLoadBalancerResponse() (response *ReleaseLoadBalancerResponse) {
+	response = &ReleaseLoadBalancerResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) ReleaseLoadBalancer(request *ReleaseLoadBalancerRequest) (response *ReleaseLoadBalancerResponse, err error) {
+	response = NewReleaseLoadBalancerResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewRestoreLoadBalancerRequest() (request *RestoreLoadBalancerRequest) {
+	request = &RestoreLoadBalancerRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "RestoreLoadBalancer")
+
+	return
+}
+
+func NewRestoreLoadBalancerResponse() (response *RestoreLoadBalancerResponse) {
+	response = &RestoreLoadBalancerResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) RestoreLoadBalancer(request *RestoreLoadBalancerRequest) (response *RestoreLoadBalancerResponse, err error) {
+	response = NewRestoreLoadBalancerResponse()
 	err = c.ApiCall(request, response)
 	return
 }

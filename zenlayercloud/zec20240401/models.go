@@ -2,64 +2,6 @@ package zec
 
 import "github.com/zenlayer/zenlayercloud-sdk-go/zenlayercloud/common"
 
-type DescribeInstanceMonitorDataResponse struct {
-	*common.BaseResponse
-
-	// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 requestId。
-	RequestId string `json:"requestId,omitempty"`
-
-	Response *DescribeInstanceMonitorDataResponseParam `json:"response"`
-}
-
-type DescribeInstanceMonitorDataResponseParam struct {
-	// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 requestId。
-	RequestId string `json:"requestId,omitempty"`
-
-	// 指标数据的最大值，单位取决于指标类型。
-	MaxValue float64 `json:"maxValue,omitempty"`
-
-	// 指标数据的平均值，单位取决于指标类型。
-	AvgValue float64 `json:"avgValue,omitempty"`
-
-	// 指标数据列表。
-	DataList []*MetricValue `json:"dataList,omitempty"`
-}
-
-type MetricValue struct {
-	// 监控指标值
-	Value float64 `json:"value,omitempty"`
-
-	// 数据时间戳，单位秒
-	TimeInSecond int `json:"timeInSecond,omitempty"`
-}
-
-type DescribeInstanceMonitorDataRequest struct {
-	*common.BaseRequest
-
-	//实例ID。
-	InstanceId string `json:"instanceId,omitempty"`
-
-	//指标类型。
-	//INTERNET_INGRESS_BITS: 公网入向带宽，单位bps
-	//INTERNET_EGRESS_BITS: 公网出向带宽，单位bps
-	MetricType string `json:"metricType,omitempty"`
-
-	//公网IP地址。
-	//当存在多个IP时，需要指定对应网卡上的公网地址。该字段仅对下列指标有效。
-	//INTERNET_INGRESS_BITS
-	//INTERNET_EGRESS_BITS
-	//INTERNET_INGRESS_PACKETS
-	//INTERNET_EGRESS_PACKETS
-	IpAddress string `json:"ipAddress,omitempty"`
-
-	//查询开始时间。
-	//按照ISO8601标准表示，并且使用UTC时间。格式为：YYYY-MM-DDThh:mm:ssZ。
-	StartTime string `json:"startTime,omitempty"`
-
-	//查询结束时间。
-	//按照ISO8601标准表示，并且使用UTC时间。格式为：YYYY-MM-DDThh:mm:ssZ。
-	EndTime string `json:"endTime,omitempty"`
-}
 
 type CreateVpcResponse struct {
 	*common.BaseResponse
@@ -1888,6 +1830,8 @@ type CreateZecInstancesRequest struct {
 	EipV4Type string `json:"eipV4Type,omitempty"`
 
 	ClusterId string `json:"clusterId,omitempty"`
+
+	EipBindType *string `json:"eipBindType,omitempty"`
 }
 
 type CreateZecInstancesResponse struct {
@@ -2216,13 +2160,20 @@ type DescribeEipsRequest struct {
 	PrivateIpAddress *string `json:"privateIpAddress,omitempty"`
 
 	// IpAddress 按照 EIP 的 IP 过滤。
+	// Deprecated: 请使用 IpAddresses 代替
 	IpAddress *string `json:"ipAddress,omitempty"`
+
+	// IpAddresses 按照 EIP 的 IP列表过滤。
+	IpAddresses []string `json:"ipAddresses,omitempty"`
 
 	// InstanceId 按照 EIP 绑定的实例 ID 过滤。该字段过滤出该实例所绑定的网卡上的 EIP。
 	InstanceId *string `json:"instanceId,omitempty"`
 
 	// AssociatedId 按照 EIP 绑定的资源 ID 过滤。
 	AssociatedId *string `json:"associatedId,omitempty"`
+
+	// CidrIds 按照 EIP 所属的CIDR ID列表 过滤。
+	CidrIds []string `json:"cidrIds,omitempty"`
 }
 
 type DescribeEipsResponse struct {
@@ -2257,6 +2208,9 @@ type EipInfo struct {
 
 	PublicIpAddresses []string `json:"publicIpAddresses,omitempty"`
 
+	// PrivateIpAddress EIP 绑定的内网IP地址。
+	PrivateIpAddress *string `json:"privateIpAddress,omitempty"`
+
 	EipV4Type string `json:"eipV4Type,omitempty"`
 
 	InternetChargeType string `json:"internetChargeType,omitempty"`
@@ -2270,6 +2224,9 @@ type EipInfo struct {
 
 	// AssociatedType EIP 资源类型。可能为实例ID、网卡ID或者NAT网关ID。
 	AssociatedType *string `json:"associatedType,omitempty"`
+
+	// BindType EIP 绑定类型。
+	BindType *string `json:"bindType,omitempty"`
 
 	FlowPackage float64 `json:"flowPackage,omitempty"`
 
@@ -2383,20 +2340,36 @@ type BatchAttachEipLanIpResponse struct {
 	} `json:"response"`
 }
 
+
+
 type AssociateEipAddressRequest struct {
-	*common.BaseRequest
+    *common.BaseRequest
 
-	LoadBalancerId string `json:"loadBalancerId,omitempty"`
+	// LoadBalancerId 负载均衡实例的ID。
+	LoadBalancerId *string `json:"loadBalancerId,omitempty"`
 
+	// NicId 虚拟网卡的ID。
+	NicId *string `json:"nicId,omitempty"`
+
+	// LanIp 要绑定的网卡上的内网IP地址。当IP绑定的是网卡, 则该字段不能为空。
+	LanIp *string `json:"lanIp,omitempty"`
+
+	// NatId NAT网关的ID。
+	NatId *string `json:"natId,omitempty"`
+
+	// EipIds 要绑定的EIP的ID。EIP 必须是未绑定状态。
 	EipIds []string `json:"eipIds,omitempty"`
+
+	// BindType 绑定类型。当绑定的是网卡时生效。默认为普通NATm模式。
+	BindType *string `json:"bindType,omitempty"`
 }
 
 type AssociateEipAddressResponse struct {
-	*common.BaseResponse
+    *common.BaseResponse
 
-	RequestId string `json:"requestId,omitempty"`
+    RequestId string `json:"requestId,omitempty"`
 
-	Response *AssociateEipAddressResponseParams `json:"response"`
+    Response *AssociateEipAddressResponseParams `json:"response"`
 }
 
 type AssociateEipAddressResponseParams struct {
@@ -2422,24 +2395,54 @@ type DetachEipLanIpResponse struct {
 }
 
 type UnassociateEipAddressRequest struct {
-	*common.BaseRequest
+    *common.BaseRequest
 
-	EipIds []string `json:"eipIds,omitempty"` // 需要解绑的EIP ID列表
+    EipIds []string `json:"eipIds,omitempty"`  // 需要解绑的EIP ID列表
 }
 
 type UnassociateEipAddressResponse struct {
-	*common.BaseResponse
+    *common.BaseResponse
 
-	RequestId string `json:"requestId,omitempty"`
+    RequestId string                                 `json:"requestId,omitempty"`
 
-	Response *UnassociateEipAddressResponseParams `json:"response"`
+    Response  *UnassociateEipAddressResponseParams   `json:"response"`
 }
 
 type UnassociateEipAddressResponseParams struct {
+    RequestId     string   `json:"requestId,omitempty"`
+
+    FailedEipIds  []string `json:"failedEipIds,omitempty"`  // 解绑失败的EIP ID列表
+}
+
+
+type ReplaceEipAddressRequest struct {
+    *common.BaseRequest
+
+    ReplaceIps  []*ReplaceIp `json:"replaceIps,omitempty"`
+}
+
+type ReplaceIp struct {
+	EipId string `json:"eipId,omitempty"`
+
+	OwnIp string `json:"ownIp,omitempty"`
+
+	TargetIp string `json:"targetIp,omitempty"`
+}
+
+type ReplaceEipAddressResponse struct {
+    *common.BaseResponse
+
+    RequestId string `json:"requestId,omitempty"`
+
+    Response *ReplaceEipAddressResponseParams `json:"response"`
+}
+
+type ReplaceEipAddressResponseParams struct {
 	RequestId string `json:"requestId,omitempty"`
 
-	FailedEipIds []string `json:"failedEipIds,omitempty"` // 解绑失败的EIP ID列表
+	FailedEipIds []string `json:"failedEipIds,omitempty"`
 }
+
 
 type ConfigEipEgressIpRequest struct {
 	*common.BaseRequest
@@ -2808,6 +2811,10 @@ type CreateBorderGatewayRequest struct {
 	Label string `json:"label,omitempty"`
 
 	Asn int `json:"asn,omitempty"`
+
+	AdvertisedSubnet string `json:"advertisedSubnet,omitempty"`
+
+	AdvertisedCidrs []string `json:"advertisedCidrs,omitempty"`
 }
 
 type CreateBorderGatewayResponse struct {
@@ -2892,6 +2899,12 @@ type ZbgInfo struct {
 	CreateTime string `json:"createTime,omitempty"`
 
 	CloudRouterIds []string `json:"cloudRouterIds,omitempty"`
+
+	AdvertisedSubnet string `json:"advertisedSubnet,omitempty"`
+
+    AdvertisedCidrs []string `json:"advertisedCidrs,omitempty"`
+
+    NatId string `json:"natId,omitempty"`
 }
 
 type ModifyBorderGatewaysAttributeRequest struct {
@@ -2900,6 +2913,10 @@ type ModifyBorderGatewaysAttributeRequest struct {
 	ZbgIds []string `json:"zbgIds,omitempty"`
 
 	Name string `json:"name,omitempty"`
+
+	AdvertisedSubnet string `json:"advertisedSubnet,omitempty"`
+
+    AdvertisedCidrs []string `json:"advertisedCidrs,omitempty"`
 }
 
 type ModifyBorderGatewaysAttributeResponse struct {
@@ -2931,3 +2948,753 @@ type ModifyBorderGatewayAsnResponse struct {
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
+
+
+type DescribeAvailableNatsRequest struct {
+	*common.BaseRequest
+
+	ZbgId string `json:"zbgId,omitempty"`
+}
+
+
+type DescribeAvailableNatsResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeAvailableNatsResponseParams `json:"response,omitempty"`
+}
+
+type DescribeAvailableNatsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // NAT网关ID集合。
+    NatIds []string `json:"natIds,omitempty"`
+}
+
+
+type AssignBorderGatewayRequest struct {
+	*common.BaseRequest
+
+	ZbgId string `json:"zbgId,omitempty"`
+
+	NatId string `json:"natId,omitempty"`
+}
+
+type AssignBorderGatewayResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response"`
+}
+
+
+type UnassignBorderGatewayRequest struct {
+	*common.BaseRequest
+
+	ZbgId string `json:"zbgId,omitempty"`
+}
+
+type UnassignBorderGatewayResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response"`
+}
+
+type CreateNatGatewayRequest struct {
+    *common.BaseRequest
+
+    // RegionId 区域节点ID。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // VpcId NAT网关所属的VPC网络ID。
+    VpcId *string `json:"vpcId,omitempty"`
+
+    // Name NAT网关的名称。长度为2～63个字符。
+    Name *string `json:"name,omitempty"`
+
+    // SubnetIds NAT网关所属的Subnet子网ID集合。
+    SubnetIds []string `json:"subnetIds,omitempty"`
+
+    // ResourceGroupId 资源组ID。如果不指定，则会创建在默认资源组。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+}
+
+type CreateNatGatewayResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // OrderNumber 下单编号。
+    OrderNumber *string `json:"orderNumber,omitempty"`
+
+    // NatGatewayId NAT网关唯一ID。
+    NatGatewayId *string `json:"natGatewayId,omitempty"`
+
+}
+
+type CreateNatGatewayResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *CreateNatGatewayResponseParams `json:"response,omitempty"`
+
+}
+
+type DescribeNatGatewaysRequest struct {
+    *common.BaseRequest
+
+    // RegionId 节点ID。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // VpcId 根据NAT网关所属的VPC网络 ID过滤。
+    VpcId *string `json:"vpcId,omitempty"`
+
+    // NatGatewayIds NAT网关ID集合。实例ID数量上限为100个。
+    NatGatewayIds []string `json:"natGatewayIds,omitempty"`
+
+    // Name NAT网关名称。可以在末尾加入*以支持模糊匹配。
+    Name *string `json:"name,omitempty"`
+
+    // Status NAT网关状态。
+    Status *string `json:"status,omitempty"`
+
+    // PageSize 返回的分页大小。默认为20，最大为1000。
+    PageSize *int `json:"pageSize,omitempty"`
+
+    // PageNum 返回的分页页码。默认为1。
+    PageNum *int `json:"pageNum,omitempty"`
+
+}
+
+type DescribeNatGatewaysResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // TotalCount 满足过滤条件的NAT网关总数。
+    TotalCount *int `json:"totalCount,omitempty"`
+
+    // DataSet 返回的NAT网关列表。
+    DataSet []*NatGateway `json:"dataSet,omitempty"`
+
+}
+
+// NatGateway 描述NAT网关的信息。
+type NatGateway struct {
+
+    // NatGatewayId NAT网关唯一ID。
+    NatGatewayId *string `json:"natGatewayId,omitempty"`
+
+    // VpcId NAT网关所属的VPC网络ID。
+    VpcId *string `json:"vpcId,omitempty"`
+
+    // RegionId 区域节点ID。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // Status NAT网关的状态。
+    Status *string `json:"status,omitempty"`
+
+    // Name NAT网关的名称。
+    Name *string `json:"name,omitempty"`
+
+    // SubnetIds NAT网关所属的Subnet子网ID集合。
+    SubnetIds []string `json:"subnetIds,omitempty"`
+
+    // EipIds NAT网关所关联的EIP ID集合。
+    EipIds []string `json:"eipIds,omitempty"`
+
+    // ZbgId 边界网关 ID。
+    ZbgId []string `json:"zbgId,omitempty"`
+
+    // ResourceGroupId 资源组ID。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // ResourceGroupName 资源组名称。
+    ResourceGroupName *string `json:"resourceGroupName,omitempty"`
+
+    // CreateTime 创建时间。按照ISO8601标准表示，并且使用UTC时间, 格式为：YYYY-MM-DDThh:mm:ssZ。
+    CreateTime *string `json:"createTime,omitempty"`
+
+    // ExpiredTime 到期时间。按照ISO8601标准表示，并且使用UTC时间, 格式为：YYYY-MM-DDThh:mm:ssZ。
+    ExpiredTime *string `json:"expiredTime,omitempty"`
+
+}
+
+type DescribeNatGatewaysResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeNatGatewaysResponseParams `json:"response,omitempty"`
+
+}
+
+type DescribeNatGatewayDetailRequest struct {
+    *common.BaseRequest
+
+    // NatGatewayId NAT网关 ID。
+    NatGatewayId *string `json:"natGatewayId,omitempty"`
+
+}
+
+type DescribeNatGatewayDetailResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // NatGatewayId NAT网关唯一ID。
+    NatGatewayId *string `json:"natGatewayId,omitempty"`
+
+    // Name NAT网关名称。
+    Name *string `json:"name,omitempty"`
+
+    // Snats SNAT网关规则集合。
+    Snats []*SnatEntry `json:"snats,omitempty"`
+
+    // Dnats DNAT网关规则集合。
+    Dnats []*DnatEntry `json:"dnats,omitempty"`
+
+}
+
+// SnatEntry 描述SNAT规则的信息。
+type SnatEntry struct {
+
+    // SnatEntryId SNAT规则 ID。
+    SnatEntryId *string `json:"snatEntryId,omitempty"`
+
+    // Cidrs CIDR网段，不传默认是0.0.0.0/0。
+    Cidrs []string `json:"cidrs,omitempty"`
+
+    // EipIds SNAT规则添加的eip ID集合。
+    EipIds []string `json:"eipIds,omitempty"`
+
+}
+
+// DnatEntry 描述DNAT规则的信息。
+type DnatEntry struct {
+
+    // DnatEntryId DNAT规则 ID。
+    DnatEntryId *string `json:"dnatEntryId,omitempty"`
+
+    // Status DNAT规则状态。
+    Status *string `json:"status,omitempty"`
+
+    // PrivateIp DNAT规则的内网IP地址。
+    PrivateIp *string `json:"privateIp,omitempty"`
+
+    // EipId DNAT规则添加的eip ID。
+    EipId *string `json:"eipId,omitempty"`
+
+    // Protocol DNAT规则的协议类型。
+    Protocol *string `json:"protocol,omitempty"`
+
+    // ListenerPort DNAT规则端口转发的外部端口或端口段，取值范围1-65535。
+    ListenerPort *string `json:"listenerPort,omitempty"`
+
+    // InternalPort DNAT规则端口转发的内部端口或端口段，取值范围1-65535。
+    InternalPort *string `json:"internalPort,omitempty"`
+
+}
+
+type DescribeNatGatewayDetailResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeNatGatewayDetailResponseParams `json:"response,omitempty"`
+
+}
+
+type DeleteNatGatewayRequest struct {
+    *common.BaseRequest
+
+    // NatGatewayId NAT网关 ID。
+    NatGatewayId *string `json:"natGatewayId,omitempty"`
+
+}
+
+type DeleteNatGatewayResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type RenewNatGatewayRequest struct {
+    *common.BaseRequest
+
+    // NatGatewayId NAT网关 ID。
+    NatGatewayId *string `json:"natGatewayId,omitempty"`
+
+}
+
+type RenewNatGatewayResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type InquiryPriceCreateNatGatewayRequest struct {
+    *common.BaseRequest
+
+    // RegionId 区域节点ID。
+    RegionId *string `json:"regionId,omitempty"`
+
+}
+
+// InquiryPriceCreateNatGatewayResponseParams 描述创建NAT网关的响应。
+type InquiryPriceCreateNatGatewayResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // NatGatewayPrice NAT网关的价格。
+    NatGatewayPrice *PriceItem `json:"natGatewayPrice,omitempty"`
+
+    // CuPrice NAT网关CU的价格。
+    CuPrice *PriceItem `json:"cuPrice,omitempty"`
+
+}
+
+// PriceItem 描述价格的信息。
+type PriceItem struct {
+
+    // Discount 折扣大小。如80.0代表8折。
+    Discount *float64 `json:"discount,omitempty"`
+
+    // DiscountPrice 后付费的单元折后价格。后付费模式使用，如果价格为阶梯价格，该项为null。
+    DiscountPrice *float64 `json:"discountPrice,omitempty"`
+
+    // OriginalPrice 预付费的原价。预付费模式使用，后付费该值为 null。
+    OriginalPrice *float64 `json:"originalPrice,omitempty"`
+
+    // UnitPrice 后付费的单元原始价格。后付费模式使用，如果价格为阶梯价格，该项为null。
+    UnitPrice *float64 `json:"unitPrice,omitempty"`
+
+    // DiscountUnitPrice 后付费的单元折后价格。后付费模式使用，如果价格为阶梯价格，该项为null。
+    DiscountUnitPrice *float64 `json:"discountUnitPrice,omitempty"`
+
+    // ChargeUnit 后付费计价单元。后付费模式使用，可取值范围：<br/>HOUR: 表示计价单元是按每小时来计算。DAY: 表示计价单元是按天来计算。MONTH: 表示计价单元是按月来计算，95计费则是这种。
+    ChargeUnit *string `json:"chargeUnit,omitempty"`
+
+    // StepPrices 后付费阶梯价格。后付费模式使用，如果非阶梯价格，该项为null。
+    StepPrices []*StepPrice `json:"stepPrices,omitempty"`
+
+    // AmountUnit 用量单位。比如Mbps, LCU等。如果为null, 代表取不到值。
+    AmountUnit *string `json:"amountUnit,omitempty"`
+
+    // ExcessUnitPrice 超量原始价格。
+    ExcessUnitPrice *float64 `json:"excessUnitPrice,omitempty"`
+
+    // ExcessDiscountUnitPrice 超量折扣后价格。
+    ExcessDiscountUnitPrice *float64 `json:"excessDiscountUnitPrice,omitempty"`
+
+    // ExcessAmountUnit 超量用量单位。如果为null, 代表取不到值。
+    ExcessAmountUnit *string `json:"excessAmountUnit,omitempty"`
+
+}
+
+
+type InquiryPriceCreateNatGatewayResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *InquiryPriceCreateNatGatewayResponseParams `json:"response,omitempty"`
+
+}
+
+type CreateSnatEntryRequest struct {
+    *common.BaseRequest
+
+    // NatGatewayId NAT网关 ID。
+    NatGatewayId *string `json:"natGatewayId,omitempty"`
+
+    // Cidrs CIDR网段，不传默认是0.0.0.0/0。
+    Cidrs []string `json:"cidrs,omitempty"`
+
+    // EipIds
+    EipIds []string `json:"eipIds,omitempty"`
+
+}
+
+type CreateSnatEntryResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // SnatEntryId SNAT规则唯一ID。
+    SnatEntryId *string `json:"snatEntryId,omitempty"`
+
+}
+
+type CreateSnatEntryResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *CreateSnatEntryResponseParams `json:"response,omitempty"`
+
+}
+
+type ModifySnatEntryRequest struct {
+    *common.BaseRequest
+
+    // SnatEntryId SNAT规则 ID。
+    SnatEntryId *string `json:"snatEntryId,omitempty"`
+
+    // Cidrs CIDR网段，不传默认是0.0.0.0/0。
+    Cidrs []string `json:"cidrs,omitempty"`
+
+    // EipIds SNAT规则添加的eip ID集合。
+    EipIds []string `json:"eipIds,omitempty"`
+
+}
+
+type ModifySnatEntryResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type DeleteSnatEntryRequest struct {
+    *common.BaseRequest
+
+    // SnatEntryId SNAT规则 ID。
+    SnatEntryId *string `json:"snatEntryId,omitempty"`
+
+}
+
+type DeleteSnatEntryResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type CreateDnatEntryRequest struct {
+    *common.BaseRequest
+
+    // NatGatewayId NAT网关 ID。
+    NatGatewayId *string `json:"natGatewayId,omitempty"`
+
+    // EipId
+    EipId *string `json:"eipId,omitempty"`
+
+    // PrivateIp DNAT规则的内网IP地址。
+    PrivateIp *string `json:"privateIp,omitempty"`
+
+    // Protocol DNAT规则的协议类型。
+    Protocol *string `json:"protocol,omitempty"`
+
+    // ListenerPort DNAT规则端口转发的外部端口或端口段，取值范围1-65535。
+    ListenerPort *string `json:"listenerPort,omitempty"`
+
+    // InternalPort DNAT规则端口转发的内部端口或端口段，取值范围1-65535。
+    InternalPort *string `json:"internalPort,omitempty"`
+
+}
+
+type CreateDnatEntryResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // DnatEntryId DNAT规则唯一ID。
+    DnatEntryId *string `json:"dnatEntryId,omitempty"`
+
+}
+
+type CreateDnatEntryResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *CreateDnatEntryResponseParams `json:"response,omitempty"`
+
+}
+
+type ModifyDnatEntryRequest struct {
+    *common.BaseRequest
+
+    // DnatEntryId DNAT规则 ID。
+    DnatEntryId *string `json:"dnatEntryId,omitempty"`
+
+    // EipId
+    EipId *string `json:"eipId,omitempty"`
+
+    // PrivateIp DNAT规则的内网IP地址。
+    PrivateIp *string `json:"privateIp,omitempty"`
+
+    // Protocol DNAT规则的协议类型。
+    Protocol *string `json:"protocol,omitempty"`
+
+    // ListenerPort DNAT规则端口转发的外部端口或端口段，取值范围1-65535。
+    ListenerPort *string `json:"listenerPort,omitempty"`
+
+    // InternalPort DNAT规则端口转发的内部端口或端口段，取值范围1-65535。
+    InternalPort *string `json:"internalPort,omitempty"`
+
+}
+
+type ModifyDnatEntryResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type DeleteDnatEntryRequest struct {
+    *common.BaseRequest
+
+    // DnatEntryId DNAT规则 ID。
+    DnatEntryId *string `json:"dnatEntryId,omitempty"`
+
+}
+
+type DeleteDnatEntryResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+}
+
+
+
+type DescribeNatGatewayRegionsResponse struct {
+	*common.BaseResponse
+
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeNatGatewayRegionsResponseParams `json:"response"`
+}
+
+type DescribeNatGatewayRegionsResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+
+	RegionIds []string `json:"regionIds,omitempty"`
+}
+
+type DescribeNatGatewayRegionsRequest struct {
+	*common.BaseRequest
+}
+
+// ModifyEipBandwidthRequest 修改带宽限速请求。
+type ModifyEipBandwidthRequest struct {
+    *common.BaseRequest
+
+    // EipId EIP唯一标识ID。
+    EipId *string `json:"eipId,omitempty"`
+
+    // Bandwidth 调整带宽限速的目标值，有且仅当为95计费时, 需要指定。单位Mbps。
+    Bandwidth *int `json:"bandwidth,omitempty"`
+
+    // CommitBandwidth 保底带宽。单位Mbps。
+    CommitBandwidth *int `json:"commitBandwidth,omitempty"`
+
+}
+
+type ModifyEipBandwidthResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+}
+
+type ModifyEipBandwidthResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *ModifyEipBandwidthResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeEipMonitorDataRequest 查询弹性公网IP监控指标请求。
+type DescribeEipMonitorDataRequest struct {
+	*common.BaseRequest
+
+	// EipId EIP唯一标识ID。
+	EipId *string `json:"eipId,omitempty"`
+
+	// MetricType EIP监控指标类型。
+	MetricType *string `json:"metricType,omitempty"`
+
+	// StartTime 查询开始时间。时间格式：yyyy-MM-ddTHH:mm:ssZ。
+	StartTime *string `json:"startTime,omitempty"`
+
+	// EndTime 查询结束时间。时间格式：yyyy-MM-ddTHH:mm:ssZ。
+	EndTime *string `json:"endTime,omitempty"`
+
+}
+
+// DescribeEipMonitorDataResponseParams 查询弹性IP监控数据的响应信息。
+type DescribeEipMonitorDataResponseParams struct {
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	// InMaxValue 入方向最大值。
+	InMaxValue *float64 `json:"inMaxValue,omitempty"`
+
+	// InAvgValue 入方向平均值。
+	InAvgValue *float64 `json:"inAvgValue,omitempty"`
+
+	// InMinValue 入方向最小值。
+	InMinValue *float64 `json:"inMinValue,omitempty"`
+
+	// InTotalValue 入方向总和值。
+	InTotalValue *float64 `json:"inTotalValue,omitempty"`
+
+	// OutMaxValue 出方向最大值。
+	OutMaxValue *float64 `json:"outMaxValue,omitempty"`
+
+	// OutAvgValue 出方向平均值。
+	OutAvgValue *float64 `json:"outAvgValue,omitempty"`
+
+	// OutMinValue 出方向最小值。
+	OutMinValue *float64 `json:"outMinValue,omitempty"`
+
+	// OutTotalValue 出方向总和值。
+	OutTotalValue *float64 `json:"outTotalValue,omitempty"`
+
+	// LoseOutMaxValue 丢失出方向最大值。
+	LoseOutMaxValue *float64 `json:"loseOutMaxValue,omitempty"`
+
+	// LoseOutMinValue 丢失出方向最小值。
+	LoseOutMinValue *float64 `json:"loseOutMinValue,omitempty"`
+
+	// LoseOutTotalValue 丢失出方向总和值。
+	LoseOutTotalValue *float64 `json:"loseOutTotalValue,omitempty"`
+
+	// LoseInMaxValue 丢失入方向最大值。
+	LoseInMaxValue *float64 `json:"loseInMaxValue,omitempty"`
+
+	// LoseInMinValue 丢失入方向最小值。
+	LoseInMinValue *float64 `json:"loseInMinValue,omitempty"`
+
+	// LoseInTotalValue 丢失入方向总和值。
+	LoseInTotalValue *float64 `json:"loseInTotalValue,omitempty"`
+
+	// DataList 监控数据集合。
+	DataList []*EipMetricValue `json:"dataList,omitempty"`
+
+}
+
+// EipMetricValue 描述EIP的监控指标数据。
+type EipMetricValue struct {
+
+	// Time 数据点时间。
+	Time *string `json:"time,omitempty"`
+
+	// In 入方向值。
+	In *float64 `json:"in,omitempty"`
+
+	// Out 入方向值。
+	Out *float64 `json:"out,omitempty"`
+
+	// LoseIn 丢失入方向值。
+	LoseIn *float64 `json:"loseIn,omitempty"`
+
+	// LoseOut 丢失出方向值。
+	LoseOut *float64 `json:"loseOut,omitempty"`
+
+}
+
+type DescribeEipMonitorDataResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeEipMonitorDataResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeInstanceMonitorDataRequest 查询实例监控指标请求。
+type DescribeInstanceMonitorDataRequest struct {
+	*common.BaseRequest
+
+	// InstanceId 实例唯一标识ID。
+	InstanceId *string `json:"instanceId,omitempty"`
+
+	// MetricType 实例监控指标类型。
+	MetricType *string `json:"metricType,omitempty"`
+
+	// StartTime 查询开始时间。时间格式：yyyy-MM-ddTHH:mm:ssZ。
+	StartTime *string `json:"startTime,omitempty"`
+
+	// EndTime 查询结束时间。时间格式：yyyy-MM-ddTHH:mm:ssZ。
+	EndTime *string `json:"endTime,omitempty"`
+
+}
+
+// DescribeInstanceMonitorDataResponseParams 查询实例监控数据的响应信息。
+type DescribeInstanceMonitorDataResponseParams struct {
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	// MaxValue 数据点的最大值。
+	MaxValue *float64 `json:"maxValue,omitempty"`
+
+	// MinValue 数据点的最小值。
+	MinValue *float64 `json:"minValue,omitempty"`
+
+	// AvgValue 数据点的平均值。
+	AvgValue *float64 `json:"avgValue,omitempty"`
+
+	// Metrics 监控数据集合。
+	Metrics []*MetricValue `json:"metrics,omitempty"`
+
+}
+
+// MetricValue 描述实例监控指标的数据值。
+type MetricValue struct {
+
+	// Time 数据点时间。
+	Time *string `json:"time,omitempty"`
+
+	// Value 数据点的值。
+	Value *float64 `json:"value,omitempty"`
+
+}
+
+type DescribeInstanceMonitorDataResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeInstanceMonitorDataResponseParams `json:"response,omitempty"`
+
+}
+

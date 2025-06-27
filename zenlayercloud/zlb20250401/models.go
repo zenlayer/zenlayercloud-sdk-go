@@ -27,7 +27,7 @@ type DescribeListenersResponseParams struct {
 
 }
 
-// Listener 描述
+// Listener 描述监听器的基本信息。
 type Listener struct {
 
     // ListenerId 负载均衡监听器 ID。
@@ -138,10 +138,10 @@ type CreateListenerResponse struct {
 type DeleteListenerRequest struct {
     *common.BaseRequest
 
-    // LoadBalancerId 
+    // LoadBalancerId 负载均衡实例ID。
     LoadBalancerId *string `json:"loadBalancerId,omitempty"`
 
-    // ListenerId 
+    // ListenerId 监听器ID。
     ListenerId *string `json:"listenerId,omitempty"`
 
 }
@@ -453,8 +453,11 @@ type LoadBalancer struct {
     // Status 负载均衡实例的状态。
     Status *string `json:"status,omitempty"`
 
-    // PublicIpAddress 负载均衡实例的 VIP 列表。
+    // PublicIpAddress 负载均衡实例的公网 VIP 列表。
     PublicIpAddress []string `json:"publicIpAddress,omitempty"`
+
+    // PrivateIpAddress 负载均衡实例的内网 VIP 列表。
+    PrivateIpAddress []string `json:"privateIpAddress,omitempty"`
 
     // ListenerCount 负载均衡器下监听器的数量。
     ListenerCount *int64 `json:"listenerCount,omitempty"`
