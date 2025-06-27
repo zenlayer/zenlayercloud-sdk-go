@@ -141,8 +141,6 @@ type QueryDataCenterPortPriceResponseParams struct {
 	Stock int `json:"stock,omitempty"`
 }
 
-<<<<<<< HEAD
-=======
 
 type QueryPrivateConnectPriceRequest struct {
     *common.BaseRequest
@@ -198,7 +196,6 @@ type PrivateConnectEndpointPrice struct {
    CrossConnectOneTimeConstructionPrice  *Price  `json:"crossConnectOneTimeConstructionPrice,omitempty"`
 }
 
->>>>>>> origin/sdn
 type QueryPrivateConnectBandwidthPriceRequest struct {
 	*common.BaseRequest
 

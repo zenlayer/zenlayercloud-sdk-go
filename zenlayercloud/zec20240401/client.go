@@ -32,27 +32,6 @@ func NewClient(config *common.Config, secretKeyId, secretKeyPassword string) (cl
 	return client, nil
 }
 
-func NewDescribeInstanceMonitorDataRequest() (request *DescribeInstanceMonitorDataRequest) {
-	request = &DescribeInstanceMonitorDataRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeInstanceMonitorData")
-
-	return
-}
-
-func NewDescribeInstanceMonitorDataResponse() (response *DescribeInstanceMonitorDataResponse) {
-	response = &DescribeInstanceMonitorDataResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-func (c *Client) DescribeInstanceMonitorData(request *DescribeInstanceMonitorDataRequest) (response *DescribeInstanceMonitorDataResponse, err error) {
-	response = NewDescribeInstanceMonitorDataResponse()
-	err = c.ApiCall(request, response)
-	return
-}
 
 func NewCreateVpcRequest() (request *CreateVpcRequest) {
 	request = &CreateVpcRequest{
@@ -1818,8 +1797,6 @@ func (c *Client) DetachEipLanIp(request *DetachEipLanIpRequest) (response *Detac
 }
 
 
-
-
 func (c *Client) UnassociateEipAddress(request *UnassociateEipAddressRequest) (response *UnassociateEipAddressResponse, err error) {
     response = NewUnassociateEipAddressResponse()
     err = c.ApiCall(request, response)
@@ -1838,6 +1815,28 @@ func NewUnassociateEipAddressResponse() (response *UnassociateEipAddressResponse
     response = &UnassociateEipAddressResponse{
         BaseResponse: &common.BaseResponse{},
     }
+    return
+}
+
+
+func NewReplaceEipAddressRequest() (request *ReplaceEipAddressRequest) {
+    request = &ReplaceEipAddressRequest{
+        BaseRequest: &common.BaseRequest{},
+    }
+    request.Init().InitWithApiInfo(SERVICE, APIVersion, "ReplaceEipAddress")
+    return
+}
+
+func NewReplaceEipAddressResponse() (response *ReplaceEipAddressResponse) {
+    response = &ReplaceEipAddressResponse{
+        BaseResponse: &common.BaseResponse{},
+    }
+    return
+}
+
+func (c *Client) ReplaceEipAddress(request *ReplaceEipAddressRequest) (response *ReplaceEipAddressResponse, err error) {
+    response = NewReplaceEipAddressResponse()
+    err = c.ApiCall(request, response)
     return
 }
 
@@ -2262,6 +2261,453 @@ func NewModifyBorderGatewayAsnResponse() (response *ModifyBorderGatewayAsnRespon
 // ModifyBorderGatewayAsn
 func (c *Client) ModifyBorderGatewayAsn(request *ModifyBorderGatewayAsnRequest) (response *ModifyBorderGatewayAsnResponse, err error) {
 	response = NewModifyBorderGatewayAsnResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+
+
+func NewDescribeAvailableNatsRequest() (request *DescribeAvailableNatsRequest) {
+	request = &DescribeAvailableNatsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeAvailableNats")
+
+	return
+}
+
+func NewDescribeAvailableNatsResponse() (response *DescribeAvailableNatsResponse) {
+	response = &DescribeAvailableNatsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeAvailableNats
+func (c *Client) DescribeAvailableNats(request *DescribeAvailableNatsRequest) (response *DescribeAvailableNatsResponse, err error) {
+	response = NewDescribeAvailableNatsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+
+func NewAssignBorderGatewayRequest() (request *AssignBorderGatewayRequest) {
+	request = &AssignBorderGatewayRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "AssignBorderGateway")
+
+	return
+}
+
+func NewAssignBorderGatewayResponse() (response *AssignBorderGatewayResponse) {
+	response = &AssignBorderGatewayResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+
+// AssignBorderGateway
+func (c *Client) AssignBorderGateway(request *AssignBorderGatewayRequest) (response *AssignBorderGatewayResponse, err error) {
+	response = NewAssignBorderGatewayResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+
+
+func NewUnassignBorderGatewayRequest() (request *UnassignBorderGatewayRequest) {
+	request = &UnassignBorderGatewayRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "UnassignBorderGateway")
+
+	return
+}
+
+func NewUnassignBorderGatewayResponse() (response *UnassignBorderGatewayResponse) {
+	response = &UnassignBorderGatewayResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+
+// UnassignBorderGateway
+func (c *Client) UnassignBorderGateway(request *UnassignBorderGatewayRequest) (response *UnassignBorderGatewayResponse, err error) {
+	response = NewUnassignBorderGatewayResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+
+func NewCreateNatGatewayRequest() (request *CreateNatGatewayRequest) {
+	request = &CreateNatGatewayRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateNatGateway")
+
+	return
+}
+
+func NewCreateNatGatewayResponse() (response *CreateNatGatewayResponse) {
+	response = &CreateNatGatewayResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CreateNatGateway 创建NAT网关。
+func (c *Client) CreateNatGateway(request *CreateNatGatewayRequest) (response *CreateNatGatewayResponse, err error) {
+	response = NewCreateNatGatewayResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeNatGatewaysRequest() (request *DescribeNatGatewaysRequest) {
+	request = &DescribeNatGatewaysRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeNatGateways")
+
+	return
+}
+
+func NewDescribeNatGatewaysResponse() (response *DescribeNatGatewaysResponse) {
+	response = &DescribeNatGatewaysResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeNatGateways 查询NAT网关列表。
+func (c *Client) DescribeNatGateways(request *DescribeNatGatewaysRequest) (response *DescribeNatGatewaysResponse, err error) {
+	response = NewDescribeNatGatewaysResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeNatGatewayDetailRequest() (request *DescribeNatGatewayDetailRequest) {
+	request = &DescribeNatGatewayDetailRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeNatGatewayDetail")
+
+	return
+}
+
+func NewDescribeNatGatewayDetailResponse() (response *DescribeNatGatewayDetailResponse) {
+	response = &DescribeNatGatewayDetailResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeNatGatewayDetail 查询NAT网关详情规则表。
+func (c *Client) DescribeNatGatewayDetail(request *DescribeNatGatewayDetailRequest) (response *DescribeNatGatewayDetailResponse, err error) {
+	response = NewDescribeNatGatewayDetailResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteNatGatewayRequest() (request *DeleteNatGatewayRequest) {
+	request = &DeleteNatGatewayRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteNatGateway")
+
+	return
+}
+
+func NewDeleteNatGatewayResponse() (response *DeleteNatGatewayResponse) {
+	response = &DeleteNatGatewayResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeleteNatGateway 删除一个指定的NAT网关。
+func (c *Client) DeleteNatGateway(request *DeleteNatGatewayRequest) (response *DeleteNatGatewayResponse, err error) {
+	response = NewDeleteNatGatewayResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewRenewNatGatewayRequest() (request *RenewNatGatewayRequest) {
+	request = &RenewNatGatewayRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "RenewNatGateway")
+
+	return
+}
+
+func NewRenewNatGatewayResponse() (response *RenewNatGatewayResponse) {
+	response = &RenewNatGatewayResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// RenewNatGateway 续费一个指定的NAT网关。
+func (c *Client) RenewNatGateway(request *RenewNatGatewayRequest) (response *RenewNatGatewayResponse, err error) {
+	response = NewRenewNatGatewayResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewInquiryPriceCreateNatGatewayRequest() (request *InquiryPriceCreateNatGatewayRequest) {
+	request = &InquiryPriceCreateNatGatewayRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryPriceCreateNatGateway")
+
+	return
+}
+
+func NewInquiryPriceCreateNatGatewayResponse() (response *InquiryPriceCreateNatGatewayResponse) {
+	response = &InquiryPriceCreateNatGatewayResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// InquiryPriceCreateNatGateway 查询创建NAT网关的价格。
+func (c *Client) InquiryPriceCreateNatGateway(request *InquiryPriceCreateNatGatewayRequest) (response *InquiryPriceCreateNatGatewayResponse, err error) {
+	response = NewInquiryPriceCreateNatGatewayResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewCreateSnatEntryRequest() (request *CreateSnatEntryRequest) {
+	request = &CreateSnatEntryRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateSnatEntry")
+
+	return
+}
+
+func NewCreateSnatEntryResponse() (response *CreateSnatEntryResponse) {
+	response = &CreateSnatEntryResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CreateSnatEntry 创建SNAT规则。
+func (c *Client) CreateSnatEntry(request *CreateSnatEntryRequest) (response *CreateSnatEntryResponse, err error) {
+	response = NewCreateSnatEntryResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifySnatEntryRequest() (request *ModifySnatEntryRequest) {
+	request = &ModifySnatEntryRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifySnatEntry")
+
+	return
+}
+
+func NewModifySnatEntryResponse() (response *ModifySnatEntryResponse) {
+	response = &ModifySnatEntryResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifySnatEntry 修改SNAT规则。
+func (c *Client) ModifySnatEntry(request *ModifySnatEntryRequest) (response *ModifySnatEntryResponse, err error) {
+	response = NewModifySnatEntryResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteSnatEntryRequest() (request *DeleteSnatEntryRequest) {
+	request = &DeleteSnatEntryRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteSnatEntry")
+
+	return
+}
+
+func NewDeleteSnatEntryResponse() (response *DeleteSnatEntryResponse) {
+	response = &DeleteSnatEntryResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeleteSnatEntry 删除SNAT规则。
+func (c *Client) DeleteSnatEntry(request *DeleteSnatEntryRequest) (response *DeleteSnatEntryResponse, err error) {
+	response = NewDeleteSnatEntryResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewCreateDnatEntryRequest() (request *CreateDnatEntryRequest) {
+	request = &CreateDnatEntryRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateDnatEntry")
+
+	return
+}
+
+func NewCreateDnatEntryResponse() (response *CreateDnatEntryResponse) {
+	response = &CreateDnatEntryResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CreateDnatEntry 创建DNAT规则。
+func (c *Client) CreateDnatEntry(request *CreateDnatEntryRequest) (response *CreateDnatEntryResponse, err error) {
+	response = NewCreateDnatEntryResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyDnatEntryRequest() (request *ModifyDnatEntryRequest) {
+	request = &ModifyDnatEntryRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyDnatEntry")
+
+	return
+}
+
+func NewModifyDnatEntryResponse() (response *ModifyDnatEntryResponse) {
+	response = &ModifyDnatEntryResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyDnatEntry 修改DNAT规则。
+func (c *Client) ModifyDnatEntry(request *ModifyDnatEntryRequest) (response *ModifyDnatEntryResponse, err error) {
+	response = NewModifyDnatEntryResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteDnatEntryRequest() (request *DeleteDnatEntryRequest) {
+	request = &DeleteDnatEntryRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteDnatEntry")
+
+	return
+}
+
+func NewDeleteDnatEntryResponse() (response *DeleteDnatEntryResponse) {
+	response = &DeleteDnatEntryResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeleteDnatEntry 删除DNAT规则。
+func (c *Client) DeleteDnatEntry(request *DeleteDnatEntryRequest) (response *DeleteDnatEntryResponse, err error) {
+	response = NewDeleteDnatEntryResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+
+
+func NewDescribeNatGatewayRegionsRequest() (request *DescribeNatGatewayRegionsRequest) {
+	request = &DescribeNatGatewayRegionsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeNatGatewayRegions")
+
+	return
+}
+
+func NewDescribeNatGatewayRegionsResponse() (response *DescribeNatGatewayRegionsResponse) {
+	response = &DescribeNatGatewayRegionsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) DescribeNatGatewayRegions(request *DescribeNatGatewayRegionsRequest) (response *DescribeNatGatewayRegionsResponse, err error) {
+	response = NewDescribeNatGatewayRegionsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+
+func NewModifyEipBandwidthRequest() (request *ModifyEipBandwidthRequest) {
+	request = &ModifyEipBandwidthRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyEipBandwidth")
+
+	return
+}
+
+func NewModifyEipBandwidthResponse() (response *ModifyEipBandwidthResponse) {
+	response = &ModifyEipBandwidthResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyEipBandwidth 调整弹性公网IP的带宽限速。
+func (c *Client) ModifyEipBandwidth(request *ModifyEipBandwidthRequest) (response *ModifyEipBandwidthResponse, err error) {
+	response = NewModifyEipBandwidthResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeEipMonitorDataRequest() (request *DescribeEipMonitorDataRequest) {
+	request = &DescribeEipMonitorDataRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeEipMonitorData")
+
+	return
+}
+
+func NewDescribeEipMonitorDataResponse() (response *DescribeEipMonitorDataResponse) {
+	response = &DescribeEipMonitorDataResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeEipMonitorData 查询弹性公网IP监控指标。
+func (c *Client) DescribeEipMonitorData(request *DescribeEipMonitorDataRequest) (response *DescribeEipMonitorDataResponse, err error) {
+	response = NewDescribeEipMonitorDataResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeInstanceMonitorDataRequest() (request *DescribeInstanceMonitorDataRequest) {
+	request = &DescribeInstanceMonitorDataRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeInstanceMonitorData")
+
+	return
+}
+
+func NewDescribeInstanceMonitorDataResponse() (response *DescribeInstanceMonitorDataResponse) {
+	response = &DescribeInstanceMonitorDataResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeInstanceMonitorData 查询实例监控指标。
+func (c *Client) DescribeInstanceMonitorData(request *DescribeInstanceMonitorDataRequest) (response *DescribeInstanceMonitorDataResponse, err error) {
+	response = NewDescribeInstanceMonitorDataResponse()
 	err = c.ApiCall(request, response)
 	return
 }

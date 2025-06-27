@@ -3260,3 +3260,723 @@ type DescribeManagedInstanceTrafficResponse struct {
 
 	Response *InstanceTrafficDataResponse `json:"response"`
 }
+
+
+type DescribeLoadBalancerZonesRequest struct {
+	*common.BaseRequest
+
+	// ChargeType
+	ChargeType *string `json:"chargeType,omitempty"`
+
+}
+
+type DescribeLoadBalancerZonesResponseParams struct {
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	ZoneIdSet []string `json:"zoneIdSet,omitempty"`
+
+}
+
+type DescribeLoadBalancerZonesResponse struct {
+	*common.BaseResponse
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	Response *DescribeLoadBalancerZonesResponseParams `json:"response,omitempty"`
+
+}
+
+type DescribeLoadBalancerSpecsRequest struct {
+	*common.BaseRequest
+
+	// ChargeType
+	ChargeType *string `json:"chargeType,omitempty"`
+
+	// ZoneId
+	ZoneId *string `json:"zoneId,omitempty"`
+
+}
+
+type DescribeLoadBalancerSpecsResponseParams struct {
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	SpecSet []*LoadBalancerSpec `json:"specSet,omitempty"`
+
+}
+
+type LoadBalancerSpec struct {
+
+	SpecName *string `json:"specName,omitempty"`
+
+	MaxConnection *int `json:"maxConnection,omitempty"`
+
+	Cps *int `json:"cps,omitempty"`
+
+	Qps *int `json:"qps,omitempty"`
+
+}
+
+type DescribeLoadBalancerSpecsResponse struct {
+	*common.BaseResponse
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	Response *DescribeLoadBalancerSpecsResponseParams `json:"response,omitempty"`
+
+}
+
+type DescribeLoadBalancersRequest struct {
+	*common.BaseRequest
+
+	// LoadBalancerIds
+	LoadBalancerIds []string `json:"loadBalancerIds,omitempty"`
+
+	ZoneId *string `json:"zoneId,omitempty"`
+
+	LoadBalancerName *string `json:"loadBalancerName,omitempty"`
+
+	PageNum *int `json:"pageNum,omitempty"`
+
+	PageSize *int `json:"pageSize,omitempty"`
+
+}
+
+type DescribeLoadBalancersResponseParams struct {
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	TotalCount *int `json:"totalCount,omitempty"`
+
+	DataSet []*LoadBalancerInfo `json:"dataSet,omitempty"`
+
+}
+
+type LoadBalancerInfo struct {
+
+	LoadBalancerId *string `json:"loadBalancerId,omitempty"`
+
+	ZoneId *string `json:"zoneId,omitempty"`
+
+	LoadBalancerName *string `json:"loadBalancerName,omitempty"`
+
+	SpecName *string `json:"specName,omitempty"`
+
+	VipList []*LoadBalancerIp `json:"vipList,omitempty"`
+
+	ChargeType *string `json:"chargeType,omitempty"`
+
+	Period *int `json:"period,omitempty"`
+
+	CreateTime *string `json:"createTime,omitempty"`
+
+	ExpiredTime *string `json:"expiredTime,omitempty"`
+
+	Status *string `json:"status,omitempty"`
+
+	ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+	ResourceGroupName *string `json:"resourceGroupName,omitempty"`
+
+	MasterIp *string `json:"masterIp,omitempty"`
+
+	BackupIp *string `json:"backupIp,omitempty"`
+
+	IpType *string `json:"ipType,omitempty"`
+
+	Bandwidth *int `json:"bandwidth,omitempty"`
+
+	IsWorking *bool `json:"isWorking,omitempty"`
+
+	ListenerList []*ListenerInfo `json:"listenerList,omitempty"`
+
+	BackendList []*BackendInfo `json:"backendList,omitempty"`
+
+}
+
+type LoadBalancerIp struct {
+
+	VipId *string `json:"vipId,omitempty"`
+
+	IpAddress *string `json:"ipAddress,omitempty"`
+
+	Type *string `json:"type,omitempty"`
+
+	Status *string `json:"status,omitempty"`
+
+}
+
+type ListenerInfo struct {
+
+	LoadBalancerId *string `json:"loadBalancerId,omitempty"`
+
+	ListenerId *string `json:"listenerId,omitempty"`
+
+	ListenerName *string `json:"listenerName,omitempty"`
+
+	Status *string `json:"status,omitempty"`
+
+	Port *string `json:"port,omitempty"`
+
+	Protocol *string `json:"protocol,omitempty"`
+
+	BackendProtocol *string `json:"backendProtocol,omitempty"`
+
+	Scheduler *string `json:"scheduler,omitempty"`
+
+	Kind *string `json:"kind,omitempty"`
+
+	HealthCheck *HealthCheck `json:"healthCheck,omitempty"`
+
+	Notify *Notify `json:"notify,omitempty"`
+
+	CreateTime *string `json:"createTime,omitempty"`
+
+}
+
+type HealthCheck struct {
+
+	CheckEnabled *bool `json:"checkEnabled,omitempty"`
+
+	CheckType *string `json:"checkType,omitempty"`
+
+	CheckConnectTimeout *int `json:"checkConnectTimeout,omitempty"`
+
+	CheckRetry *int `json:"checkRetry,omitempty"`
+
+	CheckDelayBeforeRetry *int `json:"checkDelayBeforeRetry,omitempty"`
+
+	CheckIntervalTime *int `json:"checkIntervalTime,omitempty"`
+
+	CheckPort *int `json:"checkPort,omitempty"`
+
+	HttpVersion *string `json:"httpVersion,omitempty"`
+
+	HttpCheckPath *string `json:"httpCheckPath,omitempty"`
+
+	HttpCheckDigest *int `json:"httpCheckDigest,omitempty"`
+
+	HttpCode *int `json:"httpCode,omitempty"`
+
+	MiscCheckPath *string `json:"miscCheckPath,omitempty"`
+
+	MiscTimeout *int `json:"miscTimeout,omitempty"`
+
+}
+
+type Notify struct {
+
+	Enable *bool `json:"enable,omitempty"`
+
+	ApiAddress *string `json:"apiAddress,omitempty"`
+
+}
+
+type BackendInfo struct {
+
+	ListenerId *string `json:"listenerId,omitempty"`
+
+	BackendId *string `json:"backendId,omitempty"`
+
+	BackendName *string `json:"backendName,omitempty"`
+
+	Status *string `json:"status,omitempty"`
+
+	Port *string `json:"port,omitempty"`
+
+	Weight *int `json:"weight,omitempty"`
+
+	InstanceId *string `json:"instanceId,omitempty"`
+
+	InstanceName *string `json:"instanceName,omitempty"`
+
+	CreateTime *string `json:"createTime,omitempty"`
+
+}
+
+type DescribeLoadBalancersResponse struct {
+	*common.BaseResponse
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	Response *DescribeLoadBalancersResponseParams `json:"response,omitempty"`
+
+}
+
+type CreateLoadBalancerRequest struct {
+	*common.BaseRequest
+
+	ClientToken *string `json:"clientToken,omitempty"`
+
+	// ZoneId
+	ZoneId *string `json:"zoneId,omitempty"`
+
+	// LoadBalancerName
+	LoadBalancerName *string `json:"loadBalancerName,omitempty"`
+
+	// SpecName
+	SpecName *string `json:"specName,omitempty"`
+
+	// ChargeType
+	ChargeType *string `json:"chargeType,omitempty"`
+
+	// InstanceChargePrepaid
+	InstanceChargePrepaid *InstanceChargePrepaid `json:"instanceChargePrepaid,omitempty"`
+
+	// Bandwidth
+	Bandwidth *int `json:"bandwidth,omitempty"`
+
+	// IpType
+	IpType *string `json:"ipType,omitempty"`
+
+	VipCount *int `json:"vipCount,omitempty"`
+
+	SubnetId *string `json:"subnetId,omitempty"`
+
+	CidrBlockId *string `json:"cidrBlockId,omitempty"`
+
+	MasterIp *string `json:"masterIp,omitempty"`
+
+	BackupIp *string `json:"backupIp,omitempty"`
+
+}
+
+type InstanceChargePrepaid struct {
+
+	// Period
+	Period *int `json:"period,omitempty"`
+
+	PeriodUnit *string `json:"periodUnit,omitempty"`
+
+	NoConfirmPay *bool `json:"noConfirmPay,omitempty"`
+
+}
+
+type CreateLoadBalancerResponseParams struct {
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	OrderNumber *string `json:"orderNumber,omitempty"`
+
+	LoadBalancerId *string `json:"loadBalancerId,omitempty"`
+
+}
+
+type CreateLoadBalancerResponse struct {
+	*common.BaseResponse
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	Response *CreateLoadBalancerResponseParams `json:"response,omitempty"`
+
+}
+
+type ModifyLoadBalancersNameRequest struct {
+	*common.BaseRequest
+
+	// LoadBalancerName
+	LoadBalancerName *string `json:"loadBalancerName,omitempty"`
+
+	// LoadBalancerIds
+	LoadBalancerIds []string `json:"loadBalancerIds,omitempty"`
+
+}
+
+type ModifyLoadBalancersNameResponse struct {
+	*common.BaseResponse
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type DescribeListenersRequest struct {
+	*common.BaseRequest
+
+	// ListenerIds
+	ListenerIds []string `json:"listenerIds,omitempty"`
+
+	// LoadBalancerIds
+	LoadBalancerIds []string `json:"loadBalancerIds,omitempty"`
+
+	ListenerName *string `json:"listenerName,omitempty"`
+
+	PageNum *int `json:"pageNum,omitempty"`
+
+	PageSize *int `json:"pageSize,omitempty"`
+
+}
+
+type DescribeListenersResponseParams struct {
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	TotalCount *int `json:"totalCount,omitempty"`
+
+	DataSet []*ListenerInfo `json:"dataSet,omitempty"`
+
+}
+
+type DescribeListenersResponse struct {
+	*common.BaseResponse
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	Response *DescribeListenersResponseParams `json:"response,omitempty"`
+
+}
+
+type CreateListenerRequest struct {
+	*common.BaseRequest
+
+	// LoadBalancerId
+	LoadBalancerId *string `json:"loadBalancerId,omitempty"`
+
+	// ListenerName
+	ListenerName *string `json:"listenerName,omitempty"`
+
+	// PortList
+	PortList []int `json:"portList,omitempty"`
+
+	// ClientToken
+	ClientToken *string `json:"clientToken,omitempty"`
+
+	// Protocol
+	Protocol *string `json:"protocol,omitempty"`
+
+	// BackendProtocol
+	BackendProtocol *string `json:"backendProtocol,omitempty"`
+
+	Scheduler *string `json:"scheduler,omitempty"`
+
+	Kind *string `json:"kind,omitempty"`
+
+	HealthCheck *HealthCheck `json:"healthCheck,omitempty"`
+
+	Notify *Notify `json:"notify,omitempty"`
+
+}
+
+type CreateListenerResponseParams struct {
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	ListenerId *string `json:"listenerId,omitempty"`
+
+}
+
+type CreateListenerResponse struct {
+	*common.BaseResponse
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	Response *CreateListenerResponseParams `json:"response,omitempty"`
+
+}
+
+type ModifyListenerAttributeRequest struct {
+	*common.BaseRequest
+
+	// ListenerId
+	ListenerId *string `json:"listenerId,omitempty"`
+
+	// ListenerName
+	ListenerName *string `json:"listenerName,omitempty"`
+
+	Protocol *string `json:"protocol,omitempty"`
+
+	BackendProtocol *string `json:"backendProtocol,omitempty"`
+
+	Scheduler *string `json:"scheduler,omitempty"`
+
+	Kind *string `json:"kind,omitempty"`
+
+	HealthCheck *HealthCheck `json:"healthCheck,omitempty"`
+
+	Notify *Notify `json:"notify,omitempty"`
+
+}
+
+type ModifyListenerAttributeResponse struct {
+	*common.BaseResponse
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type DeleteListenerRequest struct {
+	*common.BaseRequest
+
+	// ListenerId
+	ListenerId *string `json:"listenerId,omitempty"`
+
+}
+
+type DeleteListenerResponse struct {
+	*common.BaseResponse
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type DescribeBackendsRequest struct {
+	*common.BaseRequest
+
+	// ListenerId
+	ListenerId *string `json:"listenerId,omitempty"`
+
+	// BackendIds
+	BackendIds []string `json:"backendIds,omitempty"`
+
+	BackendName *string `json:"backendName,omitempty"`
+
+	PageNum *int `json:"pageNum,omitempty"`
+
+	PageSize *int `json:"pageSize,omitempty"`
+
+}
+
+type DescribeBackendsResponseParams struct {
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	TotalCount *int `json:"totalCount,omitempty"`
+
+	DataSet []*BackendInfo `json:"dataSet,omitempty"`
+
+}
+
+type DescribeBackendsResponse struct {
+	*common.BaseResponse
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	Response *DescribeBackendsResponseParams `json:"response,omitempty"`
+
+}
+
+type RegisterBackendRequest struct {
+	*common.BaseRequest
+
+	// ListenerId
+	ListenerId *string `json:"listenerId,omitempty"`
+
+	// BackendName
+	BackendName *string `json:"backendName,omitempty"`
+
+	// InstanceId
+	InstanceId *string `json:"instanceId,omitempty"`
+
+	// ClientToken
+	ClientToken *string `json:"clientToken,omitempty"`
+
+	PortList []int `json:"portList,omitempty"`
+
+	// Weight
+	Weight *int `json:"weight,omitempty"`
+
+}
+
+type RegisterBackendResponseParams struct {
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	BackendId *string `json:"backendId,omitempty"`
+
+}
+
+type RegisterBackendResponse struct {
+	*common.BaseResponse
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	Response *RegisterBackendResponseParams `json:"response,omitempty"`
+
+}
+
+type DeregisterBackendRequest struct {
+	*common.BaseRequest
+
+	// BackendId
+	BackendId *string `json:"backendId,omitempty"`
+
+}
+
+type DeregisterBackendResponse struct {
+	*common.BaseResponse
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type ModifyBackendWeightRequest struct {
+	*common.BaseRequest
+
+	// BackendId
+	BackendId *string `json:"backendId,omitempty"`
+
+	// Weight
+	Weight *int `json:"weight,omitempty"`
+
+}
+
+type ModifyBackendWeightResponse struct {
+	*common.BaseResponse
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type CreateLoadBalancerVIPsRequest struct {
+	*common.BaseRequest
+
+	// LoadBalancerId
+	LoadBalancerId *string `json:"loadBalancerId,omitempty"`
+
+	// Count
+	Count *int `json:"count,omitempty"`
+
+}
+
+type CreateLoadBalancerVIPsResponseParams struct {
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	OrderNumber *string `json:"orderNumber,omitempty"`
+
+	VipIdSet []string `json:"vipIdSet,omitempty"`
+
+}
+
+type CreateLoadBalancerVIPsResponse struct {
+	*common.BaseResponse
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	Response *CreateLoadBalancerVIPsResponseParams `json:"response,omitempty"`
+
+}
+
+type DeleteLoadBalancerVIPRequest struct {
+	*common.BaseRequest
+
+	// VipId
+	VipId *string `json:"vipId,omitempty"`
+
+}
+
+type DeleteLoadBalancerVIPResponse struct {
+	*common.BaseResponse
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type ModifyLoadBalancerBandwidthRequest struct {
+	*common.BaseRequest
+
+	// LoadBalancerId
+	LoadBalancerId *string `json:"loadBalancerId,omitempty"`
+
+	// Bandwidth
+	Bandwidth *int `json:"bandwidth,omitempty"`
+
+}
+
+type ModifyLoadBalancerBandwidthResponse struct {
+	*common.BaseResponse
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type TerminateLoadBalancerRequest struct {
+	*common.BaseRequest
+
+	// LoadBalancerId
+	LoadBalancerId *string `json:"loadBalancerId,omitempty"`
+
+}
+
+type TerminateLoadBalancerResponse struct {
+	*common.BaseResponse
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type ReleaseLoadBalancerRequest struct {
+	*common.BaseRequest
+
+	// LoadBalancerId
+	LoadBalancerId *string `json:"loadBalancerId,omitempty"`
+
+}
+
+type ReleaseLoadBalancerResponse struct {
+	*common.BaseResponse
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type RestoreLoadBalancerRequest struct {
+	*common.BaseRequest
+
+	// LoadBalancerId
+	LoadBalancerId *string `json:"loadBalancerId,omitempty"`
+
+}
+
+type RestoreLoadBalancerResponseParams struct {
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	OrderNumber *string `json:"orderNumber,omitempty"`
+
+}
+
+type RestoreLoadBalancerResponse struct {
+	*common.BaseResponse
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	Response *RestoreLoadBalancerResponseParams `json:"response,omitempty"`
+
+}
