@@ -60,6 +60,29 @@ func (c *Client) DescribeBandwidthClusters(request *DescribeBandwidthClustersReq
 	return
 }
 
+func NewDescribeBandwidthClusterResourcesRequest() (request *DescribeBandwidthClusterResourcesRequest) {
+	request = &DescribeBandwidthClusterResourcesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeBandwidthClusterResources")
+
+	return
+}
+
+func NewDescribeBandwidthClusterResourcesResponse() (response *DescribeBandwidthClusterResourcesResponse) {
+	response = &DescribeBandwidthClusterResourcesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeBandwidthClusterResources 查询一个共享带宽包里的资源。
+func (c *Client) DescribeBandwidthClusterResources(request *DescribeBandwidthClusterResourcesRequest) (response *DescribeBandwidthClusterResourcesResponse, err error) {
+	response = NewDescribeBandwidthClusterResourcesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewDescribeBandwidthClusterAreasRequest() (request *DescribeBandwidthClusterAreasRequest) {
 	request = &DescribeBandwidthClusterAreasRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -194,6 +217,29 @@ func NewUpdateBandwidthClusterCommitBandwidthResponse() (response *UpdateBandwid
 // UpdateBandwidthClusterCommitBandwidth 修改带宽包的保底带宽。
 func (c *Client) UpdateBandwidthClusterCommitBandwidth(request *UpdateBandwidthClusterCommitBandwidthRequest) (response *UpdateBandwidthClusterCommitBandwidthResponse, err error) {
 	response = NewUpdateBandwidthClusterCommitBandwidthResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewMigrateBandwidthClusterResourcesRequest() (request *MigrateBandwidthClusterResourcesRequest) {
+	request = &MigrateBandwidthClusterResourcesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "MigrateBandwidthClusterResources")
+
+	return
+}
+
+func NewMigrateBandwidthClusterResourcesResponse() (response *MigrateBandwidthClusterResourcesResponse) {
+	response = &MigrateBandwidthClusterResourcesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// MigrateBandwidthClusterResources 共享带宽包之间的资源迁移。
+func (c *Client) MigrateBandwidthClusterResources(request *MigrateBandwidthClusterResourcesRequest) (response *MigrateBandwidthClusterResourcesResponse, err error) {
+	response = NewMigrateBandwidthClusterResourcesResponse()
 	err = c.ApiCall(request, response)
 	return
 }

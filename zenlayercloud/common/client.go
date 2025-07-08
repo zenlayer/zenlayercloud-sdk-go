@@ -148,14 +148,7 @@ func (c *Client) ApiCall(request Request, response Response) (err error) {
 }
 
 func (c *Client) apiCallWithRetry(request Request) (resp *http.Response, err error) {
-	httpRequest, err := http.NewRequest(request.GetHttpMethod(), request.GetUrl(), request.GetBodyReader())
-	if err != nil {
-		return nil, err
-	}
 
-	for k, v := range request.GetHeaders() {
-		httpRequest.Header[k] = []string{v}
-	}
 
 	var maxRetryTimes int
 	var autoRetries bool
@@ -170,6 +163,14 @@ func (c *Client) apiCallWithRetry(request Request) (resp *http.Response, err err
 		maxRetryTimes = c.config.MaxRetryTime
 	}
 	for retryTimes := 0; retryTimes <= maxRetryTimes; retryTimes++ {
+		httpRequest, err := http.NewRequest(request.GetHttpMethod(), request.GetUrl(), request.GetBodyReader())
+		if err != nil {
+			return nil, err
+		}
+
+		for k, v := range request.GetHeaders() {
+			httpRequest.Header[k] = []string{v}
+		}
 
 		resp, err := c.sendHttp(httpRequest)
 		if err != nil && autoRetries && retryTimes < maxRetryTimes {
