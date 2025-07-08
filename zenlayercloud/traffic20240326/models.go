@@ -92,6 +92,45 @@ type DescribeBandwidthClustersResponse struct {
 
 }
 
+type DescribeBandwidthClusterResourcesRequest struct {
+    *common.BaseRequest
+
+    // BandwidthClusterId 共享带宽包ID。
+    BandwidthClusterId *string `json:"bandwidthClusterId,omitempty"`
+
+}
+
+type DescribeBandwidthClusterResourcesResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // Resources 共享带宽包里的资源信息。
+    Resources []*BandwidthClusterResource `json:"resources,omitempty"`
+
+    // TotalCount 共享带宽包里的资源数量。
+    TotalCount *int `json:"totalCount,omitempty"`
+}
+
+// BandwidthClusterResource 描述带宽包里的资源信息。
+type BandwidthClusterResource struct {
+
+    // ResourceId 资源ID。
+    ResourceId *string `json:"resourceId,omitempty"`
+
+    // ResourceType 资源类型。
+    ResourceType *string `json:"resourceType,omitempty"`
+
+}
+
+type DescribeBandwidthClusterResourcesResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeBandwidthClusterResourcesResponseParams `json:"response,omitempty"`
+
+}
+
 type DescribeBandwidthClusterAreasRequest struct {
     *common.BaseRequest
 
@@ -246,6 +285,7 @@ type InquiryBandwidthClusterPriceResponseParams struct {
 
     RequestId *string `json:"requestId,omitempty"`
 
+    // Price 描述带宽包的价格信息。
     Price *PriceItem `json:"price,omitempty"`
 
 }
@@ -387,6 +427,29 @@ type UpdateBandwidthClusterCommitBandwidthRequest struct {
 }
 
 type UpdateBandwidthClusterCommitBandwidthResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// MigrateBandwidthClusterResourcesRequest 共享带宽包资源迁移的请求对象
+type MigrateBandwidthClusterResourcesRequest struct {
+    *common.BaseRequest
+
+    // TargetBandwidthClusterId 要迁移的目标共享带宽包的ID。
+    TargetBandwidthClusterId *string `json:"targetBandwidthClusterId,omitempty"`
+
+    // ResourceIdList 要迁移的资源的ID列表。该资源必须属于其他共享带宽包且资源所处的原共享带宽包的`IP网络类型`以及`区域`需要和目标带宽包一致。
+    ResourceIdList []string `json:"resourceIdList,omitempty"`
+
+}
+
+type MigrateBandwidthClusterResourcesResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`

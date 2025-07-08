@@ -444,6 +444,8 @@ type InstanceInfo struct {
 
 	ImageName string `json:"imageName,omitempty"`
 
+	NicNetworkType string `json:"nicNetworkType,omitempty"`
+
 	InstanceType *string `json:"instanceType,omitempty"`
 
 	Status string `json:"status,omitempty"`
