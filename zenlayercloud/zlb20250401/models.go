@@ -15,6 +15,7 @@ type DescribeListenersRequest struct {
     // Protocol 要查询的监听器协议类型。
     Protocol *string `json:"protocol,omitempty"`
 
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 }
 
 // DescribeListenersResponseParams 
@@ -421,6 +422,7 @@ type DescribeLoadBalancersRequest struct {
     // PageNum 返回的分页页码。默认为1。
     PageNum *int `json:"pageNum,omitempty"`
 
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 }
 
 type DescribeLoadBalancersResponseParams struct {
