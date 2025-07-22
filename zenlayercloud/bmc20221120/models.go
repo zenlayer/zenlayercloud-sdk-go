@@ -3194,6 +3194,8 @@ type DescribeManagedInstancesRequest struct {
     // PageSize 返回的分页大小。
     PageSize *int `json:"pageSize,omitempty"`
 
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
 }
 
 // DescribeManagedInstancesResponseParams 托管实例查询结果。
@@ -3980,3 +3982,4 @@ type RestoreLoadBalancerResponse struct {
 	Response *RestoreLoadBalancerResponseParams `json:"response,omitempty"`
 
 }
+

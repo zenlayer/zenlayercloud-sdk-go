@@ -1316,6 +1316,7 @@ type DescribeDisksRequest struct {
 	ZoneId       string   `json:"zoneId,omitempty"`
 	PageSize     int      `json:"pageSize,omitempty"`
 	PageNum      int      `json:"pageNum,omitempty"`
+	ResourceGroupId   string   `json:"resourceGroupId,omitempty"`
 }
 
 type DiskStatus struct {
