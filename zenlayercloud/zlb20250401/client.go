@@ -244,6 +244,29 @@ func (c *Client) DescribeBackends(request *DescribeBackendsRequest) (response *D
 	return
 }
 
+func NewDescribeBackendHealthRequest() (request *DescribeBackendHealthRequest) {
+	request = &DescribeBackendHealthRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeBackendHealth")
+
+	return
+}
+
+func NewDescribeBackendHealthResponse() (response *DescribeBackendHealthResponse) {
+	response = &DescribeBackendHealthResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeBackendHealth 查询负载均衡实例的绑定的后端服务列表。
+func (c *Client) DescribeBackendHealth(request *DescribeBackendHealthRequest) (response *DescribeBackendHealthResponse, err error) {
+	response = NewDescribeBackendHealthResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewModifyLoadBalancersAttributeRequest() (request *ModifyLoadBalancersAttributeRequest) {
 	request = &ModifyLoadBalancersAttributeRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -378,6 +401,29 @@ func NewInquiryPriceCreateLoadBalancerResponse() (response *InquiryPriceCreateLo
 // InquiryPriceCreateLoadBalancer 查询创建负载均衡的价格。
 func (c *Client) InquiryPriceCreateLoadBalancer(request *InquiryPriceCreateLoadBalancerRequest) (response *InquiryPriceCreateLoadBalancerResponse, err error) {
 	response = NewInquiryPriceCreateLoadBalancerResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeLoadBalancerMonitorDataRequest() (request *DescribeLoadBalancerMonitorDataRequest) {
+	request = &DescribeLoadBalancerMonitorDataRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeLoadBalancerMonitorData")
+
+	return
+}
+
+func NewDescribeLoadBalancerMonitorDataResponse() (response *DescribeLoadBalancerMonitorDataResponse) {
+	response = &DescribeLoadBalancerMonitorDataResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeLoadBalancerMonitorData 查询负载均衡监控指标数据，包括并发连接数, 新建连接数以及网络带宽等指标数据。
+func (c *Client) DescribeLoadBalancerMonitorData(request *DescribeLoadBalancerMonitorDataRequest) (response *DescribeLoadBalancerMonitorDataResponse, err error) {
+	response = NewDescribeLoadBalancerMonitorDataResponse()
 	err = c.ApiCall(request, response)
 	return
 }

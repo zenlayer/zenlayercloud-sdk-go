@@ -16,6 +16,7 @@ type DescribeListenersRequest struct {
     Protocol *string `json:"protocol,omitempty"`
 
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
 }
 
 // DescribeListenersResponseParams 
@@ -48,6 +49,9 @@ type Listener struct {
 
     // Scheduler 监听器转发的方式。
     Scheduler *string `json:"scheduler,omitempty"`
+
+    // Kind 工作模式。
+    Kind *string `json:"kind,omitempty"`
 
     // CreateTime 创建时间。按照ISO8601标准表示，并且使用UTC时间。格式为：YYYY-MM-DDThh:mm:ssZ。
     CreateTime *string `json:"createTime,omitempty"`
@@ -116,6 +120,9 @@ type CreateListenerRequest struct {
     // Port 监听器端口。多个端口使用,分隔。当端口是范围时用`-`连接，例如：10000-10005。端口的取值范围为1～65535。请注意端口不能和该监听器的其他端口有重叠。
     Port *string `json:"port,omitempty"`
 
+    // Kind 工作模式。
+    Kind *string `json:"kind,omitempty"`
+
 }
 
 type CreateListenerResponseParams struct {
@@ -178,6 +185,9 @@ type ModifyListenerRequest struct {
 
     // Port 监听器端口。多个端口使用,分隔。当端口是范围时用`-`连接，例如：10000-10005。端口的取值范围为1～65535。不指定将不会进行修改。
     Port *string `json:"port,omitempty"`
+
+    // Kind 工作模式。
+    Kind *string `json:"kind,omitempty"`
 
 }
 
@@ -246,7 +256,7 @@ type RegisterBackendRequest struct {
 // BackendServer 后端服务器信息
 type BackendServer struct {
 
-    // InstanceId 实例ID。可通过 DescribeInstances 接口返回字段中的 InstanceId 字段获取。
+    // InstanceId 实例ID。如果是zec实例作为后端服务器，可通过 DescribeInstances 接口返回字段中的 InstanceId 字段获取。解绑时，对于存在实例ID的，该字段必传。
     InstanceId *string `json:"instanceId,omitempty"`
 
     // PrivateIpAddress 实例上绑定网卡的私网IP地址。
@@ -379,6 +389,81 @@ type DescribeBackendsResponse struct {
 
 }
 
+type DescribeBackendHealthRequest struct {
+    *common.BaseRequest
+
+    // LoadBalancerId 负载均衡实例 ID。
+    LoadBalancerId *string `json:"loadBalancerId,omitempty"`
+
+    // ListenerId 负载均衡监听器的 ID。如果未指定，则查询所有后端。
+    ListenerId *string `json:"listenerId,omitempty"`
+
+}
+
+type DescribeBackendHealthResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // Backends 负载均衡的后端服务器状态。
+    Backends []*ListenerBackendHealth `json:"backends,omitempty"`
+
+}
+
+// ListenerBackendHealth 描述监听器后端服务器的健康检查。
+type ListenerBackendHealth struct {
+
+    // HealthStatus 后端服务健康检查状态。
+    HealthStatus *string `json:"healthStatus,omitempty"`
+
+    // HealthStatusDetail 后端服务健康检查对应端口的健康检查状态。当`healthStatus`为`Close` 或 `Unknown`时，无详情信息。
+    HealthStatusDetail []*BackendHealthStatusDetail `json:"healthStatusDetail,omitempty"`
+
+    // InstanceId 实例ID。可通过 DescribeInstances 接口返回字段中的 InstanceId 字段获取。
+    InstanceId *string `json:"instanceId,omitempty"`
+
+    // PrivateIpAddress 实例上绑定网卡的私网IP地址。
+    PrivateIpAddress *string `json:"privateIpAddress,omitempty"`
+
+    // Weight 后端服务修改后的转发权重。创建绑定服务器时默认值为100, 修改时如果不指定，则不会进行修改。删除时不需要指定该参数。
+    Weight *int `json:"weight,omitempty"`
+
+    // BackendPort 请求转发和健康检查的目标端口。如果为空，将跟随监听器端口配置。删除时不需要指定该参数。
+    BackendPort *int `json:"backendPort,omitempty"`
+
+    // ListenerId 负载均衡监听器 ID。
+    ListenerId *string `json:"listenerId,omitempty"`
+
+    // ListenerName 监听器的名称。
+    ListenerName *string `json:"listenerName,omitempty"`
+
+    // Protocol 监听器协议。
+    Protocol *string `json:"protocol,omitempty"`
+
+    // ListenerPort 监听器端口。多个端口使用,分隔。当端口是范围时用`-`连接，例如：10000-10005。
+    ListenerPort *string `json:"listenerPort,omitempty"`
+
+}
+
+// BackendHealthStatusDetail 描述后端服务器的健康检查状态信息。
+type BackendHealthStatusDetail struct {
+
+    // Port 后端服务器的端口。
+    Port *int `json:"port,omitempty"`
+
+    // HealthStatus 健康检查的状态。
+    HealthStatus *string `json:"healthStatus,omitempty"`
+
+}
+
+type DescribeBackendHealthResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeBackendHealthResponseParams `json:"response,omitempty"`
+
+}
+
 type ModifyLoadBalancersAttributeRequest struct {
     *common.BaseRequest
 
@@ -423,6 +508,7 @@ type DescribeLoadBalancersRequest struct {
     PageNum *int `json:"pageNum,omitempty"`
 
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
 }
 
 type DescribeLoadBalancersResponseParams struct {
@@ -674,6 +760,64 @@ type InquiryPriceCreateLoadBalancerResponse struct {
     RequestId *string `json:"requestId,omitempty"`
 
     Response *InquiryPriceCreateLoadBalancerResponseParams `json:"response,omitempty"`
+
+}
+
+type DescribeLoadBalancerMonitorDataRequest struct {
+    *common.BaseRequest
+
+    // LoadBalancerId 负载均衡实例 ID。
+    LoadBalancerId *string `json:"loadBalancerId,omitempty"`
+
+    // ListenerId 负载均衡器的监听器ID。公网IP数据包指标（`INGRESS_PACKETS`, `EGRESS_PACKETS`) 该字段无效。
+    ListenerId *string `json:"listenerId,omitempty"`
+
+    // MetricType 监控指标类型。
+    MetricType *string `json:"metricType,omitempty"`
+
+    // StartTime 查询开始时间。时间格式：yyyy-MM-ddTHH:mm:ssZ。
+    StartTime *string `json:"startTime,omitempty"`
+
+    // EndTime 查询结束时间。时间格式：yyyy-MM-ddTHH:mm:ssZ。
+    EndTime *string `json:"endTime,omitempty"`
+
+}
+
+type DescribeLoadBalancerMonitorDataResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // MaxValue 数据点的最大值。
+    MaxValue *float64 `json:"maxValue,omitempty"`
+
+    // MinValue 数据点的最小值。
+    MinValue *float64 `json:"minValue,omitempty"`
+
+    // AvgValue 数据点的平均值。
+    AvgValue *float64 `json:"avgValue,omitempty"`
+
+    // Metrics 监控数据集合。
+    Metrics []*MetricValue `json:"metrics,omitempty"`
+
+}
+
+// MetricValue 描述实例监控指标的数据值。
+type MetricValue struct {
+
+    // Time 数据点时间。
+    Time *string `json:"time,omitempty"`
+
+    // Value 数据点的值。如果该值为null,表示取不到相应的值。
+    Value *float64 `json:"value,omitempty"`
+
+}
+
+type DescribeLoadBalancerMonitorDataResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeLoadBalancerMonitorDataResponseParams `json:"response,omitempty"`
 
 }
 

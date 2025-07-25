@@ -477,6 +477,8 @@ type InstanceInfo struct {
 	ResourceGroupId string `json:"resourceGroupId,omitempty"`
 
 	ResourceGroupName string `json:"resourceGroupName,omitempty"`
+
+	Nics []*NicInfo `json:"nics,omitempty"`
 }
 
 type DescribeInstancesStatusResponse struct {
