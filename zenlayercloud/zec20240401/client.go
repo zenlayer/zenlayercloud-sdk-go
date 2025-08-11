@@ -77,6 +77,30 @@ func (c *Client) DeleteVpc(request *DeleteVpcRequest) (response *DeleteVpcRespon
 	return
 }
 
+
+func NewModifyVpcAttributeRequest() (request *ModifyVpcAttributeRequest) {
+	request = &ModifyVpcAttributeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyVpcAttribute")
+
+	return
+}
+
+func NewModifyVpcAttributeResponse() (response *ModifyVpcAttributeResponse) {
+	response = &ModifyVpcAttributeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyVpcAttribute 修改私有网络（VPC）的相关属性。
+func (c *Client) ModifyVpcAttribute(request *ModifyVpcAttributeRequest) (response *ModifyVpcAttributeResponse, err error) {
+	response = NewModifyVpcAttributeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewModifyVpcsAttributeRequest() (request *ModifyVpcsAttributeRequest) {
 	request = &ModifyVpcsAttributeRequest{
 		BaseRequest: &common.BaseRequest{},

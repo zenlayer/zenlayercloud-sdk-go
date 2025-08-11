@@ -15,8 +15,6 @@ type DescribeListenersRequest struct {
     // Protocol 要查询的监听器协议类型。
     Protocol *string `json:"protocol,omitempty"`
 
-    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
-
 }
 
 // DescribeListenersResponseParams 
@@ -553,6 +551,20 @@ type LoadBalancer struct {
     // CreateTime 创建时间。按照ISO8601标准表示，并且使用UTC时间, 格式为：YYYY-MM-DDThh:mm:ssZ。
     CreateTime *string `json:"createTime,omitempty"`
 
+    // ResourceGroup 关联的资源组信息。
+    ResourceGroup *ResourceGroupInfo `json:"resourceGroup,omitempty"`
+
+}
+
+// ResourceGroupInfo 描述资源所在资源组的相关信息，包括资源组名称和ID。
+type ResourceGroupInfo struct {
+
+    // ResourceGroupId 资源组ID。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // ResourceGroupName 资源组名称。
+    ResourceGroupName *string `json:"resourceGroupName,omitempty"`
+
 }
 
 type DescribeLoadBalancersResponse struct {
@@ -769,7 +781,7 @@ type DescribeLoadBalancerMonitorDataRequest struct {
     // LoadBalancerId 负载均衡实例 ID。
     LoadBalancerId *string `json:"loadBalancerId,omitempty"`
 
-    // ListenerId 负载均衡器的监听器ID。公网IP数据包指标（`INGRESS_PACKETS`, `EGRESS_PACKETS`) 该字段无效。
+    // ListenerId 负载均衡器的监听器ID。
     ListenerId *string `json:"listenerId,omitempty"`
 
     // MetricType 监控指标类型。

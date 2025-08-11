@@ -95,6 +95,8 @@ type VpcInfo struct {
 	UsageIpv4Count  int    `json:"usageIpv4Count,omitempty"`
 	UsageIpv6Count  int    `json:"usageIpv6Count,omitempty"`
 	SecurityGroupId string `json:"securityGroupId,omitempty"`
+	// ResourceGroup VPC关联的资源组信息。
+	ResourceGroup *ResourceGroupInfo `json:"resourceGroup,omitempty"`
 }
 
 type DescribeVpcsRequest struct {
@@ -1542,10 +1544,28 @@ type NicInfo struct {
 	NicSubnetType string   `json:"nicSubnetType,omitempty"`
 	PublicIpList  []string `json:"publicIpList,omitempty"`
 	PrivateIpList []string `json:"privateIpList,omitempty"`
+	// PrimaryIpv4 主的内网IPv4地址。
+	PrimaryIpv4 string `json:"primaryIpv4,omitempty"`
+
+	// PrimaryIpv6 网卡上的主IPv6地址。如果堆栈类型是V4,该值取值为空。
+	PrimaryIpv6 string `json:"primaryIpv6,omitempty"`
+
+	// Ipv6Cidr 网卡上的IPv6地址。如果堆栈类型是V4,该值取值为空。
+	Ipv6Cidr string `json:"ipv6Cidr,omitempty"`
+
+	// SecondaryIpv4s 网卡上的辅助 IPv4 地址。
+	SecondaryIpv4s []string `json:"secondaryIpv4s,omitempty"`
+
+	// MacAddress 网卡的MAC地址。
+	MacAddress string `json:"macAddress,omitempty"`
 	InstanceId    string   `json:"instanceId,omitempty"`
 	VpcId         string   `json:"vpcId,omitempty"`
 	SubnetId      string   `json:"subnetId,omitempty"`
 	CreateTime    string   `json:"createTime,omitempty"`
+	// UpdateTime 网卡的更新时间。
+	UpdateTime    string `json:"updateTime,omitempty"`
+	// ResourceGroup 网卡所属的资源组信息。
+	ResourceGroup *ResourceGroupInfo `json:"resourceGroup,omitempty"`
 }
 
 type DescribeNicsRequest struct {
@@ -1563,6 +1583,9 @@ type DescribeNicsRequest struct {
 
 	// 根据网卡关联的实例ID过滤。
 	InstanceId string `json:"instanceId,omitempty"`
+
+	// NicType 根据网卡的类型筛选过滤。
+	NicType string `json:"nicType,omitempty"`
 
 	Status string `json:"status,omitempty"`
 
@@ -3118,7 +3141,7 @@ type DescribeNatGatewaysRequest struct {
     // PageNum 返回的分页页码。默认为1。
     PageNum *int `json:"pageNum,omitempty"`
 
-    ResourceGroupId string `json:"resourceGroupId,omitempty"`
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 }
 
 type DescribeNatGatewaysResponseParams struct {
@@ -3136,41 +3159,44 @@ type DescribeNatGatewaysResponseParams struct {
 // NatGateway 描述NAT网关的信息。
 type NatGateway struct {
 
-    // NatGatewayId NAT网关唯一ID。
-    NatGatewayId *string `json:"natGatewayId,omitempty"`
+	// NatGatewayId NAT网关唯一ID。
+	NatGatewayId *string `json:"natGatewayId,omitempty"`
 
-    // VpcId NAT网关所属的VPC网络ID。
-    VpcId *string `json:"vpcId,omitempty"`
+	// VpcId NAT网关所属的VPC网络ID。
+	VpcId *string `json:"vpcId,omitempty"`
 
-    // RegionId 区域节点ID。
-    RegionId *string `json:"regionId,omitempty"`
+	// RegionId 区域节点ID。
+	RegionId *string `json:"regionId,omitempty"`
 
-    // Status NAT网关的状态。
-    Status *string `json:"status,omitempty"`
+	// Status NAT网关的状态。
+	Status *string `json:"status,omitempty"`
 
-    // Name NAT网关的名称。
-    Name *string `json:"name,omitempty"`
+	// Name NAT网关的名称。
+	Name *string `json:"name,omitempty"`
 
-    // SubnetIds NAT网关所属的Subnet子网ID集合。
-    SubnetIds []string `json:"subnetIds,omitempty"`
+	// SubnetIds NAT网关所属的Subnet子网ID集合。
+	SubnetIds []string `json:"subnetIds,omitempty"`
 
-    // EipIds NAT网关所关联的EIP ID集合。
-    EipIds []string `json:"eipIds,omitempty"`
+	// IsAllSubnets 是否节点内所有子网关联了NAT网关。
+	IsAllSubnets *bool `json:"isAllSubnets,omitempty"`
 
-    // ZbgId 边界网关 ID。
-    ZbgId []string `json:"zbgId,omitempty"`
+	// EipIds NAT网关所关联的EIP ID集合。
+	EipIds []string `json:"eipIds,omitempty"`
 
-    // ResourceGroupId 资源组ID。
-    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+	// ZbgId 边界网关ID。
+	ZbgId *string `json:"zbgId,omitempty"`
 
-    // ResourceGroupName 资源组名称。
-    ResourceGroupName *string `json:"resourceGroupName,omitempty"`
+	// ResourceGroupId 资源组ID。
+	ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 
-    // CreateTime 创建时间。按照ISO8601标准表示，并且使用UTC时间, 格式为：YYYY-MM-DDThh:mm:ssZ。
-    CreateTime *string `json:"createTime,omitempty"`
+	// ResourceGroupName 资源组名称。
+	ResourceGroupName *string `json:"resourceGroupName,omitempty"`
 
-    // ExpiredTime 到期时间。按照ISO8601标准表示，并且使用UTC时间, 格式为：YYYY-MM-DDThh:mm:ssZ。
-    ExpiredTime *string `json:"expiredTime,omitempty"`
+	// CreateTime 创建时间。按照ISO8601标准表示，并且使用UTC时间, 格式为：YYYY-MM-DDThh:mm:ssZ。
+	CreateTime *string `json:"createTime,omitempty"`
+
+	// ExpiredTime 到期时间。按照ISO8601标准表示，并且使用UTC时间, 格式为：YYYY-MM-DDThh:mm:ssZ。
+	ExpiredTime *string `json:"expiredTime,omitempty"`
 
 }
 
@@ -3766,3 +3792,43 @@ type DescribeAvailableBorderGatewayResponse struct {
     Response *DescribeAvailableBorderGatewayResponseParams `json:"response,omitempty"`
 }
 
+
+// ModifyVpcAttributeRequest 修改VPC的属性请求参数。
+type ModifyVpcAttributeRequest struct {
+	*common.BaseRequest
+
+	// VpcId VPC的ID。
+	VpcId *string `json:"vpcId,omitempty"`
+
+	// VpcName VPC的名称。范围2到63个字符。仅支持输入字母、数字、-和英文句点(.)。且必须以数字或字母开头和结尾。
+	VpcName *string `json:"vpcName,omitempty"`
+
+	// CidrBlock 需要修改的IPv4 CIDR。需要满足属于(10.0.0.0/8, 172.16.0.0/12 and 192.168.0.0/16)范围内。如果VPC存在子网，则修改的CIDR范围必须包含原VPC CIDR。默认VPC不支持修改。
+	CidrBlock *string `json:"cidrBlock,omitempty"`
+
+	// EnableIPv6 是否开启IPv6内网CIDR。当前仅允许打开(`true`)，一旦设置IPv6, 将无法关闭。
+	EnableIPv6 *bool `json:"enableIPv6,omitempty"`
+
+}
+
+type ModifyVpcAttributeResponse struct {
+	*common.BaseResponse
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// ResourceGroupInfo 描述资源所在资源组的相关信息，包括资源组名称和ID。
+type ResourceGroupInfo struct {
+
+	// ResourceGroupId 资源组ID。
+	ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+	// ResourceGroupName 资源组名称。
+	ResourceGroupName *string `json:"resourceGroupName,omitempty"`
+
+}

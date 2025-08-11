@@ -139,7 +139,13 @@ type CreateInstancesRequest struct {
 	// NIC configuration.
 	Nic *Nic `json:"nic,omitempty"`
 
+	// ClusterId Bandwidth cluster ID.
 	ClusterId string `json:"clusterId,omitempty"`
+
+	// Whether to enable the instance primary IPv6.
+	// If false, the primary IPv6 is not enabled. In this case, elastic IPv6 cannot be configured for the instance.
+	// The default value is true.
+	EnablePrimaryIPv6 *bool `json:"enablePrimaryIPv6,omitempty"`
 }
 
 type RaidConfig struct {

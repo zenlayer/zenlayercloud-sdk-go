@@ -86,3 +86,87 @@ type ResourceInfo struct {
 	CreateTime   string `json:"createTime,omitempty"`
 	UpdateTime   string `json:"updateTime,omitempty"`
 }
+
+
+type CreateResourceGroupRequest struct {
+	*common.BaseRequest
+	Name *string          `json:"name,omitempty"`
+}
+
+type CreateResourceGroupResponse struct {
+	*common.BaseResponse
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId *string                           `json:"requestId,omitempty"`
+	Response *CreateResourceGroupResponseParams `json:"response"`
+}
+
+type CreateResourceGroupResponseParams struct {
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId       *string          `json:"requestId,omitempty"`
+	ResourceGroupId *string          `json:"resourceGroupId,omitempty"`
+	Name            *string          `json:"name,omitempty"`
+	CreateTime      *string          `json:"createTime,omitempty"`
+}
+
+type DeleteResourceGroupRequest struct {
+	*common.BaseRequest
+	ResourceGroupId *string          `json:"resourceGroupId,omitempty"`
+}
+
+type DeleteResourceGroupResponse struct {
+	*common.BaseResponse
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId *string                           `json:"requestId,omitempty"`
+	Response *DeleteResourceGroupResponseParams `json:"response"`
+}
+
+type DeleteResourceGroupResponseParams struct {
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId       *string          `json:"requestId,omitempty"`
+
+}
+
+type ModifyResourceGroupRequest struct {
+	*common.BaseRequest
+	Name            *string          `json:"name,omitempty"`
+	ResourceGroupId *string          `json:"resourceGroupId,omitempty"`
+}
+
+type ModifyResourceGroupResponse struct {
+	*common.BaseResponse
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId *string                           `json:"requestId,omitempty"`
+	Response *ModifyResourceGroupResponseParams `json:"response"`
+}
+
+type ModifyResourceGroupResponseParams struct {
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId       *string          `json:"requestId,omitempty"`
+	ResourceGroupId *string          `json:"resourceGroupId,omitempty"`
+	Name            *string          `json:"name,omitempty"`
+	CreateTime      *string          `json:"createTime,omitempty"`
+}
+
+type AddResourceResourceGroupRequest struct {
+	*common.BaseRequest
+	ResourceGroupId *string          `json:"resourceGroupId,omitempty"`
+	Resources    []*string           `json:"resources,omitempty"`
+}
+
+type AddResourceResourceGroupResponse struct {
+	*common.BaseResponse
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId   *string                                `json:"requestId,omitempty"`
+	Response   *AddResourceResourceGroupResponseParams `json:"response"`
+}
+
+type AddResourceResourceGroupResponseParams struct {
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId       *string          `json:"requestId,omitempty"`
+}
+
+
+
+
+
+
