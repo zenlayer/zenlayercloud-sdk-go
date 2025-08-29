@@ -146,6 +146,13 @@ type CreateInstancesRequest struct {
 	// If false, the primary IPv6 is not enabled. In this case, elastic IPv6 cannot be configured for the instance.
 	// The default value is true.
 	EnablePrimaryIPv6 *bool `json:"enablePrimaryIPv6,omitempty"`
+
+	MarketingOptions  *MarketingInfo `json:"marketingOptions,omitempty"`
+}
+
+type MarketingInfo struct {
+	DiscountCode  string `json:"discountCode,omitempty"`
+	UsePocVoucher bool `json:"usePocVoucher,omitempty"`
 }
 
 type RaidConfig struct {
@@ -1516,6 +1523,8 @@ type AllocateEipAddressesRequest struct {
 	// Value range: 1-100.
 	// Default value: 1.
 	Amount int `json:"amount,omitempty"`
+
+	MarketingOptions  *MarketingInfo `json:"marketingOptions,omitempty"`
 }
 type AllocateEipAddressesResponse struct {
 	*common.BaseResponse
@@ -2972,6 +2981,8 @@ type CreateIpv4BlockRequest struct {
 	// Resource group ID where the CIDR blocks reside.
 	// If an available VLAN exists in the specified zone, this parameter will be ignored. The created CIDR blocks will be added to the resource group of the VLAN.
 	ResourceGroupId string `json:"resourceGroupId,omitempty"`
+
+	MarketingOptions  *MarketingInfo `json:"marketingOptions,omitempty"`
 }
 
 type CreateIpv4BlockResponse struct {
@@ -3988,4 +3999,3 @@ type RestoreLoadBalancerResponse struct {
 	Response *RestoreLoadBalancerResponseParams `json:"response,omitempty"`
 
 }
-

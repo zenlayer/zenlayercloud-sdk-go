@@ -319,6 +319,8 @@ type CreatePortRequest struct {
 
 	// 贵司商业实体名称。
 	BusinessEntityName string `json:"businessEntityName,omitempty"`
+
+	MarketingOptions  *MarketingInfo `json:"marketingOptions,omitempty"`
 }
 
 type CreatePortResponse struct {
@@ -867,6 +869,8 @@ type CreatePrivateConnectRequest struct {
 	// 资源组的ID。
 	// 如果不传，则会放到默认资源组。
 	ResourceGroupId string `json:"resourceGroupId,omitempty"`
+
+	MarketingOptions  *MarketingInfo `json:"marketingOptions,omitempty"`
 }
 
 type CreateEndpointParam struct {
@@ -1394,6 +1398,14 @@ type CreateCloudRouterRequest struct {
 
 	// 资源组的ID。
 	ResourceGroupId string `json:"resourceGroupId,omitempty"`
+
+	MarketingOptions  *MarketingInfo `json:"marketingOptions,omitempty"`
+}
+
+
+type MarketingInfo struct {
+	DiscountCode  string `json:"discountCode,omitempty"`
+	UsePocVoucher bool `json:"usePocVoucher,omitempty"`
 }
 
 type CreateCloudRouterEdgePoint struct {

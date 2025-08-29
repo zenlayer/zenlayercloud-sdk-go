@@ -251,6 +251,8 @@ type DescribeSubnetsRequest struct {
 
 	CidrBlock string `json:"cidrBlock,omitempty"`
 
+	RegionId string `json:"regionId,omitempty"`
+
 	PageSize int `json:"pageSize,omitempty"`
 
 	PageNum int `json:"pageNum,omitempty"`
@@ -280,6 +282,31 @@ type ModifySubnetStackTypeRequest struct {
 	StackType string `json:"stackType,omitempty"`
 
 	Ipv6Type string `json:"ipv6Type,omitempty"`
+}
+
+type ModifySubnetAttributeRequest struct {
+	*common.BaseRequest
+
+	// SubnetId 子网的ID。
+	SubnetId *string `json:"subnetId,omitempty"`
+
+	// SubnetName 子网的名称。仅支持输入字母、数字、-和英文句点(.)。且必须以数字或字母开头和结尾。
+	SubnetName *string `json:"subnetName,omitempty"`
+
+	// CidrBlock 需要修改的IPv4 CIDR Block。仅支持有IPv4堆栈类型的子网。
+	CidrBlock *string `json:"cidrBlock,omitempty"`
+
+}
+
+type ModifySubnetAttributeResponse struct {
+	*common.BaseResponse
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
 }
 
 type CreateRouteResponse struct {
@@ -456,6 +483,9 @@ type InstanceInfo struct {
 
 	ImageName string `json:"imageName,omitempty"`
 
+	// TimeZone 设置的系统时区信息。
+	TimeZone *string `json:"timeZone,omitempty"`
+
 	NicNetworkType string `json:"nicNetworkType,omitempty"`
 
 	InstanceType *string `json:"instanceType,omitempty"`
@@ -471,6 +501,18 @@ type InstanceInfo struct {
 	PrivateIpAddresses []string `json:"privateIpAddresses,omitempty"`
 
 	KeyId string `json:"keyId,omitempty"`
+
+	// SubnetId 实例主网卡关联的子网ID。
+	SubnetId *string `json:"subnetId,omitempty"`
+
+	// EnableAgent 是否开启QGA Agent。
+	EnableAgent *bool `json:"enableAgent,omitempty"`
+
+	// EnableAgentMonitor 是否开启QGA 监控采集。
+	EnableAgentMonitor *bool `json:"enableAgentMonitor,omitempty"`
+
+	// EnableIpForward 是否开启IP转发。
+	EnableIpForward *bool `json:"enableIpForward,omitempty"`
 
 	CreateTime string `json:"createTime,omitempty"`
 
@@ -902,6 +944,8 @@ type CreateCidrResponse struct {
 
 type CreateCidrResponseParams struct {
 	RequestId string `json:"requestId,omitempty"`
+
+	CidrIds []string  `json:"cidrIds,omitempty"`
 }
 
 type CreateCidrRequest struct {
@@ -914,6 +958,8 @@ type CreateCidrRequest struct {
 	EipV4Type string `json:"eipV4Type,omitempty"`
 
 	Netmask *NetmaskInfo `json:"netmask,omitempty"`
+
+	MarketingOptions  *MarketingInfo `json:"marketingOptions,omitempty"`
 }
 
 type DeleteCidrResponse struct {
@@ -1018,6 +1064,10 @@ type CreateDisksRequest struct {
 	ResourceGroupId string `json:"resourceGroupId,omitempty"`
 
 	DiskCategory string `json:"diskCategory,omitempty"`
+
+	SnapshotId *string `json:"snapshotId,omitempty"`
+
+	MarketingOptions  *MarketingInfo `json:"marketingOptions,omitempty"`
 }
 
 type CreateDisksResponse struct {
@@ -1053,6 +1103,8 @@ type DescribeDisksRequest struct {
 	InstanceId string `json:"instanceId,omitempty"`
 
 	ZoneId string `json:"zoneId,omitempty"`
+
+	SnapshotAbility *bool `json:"snapshotAbility,omitempty"`
 
 	PageSize int `json:"pageSize,omitempty"`
 
@@ -1112,6 +1164,8 @@ type DiskInfo struct {
 	ResourceGroupName string `json:"resourceGroupName,omitempty"`
 
 	Serial string `json:"serial,omitempty"`
+
+	SnapshotAbility *bool `json:"snapshotAbility,omitempty"`
 }
 
 type AttachDisksRequest struct {
@@ -1236,21 +1290,6 @@ type InquiryPriceCreateDisksResponseParams struct {
 	DataDiskPrice *Price `json:"dataDiskPrice,omitempty"`
 }
 
-type TerminateDiskRequest struct {
-	*common.BaseRequest
-
-	DiskId string `json:"diskId,omitempty"`
-}
-
-type TerminateDiskResponse struct {
-	*common.BaseResponse
-
-	RequestId string `json:"requestId,omitempty"`
-
-	Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response"`
-}
 
 type ReleaseDiskRequest struct {
 	*common.BaseRequest
@@ -1636,15 +1675,17 @@ type CreateNicRequest struct {
 
 	SubnetId string `json:"subnetId,omitempty"`
 
-	PackageSize float64 `json:"packageSize"`
+	PackageSize float64 `json:"packageSize,omitempty"`
 
-	Bandwidth int `json:"bandwidth"`
+	Bandwidth int `json:"bandwidth,omitempty"`
 
 	InternetChargeType string `json:"internetChargeType,omitempty"`
 
 	ResourceGroupId string `json:"resourceGroupId,omitempty"`
 
 	ClusterId string `json:"clusterId,omitempty"`
+
+	MarketingOptions  *MarketingInfo `json:"marketingOptions,omitempty"`
 }
 
 type DeleteNicResponse struct {
@@ -1893,6 +1934,8 @@ type CreateZecInstancesRequest struct {
 	ClusterId string `json:"clusterId,omitempty"`
 
 	EipBindType *string `json:"eipBindType,omitempty"`
+
+	MarketingOptions  *MarketingInfo `json:"marketingOptions,omitempty"`
 }
 
 type CreateZecInstancesResponse struct {
@@ -1954,6 +1997,11 @@ type CreateInstancesRequest struct {
 	EnableIpForward bool `json:"enableIpForward"`
 
 	EipV4Type string `json:"eipV4Type,omitempty"`
+}
+
+type MarketingInfo struct {
+	DiscountCode  string `json:"discountCode,omitempty"`
+	UsePocVoucher bool `json:"usePocVoucher,omitempty"`
 }
 
 type CreateInstancesResponse struct {
@@ -2296,6 +2344,8 @@ type EipInfo struct {
 
 	Bandwidth int `json:"bandwidth,omitempty"`
 
+	EipGeoRefs []*EipGeoRef `json:"eipGeoRefs,omitempty"`
+
 	CreateTime string `json:"createTime,omitempty"`
 
 	ExpiredTime string `json:"expiredTime,omitempty"`
@@ -2303,7 +2353,24 @@ type EipInfo struct {
 	ResourceGroupId string `json:"resourceGroupId,omitempty"`
 
 	ResourceGroupName string `json:"resourceGroupName,omitempty"`
+
+	BandwidthCluster *BandwidthClusterInfo `json:"bandwidthCluster,omitempty"`
 }
+
+type EipGeoRef struct {
+	 Ip string `json:"ip,omitempty"`
+
+	 DbIp string `json:"dbIp,omitempty"`
+
+     IpData string `json:"ipData,omitempty"`
+
+     IpInfo string `json:"ipInfo,omitempty"`
+
+     MaxMind string `json:"maxMind,omitempty"`
+
+     IsConsistent bool `json:"isConsistent,omitempty"`
+}
+
 
 type CreateEipsRequest struct {
 	*common.BaseRequest
@@ -2333,6 +2400,8 @@ type CreateEipsRequest struct {
 	ClusterId string `json:"clusterId,omitempty"`
 
 	PeerRegionId string `json:"peerRegionId,omitempty"`
+
+	MarketingOptions  *MarketingInfo `json:"marketingOptions,omitempty"`
 }
 
 type CreateEipsResponse struct {
@@ -2392,6 +2461,9 @@ type BatchAttachEipLanIpRequest struct {
 	LanIp string `json:"lanIp,omitempty"`
 
 	EipIds []string `json:"eipIds,omitempty"`
+
+	// BindType 绑定类型。当绑定的是网卡时生效。默认为普通NATm模式。
+    BindType *string `json:"bindType,omitempty"`
 }
 
 type BatchAttachEipLanIpResponse struct {
@@ -2442,6 +2514,30 @@ type AssociateEipAddressResponseParams struct {
 	FailedEipIds []string `json:"failedEipIds,omitempty"`
 }
 
+
+// ChangeEipBindTypeRequest EIP更换的请求信息。
+type ChangeEipBindTypeRequest struct {
+    *common.BaseRequest
+
+    // EipId
+    EipId *string `json:"eipId,omitempty"`
+
+    // BindType 绑定类型。当绑定的是网卡时生效。默认为普通NAT模式。
+    BindType *string `json:"bindType,omitempty"`
+
+}
+
+type ChangeEipBindTypeResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
 type DetachEipLanIpRequest struct {
 	*common.BaseRequest
 
@@ -2478,6 +2574,28 @@ type UnassociateEipAddressResponseParams struct {
     FailedEipIds  []string `json:"failedEipIds,omitempty"`  // 解绑失败的EIP ID列表
 }
 
+// ModifyEipAttributeRequest 修改EIP属性的请求
+type ModifyEipAttributeRequest struct {
+	*common.BaseRequest
+
+	// EipId 公网弹性IP的ID。
+	EipId *string `json:"eipId,omitempty"`
+
+	// Name 公网弹性IP的名称。范围2到63个字符。仅支持输入字母、数字、-/_和英文句点(.)。且必须以数字或字母开头和结尾。
+	Name *string `json:"name,omitempty"`
+
+}
+
+type ModifyEipAttributeResponse struct {
+	*common.BaseResponse
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
 
 type ReplaceEipAddressRequest struct {
     *common.BaseRequest
@@ -2879,6 +2997,8 @@ type CreateBorderGatewayRequest struct {
 	AdvertisedSubnet string `json:"advertisedSubnet,omitempty"`
 
 	AdvertisedCidrs []string `json:"advertisedCidrs,omitempty"`
+
+	AdvertisedRouteIds []string `json:"advertisedRouteIds,omitempty"`
 }
 
 type CreateBorderGatewayResponse struct {
@@ -2922,6 +3042,8 @@ type DescribeBorderGatewaysRequest struct {
 	ZbgIds []string `json:"zbgIds,omitempty"`
 
 	Name string `json:"name,omitempty"`
+
+	VpcId string `json:"vpcId,omitempty"`
 
 	RegionId string `json:"regionId,omitempty"`
 
@@ -2968,6 +3090,8 @@ type ZbgInfo struct {
 
     AdvertisedCidrs []string `json:"advertisedCidrs,omitempty"`
 
+    AdvertisedRouteIds []string `json:"advertisedRouteIds,omitempty"`
+
     NatId string `json:"natId,omitempty"`
 }
 
@@ -2981,6 +3105,8 @@ type ModifyBorderGatewaysAttributeRequest struct {
 	AdvertisedSubnet string `json:"advertisedSubnet,omitempty"`
 
     AdvertisedCidrs []string `json:"advertisedCidrs,omitempty"`
+
+	Asn int `json:"asn,omitempty"`
 }
 
 type ModifyBorderGatewaysAttributeResponse struct {
@@ -3042,16 +3168,16 @@ type DescribeAvailableNatsResponseParams struct {
 type AssignBorderGatewayRequest struct {
 	*common.BaseRequest
 
-	ZbgId string `json:"zbgId,omitempty"`
+	ZbgId *string `json:"zbgId,omitempty"`
 
-	NatId string `json:"natId,omitempty"`
+	NatId *string `json:"natId,omitempty"`
 }
 
 type AssignBorderGatewayResponse struct {
 	*common.BaseResponse
 
 	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
-	RequestId string `json:"requestId,omitempty"`
+	RequestId *string `json:"requestId,omitempty"`
 
 	Response struct {
 		RequestId string `json:"requestId,omitempty"`
@@ -3075,6 +3201,47 @@ type UnassignBorderGatewayResponse struct {
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response"`
 }
+
+
+type AssignBorderGatewayRouteRequest struct {
+	*common.BaseRequest
+
+	ZbgId string `json:"zbgId,omitempty"`
+
+	AdvertisedRouteIds []string `json:"advertisedRouteIds,omitempty"`
+}
+
+type AssignBorderGatewayRouteResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response"`
+}
+
+
+type UnassignBorderGatewayRouteRequest struct {
+	*common.BaseRequest
+
+	ZbgId string `json:"zbgId,omitempty"`
+
+	AdvertisedRouteIds []string `json:"advertisedRouteIds,omitempty"`
+}
+
+type UnassignBorderGatewayRouteResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response"`
+}
+
 
 type CreateNatGatewayRequest struct {
     *common.BaseRequest
@@ -3142,6 +3309,7 @@ type DescribeNatGatewaysRequest struct {
     PageNum *int `json:"pageNum,omitempty"`
 
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
 }
 
 type DescribeNatGatewaysResponseParams struct {
@@ -3247,7 +3415,19 @@ type SnatEntry struct {
     // EipIds SNAT规则添加的eip ID集合。
     EipIds []string `json:"eipIds,omitempty"`
 
+    // SnatSubnets SNAT规则添加的eip ID集合。
+    SnatSubnets []*SnatSubnetRef `json:"snatSubnets,omitempty"`
 }
+
+
+type SnatSubnetRef struct {
+
+    SubnetId *string `json:"subnetId,omitempty"`
+
+    Cidr *string `json:"cidr,omitempty"`
+
+}
+
 
 // DnatEntry 描述DNAT规则的信息。
 type DnatEntry struct {
@@ -3403,6 +3583,9 @@ type CreateSnatEntryRequest struct {
     // EipIds
     EipIds []string `json:"eipIds,omitempty"`
 
+    // SubnetIds by Subnet的情况, subnet的id集合。
+    SubnetIds []string `json:"subnetIds,omitempty"`
+
 }
 
 type CreateSnatEntryResponseParams struct {
@@ -3435,6 +3618,8 @@ type ModifySnatEntryRequest struct {
     // EipIds SNAT规则添加的eip ID集合。
     EipIds []string `json:"eipIds,omitempty"`
 
+    // SubnetIds by Subnet的情况，subnet的id集合。
+    SubnetIds []string `json:"subnetIds,omitempty"`
 }
 
 type ModifySnatEntryResponse struct {
@@ -3819,8 +4004,232 @@ type ModifyVpcAttributeResponse struct {
 	Response struct {
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response,omitempty"`
+}
+
+type CreateSnapshotRequest struct {
+    *common.BaseRequest
+
+    // DiskId 云硬盘ID。通过DescribeDisks接口查询。
+    DiskId *string `json:"diskId,omitempty"`
+
+    SnapshotName *string `json:"snapshotName,omitempty"`
+
+    RetentionTime *string `json:"retentionTime,omitempty"`
+}
+
+
+type CreateSnapshotResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // SnapshotId 创建的快照ID。
+	SnapshotId *string `json:"snapshotId,omitempty"`
 
 }
+
+type CreateSnapshotResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *CreateSnapshotResponseParams `json:"response,omitempty"`
+
+}
+
+type ModifySnapshotsAttributeRequest struct {
+    *common.BaseRequest
+
+    // SnapshotIds 快照ID列表。
+    SnapshotIds []string `json:"snapshotIds,omitempty"`
+
+    // SnapshotName 快照名称。
+    SnapshotName *string `json:"snapshotName,omitempty"`
+
+}
+
+type ModifySnapshotsAttributeResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type DeleteSnapshotsRequest struct {
+    *common.BaseRequest
+
+    // SnapshotIds 快照ID列表。
+    SnapshotIds []string `json:"snapshotIds,omitempty"`
+
+}
+
+type DeleteSnapshotsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    SnapshotIds []string `json:"snapshotIds,omitempty"`
+
+}
+
+type DeleteSnapshotsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DeleteSnapshotsResponseParams `json:"response,omitempty"`
+
+}
+
+type DescribeSnapshotsRequest struct {
+    *common.BaseRequest
+
+    // SnapshotIds
+    SnapshotIds []string `json:"snapshotIds,omitempty"`
+
+    // ZoneId 快照所属的可用区ID。
+    ZoneId *string `json:"zoneId,omitempty"`
+
+    // Status 根据快照的状态过滤。
+    Status *string `json:"status,omitempty"`
+
+    // DiskIds 按照快照所属的Disk ID列表 过滤。
+    DiskIds []string `json:"diskIds,omitempty"`
+
+    // DiskType 根据快照的云盘类型过滤。
+    DiskType *string `json:"diskType,omitempty"`
+
+    // SnapshotName 根据快照显示名称过滤。该字段支持模糊搜索。
+    SnapshotName *string `json:"snapshotName,omitempty"`
+
+    // PageSize 返回的分页大小。
+    PageSize *int `json:"pageSize,omitempty"`
+
+    // PageNum 返回的分页数。
+    PageNum *int `json:"pageNum,omitempty"`
+
+    // ResourceGroupId 根据资源组ID过滤。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+}
+
+type DescribeSnapshotsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    TotalCount *int `json:"totalCount,omitempty"`
+
+    DataSet []*SnapshotInfo `json:"dataSet,omitempty"`
+
+}
+
+// SnapshotInfo 描述快照的信息。
+type SnapshotInfo struct {
+
+    // SnapshotId 快照唯一ID。
+    SnapshotId *string `json:"snapshotId,omitempty"`
+
+    // SnapshotName 快照显示名称。
+    SnapshotName *string `json:"snapshotName,omitempty"`
+
+    // ZoneId 快照所属的可用区ID。
+    ZoneId *string `json:"zoneId,omitempty"`
+
+    // Status 快照的状态。
+    Status *string `json:"status,omitempty"`
+
+    // DiskId 云盘ID。
+    DiskId *string `json:"diskId,omitempty"`
+
+    // CreateTime 创建时间。
+    CreateTime *string `json:"createTime,omitempty"`
+
+    DiskAbility bool `json:"diskAbility,omitempty"`
+
+    // ResourceGroup VPC关联的资源组信息。
+    ResourceGroup *ResourceGroupInfo `json:"resourceGroup,omitempty"`
+}
+
+type DescribeSnapshotsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeSnapshotsResponseParams `json:"response,omitempty"`
+
+}
+
+type ApplySnapshotRequest struct {
+    *common.BaseRequest
+
+    // SnapshotId 快照唯一ID。
+    SnapshotId *string `json:"snapshotId,omitempty"`
+
+    // DiskId 云硬盘ID。
+    DiskId *string `json:"diskId,omitempty"`
+
+}
+
+type ApplySnapshotResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+
+
+type ModifyNatGatewaysAttributeRequest struct {
+    *common.BaseRequest
+
+    // NatIds
+    NatIds []string `json:"natIds,omitempty"`
+
+    // Name
+    Name *string `json:"name,omitempty"`
+
+}
+
+type ModifyNatGatewaysAttributeResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+
+type ModifyNatGatewayRequest struct {
+    *common.BaseRequest
+
+    // NatGatewayId NAT网关 ID。
+    NatGatewayId *string `json:"natGatewayId,omitempty"`
+
+    // SubnetIds NAT网关的subnet ID 不传为all。
+    SubnetIds []string `json:"subnetIds,omitempty"`
+
+}
+
+type ModifyNatGatewayResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
 
 // ResourceGroupInfo 描述资源所在资源组的相关信息，包括资源组名称和ID。
 type ResourceGroupInfo struct {
@@ -3831,4 +4240,13 @@ type ResourceGroupInfo struct {
 	// ResourceGroupName 资源组名称。
 	ResourceGroupName *string `json:"resourceGroupName,omitempty"`
 
+}
+
+type BandwidthClusterInfo struct {
+
+	// BandwidthClusterId 共享带宽包唯一ID。
+	BandwidthClusterId *string `json:"bandwidthClusterId,omitempty"`
+
+	// BandwidthClusterName 共享带宽包显示名称。
+	BandwidthClusterName *string `json:"bandwidthClusterName,omitempty"`
 }

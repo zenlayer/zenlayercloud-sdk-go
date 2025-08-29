@@ -233,6 +233,29 @@ func (c *Client) ModifySubnetsAttribute(request *ModifySubnetsAttributeRequest) 
 	return
 }
 
+func NewModifySubnetAttributeRequest() (request *ModifySubnetAttributeRequest) {
+	request = &ModifySubnetAttributeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifySubnetAttribute")
+
+	return
+}
+
+func NewModifySubnetAttributeResponse() (response *ModifySubnetAttributeResponse) {
+	response = &ModifySubnetAttributeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifySubnetAttribute 修改子网属性。包括名称，CIDR等。
+func (c *Client) ModifySubnetAttribute(request *ModifySubnetAttributeRequest) (response *ModifySubnetAttributeResponse, err error) {
+	response = NewModifySubnetAttributeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewDescribeSubnetsRequest() (request *DescribeSubnetsRequest) {
 	request = &DescribeSubnetsRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -916,27 +939,6 @@ func (c *Client) InquiryPriceCreateDisks(request *InquiryPriceCreateDisksRequest
 	return
 }
 
-func NewTerminateDiskRequest() (request *TerminateDiskRequest) {
-	request = &TerminateDiskRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "TerminateDisk")
-
-	return
-}
-
-func NewTerminateDiskResponse() (response *TerminateDiskResponse) {
-	response = &TerminateDiskResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-func (c *Client) TerminateDisk(request *TerminateDiskRequest) (response *TerminateDiskResponse, err error) {
-	response = NewTerminateDiskResponse()
-	err = c.ApiCall(request, response)
-	return
-}
 
 func NewReleaseDiskRequest() (request *ReleaseDiskRequest) {
 	request = &ReleaseDiskRequest{
@@ -1798,6 +1800,31 @@ func (c *Client) AssociateEipAddress(request *AssociateEipAddressRequest) (respo
 }
 
 
+func NewChangeEipBindTypeRequest() (request *ChangeEipBindTypeRequest) {
+	request = &ChangeEipBindTypeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ChangeEipBindType")
+
+	return
+}
+
+func NewChangeEipBindTypeResponse() (response *ChangeEipBindTypeResponse) {
+	response = &ChangeEipBindTypeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ChangeEipBindType 弹性公网IP（EIP）更换绑定模式。
+func (c *Client) ChangeEipBindType(request *ChangeEipBindTypeRequest) (response *ChangeEipBindTypeResponse, err error) {
+	response = NewChangeEipBindTypeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+
+
 func NewDetachEipLanIpRequest() (request *DetachEipLanIpRequest) {
 	request = &DetachEipLanIpRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -1842,6 +1869,28 @@ func NewUnassociateEipAddressResponse() (response *UnassociateEipAddressResponse
     return
 }
 
+func NewModifyEipAttributeRequest() (request *ModifyEipAttributeRequest) {
+	request = &ModifyEipAttributeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyEipAttribute")
+
+	return
+}
+
+func NewModifyEipAttributeResponse() (response *ModifyEipAttributeResponse) {
+	response = &ModifyEipAttributeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyEipAttribute 修改弹性公网IP属性。
+func (c *Client) ModifyEipAttribute(request *ModifyEipAttributeRequest) (response *ModifyEipAttributeResponse, err error) {
+	response = NewModifyEipAttributeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
 
 func NewReplaceEipAddressRequest() (request *ReplaceEipAddressRequest) {
     request = &ReplaceEipAddressRequest{
@@ -2366,6 +2415,56 @@ func (c *Client) UnassignBorderGateway(request *UnassignBorderGatewayRequest) (r
 }
 
 
+func NewAssignBorderGatewayRouteRequest() (request *AssignBorderGatewayRouteRequest) {
+	request = &AssignBorderGatewayRouteRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "AssignBorderGatewayRoute")
+
+	return
+}
+
+func NewAssignBorderGatewayRouteResponse() (response *AssignBorderGatewayRouteResponse) {
+	response = &AssignBorderGatewayRouteResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+
+// AssignBorderGatewayRoute
+func (c *Client) AssignBorderGatewayRoute(request *AssignBorderGatewayRouteRequest) (response *AssignBorderGatewayRouteResponse, err error) {
+	response = NewAssignBorderGatewayRouteResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+
+func NewUnassignBorderGatewayRouteRequest() (request *UnassignBorderGatewayRouteRequest) {
+	request = &UnassignBorderGatewayRouteRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "UnassignBorderGatewayRoute")
+
+	return
+}
+
+func NewUnassignBorderGatewayRouteResponse() (response *UnassignBorderGatewayRouteResponse) {
+	response = &UnassignBorderGatewayRouteResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+
+// UnassignBorderGatewayRoute
+func (c *Client) UnassignBorderGatewayRoute(request *UnassignBorderGatewayRouteRequest) (response *UnassignBorderGatewayRouteResponse, err error) {
+	response = NewUnassignBorderGatewayRouteResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+
 func NewCreateNatGatewayRequest() (request *CreateNatGatewayRequest) {
 	request = &CreateNatGatewayRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -2757,6 +2856,171 @@ func NewDescribeAvailableBorderGatewayResponse() (response *DescribeAvailableBor
 // DescribeAvailableBorderGateway 获取可绑定NAT的边界网关。
 func (c *Client) DescribeAvailableBorderGateway(request *DescribeAvailableBorderGatewayRequest) (response *DescribeAvailableBorderGatewayResponse, err error) {
 	response = NewDescribeAvailableBorderGatewayResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+
+func NewCreateSnapshotRequest() (request *CreateSnapshotRequest) {
+	request = &CreateSnapshotRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateSnapshot")
+
+	return
+}
+
+func NewCreateSnapshotResponse() (response *CreateSnapshotResponse) {
+	response = &CreateSnapshotResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CreateSnapshot 用于对指定云盘创建快照。
+func (c *Client) CreateSnapshot(request *CreateSnapshotRequest) (response *CreateSnapshotResponse, err error) {
+	response = NewCreateSnapshotResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifySnapshotsAttributeRequest() (request *ModifySnapshotsAttributeRequest) {
+	request = &ModifySnapshotsAttributeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifySnapshotsAttribute")
+
+	return
+}
+
+func NewModifySnapshotsAttributeResponse() (response *ModifySnapshotsAttributeResponse) {
+	response = &ModifySnapshotsAttributeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifySnapshotsAttribute 用于修改指定快照的属性。
+func (c *Client) ModifySnapshotsAttribute(request *ModifySnapshotsAttributeRequest) (response *ModifySnapshotsAttributeResponse, err error) {
+	response = NewModifySnapshotsAttributeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteSnapshotsRequest() (request *DeleteSnapshotsRequest) {
+	request = &DeleteSnapshotsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteSnapshots")
+
+	return
+}
+
+func NewDeleteSnapshotsResponse() (response *DeleteSnapshotsResponse) {
+	response = &DeleteSnapshotsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeleteSnapshots 用于删除指定快照集合。
+func (c *Client) DeleteSnapshots(request *DeleteSnapshotsRequest) (response *DeleteSnapshotsResponse, err error) {
+	response = NewDeleteSnapshotsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeSnapshotsRequest() (request *DescribeSnapshotsRequest) {
+	request = &DescribeSnapshotsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeSnapshots")
+
+	return
+}
+
+func NewDescribeSnapshotsResponse() (response *DescribeSnapshotsResponse) {
+	response = &DescribeSnapshotsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeSnapshots 用于查询快照的详细信息。
+func (c *Client) DescribeSnapshots(request *DescribeSnapshotsRequest) (response *DescribeSnapshotsResponse, err error) {
+	response = NewDescribeSnapshotsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewApplySnapshotRequest() (request *ApplySnapshotRequest) {
+	request = &ApplySnapshotRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ApplySnapshot")
+
+	return
+}
+
+func NewApplySnapshotResponse() (response *ApplySnapshotResponse) {
+	response = &ApplySnapshotResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ApplySnapshot 用于回滚快照到原云盘。
+func (c *Client) ApplySnapshot(request *ApplySnapshotRequest) (response *ApplySnapshotResponse, err error) {
+	response = NewApplySnapshotResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+
+
+func NewModifyNatGatewaysAttributeRequest() (request *ModifyNatGatewaysAttributeRequest) {
+	request = &ModifyNatGatewaysAttributeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyNatGatewaysAttribute")
+
+	return
+}
+
+func NewModifyNatGatewaysAttributeResponse() (response *ModifyNatGatewaysAttributeResponse) {
+	response = &ModifyNatGatewaysAttributeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyNatGatewaysAttribute 修改NAT网关属性。
+func (c *Client) ModifyNatGatewaysAttribute(request *ModifyNatGatewaysAttributeRequest) (response *ModifyNatGatewaysAttributeResponse, err error) {
+	response = NewModifyNatGatewaysAttributeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+
+func NewModifyNatGatewayRequest() (request *ModifyNatGatewayRequest) {
+	request = &ModifyNatGatewayRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyNatGateway")
+
+	return
+}
+
+func NewModifyNatGatewayResponse() (response *ModifyNatGatewayResponse) {
+	response = &ModifyNatGatewayResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyNatGateway 修改NAT网关。
+func (c *Client) ModifyNatGateway(request *ModifyNatGatewayRequest) (response *ModifyNatGatewayResponse, err error) {
+	response = NewModifyNatGatewayResponse()
 	err = c.ApiCall(request, response)
 	return
 }

@@ -15,6 +15,7 @@ type DescribeListenersRequest struct {
     // Protocol 要查询的监听器协议类型。
     Protocol *string `json:"protocol,omitempty"`
 
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 }
 
 // DescribeListenersResponseParams 
@@ -506,7 +507,6 @@ type DescribeLoadBalancersRequest struct {
     PageNum *int `json:"pageNum,omitempty"`
 
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
-
 }
 
 type DescribeLoadBalancersResponseParams struct {
@@ -647,6 +647,13 @@ type CreateLoadBalancerRequest struct {
     // Number 创建负载均衡的个数。
     Number *int `json:"number,omitempty"`
 
+    MarketingOptions  *MarketingInfo `json:"marketingOptions,omitempty"`
+}
+
+
+type MarketingInfo struct {
+	DiscountCode  string `json:"discountCode,omitempty"`
+	UsePocVoucher bool `json:"usePocVoucher,omitempty"`
 }
 
 type CreateLoadBalancerResponseParams struct {
