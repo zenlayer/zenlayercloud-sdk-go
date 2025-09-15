@@ -996,6 +996,7 @@ type CreateInstancesRequest struct {
 	TrafficPackageSize      *float64       `json:"trafficPackageSize,omitempty"`
 	SubnetId                string         `json:"subnetId,omitempty"`
 	EnableIpv6              bool           `json:"enableIpv6,omitempty"`
+	EnableIpv4              bool           `json:"enableIpv4,omitempty"`
 	CpuPassThrough          bool           `json:"cpuPassThrough,omitempty"`
 	InitScript              string         `json:"initScript,omitempty"`
 	SystemDisk              *SystemDisk    `json:"systemDisk,omitempty"`
@@ -1005,7 +1006,15 @@ type CreateInstancesRequest struct {
 	ClusterId               string         `json:"clusterId,omitempty"`
 	NetworkMode             string         `json:"networkMode,omitempty"`
 	DiskPreAllocated        bool           `json:"diskPreAllocated,omitempty"`
+	MarketingOptions        *MarketingInfo `json:"marketingOptions,omitempty"`
 }
+
+
+type MarketingInfo struct {
+	DiscountCode  string `json:"discountCode,omitempty"`
+	UsePocVoucher bool `json:"usePocVoucher,omitempty"`
+}
+
 
 type Nic struct {
 	// Public NIC name.
@@ -1289,6 +1298,7 @@ type CreateDisksRequest struct {
 	ZoneId          string         `json:"zoneId,omitempty"`
 	DiskAmount      *int           `json:"diskAmount,omitempty"`
 	ResourceGroupId string         `json:"resourceGroupId,omitempty"`
+	MarketingOptions  *MarketingInfo `json:"marketingOptions,omitempty"`
 }
 
 type CreateDisksResponse struct {

@@ -9,6 +9,7 @@ const (
 	SERVICE    = "zec"
 )
 
+// Deprecated: For maintaining enhanced SDK consistency. This client is no longer in use, please use zenlayercloud.zec20250901.Client
 type Client struct {
 	common.Client
 }
@@ -318,6 +319,29 @@ func NewCreateRouteResponse() (response *CreateRouteResponse) {
 
 func (c *Client) CreateRoute(request *CreateRouteRequest) (response *CreateRouteResponse, err error) {
 	response = NewCreateRouteResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyRouteAttributeRequest() (request *ModifyRouteAttributeRequest) {
+	request = &ModifyRouteAttributeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyRouteAttribute")
+
+	return
+}
+
+func NewModifyRouteAttributeResponse() (response *ModifyRouteAttributeResponse) {
+	response = &ModifyRouteAttributeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyRouteAttribute 修改路由的基本信息，目前只允许修改路由的名称。
+func (c *Client) ModifyRouteAttribute(request *ModifyRouteAttributeRequest) (response *ModifyRouteAttributeResponse, err error) {
+	response = NewModifyRouteAttributeResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -2972,6 +2996,144 @@ func NewApplySnapshotResponse() (response *ApplySnapshotResponse) {
 // ApplySnapshot 用于回滚快照到原云盘。
 func (c *Client) ApplySnapshot(request *ApplySnapshotRequest) (response *ApplySnapshotResponse, err error) {
 	response = NewApplySnapshotResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewCreateAutoSnapshotPolicyRequest() (request *CreateAutoSnapshotPolicyRequest) {
+	request = &CreateAutoSnapshotPolicyRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateAutoSnapshotPolicy")
+
+	return
+}
+
+func NewCreateAutoSnapshotPolicyResponse() (response *CreateAutoSnapshotPolicyResponse) {
+	response = &CreateAutoSnapshotPolicyResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CreateAutoSnapshotPolicy 创建一个自动快照策略。
+func (c *Client) CreateAutoSnapshotPolicy(request *CreateAutoSnapshotPolicyRequest) (response *CreateAutoSnapshotPolicyResponse, err error) {
+	response = NewCreateAutoSnapshotPolicyResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewApplyAutoSnapshotPolicyRequest() (request *ApplyAutoSnapshotPolicyRequest) {
+	request = &ApplyAutoSnapshotPolicyRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ApplyAutoSnapshotPolicy")
+
+	return
+}
+
+func NewApplyAutoSnapshotPolicyResponse() (response *ApplyAutoSnapshotPolicyResponse) {
+	response = &ApplyAutoSnapshotPolicyResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ApplyAutoSnapshotPolicy 云硬盘添加到指定的自动快照策略。
+func (c *Client) ApplyAutoSnapshotPolicy(request *ApplyAutoSnapshotPolicyRequest) (response *ApplyAutoSnapshotPolicyResponse, err error) {
+	response = NewApplyAutoSnapshotPolicyResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewCancelAutoSnapshotPolicyRequest() (request *CancelAutoSnapshotPolicyRequest) {
+	request = &CancelAutoSnapshotPolicyRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CancelAutoSnapshotPolicy")
+
+	return
+}
+
+func NewCancelAutoSnapshotPolicyResponse() (response *CancelAutoSnapshotPolicyResponse) {
+	response = &CancelAutoSnapshotPolicyResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CancelAutoSnapshotPolicy 云硬盘从指定的自动快照策略中移除。
+func (c *Client) CancelAutoSnapshotPolicy(request *CancelAutoSnapshotPolicyRequest) (response *CancelAutoSnapshotPolicyResponse, err error) {
+	response = NewCancelAutoSnapshotPolicyResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeAutoSnapshotPoliciesRequest() (request *DescribeAutoSnapshotPoliciesRequest) {
+	request = &DescribeAutoSnapshotPoliciesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeAutoSnapshotPolicies")
+
+	return
+}
+
+func NewDescribeAutoSnapshotPoliciesResponse() (response *DescribeAutoSnapshotPoliciesResponse) {
+	response = &DescribeAutoSnapshotPoliciesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeAutoSnapshotPolicies 查询自动快照策略的列表数据。
+func (c *Client) DescribeAutoSnapshotPolicies(request *DescribeAutoSnapshotPoliciesRequest) (response *DescribeAutoSnapshotPoliciesResponse, err error) {
+	response = NewDescribeAutoSnapshotPoliciesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyAutoSnapshotPolicyRequest() (request *ModifyAutoSnapshotPolicyRequest) {
+	request = &ModifyAutoSnapshotPolicyRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyAutoSnapshotPolicy")
+
+	return
+}
+
+func NewModifyAutoSnapshotPolicyResponse() (response *ModifyAutoSnapshotPolicyResponse) {
+	response = &ModifyAutoSnapshotPolicyResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyAutoSnapshotPolicy 修改自动快照策略的基本信息。
+func (c *Client) ModifyAutoSnapshotPolicy(request *ModifyAutoSnapshotPolicyRequest) (response *ModifyAutoSnapshotPolicyResponse, err error) {
+	response = NewModifyAutoSnapshotPolicyResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteAutoSnapshotPoliciesRequest() (request *DeleteAutoSnapshotPoliciesRequest) {
+	request = &DeleteAutoSnapshotPoliciesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteAutoSnapshotPolicies")
+
+	return
+}
+
+func NewDeleteAutoSnapshotPoliciesResponse() (response *DeleteAutoSnapshotPoliciesResponse) {
+	response = &DeleteAutoSnapshotPoliciesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeleteAutoSnapshotPolicies 删除指定的自动快照策略。
+func (c *Client) DeleteAutoSnapshotPolicies(request *DeleteAutoSnapshotPoliciesRequest) (response *DeleteAutoSnapshotPoliciesResponse, err error) {
+	response = NewDeleteAutoSnapshotPoliciesResponse()
 	err = c.ApiCall(request, response)
 	return
 }

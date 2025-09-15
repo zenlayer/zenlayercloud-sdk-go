@@ -328,21 +328,30 @@ type CreateRouteResponseParams struct {
 type CreateRouteRequest struct {
 	*common.BaseRequest
 
-	VpcId string `json:"vpcId,omitempty"`
+	// VpcId VPC的ID。
+	VpcId *string `json:"vpcId,omitempty"`
 
-	IpVersion string `json:"ipVersion,omitempty"`
+	// IpVersion IP类型。支持`IPv4`和`IPv6`两种类型。
+	IpVersion *string `json:"ipVersion,omitempty"`
 
-	RouteType string `json:"routeType,omitempty"`
+	// RouteType 路由类型。
+	RouteType *string `json:"routeType,omitempty"`
 
-	SourceCidrBlock string `json:"sourceCidrBlock,omitempty"`
+	// SourceIp 源IP地址。`路由类型`配置`RouteTypePolicy(策略路由)`时需指定。
+	SourceIp *string `json:"sourceIp,omitempty"`
 
-	CidrBlock string `json:"cidrBlock,omitempty"`
+	// DestinationCidrBlock IPv4或IPv6的目标网段。例如：10.0.1.0/24。
+	DestinationCidrBlock *string `json:"destinationCidrBlock,omitempty"`
 
-	Priority int `json:"priority,omitempty"`
+	// Priority 路由优先级。数值越小，优先级越高。
+	Priority *int `json:"priority,omitempty"`
 
-	NextHotId string `json:"nextHotId,omitempty"`
+	// NextHopId 下一跳资源ID。目前只支持网卡ID。
+	NextHopId *string `json:"nextHopId,omitempty"`
 
-	Name string `json:"name,omitempty"`
+	// Name 路由名称。名称长度为 2 到 63 个字符，仅支持字母、数字、连字符 (-) 、下划线(_) 、斜杠(/) 、和句点 (.)，且开头和结尾必须是字母或数字。
+	Name *string `json:"name,omitempty"`
+
 }
 
 type DeleteRouteResponse struct {
@@ -358,8 +367,6 @@ type DeleteRouteResponse struct {
 
 type DeleteRouteRequest struct {
 	*common.BaseRequest
-
-	VpcId string `json:"vpcId,omitempty"`
 
 	RouteId string `json:"routeId,omitempty"`
 }
@@ -381,32 +388,48 @@ type DescribeRoutesResponseParams struct {
 	TotalCount int `json:"totalCount,omitempty"`
 }
 
+// RouteInfo 描述路由的相关信息。
 type RouteInfo struct {
-	RouteId string `json:"routeId,omitempty"`
 
-	Name string `json:"name,omitempty"`
+	// RouteId 路由ID。
+	RouteId *string `json:"routeId,omitempty"`
 
-	VpcId string `json:"vpcId,omitempty"`
+	// Name 路由的名称。
+	Name *string `json:"name,omitempty"`
 
-	VpcName string `json:"vpcName,omitempty"`
+	// VpcId 路由关联的VPC的ID。
+	VpcId *string `json:"vpcId,omitempty"`
 
-	IpVersion string `json:"ipVersion,omitempty"`
+	// VpcName 路由关联的VPC的名称。
+	VpcName *string `json:"vpcName,omitempty"`
 
-	Type string `json:"type,omitempty"`
+	// IpVersion IP类型。支持`IPv4`和`IPv6`两种类型。
+	IpVersion *string `json:"ipVersion,omitempty"`
 
-	SourceCidrBlock string `json:"sourceCidrBlock,omitempty"`
+	// Type 路由类型。
+	Type *string `json:"type,omitempty"`
 
-	CidrBlock string `json:"cidrBlock,omitempty"`
+	// SourceIp 源IP地址。当`路由类型`是`RouteTypePolicy(策略路由)`时可取值。
+	SourceIp *string `json:"sourceIp,omitempty"`
 
-	Priority int `json:"priority,omitempty"`
+	// DestinationCidrBlock IPv4或IPv6的目标网段。例如：10.0.1.0/24。
+	DestinationCidrBlock *string `json:"destinationCidrBlock,omitempty"`
 
-	NextHopId string `json:"nextHopId,omitempty"`
+	// Priority 路由优先级。
+	Priority *int `json:"priority,omitempty"`
 
-	NextHopName string `json:"nextHopName,omitempty"`
+	// NextHopId 下一跳资源ID。
+	NextHopId *string `json:"nextHopId,omitempty"`
 
-	NextHopType string `json:"nextHopType,omitempty"`
+	// NextHopName 下一跳资源名称。
+	NextHopName *string `json:"nextHopName,omitempty"`
 
-	CreateTime string `json:"createTime,omitempty"`
+	// NextHopType 下一跳的类型。
+	NextHopType *string `json:"nextHopType,omitempty"`
+
+	// CreateTime 路由的创建时间。
+	CreateTime *string `json:"createTime,omitempty"`
+
 }
 
 type DescribeRoutesRequest struct {
@@ -1166,6 +1189,10 @@ type DiskInfo struct {
 	Serial string `json:"serial,omitempty"`
 
 	SnapshotAbility *bool `json:"snapshotAbility,omitempty"`
+
+	// AutoSnapshotPolicyId 云盘关联的自动快照策略ID。
+	AutoSnapshotPolicyId *string `json:"autoSnapshotPolicyId,omitempty"`
+
 }
 
 type AttachDisksRequest struct {
@@ -1675,7 +1702,10 @@ type CreateNicRequest struct {
 
 	SubnetId string `json:"subnetId,omitempty"`
 
-	PackageSize float64 `json:"packageSize,omitempty"`
+	// StackType 子网的IP堆栈类型。
+	StackType *string `json:"stackType,omitempty"`
+
+	PackageSize float64 `json:"packageSize"`
 
 	Bandwidth int `json:"bandwidth,omitempty"`
 
@@ -3354,6 +3384,9 @@ type NatGateway struct {
 	// ZbgId 边界网关ID。
 	ZbgId *string `json:"zbgId,omitempty"`
 
+    // 是否开启ICMP代回。
+    IcmpReplyEnabled bool `json:"icmpReplyEnabled,omitempty"`
+
 	// ResourceGroupId 资源组ID。
 	ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 
@@ -3577,8 +3610,8 @@ type CreateSnatEntryRequest struct {
     // NatGatewayId NAT网关 ID。
     NatGatewayId *string `json:"natGatewayId,omitempty"`
 
-    // Cidrs CIDR网段，不传默认是0.0.0.0/0。
-    Cidrs []string `json:"cidrs,omitempty"`
+    // Cidr CIDR网段，不传默认是0.0.0.0/0。
+    Cidr string `json:"cidr,omitempty"`
 
     // EipIds
     EipIds []string `json:"eipIds,omitempty"`
@@ -3612,8 +3645,8 @@ type ModifySnatEntryRequest struct {
     // SnatEntryId SNAT规则 ID。
     SnatEntryId *string `json:"snatEntryId,omitempty"`
 
-    // Cidrs CIDR网段，不传默认是0.0.0.0/0。
-    Cidrs []string `json:"cidrs,omitempty"`
+    // Cidr CIDR网段，不传默认是0.0.0.0/0。
+    Cidr string `json:"cidr,omitempty"`
 
     // EipIds SNAT规则添加的eip ID集合。
     EipIds []string `json:"eipIds,omitempty"`
@@ -4006,15 +4039,20 @@ type ModifyVpcAttributeResponse struct {
 	} `json:"response,omitempty"`
 }
 
+
+// CreateSnapshotRequest
 type CreateSnapshotRequest struct {
-    *common.BaseRequest
+	*common.BaseRequest
 
-    // DiskId 云硬盘ID。通过DescribeDisks接口查询。
-    DiskId *string `json:"diskId,omitempty"`
+	// DiskId 云硬盘ID。
+	DiskId *string `json:"diskId,omitempty"`
 
-    SnapshotName *string `json:"snapshotName,omitempty"`
+	// SnapshotName 快照名称。
+	SnapshotName *string `json:"snapshotName,omitempty"`
 
-    RetentionTime *string `json:"retentionTime,omitempty"`
+	// RetentionTime 保留的到期时间。格式为：yyyy-MM-ddTHH:mm:ssZ如果不传，则代表永久保留。指定时间必须在当前时间24小时后。
+	RetentionTime *string `json:"retentionTime,omitempty"`
+
 }
 
 
@@ -4022,8 +4060,8 @@ type CreateSnapshotResponseParams struct {
 
     RequestId *string `json:"requestId,omitempty"`
 
-    // SnapshotId 创建的快照ID。
-	SnapshotId *string `json:"snapshotId,omitempty"`
+    // SnapshotIds 快照ID集合。
+    SnapshotId *string `json:"snapshotId,omitempty"`
 
 }
 
@@ -4037,13 +4075,19 @@ type CreateSnapshotResponse struct {
 }
 
 type ModifySnapshotsAttributeRequest struct {
-    *common.BaseRequest
+	*common.BaseRequest
 
-    // SnapshotIds 快照ID列表。
-    SnapshotIds []string `json:"snapshotIds,omitempty"`
+	// SnapshotIds 快照ID列表。
+	SnapshotIds []string `json:"snapshotIds,omitempty"`
 
-    // SnapshotName 快照名称。
-    SnapshotName *string `json:"snapshotName,omitempty"`
+	// SnapshotName 快照名称。
+	SnapshotName *string `json:"snapshotName,omitempty"`
+
+	// RetentionTime 快照过期时间。格式为：yyyy-MM-ddTHH:mm:ssZ。如果改成永久保留，请设置`isPermanent`=`true`，如果设置该时间必须设置为当前时间后24小时。
+	RetentionTime *string `json:"retentionTime,omitempty"`
+
+	// IsPermanent 该定期快照策略创建的快照是否永久保留。
+	IsPermanent *bool `json:"isPermanent,omitempty"`
 
 }
 
@@ -4101,6 +4145,9 @@ type DescribeSnapshotsRequest struct {
     // DiskType 根据快照的云盘类型过滤。
     DiskType *string `json:"diskType,omitempty"`
 
+	// SnapshotType 根据快照类型过滤。
+	SnapshotType *string `json:"snapshotType,omitempty"`
+
     // SnapshotName 根据快照显示名称过滤。该字段支持模糊搜索。
     SnapshotName *string `json:"snapshotName,omitempty"`
 
@@ -4128,28 +4175,36 @@ type DescribeSnapshotsResponseParams struct {
 // SnapshotInfo 描述快照的信息。
 type SnapshotInfo struct {
 
-    // SnapshotId 快照唯一ID。
-    SnapshotId *string `json:"snapshotId,omitempty"`
+	// SnapshotId 快照唯一ID。
+	SnapshotId *string `json:"snapshotId,omitempty"`
 
-    // SnapshotName 快照显示名称。
-    SnapshotName *string `json:"snapshotName,omitempty"`
+	// SnapshotName 快照显示名称。
+	SnapshotName *string `json:"snapshotName,omitempty"`
 
-    // ZoneId 快照所属的可用区ID。
-    ZoneId *string `json:"zoneId,omitempty"`
+	// ZoneId 快照所属的可用区ID。
+	ZoneId *string `json:"zoneId,omitempty"`
 
-    // Status 快照的状态。
-    Status *string `json:"status,omitempty"`
+	// Status 快照的状态。
+	Status *string `json:"status,omitempty"`
 
-    // DiskId 云盘ID。
-    DiskId *string `json:"diskId,omitempty"`
+	// SnapshotType 快照的类型。
+	SnapshotType *string `json:"snapshotType,omitempty"`
 
-    // CreateTime 创建时间。
-    CreateTime *string `json:"createTime,omitempty"`
+	// RetentionTime 快照的保留到期时间。如果取不到值，说明快照为永久保留。
+	RetentionTime *string `json:"retentionTime,omitempty"`
 
-    DiskAbility bool `json:"diskAbility,omitempty"`
+	// DiskId 云盘ID。
+	DiskId *string `json:"diskId,omitempty"`
 
-    // ResourceGroup VPC关联的资源组信息。
-    ResourceGroup *ResourceGroupInfo `json:"resourceGroup,omitempty"`
+	// CreateTime 创建时间。
+	CreateTime *string `json:"createTime,omitempty"`
+
+	// DiskAbility 是否具备创建disk的能力。
+	DiskAbility *bool `json:"diskAbility,omitempty"`
+
+	// ResourceGroup 所属的资源组信息。
+	ResourceGroup *ResourceGroupInfo `json:"resourceGroup,omitempty"`
+
 }
 
 type DescribeSnapshotsResponse struct {
@@ -4184,6 +4239,224 @@ type ApplySnapshotResponse struct {
 }
 
 
+// CreateAutoSnapshotPolicyRequest
+type CreateAutoSnapshotPolicyRequest struct {
+	*common.BaseRequest
+
+	// ZoneId 可用区ID。
+	ZoneId *string `json:"zoneId,omitempty"`
+
+	// AutoSnapshotPolicyName 自动快照策略的名称。范围2到63个字符。仅支持输入字母、数字、-/_和英文句点(.)。且必须以数字或字母开头和结尾。
+	AutoSnapshotPolicyName *string `json:"autoSnapshotPolicyName,omitempty"`
+
+	// RepeatWeekDays 自动快照的重复日期。单位为天，周期为星期，例如 1 表示周一。
+	RepeatWeekDays []int `json:"repeatWeekDays,omitempty"`
+
+	// Hours 指定定期快照策略的触发时间。使用 UTC 时间，单位为小时。00:00 ~ 23:00 共 24 个时间点可选，1表示 01:00，依此类推。
+	Hours []int `json:"hours,omitempty"`
+
+	// RetentionDays 自动快照的保留时间，单位为天。如果该值设置-1，则代表永久保留。
+	RetentionDays *int `json:"retentionDays,omitempty"`
+
+	// ResourceGroupId 资源组ID。
+	ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+}
+
+// CreateAutoSnapshotPolicyResponseParams 创建自动快照策略的响应信息。
+type CreateAutoSnapshotPolicyResponseParams struct {
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	// AutoSnapshotPolicyId 自动快照策略的ID。
+	AutoSnapshotPolicyId *string `json:"autoSnapshotPolicyId,omitempty"`
+
+}
+
+type CreateAutoSnapshotPolicyResponse struct {
+	*common.BaseResponse
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	Response *CreateAutoSnapshotPolicyResponseParams `json:"response,omitempty"`
+
+}
+
+type ApplyAutoSnapshotPolicyRequest struct {
+	*common.BaseRequest
+
+	// AutoSnapshotPolicyId 自动快照策略ID。
+	AutoSnapshotPolicyId *string `json:"autoSnapshotPolicyId,omitempty"`
+
+	// DiskIds 要添加的磁盘ID列表。
+	DiskIds []string `json:"diskIds,omitempty"`
+
+}
+
+type ApplyAutoSnapshotPolicyResponse struct {
+	*common.BaseResponse
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type CancelAutoSnapshotPolicyRequest struct {
+	*common.BaseRequest
+
+	// AutoSnapshotPolicyId 自动快照策略ID。
+	AutoSnapshotPolicyId *string `json:"autoSnapshotPolicyId,omitempty"`
+
+	// DiskIds 要移除的磁盘ID列表。
+	DiskIds []string `json:"diskIds,omitempty"`
+
+}
+
+type CancelAutoSnapshotPolicyResponse struct {
+	*common.BaseResponse
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// DescribeAutoSnapshotPoliciesRequest 自动快照策略列表的请求参数。
+type DescribeAutoSnapshotPoliciesRequest struct {
+	*common.BaseRequest
+
+	// AutoSnapshotPolicyIds 根据自动快照策略的ID进行过滤。
+	AutoSnapshotPolicyIds []string `json:"autoSnapshotPolicyIds,omitempty"`
+
+	// ZoneIds 根据自动快照策略的可用区ID进行过滤。
+	ZoneIds []string `json:"zoneIds,omitempty"`
+
+	// AutoSnapshotPolicyName 根据自动快照策略的名称进行过滤。该字段支持模糊搜索。
+	AutoSnapshotPolicyName *string `json:"autoSnapshotPolicyName,omitempty"`
+
+	// ResourceGroupId 根据资源组ID进行过滤。
+	ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+	// PageSize 返回的分页大小。
+	PageSize *int `json:"pageSize,omitempty"`
+
+	// PageNum 返回的分页数。
+	PageNum *int `json:"pageNum,omitempty"`
+
+}
+
+// DescribeAutoSnapshotPoliciesResponseParams 查询自动快照策略的响应值。
+type DescribeAutoSnapshotPoliciesResponseParams struct {
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	// DataSet 查询的自动快照策略数据结果。
+	DataSet []*AutoSnapshotPolicy `json:"dataSet,omitempty"`
+
+	// TotalCount 符合匹配的总数量。
+	TotalCount *int `json:"totalCount,omitempty"`
+
+}
+
+// AutoSnapshotPolicy 描述自动快照策略的相关信息。
+type AutoSnapshotPolicy struct {
+
+	// AutoSnapshotPolicyId 自动快照策略ID。
+	AutoSnapshotPolicyId *string `json:"autoSnapshotPolicyId,omitempty"`
+
+	// ZoneId 可用区ID。
+	ZoneId *string `json:"zoneId,omitempty"`
+
+	// AutoSnapshotPolicyName 自动快照策略的名称。
+	AutoSnapshotPolicyName *string `json:"autoSnapshotPolicyName,omitempty"`
+
+	// RepeatWeekDays 自动快照的重复日期。单位为天，周期为星期，例如 1 表示周一。
+	RepeatWeekDays []int `json:"repeatWeekDays,omitempty"`
+
+	// Hours 指定定期快照策略的触发时间。使用 UTC 时间，单位为小时。00:00 ~ 23:00 共 24 个时间点可选，1表示 01:00，依此类推。
+	Hours []int `json:"hours,omitempty"`
+
+	// RetentionDays 自动快照的保留时间，单位为天。如果该值设置-1，则代表永久保留。
+	RetentionDays *int `json:"retentionDays,omitempty"`
+
+	// DiskNum 关联的云盘数量。
+	DiskNum *int `json:"diskNum,omitempty"`
+
+	// CreateTime 策略创建时间。
+	CreateTime *string `json:"createTime,omitempty"`
+
+	// ResourceGroup 资源组信息。
+	ResourceGroup *ResourceGroupInfo `json:"resourceGroup,omitempty"`
+
+	// DiskIdSet 关联的云盘ID。
+	DiskIdSet []string `json:"diskIdSet,omitempty"`
+
+}
+
+type DescribeAutoSnapshotPoliciesResponse struct {
+	*common.BaseResponse
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	Response *DescribeAutoSnapshotPoliciesResponseParams `json:"response,omitempty"`
+
+}
+
+type ModifyAutoSnapshotPolicyRequest struct {
+	*common.BaseRequest
+
+	// AutoSnapshotPolicyId 自动快照策略的ID。
+	AutoSnapshotPolicyId *string `json:"autoSnapshotPolicyId,omitempty"`
+
+	// AutoSnapshotPolicyName 自动快照策略的名称。范围2到63个字符。仅支持输入字母、数字、-/_和英文句点(.)。且必须以数字或字母开头和结尾。
+	AutoSnapshotPolicyName *string `json:"autoSnapshotPolicyName,omitempty"`
+
+	// RepeatWeekDays 自动快照的重复日期。单位为天，周期为星期，例如 1 表示周一。
+	RepeatWeekDays []int `json:"repeatWeekDays,omitempty"`
+
+	// Hours 指定定期快照策略的触发时间。使用 UTC 时间，单位为小时。00:00 ~ 23:00 共 24 个时间点可选，1表示 01:00，依此类推。
+	Hours []int `json:"hours,omitempty"`
+
+	// RetentionDays 自动快照的保留时间，单位为天。如果该值设置-1，则代表永久保留。
+	RetentionDays *int `json:"retentionDays,omitempty"`
+
+}
+
+type ModifyAutoSnapshotPolicyResponse struct {
+	*common.BaseResponse
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type DeleteAutoSnapshotPoliciesRequest struct {
+	*common.BaseRequest
+
+	// AutoSnapshotPolicyIds 要删除的自动快照策略ID列表。
+	AutoSnapshotPolicyIds []string `json:"autoSnapshotPolicyIds,omitempty"`
+
+}
+
+type DeleteAutoSnapshotPoliciesResponse struct {
+	*common.BaseResponse
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
 
 type ModifyNatGatewaysAttributeRequest struct {
     *common.BaseRequest
@@ -4217,6 +4490,9 @@ type ModifyNatGatewayRequest struct {
     // SubnetIds NAT网关的subnet ID 不传为all。
     SubnetIds []string `json:"subnetIds,omitempty"`
 
+    // 是否开启ICMP代回。
+    IcmpReplyEnabled *bool `json:"icmpReplyEnabled,omitempty"`
+
 }
 
 type ModifyNatGatewayResponse struct {
@@ -4249,4 +4525,27 @@ type BandwidthClusterInfo struct {
 
 	// BandwidthClusterName 共享带宽包显示名称。
 	BandwidthClusterName *string `json:"bandwidthClusterName,omitempty"`
+}
+
+// ModifyRouteAttributeRequest 修改路由信息的请求信息。
+type ModifyRouteAttributeRequest struct {
+	*common.BaseRequest
+
+	// RouteId 路由ID。
+	RouteId *string `json:"routeId,omitempty"`
+
+	// Name 路由名称。名称长度为 2 到 63 个字符，仅支持字母、数字、连字符 (-) 、下划线(_) 、斜杠(/) 、和句点 (.)，且开头和结尾必须是字母或数字。
+	Name *string `json:"name,omitempty"`
+
+}
+
+type ModifyRouteAttributeResponse struct {
+	*common.BaseResponse
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
 }

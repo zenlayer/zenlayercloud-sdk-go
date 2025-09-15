@@ -682,6 +682,9 @@ type AcceleratorAlert struct {
 	// Type of alert.
 	AlertType string `json:"alertType"`
 
+	// Labels of alert
+	Labels map[string]string `json:"labels"`
+
 	// Message of alert.
 	Message string `json:"message"`
 

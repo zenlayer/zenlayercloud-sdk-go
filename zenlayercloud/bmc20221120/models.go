@@ -104,11 +104,15 @@ type CreateInstancesRequest struct {
 	// You must and can only pass the value of either password or sshKeys.
 	Password string `json:"password,omitempty"`
 
+	// ID of key pair.
+	KeyId *string `json:"keyId,omitempty"`
+
 	// List of SSH keys.
 	// sshKeys and password cannot be specified at the same time. If an SSH key is used to log in, password login will be disabled. Up to 5 keys are supported.
 	// Note:
 	// For instances of Windows and EXSi operating systems, ignore this parameter. Default value is empty. Even if this parameter is filled in, only the value of password will be passed in.
 	// If imageId is not specified, then sshKeys will be ignored.
+	// SshKeys Deprecated, please using KeyId instead
 	SshKeys []string `json:"sshKeys,omitempty"`
 
 	// Network pricing model.
@@ -665,6 +669,8 @@ type InstanceInfo struct {
 
 	// 是否自动续费.
 	AutoRenew bool `json:"autoRenew,omitempty"`
+
+	KeyId *string `json:"keyId,omitempty"`
 }
 
 type DescribeInstancesResponseParams struct {
@@ -771,11 +777,15 @@ type ReinstallInstanceRequest struct {
 	// You must and can only pass the value of either password or sshKeys.
 	Password string `json:"password,omitempty"`
 
+	// ID of key pair.
+	KeyId *string `json:"keyId,omitempty"`
+
 	// List of SSH keys.
 	// sshKeys and password cannot be specified at the same time. If an SSH key is used to log in, password login will be disabled. Up to 5 keys are supported.
 	// Note:
 	// For instances of Windows and EXSi operating systems, ignore this parameter. Default value is empty. Even if this parameter is filled in, only the value of password will be passed in.
 	// If imageId is not specified, then sshKeys will be ignored.
+	// SshKeys Deprecated, please using KeyId instead
 	SshKeys []string `json:"sshKeys,omitempty"`
 
 	// Disk array configuration.
