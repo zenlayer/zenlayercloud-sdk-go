@@ -2254,6 +2254,7 @@ func (c *Client) DescribeManagedInstances(request *DescribeManagedInstancesReque
 	return
 }
 
+
 func NewDescribeManagedInstanceTrafficRequest() (request *DescribeManagedInstanceTrafficRequest) {
 	request = &DescribeManagedInstanceTrafficRequest{
 		BaseRequest: &common.BaseRequest{},

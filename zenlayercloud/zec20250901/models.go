@@ -1007,7 +1007,7 @@ type CreateSnapshotRequest struct {
     // SnapshotName 快照名称。
     SnapshotName *string `json:"snapshotName,omitempty"`
 
-    // RetentionTime 保留的到期时间。格式为：yyyy-MM-ddTHH:mm:ssZ如果不传，则代表永久保留。指定时间必须在当前时间24小时后。
+    // RetentionTime 保留的到期时间。格式为：yyyy-MM-ddTHH:mm:ssZ。如果不传，则代表永久保留。指定时间必须在当前时间24小时后。
     RetentionTime *string `json:"retentionTime,omitempty"`
 
 }
@@ -1217,7 +1217,7 @@ type CreateAutoSnapshotPolicyRequest struct {
     // Hours 指定定期快照策略的触发时间。使用 UTC 时间，单位为小时。00:00 ~ 23:00 共 24 个时间点可选，1表示 01:00，依此类推。
     Hours []int `json:"hours,omitempty"`
 
-    // RetentionDays 自动快照的保留时间，单位为天。如果该值设置-1，则代表永久保留。默认为永久保存。可选值范围：-1 或 [1, 65535]。
+    // RetentionDays 自动快照的保留时间，单位为天。如果该值设置-1，则代表永久保留。默认为永久保存。取值范围：-1或[1,65535]。
     RetentionDays *int `json:"retentionDays,omitempty"`
 
     // ResourceGroupId 资源组ID。
@@ -1384,7 +1384,7 @@ type ModifyAutoSnapshotPolicyRequest struct {
     // Hours 指定定期快照策略的触发时间。使用 UTC 时间，单位为小时。00:00 ~ 23:00 共 24 个时间点可选，1表示 01:00，依此类推。
     Hours []int `json:"hours,omitempty"`
 
-    // RetentionDays 自动快照的保留时间，单位为天。如果该值设置-1，则代表永久保留。可选值范围：-1 或 [1, 65535]。
+    // RetentionDays 自动快照的保留时间，单位为天。如果该值设置-1，则代表永久保留。取值范围：-1或[1,65535]。
     RetentionDays *int `json:"retentionDays,omitempty"`
 
 }
@@ -1954,7 +1954,7 @@ type DescribeImagesRequest struct {
     // ZoneId 查询镜像所在的可用区ID。
     ZoneId *string `json:"zoneId,omitempty"`
 
-    // ImageIds 镜像ID列表。可以通过 DescribeImages 返回的`imageId`获取。
+    // ImageIds 镜像ID列表。
     ImageIds []string `json:"imageIds,omitempty"`
 
     // ImageName 根据镜像名称过滤。该字段支持模糊搜索。
@@ -2505,6 +2505,9 @@ type EipInfo struct {
     // EipGeoRefs EIP 的地理位置信息。
     EipGeoRefs []*EipGeoInfo `json:"eipGeoRefs,omitempty"`
 
+    // BlockInfoList EIP的封堵阈值。
+    BlockInfoList []*BlockInfo `json:"blockInfoList,omitempty"`
+
     // CreateTime EIP 的创建时间。
     CreateTime *string `json:"createTime,omitempty"`
 
@@ -2542,6 +2545,25 @@ type EipGeoInfo struct {
 
     // IsConsistent 查询地理信息是否和所在的地理信息一致。
     IsConsistent *bool `json:"isConsistent,omitempty"`
+
+}
+
+type BlockInfo struct {
+
+    // Ip ip。
+    Ip *string `json:"ip,omitempty"`
+
+    // Bps 单位bps。
+    Bps *int64 `json:"bps,omitempty"`
+
+    // Pps 单位pps。
+    Pps *int64 `json:"pps,omitempty"`
+
+    // InCps 单位个。
+    InCps *int64 `json:"inCps,omitempty"`
+
+    // OutCps 单位个。
+    OutCps *int64 `json:"outCps,omitempty"`
 
 }
 
@@ -3453,6 +3475,7 @@ type CidrInfo struct {
 
     // Status CIDR的状态。
     Status *string `json:"status,omitempty"`
+
 }
 
 type DescribeCidrsResponse struct {
@@ -3476,6 +3499,9 @@ type CreateCidrRequest struct {
 
     // Netmask CIDR掩码、数量。
     Netmask *NetmaskInfo `json:"netmask,omitempty"`
+
+    // Name CIDR名称。范围2到63个字符。仅支持输入字母、数字、-/_和英文句点(.)。且必须以数字或字母开头和结尾。默认会将分配的CIDR地址作为名称。
+    Name *string `json:"name,omitempty"`
 
     // ResourceGroupId 资源组ID。如果不指定，则会加入默认资源组。
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
@@ -3501,6 +3527,29 @@ type CreateCidrResponse struct {
     RequestId *string `json:"requestId,omitempty"`
 
     Response *CreateCidrResponseParams `json:"response,omitempty"`
+
+}
+
+// ModifyCidrAttributeRequest 修改CIDR地址段的属性的请求信息
+type ModifyCidrAttributeRequest struct {
+    *common.BaseRequest
+
+    // CidrId 要修改CIDR地址段的ID。
+    CidrId *string `json:"cidrId,omitempty"`
+
+    // Name 要修改的名称。范围2到63个字符。仅支持输入字母、数字、-/_和英文句点(.)。且必须以数字或字母开头和结尾。
+    Name *string `json:"name,omitempty"`
+
+}
+
+type ModifyCidrAttributeResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
 
 }
 
@@ -4804,6 +4853,9 @@ type CreateNatGatewayRequest struct {
     // SubnetIds NAT网关所属的Subnet子网ID集合。如果未指定，则指定区域的所有子网将自动关联NAT网关。
     SubnetIds []string `json:"subnetIds,omitempty"`
 
+    // SecurityGroupId 安全组ID。如果未指定，则指定VPC所属的安全组ID。
+    SecurityGroupId *string `json:"securityGroupId,omitempty"`
+
     // ResourceGroupId 资源组ID。如果不指定，则会创建在默认资源组。
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 
@@ -4827,6 +4879,41 @@ type CreateNatGatewayResponse struct {
     RequestId *string `json:"requestId,omitempty"`
 
     Response *CreateNatGatewayResponseParams `json:"response,omitempty"`
+
+}
+
+// ModifyNatGatewayAttributeRequest 修改Nat网关属性的请求
+type ModifyNatGatewayAttributeRequest struct {
+    *common.BaseRequest
+
+    // NatGatewayId NAT网关 ID。
+    NatGatewayId *string `json:"natGatewayId,omitempty"`
+
+    // Name NAT网关的名称。长度为2～63个字符。
+    Name *string `json:"name,omitempty"`
+
+    // SubnetIds NAT网关的子网ID。
+    SubnetIds []string `json:"subnetIds,omitempty"`
+
+    // IsAllSubnet NAT网关对应的子网是否应用所有子网。该字段不能和`subnetIds`同时设置。
+    IsAllSubnet *bool `json:"isAllSubnet,omitempty"`
+
+    // IcmpReplyEnabled 是否开启ICMP代回。
+    IcmpReplyEnabled *bool `json:"icmpReplyEnabled,omitempty"`
+
+    // SecurityGroupId 修改NAT网关绑定的目标安全组ID。目前一张NAT网关只能关联一个安全组。指定该字段会解绑NAT网关原来的安全组。
+    SecurityGroupId *string `json:"securityGroupId,omitempty"`
+
+}
+
+type ModifyNatGatewayAttributeResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
 
 }
 
@@ -4870,6 +4957,9 @@ type DescribeNatGatewaysRequest struct {
 
     // Status NAT网关状态。
     Status *string `json:"status,omitempty"`
+
+    // SecurityGroupId 根据NAT网关所属的安全组ID过滤。
+    SecurityGroupId *string `json:"securityGroupId,omitempty"`
 
     // PageSize 返回的分页大小。默认为20，最大为1000。
     PageSize *int `json:"pageSize,omitempty"`
@@ -4923,6 +5013,12 @@ type NatGateway struct {
 
     // ZbgId 边界网关ID。
     ZbgId *string `json:"zbgId,omitempty"`
+
+    // IcmpReplyEnabled 是否开启ICMP代回。
+    IcmpReplyEnabled *bool `json:"icmpReplyEnabled,omitempty"`
+
+    // SecurityGroupId 边界网关关联的安全组ID。
+    SecurityGroupId *string `json:"securityGroupId,omitempty"`
 
     // ResourceGroupId 资源组ID。
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
@@ -4986,14 +5082,17 @@ type SnatEntry struct {
     EipIds []string `json:"eipIds,omitempty"`
 
     // SnatSubnets SNAT规则添加的subnet ID集合。
-    SnatSubnets []*SnatSubnetRef `json:"snatSubnets,omitempty"`
+    SnatSubnets []*SnatSubnet `json:"snatSubnets,omitempty"`
 
 }
 
-type SnatSubnetRef struct {
+// SnatSubnet Snat规则添加的子网集合。
+type SnatSubnet struct {
 
+    // SubnetId 子网的ID。
     SubnetId *string `json:"subnetId,omitempty"`
 
+    // Cidr 子网的CIDR。
     Cidr *string `json:"cidr,omitempty"`
 
 }
@@ -5107,13 +5206,13 @@ type CreateSnatEntryRequest struct {
     // NatGatewayId NAT网关 ID。
     NatGatewayId *string `json:"natGatewayId,omitempty"`
 
-    // Cidrs CIDR网段，不传默认是0.0.0.0/0。
-    Cidrs []string `json:"cidrs,omitempty"`
+    // Cidr CIDR网段。与subnetIds必须指定其中的一种。
+    Cidr *string `json:"cidr,omitempty"`
 
-    // EipIds SNAT规则添加的eip ID集合。为空代表加入网关的所有eip。
+    // EipIds SNAT规则添加的eip ID集合。为空则代表与该NAT网关绑定的所有eip。
     EipIds []string `json:"eipIds,omitempty"`
 
-    // SubnetIds by Subnet的情况, subnet的id集合。
+    // SubnetIds Subnet ID集合。与cidr必须指定其中的一种。
     SubnetIds []string `json:"subnetIds,omitempty"`
 
 }
@@ -5142,13 +5241,13 @@ type ModifySnatEntryRequest struct {
     // SnatEntryId SNAT规则 ID。
     SnatEntryId *string `json:"snatEntryId,omitempty"`
 
-    // Cidrs CIDR网段，不传默认是0.0.0.0/0。
-    Cidrs []string `json:"cidrs,omitempty"`
+    // Cidr CIDR网段。与subnetIds必须指定其中的一种。
+    Cidr *string `json:"cidr,omitempty"`
 
-    // EipIds SNAT规则添加的eip ID集合。为空代表加入网关的所有eip。
+    // EipIds SNAT规则添加的eip ID集合。为空则代表与该NAT网关绑定的所有eip。
     EipIds []string `json:"eipIds,omitempty"`
 
-    // SubnetIds by Subnet的情况，subnet的id集合。
+    // SubnetIds Subnet ID集合。与cidr必须指定其中的一种。
     SubnetIds []string `json:"subnetIds,omitempty"`
 
 }
@@ -5305,28 +5404,6 @@ type DescribeAvailableBorderGatewayResponse struct {
 
 }
 
-type ModifyNatGatewayRequest struct {
-    *common.BaseRequest
-
-    // NatGatewayId NAT网关 ID。
-    NatGatewayId *string `json:"natGatewayId,omitempty"`
-
-    // SubnetIds NAT网关的subnet ID 不传为all。
-    SubnetIds []string `json:"subnetIds,omitempty"`
-
-}
-
-type ModifyNatGatewayResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
 type CreateRouteRequest struct {
     *common.BaseRequest
 
@@ -5339,8 +5416,8 @@ type CreateRouteRequest struct {
     // RouteType 路由类型。
     RouteType *string `json:"routeType,omitempty"`
 
-    // SourceIp 源IP地址。`路由类型`配置`RouteTypePolicy(策略路由)`时需指定。
-    SourceIp *string `json:"sourceIp,omitempty"`
+    // SourceCidrBlock 源IP地址CIDR。`路由类型`配置`RouteTypePolicy(策略路由)`时需指定。
+    SourceCidrBlock *string `json:"sourceCidrBlock,omitempty"`
 
     // DestinationCidrBlock IPv4或IPv6的目标网段。例如：10.0.1.0/24。该字段必填。
     DestinationCidrBlock *string `json:"destinationCidrBlock,omitempty"`
@@ -5487,11 +5564,14 @@ type RouteInfo struct {
     // Type 路由类型。
     Type *string `json:"type,omitempty"`
 
-    // SourceIp 源IP地址。当`路由类型`是`RouteTypePolicy(策略路由)`时可取值。
-    SourceIp *string `json:"sourceIp,omitempty"`
+    // SourceCidrBlock 源IP地址。当`路由类型`是`RouteTypePolicy(策略路由)`时可取值。
+    SourceCidrBlock *string `json:"sourceCidrBlock,omitempty"`
 
     // DestinationCidrBlock IPv4或IPv6的目标网段。例如：10.0.1.0/24。
     DestinationCidrBlock *string `json:"destinationCidrBlock,omitempty"`
+
+    // CidrBlock IPv4或IPv6的目标网段。例如：10.0.1.0/24。该字段已废弃，请使用`destinationCidrBlock`。
+    CidrBlock *string `json:"cidrBlock,omitempty"`
 
     // Priority 路由优先级。
     Priority *int `json:"priority,omitempty"`

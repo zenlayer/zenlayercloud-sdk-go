@@ -143,6 +143,8 @@ type CreateInstancesRequest struct {
 	// NIC configuration.
 	Nic *Nic `json:"nic,omitempty"`
 
+	UserData *string `json:"userData,omitempty"`
+
 	// ClusterId Bandwidth cluster ID.
 	ClusterId string `json:"clusterId,omitempty"`
 
@@ -797,6 +799,8 @@ type ReinstallInstanceRequest struct {
 
 	// NIC configuration.
 	Nic *Nic `json:"nic,omitempty"`
+
+	UserData *string `json:"userData,omitempty"`
 }
 
 type ReInstallInstanceResponse struct {

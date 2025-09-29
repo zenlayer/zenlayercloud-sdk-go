@@ -1946,6 +1946,29 @@ func (c *Client) CreateCidr(request *CreateCidrRequest) (response *CreateCidrRes
 	return
 }
 
+func NewModifyCidrAttributeRequest() (request *ModifyCidrAttributeRequest) {
+	request = &ModifyCidrAttributeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyCidrAttribute")
+
+	return
+}
+
+func NewModifyCidrAttributeResponse() (response *ModifyCidrAttributeResponse) {
+	response = &ModifyCidrAttributeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyCidrAttribute 修改CIDR地址段的属性。 目前只能修改名称。
+func (c *Client) ModifyCidrAttribute(request *ModifyCidrAttributeRequest) (response *ModifyCidrAttributeResponse, err error) {
+	response = NewModifyCidrAttributeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewDeleteCidrRequest() (request *DeleteCidrRequest) {
 	request = &DeleteCidrRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -2728,6 +2751,29 @@ func (c *Client) CreateNatGateway(request *CreateNatGatewayRequest) (response *C
 	return
 }
 
+func NewModifyNatGatewayAttributeRequest() (request *ModifyNatGatewayAttributeRequest) {
+	request = &ModifyNatGatewayAttributeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyNatGatewayAttribute")
+
+	return
+}
+
+func NewModifyNatGatewayAttributeResponse() (response *ModifyNatGatewayAttributeResponse) {
+	response = &ModifyNatGatewayAttributeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyNatGatewayAttribute 修改NAT网关的属性。
+func (c *Client) ModifyNatGatewayAttribute(request *ModifyNatGatewayAttributeRequest) (response *ModifyNatGatewayAttributeResponse, err error) {
+	response = NewModifyNatGatewayAttributeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewDescribeNatGatewayRegionsRequest() (request *DescribeNatGatewayRegionsRequest) {
 	request = &DescribeNatGatewayRegionsRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -3023,29 +3069,6 @@ func NewDescribeAvailableBorderGatewayResponse() (response *DescribeAvailableBor
 // DescribeAvailableBorderGateway 获取可绑定NAT的边界网关。
 func (c *Client) DescribeAvailableBorderGateway(request *DescribeAvailableBorderGatewayRequest) (response *DescribeAvailableBorderGatewayResponse, err error) {
 	response = NewDescribeAvailableBorderGatewayResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewModifyNatGatewayRequest() (request *ModifyNatGatewayRequest) {
-	request = &ModifyNatGatewayRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyNatGateway")
-
-	return
-}
-
-func NewModifyNatGatewayResponse() (response *ModifyNatGatewayResponse) {
-	response = &ModifyNatGatewayResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// ModifyNatGateway 修改NAT网关。
-func (c *Client) ModifyNatGateway(request *ModifyNatGatewayRequest) (response *ModifyNatGatewayResponse, err error) {
-	response = NewModifyNatGatewayResponse()
 	err = c.ApiCall(request, response)
 	return
 }
