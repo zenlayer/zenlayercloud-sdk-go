@@ -15,7 +15,6 @@ type DescribeListenersRequest struct {
     // Protocol 要查询的监听器协议类型。
     Protocol *string `json:"protocol,omitempty"`
 
-    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 }
 
 // DescribeListenersResponseParams 
@@ -507,6 +506,24 @@ type DescribeLoadBalancersRequest struct {
     PageNum *int `json:"pageNum,omitempty"`
 
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // TagKeys 根据标签键进行搜索。 最长不得超过20个标签键。
+    TagKeys []string `json:"tagKeys,omitempty"`
+
+    // Tags 根据标签进行搜索。 最长不得超过20个标签。
+    Tags []*Tag `json:"tags,omitempty"`
+
+}
+
+// Tag 描述一个标签键值对的信息。
+type Tag struct {
+
+    // Key 标签键。长度限制：1～64个字符。
+    Key *string `json:"key,omitempty"`
+
+    // Value 标签值。长度限制：1～64个字符。
+    Value *string `json:"value,omitempty"`
+
 }
 
 type DescribeLoadBalancersResponseParams struct {
@@ -554,6 +571,9 @@ type LoadBalancer struct {
     // ResourceGroup 关联的资源组信息。
     ResourceGroup *ResourceGroupInfo `json:"resourceGroup,omitempty"`
 
+    // Tags 该负载均衡器关联的标签。
+    Tags *Tags `json:"tags,omitempty"`
+
 }
 
 // ResourceGroupInfo 描述资源所在资源组的相关信息，包括资源组名称和ID。
@@ -564,6 +584,14 @@ type ResourceGroupInfo struct {
 
     // ResourceGroupName 资源组名称。
     ResourceGroupName *string `json:"resourceGroupName,omitempty"`
+
+}
+
+// Tags 描述资源关联的标签信息。
+type Tags struct {
+
+    // Tags 标签对列表。
+    Tags []*Tag `json:"tags,omitempty"`
 
 }
 
@@ -647,13 +675,30 @@ type CreateLoadBalancerRequest struct {
     // Number 创建负载均衡的个数。
     Number *int `json:"number,omitempty"`
 
-    MarketingOptions  *MarketingInfo `json:"marketingOptions,omitempty"`
+    MarketingOptions *MarketingInfo `json:"marketingOptions,omitempty"`
+
+    // Tags 创建负载均衡时关联的标签。注意：·关联`标签键`不能重复。
+    Tags *TagAssociation `json:"tags,omitempty"`
+
 }
 
-
+// MarketingInfo 描述市场活动的相关信息。
 type MarketingInfo struct {
-	DiscountCode  string `json:"discountCode,omitempty"`
-	UsePocVoucher bool `json:"usePocVoucher,omitempty"`
+
+    // DiscountCode 使用市场发放的折扣码。如果折扣码不存在，最终折扣将不会生效。
+    DiscountCode *string `json:"discountCode,omitempty"`
+
+    // UsePocVoucher 是否使用POC代金券。 如果系统不存在POC代金券，相关创建流程会失败。
+    UsePocVoucher *bool `json:"usePocVoucher,omitempty"`
+
+}
+
+// TagAssociation 描述创建资源时同时绑定的标签对的信息。
+type TagAssociation struct {
+
+    // Tags 标签对列表。
+    Tags []*Tag `json:"tags,omitempty"`
+
 }
 
 type CreateLoadBalancerResponseParams struct {
@@ -757,6 +802,7 @@ type PriceItem struct {
 
 }
 
+// StepPrice 描述阶梯价格的信息。
 type StepPrice struct {
 
     // StepStart 阶梯的起始值。

@@ -175,6 +175,29 @@ func (c *Client) CreateBandwidthCluster(request *CreateBandwidthClusterRequest) 
 	return
 }
 
+func NewModifyBandwidthClusterAttributeRequest() (request *ModifyBandwidthClusterAttributeRequest) {
+	request = &ModifyBandwidthClusterAttributeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyBandwidthClusterAttribute")
+
+	return
+}
+
+func NewModifyBandwidthClusterAttributeResponse() (response *ModifyBandwidthClusterAttributeResponse) {
+	response = &ModifyBandwidthClusterAttributeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyBandwidthClusterAttribute 修改共享带宽包的属性。目前只支持名称的修改。
+func (c *Client) ModifyBandwidthClusterAttribute(request *ModifyBandwidthClusterAttributeRequest) (response *ModifyBandwidthClusterAttributeResponse, err error) {
+	response = NewModifyBandwidthClusterAttributeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewDeleteBandwidthClustersRequest() (request *DeleteBandwidthClustersRequest) {
 	request = &DeleteBandwidthClustersRequest{
 		BaseRequest: &common.BaseRequest{},

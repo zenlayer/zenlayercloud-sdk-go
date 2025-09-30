@@ -43,6 +43,23 @@ type DescribeDisksRequest struct {
     // ResourceGroupId 根据快照所属的资源组进行筛选。
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 
+    // TagKeys 根据标签键进行搜索。 最长不得超过20个标签键。
+    TagKeys []string `json:"tagKeys,omitempty"`
+
+    // Tags 根据标签进行搜索。 最长不得超过20个标签。
+    Tags []*Tag `json:"tags,omitempty"`
+
+}
+
+// Tag 描述一个标签键值对的信息。
+type Tag struct {
+
+    // Key 标签键。长度限制：1～64个字符。
+    Key *string `json:"key,omitempty"`
+
+    // Value 标签值。长度限制：1～64个字符。
+    Value *string `json:"value,omitempty"`
+
 }
 
 // DescribeDisksResponseParams 描述快照列表的响应信息。
@@ -117,6 +134,17 @@ type DiskInfo struct {
 
     // AutoSnapshotPolicyId 云盘关联的自动快照策略ID。
     AutoSnapshotPolicyId *string `json:"autoSnapshotPolicyId,omitempty"`
+
+    // Tags 该云盘关联的标签。
+    Tags *Tags `json:"tags,omitempty"`
+
+}
+
+// Tags 描述资源关联的标签信息。
+type Tags struct {
+
+    // Tags 标签对列表。
+    Tags []*Tag `json:"tags,omitempty"`
 
 }
 
@@ -276,6 +304,9 @@ type CreateDisksRequest struct {
     // MarketingOptions 市场营销的相关选项。
     MarketingOptions *MarketingInfo `json:"marketingOptions,omitempty"`
 
+    // Tags 创建云硬盘时关联的标签。注意：·关联`标签键`不能重复。
+    Tags *TagAssociation `json:"tags,omitempty"`
+
 }
 
 // MarketingInfo 描述市场活动的相关信息。
@@ -286,6 +317,14 @@ type MarketingInfo struct {
 
     // UsePocVoucher 是否使用POC代金券。 如果系统不存在POC代金券，相关创建流程会失败。
     UsePocVoucher *bool `json:"usePocVoucher,omitempty"`
+
+}
+
+// TagAssociation 描述创建资源时同时绑定的标签对的信息。
+type TagAssociation struct {
+
+    // Tags 标签对列表。
+    Tags []*Tag `json:"tags,omitempty"`
 
 }
 
@@ -525,6 +564,9 @@ type CreateVpcRequest struct {
 
     // ResourceGroupId VPC所在的资源组ID。如果不指定资源组，则会放到默认的资源组中。
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // Tags 创建VPC时关联的标签。注意：·关联`标签键`不能重复。
+    Tags *TagAssociation `json:"tags,omitempty"`
 
 }
 
@@ -779,6 +821,12 @@ type DescribeVpcsRequest struct {
     // ResourceGroupId 根据资源组ID过滤。
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 
+    // TagKeys 根据标签键进行搜索。 最长不得超过20个标签键。
+    TagKeys []string `json:"tagKeys,omitempty"`
+
+    // Tags 根据标签进行搜索。 最长不得超过20个标签。
+    Tags []*Tag `json:"tags,omitempty"`
+
 }
 
 // DescribeVpcsResponseParams 描述Vpc列表的响应结果。
@@ -829,6 +877,9 @@ type VpcInfo struct {
 
     // ResourceGroup VPC关联的资源组信息。
     ResourceGroup *ResourceGroupInfo `json:"resourceGroup,omitempty"`
+
+    // Tags 该VPC关联的标签。
+    Tags *Tags `json:"tags,omitempty"`
 
 }
 
@@ -936,8 +987,14 @@ type SubnetInfo struct {
     // CidrBlock 子网的CIDR地址。
     CidrBlock *string `json:"cidrBlock,omitempty"`
 
+    // GatewayIpAddress 网关地址。
+    GatewayIpAddress *string `json:"gatewayIpAddress,omitempty"`
+
     // Ipv6CidrBlock 子网的IPv6 CIDR地址段。如果子网的IP堆栈类型不包括V6,该字段取不到值。
     Ipv6CidrBlock *string `json:"ipv6CidrBlock,omitempty"`
+
+    // Ipv6GatewayIpAddress IPv6的网关地址。
+    Ipv6GatewayIpAddress *string `json:"ipv6GatewayIpAddress,omitempty"`
 
     // StackType 子网的IP堆栈类型。
     StackType *string `json:"stackType,omitempty"`
@@ -1223,6 +1280,9 @@ type CreateAutoSnapshotPolicyRequest struct {
     // ResourceGroupId 资源组ID。
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 
+    // Tags 创建自动快照时关联的标签。注意：·关联`标签键`不能重复。
+    Tags *TagAssociation `json:"tags,omitempty"`
+
 }
 
 // CreateAutoSnapshotPolicyResponseParams 创建自动快照策略的响应信息。
@@ -1310,6 +1370,12 @@ type DescribeAutoSnapshotPoliciesRequest struct {
     // PageNum 返回的分页数。
     PageNum *int `json:"pageNum,omitempty"`
 
+    // TagKeys 根据标签键进行搜索。 最长不得超过20个标签键。
+    TagKeys []string `json:"tagKeys,omitempty"`
+
+    // Tags 根据标签进行搜索。 最长不得超过20个标签。
+    Tags []*Tag `json:"tags,omitempty"`
+
 }
 
 // DescribeAutoSnapshotPoliciesResponseParams 查询自动快照策略的响应值。
@@ -1357,6 +1423,8 @@ type AutoSnapshotPolicy struct {
 
     // DiskIdSet 关联的云盘ID。
     DiskIdSet []string `json:"diskIdSet,omitempty"`
+
+    Tags *Tags `json:"tags,omitempty"`
 
 }
 
@@ -1482,6 +1550,12 @@ type DescribeNetworkInterfacesRequest struct {
     // SecurityGroupId 根据网卡所属的安全组ID过滤。
     SecurityGroupId *string `json:"securityGroupId,omitempty"`
 
+    // TagKeys 根据标签键进行搜索。 最长不得超过20个标签键。
+    TagKeys []string `json:"tagKeys,omitempty"`
+
+    // Tags 根据标签进行搜索。 最长不得超过20个标签。
+    Tags []*Tag `json:"tags,omitempty"`
+
 }
 
 // DescribeNetworkInterfacesResponseParams 网卡列表的响应结果。
@@ -1559,6 +1633,9 @@ type NicInfo struct {
 
     // SecurityGroupId 网卡关联的安全组ID。
     SecurityGroupId *string `json:"securityGroupId,omitempty"`
+
+    // Tags 该网卡关联的标签。
+    Tags *Tags `json:"tags,omitempty"`
 
 }
 
@@ -1653,6 +1730,9 @@ type CreateNetworkInterfaceRequest struct {
 
     // MarketingOptions 市场营销相关的选项。
     MarketingOptions *MarketingInfo `json:"marketingOptions,omitempty"`
+
+    // Tags 创建网卡时关联的标签。注意：·关联`标签键`不能重复。
+    Tags *TagAssociation `json:"tags,omitempty"`
 
 }
 
@@ -1972,11 +2052,17 @@ type DescribeImagesRequest struct {
     // ImageStatus 镜像的状态。
     ImageStatus *string `json:"imageStatus,omitempty"`
 
-    // PageNum 返回的分页数。
+    // PageNum 返回的分页页码。默认为1。
     PageNum *int `json:"pageNum,omitempty"`
 
-    // PageSize 返回的分页大小。
+    // PageSize 返回的分页大小。默认为20，最大为1000。
     PageSize *int `json:"pageSize,omitempty"`
+
+    // TagKeys 根据标签键进行搜索。 最长不得超过20个标签键。
+    TagKeys []string `json:"tagKeys,omitempty"`
+
+    // Tags 根据标签进行搜索。 最长不得超过20个标签。
+    Tags []*Tag `json:"tags,omitempty"`
 
 }
 
@@ -2026,6 +2112,9 @@ type Image struct {
     // OsType 操作系统类型。
     OsType *string `json:"osType,omitempty"`
 
+    // Tags 实例关联的标签。
+    Tags *Tags `json:"tags,omitempty"`
+
 }
 
 type DescribeImagesResponse struct {
@@ -2034,6 +2123,92 @@ type DescribeImagesResponse struct {
     RequestId *string `json:"requestId,omitempty"`
 
     Response *DescribeImagesResponseParams `json:"response,omitempty"`
+
+}
+
+type CreateImageRequest struct {
+    *common.BaseRequest
+
+    // InstanceId 需要制作镜像的实例ID。
+    InstanceId *string `json:"instanceId,omitempty"`
+
+    // ImageName 名称。范围2到63个字符。仅支持输入字母、数字、-/_和英文句点(.)。且必须以数字或字母开头和结尾。
+    ImageName *string `json:"imageName,omitempty"`
+
+    // ResourceGroupId 镜像所放的资源组ID，如不指定则放入默认资源组。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // Tags 创建镜像时关联的标签。注意：·关联`标签键`不能重复。
+    Tags *TagAssociation `json:"tags,omitempty"`
+
+}
+
+type CreateImageResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // ImageId 镜像ID。
+    ImageId *string `json:"imageId,omitempty"`
+
+    // ImageName 镜像名称。
+    ImageName *string `json:"imageName,omitempty"`
+
+}
+
+type CreateImageResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *CreateImageResponseParams `json:"response,omitempty"`
+
+}
+
+type ModifyImagesAttributesRequest struct {
+    *common.BaseRequest
+
+    // ImageIds 待修改属性的镜像ID列表。
+    ImageIds []string `json:"imageIds,omitempty"`
+
+    // ImageName 名称。范围2到63个字符。仅支持输入字母、数字、-/_和英文句点(.)。且必须以数字或字母开头和结尾。
+    ImageName *string `json:"imageName,omitempty"`
+
+}
+
+type ModifyImagesAttributesResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type DeleteImagesRequest struct {
+    *common.BaseRequest
+
+    // ImageIds 镜像ID列表。
+    ImageIds []string `json:"imageIds,omitempty"`
+
+}
+
+type DeleteImagesResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // ImageIds 操作失败的镜像ID列表。
+    ImageIds []string `json:"imageIds,omitempty"`
+
+}
+
+type DeleteImagesResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DeleteImagesResponseParams `json:"response,omitempty"`
 
 }
 
@@ -2434,6 +2609,12 @@ type DescribeEipsRequest struct {
     // ResourceGroupId 按照 EIP 所属的资源组ID过滤。
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 
+    // TagKeys 根据标签键进行搜索。 最长不得超过20个标签键。
+    TagKeys []string `json:"tagKeys,omitempty"`
+
+    // Tags 根据标签进行搜索。 最长不得超过20个标签。
+    Tags []*Tag `json:"tags,omitempty"`
+
 }
 
 type DescribeEipsResponseParams struct {
@@ -2487,11 +2668,14 @@ type EipInfo struct {
     // NicId EIP 关联的网卡ID。 该字段已废弃，请使用 `associatedId` 字段。
     NicId *string `json:"nicId,omitempty"`
 
-    // AssociatedId EIP 绑定的资源ID。可能为实例ID、网卡ID或者NAT网关ID。
+    // AssociatedId EIP 绑定的资源ID。可能为负载均衡ID、网卡ID或者NAT网关ID。
     AssociatedId *string `json:"associatedId,omitempty"`
 
-    // AssociatedType EIP 资源类型。可能为实例ID、网卡ID或者NAT网关ID。
+    // AssociatedType EIP 资源类型。可能为负载均衡ID、网卡ID或者NAT网关ID。
     AssociatedType *string `json:"associatedType,omitempty"`
+
+    // InstanceId EIP 绑定的实例ID。当且仅当`associatedType`字段为`NIC`时可能有值。
+    InstanceId *string `json:"instanceId,omitempty"`
 
     // BindType EIP 绑定类型。
     BindType *string `json:"bindType,omitempty"`
@@ -2523,6 +2707,9 @@ type EipInfo struct {
     // BandwidthCluster EIP 关联的带宽组ID。
     BandwidthCluster *BandwidthClusterInfo `json:"bandwidthCluster,omitempty"`
 
+    // Tags EIP关联的标签。
+    Tags *Tags `json:"tags,omitempty"`
+
 }
 
 // EipGeoInfo 基于DB-IP/ipdata/... 第三方IP数据库服务商查询到的 IP 地理信息结果。
@@ -2548,6 +2735,7 @@ type EipGeoInfo struct {
 
 }
 
+// BlockInfo ip封堵信息详情
 type BlockInfo struct {
 
     // Ip ip。
@@ -2621,6 +2809,9 @@ type CreateEipsRequest struct {
 
     // MarketingOptions 市场营销的相关选项。
     MarketingOptions *MarketingInfo `json:"marketingOptions,omitempty"`
+
+    // Tags 弹性公网IP绑定的标签。注意：实例关联`标签键`不能重复。
+    Tags *TagAssociation `json:"tags,omitempty"`
 
 }
 
@@ -3413,6 +3604,12 @@ type DescribeCidrsRequest struct {
     // PageNum 返回的分页数，默认为1。
     PageNum *int `json:"pageNum,omitempty"`
 
+    // TagKeys 根据标签键进行搜索。 最长不得超过20个标签键。
+    TagKeys []string `json:"tagKeys,omitempty"`
+
+    // Tags 根据标签进行搜索。 最长不得超过20个标签。
+    Tags []*Tag `json:"tags,omitempty"`
+
 }
 
 // DescribeCidrsResponseParams 查询CIDR地址的响应信息。
@@ -3476,6 +3673,9 @@ type CidrInfo struct {
     // Status CIDR的状态。
     Status *string `json:"status,omitempty"`
 
+    // Tags 该CIDR地址段关联的标签。
+    Tags *Tags `json:"tags,omitempty"`
+
 }
 
 type DescribeCidrsResponse struct {
@@ -3508,6 +3708,9 @@ type CreateCidrRequest struct {
 
     // MarketingOptions 市场营销相关的选项。
     MarketingOptions *MarketingInfo `json:"marketingOptions,omitempty"`
+
+    // Tags 创建CIDR时关联的标签。注意：关联`标签键`不能重复。
+    Tags *TagAssociation `json:"tags,omitempty"`
 
 }
 
@@ -4190,6 +4393,9 @@ type CreateZecInstancesRequest struct {
     // MarketingOptions 市场营销的相关选项。
     MarketingOptions *MarketingInfo `json:"marketingOptions,omitempty"`
 
+    // Tags 创建实例时关联的标签。注意：·关联`标签键`不能重复。
+    Tags *TagAssociation `json:"tags,omitempty"`
+
 }
 
 // CreateZecInstancesResponseParams 创建虚拟机实例的响应结果。
@@ -4261,6 +4467,12 @@ type DescribeInstancesRequest struct {
 
     // ResourceGroupId 根据资源组ID过滤。
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // TagKeys 根据标签键进行搜索。 最长不得超过20个标签键。
+    TagKeys []string `json:"tagKeys,omitempty"`
+
+    // Tags 根据标签进行搜索。 最长不得超过20个标签。
+    Tags []*Tag `json:"tags,omitempty"`
 
 }
 
@@ -4357,6 +4569,9 @@ type InstanceInfo struct {
 
     // Nics 实例上绑定的网卡信息。
     Nics []*NicInfo `json:"nics,omitempty"`
+
+    // Tags 实例关联的标签。
+    Tags *Tags `json:"tags,omitempty"`
 
 }
 
@@ -4859,6 +5074,9 @@ type CreateNatGatewayRequest struct {
     // ResourceGroupId 资源组ID。如果不指定，则会创建在默认资源组。
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 
+    // Tags 创建NAT网关时关联的标签。注意：·关联`标签键`不能重复。
+    Tags *TagAssociation `json:"tags,omitempty"`
+
 }
 
 type CreateNatGatewayResponseParams struct {
@@ -4970,6 +5188,12 @@ type DescribeNatGatewaysRequest struct {
     // ResourceGroupId 资源组ID。
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 
+    // TagKeys 根据标签键进行搜索。 最长不得超过20个标签键。
+    TagKeys []string `json:"tagKeys,omitempty"`
+
+    // Tags 根据标签进行搜索。 最长不得超过20个标签。
+    Tags []*Tag `json:"tags,omitempty"`
+
 }
 
 type DescribeNatGatewaysResponseParams struct {
@@ -5032,6 +5256,9 @@ type NatGateway struct {
     // ExpiredTime 到期时间。按照ISO8601标准表示，并且使用UTC时间, 格式为：YYYY-MM-DDThh:mm:ssZ。
     ExpiredTime *string `json:"expiredTime,omitempty"`
 
+    // Tags 该CIDR地址段关联的标签。
+    Tags *Tags `json:"tags,omitempty"`
+
 }
 
 type DescribeNatGatewaysResponse struct {
@@ -5078,8 +5305,11 @@ type SnatEntry struct {
     // Cidrs CIDR网段，不传默认是0.0.0.0/0。`cidrs` 和 `snatSubnets` 不会同时存在。
     Cidrs []string `json:"cidrs,omitempty"`
 
-    // EipIds SNAT规则添加的eip ID集合。
+    // EipIds SNAT规则添加的弹性公网IP ID集合。
     EipIds []string `json:"eipIds,omitempty"`
+
+    // IsAllEip 弹性公网IP是否为所有的NAT网关上的公网弹性IP。
+    IsAllEip *bool `json:"isAllEip,omitempty"`
 
     // SnatSubnets SNAT规则添加的subnet ID集合。
     SnatSubnets []*SnatSubnet `json:"snatSubnets,omitempty"`
@@ -5206,13 +5436,16 @@ type CreateSnatEntryRequest struct {
     // NatGatewayId NAT网关 ID。
     NatGatewayId *string `json:"natGatewayId,omitempty"`
 
-    // Cidr CIDR网段。与subnetIds必须指定其中的一种。
-    Cidr *string `json:"cidr,omitempty"`
-
-    // EipIds SNAT规则添加的eip ID集合。为空则代表与该NAT网关绑定的所有eip。
+    // EipIds SNAT规则添加的弹性公网IP集合。指定的公网IP ID必须属于NAT网关上绑定的公网弹性IP。为空则代表与该NAT网关绑定的所有的弹性公网IP。
     EipIds []string `json:"eipIds,omitempty"`
 
-    // SubnetIds Subnet ID集合。与cidr必须指定其中的一种。
+    // Cidr 源CIDR网段。该字段已废弃，请使用`sourceCidrBlocks`。
+    Cidr *string `json:"cidr,omitempty"`
+
+    // SourceCidrBlocks 源CIDR地址段列表。与`subnetIds`必须指定其中的一种。如果使用全地址段，指定为`0.0.0.0/0`。
+    SourceCidrBlocks []string `json:"sourceCidrBlocks,omitempty"`
+
+    // SubnetIds 指定子网ID集合。该参数表示该子网内的实例均可以通过`SNAT`规则访问外部网络。 与`sourceCidrBlocks`必须指定其中的一种。
     SubnetIds []string `json:"subnetIds,omitempty"`
 
 }
@@ -5241,13 +5474,19 @@ type ModifySnatEntryRequest struct {
     // SnatEntryId SNAT规则 ID。
     SnatEntryId *string `json:"snatEntryId,omitempty"`
 
-    // Cidr CIDR网段。与subnetIds必须指定其中的一种。
-    Cidr *string `json:"cidr,omitempty"`
-
-    // EipIds SNAT规则添加的eip ID集合。为空则代表与该NAT网关绑定的所有eip。
+    // EipIds SNAT规则添加的弹性公网IP ID集合。如果需要修改为NAT网关所有上弹性公网IP，请指定`isAllEip`=`true`。
     EipIds []string `json:"eipIds,omitempty"`
 
-    // SubnetIds Subnet ID集合。与cidr必须指定其中的一种。
+    // IsAllEip 弹性公网IP是否为所有的NAT网关上的公网弹性IP。
+    IsAllEip *bool `json:"isAllEip,omitempty"`
+
+    // Cidr 源CIDR网段。该字段已废弃，请使用`sourceCidrBlocks`。
+    Cidr *string `json:"cidr,omitempty"`
+
+    // SourceCidrBlocks 源CIDR地址段列表。与`subnetIds`必须指定其中的一种。如果使用全地址段，指定为`0.0.0.0/0`。
+    SourceCidrBlocks []string `json:"sourceCidrBlocks,omitempty"`
+
+    // SubnetIds 要修改子网ID集合。该参数表示该子网内的实例均可以通过`SNAT`规则访问外部网络。与`sourceCidrBlocks`必须指定其中的一种。
     SubnetIds []string `json:"subnetIds,omitempty"`
 
 }
@@ -5288,19 +5527,19 @@ type CreateDnatEntryRequest struct {
     // NatGatewayId NAT网关 ID。
     NatGatewayId *string `json:"natGatewayId,omitempty"`
 
-    // EipId DNAT规则添加的eip ID。
+    // EipId DNAT规则添加的弹性公网ID。
     EipId *string `json:"eipId,omitempty"`
 
     // PrivateIp DNAT规则的内网IP地址。
     PrivateIp *string `json:"privateIp,omitempty"`
 
-    // Protocol DNAT规则的协议类型。
+    // Protocol DNAT规则的协议类型。如果要转发所有流量，端口不变，请指定协议类型为`Any`且内部端口和公网外部端口不要设置。
     Protocol *string `json:"protocol,omitempty"`
 
-    // ListenerPort DNAT规则端口转发的外部端口或端口段，取值范围1-65535。
+    // ListenerPort DNAT规则端口转发的外部公网端口或端口段。可使用连字符（-）指定端口范围，例如：80-100，公网和内网端口数量需保持一致。取值范围1-65535。仅在协议类型不为`Any`时生效。
     ListenerPort *string `json:"listenerPort,omitempty"`
 
-    // InternalPort DNAT规则端口转发的内部端口或端口段，取值范围1-65535。
+    // InternalPort DNAT规则端口转发的内部端口或端口段。可使用连字符（-）指定端口范围，例如：80-100，公网和内网端口数量需保持一致。取值范围1-65535。仅在协议类型不为`Any`时生效。
     InternalPort *string `json:"internalPort,omitempty"`
 
 }

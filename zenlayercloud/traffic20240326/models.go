@@ -109,6 +109,7 @@ type DescribeBandwidthClusterResourcesResponseParams struct {
 
     // TotalCount 共享带宽包里的资源数量。
     TotalCount *int `json:"totalCount,omitempty"`
+
 }
 
 // BandwidthClusterResource 描述带宽包里的资源信息。
@@ -393,6 +394,29 @@ type CreateBandwidthClusterResponse struct {
     RequestId *string `json:"requestId,omitempty"`
 
     Response *CreateBandwidthClusterResponseParams `json:"response,omitempty"`
+
+}
+
+// ModifyBandwidthClusterAttributeRequest 修改共享带宽包属性的请求信息。
+type ModifyBandwidthClusterAttributeRequest struct {
+    *common.BaseRequest
+
+    // BandwidthClusterId 共享带宽包ID。
+    BandwidthClusterId *string `json:"bandwidthClusterId,omitempty"`
+
+    // Name 要许改的共享带宽包显示名称。最长不超过255个字符。
+    Name *string `json:"name,omitempty"`
+
+}
+
+type ModifyBandwidthClusterAttributeResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
 
 }
 

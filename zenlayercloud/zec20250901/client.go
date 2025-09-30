@@ -1187,6 +1187,75 @@ func (c *Client) DescribeImages(request *DescribeImagesRequest) (response *Descr
 	return
 }
 
+func NewCreateImageRequest() (request *CreateImageRequest) {
+	request = &CreateImageRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateImage")
+
+	return
+}
+
+func NewCreateImageResponse() (response *CreateImageResponse) {
+	response = &CreateImageResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CreateImage 用实例创建自定义镜像。
+func (c *Client) CreateImage(request *CreateImageRequest) (response *CreateImageResponse, err error) {
+	response = NewCreateImageResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyImagesAttributesRequest() (request *ModifyImagesAttributesRequest) {
+	request = &ModifyImagesAttributesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyImagesAttributes")
+
+	return
+}
+
+func NewModifyImagesAttributesResponse() (response *ModifyImagesAttributesResponse) {
+	response = &ModifyImagesAttributesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyImagesAttributes 修改自定义镜像属性。
+func (c *Client) ModifyImagesAttributes(request *ModifyImagesAttributesRequest) (response *ModifyImagesAttributesResponse, err error) {
+	response = NewModifyImagesAttributesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteImagesRequest() (request *DeleteImagesRequest) {
+	request = &DeleteImagesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteImages")
+
+	return
+}
+
+func NewDeleteImagesResponse() (response *DeleteImagesResponse) {
+	response = &DeleteImagesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeleteImages 删除一个或多个镜像。
+func (c *Client) DeleteImages(request *DeleteImagesRequest) (response *DeleteImagesResponse, err error) {
+	response = NewDeleteImagesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewDescribeSecurityGroupsRequest() (request *DescribeSecurityGroupsRequest) {
 	request = &DescribeSecurityGroupsRequest{
 		BaseRequest: &common.BaseRequest{},
