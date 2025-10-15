@@ -86,12 +86,12 @@ type DescribeTagsResponseParams struct {
     TotalCount *int `json:"totalCount,omitempty"`
 
     // DataSet 数据列表。
-    DataSet []*Tag `json:"dataSet,omitempty"`
+    DataSet []*TagInfo `json:"dataSet,omitempty"`
 
 }
 
-// Tag 描述标签的基本信息
-type Tag struct {
+// TagInfo 描述标签的基本信息
+type TagInfo struct {
 
     // Key 标签键。
     Key *string `json:"key,omitempty"`
@@ -128,6 +128,7 @@ type TagBindResourcesRequest struct {
 
 }
 
+// Resource 资源信息的请求参数。
 type Resource struct {
 
     // Type 资源类型。
@@ -158,16 +159,6 @@ type TagUnbindResourcesRequest struct {
 
     // Resources 需要绑定的资源列表。
     Resources []*Resource `json:"resources,omitempty"`
-
-}
-
-type Resource struct {
-
-    // Type 资源类型。
-    Type *string `json:"type,omitempty"`
-
-    // Uuid 资源唯一标识。
-    Uuid *string `json:"uuid,omitempty"`
 
 }
 
