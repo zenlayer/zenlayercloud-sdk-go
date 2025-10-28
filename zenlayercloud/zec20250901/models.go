@@ -4396,6 +4396,8 @@ type CreateZecInstancesRequest struct {
     // Tags 创建实例时关联的标签。注意：·关联`标签键`不能重复。
     Tags *TagAssociation `json:"tags,omitempty"`
 
+    // UserData 初始化命令。
+    UserData *string `json:"userData,omitempty"`
 }
 
 // CreateZecInstancesResponseParams 创建虚拟机实例的响应结果。
@@ -4792,6 +4794,9 @@ type ResetInstanceRequest struct {
 
     // InstanceName 修改的实例名称。
     InstanceName *string `json:"instanceName,omitempty"`
+
+    // UserData 初始化命令。
+    UserData *string `json:"userData,omitempty"`
 
 }
 
