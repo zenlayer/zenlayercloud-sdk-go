@@ -49,6 +49,9 @@ type BandwidthClusterInfo struct {
     // NetworkType IP 网络类型。
     NetworkType *string `json:"networkType,omitempty"`
 
+    // Product 产品范围。
+    Product *string `json:"product,omitempty"`
+
     // AreaCode 区域代号。
     AreaCode *string `json:"areaCode,omitempty"`
 
@@ -158,6 +161,9 @@ type BandwidthClusterAreaInfo struct {
 
     // NetworkTypes 该地区支持的IP网络类型。
     NetworkTypes []string `json:"networkTypes,omitempty"`
+
+    // Products 该地区支持的产品线。
+    Products []string `json:"products,omitempty"`
 
 }
 
@@ -280,6 +286,9 @@ type InquiryBandwidthClusterPriceRequest struct {
     // InternetChargeType 带宽计费方式。默认为月95计费，如果需要日峰值计费，请联系Support开通相关权限。
     InternetChargeType *string `json:"internetChargeType,omitempty"`
 
+    // Product 产品线。
+    Product *string `json:"product,omitempty"`
+
 }
 
 type InquiryBandwidthClusterPriceResponseParams struct {
@@ -372,6 +381,9 @@ type CreateBandwidthClusterRequest struct {
 
     // Name 带宽包显示名称。如果未指定，默认会使用地域名称命名。
     Name *string `json:"name,omitempty"`
+
+    // Product 城市带宽包所包含的的产品线范围。
+    Product *string `json:"product,omitempty"`
 
 }
 
