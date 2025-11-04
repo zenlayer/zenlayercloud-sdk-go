@@ -307,6 +307,9 @@ type CreateDisksRequest struct {
     // Tags 创建云硬盘时关联的标签。注意：·关联`标签键`不能重复。
     Tags *TagAssociation `json:"tags,omitempty"`
 
+    // InstanceIds 要绑定的实例ID。大小需要与`diskAmount`字段一致。
+    InstanceIds []string `json:"instanceIds,omitempty"`
+
 }
 
 // MarketingInfo 描述市场活动的相关信息。
@@ -385,14 +388,22 @@ type DetachDisksRequest struct {
 
 }
 
+// DetachDisksResponseParams 云硬盘从实例解绑的响应信息。
+type DetachDisksResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // FailedDiskIds 解绑失败的云硬盘。
+    FailedDiskIds []string `json:"failedDiskIds,omitempty"`
+
+}
+
 type DetachDisksResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
 
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
+    Response *DetachDisksResponseParams `json:"response,omitempty"`
 
 }
 
@@ -2813,6 +2824,12 @@ type CreateEipsRequest struct {
     // Tags 弹性公网IP绑定的标签。注意：实例关联`标签键`不能重复。
     Tags *TagAssociation `json:"tags,omitempty"`
 
+    // InstanceIds 要绑定的实例ID集合。大小需要与`amount`字段一致。
+    InstanceIds []string `json:"instanceIds,omitempty"`
+
+    // BindType 绑定类型。当指定定`instanceIds`时生效。默认为普通NAT模式。
+    BindType *string `json:"bindType,omitempty"`
+
 }
 
 // CreateEipsResponseParams 创建弹性公网IP的响应结果
@@ -4398,6 +4415,7 @@ type CreateZecInstancesRequest struct {
 
     // UserData 初始化命令。
     UserData *string `json:"userData,omitempty"`
+
 }
 
 // CreateZecInstancesResponseParams 创建虚拟机实例的响应结果。
