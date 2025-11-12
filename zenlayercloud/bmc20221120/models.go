@@ -10,6 +10,8 @@ type DescribeZonesRequest struct {
 	// en-US: English
 	// Default value: en-US.
 	AcceptLanguage string `json:"acceptLanguage,omitempty"`
+
+	IsCloudRouterAvailable *bool `json:"isCloudRouterAvailable,omitempty"`
 }
 
 type DescribeZonesResponse struct {
@@ -41,6 +43,8 @@ type ZoneInfo struct {
 
 	// Region name of the zone.
 	AreaName string `json:"areaName,omitempty"`
+
+	IsCloudRouterAvailable bool `json:"isCloudRouterAvailable,omitempty"`
 }
 
 type CreateInstancesRequest struct {
@@ -154,7 +158,30 @@ type CreateInstancesRequest struct {
 	EnablePrimaryIPv6 *bool `json:"enablePrimaryIPv6,omitempty"`
 
 	MarketingOptions  *MarketingInfo `json:"marketingOptions,omitempty"`
+
+	Tags *TagAssociation  `json:"tags,omitempty"`
 }
+
+
+// TagAssociation 描述创建资源时同时绑定的标签对的信息。
+type TagAssociation struct {
+
+    // Tags 标签对列表。
+    Tags []*Tag `json:"tags,omitempty"`
+
+}
+
+// Tag 描述一个标签键值对的信息。
+type Tag struct {
+
+    // Key 标签键。长度限制：1～128个字符。
+    Key *string `json:"key,omitempty"`
+
+    // Value 标签值。长度限制：1～128个字符。
+    Value *string `json:"value,omitempty"`
+
+}
+
 
 type MarketingInfo struct {
 	DiscountCode  string `json:"discountCode,omitempty"`
@@ -572,6 +599,10 @@ type DescribeInstancesRequest struct {
 	// Default value: 20
 	// Maximum value: 1000
 	PageSize int `json:"pageSize,omitempty"`
+
+	TagKeys  []string `json:"tagKeys,omitempty"`
+
+    Tags   []*Tag `json:"tags,omitempty"`
 }
 
 type InstanceInfo struct {
@@ -673,6 +704,17 @@ type InstanceInfo struct {
 	AutoRenew bool `json:"autoRenew,omitempty"`
 
 	KeyId *string `json:"keyId,omitempty"`
+
+	Tags  *Tags    `json:"tags,omitempty"`
+}
+
+
+// Tags 描述资源关联的标签信息。
+type Tags struct {
+
+    // Tags 标签对列表。
+    Tags []*Tag `json:"tags,omitempty"`
+
 }
 
 type DescribeInstancesResponseParams struct {
@@ -1385,6 +1427,7 @@ type EipAddress struct {
 	ResourceGroupId   string `json:"resourceGroupId,omitempty"`
 	ResourceGroupName string `json:"resourceGroupName,omitempty"`
 	EipStatus         string `json:"eipStatus,omitempty"`
+    Tags              *Tags `json:"tags,omitempty"`
 }
 
 type DescribeEipAddressesRequest struct {
@@ -1426,7 +1469,13 @@ type DescribeEipAddressesRequest struct {
 	// Number of pages returned.
 	// Default value: 1
 	PageNum int `json:"pageNum,omitempty"`
+
+	TagKeys  []string `json:"tagKeys,omitempty"`
+
+    Tags   []*Tag `json:"tags,omitempty"`
 }
+
+
 type DescribeEipAddressesResponse struct {
 	*common.BaseResponse
 
@@ -1539,7 +1588,11 @@ type AllocateEipAddressesRequest struct {
 	Amount int `json:"amount,omitempty"`
 
 	MarketingOptions  *MarketingInfo `json:"marketingOptions,omitempty"`
+
+	Tags *TagAssociation  `json:"tags,omitempty"`
 }
+
+
 type AllocateEipAddressesResponse struct {
 	*common.BaseResponse
 
@@ -2164,6 +2217,8 @@ type CreateVpcRequest struct {
 	// VPC name to be displayed.
 	// This parameter can contain up to 64 characters. Only letters, numbers, - and periods (.) are supported.
 	VpcName string `json:"vpcName,omitempty"`
+
+	Tags *TagAssociation  `json:"tags,omitempty"`
 }
 
 type CreateVpcResponse struct {
@@ -2272,6 +2327,10 @@ type DescribeVpcsRequest struct {
 	// Number of pages returned.
 	// Default value: 1.
 	PageNum int `json:"pageNum,omitempty"`
+
+	TagKeys  []string `json:"tagKeys,omitempty"`
+
+    Tags   []*Tag `json:"tags,omitempty"`
 }
 
 type DescribeVpcsResponse struct {
@@ -2322,6 +2381,8 @@ type VpcInfo struct {
 
 	// Status of VPC.
 	VpcStatus string `json:"vpcStatus,omitempty"`
+
+	Tags  *Tags    `json:"tags,omitempty"`
 }
 
 type CreateSubnetRequest struct {
@@ -2665,6 +2726,10 @@ type DescribeCidrBlocksRequest struct {
 	// Default value: 20;
 	// Maximum value: 1000.
 	PageSize int `json:"pageSize,omitempty"`
+
+	TagKeys  []string `json:"tagKeys,omitempty"`
+
+    Tags   []*Tag `json:"tags,omitempty"`
 }
 
 type DescribeCidrBlocksResponse struct {
@@ -2741,6 +2806,8 @@ type CidrBlockInfo struct {
 
 	// Resource group name.
 	ResourceGroupName string `json:"resourceGroupName,omitempty"`
+
+	Tags  *Tags    `json:"tags,omitempty"`
 }
 
 type DescribeCidrBlockIpsRequest struct {
@@ -2946,6 +3013,7 @@ type InquiryPriceCreateIpv4BlockRequest struct {
 	// Quantity of IPv4 CIDR blocks you want to purchase.
 	// Default value: 1.
 	Amount *int `json:"amount,omitempty"`
+
 }
 
 type InquiryPriceCreateIpv4BlockResponse struct {
@@ -2997,6 +3065,8 @@ type CreateIpv4BlockRequest struct {
 	ResourceGroupId string `json:"resourceGroupId,omitempty"`
 
 	MarketingOptions  *MarketingInfo `json:"marketingOptions,omitempty"`
+
+	Tags *TagAssociation  `json:"tags,omitempty"`
 }
 
 type CreateIpv4BlockResponse struct {
@@ -3036,6 +3106,8 @@ type CreateIpv6BlockRequest struct {
 	// Resource group ID where the CIDR blocks reside.
 	// If an available VLAN exists in the specified zone, this parameter will be ignored. The created CIDR blocks will be added to the resource group of the VLAN.
 	ResourceGroupId string `json:"resourceGroupId,omitempty"`
+
+	Tags *TagAssociation  `json:"tags,omitempty"`
 }
 
 type CreateIpv6BlockResponse struct {
@@ -3374,6 +3446,9 @@ type DescribeLoadBalancersRequest struct {
 
 	PageSize *int `json:"pageSize,omitempty"`
 
+    TagKeys  []string `json:"tagKeys,omitempty"`
+
+    Tags   []*Tag `json:"tags,omitempty"`
 }
 
 type DescribeLoadBalancersResponseParams struct {
@@ -3426,6 +3501,7 @@ type LoadBalancerInfo struct {
 
 	BackendList []*BackendInfo `json:"backendList,omitempty"`
 
+    Tags  *Tags    `json:"tags,omitempty"`
 }
 
 type LoadBalancerIp struct {
@@ -3573,7 +3649,9 @@ type CreateLoadBalancerRequest struct {
 
 	BackupIp *string `json:"backupIp,omitempty"`
 
+    Tags *TagAssociation  `json:"tags,omitempty"`
 }
+
 
 type InstanceChargePrepaid struct {
 
