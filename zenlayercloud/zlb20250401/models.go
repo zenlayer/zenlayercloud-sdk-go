@@ -184,7 +184,7 @@ type ModifyListenerRequest struct {
     // Port 监听器端口。多个端口使用,分隔。当端口是范围时用`-`连接，例如：10000-10005。端口的取值范围为1～65535。不指定将不会进行修改。
     Port *string `json:"port,omitempty"`
 
-    // Kind 工作模式。
+    // Kind 工作模式。如果修改为`DR`模式，如果后端服务器指定了端口将失效，将跟随监听器的端口。
     Kind *string `json:"kind,omitempty"`
 
 }
@@ -263,7 +263,7 @@ type BackendServer struct {
     // Weight 后端服务修改后的转发权重。创建绑定服务器时默认值为100, 修改时如果不指定，则不会进行修改。删除时不需要指定该参数。
     Weight *int `json:"weight,omitempty"`
 
-    // Port 请求转发和健康检查的目标端口。如果为空，将跟随监听器端口配置。删除时不需要指定该参数。
+    // Port 请求转发和健康检查的目标端口。如果为空，将跟随监听器端口配置。删除时不需要指定该参数。如果监听器转发模式为`DR`，不支持指定目标端口，跟随监听器端口。
     Port *int `json:"port,omitempty"`
 
 }
@@ -866,7 +866,7 @@ type DescribeLoadBalancerMonitorDataResponseParams struct {
 
 }
 
-// MetricValue 描述实例监控指标的数据值。
+// MetricValue 描述监控指标的数据值。
 type MetricValue struct {
 
     // Time 数据点时间。

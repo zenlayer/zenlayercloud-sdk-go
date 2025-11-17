@@ -313,6 +313,29 @@ func (c *Client) DescribeDiskCategory(request *DescribeDiskCategoryRequest) (res
 	return
 }
 
+func NewDescribeDiskMonitorDataRequest() (request *DescribeDiskMonitorDataRequest) {
+	request = &DescribeDiskMonitorDataRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeDiskMonitorData")
+
+	return
+}
+
+func NewDescribeDiskMonitorDataResponse() (response *DescribeDiskMonitorDataResponse) {
+	response = &DescribeDiskMonitorDataResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeDiskMonitorData 查询一段时间的云硬盘的监控指标数据。
+func (c *Client) DescribeDiskMonitorData(request *DescribeDiskMonitorDataRequest) (response *DescribeDiskMonitorDataResponse, err error) {
+	response = NewDescribeDiskMonitorDataResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewCreateVpcRequest() (request *CreateVpcRequest) {
 	request = &CreateVpcRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -1256,6 +1279,213 @@ func (c *Client) DeleteImages(request *DeleteImagesRequest) (response *DeleteIma
 	return
 }
 
+func NewCreatePolicyRequest() (request *CreatePolicyRequest) {
+	request = &CreatePolicyRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreatePolicy")
+
+	return
+}
+
+func NewCreatePolicyResponse() (response *CreatePolicyResponse) {
+	response = &CreatePolicyResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CreatePolicy 创建防护策略
+func (c *Client) CreatePolicy(request *CreatePolicyRequest) (response *CreatePolicyResponse, err error) {
+	response = NewCreatePolicyResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeletePolicyRequest() (request *DeletePolicyRequest) {
+	request = &DeletePolicyRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeletePolicy")
+
+	return
+}
+
+func NewDeletePolicyResponse() (response *DeletePolicyResponse) {
+	response = &DeletePolicyResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeletePolicy 删除防护策略
+func (c *Client) DeletePolicy(request *DeletePolicyRequest) (response *DeletePolicyResponse, err error) {
+	response = NewDeletePolicyResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyPolicyRequest() (request *ModifyPolicyRequest) {
+	request = &ModifyPolicyRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyPolicy")
+
+	return
+}
+
+func NewModifyPolicyResponse() (response *ModifyPolicyResponse) {
+	response = &ModifyPolicyResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyPolicy 修改防护策略
+func (c *Client) ModifyPolicy(request *ModifyPolicyRequest) (response *ModifyPolicyResponse, err error) {
+	response = NewModifyPolicyResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribePolicysRequest() (request *DescribePolicysRequest) {
+	request = &DescribePolicysRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribePolicys")
+
+	return
+}
+
+func NewDescribePolicysResponse() (response *DescribePolicysResponse) {
+	response = &DescribePolicysResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribePolicys 获取防护策略列表
+func (c *Client) DescribePolicys(request *DescribePolicysRequest) (response *DescribePolicysResponse, err error) {
+	response = NewDescribePolicysResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribePolicyDetailRequest() (request *DescribePolicyDetailRequest) {
+	request = &DescribePolicyDetailRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribePolicyDetail")
+
+	return
+}
+
+func NewDescribePolicyDetailResponse() (response *DescribePolicyDetailResponse) {
+	response = &DescribePolicyDetailResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribePolicyDetail 获取防护策略详情
+func (c *Client) DescribePolicyDetail(request *DescribePolicyDetailRequest) (response *DescribePolicyDetailResponse, err error) {
+	response = NewDescribePolicyDetailResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewAttachToPolicyRequest() (request *AttachToPolicyRequest) {
+	request = &AttachToPolicyRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "AttachToPolicy")
+
+	return
+}
+
+func NewAttachToPolicyResponse() (response *AttachToPolicyResponse) {
+	response = &AttachToPolicyResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// AttachToPolicy 防护对象关联防护策略
+func (c *Client) AttachToPolicy(request *AttachToPolicyRequest) (response *AttachToPolicyResponse, err error) {
+	response = NewAttachToPolicyResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDetachFromPolicyRequest() (request *DetachFromPolicyRequest) {
+	request = &DetachFromPolicyRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DetachFromPolicy")
+
+	return
+}
+
+func NewDetachFromPolicyResponse() (response *DetachFromPolicyResponse) {
+	response = &DetachFromPolicyResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DetachFromPolicy 防护对象取消关联防护策略
+func (c *Client) DetachFromPolicy(request *DetachFromPolicyRequest) (response *DetachFromPolicyResponse, err error) {
+	response = NewDetachFromPolicyResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribePolicyRegionsRequest() (request *DescribePolicyRegionsRequest) {
+	request = &DescribePolicyRegionsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribePolicyRegions")
+
+	return
+}
+
+func NewDescribePolicyRegionsResponse() (response *DescribePolicyRegionsResponse) {
+	response = &DescribePolicyRegionsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribePolicyRegions 获取区域封禁可选区域列表
+func (c *Client) DescribePolicyRegions(request *DescribePolicyRegionsRequest) (response *DescribePolicyRegionsResponse, err error) {
+	response = NewDescribePolicyRegionsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeReflectUdpPortOptionsRequest() (request *DescribeReflectUdpPortOptionsRequest) {
+	request = &DescribeReflectUdpPortOptionsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeReflectUdpPortOptions")
+
+	return
+}
+
+func NewDescribeReflectUdpPortOptionsResponse() (response *DescribeReflectUdpPortOptionsResponse) {
+	response = &DescribeReflectUdpPortOptionsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeReflectUdpPortOptions 获取默认UDP反射源端口列表
+func (c *Client) DescribeReflectUdpPortOptions(request *DescribeReflectUdpPortOptionsRequest) (response *DescribeReflectUdpPortOptionsResponse, err error) {
+	response = NewDescribeReflectUdpPortOptionsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewDescribeSecurityGroupsRequest() (request *DescribeSecurityGroupsRequest) {
 	request = &DescribeSecurityGroupsRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -1873,6 +2103,52 @@ func NewDescribeEipMonitorDataResponse() (response *DescribeEipMonitorDataRespon
 // DescribeEipMonitorData 查询一段时间的弹性公网IP监控指标数据。
 func (c *Client) DescribeEipMonitorData(request *DescribeEipMonitorDataRequest) (response *DescribeEipMonitorDataResponse, err error) {
 	response = NewDescribeEipMonitorDataResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeDDosAllEventListRequest() (request *DescribeDDosAllEventListRequest) {
+	request = &DescribeDDosAllEventListRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeDDosAllEventList")
+
+	return
+}
+
+func NewDescribeDDosAllEventListResponse() (response *DescribeDDosAllEventListResponse) {
+	response = &DescribeDDosAllEventListResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeDDosAllEventList 获取攻击事件列表
+func (c *Client) DescribeDDosAllEventList(request *DescribeDDosAllEventListRequest) (response *DescribeDDosAllEventListResponse, err error) {
+	response = NewDescribeDDosAllEventListResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeDDosEventDetailRequest() (request *DescribeDDosEventDetailRequest) {
+	request = &DescribeDDosEventDetailRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeDDosEventDetail")
+
+	return
+}
+
+func NewDescribeDDosEventDetailResponse() (response *DescribeDDosEventDetailResponse) {
+	response = &DescribeDDosEventDetailResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeDDosEventDetail 获取攻击事件详情
+func (c *Client) DescribeDDosEventDetail(request *DescribeDDosEventDetailRequest) (response *DescribeDDosEventDetailResponse, err error) {
+	response = NewDescribeDDosEventDetailResponse()
 	err = c.ApiCall(request, response)
 	return
 }

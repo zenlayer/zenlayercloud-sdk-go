@@ -307,7 +307,7 @@ type CreateDisksRequest struct {
     // Tags 创建云硬盘时关联的标签。注意：·关联`标签键`不能重复。
     Tags *TagAssociation `json:"tags,omitempty"`
 
-    // InstanceIds 要绑定的实例ID。大小需要与`diskAmount`字段一致。
+    // InstanceIds 要绑定的实例ID。数量需要与`diskAmount`字段一致。
     InstanceIds []string `json:"instanceIds,omitempty"`
 
 }
@@ -353,7 +353,7 @@ type CreateDisksResponse struct {
 
 }
 
-// AttachDisksRequest 云硬盘挂在到实例的请求信息。
+// AttachDisksRequest 云硬盘挂载到实例的请求信息。
 type AttachDisksRequest struct {
     *common.BaseRequest
 
@@ -554,6 +554,63 @@ type DescribeDiskCategoryResponse struct {
     RequestId *string `json:"requestId,omitempty"`
 
     Response *DescribeDiskCategoryResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeDiskMonitorDataRequest 查询云硬盘监控指标请求。
+type DescribeDiskMonitorDataRequest struct {
+    *common.BaseRequest
+
+    // DiskId 云硬盘唯一标识ID。
+    DiskId *string `json:"diskId,omitempty"`
+
+    // MetricType 云硬盘监控指标类型。
+    MetricType *string `json:"metricType,omitempty"`
+
+    // StartTime 查询开始时间。时间格式：yyyy-MM-ddTHH:mm:ssZ。
+    StartTime *string `json:"startTime,omitempty"`
+
+    // EndTime 查询结束时间。时间格式：yyyy-MM-ddTHH:mm:ssZ。
+    EndTime *string `json:"endTime,omitempty"`
+
+}
+
+// DescribeDiskMonitorDataResponseParams 查询云硬盘监控数据的响应信息。
+type DescribeDiskMonitorDataResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // MaxValue 数据点的最大值。
+    MaxValue *float64 `json:"maxValue,omitempty"`
+
+    // MinValue 数据点的最小值。
+    MinValue *float64 `json:"minValue,omitempty"`
+
+    // AvgValue 数据点的平均值。
+    AvgValue *float64 `json:"avgValue,omitempty"`
+
+    // Metrics 监控数据集合。
+    Metrics []*MetricValue `json:"metrics,omitempty"`
+
+}
+
+// MetricValue 描述监控指标的数据值。
+type MetricValue struct {
+
+    // Time 数据点时间。
+    Time *string `json:"time,omitempty"`
+
+    // Value 数据点的值。如果该值为null,表示取不到相应的值。
+    Value *float64 `json:"value,omitempty"`
+
+}
+
+type DescribeDiskMonitorDataResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeDiskMonitorDataResponseParams `json:"response,omitempty"`
 
 }
 
@@ -2223,6 +2280,485 @@ type DeleteImagesResponse struct {
 
 }
 
+// CreatePolicyRequest 创建防护策略的请求参数。
+type CreatePolicyRequest struct {
+    *common.BaseRequest
+
+    // PolicyName 防护策略名称。2～63个字符。仅支持输入字母、数字、-和英文句点(.)。
+    PolicyName *string `json:"policyName,omitempty"`
+
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // BlackIpList 黑名单列表。
+    BlackIpList []string `json:"blackIpList,omitempty"`
+
+    // WhiteIpList 白名单列表。
+    WhiteIpList []string `json:"whiteIpList,omitempty"`
+
+    // IpBlackTimeout 黑名单超时时间, 单位:分钟。
+    IpBlackTimeout *int `json:"ipBlackTimeout,omitempty"`
+
+    // Ports 端口封禁。
+    Ports []*DdosPolicyPort `json:"ports,omitempty"`
+
+    // BlockProtocol 开启的封禁协议。不能同时开启UDP和TCP。
+    BlockProtocol []string `json:"blockProtocol,omitempty"`
+
+    // BlockRegions 封禁的区域。
+    BlockRegions []string `json:"blockRegions,omitempty"`
+
+    // Finger 指纹过滤相关配置。
+    Finger []*DdosFingerprintRule `json:"finger,omitempty"`
+
+    // ReflectUdpPort 反射攻击防护过滤的端口列表。
+    ReflectUdpPort []*DdosReflectUdpPort `json:"reflectUdpPort,omitempty"`
+
+    // TrafficControl 源限速配置。
+    TrafficControl *DdosTrafficControl `json:"trafficControl,omitempty"`
+
+    // Tags 创建DDoS时关联的标签。注意：·关联`标签键`不能重复。
+    Tags *TagAssociation `json:"tags,omitempty"`
+
+}
+
+type DdosPolicyPort struct {
+
+    // Protocol 协议类型。只支持 `UDP` / `TCP` 两种协议。
+    Protocol *string `json:"protocol,omitempty"`
+
+    // SrcPortStart 源端口范围的起始值。
+    SrcPortStart *int `json:"srcPortStart,omitempty"`
+
+    // SrcPortEnd 源端口范围的结束值。
+    SrcPortEnd *int `json:"srcPortEnd,omitempty"`
+
+    // DstPortStart 目的端口范围的起始值。
+    DstPortStart *int `json:"dstPortStart,omitempty"`
+
+    // DstPortEnd 目的端口范围的结束值。
+    DstPortEnd *int `json:"dstPortEnd,omitempty"`
+
+    // Action 匹配后的动作。
+    Action *string `json:"action,omitempty"`
+
+}
+
+type DdosFingerprintRule struct {
+
+    // Protocol 设置指纹的协议。
+    Protocol *string `json:"protocol,omitempty"`
+
+    // SrcPortStart 指纹源端口的范围起始值。
+    SrcPortStart *int `json:"srcPortStart,omitempty"`
+
+    // SrcPortEnd 指纹源端口的范围结束值。
+    SrcPortEnd *int `json:"srcPortEnd,omitempty"`
+
+    // DstPortStart 指纹目的端口的范围起始值。
+    DstPortStart *int `json:"dstPortStart,omitempty"`
+
+    // DstPortEnd 指纹目的端口的范围结束值。
+    DstPortEnd *int `json:"dstPortEnd,omitempty"`
+
+    // MinPktLength 需要过滤出的最小包长。
+    MinPktLength *int `json:"minPktLength,omitempty"`
+
+    // MaxPktLength 需要过滤出的最大包长。
+    MaxPktLength *int `json:"maxPktLength,omitempty"`
+
+    // Offset 报文载荷特征的偏移量。TCP/UDP payload 的偏移 [0-1500]。
+    Offset *int `json:"offset,omitempty"`
+
+    // MatchBytes 检测载荷。不含0x 的16进制 小写 补足2位。
+    MatchBytes *string `json:"matchBytes,omitempty"`
+
+    // Action 设置指纹匹配后的动作。
+    Action *string `json:"action,omitempty"`
+
+}
+
+type DdosReflectUdpPort struct {
+
+    // Port 反射攻击防护过滤的端口。
+    Port *int `json:"port,omitempty"`
+
+}
+
+type DdosTrafficControl struct {
+
+    // BpsEnabled 是否开启 bps 限速。
+    BpsEnabled *bool `json:"bpsEnabled,omitempty"`
+
+    // Bps bps 限速值。
+    Bps *int64 `json:"bps,omitempty"`
+
+    // PpsEnabled 是否开启 pps 限速。
+    PpsEnabled *bool `json:"ppsEnabled,omitempty"`
+
+    // Pps pps 限速值。
+    Pps *int64 `json:"pps,omitempty"`
+
+    // SynBPSEnabled 是否开启 sync bps 限速。
+    SynBPSEnabled *bool `json:"synBPSEnabled,omitempty"`
+
+    // SynBPS syn bps 限速值。
+    SynBPS *int64 `json:"synBPS,omitempty"`
+
+    // SynPPSEnabled 是否开启 sync pps 限速。
+    SynPPSEnabled *bool `json:"synPPSEnabled,omitempty"`
+
+    // SynPPS syn pps 限速值。
+    SynPPS *int64 `json:"synPPS,omitempty"`
+
+}
+
+// CreatePolicyResponseParams 创建防护策略的响应结果。
+type CreatePolicyResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // PolicyId 防护策略ID。
+    PolicyId *string `json:"policyId,omitempty"`
+
+}
+
+type CreatePolicyResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *CreatePolicyResponseParams `json:"response,omitempty"`
+
+}
+
+// DeletePolicyRequest 删除防护策略的请求信息。
+type DeletePolicyRequest struct {
+    *common.BaseRequest
+
+    // PolicyId 防护策略ID。
+    PolicyId *string `json:"policyId,omitempty"`
+
+}
+
+type DeletePolicyResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// ModifyPolicyRequest 修改防护策略请求参数
+type ModifyPolicyRequest struct {
+    *common.BaseRequest
+
+    // PolicyId 防护策略ID。
+    PolicyId *string `json:"policyId,omitempty"`
+
+    // PolicyName 防护策略名称。2～63个字符。仅支持输入字母、数字、-和英文句点(.)。
+    PolicyName *string `json:"policyName,omitempty"`
+
+    // ConfigType 配置类型。
+    ConfigType *string `json:"configType,omitempty"`
+
+    // BlackIpList 黑名单列表。
+    BlackIpList []string `json:"blackIpList,omitempty"`
+
+    // WhiteIpList 白名单列表。
+    WhiteIpList []string `json:"whiteIpList,omitempty"`
+
+    // IpBlackTimeout 黑名单超时时间, 单位:分钟。
+    IpBlackTimeout *int `json:"ipBlackTimeout,omitempty"`
+
+    // Ports 端口封禁。
+    Ports []*DdosPolicyPort `json:"ports,omitempty"`
+
+    // BlockProtocol 开启的封禁协议。不能同时开启UDP和TCP。
+    BlockProtocol []string `json:"blockProtocol,omitempty"`
+
+    // BlockRegions 封禁的区域。
+    BlockRegions []string `json:"blockRegions,omitempty"`
+
+    // Finger 指纹过滤相关配置。
+    Finger []*DdosFingerprintRule `json:"finger,omitempty"`
+
+    // ReflectUdpPort 反射攻击防护过滤的端口列表。
+    ReflectUdpPort []*DdosReflectUdpPort `json:"reflectUdpPort,omitempty"`
+
+    // TrafficControl 源限速配置。
+    TrafficControl *DdosTrafficControl `json:"trafficControl,omitempty"`
+
+    // Tags 创建DDoS时关联的标签。注意：·关联`标签键`不能重复。
+    Tags *TagAssociation `json:"tags,omitempty"`
+
+}
+
+type ModifyPolicyResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// DescribePolicysRequest 描述防护策略列表的请求参数。
+type DescribePolicysRequest struct {
+    *common.BaseRequest
+
+    // PolicyIds 根据防护策略ID列表进行筛选。最大不能超过100个。
+    PolicyIds []string `json:"policyIds,omitempty"`
+
+    // PolicyName 根据防护策略名称过滤。该字段支持模糊搜索。
+    PolicyName *string `json:"policyName,omitempty"`
+
+    // PageSize 返回的分页大小。
+    PageSize *int `json:"pageSize,omitempty"`
+
+    // PageNum 返回的分页数。
+    PageNum *int `json:"pageNum,omitempty"`
+
+    // TagKeys 根据标签键进行搜索。 最长不得超过20个标签键。
+    TagKeys []string `json:"tagKeys,omitempty"`
+
+    // Tags 根据标签进行搜索。 最长不得超过20个标签。
+    Tags []*Tag `json:"tags,omitempty"`
+
+}
+
+// DescribePolicysResponseParams 描述防护策略列表。
+type DescribePolicysResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // TotalCount 符合条件的数据总数。
+    TotalCount *int `json:"totalCount,omitempty"`
+
+    // DataSet 防护策略列表的数据。
+    DataSet []*PolicyInfo `json:"dataSet,omitempty"`
+
+}
+
+// PolicyInfo 描述防护策略的信息。
+type PolicyInfo struct {
+
+    // PolicyId 防护策略唯一ID。
+    PolicyId *string `json:"policyId,omitempty"`
+
+    // PolicyName 防护策略名称。
+    PolicyName *string `json:"policyName,omitempty"`
+
+    // CreateTime 创建时间。
+    CreateTime *string `json:"createTime,omitempty"`
+
+    // ResourceGroupId 防护策略所属的资源组ID。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // ResourceGroupName 防护策略所属的资源组名称。
+    ResourceGroupName *string `json:"resourceGroupName,omitempty"`
+
+    // Tags 防护策略关联的标签。
+    Tags *Tags `json:"tags,omitempty"`
+
+}
+
+type DescribePolicysResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribePolicysResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribePolicyDetailRequest 防护策略详情的请求参数
+type DescribePolicyDetailRequest struct {
+    *common.BaseRequest
+
+    // PolicyId 防护策略ID。
+    PolicyId *string `json:"policyId,omitempty"`
+
+}
+
+// DescribePolicyDetailResponseParams 查询防护策略详情
+type DescribePolicyDetailResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // PolicyId 防护策略的ID。
+    PolicyId *string `json:"policyId,omitempty"`
+
+    // PolicyName 防护策略的名称。
+    PolicyName *string `json:"policyName,omitempty"`
+
+    // AttachmentIps 防护对象关联IP列表。
+    AttachmentIps []string `json:"attachmentIps,omitempty"`
+
+    // CreateTime 创建时间。
+    CreateTime *string `json:"createTime,omitempty"`
+
+    // BlackIps 黑名单IP列表。
+    BlackIps []string `json:"blackIps,omitempty"`
+
+    // WhiteIps 白名单IP列表。
+    WhiteIps []string `json:"whiteIps,omitempty"`
+
+    // BlackIpListExpireAt 黑名单超时时间。
+    BlackIpListExpireAt *int `json:"blackIpListExpireAt,omitempty"`
+
+    // BlockProtocols 开启的封禁协议。不能同时开启UDP和TCP。
+    BlockProtocols []string `json:"blockProtocols,omitempty"`
+
+    // Ports 端口封禁。
+    Ports []*DdosPolicyPort `json:"ports,omitempty"`
+
+    // BlockRegions 封禁的区域。
+    BlockRegions []string `json:"blockRegions,omitempty"`
+
+    // ReflectUdpPort 反射攻击防护过滤的端口列表。
+    ReflectUdpPort []*DdosReflectUdpPort `json:"reflectUdpPort,omitempty"`
+
+    // TrafficControl 源限速配置。
+    TrafficControl *DdosTrafficControl `json:"trafficControl,omitempty"`
+
+    // FingerPrintRules 指纹过滤相关配置。
+    FingerPrintRules []*DdosFingerprintRule `json:"fingerPrintRules,omitempty"`
+
+}
+
+type DescribePolicyDetailResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribePolicyDetailResponseParams `json:"response,omitempty"`
+
+}
+
+// AttachToPolicyRequest 防护对象关联防护策略的请求参数
+type AttachToPolicyRequest struct {
+    *common.BaseRequest
+
+    // PolicyId 防护策略ID。
+    PolicyId *string `json:"policyId,omitempty"`
+
+    // Ipv4IdList 防护对象列表。
+    Ipv4IdList []string `json:"ipv4IdList,omitempty"`
+
+}
+
+type AttachToPolicyResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// DetachFromPolicyRequest 防护对象取消关联防护策略的请求参数
+type DetachFromPolicyRequest struct {
+    *common.BaseRequest
+
+    // PolicyId 防护策略ID。
+    PolicyId *string `json:"policyId,omitempty"`
+
+    // Ipv4IdList 防护对象列表。
+    Ipv4IdList []string `json:"ipv4IdList,omitempty"`
+
+}
+
+type DetachFromPolicyResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type DescribePolicyRegionsRequest struct {
+    *common.BaseRequest
+
+}
+
+// DescribePolicyRegionsResponseParams 区域封禁可选区域列表
+type DescribePolicyRegionsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // Regions 区域可选列表。
+    Regions []*PolicyRegion `json:"regions,omitempty"`
+
+}
+
+// PolicyRegion 区域的基本信息。
+type PolicyRegion struct {
+
+    // RegionId 区域ID。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // RegionName 国家名称。
+    RegionName *string `json:"regionName,omitempty"`
+
+    // AreaName 地域名称。
+    AreaName *string `json:"areaName,omitempty"`
+
+}
+
+type DescribePolicyRegionsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribePolicyRegionsResponseParams `json:"response,omitempty"`
+
+}
+
+type DescribeReflectUdpPortOptionsRequest struct {
+    *common.BaseRequest
+
+}
+
+// DescribeReflectUdpPortOptionsResponseParams 默认UDP反射源端口列表
+type DescribeReflectUdpPortOptionsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // ReflectUdpPorts 默认UDP反射源端口列表。
+    ReflectUdpPorts []*ReflectUdpPortPolicy `json:"reflectUdpPorts,omitempty"`
+
+}
+
+// ReflectUdpPortPolicy UDP反射源端口
+type ReflectUdpPortPolicy struct {
+
+    // Name 反射攻击类型。
+    Name *string `json:"name,omitempty"`
+
+    // Port 反射源端口。
+    Port *int `json:"port,omitempty"`
+
+}
+
+type DescribeReflectUdpPortOptionsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeReflectUdpPortOptionsResponseParams `json:"response,omitempty"`
+
+}
+
 // DescribeSecurityGroupsRequest 查询安全组列表的请求参数。
 type DescribeSecurityGroupsRequest struct {
     *common.BaseRequest
@@ -2824,7 +3360,7 @@ type CreateEipsRequest struct {
     // Tags 弹性公网IP绑定的标签。注意：实例关联`标签键`不能重复。
     Tags *TagAssociation `json:"tags,omitempty"`
 
-    // InstanceIds 要绑定的实例ID集合。大小需要与`amount`字段一致。
+    // InstanceIds 要绑定的实例ID集合。数量需要与`amount`字段一致。
     InstanceIds []string `json:"instanceIds,omitempty"`
 
     // BindType 绑定类型。当指定定`instanceIds`时生效。默认为普通NAT模式。
@@ -3416,6 +3952,171 @@ type DescribeEipMonitorDataResponse struct {
     RequestId *string `json:"requestId,omitempty"`
 
     Response *DescribeEipMonitorDataResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeDDosAllEventListRequest 获取攻击事件列表的请求参数。
+type DescribeDDosAllEventListRequest struct {
+    *common.BaseRequest
+
+    // Status 攻击状态。
+    Status *string `json:"status,omitempty"`
+
+    // IpAddress 被攻击的IP。
+    IpAddress *string `json:"ipAddress,omitempty"`
+
+    // StartTime 攻击开始时间。
+    StartTime *string `json:"startTime,omitempty"`
+
+    // EndTime 攻击结束时间。
+    EndTime *string `json:"endTime,omitempty"`
+
+    // PageSize 返回的分页大小。
+    PageSize *int `json:"pageSize,omitempty"`
+
+    // PageNum 返回的分页数。
+    PageNum *int `json:"pageNum,omitempty"`
+
+}
+
+// DescribeDDosAllEventListResponseParams 攻击事件列表。
+type DescribeDDosAllEventListResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // TotalCount 符合条件的数据总数。
+    TotalCount *int `json:"totalCount,omitempty"`
+
+    // DataSet 攻击事件列表的数据。
+    DataSet []*AttackEventInfo `json:"dataSet,omitempty"`
+
+}
+
+// AttackEventInfo 攻击事件的信息。
+type AttackEventInfo struct {
+
+    // EventId 攻击事件唯一ID。
+    EventId *string `json:"eventId,omitempty"`
+
+    // Status 攻击状态。
+    Status *string `json:"status,omitempty"`
+
+    // IpAddress 被攻击的IP。
+    IpAddress *string `json:"ipAddress,omitempty"`
+
+    // Protecting IP是否正在防护中。
+    Protecting *bool `json:"protecting,omitempty"`
+
+    // StartTime 攻击开始时间。
+    StartTime *string `json:"startTime,omitempty"`
+
+    // EndTime 攻击结束时间。
+    EndTime *string `json:"endTime,omitempty"`
+
+    // EndBlackholeTime 从黑洞解封时间。
+    EndBlackholeTime *string `json:"endBlackholeTime,omitempty"`
+
+    // AttackBandwidthMax 攻击峰值流量。单位bps。
+    AttackBandwidthMax *float64 `json:"attackBandwidthMax,omitempty"`
+
+    // AttackPackageMax 攻击峰值包量。单位pps。
+    AttackPackageMax *float64 `json:"attackPackageMax,omitempty"`
+
+    // RegionId 事件发生所在区域ID。
+    RegionId *string `json:"regionId,omitempty"`
+
+}
+
+type DescribeDDosAllEventListResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeDDosAllEventListResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeDDosEventDetailRequest 获取攻击事件详情的请求参数。
+type DescribeDDosEventDetailRequest struct {
+    *common.BaseRequest
+
+    // EventId 攻击事件唯一ID。
+    EventId *string `json:"eventId,omitempty"`
+
+    // RegionId 区域节点ID。
+    RegionId *string `json:"regionId,omitempty"`
+
+}
+
+// DescribeDDosEventDetailResponseParams 攻击事件详情。
+type DescribeDDosEventDetailResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // EventId 攻击事件唯一ID。
+    EventId *string `json:"eventId,omitempty"`
+
+    // Status 攻击状态。
+    Status *string `json:"status,omitempty"`
+
+    // Type 攻击类型。
+    Type *string `json:"type,omitempty"`
+
+    // IpAddress 被攻击的IP。
+    IpAddress *string `json:"ipAddress,omitempty"`
+
+    // Protecting IP是否正在防护中。
+    Protecting *bool `json:"protecting,omitempty"`
+
+    // StartTime 攻击开始时间。
+    StartTime *string `json:"startTime,omitempty"`
+
+    // EndTime 攻击结束时间。
+    EndTime *string `json:"endTime,omitempty"`
+
+    // EndBlackholeTime 从黑洞解封时间。
+    EndBlackholeTime *string `json:"endBlackholeTime,omitempty"`
+
+    // AttackBandwidthMax 攻击带宽峰值。单位bps。
+    AttackBandwidthMax *float64 `json:"attackBandwidthMax,omitempty"`
+
+    // ProtectedBandwidthMax 防护带宽峰值。单位bps。
+    ProtectedBandwidthMax *float64 `json:"protectedBandwidthMax,omitempty"`
+
+    // AttackPackageMax 攻击峰值包速率。单位pps。
+    AttackPackageMax *float64 `json:"attackPackageMax,omitempty"`
+
+    // ProtectedPackageMax 防护峰值包速率。单位pps。
+    ProtectedPackageMax *float64 `json:"protectedPackageMax,omitempty"`
+
+    // SourceIp 攻击来源IP。
+    SourceIp []string `json:"sourceIp,omitempty"`
+
+    // SourcePort 攻击来源端口。
+    SourcePort []*TopPort `json:"sourcePort,omitempty"`
+
+    // DesertionPort 攻击目标端口。
+    DesertionPort []*TopPort `json:"desertionPort,omitempty"`
+
+}
+
+// TopPort 攻击端口。
+type TopPort struct {
+
+    // Protocol 协议。
+    Protocol *string `json:"protocol,omitempty"`
+
+    // Port 端口号。
+    Port *int `json:"port,omitempty"`
+
+}
+
+type DescribeDDosEventDetailResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeDDosEventDetailResponseParams `json:"response,omitempty"`
 
 }
 
@@ -4362,6 +5063,9 @@ type CreateZecInstancesRequest struct {
     // KeyId 密钥ID。与password必须指定其中的一种。可调用接口DescribeKeyPairs来获得最新的密钥对信息。关联密钥后，就可以通过对应的私钥来访问实例；密钥与密码不能同时指定，同时Windows操作系统不支持指定密钥。示例值：key-YWD2QFOl。
     KeyId *string `json:"keyId,omitempty"`
 
+    // NicNetworkType 网卡模式。
+    NicNetworkType *string `json:"nicNetworkType,omitempty"`
+
     // InstanceCount 要创建的实例数量。
     InstanceCount *int `json:"instanceCount,omitempty"`
 
@@ -4592,6 +5296,9 @@ type InstanceInfo struct {
 
     // Tags 实例关联的标签。
     Tags *Tags `json:"tags,omitempty"`
+
+    // LoadBalancerIds 实例上绑定的负载均衡ID列表。
+    LoadBalancerIds []string `json:"loadBalancerIds,omitempty"`
 
 }
 
@@ -5053,17 +5760,6 @@ type DescribeInstanceMonitorDataResponseParams struct {
 
     // Metrics 监控数据集合。
     Metrics []*MetricValue `json:"metrics,omitempty"`
-
-}
-
-// MetricValue 描述实例监控指标的数据值。
-type MetricValue struct {
-
-    // Time 数据点时间。
-    Time *string `json:"time,omitempty"`
-
-    // Value 数据点的值。如果该值为null,表示取不到相应的值。
-    Value *float64 `json:"value,omitempty"`
 
 }
 
