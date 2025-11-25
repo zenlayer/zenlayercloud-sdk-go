@@ -943,6 +943,9 @@ type VpcInfo struct {
     // SecurityGroupId 关联的安全组ID。
     SecurityGroupId *string `json:"securityGroupId,omitempty"`
 
+    // DnsZoneIds VPC关联的DNS内网权威域名ID。
+    DnsZoneIds []string `json:"dnsZoneIds,omitempty"`
+
     // ResourceGroup VPC关联的资源组信息。
     ResourceGroup *ResourceGroupInfo `json:"resourceGroup,omitempty"`
 
@@ -2284,9 +2287,10 @@ type DeleteImagesResponse struct {
 type CreatePolicyRequest struct {
     *common.BaseRequest
 
-    // PolicyName 防护策略名称。2～63个字符。仅支持输入字母、数字、-和英文句点(.)。
+    // PolicyName 防护策略的名称。范围2到63个字符。仅支持输入字母、数字、-和英文句点(.)。且必须以数字或字母开头和结尾。
     PolicyName *string `json:"policyName,omitempty"`
 
+    // ResourceGroupId 创建后防护策略所在的资源组ID，如不指定则放入默认资源组。
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 
     // BlackIpList 黑名单列表。
@@ -2298,7 +2302,7 @@ type CreatePolicyRequest struct {
     // IpBlackTimeout 黑名单超时时间, 单位:分钟。
     IpBlackTimeout *int `json:"ipBlackTimeout,omitempty"`
 
-    // Ports 端口封禁。
+    // Ports 端口封禁, 支持TCP和UDP。
     Ports []*DdosPolicyPort `json:"ports,omitempty"`
 
     // BlockProtocol 开启的封禁协议。不能同时开启UDP和TCP。
@@ -2458,7 +2462,7 @@ type ModifyPolicyRequest struct {
     // PolicyId 防护策略ID。
     PolicyId *string `json:"policyId,omitempty"`
 
-    // PolicyName 防护策略名称。2～63个字符。仅支持输入字母、数字、-和英文句点(.)。
+    // PolicyName 防护策略的名称。范围2到63个字符。仅支持输入字母、数字、-和英文句点(.)。且必须以数字或字母开头和结尾。
     PolicyName *string `json:"policyName,omitempty"`
 
     // ConfigType 配置类型。
@@ -2473,7 +2477,7 @@ type ModifyPolicyRequest struct {
     // IpBlackTimeout 黑名单超时时间, 单位:分钟。
     IpBlackTimeout *int `json:"ipBlackTimeout,omitempty"`
 
-    // Ports 端口封禁。
+    // Ports 端口封禁, 支持TCP和UDP。
     Ports []*DdosPolicyPort `json:"ports,omitempty"`
 
     // BlockProtocol 开启的封禁协议。不能同时开启UDP和TCP。
