@@ -735,3 +735,56 @@ func NewDescribeAcceleratorMetricsResponse() (response *DescribeAcceleratorMetri
 	}
 	return
 }
+
+func NewDescribeTrafficRequest() (request *DescribeTrafficRequest) {
+	request = &DescribeTrafficRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeTraffic")
+	return
+}
+
+// DescribeTraffic
+// 调用本接口用于查询流量带宽汇总指标。
+//
+//	Possible error codes to return:
+//		INVALID_START_TIME_MUST_BEFORE_END_TIME = "Invalid.Start.Time.Must.Before.End.Time"
+func (c *Client) DescribeTraffic(request *DescribeTrafficRequest) (response *DescribeTrafficResponse, err error) {
+	response = NewDescribeTrafficResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeTrafficResponse() (response *DescribeTrafficResponse) {
+	response = &DescribeTrafficResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func NewDescribeStatusCodeRequest() (request *DescribeStatusCodeRequest) {
+	request = &DescribeStatusCodeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeStatusCode")
+	return
+}
+
+// DescribeStatusCode
+// 调用本接口用于查询状态码指标。
+//
+//	Possible error codes to return:
+//		INVALID_START_TIME_MUST_BEFORE_END_TIME = "Invalid.Start.Time.Must.Before.End.Time"
+//		INVALID_TIME_RANGE_EXCEED = "Invalid.Time.Range.Exceed"
+func (c *Client) DescribeStatusCode(request *DescribeStatusCodeRequest) (response *DescribeStatusCodeResponse, err error) {
+	response = NewDescribeStatusCodeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeStatusCodeResponse() (response *DescribeStatusCodeResponse) {
+	response = &DescribeStatusCodeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}

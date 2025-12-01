@@ -705,6 +705,9 @@ type DescribeAcceleratorLogsRequest struct {
 	// Vip of accelerate region.
 	Vips []string `json:"vips,omitempty"`
 
+	// Domain of accelerator.
+	Domains []string `json:"domains,omitempty"`
+
 	// StartTime of log.
 	StartTime string `json:"startTime,omitempty"`
 
@@ -845,4 +848,87 @@ type AcceleratorMetricsData struct {
 	AverageRequestTime float64 `json:"averageRequestTime"`
 
 	Time string `json:"time"`
+}
+
+type DescribeTrafficRequest struct {
+	*common.BaseRequest
+
+	// ID of accelerators.
+	// You can query up to 100 accelerators in each request.
+	AcceleratorIds []string `json:"acceleratorIds,omitempty"`
+
+	// ID of origin region.
+	OriginRegionId string `json:"originRegionId,omitempty"`
+
+	// ID of accelerate region.
+	AccelerateRegionId string `json:"accelerateRegionId,omitempty"`
+
+	// Resource group ID.
+	// If the value is null, then return all the accelerators in the authorized resource groups.
+	ResourceGroupId string `json:"resourceGroupId,omitempty"`
+
+	// StartTime of traffic.
+	StartTime string `json:"startTime,omitempty"`
+
+	// EndTime of traffic.
+	EndTime string `json:"endTime,omitempty"`
+}
+
+type DescribeTrafficResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId"`
+
+	Response *DescribeAcceleratorTrafficResponseParams `json:"response"`
+}
+
+type DescribeStatusCodeRequest struct {
+	*common.BaseRequest
+
+	// ID of accelerators.
+	// You can query up to 100 accelerators in each request.
+	AcceleratorIds []string `json:"acceleratorIds,omitempty"`
+
+	// ID of origin region.
+	OriginRegionId string `json:"originRegionId,omitempty"`
+
+	// ID of accelerate region.
+	AccelerateRegionId string `json:"accelerateRegionId,omitempty"`
+
+	// Resource group ID.
+	// If the value is null, then return all the accelerators in the authorized resource groups.
+	ResourceGroupId string `json:"resourceGroupId,omitempty"`
+
+	// StartTime of traffic.
+	StartTime string `json:"startTime,omitempty"`
+
+	// EndTime of traffic.
+	EndTime string `json:"endTime,omitempty"`
+}
+
+type DescribeStatusCodeResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId"`
+
+	Response *DescribeStatusCodeResponseParams `json:"response"`
+}
+
+type DescribeStatusCodeResponseParams struct {
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId"`
+
+	DataList []*StatusCodeData `json:"dataList"`
+}
+
+type StatusCodeData struct {
+	Detail []StatusCodeDetailData `json:"detail"`
+	Time   string                 `json:"time"`
+}
+
+type StatusCodeDetailData struct {
+	Code  string `json:"code"`
+	Count int64  `json:"count"`
 }

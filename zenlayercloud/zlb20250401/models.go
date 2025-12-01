@@ -86,6 +86,9 @@ type HealthCheck struct {
     // CheckHttpStatusCode 健康检查状态码。仅适用于HTTP_GET的协议。
     CheckHttpStatusCode *int `json:"checkHttpStatusCode,omitempty"`
 
+    // FailOpen 开启后，当所有后端健康检查均失败时，负载均衡器将暂视所有节点为健康，继续转发流量，以保障业务连续性。
+    FailOpen *bool `json:"failOpen,omitempty"`
+
 }
 
 type DescribeListenersResponse struct {
@@ -118,7 +121,7 @@ type CreateListenerRequest struct {
     // Port 监听器端口。多个端口使用,分隔。当端口是范围时用`-`连接，例如：10000-10005。端口的取值范围为1～65535。请注意端口不能和该监听器的其他端口有重叠。
     Port *string `json:"port,omitempty"`
 
-    // Kind 工作模式。
+    // Kind 工作模式。如果不传则会根据负载均衡实例所在的区域设定默认值。默认值可能为DNAT、FNAT。
     Kind *string `json:"kind,omitempty"`
 
 }
@@ -513,6 +516,9 @@ type DescribeLoadBalancersRequest struct {
     // Tags 根据标签进行搜索。 最长不得超过20个标签。
     Tags []*Tag `json:"tags,omitempty"`
 
+    // SecurityGroupId 负载均衡实例绑定的安全组ID。
+    SecurityGroupId *string `json:"securityGroupId,omitempty"`
+
 }
 
 // Tag 描述一个标签键值对的信息。
@@ -562,6 +568,9 @@ type LoadBalancer struct {
     // PrivateIpAddress 负载均衡实例的内网 VIP 列表。
     PrivateIpAddress []string `json:"privateIpAddress,omitempty"`
 
+    // HealthCheckPrivateIps 负载均衡实例的健康检查内网IP列表。
+    HealthCheckPrivateIps []string `json:"healthCheckPrivateIps,omitempty"`
+
     // ListenerCount 负载均衡器下监听器的数量。
     ListenerCount *int64 `json:"listenerCount,omitempty"`
 
@@ -573,6 +582,9 @@ type LoadBalancer struct {
 
     // Tags 该负载均衡器关联的标签。
     Tags *Tags `json:"tags,omitempty"`
+
+    // SecurityGroupId 负载均衡实例绑定的安全组ID。
+    SecurityGroupId *string `json:"securityGroupId,omitempty"`
 
 }
 
@@ -679,6 +691,15 @@ type CreateLoadBalancerRequest struct {
 
     // Tags 创建负载均衡时关联的标签。注意：·关联`标签键`不能重复。
     Tags *TagAssociation `json:"tags,omitempty"`
+
+    // SubnetId 健康检查内网源IP所属的subnetId。可以通过[DescribeSubnets](../../../compute/zec/vpc-network/describesubnets.md)接口获取。
+    SubnetId *string `json:"subnetId,omitempty"`
+
+    // HealthCheckPrivateIps 健康检查内网IP地址。指定`subnetId`时，此参数必填，且数量必须为2。不指定`subnetId`时，此参数无效。不填时系统将自动分配。
+    HealthCheckPrivateIps []string `json:"healthCheckPrivateIps,omitempty"`
+
+    // SecurityGroupId 负载均衡实例绑定的安全组ID。可以通过[DescribeSecurityGroups](../../../compute/zec/security-group/describesecuritygroups.md)接口获取。
+    SecurityGroupId *string `json:"securityGroupId,omitempty"`
 
 }
 
@@ -883,6 +904,82 @@ type DescribeLoadBalancerMonitorDataResponse struct {
     RequestId *string `json:"requestId,omitempty"`
 
     Response *DescribeLoadBalancerMonitorDataResponseParams `json:"response,omitempty"`
+
+}
+
+type SetSecurityGroupForLoadBalancersRequest struct {
+    *common.BaseRequest
+
+    // SecurityGroupId 要更换的安全组Id。可以通过[DescribeSecurityGroups](../../../compute/zec/security-group/describesecuritygroups.md)接口获取。
+    SecurityGroupId *string `json:"securityGroupId,omitempty"`
+
+    // LoadBalancerIds 要更换安全组的负载均衡ID集合。
+    LoadBalancerIds []string `json:"loadBalancerIds,omitempty"`
+
+}
+
+type SetSecurityGroupForLoadBalancersResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // FailedLoadBalancerIds 更换失败的负载均衡实例集合。
+    FailedLoadBalancerIds []string `json:"failedLoadBalancerIds,omitempty"`
+
+}
+
+type SetSecurityGroupForLoadBalancersResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *SetSecurityGroupForLoadBalancersResponseParams `json:"response,omitempty"`
+
+}
+
+type AddLoadBalancersPrivateIpsRequest struct {
+    *common.BaseRequest
+
+    // PrivateIps 要加入的内网Ip。单次最多20个。
+    PrivateIps []string `json:"privateIps,omitempty"`
+
+    // LoadBalancerId 负载均衡ID。
+    LoadBalancerId *string `json:"loadBalancerId,omitempty"`
+
+    // SubnetId 作为内网ip的subnetId。可以通过[DescribeSubnets](../../../compute/zec/vpc-network/describesubnets.md)接口获取。
+    SubnetId *string `json:"subnetId,omitempty"`
+
+}
+
+type AddLoadBalancersPrivateIpsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type DeleteLoadBalancersPrivateIpsRequest struct {
+    *common.BaseRequest
+
+    // PrivateIps 要删除的内网IP集合。
+    PrivateIps []string `json:"privateIps,omitempty"`
+
+    // LoadBalancerId 负载均衡ID。
+    LoadBalancerId *string `json:"loadBalancerId,omitempty"`
+
+}
+
+type DeleteLoadBalancersPrivateIpsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
 
 }
 

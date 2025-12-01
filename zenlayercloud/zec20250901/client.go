@@ -145,7 +145,7 @@ func NewAttachDisksResponse() (response *AttachDisksResponse) {
 	return
 }
 
-// AttachDisks 云硬盘挂在到实例上。
+// AttachDisks 云硬盘挂载到实例上。
 func (c *Client) AttachDisks(request *AttachDisksRequest) (response *AttachDisksResponse, err error) {
 	response = NewAttachDisksResponse()
 	err = c.ApiCall(request, response)
@@ -2356,6 +2356,259 @@ func NewRenewCidrResponse() (response *RenewCidrResponse) {
 // RenewCidr 将一个处于回收站的CIDR地址段恢复回正常。
 func (c *Client) RenewCidr(request *RenewCidrRequest) (response *RenewCidrResponse, err error) {
 	response = NewRenewCidrResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteCidrsRequest() (request *DeleteCidrsRequest) {
+	request = &DeleteCidrsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteCidrs")
+
+	return
+}
+
+func NewDeleteCidrsResponse() (response *DeleteCidrsResponse) {
+	response = &DeleteCidrsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeleteCidrs 删除一个或多个CIDR地址段。
+func (c *Client) DeleteCidrs(request *DeleteCidrsRequest) (response *DeleteCidrsResponse, err error) {
+	response = NewDeleteCidrsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewCreateCrossRegionBandwidthRequest() (request *CreateCrossRegionBandwidthRequest) {
+	request = &CreateCrossRegionBandwidthRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateCrossRegionBandwidth")
+
+	return
+}
+
+func NewCreateCrossRegionBandwidthResponse() (response *CreateCrossRegionBandwidthResponse) {
+	response = &CreateCrossRegionBandwidthResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CreateCrossRegionBandwidth 创建内网跨区域带宽。
+func (c *Client) CreateCrossRegionBandwidth(request *CreateCrossRegionBandwidthRequest) (response *CreateCrossRegionBandwidthResponse, err error) {
+	response = NewCreateCrossRegionBandwidthResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewInquiryPriceCreateCrossRegionBandwidthRequest() (request *InquiryPriceCreateCrossRegionBandwidthRequest) {
+	request = &InquiryPriceCreateCrossRegionBandwidthRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryPriceCreateCrossRegionBandwidth")
+
+	return
+}
+
+func NewInquiryPriceCreateCrossRegionBandwidthResponse() (response *InquiryPriceCreateCrossRegionBandwidthResponse) {
+	response = &InquiryPriceCreateCrossRegionBandwidthResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// InquiryPriceCreateCrossRegionBandwidth 创建内网跨区域带宽询价。
+func (c *Client) InquiryPriceCreateCrossRegionBandwidth(request *InquiryPriceCreateCrossRegionBandwidthRequest) (response *InquiryPriceCreateCrossRegionBandwidthResponse, err error) {
+	response = NewInquiryPriceCreateCrossRegionBandwidthResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyCrossRegionBandwidthAttributeRequest() (request *ModifyCrossRegionBandwidthAttributeRequest) {
+	request = &ModifyCrossRegionBandwidthAttributeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyCrossRegionBandwidthAttribute")
+
+	return
+}
+
+func NewModifyCrossRegionBandwidthAttributeResponse() (response *ModifyCrossRegionBandwidthAttributeResponse) {
+	response = &ModifyCrossRegionBandwidthAttributeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyCrossRegionBandwidthAttribute 修改内网跨区域带宽属性（名称）。
+func (c *Client) ModifyCrossRegionBandwidthAttribute(request *ModifyCrossRegionBandwidthAttributeRequest) (response *ModifyCrossRegionBandwidthAttributeResponse, err error) {
+	response = NewModifyCrossRegionBandwidthAttributeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteCrossRegionBandwidthRequest() (request *DeleteCrossRegionBandwidthRequest) {
+	request = &DeleteCrossRegionBandwidthRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteCrossRegionBandwidth")
+
+	return
+}
+
+func NewDeleteCrossRegionBandwidthResponse() (response *DeleteCrossRegionBandwidthResponse) {
+	response = &DeleteCrossRegionBandwidthResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeleteCrossRegionBandwidth 删除内网跨区域带宽。
+func (c *Client) DeleteCrossRegionBandwidth(request *DeleteCrossRegionBandwidthRequest) (response *DeleteCrossRegionBandwidthResponse, err error) {
+	response = NewDeleteCrossRegionBandwidthResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeCrossRegionBandwidthMonitorDataRequest() (request *DescribeCrossRegionBandwidthMonitorDataRequest) {
+	request = &DescribeCrossRegionBandwidthMonitorDataRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeCrossRegionBandwidthMonitorData")
+
+	return
+}
+
+func NewDescribeCrossRegionBandwidthMonitorDataResponse() (response *DescribeCrossRegionBandwidthMonitorDataResponse) {
+	response = &DescribeCrossRegionBandwidthMonitorDataResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeCrossRegionBandwidthMonitorData 查询内网跨区域带宽监控指标数据。
+func (c *Client) DescribeCrossRegionBandwidthMonitorData(request *DescribeCrossRegionBandwidthMonitorDataRequest) (response *DescribeCrossRegionBandwidthMonitorDataResponse, err error) {
+	response = NewDescribeCrossRegionBandwidthMonitorDataResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewInquiryPriceModifyCrossRegionBandwidthRequest() (request *InquiryPriceModifyCrossRegionBandwidthRequest) {
+	request = &InquiryPriceModifyCrossRegionBandwidthRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryPriceModifyCrossRegionBandwidth")
+
+	return
+}
+
+func NewInquiryPriceModifyCrossRegionBandwidthResponse() (response *InquiryPriceModifyCrossRegionBandwidthResponse) {
+	response = &InquiryPriceModifyCrossRegionBandwidthResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// InquiryPriceModifyCrossRegionBandwidth 调整内网跨区域带宽询价。
+func (c *Client) InquiryPriceModifyCrossRegionBandwidth(request *InquiryPriceModifyCrossRegionBandwidthRequest) (response *InquiryPriceModifyCrossRegionBandwidthResponse, err error) {
+	response = NewInquiryPriceModifyCrossRegionBandwidthResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeCrossRegionBandwidthRegionsRequest() (request *DescribeCrossRegionBandwidthRegionsRequest) {
+	request = &DescribeCrossRegionBandwidthRegionsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeCrossRegionBandwidthRegions")
+
+	return
+}
+
+func NewDescribeCrossRegionBandwidthRegionsResponse() (response *DescribeCrossRegionBandwidthRegionsResponse) {
+	response = &DescribeCrossRegionBandwidthRegionsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeCrossRegionBandwidthRegions 查询支持售卖内网跨区域带宽的区域信息。
+func (c *Client) DescribeCrossRegionBandwidthRegions(request *DescribeCrossRegionBandwidthRegionsRequest) (response *DescribeCrossRegionBandwidthRegionsResponse, err error) {
+	response = NewDescribeCrossRegionBandwidthRegionsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyCrossRegionBandwidthRequest() (request *ModifyCrossRegionBandwidthRequest) {
+	request = &ModifyCrossRegionBandwidthRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyCrossRegionBandwidth")
+
+	return
+}
+
+func NewModifyCrossRegionBandwidthResponse() (response *ModifyCrossRegionBandwidthResponse) {
+	response = &ModifyCrossRegionBandwidthResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyCrossRegionBandwidth 调整内网跨区域带宽。
+func (c *Client) ModifyCrossRegionBandwidth(request *ModifyCrossRegionBandwidthRequest) (response *ModifyCrossRegionBandwidthResponse, err error) {
+	response = NewModifyCrossRegionBandwidthResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewRenewCrossRegionBandwidthRequest() (request *RenewCrossRegionBandwidthRequest) {
+	request = &RenewCrossRegionBandwidthRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "RenewCrossRegionBandwidth")
+
+	return
+}
+
+func NewRenewCrossRegionBandwidthResponse() (response *RenewCrossRegionBandwidthResponse) {
+	response = &RenewCrossRegionBandwidthResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// RenewCrossRegionBandwidth 恢复内网跨区域带宽。
+func (c *Client) RenewCrossRegionBandwidth(request *RenewCrossRegionBandwidthRequest) (response *RenewCrossRegionBandwidthResponse, err error) {
+	response = NewRenewCrossRegionBandwidthResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeCrossRegionBandwidthRequest() (request *DescribeCrossRegionBandwidthRequest) {
+	request = &DescribeCrossRegionBandwidthRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeCrossRegionBandwidth")
+
+	return
+}
+
+func NewDescribeCrossRegionBandwidthResponse() (response *DescribeCrossRegionBandwidthResponse) {
+	response = &DescribeCrossRegionBandwidthResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeCrossRegionBandwidth 查询内网跨区域带宽列表。
+func (c *Client) DescribeCrossRegionBandwidth(request *DescribeCrossRegionBandwidthRequest) (response *DescribeCrossRegionBandwidthResponse, err error) {
+	response = NewDescribeCrossRegionBandwidthResponse()
 	err = c.ApiCall(request, response)
 	return
 }

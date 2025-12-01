@@ -428,3 +428,72 @@ func (c *Client) DescribeLoadBalancerMonitorData(request *DescribeLoadBalancerMo
 	return
 }
 
+func NewSetSecurityGroupForLoadBalancersRequest() (request *SetSecurityGroupForLoadBalancersRequest) {
+	request = &SetSecurityGroupForLoadBalancersRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "SetSecurityGroupForLoadBalancers")
+
+	return
+}
+
+func NewSetSecurityGroupForLoadBalancersResponse() (response *SetSecurityGroupForLoadBalancersResponse) {
+	response = &SetSecurityGroupForLoadBalancersResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// SetSecurityGroupForLoadBalancers 批量更换负载器均衡的安全组。
+func (c *Client) SetSecurityGroupForLoadBalancers(request *SetSecurityGroupForLoadBalancersRequest) (response *SetSecurityGroupForLoadBalancersResponse, err error) {
+	response = NewSetSecurityGroupForLoadBalancersResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewAddLoadBalancersPrivateIpsRequest() (request *AddLoadBalancersPrivateIpsRequest) {
+	request = &AddLoadBalancersPrivateIpsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "AddLoadBalancersPrivateIps")
+
+	return
+}
+
+func NewAddLoadBalancersPrivateIpsResponse() (response *AddLoadBalancersPrivateIpsResponse) {
+	response = &AddLoadBalancersPrivateIpsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// AddLoadBalancersPrivateIps 为负载均衡器实例添加内网IP。
+func (c *Client) AddLoadBalancersPrivateIps(request *AddLoadBalancersPrivateIpsRequest) (response *AddLoadBalancersPrivateIpsResponse, err error) {
+	response = NewAddLoadBalancersPrivateIpsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteLoadBalancersPrivateIpsRequest() (request *DeleteLoadBalancersPrivateIpsRequest) {
+	request = &DeleteLoadBalancersPrivateIpsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteLoadBalancersPrivateIps")
+
+	return
+}
+
+func NewDeleteLoadBalancersPrivateIpsResponse() (response *DeleteLoadBalancersPrivateIpsResponse) {
+	response = &DeleteLoadBalancersPrivateIpsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeleteLoadBalancersPrivateIps 为负载均衡器实例删除内网IP。
+func (c *Client) DeleteLoadBalancersPrivateIps(request *DeleteLoadBalancersPrivateIpsRequest) (response *DeleteLoadBalancersPrivateIpsResponse, err error) {
+	response = NewDeleteLoadBalancersPrivateIpsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+

@@ -36,4 +36,7 @@ const (
 
 	// Invalid.From.Time.Must.Before.To.Time
 	INVALID_FROM_TIME_MUST_BEFORE_TO_TIME = "Invalid.From.Time.Must.Before.To.Time"
+
+	// Invalid.Time.Range.Exceed
+	INVALID_TIME_RANGE_EXCEED = "Invalid.Time.Range.Exceed"
 )

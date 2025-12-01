@@ -289,7 +289,7 @@ type CreateDisksRequest struct {
     // DiskAmount 需要创建的云硬盘的数量。
     DiskAmount *int `json:"diskAmount,omitempty"`
 
-    // InstanceId 云硬盘挂在的实例ID。
+    // InstanceId 云硬盘挂载的实例ID。
     InstanceId *string `json:"instanceId,omitempty"`
 
     // ResourceGroupId 云硬盘所在的资源组ID。如不指定则放入默认资源组。
@@ -1027,6 +1027,9 @@ type DescribeSubnetsRequest struct {
 
     // PageNum 返回的分页数。
     PageNum *int `json:"pageNum,omitempty"`
+
+    // VpcIds VPC的ID集合。
+    VpcIds []string `json:"vpcIds,omitempty"`
 
 }
 
@@ -2117,6 +2120,9 @@ type DescribeImagesRequest struct {
     // ImageType 镜像类型。
     ImageType *string `json:"imageType,omitempty"`
 
+    // ImageSource 镜像来源。
+    ImageSource *string `json:"imageSource,omitempty"`
+
     // OsType 操作系统类型。
     OsType *string `json:"osType,omitempty"`
 
@@ -2161,6 +2167,9 @@ type Image struct {
 
     // ImageType 镜像的类型。
     ImageType *string `json:"imageType,omitempty"`
+
+    // ImageSource 镜像的来源。
+    ImageSource *string `json:"imageSource,omitempty"`
 
     // ImageSize 镜像的大小。
     ImageSize *string `json:"imageSize,omitempty"`
@@ -2821,6 +2830,9 @@ type SecurityGroupInfo struct {
     // NatIdList 关联安全组的NAT网关ID列表。
     NatIdList []string `json:"natIdList,omitempty"`
 
+    // LoadBalancerIdList 关联安全组的负载均衡ID列表。
+    LoadBalancerIdList []string `json:"loadBalancerIdList,omitempty"`
+
 }
 
 type DescribeSecurityGroupsResponse struct {
@@ -3165,6 +3177,9 @@ type DescribeEipsRequest struct {
 
     // Tags 根据标签进行搜索。 最长不得超过20个标签。
     Tags []*Tag `json:"tags,omitempty"`
+
+    // InternetChargeType 按照 EIP 的网络计费方式过滤。
+    InternetChargeType *string `json:"internetChargeType,omitempty"`
 
 }
 
@@ -4518,6 +4533,443 @@ type RenewCidrResponse struct {
 
 }
 
+type DeleteCidrsRequest struct {
+    *common.BaseRequest
+
+    // CidrIds 要删除的cidrId列表。
+    CidrIds []string `json:"cidrIds,omitempty"`
+
+}
+
+// DeleteCidrsResponseParams 删除CIDR的响应结果。
+type DeleteCidrsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // FailedCidrIds 操作失败的CIDR ID列表。
+    FailedCidrIds []string `json:"failedCidrIds,omitempty"`
+
+}
+
+type DeleteCidrsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DeleteCidrsResponseParams `json:"response,omitempty"`
+
+}
+
+// CreateCrossRegionBandwidthRequest 创建内网跨区域带宽请求参数。
+type CreateCrossRegionBandwidthRequest struct {
+    *common.BaseRequest
+
+    // VpcId 创建内网跨区域带宽所在的VPC ID。
+    VpcId *string `json:"vpcId,omitempty"`
+
+    // InternetChargeType 网络计费类型。
+    InternetChargeType *string `json:"internetChargeType,omitempty"`
+
+    // CrossRegionBandwidthName 内网跨区域带宽的名称。范围2到63个字符。仅支持输入字母、数字、-/_和英文句点(.)。且必须以数字或字母开头和结尾。
+    CrossRegionBandwidthName *string `json:"crossRegionBandwidthName,omitempty"`
+
+    // MarketingInfo 市场营销的相关选项。
+    MarketingInfo *MarketingInfo `json:"marketingInfo,omitempty"`
+
+    // RegionA 其中一端的区域连接点（A）。
+    RegionA *string `json:"regionA,omitempty"`
+
+    // RegionZ 另一端的区域连接点（Z）。
+    RegionZ *string `json:"regionZ,omitempty"`
+
+    // Bandwidth 带宽|保底带宽。单位：Mbps。
+    Bandwidth *int `json:"bandwidth,omitempty"`
+
+    // BandwidthCap 突发带宽。单位：Mbps。当且仅当internetChargeType为`ByInstanceBandwidth95`时此字段必填。
+    BandwidthCap *int `json:"bandwidthCap,omitempty"`
+
+}
+
+// CreateCrossRegionBandwidthResponseParams 创建内网跨区域带宽响应结果。
+type CreateCrossRegionBandwidthResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // OrderNumber 下单编号。
+    OrderNumber *string `json:"orderNumber,omitempty"`
+
+    // CrossRegionBandwidthId 内网跨区域带宽唯一ID。
+    CrossRegionBandwidthId *string `json:"crossRegionBandwidthId,omitempty"`
+
+}
+
+type CreateCrossRegionBandwidthResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *CreateCrossRegionBandwidthResponseParams `json:"response,omitempty"`
+
+}
+
+// InquiryPriceCreateCrossRegionBandwidthRequest 创建内网跨地域带宽询价请求参数
+type InquiryPriceCreateCrossRegionBandwidthRequest struct {
+    *common.BaseRequest
+
+    // InternetChargeType 网络计费类型。
+    InternetChargeType *string `json:"internetChargeType,omitempty"`
+
+    // MarketingInfo 市场营销的相关选项。
+    MarketingInfo *MarketingInfo `json:"marketingInfo,omitempty"`
+
+    // RegionA 其中一端的区域连接点（A）。
+    RegionA *string `json:"regionA,omitempty"`
+
+    // RegionZ 另一端的区域连接点（Z）。
+    RegionZ *string `json:"regionZ,omitempty"`
+
+    // Bandwidth 带宽|保底带宽。单位：Mbps。
+    Bandwidth *int `json:"bandwidth,omitempty"`
+
+}
+
+// InquiryPriceCreateCrossRegionBandwidthResponseParams 内网跨区域带宽的询价响应值。
+type InquiryPriceCreateCrossRegionBandwidthResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // CrossRegionBandwidthPrice 内网跨区域带宽的价格。
+    CrossRegionBandwidthPrice *PriceItem `json:"crossRegionBandwidthPrice,omitempty"`
+
+}
+
+type InquiryPriceCreateCrossRegionBandwidthResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *InquiryPriceCreateCrossRegionBandwidthResponseParams `json:"response,omitempty"`
+
+}
+
+// ModifyCrossRegionBandwidthAttributeRequest 修改内网跨区域带宽属性请求参数
+type ModifyCrossRegionBandwidthAttributeRequest struct {
+    *common.BaseRequest
+
+    // CrossRegionBandwidthIds 要修改的内网跨区域带宽ID集合。
+    CrossRegionBandwidthIds []string `json:"crossRegionBandwidthIds,omitempty"`
+
+    // CrossRegionBandwidthName 内网跨区域带宽的名称。范围2到63个字符。仅支持输入字母、数字、-/_和英文句点(.)。且必须以数字或字母开头和结尾。
+    CrossRegionBandwidthName *string `json:"crossRegionBandwidthName,omitempty"`
+
+}
+
+type ModifyCrossRegionBandwidthAttributeResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// DeleteCrossRegionBandwidthRequest 
+type DeleteCrossRegionBandwidthRequest struct {
+    *common.BaseRequest
+
+    // CrossRegionBandwidthId 要删除内网跨区域带宽ID。
+    CrossRegionBandwidthId *string `json:"crossRegionBandwidthId,omitempty"`
+
+}
+
+type DeleteCrossRegionBandwidthResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// DescribeCrossRegionBandwidthMonitorDataRequest 查询内网跨区域带宽监控指标数据请求。
+type DescribeCrossRegionBandwidthMonitorDataRequest struct {
+    *common.BaseRequest
+
+    // CrossRegionBandwidthId 要查询的内网跨区域带宽ID。
+    CrossRegionBandwidthId *string `json:"crossRegionBandwidthId,omitempty"`
+
+    // MetricType 内网跨区域带宽监控指标类型。
+    MetricType *string `json:"metricType,omitempty"`
+
+    // StartTime 查询开始时间。时间格式：yyyy-MM-ddTHH:mm:ssZ。
+    StartTime *string `json:"startTime,omitempty"`
+
+    // EndTime 查询结束时间。时间格式：yyyy-MM-ddTHH:mm:ssZ。
+    EndTime *string `json:"endTime,omitempty"`
+
+}
+
+// DescribeCrossRegionBandwidthMonitorDataResponseParams 查询内网跨区域带宽监控指标数据响应。
+type DescribeCrossRegionBandwidthMonitorDataResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // InMaxValue 入方向最大值。
+    InMaxValue *float64 `json:"inMaxValue,omitempty"`
+
+    // InAvgValue 入方向平均值。
+    InAvgValue *float64 `json:"inAvgValue,omitempty"`
+
+    // InMinValue 入方向最小值。
+    InMinValue *float64 `json:"inMinValue,omitempty"`
+
+    // InTotalValue 入方向总和值。
+    InTotalValue *float64 `json:"inTotalValue,omitempty"`
+
+    // OutMaxValue 出方向最大值。
+    OutMaxValue *float64 `json:"outMaxValue,omitempty"`
+
+    // OutAvgValue 出方向平均值。
+    OutAvgValue *float64 `json:"outAvgValue,omitempty"`
+
+    // OutMinValue 出方向最小值。
+    OutMinValue *float64 `json:"outMinValue,omitempty"`
+
+    // OutTotalValue 出方向总和值。
+    OutTotalValue *float64 `json:"outTotalValue,omitempty"`
+
+    // DataList 监控数据集合。
+    DataList []*CrossRegionBandwidthMetricValue `json:"dataList,omitempty"`
+
+}
+
+// CrossRegionBandwidthMetricValue 描述内网跨区域带宽的监控指标数据。
+type CrossRegionBandwidthMetricValue struct {
+
+    // Time 数据点时间。
+    Time *string `json:"time,omitempty"`
+
+    // InValue 入方向值。
+    InValue *float64 `json:"inValue,omitempty"`
+
+    // OutValue 入方向值。
+    OutValue *float64 `json:"outValue,omitempty"`
+
+}
+
+type DescribeCrossRegionBandwidthMonitorDataResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeCrossRegionBandwidthMonitorDataResponseParams `json:"response,omitempty"`
+
+}
+
+// InquiryPriceModifyCrossRegionBandwidthRequest 修改内网跨区域带宽询价请求参数
+type InquiryPriceModifyCrossRegionBandwidthRequest struct {
+    *common.BaseRequest
+
+    // CrossRegionBandwidthId 要修改的内网跨区域带宽ID。
+    CrossRegionBandwidthId *string `json:"crossRegionBandwidthId,omitempty"`
+
+    // Bandwidth 带宽|保底带宽。单位：Mbps。
+    Bandwidth *int `json:"bandwidth,omitempty"`
+
+}
+
+// InquiryPriceModifyCrossRegionBandwidthResponseParams 变更内网跨区域带宽的询价响应值。
+type InquiryPriceModifyCrossRegionBandwidthResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // CrossRegionBandwidthPrice 内网跨区域带宽的价格。
+    CrossRegionBandwidthPrice *PriceItem `json:"crossRegionBandwidthPrice,omitempty"`
+
+}
+
+type InquiryPriceModifyCrossRegionBandwidthResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *InquiryPriceModifyCrossRegionBandwidthResponseParams `json:"response,omitempty"`
+
+}
+
+type DescribeCrossRegionBandwidthRegionsRequest struct {
+    *common.BaseRequest
+
+}
+
+// DescribeCrossRegionBandwidthRegionsResponseParams 查询支持售卖内网跨区域带宽的区域信息响应信息。
+type DescribeCrossRegionBandwidthRegionsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // RegionIds 支持售卖内网跨区域带宽的节点ID集合。
+    RegionIds []string `json:"regionIds,omitempty"`
+
+}
+
+type DescribeCrossRegionBandwidthRegionsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeCrossRegionBandwidthRegionsResponseParams `json:"response,omitempty"`
+
+}
+
+// ModifyCrossRegionBandwidthRequest 调整内网跨区域带宽请求参数
+type ModifyCrossRegionBandwidthRequest struct {
+    *common.BaseRequest
+
+    // CrossRegionBandwidthId 要调整的内网跨区域带宽ID。
+    CrossRegionBandwidthId *string `json:"crossRegionBandwidthId,omitempty"`
+
+    // Bandwidth 带宽|保底带宽。单位：Mbps。
+    Bandwidth *int `json:"bandwidth,omitempty"`
+
+    // BandwidthCap 突发带宽。单位：Mbps。
+    BandwidthCap *int `json:"bandwidthCap,omitempty"`
+
+}
+
+type ModifyCrossRegionBandwidthResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// RenewCrossRegionBandwidthRequest 恢复内网跨区域带宽请求参数。
+type RenewCrossRegionBandwidthRequest struct {
+    *common.BaseRequest
+
+    // CrossRegionBandwidthId 要恢复的内网跨区域带宽ID。
+    CrossRegionBandwidthId *string `json:"crossRegionBandwidthId,omitempty"`
+
+}
+
+type RenewCrossRegionBandwidthResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// DescribeCrossRegionBandwidthRequest 查询内网跨区域带宽列表请求参数。
+type DescribeCrossRegionBandwidthRequest struct {
+    *common.BaseRequest
+
+    // CrossRegionBandwidthIds 按照唯一ID过滤。
+    CrossRegionBandwidthIds []string `json:"crossRegionBandwidthIds,omitempty"`
+
+    // CrossRegionBandwidthName 按照显示名称过滤，该字段支持模糊匹配。
+    CrossRegionBandwidthName *string `json:"crossRegionBandwidthName,omitempty"`
+
+    // VpcId 按照所属的VPC的ID过滤。
+    VpcId *string `json:"vpcId,omitempty"`
+
+    // RegionA 按照其中一端的区域连接点（A）过滤。
+    RegionA *string `json:"regionA,omitempty"`
+
+    // RegionZ 按照另一端的区域连接点（Z）过滤。
+    RegionZ *string `json:"regionZ,omitempty"`
+
+    // Status 按照状态过滤。
+    Status *string `json:"status,omitempty"`
+
+    // PageSize 返回的分页大小。默认为20，最大为1000。
+    PageSize *int `json:"pageSize,omitempty"`
+
+    // PageNum 返回的分页页码。默认为1。
+    PageNum *int `json:"pageNum,omitempty"`
+
+    // ResourceGroupId 根据资源组ID过滤。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+}
+
+// DescribeCrossRegionBandwidthResponseParams 查询内网跨区域带宽列表响应。
+type DescribeCrossRegionBandwidthResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // TotalCount 匹配筛选条件的内网跨区域带宽的总数量。
+    TotalCount *int `json:"totalCount,omitempty"`
+
+    // DataSet 返回分页的内网跨区域带宽的集合数据。
+    DataSet []*CrossRegionBandwidthInfo `json:"dataSet,omitempty"`
+
+}
+
+// CrossRegionBandwidthInfo 描述内网跨区域带宽的基本信息。
+type CrossRegionBandwidthInfo struct {
+
+    // CrossRegionBandwidthId 内网跨区域带宽的唯一ID。
+    CrossRegionBandwidthId *string `json:"crossRegionBandwidthId,omitempty"`
+
+    // CrossRegionBandwidthName 内网跨区域带宽的名称。
+    CrossRegionBandwidthName *string `json:"crossRegionBandwidthName,omitempty"`
+
+    // Status 内网跨区域带宽的状态。
+    Status *string `json:"status,omitempty"`
+
+    // VpcId 内网跨区域带宽所属的VPC ID。
+    VpcId *string `json:"vpcId,omitempty"`
+
+    // RegionA 内网跨区域带宽的其中一端的区域连接点（A）。
+    RegionA *string `json:"regionA,omitempty"`
+
+    // RegionZ 内网跨区域带宽的另一端的区域连接点（Z）。
+    RegionZ *string `json:"regionZ,omitempty"`
+
+    // Bandwidth 内网跨区域带宽的带宽|保底带宽。
+    Bandwidth *int `json:"bandwidth,omitempty"`
+
+    // BandwidthCap 内网跨区域带宽的突发带宽。该字段可能为null。
+    BandwidthCap *int `json:"bandwidthCap,omitempty"`
+
+    // CreateTime 内网跨区域带宽的创建时间。
+    CreateTime *string `json:"createTime,omitempty"`
+
+    // InternetChargeType 内网跨区域带宽的网络模型。
+    InternetChargeType *string `json:"internetChargeType,omitempty"`
+
+    // ExpiredTime 内网跨区域带宽的到期时间。该字段可能为null。
+    ExpiredTime *string `json:"expiredTime,omitempty"`
+
+    // ResourceGroupId 内网跨区域带宽的所属的资源组。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // ResourceGroupName 内网跨区域带宽的所属资源组的名称。
+    ResourceGroupName *string `json:"resourceGroupName,omitempty"`
+
+}
+
+type DescribeCrossRegionBandwidthResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeCrossRegionBandwidthResponseParams `json:"response,omitempty"`
+
+}
+
 // CreateBorderGatewayRequest 创建边界网关的请求参数。
 type CreateBorderGatewayRequest struct {
     *common.BaseRequest
@@ -5049,7 +5501,7 @@ type CreateZecInstancesRequest struct {
     // ZoneId 可用区ID。
     ZoneId *string `json:"zoneId,omitempty"`
 
-    // ImageId 指定有效的镜像ID。可以通过[DescribeImages](describeimages.md)取返回信息中的imageId字段。
+    // ImageId 指定有效的镜像ID。可以通过[DescribeImages](../image/describeimages.md)取返回信息中的imageId字段。
     ImageId *string `json:"imageId,omitempty"`
 
     // TimeZone 设置操作系统的时区。
@@ -5061,10 +5513,10 @@ type CreateZecInstancesRequest struct {
     // InstanceName 实例显示名称。范围2到63个字符。仅支持输入字母、数字、-和英文句点(.)。且必须以数字或字母开头和结尾。购买多台实例，可以指定模式串[begin_number,bits]。begin_number：有序数值的起始值，取值支持[0,99999]，默认值为0。bits：有序数值所占的位数，取值支持[1,6]，默认值为6。注意模式串中不得有空格。购买1台时，例如server-[3,3]实例显示为server003；购买2台时，实例显示名分别为server003，server004。支持指定多个模式串，如server-[3,3]-[1,1]。默认值为 instance。
     InstanceName *string `json:"instanceName,omitempty"`
 
-    // Password 实例的密码。与keyId必须指定其中的一种。必须包含以下3种格式的字符：大小写字母: [a-zA-Z]数字: 0-9特殊字符: ~!@$^*-_=+。
+    // Password 实例的密码。与keyId必须指定其中的一种（Windows和Generic类型的镜像无法指定密码和key）。必须包含以下3种格式的字符：大小写字母: [a-zA-Z]数字: 0-9特殊字符: ~!@$^*-_=+。
     Password *string `json:"password,omitempty"`
 
-    // KeyId 密钥ID。与password必须指定其中的一种。可调用接口DescribeKeyPairs来获得最新的密钥对信息。关联密钥后，就可以通过对应的私钥来访问实例；密钥与密码不能同时指定，同时Windows操作系统不支持指定密钥。示例值：key-YWD2QFOl。
+    // KeyId 密钥ID。与password必须指定其中的一种（Windows和Generic类型的镜像无法指定密码和key）。可调用接口DescribeKeyPairs来获得最新的密钥对信息。关联密钥后，就可以通过对应的私钥来访问实例；密钥与密码不能同时指定，同时Windows操作系统不支持指定密钥。示例值：key-YWD2QFOl。
     KeyId *string `json:"keyId,omitempty"`
 
     // NicNetworkType 网卡模式。
@@ -5256,7 +5708,7 @@ type InstanceInfo struct {
     // SystemDisk 系统盘信息。
     SystemDisk *SystemDisk `json:"systemDisk,omitempty"`
 
-    // DataDisks 实例上挂在的数据盘信息。
+    // DataDisks 实例上挂载的数据盘信息。
     DataDisks []*DataDisk `json:"dataDisks,omitempty"`
 
     // PublicIpAddresses 实例上公网IPv4列表。
@@ -5506,10 +5958,10 @@ type ResetInstanceRequest struct {
     // InstanceId 要重装的实例ID。
     InstanceId *string `json:"instanceId,omitempty"`
 
-    // Password 实例的新密码。与keyId不能同时指定。必须包含以下3种格式的字符：大小写字母: [a-zA-Z]数字: 0-9特殊字符: ~!@$^*-_=+。
+    // Password 实例的新密码。与keyId必须指定其中的一种（Windows和Generic类型的镜像无法指定密码和key）。必须包含以下3种格式的字符：大小写字母: [a-zA-Z]数字: 0-9特殊字符: ~!@$^*-_=+。
     Password *string `json:"password,omitempty"`
 
-    // KeyId 密钥ID。与password必须指定其中的一种。可调用接口DescribeKeyPairs来获得最新的密钥对信息。关联密钥后，就可以通过对应的私钥来访问实例；密钥与密码不能同时指定，同时Windows操作系统不支持指定密钥。示例值：key-YWD2QFOl。
+    // KeyId 密钥ID。与password必须指定其中的一种（Windows和Generic类型的镜像无法指定密码和key）。可调用接口DescribeKeyPairs来获得最新的密钥对信息。关联密钥后，就可以通过对应的私钥来访问实例；密钥与密码不能同时指定，同时Windows操作系统不支持指定密钥。示例值：key-YWD2QFOl。
     KeyId *string `json:"keyId,omitempty"`
 
     // ImageId 指定重装的的镜像ID。可以通过[DescribeImages](describeimages.md)取返回信息中的`imageId`字段。如果不指定，会根据当前镜像进行重装。

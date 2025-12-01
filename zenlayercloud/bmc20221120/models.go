@@ -351,6 +351,14 @@ type InstanceType struct {
 	// Quantity of CPU cores.
 	CpuCoreCount int `json:"cpuCoreCount,omitempty"`
 
+   	CpuDetail string `json:"cpuDetail,omitempty"`
+
+   	CpuCores int `json:"cpuCores,omitempty"`
+
+   	CpuThreads int `json:"cpuThreads,omitempty"`
+
+   	BaseFrequency string `json:"baseFrequency,omitempty"`
+
 	// Memory size.
 	// Unit: GB.
 	MemorySize int `json:"memorySize,omitempty"`
