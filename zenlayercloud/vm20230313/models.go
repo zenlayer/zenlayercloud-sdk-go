@@ -874,6 +874,8 @@ type DescribeInstancesRequest struct {
 	PrivateIpAddresses []string `json:"privateIpAddresses,omitempty"`
 	PageSize           int      `json:"pageSize,omitempty"`
 	PageNum            int      `json:"pageNum,omitempty"`
+    TagKeys            []string `json:"tagKeys,omitempty"`
+    Tags               []*Tag `json:"tags,omitempty"`
 }
 
 type DescribeInstancesResponse struct {
@@ -917,6 +919,7 @@ type InstanceInfo struct {
 	AutoRenew               bool        `json:"autoRenew,omitempty"`
 	KeyId                   string      `json:"keyId,omitempty"`
 	Nic                     *Nic        `json:"nic,omitempty"`
+    Tags                    *Tags       `json:"tags,omitempty"`
 }
 
 type SystemDisk struct {
@@ -1007,8 +1010,36 @@ type CreateInstancesRequest struct {
 	NetworkMode             string         `json:"networkMode,omitempty"`
 	DiskPreAllocated        bool           `json:"diskPreAllocated,omitempty"`
 	MarketingOptions        *MarketingInfo `json:"marketingOptions,omitempty"`
+    Tags                    *TagAssociation  `json:"tags,omitempty"`
 }
 
+
+// TagAssociation 描述创建资源时同时绑定的标签对的信息。
+type TagAssociation struct {
+
+    // Tags 标签对列表。
+    Tags []*Tag `json:"tags,omitempty"`
+
+}
+
+// Tags 描述资源关联的标签信息。
+type Tags struct {
+
+    // Tags 标签对列表。
+    Tags []*Tag `json:"tags,omitempty"`
+
+}
+
+// Tag 描述一个标签键值对的信息。
+type Tag struct {
+
+    // Key 标签键。长度限制：1～128个字符。
+    Key *string `json:"key,omitempty"`
+
+    // Value 标签值。长度限制：1～128个字符。
+    Value *string `json:"value,omitempty"`
+
+}
 
 type MarketingInfo struct {
 	DiscountCode  string `json:"discountCode,omitempty"`
@@ -1299,6 +1330,7 @@ type CreateDisksRequest struct {
 	DiskAmount      *int           `json:"diskAmount,omitempty"`
 	ResourceGroupId string         `json:"resourceGroupId,omitempty"`
 	MarketingOptions  *MarketingInfo `json:"marketingOptions,omitempty"`
+	Tags              *TagAssociation  `json:"tags,omitempty"`
 }
 
 type CreateDisksResponse struct {
@@ -1327,6 +1359,8 @@ type DescribeDisksRequest struct {
 	PageSize     int      `json:"pageSize,omitempty"`
 	PageNum      int      `json:"pageNum,omitempty"`
 	ResourceGroupId   string   `json:"resourceGroupId,omitempty"`
+    TagKeys     []string `json:"tagKeys,omitempty"`
+    Tags        []*Tag `json:"tags,omitempty"`
 }
 
 type DiskStatus struct {
@@ -1361,6 +1395,7 @@ type DiskInfo struct {
 	ExpiredTime  string `json:"expiredTime,omitempty"`
 	Period       *int   `json:"period,omitempty"`
 	AutoRenew    bool   `json:"autoRenew,omitempty"`
+	Tags         *Tags  `json:"tags,omitempty"`
 }
 
 type AttachDisksRequest struct {
