@@ -692,13 +692,13 @@ type CreateLoadBalancerRequest struct {
     // Tags 创建负载均衡时关联的标签。注意：·关联`标签键`不能重复。
     Tags *TagAssociation `json:"tags,omitempty"`
 
-    // SubnetId 健康检查内网源IP所属的subnetId。可以通过[DescribeSubnets](../../../compute/zec/vpc-network/describesubnets.md)接口获取。
+    // SubnetId 健康检查内网源IP所属的subnetId。可以通过[DescribeSubnets](../../zec/vpc-network/describesubnets.md)接口获取。
     SubnetId *string `json:"subnetId,omitempty"`
 
     // HealthCheckPrivateIps 健康检查内网IP地址。指定`subnetId`时，此参数必填，且数量必须为2。不指定`subnetId`时，此参数无效。不填时系统将自动分配。
     HealthCheckPrivateIps []string `json:"healthCheckPrivateIps,omitempty"`
 
-    // SecurityGroupId 负载均衡实例绑定的安全组ID。可以通过[DescribeSecurityGroups](../../../compute/zec/security-group/describesecuritygroups.md)接口获取。
+    // SecurityGroupId 负载均衡实例绑定的安全组ID。可以通过[DescribeSecurityGroups](../../zec/security-group/describesecuritygroups.md)接口获取。
     SecurityGroupId *string `json:"securityGroupId,omitempty"`
 
 }
@@ -910,7 +910,7 @@ type DescribeLoadBalancerMonitorDataResponse struct {
 type SetSecurityGroupForLoadBalancersRequest struct {
     *common.BaseRequest
 
-    // SecurityGroupId 要更换的安全组Id。可以通过[DescribeSecurityGroups](../../../compute/zec/security-group/describesecuritygroups.md)接口获取。
+    // SecurityGroupId 要更换的安全组Id。可以通过[DescribeSecurityGroups](../../zec/security-group/describesecuritygroups.md)接口获取。
     SecurityGroupId *string `json:"securityGroupId,omitempty"`
 
     // LoadBalancerIds 要更换安全组的负载均衡ID集合。
@@ -945,7 +945,7 @@ type AddLoadBalancersPrivateIpsRequest struct {
     // LoadBalancerId 负载均衡ID。
     LoadBalancerId *string `json:"loadBalancerId,omitempty"`
 
-    // SubnetId 作为内网ip的subnetId。可以通过[DescribeSubnets](../../../compute/zec/vpc-network/describesubnets.md)接口获取。
+    // SubnetId 作为内网ip的subnetId。可以通过[DescribeSubnets](../../zec/vpc-network/describesubnets.md)接口获取。
     SubnetId *string `json:"subnetId,omitempty"`
 
 }

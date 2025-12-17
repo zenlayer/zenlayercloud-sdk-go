@@ -1345,6 +1345,29 @@ type CreateDiskResponseParams struct {
 	OrderNumber string   `json:"orderNumber,omitempty"`
 }
 
+
+type ResizeDiskRequest struct {
+	*common.BaseRequest
+
+	// DiskId 云硬盘ID。通过DescribeDisks接口查询。
+	DiskId *string `json:"diskId,omitempty"`
+
+	// DiskSize 云硬盘扩容后的大小。单位GB。必须大于当前云硬盘大小。
+	DiskSize *int `json:"diskSize,omitempty"`
+}
+
+type ResizeDiskResponse struct {
+	*common.BaseResponse
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+
 type DescribeDisksRequest struct {
 	*common.BaseRequest
 	DiskIds      []string `json:"diskIds,omitempty"`

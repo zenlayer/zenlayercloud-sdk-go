@@ -3119,6 +3119,29 @@ func (c *Client) ResetInstance(request *ResetInstanceRequest) (response *ResetIn
 	return
 }
 
+func NewResetInstancesRequest() (request *ResetInstancesRequest) {
+	request = &ResetInstancesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ResetInstances")
+
+	return
+}
+
+func NewResetInstancesResponse() (response *ResetInstancesResponse) {
+	response = &ResetInstancesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ResetInstances 重装多台虚拟机实例操作系统。
+func (c *Client) ResetInstances(request *ResetInstancesRequest) (response *ResetInstancesResponse, err error) {
+	response = NewResetInstancesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewStartIpForwardRequest() (request *StartIpForwardRequest) {
 	request = &StartIpForwardRequest{
 		BaseRequest: &common.BaseRequest{},

@@ -3513,6 +3513,9 @@ type DescribeEipPriceResponseParams struct {
     // BandwidthPrice 公网弹性IP的带宽价格。
     BandwidthPrice *PriceItem `json:"bandwidthPrice,omitempty"`
 
+    // RemoteBandwidthPrice Remote IPT的带宽价格。
+    RemoteBandwidthPrice *PriceItem `json:"remoteBandwidthPrice,omitempty"`
+
 }
 
 type DescribeEipPriceResponse struct {
@@ -5992,6 +5995,53 @@ type ResetInstanceResponse struct {
 
 }
 
+type ResetInstancesRequest struct {
+    *common.BaseRequest
+
+    // InstanceIds 待重装的实例ID。
+    InstanceIds []string `json:"instanceIds,omitempty"`
+
+    // Password 实例的新密码。与keyId必须指定其中的一种（Windows和Generic类型的镜像无法指定密码和key）。必须包含以下3种格式的字符：大小写字母: [a-zA-Z]数字: 0-9特殊字符: ~!@$^*-_=+。
+    Password *string `json:"password,omitempty"`
+
+    // KeyId 密钥ID。与password必须指定其中的一种（Windows和Generic类型的镜像无法指定密码和key）。可调用接口DescribeKeyPairs来获得最新的密钥对信息。关联密钥后，就可以通过对应的私钥来访问实例；密钥与密码不能同时指定，同时Windows操作系统不支持指定密钥。示例值：key-YWD2QFOl。
+    KeyId *string `json:"keyId,omitempty"`
+
+    // ImageId 指定重装的的镜像ID。可以通过[DescribeImages](describeimages.md)取返回信息中的`imageId`字段。如果不指定，会根据当前镜像进行重装。
+    ImageId *string `json:"imageId,omitempty"`
+
+    // Timezone 操作系统时区设置。
+    Timezone *string `json:"timezone,omitempty"`
+
+    // EnableAgent 是否启用 QEMU Guest 代理 (QGA)。
+    EnableAgent *bool `json:"enableAgent,omitempty"`
+
+    // InstanceName 修改的实例名称。
+    InstanceName *string `json:"instanceName,omitempty"`
+
+    // UserData 初始化命令。
+    UserData *string `json:"userData,omitempty"`
+
+}
+
+type ResetInstancesResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // InstanceIds 重装操作失败的实例ID列表。
+    InstanceIds []string `json:"instanceIds,omitempty"`
+
+}
+
+type ResetInstancesResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *ResetInstancesResponseParams `json:"response,omitempty"`
+
+}
+
 // StartIpForwardRequest 开启IP转发的请求信息。
 type StartIpForwardRequest struct {
     *common.BaseRequest
@@ -6084,22 +6134,14 @@ type ModifyInstanceTypeRequest struct {
 
 }
 
-// ModifyInstanceTypeResponseParams 变更实例规格的响应结果。
-type ModifyInstanceTypeResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // OrderNumber 变更产生订单的编号。
-    OrderNumber *string `json:"orderNumber,omitempty"`
-
-}
-
 type ModifyInstanceTypeResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
 
-    Response *ModifyInstanceTypeResponseParams `json:"response,omitempty"`
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
 
 }
 
