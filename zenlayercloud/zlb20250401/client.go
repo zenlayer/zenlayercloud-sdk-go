@@ -451,6 +451,29 @@ func (c *Client) SetSecurityGroupForLoadBalancers(request *SetSecurityGroupForLo
 	return
 }
 
+func NewUnbindSecurityGroupFromLoadBalancersRequest() (request *UnbindSecurityGroupFromLoadBalancersRequest) {
+	request = &UnbindSecurityGroupFromLoadBalancersRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "UnbindSecurityGroupFromLoadBalancers")
+
+	return
+}
+
+func NewUnbindSecurityGroupFromLoadBalancersResponse() (response *UnbindSecurityGroupFromLoadBalancersResponse) {
+	response = &UnbindSecurityGroupFromLoadBalancersResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// UnbindSecurityGroupFromLoadBalancers 批量解绑负载器均衡的安全组。
+func (c *Client) UnbindSecurityGroupFromLoadBalancers(request *UnbindSecurityGroupFromLoadBalancersRequest) (response *UnbindSecurityGroupFromLoadBalancersResponse, err error) {
+	response = NewUnbindSecurityGroupFromLoadBalancersResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewAddLoadBalancersPrivateIpsRequest() (request *AddLoadBalancersPrivateIpsRequest) {
 	request = &AddLoadBalancersPrivateIpsRequest{
 		BaseRequest: &common.BaseRequest{},

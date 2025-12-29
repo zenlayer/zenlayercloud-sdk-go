@@ -245,6 +245,9 @@ type PriceItem struct {
     // ExcessAmountUnit 超量用量单位。如果为null, 代表取不到值。
     ExcessAmountUnit *string `json:"excessAmountUnit,omitempty"`
 
+    // Category 价格所属类别。
+    Category *string `json:"category,omitempty"`
+
 }
 
 // StepPrice 描述阶梯价格的信息。
@@ -621,7 +624,7 @@ type CreateVpcRequest struct {
     // Name VPC的名称。范围2到63个字符。仅支持输入字母、数字、-和英文句点(.)。且必须以数字或字母开头和结尾。
     Name *string `json:"name,omitempty"`
 
-    // CidrBlock VPC的CIDR地址段。需要满足以下3种内网段内(10.0.0.0/8, 172.16.0.0/12 and 192.168.0.0/16)。
+    // CidrBlock VPC的CIDR地址段。需要满足以下4种内网段内(10.0.0.0/9, 10.128.0.0/9, 172.16.0.0/12以及192.168.0.0/16)。
     CidrBlock *string `json:"cidrBlock,omitempty"`
 
     // Mtu VPC的传输单元 MTU。支持：1300、1500、9000。
@@ -984,7 +987,7 @@ type ModifyVpcAttributeRequest struct {
     // VpcName VPC的名称。范围2到63个字符。仅支持输入字母、数字、-/_和英文句点(.)。且必须以数字或字母开头和结尾。
     VpcName *string `json:"vpcName,omitempty"`
 
-    // CidrBlock 需要修改的IPv4 CIDR。需要满足属于(10.0.0.0/8, 172.16.0.0/12 and 192.168.0.0/16)范围内。如果VPC存在子网，则修改的CIDR范围必须包含原VPC CIDR。默认VPC不支持修改。
+    // CidrBlock 需要修改的IPv4 CIDR。需要满足以下4种内网段内(10.0.0.0/9, 10.128.0.0/9, 172.16.0.0/12以及192.168.0.0/16)。如果VPC存在子网，则修改的CIDR范围必须包含原VPC CIDR。默认VPC不支持修改。
     CidrBlock *string `json:"cidrBlock,omitempty"`
 
     // EnableIPv6 是否开启IPv6内网CIDR。当前仅允许打开(`true`)，一旦设置IPv6, 将无法关闭。

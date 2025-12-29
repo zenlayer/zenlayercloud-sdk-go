@@ -160,6 +160,8 @@ type CreateInstancesRequest struct {
 	MarketingOptions  *MarketingInfo `json:"marketingOptions,omitempty"`
 
 	Tags *TagAssociation  `json:"tags,omitempty"`
+
+	EnableGatewayMode *bool `json:"enableGatewayMode,omitempty"`
 }
 
 
@@ -714,6 +716,8 @@ type InstanceInfo struct {
 	KeyId *string `json:"keyId,omitempty"`
 
 	Tags  *Tags    `json:"tags,omitempty"`
+
+	EnableGatewayMode *bool `json:"enableGatewayMode,omitempty"`
 }
 
 

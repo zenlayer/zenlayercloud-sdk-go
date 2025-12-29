@@ -821,6 +821,9 @@ type PriceItem struct {
     // ExcessAmountUnit 超量用量单位。如果为null, 代表取不到值。
     ExcessAmountUnit *string `json:"excessAmountUnit,omitempty"`
 
+    // Category 价格所属类别。
+    Category *string `json:"category,omitempty"`
+
 }
 
 // StepPrice 描述阶梯价格的信息。
@@ -933,6 +936,32 @@ type SetSecurityGroupForLoadBalancersResponse struct {
     RequestId *string `json:"requestId,omitempty"`
 
     Response *SetSecurityGroupForLoadBalancersResponseParams `json:"response,omitempty"`
+
+}
+
+type UnbindSecurityGroupFromLoadBalancersRequest struct {
+    *common.BaseRequest
+
+    // LoadBalancerIds 要解绑安全组的负载均衡ID集合。
+    LoadBalancerIds []string `json:"loadBalancerIds,omitempty"`
+
+}
+
+type UnbindSecurityGroupFromLoadBalancersResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // FailedLoadBalancerIds 解绑失败的负载均衡实例集合。
+    FailedLoadBalancerIds []string `json:"failedLoadBalancerIds,omitempty"`
+
+}
+
+type UnbindSecurityGroupFromLoadBalancersResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *UnbindSecurityGroupFromLoadBalancersResponseParams `json:"response,omitempty"`
 
 }
 

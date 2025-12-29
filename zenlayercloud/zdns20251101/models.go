@@ -6,7 +6,7 @@ import "github.com/zenlayer/zenlayercloud-sdk-go/zenlayercloud/common"
 type AddPrivateZoneRequest struct {
     *common.BaseRequest
 
-    // ZoneName 域名。格式必须域名，最长不超过253个字符，也可以是单独的不带点的域名后缀（长度2-63）。不区分大小写。
+    // ZoneName 域名。格式必须域名，最长不超过252个字符，也可以是单独的不带点的域名后缀（长度2-63）。不区分大小写。
     ZoneName *string `json:"zoneName,omitempty"`
 
     // ProxyPattern 是否开启子域名递归代理。
@@ -280,7 +280,7 @@ type AddPrivateZoneRecordRequest struct {
     // Remark 备注信息。最长不超过255个字符。
     Remark *string `json:"remark,omitempty"`
 
-    // Line 解析线路。`default` 为默认线路，即全局线路。也可以指定某个节点ID，例如asia-east-1。
+    // Line 解析请求来源。`default` 为默认，即全局。也可以指定某个节点ID，例如asia-east-1。
     Line *string `json:"line,omitempty"`
 
     // Status 解析记录的状态。
@@ -316,8 +316,17 @@ type DescribePrivateZoneRecordsRequest struct {
     // RecordIds 根据解析记录ID进行筛选。
     RecordIds []string `json:"recordIds,omitempty"`
 
+    // RecordName 根据主机记录进行筛选。
+    RecordName *string `json:"recordName,omitempty"`
+
     // Type 根据解析记录类型进行筛选。
     Type *string `json:"type,omitempty"`
+
+    // Line 根据解析线路过滤。`default` 为默认，即全局。也可以指定某个节点ID，例如asia-east-1。
+    Line *string `json:"line,omitempty"`
+
+    // Status 根据解析记录状态进行筛选。
+    Status *string `json:"status,omitempty"`
 
     // Value 根据记录值进行筛选。
     Value *string `json:"value,omitempty"`
@@ -366,8 +375,11 @@ type PrivateZoneRecord struct {
     // Ttl 域名本地缓存时间。单位秒。
     Ttl *int `json:"ttl,omitempty"`
 
-    // Line 解析线路。`default` 为默认线路，即全局线路。也可以指定某个节点ID，例如asia-east-1。
+    // Line 解析请求来源。`default` 为默认，即全局。也可以指定某个节点ID，例如asia-east-1。
     Line *string `json:"line,omitempty"`
+
+    // LineInfo 解析请求来源详细信息。仅当line为节点时存在。
+    LineInfo *LineInfo `json:"lineInfo,omitempty"`
 
     // Priority `MX`记录的优先级。取值越小，优先级越高。
     Priority *int `json:"priority,omitempty"`
@@ -380,6 +392,17 @@ type PrivateZoneRecord struct {
 
     // CreateTime 解析记录的创建时间。
     CreateTime *string `json:"createTime,omitempty"`
+
+}
+
+// LineInfo 描述解析来源的信息。
+type LineInfo struct {
+
+    // Line 解析来源。`default` 为默认，即全局。也可以指定某个节点ID，例如asia-east-1。
+    Line *string `json:"line,omitempty"`
+
+    // City 如果解析来源为节点，则该字段为节点所属的城市名称。
+    City *string `json:"city,omitempty"`
 
 }
 
