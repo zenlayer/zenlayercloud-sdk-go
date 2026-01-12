@@ -2107,6 +2107,144 @@ func (c *Client) DescribeEipMonitorData(request *DescribeEipMonitorDataRequest) 
 	return
 }
 
+func NewCreateDhcpOptionsSetRequest() (request *CreateDhcpOptionsSetRequest) {
+	request = &CreateDhcpOptionsSetRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateDhcpOptionsSet")
+
+	return
+}
+
+func NewCreateDhcpOptionsSetResponse() (response *CreateDhcpOptionsSetResponse) {
+	response = &CreateDhcpOptionsSetResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CreateDhcpOptionsSet 创建DHCP选项集。
+func (c *Client) CreateDhcpOptionsSet(request *CreateDhcpOptionsSetRequest) (response *CreateDhcpOptionsSetResponse, err error) {
+	response = NewCreateDhcpOptionsSetResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteDhcpOptionsSetRequest() (request *DeleteDhcpOptionsSetRequest) {
+	request = &DeleteDhcpOptionsSetRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteDhcpOptionsSet")
+
+	return
+}
+
+func NewDeleteDhcpOptionsSetResponse() (response *DeleteDhcpOptionsSetResponse) {
+	response = &DeleteDhcpOptionsSetResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeleteDhcpOptionsSet 删除DHCP选项集。
+func (c *Client) DeleteDhcpOptionsSet(request *DeleteDhcpOptionsSetRequest) (response *DeleteDhcpOptionsSetResponse, err error) {
+	response = NewDeleteDhcpOptionsSetResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewAttachDhcpOptionsSetToSubnetRequest() (request *AttachDhcpOptionsSetToSubnetRequest) {
+	request = &AttachDhcpOptionsSetToSubnetRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "AttachDhcpOptionsSetToSubnet")
+
+	return
+}
+
+func NewAttachDhcpOptionsSetToSubnetResponse() (response *AttachDhcpOptionsSetToSubnetResponse) {
+	response = &AttachDhcpOptionsSetToSubnetResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// AttachDhcpOptionsSetToSubnet 将DHCP选项集关联到Subnet。
+func (c *Client) AttachDhcpOptionsSetToSubnet(request *AttachDhcpOptionsSetToSubnetRequest) (response *AttachDhcpOptionsSetToSubnetResponse, err error) {
+	response = NewAttachDhcpOptionsSetToSubnetResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDetachDhcpOptionsSetFromSubnetRequest() (request *DetachDhcpOptionsSetFromSubnetRequest) {
+	request = &DetachDhcpOptionsSetFromSubnetRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DetachDhcpOptionsSetFromSubnet")
+
+	return
+}
+
+func NewDetachDhcpOptionsSetFromSubnetResponse() (response *DetachDhcpOptionsSetFromSubnetResponse) {
+	response = &DetachDhcpOptionsSetFromSubnetResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DetachDhcpOptionsSetFromSubnet 将DHCP选项集与Subnet取消关联。
+func (c *Client) DetachDhcpOptionsSetFromSubnet(request *DetachDhcpOptionsSetFromSubnetRequest) (response *DetachDhcpOptionsSetFromSubnetResponse, err error) {
+	response = NewDetachDhcpOptionsSetFromSubnetResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeDhcpOptionsSetsRequest() (request *DescribeDhcpOptionsSetsRequest) {
+	request = &DescribeDhcpOptionsSetsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeDhcpOptionsSets")
+
+	return
+}
+
+func NewDescribeDhcpOptionsSetsResponse() (response *DescribeDhcpOptionsSetsResponse) {
+	response = &DescribeDhcpOptionsSetsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeDhcpOptionsSets 查询已创建的DHCP选项集列表。
+func (c *Client) DescribeDhcpOptionsSets(request *DescribeDhcpOptionsSetsRequest) (response *DescribeDhcpOptionsSetsResponse, err error) {
+	response = NewDescribeDhcpOptionsSetsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyDhcpOptionsSetAttributesRequest() (request *ModifyDhcpOptionsSetAttributesRequest) {
+	request = &ModifyDhcpOptionsSetAttributesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyDhcpOptionsSetAttributes")
+
+	return
+}
+
+func NewModifyDhcpOptionsSetAttributesResponse() (response *ModifyDhcpOptionsSetAttributesResponse) {
+	response = &ModifyDhcpOptionsSetAttributesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyDhcpOptionsSetAttributes 修改DHCP选项集配置信息。
+func (c *Client) ModifyDhcpOptionsSetAttributes(request *ModifyDhcpOptionsSetAttributesRequest) (response *ModifyDhcpOptionsSetAttributesResponse, err error) {
+	response = NewModifyDhcpOptionsSetAttributesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewDescribeDDosAllEventListRequest() (request *DescribeDDosAllEventListRequest) {
 	request = &DescribeDDosAllEventListRequest{
 		BaseRequest: &common.BaseRequest{},

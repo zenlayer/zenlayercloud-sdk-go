@@ -138,6 +138,9 @@ type DiskInfo struct {
     // Tags 该云盘关联的标签。
     Tags *Tags `json:"tags,omitempty"`
 
+    // BurstingEnabled 是否开启 Burst。
+    BurstingEnabled *bool `json:"burstingEnabled,omitempty"`
+
 }
 
 // Tags 描述资源关联的标签信息。
@@ -312,6 +315,9 @@ type CreateDisksRequest struct {
 
     // InstanceIds 要绑定的实例ID。数量需要与`diskAmount`字段一致。
     InstanceIds []string `json:"instanceIds,omitempty"`
+
+    // BurstingEnabled 是否开启性能突发。
+    BurstingEnabled *bool `json:"burstingEnabled,omitempty"`
 
 }
 
@@ -770,6 +776,9 @@ type CreateSubnetRequest struct {
     // Ipv6Type IPv6的类型。如果指定堆栈类型`stackType` 包含 `IPv6`, 则该字段必填。
     Ipv6Type *string `json:"ipv6Type,omitempty"`
 
+    // DhcpOptionsSetId 要绑定的DHCP 选项集ID。
+    DhcpOptionsSetId *string `json:"dhcpOptionsSetId,omitempty"`
+
 }
 
 // CreateSubnetResponseParams 创建子网的响应结果。
@@ -1034,6 +1043,9 @@ type DescribeSubnetsRequest struct {
     // VpcIds VPC的ID集合。
     VpcIds []string `json:"vpcIds,omitempty"`
 
+    // DhcpOptionsSetId 子网绑定的DHCP 选项集ID。
+    DhcpOptionsSetId *string `json:"dhcpOptionsSetId,omitempty"`
+
 }
 
 // DescribeSubnetsResponseParams 子网列表的响应信息。
@@ -1096,6 +1108,9 @@ type SubnetInfo struct {
 
     // IsDefault 子网是否为默认。
     IsDefault *bool `json:"isDefault,omitempty"`
+
+    // DhcpOptionsSetId DHCP选项集ID。
+    DhcpOptionsSetId *string `json:"dhcpOptionsSetId,omitempty"`
 
 }
 
@@ -1956,6 +1971,7 @@ type UnassignNetworkInterfaceIpv4Request struct {
     // NicId 网卡ID。
     NicId *string `json:"nicId,omitempty"`
 
+    // Deprecated: IpAddress 已废弃，请不要使用。
     // IpAddress 需要解绑的IPv4地址。该字段已过时，请使用`ipAddresses`，如果两者均指定， 则以`ipAddresses`为准。
     IpAddress *string `json:"ipAddress,omitempty"`
 
@@ -3234,6 +3250,7 @@ type EipInfo struct {
     // CidrId EIP 来自的CIDR地址段ID。
     CidrId *string `json:"cidrId,omitempty"`
 
+    // Deprecated: NicId 已废弃，请不要使用。
     // NicId EIP 关联的网卡ID。 该字段已废弃，请使用 `associatedId` 字段。
     NicId *string `json:"nicId,omitempty"`
 
@@ -3980,6 +3997,254 @@ type DescribeEipMonitorDataResponse struct {
 
 }
 
+type CreateDhcpOptionsSetRequest struct {
+    *common.BaseRequest
+
+    // DhcpOptionsSetName DHCP 选项集的名称。长度为1～64个字符。
+    DhcpOptionsSetName *string `json:"dhcpOptionsSetName,omitempty"`
+
+    // DomainNameServers DNS 服务器 IP。最多传入 4 个 DNS 服务器 Ipv4，DNS 服务器 IP 之间用半角逗号（,）隔开。
+    DomainNameServers *string `json:"domainNameServers,omitempty"`
+
+    // Ipv6DomainNameServers DNS 服务器 IP。最多传入 4 个 DNS 服务器 Ipv6，DNS 服务器 IP 之间用半角逗号（,）隔开。
+    Ipv6DomainNameServers *string `json:"ipv6DomainNameServers,omitempty"`
+
+    // LeaseTime IPv4 DHCP 选项集的租赁时间。单位：h。取值范围：**24~1176**，**87600~175200**。
+    LeaseTime *string `json:"leaseTime,omitempty"`
+
+    // Ipv6LeaseTime IPv6 DHCP 选项集的租赁时间。单位：h。取值范围：**24~1176**，**87600~175200**。
+    Ipv6LeaseTime *string `json:"ipv6LeaseTime,omitempty"`
+
+    // Tags 创建DHCP 选项集时关联的标签。注意：·关联`标签键`不能重复。
+    Tags *TagAssociation `json:"tags,omitempty"`
+
+    // ResourceGroupId 资源组ID。如果不指定，则会创建在默认资源组。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // Description DHCP选项集 描述信息。最长不超过255个字符。
+    Description *string `json:"description,omitempty"`
+
+}
+
+type CreateDhcpOptionsSetResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // DhcpOptionsSetId DHCP 选项集ID。
+    DhcpOptionsSetId *string `json:"dhcpOptionsSetId,omitempty"`
+
+}
+
+type CreateDhcpOptionsSetResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *CreateDhcpOptionsSetResponseParams `json:"response,omitempty"`
+
+}
+
+type DeleteDhcpOptionsSetRequest struct {
+    *common.BaseRequest
+
+    // DhcpOptionsSetId DHCP 选项集ID。
+    DhcpOptionsSetId *string `json:"dhcpOptionsSetId,omitempty"`
+
+}
+
+type DeleteDhcpOptionsSetResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type AttachDhcpOptionsSetToSubnetRequest struct {
+    *common.BaseRequest
+
+    // DhcpOptionsSetId DHCP 选项集ID。
+    DhcpOptionsSetId *string `json:"dhcpOptionsSetId,omitempty"`
+
+    // SubnetIds 要与 DHCP 选项集关联的 Subnet 的 ID集合。
+    SubnetIds []string `json:"subnetIds,omitempty"`
+
+}
+
+// AttachDhcpOptionsSetToSubnetResponseParams 将DHCP选项集关联到Subnet的响应信息。
+type AttachDhcpOptionsSetToSubnetResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // FailedSubnetIds 操作失败的subnet ID集合。
+    FailedSubnetIds []string `json:"failedSubnetIds,omitempty"`
+
+}
+
+type AttachDhcpOptionsSetToSubnetResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *AttachDhcpOptionsSetToSubnetResponseParams `json:"response,omitempty"`
+
+}
+
+type DetachDhcpOptionsSetFromSubnetRequest struct {
+    *common.BaseRequest
+
+    // SubnetIds 要与 DHCP 选项集取消关联的 Subnet 的 ID集合。
+    SubnetIds []string `json:"subnetIds,omitempty"`
+
+}
+
+// DetachDhcpOptionsSetFromSubnetResponseParams 将DHCP选项集取消关联到Subnet的响应信息。
+type DetachDhcpOptionsSetFromSubnetResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // FailedSubnetIds 操作失败的subnet ID集合。
+    FailedSubnetIds []string `json:"failedSubnetIds,omitempty"`
+
+}
+
+type DetachDhcpOptionsSetFromSubnetResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DetachDhcpOptionsSetFromSubnetResponseParams `json:"response,omitempty"`
+
+}
+
+type DescribeDhcpOptionsSetsRequest struct {
+    *common.BaseRequest
+
+    // DhcpOptionsSetIds DHCP 选项集的 ID。最多支持输入 20 个 DHCP 选项集的 ID。
+    DhcpOptionsSetIds []string `json:"dhcpOptionsSetIds,omitempty"`
+
+    // DhcpOptionsSetName DHCP 选项集的名称。该字段支持模糊搜索。
+    DhcpOptionsSetName *string `json:"dhcpOptionsSetName,omitempty"`
+
+    // SubnetId 关联的子网 ID。
+    SubnetId *string `json:"subnetId,omitempty"`
+
+    // PageSize 返回的分页大小，默认为20，最大为1000。
+    PageSize *int `json:"pageSize,omitempty"`
+
+    // PageNum 返回的分页数，默认为1。
+    PageNum *int `json:"pageNum,omitempty"`
+
+    // ResourceGroupId 根据资源组ID过滤。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // TagKeys 根据标签键进行搜索。 最长不得超过20个标签键。
+    TagKeys []string `json:"tagKeys,omitempty"`
+
+    // Tags 根据标签进行搜索。 最长不得超过20个标签。
+    Tags []*Tag `json:"tags,omitempty"`
+
+}
+
+type DescribeDhcpOptionsSetsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // TotalCount 符合条件的数据总数。
+    TotalCount *int `json:"totalCount,omitempty"`
+
+    // DataSet DHCP 选项集列表的数据。
+    DataSet []*DhcpOptionsSet `json:"dataSet,omitempty"`
+
+}
+
+// DhcpOptionsSet 描述DHCP选项集的信息。
+type DhcpOptionsSet struct {
+
+    // DhcpOptionsSetId DHCP 选项集ID。
+    DhcpOptionsSetId *string `json:"dhcpOptionsSetId,omitempty"`
+
+    // DhcpOptionsSetName DHCP 选项集的名称。长度为1～64个字符。
+    DhcpOptionsSetName *string `json:"dhcpOptionsSetName,omitempty"`
+
+    // DomainNameServers DNS 服务器 IP。最多传入 4 个 DNS 服务器 Ipv4，DNS 服务器 IP 之间用半角逗号（,）隔开。
+    DomainNameServers *string `json:"domainNameServers,omitempty"`
+
+    // Ipv6DomainNameServers DNS 服务器 IP。最多传入 4 个 DNS 服务器 Ipv6，DNS 服务器 IP 之间用半角逗号（,）隔开。
+    Ipv6DomainNameServers *string `json:"ipv6DomainNameServers,omitempty"`
+
+    // LeaseTime IPv4 DHCP 选项集的租赁时间。单位：h。
+    LeaseTime *string `json:"leaseTime,omitempty"`
+
+    // Ipv6LeaseTime IPv6 DHCP 选项集的租赁时间。单位：h。
+    Ipv6LeaseTime *string `json:"ipv6LeaseTime,omitempty"`
+
+    // CreateTime 创建时间。按照ISO8601标准表示，并且使用UTC时间, 格式为：YYYY-MM-DDThh:mm:ssZ。
+    CreateTime *string `json:"createTime,omitempty"`
+
+    // Description DHCP选项集 描述信息。
+    Description *string `json:"description,omitempty"`
+
+    // ResourceGroupId 实例所属的资源组ID。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // ResourceGroupName 实例所属的资源组名称。
+    ResourceGroupName *string `json:"resourceGroupName,omitempty"`
+
+    // Tags 实例关联的标签。
+    Tags *Tags `json:"tags,omitempty"`
+
+}
+
+type DescribeDhcpOptionsSetsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeDhcpOptionsSetsResponseParams `json:"response,omitempty"`
+
+}
+
+type ModifyDhcpOptionsSetAttributesRequest struct {
+    *common.BaseRequest
+
+    // DhcpOptionsSetId DHCP 选项集ID。
+    DhcpOptionsSetId *string `json:"dhcpOptionsSetId,omitempty"`
+
+    // DhcpOptionsSetName DHCP 选项集的名称。长度为1～64个字符。
+    DhcpOptionsSetName *string `json:"dhcpOptionsSetName,omitempty"`
+
+    // DomainNameServers DNS 服务器 IP。最多传入 4 个 DNS 服务器 Ipv4，DNS 服务器 IP 之间用半角逗号（,）隔开。
+    DomainNameServers *string `json:"domainNameServers,omitempty"`
+
+    // Ipv6DomainNameServers DNS 服务器 IP。最多传入 4 个 DNS 服务器 Ipv6，DNS 服务器 IP 之间用半角逗号（,）隔开。
+    Ipv6DomainNameServers *string `json:"ipv6DomainNameServers,omitempty"`
+
+    // LeaseTime IPv4 DHCP 选项集的租赁时间。单位：h。取值范围：**24~1176**，**87600~175200**。
+    LeaseTime *string `json:"leaseTime,omitempty"`
+
+    // Ipv6LeaseTime IPv6 DHCP 选项集的租赁时间。单位：h。取值范围：**24~1176**，**87600~175200**。
+    Ipv6LeaseTime *string `json:"ipv6LeaseTime,omitempty"`
+
+    // Description DHCP选项集 描述信息。最长不超过255个字符。
+    Description *string `json:"description,omitempty"`
+
+}
+
+type ModifyDhcpOptionsSetAttributesResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
 // DescribeDDosAllEventListRequest 获取攻击事件列表的请求参数。
 type DescribeDDosAllEventListRequest struct {
     *common.BaseRequest
@@ -4176,6 +4441,7 @@ type ZoneInfo struct {
     // ZoneName 可用区名称。
     ZoneName *string `json:"zoneName,omitempty"`
 
+    // Deprecated: SupportSecurityGroup 已废弃，请不要使用。
     // SupportSecurityGroup 可用区是否支持安全组。该字段已废弃，当前所有节点均支持安全组。
     SupportSecurityGroup *bool `json:"supportSecurityGroup,omitempty"`
 
@@ -5435,6 +5701,9 @@ type SystemDisk struct {
     // DiskCategory 云硬盘种类。Basic NVMe SSD: 经济型 NVMe SSD。Standard NVMe SSD: 标准型 NVMe SSD。默认为Standard NVMe SSD。
     DiskCategory *string `json:"diskCategory,omitempty"`
 
+    // BurstingEnabled 是否开启性能突发。
+    BurstingEnabled *bool `json:"burstingEnabled,omitempty"`
+
 }
 
 // DataDisk 描述了数据盘的信息。
@@ -5454,6 +5723,9 @@ type DataDisk struct {
 
     // Portable 是否可拆卸。该参数仅用于查询的回参，不用于入参。true代表不会随着实例删除而删除。false代表会随着实例删除而删除。
     Portable *bool `json:"portable,omitempty"`
+
+    // BurstingEnabled 是否开启性能突发。
+    BurstingEnabled *bool `json:"burstingEnabled,omitempty"`
 
     // DiskCategory 云硬盘种类。Basic NVMe SSD: 经济型 NVMe SSD。Standard NVMe SSD: 标准型 NVMe SSD。默认为Standard NVMe SSD。
     DiskCategory *string `json:"diskCategory,omitempty"`

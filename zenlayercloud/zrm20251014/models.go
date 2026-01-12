@@ -64,10 +64,10 @@ type DescribeTagsRequest struct {
     // PageSize 每页面展示数量，默认值20。
     PageSize *int `json:"pageSize,omitempty"`
 
-    // KeySort 标签键排序。
+    // KeySort 标签键排序方式：ascend（正序），descend（倒序）。
     KeySort *string `json:"keySort,omitempty"`
 
-    // CreatedDateSort 创建时间排序，默认倒序。
+    // CreatedDateSort 创建时间排序方式：ascend（正序），descend（倒序）。默认倒序。
     CreatedDateSort *string `json:"createdDateSort,omitempty"`
 
     // TagKeys 筛选的标签键集合。
@@ -203,6 +203,32 @@ type DescribeResourceTagsResponse struct {
     RequestId *string `json:"requestId,omitempty"`
 
     Response *DescribeResourceTagsResponseParams `json:"response,omitempty"`
+
+}
+
+// ModifyResourceTagsRequest 修改资源的标签的请求参数。
+type ModifyResourceTagsRequest struct {
+    *common.BaseRequest
+
+    // ResourceUuid 需要绑定的资源唯一标识。
+    ResourceUuid *string `json:"resourceUuid,omitempty"`
+
+    // ReplaceTags 需要更新的标签列表，包含标签键和值。
+    ReplaceTags []*Tag `json:"replaceTags,omitempty"`
+
+    // DeleteTagKeys 需要解绑的标签列表，包含标签键。
+    DeleteTagKeys []string `json:"deleteTagKeys,omitempty"`
+
+}
+
+type ModifyResourceTagsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
 
 }
 

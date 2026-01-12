@@ -175,3 +175,26 @@ func (c *Client) DescribeResourceTags(request *DescribeResourceTagsRequest) (res
 	return
 }
 
+func NewModifyResourceTagsRequest() (request *ModifyResourceTagsRequest) {
+	request = &ModifyResourceTagsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyResourceTags")
+
+	return
+}
+
+func NewModifyResourceTagsResponse() (response *ModifyResourceTagsResponse) {
+	response = &ModifyResourceTagsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyResourceTags 修改某个资源的标签。
+func (c *Client) ModifyResourceTags(request *ModifyResourceTagsRequest) (response *ModifyResourceTagsResponse, err error) {
+	response = NewModifyResourceTagsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+

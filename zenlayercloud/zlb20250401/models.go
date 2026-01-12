@@ -508,6 +508,7 @@ type DescribeLoadBalancersRequest struct {
     // PageNum 返回的分页页码。默认为1。
     PageNum *int `json:"pageNum,omitempty"`
 
+    // ResourceGroupId 根据资源组ID进行过滤。
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 
     // TagKeys 根据标签键进行搜索。 最长不得超过20个标签键。
