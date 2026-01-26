@@ -109,6 +109,60 @@ func (c *Client) DescribeVirtualEdgeDatacenters(request *DescribeVirtualEdgeData
 	return
 }
 
+
+
+func NewDescribeBorderGatewayDatacentersRequest() (request *DescribeBorderGatewayDatacentersRequest) {
+	request = &DescribeBorderGatewayDatacentersRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeBorderGatewayDatacenters")
+	return
+}
+
+func NewDescribeBorderGatewayDatacentersResponse() (response *DescribeBorderGatewayDatacentersResponse) {
+	response = &DescribeBorderGatewayDatacentersResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeBorderGatewayDatacenters
+//
+// Possible error codes to return:
+func (c *Client) DescribeBorderGatewayDatacenters(request *DescribeBorderGatewayDatacentersRequest) (response *DescribeBorderGatewayDatacentersResponse, err error) {
+	response = NewDescribeBorderGatewayDatacentersResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+
+
+func NewDescribeVPCDatacentersRequest() (request *DescribeVPCDatacentersRequest) {
+	request = &DescribeVPCDatacentersRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeVPCDatacenters")
+	return
+}
+
+func NewDescribeVPCDatacentersResponse() (response *DescribeVPCDatacentersResponse) {
+	response = &DescribeVPCDatacentersResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeVPCDatacenters
+//
+// Possible error codes to return:
+func (c *Client) DescribeVPCDatacenters(request *DescribeVPCDatacentersRequest) (response *DescribeVPCDatacentersResponse, err error) {
+	response = NewDescribeVPCDatacentersResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+
+
 func NewQueryDataCenterPortPriceRequest() (request *QueryDataCenterPortPriceRequest) {
 	request = &QueryDataCenterPortPriceRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -1063,6 +1117,36 @@ func NewDescribeCloudRouterEdgePointTrafficResponse() (response *DescribeCloudRo
 	}
 	return
 }
+
+
+
+func NewDescribeCloudRouterDCToDCTrafficRequest() (request *DescribeCloudRouterDCToDCTrafficRequest) {
+	request = &DescribeCloudRouterDCToDCTrafficRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeCloudRouterDCToDCTraffic")
+
+	return
+}
+
+// DescribeCloudRouterDCToDCTraffic
+// 调用本接口用于查询三层网络中数据中心到数据中心在指定时间段内的带宽数据。
+//
+// Possible error codes to return:
+func (c *Client) DescribeCloudRouterDCToDCTraffic(request *DescribeCloudRouterDCToDCTrafficRequest) (response *DescribeCloudRouterDCToDCTrafficResponse, err error) {
+	response = NewDescribeCloudRouterDCToDCTrafficResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeCloudRouterDCToDCTrafficResponse() (response *DescribeCloudRouterDCToDCTrafficResponse) {
+	response = &DescribeCloudRouterDCToDCTrafficResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+
 
 func NewModifyCloudRouterEdgePointRequest() (request *ModifyCloudRouterEdgePointRequest) {
 	request = &ModifyCloudRouterEdgePointRequest{

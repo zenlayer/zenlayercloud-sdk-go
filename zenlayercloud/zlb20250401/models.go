@@ -670,8 +670,12 @@ type CreateLoadBalancerRequest struct {
     // InternetChargeType IP网络计费模式。
     InternetChargeType *string `json:"internetChargeType,omitempty"`
 
-    // IpNetworkType IP 的网络类型。
+    // Deprecated: IpNetworkType 已废弃，请不要使用。
+    // IpNetworkType IP 的网络类型。已废弃，请使用`networkLineType`。
     IpNetworkType *string `json:"ipNetworkType,omitempty"`
+
+    // NetworkLineType IP 的网络类型。
+    NetworkLineType *string `json:"networkLineType,omitempty"`
 
     // BandwidthMbps EIP的最大出带宽。单位为Mbps。最大限制通常为10000，如果有额外要求， 请联系Support。
     BandwidthMbps *int `json:"bandwidthMbps,omitempty"`
@@ -753,8 +757,12 @@ type InquiryPriceCreateLoadBalancerRequest struct {
     // InternetChargeType IP网络计费模式。
     InternetChargeType *string `json:"internetChargeType,omitempty"`
 
-    // IpNetworkType IP 的网络类型。
+    // Deprecated: IpNetworkType 已废弃，请不要使用。
+    // IpNetworkType IP 的网络类型。已废弃，请使用`networkLineType`。
     IpNetworkType *string `json:"ipNetworkType,omitempty"`
+
+    // NetworkLineType IP 的网络类型。
+    NetworkLineType *string `json:"networkLineType,omitempty"`
 
     // BandwidthMbps EIP的最大出带宽。单位为Mbps。最大限制通常为10000，如果有额外要求， 请联系Support。
     BandwidthMbps *int `json:"bandwidthMbps,omitempty"`

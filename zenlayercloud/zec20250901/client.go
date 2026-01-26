@@ -1279,6 +1279,52 @@ func (c *Client) DeleteImages(request *DeleteImagesRequest) (response *DeleteIma
 	return
 }
 
+func NewDescribeDDosAllEventListRequest() (request *DescribeDDosAllEventListRequest) {
+	request = &DescribeDDosAllEventListRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeDDosAllEventList")
+
+	return
+}
+
+func NewDescribeDDosAllEventListResponse() (response *DescribeDDosAllEventListResponse) {
+	response = &DescribeDDosAllEventListResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeDDosAllEventList 获取攻击事件列表
+func (c *Client) DescribeDDosAllEventList(request *DescribeDDosAllEventListRequest) (response *DescribeDDosAllEventListResponse, err error) {
+	response = NewDescribeDDosAllEventListResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeDDosEventDetailRequest() (request *DescribeDDosEventDetailRequest) {
+	request = &DescribeDDosEventDetailRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeDDosEventDetail")
+
+	return
+}
+
+func NewDescribeDDosEventDetailResponse() (response *DescribeDDosEventDetailResponse) {
+	response = &DescribeDDosEventDetailResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeDDosEventDetail 获取攻击事件详情
+func (c *Client) DescribeDDosEventDetail(request *DescribeDDosEventDetailRequest) (response *DescribeDDosEventDetailResponse, err error) {
+	response = NewDescribeDDosEventDetailResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewCreatePolicyRequest() (request *CreatePolicyRequest) {
 	request = &CreatePolicyRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -2241,52 +2287,6 @@ func NewModifyDhcpOptionsSetAttributesResponse() (response *ModifyDhcpOptionsSet
 // ModifyDhcpOptionsSetAttributes 修改DHCP选项集配置信息。
 func (c *Client) ModifyDhcpOptionsSetAttributes(request *ModifyDhcpOptionsSetAttributesRequest) (response *ModifyDhcpOptionsSetAttributesResponse, err error) {
 	response = NewModifyDhcpOptionsSetAttributesResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeDDosAllEventListRequest() (request *DescribeDDosAllEventListRequest) {
-	request = &DescribeDDosAllEventListRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeDDosAllEventList")
-
-	return
-}
-
-func NewDescribeDDosAllEventListResponse() (response *DescribeDDosAllEventListResponse) {
-	response = &DescribeDDosAllEventListResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeDDosAllEventList 获取攻击事件列表
-func (c *Client) DescribeDDosAllEventList(request *DescribeDDosAllEventListRequest) (response *DescribeDDosAllEventListResponse, err error) {
-	response = NewDescribeDDosAllEventListResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeDDosEventDetailRequest() (request *DescribeDDosEventDetailRequest) {
-	request = &DescribeDDosEventDetailRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeDDosEventDetail")
-
-	return
-}
-
-func NewDescribeDDosEventDetailResponse() (response *DescribeDDosEventDetailResponse) {
-	response = &DescribeDDosEventDetailResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeDDosEventDetail 获取攻击事件详情
-func (c *Client) DescribeDDosEventDetail(request *DescribeDDosEventDetailRequest) (response *DescribeDDosEventDetailResponse, err error) {
-	response = NewDescribeDDosEventDetailResponse()
 	err = c.ApiCall(request, response)
 	return
 }

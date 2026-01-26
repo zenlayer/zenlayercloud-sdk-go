@@ -46,8 +46,12 @@ type BandwidthClusterInfo struct {
     // BandwidthClusterName 共享带宽包显示名称。
     BandwidthClusterName *string `json:"bandwidthClusterName,omitempty"`
 
-    // NetworkType IP 网络类型。
+    // Deprecated: NetworkType 已废弃，请不要使用。
+    // NetworkType IP 网络类型。请使用`ipNetworkType`。
     NetworkType *string `json:"networkType,omitempty"`
+
+    // NetworkLineType 网络线路类型。
+    NetworkLineType *string `json:"networkLineType,omitempty"`
 
     // Product 产品范围。
     Product *string `json:"product,omitempty"`
@@ -286,7 +290,7 @@ type InquiryBandwidthClusterPriceRequest struct {
     // InternetChargeType 带宽计费方式。默认为月95计费，如果需要日峰值计费，请联系Support开通相关权限。
     InternetChargeType *string `json:"internetChargeType,omitempty"`
 
-    // Product 产品线。
+    // Product 城市带宽包所属的产品线范围。
     Product *string `json:"product,omitempty"`
 
 }
@@ -336,8 +340,12 @@ type PriceItem struct {
     // ExcessAmountUnit 超量用量单位。如果为null, 代表取不到值。
     ExcessAmountUnit *string `json:"excessAmountUnit,omitempty"`
 
+    // Category 价格所属类别。
+    Category *string `json:"category,omitempty"`
+
 }
 
+// StepPrice 描述阶梯价格的信息。
 type StepPrice struct {
 
     // StepStart 阶梯的起始值。
@@ -373,7 +381,11 @@ type CreateBandwidthClusterRequest struct {
     // CommitBandwidthMbps 保底带宽值。单位: Mbps。
     CommitBandwidthMbps *int `json:"commitBandwidthMbps,omitempty"`
 
-    // NetworkType IP网络类型。城市共享带宽包该字段必填。
+    // NetworkLineType IP网络类型。城市共享带宽包该字段必填。
+    NetworkLineType *string `json:"networkLineType,omitempty"`
+
+    // Deprecated: NetworkType 已废弃，请不要使用。
+    // NetworkType IP网络类型。请使用`networkLineType`代替。
     NetworkType *string `json:"networkType,omitempty"`
 
     // InternetChargeType 带宽计费方式。默认为月95计费，如果需要日峰值计费，请联系Support开通相关权限。
@@ -382,7 +394,7 @@ type CreateBandwidthClusterRequest struct {
     // Name 带宽包显示名称。如果未指定，默认会使用地域名称命名。
     Name *string `json:"name,omitempty"`
 
-    // Product 城市带宽包所包含的的产品线范围。
+    // Product 城市带宽包所属的产品线范围。
     Product *string `json:"product,omitempty"`
 
 }

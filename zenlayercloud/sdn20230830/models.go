@@ -73,6 +73,42 @@ type DescribeVirtualEdgeDatacentersResponseParams struct {
 }
 
 
+type DescribeBorderGatewayDatacentersRequest struct {
+	*common.BaseRequest
+
+	DcId string `json:"dcId,omitempty"`
+	RegionId string `json:"regionId,omitempty"`
+}
+
+type DescribeBorderGatewayDatacentersResponse struct {
+	*common.BaseResponse
+	Response *DescribeBorderGatewayDatacentersResponseParams `json:"response"`
+}
+
+type DescribeBorderGatewayDatacentersResponseParams struct {
+	RequestId string            `json:"requestId,omitempty"`
+	DcSet     []*DatacenterInfo `json:"dcSet,omitempty"`
+}
+
+
+type DescribeVPCDatacentersRequest struct {
+	*common.BaseRequest
+
+	DcId string `json:"dcId,omitempty"`
+	RegionId string `json:"regionId,omitempty"`
+}
+
+
+type DescribeVPCDatacentersResponse struct {
+	*common.BaseResponse
+	Response *DescribeVPCDatacentersResponseParams `json:"response"`
+}
+
+type DescribeVPCDatacentersResponseParams struct {
+	RequestId string            `json:"requestId,omitempty"`
+	DcSet     []*DatacenterInfo `json:"dcSet,omitempty"`
+}
+
 
 type QueryDataCenterPortPricesRequest struct {
     *common.BaseRequest
@@ -1737,6 +1773,74 @@ type DescribeCloudRouterEdgePointTrafficResponseParams struct {
 	// 带宽值单位。例如：bps。
 	Unit string `json:"unit,omitempty"`
 }
+
+
+type DescribeCloudRouterDCToDCTrafficRequest struct {
+	*common.BaseRequest
+
+	// 三层网络连接点的ID。
+	CloudRouterId string `json:"cloudRouterId,omitempty"`
+
+    // 源数据中心ID。
+	SourceDcId string `json:"sourceDcId,omitempty"`
+
+	// 目的数据中心ID。
+	DestinationDcId string `json:"destinationDcId,omitempty"`
+
+	// 查询开始时间。
+	StartTime string `json:"startTime,omitempty"`
+
+	// 查询结束时间。
+	EndTime string `json:"endTime,omitempty"`
+}
+
+
+type DescribeCloudRouterDCToDCTrafficResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeCloudRouterDCToDCTrafficResponseParams `json:"response,omitempty"`
+}
+
+type DescribeCloudRouterDCToDCTrafficResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+
+	// 带宽数据列表。
+	DataList []*TrafficData `json:"dataList,omitempty"`
+
+	// 入口带宽95值。
+	In95 *float64 `json:"in95,omitempty"`
+
+	// 入口带宽平均值。
+	InAvg int `json:"inAvg,omitempty"`
+
+	// 入口带宽最大值。
+	InMax int `json:"inMax,omitempty"`
+
+	// 入口带宽最小值。
+	InMin int `json:"inMin,omitempty"`
+
+	// 入口带宽总流量。
+	InTotal int `json:"inTotal,omitempty"`
+
+	// 出口带宽95值。
+	Out95 int `json:"out95,omitempty"`
+
+	// 出口带宽平均值。
+	OutAvg int `json:"outAvg,omitempty"`
+
+	// 出口带宽最大值。
+	OutMax int `json:"outMax,omitempty"`
+
+	// 出口带宽最小值。
+	OutMin int `json:"outMin,omitempty"`
+
+	// 带宽值单位。例如：bps。
+	Unit string `json:"unit,omitempty"`
+}
+
 
 type ModifyCloudRouterEdgePointRequest struct {
 	*common.BaseRequest

@@ -2311,6 +2311,171 @@ type DeleteImagesResponse struct {
 
 }
 
+// DescribeDDosAllEventListRequest 获取攻击事件列表的请求参数。
+type DescribeDDosAllEventListRequest struct {
+    *common.BaseRequest
+
+    // Status 攻击状态。
+    Status *string `json:"status,omitempty"`
+
+    // IpAddress 被攻击的IP。
+    IpAddress *string `json:"ipAddress,omitempty"`
+
+    // StartTime 攻击开始时间。
+    StartTime *string `json:"startTime,omitempty"`
+
+    // EndTime 攻击结束时间。
+    EndTime *string `json:"endTime,omitempty"`
+
+    // PageSize 返回的分页大小。
+    PageSize *int `json:"pageSize,omitempty"`
+
+    // PageNum 返回的分页数。
+    PageNum *int `json:"pageNum,omitempty"`
+
+}
+
+// DescribeDDosAllEventListResponseParams 攻击事件列表。
+type DescribeDDosAllEventListResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // TotalCount 符合条件的数据总数。
+    TotalCount *int `json:"totalCount,omitempty"`
+
+    // DataSet 攻击事件列表的数据。
+    DataSet []*AttackEventInfo `json:"dataSet,omitempty"`
+
+}
+
+// AttackEventInfo 攻击事件的信息。
+type AttackEventInfo struct {
+
+    // EventId 攻击事件唯一ID。
+    EventId *string `json:"eventId,omitempty"`
+
+    // Status 攻击状态。
+    Status *string `json:"status,omitempty"`
+
+    // IpAddress 被攻击的IP。
+    IpAddress *string `json:"ipAddress,omitempty"`
+
+    // Protecting IP是否正在防护中。
+    Protecting *bool `json:"protecting,omitempty"`
+
+    // StartTime 攻击开始时间。
+    StartTime *string `json:"startTime,omitempty"`
+
+    // EndTime 攻击结束时间。
+    EndTime *string `json:"endTime,omitempty"`
+
+    // EndBlackholeTime 从黑洞解封时间。
+    EndBlackholeTime *string `json:"endBlackholeTime,omitempty"`
+
+    // AttackBandwidthMax 攻击峰值流量。单位bps。
+    AttackBandwidthMax *float64 `json:"attackBandwidthMax,omitempty"`
+
+    // AttackPackageMax 攻击峰值包量。单位pps。
+    AttackPackageMax *float64 `json:"attackPackageMax,omitempty"`
+
+    // RegionId 事件发生所在区域ID。
+    RegionId *string `json:"regionId,omitempty"`
+
+}
+
+type DescribeDDosAllEventListResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeDDosAllEventListResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeDDosEventDetailRequest 获取攻击事件详情的请求参数。
+type DescribeDDosEventDetailRequest struct {
+    *common.BaseRequest
+
+    // EventId 攻击事件唯一ID。
+    EventId *string `json:"eventId,omitempty"`
+
+    // RegionId 区域节点ID。
+    RegionId *string `json:"regionId,omitempty"`
+
+}
+
+// DescribeDDosEventDetailResponseParams 攻击事件详情。
+type DescribeDDosEventDetailResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // EventId 攻击事件唯一ID。
+    EventId *string `json:"eventId,omitempty"`
+
+    // Status 攻击状态。
+    Status *string `json:"status,omitempty"`
+
+    // Type 攻击类型。
+    Type *string `json:"type,omitempty"`
+
+    // IpAddress 被攻击的IP。
+    IpAddress *string `json:"ipAddress,omitempty"`
+
+    // Protecting IP是否正在防护中。
+    Protecting *bool `json:"protecting,omitempty"`
+
+    // StartTime 攻击开始时间。
+    StartTime *string `json:"startTime,omitempty"`
+
+    // EndTime 攻击结束时间。
+    EndTime *string `json:"endTime,omitempty"`
+
+    // EndBlackholeTime 从黑洞解封时间。
+    EndBlackholeTime *string `json:"endBlackholeTime,omitempty"`
+
+    // AttackBandwidthMax 攻击带宽峰值。单位bps。
+    AttackBandwidthMax *float64 `json:"attackBandwidthMax,omitempty"`
+
+    // ProtectedBandwidthMax 防护带宽峰值。单位bps。
+    ProtectedBandwidthMax *float64 `json:"protectedBandwidthMax,omitempty"`
+
+    // AttackPackageMax 攻击峰值包速率。单位pps。
+    AttackPackageMax *float64 `json:"attackPackageMax,omitempty"`
+
+    // ProtectedPackageMax 防护峰值包速率。单位pps。
+    ProtectedPackageMax *float64 `json:"protectedPackageMax,omitempty"`
+
+    // SourceIp 攻击来源IP。
+    SourceIp []string `json:"sourceIp,omitempty"`
+
+    // SourcePort 攻击来源端口。
+    SourcePort []*TopPort `json:"sourcePort,omitempty"`
+
+    // DesertionPort 攻击目标端口。
+    DesertionPort []*TopPort `json:"desertionPort,omitempty"`
+
+}
+
+// TopPort 攻击端口。
+type TopPort struct {
+
+    // Protocol 协议。
+    Protocol *string `json:"protocol,omitempty"`
+
+    // Port 端口号。
+    Port *int `json:"port,omitempty"`
+
+}
+
+type DescribeDDosEventDetailResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeDDosEventDetailResponseParams `json:"response,omitempty"`
+
+}
+
 // CreatePolicyRequest 创建防护策略的请求参数。
 type CreatePolicyRequest struct {
     *common.BaseRequest
@@ -3091,8 +3256,12 @@ type DescribeEipInternetChargeTypesRequest struct {
     // RegionId 查询的节点ID。
     RegionId *string `json:"regionId,omitempty"`
 
-    // EipV4Type EIP IP线路类型。
+    // Deprecated: EipV4Type 已废弃，请不要使用。
+    // EipV4Type EIP IP线路类型。已废弃，请使用`networkLineType`。
     EipV4Type *string `json:"eipV4Type,omitempty"`
+
+    // NetworkLineType EIP IP线路类型。
+    NetworkLineType *string `json:"networkLineType,omitempty"`
 
 }
 
@@ -3122,8 +3291,12 @@ type DescribeEipRemoteRegionsRequest struct {
     // RegionId 查询的节点ID。
     RegionId *string `json:"regionId,omitempty"`
 
-    // EipV4Type EIP IP线路类型。
+    // Deprecated: EipV4Type 已废弃，请不要使用。
+    // EipV4Type EIP IP线路类型。已废弃，请使用`networkLineType`。
     EipV4Type *string `json:"eipV4Type,omitempty"`
+
+    // NetworkLineType EIP IP线路类型。
+    NetworkLineType *string `json:"networkLineType,omitempty"`
 
 }
 
@@ -3241,8 +3414,12 @@ type EipInfo struct {
     // PrivateIpAddress EIP 绑定的内网IP地址。
     PrivateIpAddress *string `json:"privateIpAddress,omitempty"`
 
-    // EipV4Type EIP 的类型。
+    // Deprecated: EipV4Type 已废弃，请不要使用。
+    // EipV4Type EIP网络类型。表示该CIDR支持的公网IP线路类型。已废弃，请参考`networkLineType`。
     EipV4Type *string `json:"eipV4Type,omitempty"`
+
+    // NetworkLineType EIP网络类型。表示该CIDR支持的公网IP线路类型。
+    NetworkLineType *string `json:"networkLineType,omitempty"`
 
     // InternetChargeType EIP 的网络计费方式。
     InternetChargeType *string `json:"internetChargeType,omitempty"`
@@ -3366,8 +3543,12 @@ type CreateEipsRequest struct {
     // Amount 需要创建EIP的数量。
     Amount *int `json:"amount,omitempty"`
 
-    // EipV4Type 公网弹性IP的线路类型。
+    // Deprecated: EipV4Type 已废弃，请不要使用。
+    // EipV4Type 公网弹性IP的线路类型。已废弃，请使用`networkLineType`。
     EipV4Type *string `json:"eipV4Type,omitempty"`
+
+    // NetworkLineType 公网弹性IP的线路类型。
+    NetworkLineType *string `json:"networkLineType,omitempty"`
 
     // PrimaryIsp 主公网IP的运营商。该字段仅作用于三线IP(`ThreeLine`)。
     PrimaryIsp *string `json:"primaryIsp,omitempty"`
@@ -3502,8 +3683,12 @@ type DescribeEipPriceRequest struct {
     // Amount 需要创建EIP的数量。
     Amount *int `json:"amount,omitempty"`
 
-    // EipV4Type 公网弹性IP的线路类型。
+    // Deprecated: EipV4Type 已废弃，请不要使用。
+    // EipV4Type 公网弹性IP的线路类型。已废弃，请使用`networkLineType`。
     EipV4Type *string `json:"eipV4Type,omitempty"`
+
+    // NetworkLineType 公网弹性IP的线路类型。
+    NetworkLineType *string `json:"networkLineType,omitempty"`
 
     // Bandwidth 公网弹性IP的带宽限速。单位：Mbps。
     Bandwidth *int `json:"bandwidth,omitempty"`
@@ -4245,171 +4430,6 @@ type ModifyDhcpOptionsSetAttributesResponse struct {
 
 }
 
-// DescribeDDosAllEventListRequest 获取攻击事件列表的请求参数。
-type DescribeDDosAllEventListRequest struct {
-    *common.BaseRequest
-
-    // Status 攻击状态。
-    Status *string `json:"status,omitempty"`
-
-    // IpAddress 被攻击的IP。
-    IpAddress *string `json:"ipAddress,omitempty"`
-
-    // StartTime 攻击开始时间。
-    StartTime *string `json:"startTime,omitempty"`
-
-    // EndTime 攻击结束时间。
-    EndTime *string `json:"endTime,omitempty"`
-
-    // PageSize 返回的分页大小。
-    PageSize *int `json:"pageSize,omitempty"`
-
-    // PageNum 返回的分页数。
-    PageNum *int `json:"pageNum,omitempty"`
-
-}
-
-// DescribeDDosAllEventListResponseParams 攻击事件列表。
-type DescribeDDosAllEventListResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // TotalCount 符合条件的数据总数。
-    TotalCount *int `json:"totalCount,omitempty"`
-
-    // DataSet 攻击事件列表的数据。
-    DataSet []*AttackEventInfo `json:"dataSet,omitempty"`
-
-}
-
-// AttackEventInfo 攻击事件的信息。
-type AttackEventInfo struct {
-
-    // EventId 攻击事件唯一ID。
-    EventId *string `json:"eventId,omitempty"`
-
-    // Status 攻击状态。
-    Status *string `json:"status,omitempty"`
-
-    // IpAddress 被攻击的IP。
-    IpAddress *string `json:"ipAddress,omitempty"`
-
-    // Protecting IP是否正在防护中。
-    Protecting *bool `json:"protecting,omitempty"`
-
-    // StartTime 攻击开始时间。
-    StartTime *string `json:"startTime,omitempty"`
-
-    // EndTime 攻击结束时间。
-    EndTime *string `json:"endTime,omitempty"`
-
-    // EndBlackholeTime 从黑洞解封时间。
-    EndBlackholeTime *string `json:"endBlackholeTime,omitempty"`
-
-    // AttackBandwidthMax 攻击峰值流量。单位bps。
-    AttackBandwidthMax *float64 `json:"attackBandwidthMax,omitempty"`
-
-    // AttackPackageMax 攻击峰值包量。单位pps。
-    AttackPackageMax *float64 `json:"attackPackageMax,omitempty"`
-
-    // RegionId 事件发生所在区域ID。
-    RegionId *string `json:"regionId,omitempty"`
-
-}
-
-type DescribeDDosAllEventListResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeDDosAllEventListResponseParams `json:"response,omitempty"`
-
-}
-
-// DescribeDDosEventDetailRequest 获取攻击事件详情的请求参数。
-type DescribeDDosEventDetailRequest struct {
-    *common.BaseRequest
-
-    // EventId 攻击事件唯一ID。
-    EventId *string `json:"eventId,omitempty"`
-
-    // RegionId 区域节点ID。
-    RegionId *string `json:"regionId,omitempty"`
-
-}
-
-// DescribeDDosEventDetailResponseParams 攻击事件详情。
-type DescribeDDosEventDetailResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // EventId 攻击事件唯一ID。
-    EventId *string `json:"eventId,omitempty"`
-
-    // Status 攻击状态。
-    Status *string `json:"status,omitempty"`
-
-    // Type 攻击类型。
-    Type *string `json:"type,omitempty"`
-
-    // IpAddress 被攻击的IP。
-    IpAddress *string `json:"ipAddress,omitempty"`
-
-    // Protecting IP是否正在防护中。
-    Protecting *bool `json:"protecting,omitempty"`
-
-    // StartTime 攻击开始时间。
-    StartTime *string `json:"startTime,omitempty"`
-
-    // EndTime 攻击结束时间。
-    EndTime *string `json:"endTime,omitempty"`
-
-    // EndBlackholeTime 从黑洞解封时间。
-    EndBlackholeTime *string `json:"endBlackholeTime,omitempty"`
-
-    // AttackBandwidthMax 攻击带宽峰值。单位bps。
-    AttackBandwidthMax *float64 `json:"attackBandwidthMax,omitempty"`
-
-    // ProtectedBandwidthMax 防护带宽峰值。单位bps。
-    ProtectedBandwidthMax *float64 `json:"protectedBandwidthMax,omitempty"`
-
-    // AttackPackageMax 攻击峰值包速率。单位pps。
-    AttackPackageMax *float64 `json:"attackPackageMax,omitempty"`
-
-    // ProtectedPackageMax 防护峰值包速率。单位pps。
-    ProtectedPackageMax *float64 `json:"protectedPackageMax,omitempty"`
-
-    // SourceIp 攻击来源IP。
-    SourceIp []string `json:"sourceIp,omitempty"`
-
-    // SourcePort 攻击来源端口。
-    SourcePort []*TopPort `json:"sourcePort,omitempty"`
-
-    // DesertionPort 攻击目标端口。
-    DesertionPort []*TopPort `json:"desertionPort,omitempty"`
-
-}
-
-// TopPort 攻击端口。
-type TopPort struct {
-
-    // Protocol 协议。
-    Protocol *string `json:"protocol,omitempty"`
-
-    // Port 端口号。
-    Port *int `json:"port,omitempty"`
-
-}
-
-type DescribeDDosEventDetailResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeDDosEventDetailResponseParams `json:"response,omitempty"`
-
-}
-
 // DescribeZonesRequest 查询可用区的请求信息。
 type DescribeZonesRequest struct {
     *common.BaseRequest
@@ -4547,8 +4567,12 @@ type DescribeCidrPriceRequest struct {
     // RegionId 查询CIDR所在的节点ID。
     RegionId *string `json:"regionId,omitempty"`
 
-    // EipV4Type 查询CIDR的IP线路类型。
+    // Deprecated: EipV4Type 已废弃，请不要使用。
+    // EipV4Type 查询CIDR的IP线路类型。已废弃，请使用`networkLineType`。
     EipV4Type *string `json:"eipV4Type,omitempty"`
+
+    // NetworkLineType 查询CIDR的IP线路类型。
+    NetworkLineType *string `json:"networkLineType,omitempty"`
 
     // Netmask 需要查询的CIDR子网数量和掩码信息。
     Netmask *NetmaskInfo `json:"netmask,omitempty"`
@@ -4658,8 +4682,12 @@ type CidrInfo struct {
     // Source CIDR的来源。如CONSOLE（属于zenlayer）或 BYOIP（客户自带IP）。
     Source *string `json:"source,omitempty"`
 
-    // EipV4Type EIP网络类型。表示该CIDR支持的公网IP线路类型。
+    // Deprecated: EipV4Type 已废弃，请不要使用。
+    // EipV4Type EIP网络类型。表示该CIDR支持的公网IP线路类型。已废弃，请参考`networkLineType`。
     EipV4Type *string `json:"eipV4Type,omitempty"`
+
+    // NetworkLineType EIP网络类型。表示该CIDR支持的公网IP线路类型。
+    NetworkLineType *string `json:"networkLineType,omitempty"`
 
     // Netmask 子网掩码。表示CIDR的网络位长度。
     Netmask *int `json:"netmask,omitempty"`
@@ -4703,8 +4731,12 @@ type CreateCidrRequest struct {
     // RegionId 节点ID。
     RegionId *string `json:"regionId,omitempty"`
 
-    // EipV4Type 公网IPv4的网络类型。
+    // Deprecated: EipV4Type 已废弃，请不要使用。
+    // EipV4Type 公网IPv4的网络类型。已废弃，请使用`networkLineType`。
     EipV4Type *string `json:"eipV4Type,omitempty"`
+
+    // NetworkLineType 公网IPv4的网络类型。
+    NetworkLineType *string `json:"networkLineType,omitempty"`
 
     // Netmask CIDR掩码、数量。
     Netmask *NetmaskInfo `json:"netmask,omitempty"`
@@ -5666,8 +5698,12 @@ type InquiryPriceCreateInstanceRequest struct {
     // InstanceType 实例机型。具体取值可通过调用接口[DescribeZoneInstanceConfigInfos](describezoneinstanceconfiginfos.md)来获得最新的规格表。
     InstanceType *string `json:"instanceType,omitempty"`
 
-    // EipV4Type 公网IPv4的线路类型。目前不支持三线IP(`ThreeLine`)。
+    // Deprecated: EipV4Type 已废弃，请不要使用。
+    // EipV4Type 公网IPv4的线路类型。目前不支持三线IP(`ThreeLine`)。已废弃，请使用`networkLineType`。
     EipV4Type *string `json:"eipV4Type,omitempty"`
+
+    // NetworkLineType 公网IPv4的线路类型。目前不支持三线IP(`ThreeLine`)。
+    NetworkLineType *string `json:"networkLineType,omitempty"`
 
     // InternetChargeType 公网IP的网络计费类型。
     InternetChargeType *string `json:"internetChargeType,omitempty"`
@@ -5836,8 +5872,12 @@ type CreateZecInstancesRequest struct {
     // EipBindType 公网IP的绑定模式。当分配公网IP时需要指定。
     EipBindType *string `json:"eipBindType,omitempty"`
 
-    // EipV4Type 公网IPv4的线路类型。当分配公网IP时需要指定。请确保所选子网的堆栈类型支持`IPv4`。目前不支持三线IP随实例一起创建。
+    // Deprecated: EipV4Type 已废弃，请不要使用。
+    // EipV4Type 公网IPv4的线路类型。当分配公网IP时需要指定。请确保所选子网的堆栈类型支持`IPv4`。目前不支持三线IP随实例一起创建。已废弃，请使用`networkLineType`。
     EipV4Type *string `json:"eipV4Type,omitempty"`
+
+    // NetworkLineType 公网IPv4的线路类型。当分配公网IP时需要指定。请确保所选子网的堆栈类型支持`IPv4`。目前不支持三线IP随实例一起创建。
+    NetworkLineType *string `json:"networkLineType,omitempty"`
 
     // ClusterId 共享带宽包ID。当网络计费方式是共享带宽包计费(`BandwidthCluster`)时需要指定。
     ClusterId *string `json:"clusterId,omitempty"`
