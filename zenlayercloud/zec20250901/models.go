@@ -779,6 +779,12 @@ type CreateSubnetRequest struct {
     // DhcpOptionsSetId 要绑定的DHCP 选项集ID。
     DhcpOptionsSetId *string `json:"dhcpOptionsSetId,omitempty"`
 
+    // Ipv6CidrBlockId 公网IPv6 CIDR ID。该字段仅当`ipv6Type`是公网(`Public`)时允许指定。如果不指定，将从系统默认IP池里分配。
+    Ipv6CidrBlockId *string `json:"ipv6CidrBlockId,omitempty"`
+
+    // Ipv6MaskLength 分配给虚拟机（VM）的IPv6 CIDR子网的大小。该参数仅当`ipv6CidrBlockId`时生效。当未显式传递时，默认值为96。
+    Ipv6MaskLength *int `json:"ipv6MaskLength,omitempty"`
+
 }
 
 // CreateSubnetResponseParams 创建子网的响应结果。
@@ -858,6 +864,12 @@ type ModifySubnetStackTypeRequest struct {
 
     // Ipv6Type IPv6的类型。
     Ipv6Type *string `json:"ipv6Type,omitempty"`
+
+    // Ipv6CidrBlockId 公网IPv6 CIDR ID。该字段仅当`ipv6Type`是公网(`Public`)时允许指定。如果不指定，将从系统默认IP池里分配。
+    Ipv6CidrBlockId *string `json:"ipv6CidrBlockId,omitempty"`
+
+    // Ipv6MaskLength 分配给虚拟机（VM）的IPv6 CIDR子网的大小。该参数仅当`ipv6CidrBlockId`时生效。当未显式传递时，默认值为96。
+    Ipv6MaskLength *int `json:"ipv6MaskLength,omitempty"`
 
 }
 
@@ -3516,6 +3528,9 @@ type BlockInfo struct {
     // OutCps 单位个。
     OutCps *int64 `json:"outCps,omitempty"`
 
+    // Enable 是否启用特定阈值。
+    Enable *bool `json:"enable,omitempty"`
+
 }
 
 type DescribeEipsResponse struct {
@@ -4525,6 +4540,12 @@ type PoolInfo struct {
     // CreateTime 公网IP池的创建时间。
     CreateTime *string `json:"createTime,omitempty"`
 
+    // Ipv4CidrCount CIDR IPv4的数量。
+    Ipv4CidrCount *int `json:"ipv4CidrCount,omitempty"`
+
+    // Ipv6CidrCount CIDR IPv6的数量。
+    Ipv6CidrCount *int `json:"ipv6CidrCount,omitempty"`
+
 }
 
 type DescribePoolsResponse struct {
@@ -4861,6 +4882,150 @@ type DeleteCidrsResponse struct {
     RequestId *string `json:"requestId,omitempty"`
 
     Response *DeleteCidrsResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeIpv6CidrsRequest 查询IPV6 CIDR列表的请求信息。
+type DescribeIpv6CidrsRequest struct {
+    *common.BaseRequest
+
+    // CidrIds 一个或多个待操作的Cidr ID，根据cidrId进行过滤。
+    CidrIds []string `json:"cidrIds,omitempty"`
+
+    // RegionId 根据CIDR所在的节点ID进行过滤。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // Name 根据CIDR名称进行过滤，支持模糊查询。
+    Name *string `json:"name,omitempty"`
+
+    // CidrBlock 根据CIDR地址进行过滤。
+    CidrBlock *string `json:"cidrBlock,omitempty"`
+
+    // ResourceGroupId 根据资源组ID进行过滤。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // PageSize 返回的分页大小，默认为20，最大为1000。
+    PageSize *int `json:"pageSize,omitempty"`
+
+    // PageNum 返回的分页数，默认为1。
+    PageNum *int `json:"pageNum,omitempty"`
+
+    // TagKeys 根据标签键进行搜索。 最长不得超过20个标签键。
+    TagKeys []string `json:"tagKeys,omitempty"`
+
+    // Tags 根据标签进行搜索。 最长不得超过20个标签。
+    Tags []*Tag `json:"tags,omitempty"`
+
+}
+
+// DescribeIpv6CidrsResponseParams 查询CIDR IPV6地址的响应信息。
+type DescribeIpv6CidrsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // TotalCount 符合条件的数据总数。
+    TotalCount *int `json:"totalCount,omitempty"`
+
+    // DataSet 查询IPV6 CIDR地址的结果数据。
+    DataSet []*Ipv6CidrInfo `json:"dataSet,omitempty"`
+
+}
+
+// Ipv6CidrInfo IPv6 CIDR信息详情。
+type Ipv6CidrInfo struct {
+
+    // CidrId CIDR ID。
+    CidrId *string `json:"cidrId,omitempty"`
+
+    // RegionId CIDR所属的区域节点ID。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // Name CIDR的名称。
+    Name *string `json:"name,omitempty"`
+
+    // CidrBlock CIDR地址块，例如：2400:8a00::/28。
+    CidrBlock *string `json:"cidrBlock,omitempty"`
+
+    // Source CIDR的来源。如CONSOLE（属于zenlayer）或 BYOIP（客户自带IP）。
+    Source *string `json:"source,omitempty"`
+
+    // NetworkLineType CIDR网络类型。表示该CIDR支持的公网IP线路类型。
+    NetworkLineType *string `json:"networkLineType,omitempty"`
+
+    // SubnetIds 子网ID集合。
+    SubnetIds []string `json:"subnetIds,omitempty"`
+
+    // NicIds 网卡ID集合。
+    NicIds []string `json:"nicIds,omitempty"`
+
+    // Netmask 子网掩码。表示CIDR的网络位长度。
+    Netmask *int `json:"netmask,omitempty"`
+
+    // PoolId Pool的ID。表示该CIDR所属的公网IP池。
+    PoolId *string `json:"poolId,omitempty"`
+
+    // CreateTime CIDR的创建时间。
+    CreateTime *string `json:"createTime,omitempty"`
+
+    // ExpiredTime CIDR的到期时间。
+    ExpiredTime *string `json:"expiredTime,omitempty"`
+
+    // ResourceGroup 该CIDR所属的资源组。
+    ResourceGroup *ResourceGroupInfo `json:"resourceGroup,omitempty"`
+
+    // Status CIDR的状态。
+    Status *string `json:"status,omitempty"`
+
+    // Tags 该CIDR地址段关联的标签。
+    Tags *Tags `json:"tags,omitempty"`
+
+}
+
+type DescribeIpv6CidrsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeIpv6CidrsResponseParams `json:"response,omitempty"`
+
+}
+
+// DeleteIpv6CidrRequest 删除IPv6地址块的请求信息。
+type DeleteIpv6CidrRequest struct {
+    *common.BaseRequest
+
+    // CidrId IPv6 地址块ID。
+    CidrId *string `json:"cidrId,omitempty"`
+
+}
+
+type DeleteIpv6CidrResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type RenewIpv6CidrRequest struct {
+    *common.BaseRequest
+
+    // CidrId IPv6 地址块ID。
+    CidrId *string `json:"cidrId,omitempty"`
+
+}
+
+type RenewIpv6CidrResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
 
 }
 
@@ -7190,7 +7355,7 @@ type CreateRouteRequest struct {
     // SourceCidrBlock 源IP地址CIDR。`路由类型`配置`RouteTypePolicy(策略路由)`时需指定。
     SourceCidrBlock *string `json:"sourceCidrBlock,omitempty"`
 
-    // DestinationCidrBlock IPv4或IPv6的目标网段。例如：10.0.1.0/24。该字段必填。
+    // DestinationCidrBlock IPv4或IPv6的目标网段。例如：10.0.1.0/24。
     DestinationCidrBlock *string `json:"destinationCidrBlock,omitempty"`
 
     // CidrBlock IPv4或IPv6的目标网段。例如：10.0.1.0/24。该字段已废弃，请使用`destinationCidrBlock`。
@@ -7199,7 +7364,7 @@ type CreateRouteRequest struct {
     // Priority 路由优先级。数值越小，优先级越高。
     Priority *int `json:"priority,omitempty"`
 
-    // NextHopId 下一跳资源ID。目前只支持网卡ID。该字段必填。
+    // NextHopId 下一跳资源ID。目前只支持网卡ID。
     NextHopId *string `json:"nextHopId,omitempty"`
 
     // NextHotId 下一跳资源ID。目前只支持网卡ID。该字段已废弃， 请使用`nextHopId`。

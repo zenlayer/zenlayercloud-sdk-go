@@ -54,6 +54,9 @@ type Listener struct {
     // CreateTime 创建时间。按照ISO8601标准表示，并且使用UTC时间。格式为：YYYY-MM-DDThh:mm:ssZ。
     CreateTime *string `json:"createTime,omitempty"`
 
+    // Persistent 会话保持时间，单位秒。
+    Persistent *int `json:"persistent,omitempty"`
+
 }
 
 // HealthCheck 描述健康检查的相关信息。
@@ -124,6 +127,9 @@ type CreateListenerRequest struct {
     // Kind 工作模式。如果不传则会根据负载均衡实例所在的区域设定默认值。默认值可能为DNAT、FNAT。
     Kind *string `json:"kind,omitempty"`
 
+    // Persistent 会话保持时间，单位秒。
+    Persistent *int `json:"persistent,omitempty"`
+
 }
 
 type CreateListenerResponseParams struct {
@@ -189,6 +195,9 @@ type ModifyListenerRequest struct {
 
     // Kind 工作模式。如果修改为`DR`模式，如果后端服务器指定了端口将失效，将跟随监听器的端口。
     Kind *string `json:"kind,omitempty"`
+
+    // Persistent 会话保持时间，单位秒。
+    Persistent *int `json:"persistent,omitempty"`
 
 }
 

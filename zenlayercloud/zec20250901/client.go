@@ -2376,7 +2376,7 @@ func NewDescribeCidrPriceResponse() (response *DescribeCidrPriceResponse) {
 	return
 }
 
-// DescribeCidrPrice 查询CIDR地址块售卖价格。
+// DescribeCidrPrice 查询IPv4 CIDR地址块售卖价格。
 func (c *Client) DescribeCidrPrice(request *DescribeCidrPriceRequest) (response *DescribeCidrPriceResponse, err error) {
 	response = NewDescribeCidrPriceResponse()
 	err = c.ApiCall(request, response)
@@ -2399,7 +2399,7 @@ func NewDescribeCidrsResponse() (response *DescribeCidrsResponse) {
 	return
 }
 
-// DescribeCidrs 查询CIDR地址块列表
+// DescribeCidrs 查询IPv4 CIDR地址块列表
 func (c *Client) DescribeCidrs(request *DescribeCidrsRequest) (response *DescribeCidrsResponse, err error) {
 	response = NewDescribeCidrsResponse()
 	err = c.ApiCall(request, response)
@@ -2422,7 +2422,7 @@ func NewCreateCidrResponse() (response *CreateCidrResponse) {
 	return
 }
 
-// CreateCidr 创建CIDR地址段。
+// CreateCidr 创建IPv6/IPv4 CIDR地址段。
 func (c *Client) CreateCidr(request *CreateCidrRequest) (response *CreateCidrResponse, err error) {
 	response = NewCreateCidrResponse()
 	err = c.ApiCall(request, response)
@@ -2445,7 +2445,7 @@ func NewModifyCidrAttributeResponse() (response *ModifyCidrAttributeResponse) {
 	return
 }
 
-// ModifyCidrAttribute 修改CIDR地址段的属性。 目前只能修改名称。
+// ModifyCidrAttribute 修改IPv4 CIDR地址段的属性。 目前只能修改名称。
 func (c *Client) ModifyCidrAttribute(request *ModifyCidrAttributeRequest) (response *ModifyCidrAttributeResponse, err error) {
 	response = NewModifyCidrAttributeResponse()
 	err = c.ApiCall(request, response)
@@ -2468,7 +2468,7 @@ func NewDeleteCidrResponse() (response *DeleteCidrResponse) {
 	return
 }
 
-// DeleteCidr 删除CIDR地址段。
+// DeleteCidr 删除IPv4 CIDR地址段。
 func (c *Client) DeleteCidr(request *DeleteCidrRequest) (response *DeleteCidrResponse, err error) {
 	response = NewDeleteCidrResponse()
 	err = c.ApiCall(request, response)
@@ -2491,7 +2491,7 @@ func NewRenewCidrResponse() (response *RenewCidrResponse) {
 	return
 }
 
-// RenewCidr 将一个处于回收站的CIDR地址段恢复回正常。
+// RenewCidr 将一个处于回收站的IPv4 CIDR地址段恢复回正常。
 func (c *Client) RenewCidr(request *RenewCidrRequest) (response *RenewCidrResponse, err error) {
 	response = NewRenewCidrResponse()
 	err = c.ApiCall(request, response)
@@ -2514,9 +2514,78 @@ func NewDeleteCidrsResponse() (response *DeleteCidrsResponse) {
 	return
 }
 
-// DeleteCidrs 删除一个或多个CIDR地址段。
+// DeleteCidrs 删除一个或多个IPv4 CIDR地址块。
 func (c *Client) DeleteCidrs(request *DeleteCidrsRequest) (response *DeleteCidrsResponse, err error) {
 	response = NewDeleteCidrsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeIpv6CidrsRequest() (request *DescribeIpv6CidrsRequest) {
+	request = &DescribeIpv6CidrsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeIpv6Cidrs")
+
+	return
+}
+
+func NewDescribeIpv6CidrsResponse() (response *DescribeIpv6CidrsResponse) {
+	response = &DescribeIpv6CidrsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeIpv6Cidrs 查询IPV6 CIDR地址块列表。
+func (c *Client) DescribeIpv6Cidrs(request *DescribeIpv6CidrsRequest) (response *DescribeIpv6CidrsResponse, err error) {
+	response = NewDescribeIpv6CidrsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteIpv6CidrRequest() (request *DeleteIpv6CidrRequest) {
+	request = &DeleteIpv6CidrRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteIpv6Cidr")
+
+	return
+}
+
+func NewDeleteIpv6CidrResponse() (response *DeleteIpv6CidrResponse) {
+	response = &DeleteIpv6CidrResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeleteIpv6Cidr 删除IPv6 CIDR地址块。
+func (c *Client) DeleteIpv6Cidr(request *DeleteIpv6CidrRequest) (response *DeleteIpv6CidrResponse, err error) {
+	response = NewDeleteIpv6CidrResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewRenewIpv6CidrRequest() (request *RenewIpv6CidrRequest) {
+	request = &RenewIpv6CidrRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "RenewIpv6Cidr")
+
+	return
+}
+
+func NewRenewIpv6CidrResponse() (response *RenewIpv6CidrResponse) {
+	response = &RenewIpv6CidrResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// RenewIpv6Cidr 将一个处于回收站的IPv6 CIDR地址段恢复回正常。
+func (c *Client) RenewIpv6Cidr(request *RenewIpv6CidrRequest) (response *RenewIpv6CidrResponse, err error) {
+	response = NewRenewIpv6CidrResponse()
 	err = c.ApiCall(request, response)
 	return
 }

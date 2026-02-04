@@ -1430,6 +1430,7 @@ type EipAddress struct {
 	EipId             string `json:"eipId,omitempty"`
 	ZoneId            string `json:"zoneId,omitempty"`
 	IpAddress         string `json:"ipAddress,omitempty"`
+	Netmask           int `json:"netmask,omitempty"`
 	InstanceId        string `json:"instanceId,omitempty"`
 	InstanceName      string `json:"instanceName,omitempty"`
 	EipChargeType     string `json:"eipChargeType,omitempty"`
@@ -1543,6 +1544,8 @@ type EipAvailableResource struct {
 	// SELL_SHORTAGE: available for sale, stock < 10.
 	// SOLD_OUT: sold out.
 	Status string `json:"status,omitempty"`
+
+	Netmask int `json:"netmask,omitempty"`
 }
 
 type DescribeInstanceAvailableEipResourcesRequest struct {
@@ -1574,6 +1577,8 @@ type InstanceAvailableEipResource struct {
 
 	// IP address.
 	IpAddress string `json:"ipAddress,omitempty"`
+
+	Netmask int `json:"netmask,omitempty"`
 }
 
 type AllocateEipAddressesRequest struct {
@@ -1598,6 +1603,8 @@ type AllocateEipAddressesRequest struct {
 	// Value range: 1-100.
 	// Default value: 1.
 	Amount int `json:"amount,omitempty"`
+
+	Netmask int `json:"netmask,omitempty"`
 
 	MarketingOptions  *MarketingInfo `json:"marketingOptions,omitempty"`
 
@@ -1749,6 +1756,8 @@ type InquiryPriceCreateEipAddressRequest struct {
 	// Value range: 1-100.
 	// Default value: 1.
 	Amount int `json:"amount,omitempty"`
+
+	Netmask int `json:"netmask,omitempty"`
 }
 
 type InquiryPriceCreateEipAddressResponse struct {
