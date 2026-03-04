@@ -2130,6 +2130,29 @@ func (c *Client) ChangeEipBindType(request *ChangeEipBindTypeRequest) (response 
 	return
 }
 
+func NewConfigEipProbeRequest() (request *ConfigEipProbeRequest) {
+	request = &ConfigEipProbeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ConfigEipProbe")
+
+	return
+}
+
+func NewConfigEipProbeResponse() (response *ConfigEipProbeResponse) {
+	response = &ConfigEipProbeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ConfigEipProbe 弹性公网IP（EIP）探测配置。
+func (c *Client) ConfigEipProbe(request *ConfigEipProbeRequest) (response *ConfigEipProbeResponse, err error) {
+	response = NewConfigEipProbeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewDescribeEipMonitorDataRequest() (request *DescribeEipMonitorDataRequest) {
 	request = &DescribeEipMonitorDataRequest{
 		BaseRequest: &common.BaseRequest{},

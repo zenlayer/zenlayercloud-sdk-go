@@ -4098,6 +4098,31 @@ type ChangeEipBindTypeResponse struct {
 
 }
 
+type ConfigEipProbeRequest struct {
+    *common.BaseRequest
+
+    // EipId 要更换绑定模式的EIP ID。
+    EipId *string `json:"eipId,omitempty"`
+
+    // DisableIcmp 是否禁用ICMP。
+    DisableIcmp *bool `json:"disableIcmp,omitempty"`
+
+    // TcpPort TCP探测端口, [1-65535]。不传表示不开启。
+    TcpPort *int `json:"tcpPort,omitempty"`
+
+}
+
+type ConfigEipProbeResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
 // DescribeEipMonitorDataRequest 查询弹性公网IP监控指标请求。
 type DescribeEipMonitorDataRequest struct {
     *common.BaseRequest

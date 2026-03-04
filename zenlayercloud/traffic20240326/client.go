@@ -37,52 +37,6 @@ func NewClient(config *common.Config, secretKeyId, secretKeyPassword string) (cl
 }
 
 
-func NewDescribeBandwidthClustersRequest() (request *DescribeBandwidthClustersRequest) {
-	request = &DescribeBandwidthClustersRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeBandwidthClusters")
-
-	return
-}
-
-func NewDescribeBandwidthClustersResponse() (response *DescribeBandwidthClustersResponse) {
-	response = &DescribeBandwidthClustersResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeBandwidthClusters 查询一个或多个共享带宽包的信息。用户可以根据共享带宽包ID、名称或者城市名称等条件来查询共享带宽包的详细信息。
-func (c *Client) DescribeBandwidthClusters(request *DescribeBandwidthClustersRequest) (response *DescribeBandwidthClustersResponse, err error) {
-	response = NewDescribeBandwidthClustersResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeBandwidthClusterResourcesRequest() (request *DescribeBandwidthClusterResourcesRequest) {
-	request = &DescribeBandwidthClusterResourcesRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeBandwidthClusterResources")
-
-	return
-}
-
-func NewDescribeBandwidthClusterResourcesResponse() (response *DescribeBandwidthClusterResourcesResponse) {
-	response = &DescribeBandwidthClusterResourcesResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeBandwidthClusterResources 查询一个共享带宽包里的资源。
-func (c *Client) DescribeBandwidthClusterResources(request *DescribeBandwidthClusterResourcesRequest) (response *DescribeBandwidthClusterResourcesResponse, err error) {
-	response = NewDescribeBandwidthClusterResourcesResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
 func NewDescribeBandwidthClusterAreasRequest() (request *DescribeBandwidthClusterAreasRequest) {
 	request = &DescribeBandwidthClusterAreasRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -102,29 +56,6 @@ func NewDescribeBandwidthClusterAreasResponse() (response *DescribeBandwidthClus
 // DescribeBandwidthClusterAreas 查询共享带宽包的地区信息。
 func (c *Client) DescribeBandwidthClusterAreas(request *DescribeBandwidthClusterAreasRequest) (response *DescribeBandwidthClusterAreasResponse, err error) {
 	response = NewDescribeBandwidthClusterAreasResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeBandwidthClusterTrafficRequest() (request *DescribeBandwidthClusterTrafficRequest) {
-	request = &DescribeBandwidthClusterTrafficRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeBandwidthClusterTraffic")
-
-	return
-}
-
-func NewDescribeBandwidthClusterTrafficResponse() (response *DescribeBandwidthClusterTrafficResponse) {
-	response = &DescribeBandwidthClusterTrafficResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeBandwidthClusterTraffic 查询带宽组指定时间段内的流量信息。
-func (c *Client) DescribeBandwidthClusterTraffic(request *DescribeBandwidthClusterTrafficRequest) (response *DescribeBandwidthClusterTrafficResponse, err error) {
-	response = NewDescribeBandwidthClusterTrafficResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -152,6 +83,29 @@ func (c *Client) InquiryBandwidthClusterPrice(request *InquiryBandwidthClusterPr
 	return
 }
 
+func NewDescribeBandwidthClustersRequest() (request *DescribeBandwidthClustersRequest) {
+	request = &DescribeBandwidthClustersRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeBandwidthClusters")
+
+	return
+}
+
+func NewDescribeBandwidthClustersResponse() (response *DescribeBandwidthClustersResponse) {
+	response = &DescribeBandwidthClustersResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeBandwidthClusters 查询一个或多个共享带宽包的信息。用户可以根据共享带宽包ID、名称或者城市名称等条件来查询共享带宽包的详细信息。
+func (c *Client) DescribeBandwidthClusters(request *DescribeBandwidthClustersRequest) (response *DescribeBandwidthClustersResponse, err error) {
+	response = NewDescribeBandwidthClustersResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewCreateBandwidthClusterRequest() (request *CreateBandwidthClusterRequest) {
 	request = &CreateBandwidthClusterRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -175,48 +129,25 @@ func (c *Client) CreateBandwidthCluster(request *CreateBandwidthClusterRequest) 
 	return
 }
 
-func NewModifyBandwidthClusterAttributeRequest() (request *ModifyBandwidthClusterAttributeRequest) {
-	request = &ModifyBandwidthClusterAttributeRequest{
+func NewDescribeBandwidthClusterTrafficRequest() (request *DescribeBandwidthClusterTrafficRequest) {
+	request = &DescribeBandwidthClusterTrafficRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyBandwidthClusterAttribute")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeBandwidthClusterTraffic")
 
 	return
 }
 
-func NewModifyBandwidthClusterAttributeResponse() (response *ModifyBandwidthClusterAttributeResponse) {
-	response = &ModifyBandwidthClusterAttributeResponse{
+func NewDescribeBandwidthClusterTrafficResponse() (response *DescribeBandwidthClusterTrafficResponse) {
+	response = &DescribeBandwidthClusterTrafficResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-// ModifyBandwidthClusterAttribute 修改共享带宽包的属性。目前只支持名称的修改。
-func (c *Client) ModifyBandwidthClusterAttribute(request *ModifyBandwidthClusterAttributeRequest) (response *ModifyBandwidthClusterAttributeResponse, err error) {
-	response = NewModifyBandwidthClusterAttributeResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDeleteBandwidthClustersRequest() (request *DeleteBandwidthClustersRequest) {
-	request = &DeleteBandwidthClustersRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteBandwidthClusters")
-
-	return
-}
-
-func NewDeleteBandwidthClustersResponse() (response *DeleteBandwidthClustersResponse) {
-	response = &DeleteBandwidthClustersResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DeleteBandwidthClusters 删除一个或多个共享带宽包。
-func (c *Client) DeleteBandwidthClusters(request *DeleteBandwidthClustersRequest) (response *DeleteBandwidthClustersResponse, err error) {
-	response = NewDeleteBandwidthClustersResponse()
+// DescribeBandwidthClusterTraffic 查询带宽组指定时间段内的流量信息。
+func (c *Client) DescribeBandwidthClusterTraffic(request *DescribeBandwidthClusterTrafficRequest) (response *DescribeBandwidthClusterTrafficResponse, err error) {
+	response = NewDescribeBandwidthClusterTrafficResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -244,6 +175,29 @@ func (c *Client) UpdateBandwidthClusterCommitBandwidth(request *UpdateBandwidthC
 	return
 }
 
+func NewModifyBandwidthClusterAttributeRequest() (request *ModifyBandwidthClusterAttributeRequest) {
+	request = &ModifyBandwidthClusterAttributeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyBandwidthClusterAttribute")
+
+	return
+}
+
+func NewModifyBandwidthClusterAttributeResponse() (response *ModifyBandwidthClusterAttributeResponse) {
+	response = &ModifyBandwidthClusterAttributeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyBandwidthClusterAttribute 修改共享带宽包的属性。目前只支持名称的修改。
+func (c *Client) ModifyBandwidthClusterAttribute(request *ModifyBandwidthClusterAttributeRequest) (response *ModifyBandwidthClusterAttributeResponse, err error) {
+	response = NewModifyBandwidthClusterAttributeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewMigrateBandwidthClusterResourcesRequest() (request *MigrateBandwidthClusterResourcesRequest) {
 	request = &MigrateBandwidthClusterResourcesRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -263,6 +217,75 @@ func NewMigrateBandwidthClusterResourcesResponse() (response *MigrateBandwidthCl
 // MigrateBandwidthClusterResources 共享带宽包之间的资源迁移。
 func (c *Client) MigrateBandwidthClusterResources(request *MigrateBandwidthClusterResourcesRequest) (response *MigrateBandwidthClusterResourcesResponse, err error) {
 	response = NewMigrateBandwidthClusterResourcesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteBandwidthClustersRequest() (request *DeleteBandwidthClustersRequest) {
+	request = &DeleteBandwidthClustersRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteBandwidthClusters")
+
+	return
+}
+
+func NewDeleteBandwidthClustersResponse() (response *DeleteBandwidthClustersResponse) {
+	response = &DeleteBandwidthClustersResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeleteBandwidthClusters 删除一个或多个共享带宽包。
+func (c *Client) DeleteBandwidthClusters(request *DeleteBandwidthClustersRequest) (response *DeleteBandwidthClustersResponse, err error) {
+	response = NewDeleteBandwidthClustersResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeBandwidthClusterResourcesRequest() (request *DescribeBandwidthClusterResourcesRequest) {
+	request = &DescribeBandwidthClusterResourcesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeBandwidthClusterResources")
+
+	return
+}
+
+func NewDescribeBandwidthClusterResourcesResponse() (response *DescribeBandwidthClusterResourcesResponse) {
+	response = &DescribeBandwidthClusterResourcesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeBandwidthClusterResources 查询一个共享带宽包里的资源。
+func (c *Client) DescribeBandwidthClusterResources(request *DescribeBandwidthClusterResourcesRequest) (response *DescribeBandwidthClusterResourcesResponse, err error) {
+	response = NewDescribeBandwidthClusterResourcesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeBandwidthClusterUsageRequest() (request *DescribeBandwidthClusterUsageRequest) {
+	request = &DescribeBandwidthClusterUsageRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeBandwidthClusterUsage")
+
+	return
+}
+
+func NewDescribeBandwidthClusterUsageResponse() (response *DescribeBandwidthClusterUsageResponse) {
+	response = &DescribeBandwidthClusterUsageResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeBandwidthClusterUsage 查询共享带宽包的用量信息。
+func (c *Client) DescribeBandwidthClusterUsage(request *DescribeBandwidthClusterUsageRequest) (response *DescribeBandwidthClusterUsageResponse, err error) {
+	response = NewDescribeBandwidthClusterUsageResponse()
 	err = c.ApiCall(request, response)
 	return
 }
