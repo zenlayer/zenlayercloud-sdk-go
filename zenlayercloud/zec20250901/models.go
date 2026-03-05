@@ -3,211 +3,278 @@ package zec
 import "github.com/zenlayer/zenlayercloud-sdk-go/zenlayercloud/common"
 
 
-// DescribeDisksRequest 查询云盘列表的请求参数。
-type DescribeDisksRequest struct {
+// DescribeZonesRequest 
+type DescribeZonesRequest struct {
     *common.BaseRequest
 
-    // DiskIds 根据云盘ID列表筛选。
-    DiskIds []string `json:"diskIds,omitempty"`
-
-    // DiskName 根据云盘名称筛选，该字段支持模糊搜索。
-    DiskName *string `json:"diskName,omitempty"`
-
-    // DiskStatus 根据云盘的状态进行筛选。
-    DiskStatus *string `json:"diskStatus,omitempty"`
-
-    // DiskType 根据云盘的类型进行筛选。
-    DiskType *string `json:"diskType,omitempty"`
-
-    // DiskCategory 根据云盘的分类进行筛选。
-    DiskCategory *string `json:"diskCategory,omitempty"`
-
-    // InstanceId 根据云盘挂载的实例ID进行筛选。
-    InstanceId *string `json:"instanceId,omitempty"`
-
-    // ZoneId 根据云盘所在的可用区进行筛选。
-    ZoneId *string `json:"zoneId,omitempty"`
-
-    // PageNum 返回的分页大小。默认为20，最大为1000。
-    PageNum *int `json:"pageNum,omitempty"`
-
-    // PageSize 返回的分页数。默认为1。
-    PageSize *int `json:"pageSize,omitempty"`
-
-    // RegionId 根据云盘所在的节点ID进行筛选。
-    RegionId *string `json:"regionId,omitempty"`
-
-    // SnapshotAbility 根据云盘是否有快照能力进行筛选。
-    SnapshotAbility *bool `json:"snapshotAbility,omitempty"`
-
-    // ResourceGroupId 根据快照所属的资源组进行筛选。
-    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
-
-    // TagKeys 根据标签键进行搜索。 最长不得超过20个标签键。
-    TagKeys []string `json:"tagKeys,omitempty"`
-
-    // Tags 根据标签进行搜索。 最长不得超过20个标签。
-    Tags []*Tag `json:"tags,omitempty"`
+    // ZoneIds 根据可用区ID过滤。
+    ZoneIds []string `json:"zoneIds,omitempty"`
 
 }
 
-// Tag 描述一个标签键值对的信息。
-type Tag struct {
-
-    // Key 标签键。长度限制：1～64个字符。
-    Key *string `json:"key,omitempty"`
-
-    // Value 标签值。长度限制：1～64个字符。
-    Value *string `json:"value,omitempty"`
-
-}
-
-// DescribeDisksResponseParams 描述快照列表的响应信息。
-type DescribeDisksResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // TotalCount 符合条件的数据总数。
-    TotalCount *int64 `json:"totalCount,omitempty"`
-
-    // DataSet 云盘的结果集。
-    DataSet []*DiskInfo `json:"dataSet,omitempty"`
-
-}
-
-// DiskInfo 描述云盘的基本信息。
-type DiskInfo struct {
-
-    // DiskId 云盘的 ID。
-    DiskId *string `json:"diskId,omitempty"`
-
-    // DiskName 云盘的名称。
-    DiskName *string `json:"diskName,omitempty"`
-
-    // RegionId 云盘所在的节点ID。
-    RegionId *string `json:"regionId,omitempty"`
-
-    // ZoneId 云盘所在节点的可用区ID。
-    ZoneId *string `json:"zoneId,omitempty"`
-
-    // DiskType 云盘的类型。
-    DiskType *string `json:"diskType,omitempty"`
-
-    // Portable 是否可卸载。
-    Portable *bool `json:"portable,omitempty"`
-
-    // DiskCategory 云盘的类别。
-    DiskCategory *string `json:"diskCategory,omitempty"`
-
-    // DiskSize 云盘的大小。单位：GiB。
-    DiskSize *int `json:"diskSize,omitempty"`
-
-    // DiskStatus 云盘的状态。
-    DiskStatus *string `json:"diskStatus,omitempty"`
-
-    // InstanceId 云盘绑定实例的ID。
-    InstanceId *string `json:"instanceId,omitempty"`
-
-    // InstanceName 云盘绑定实例的名称。
-    InstanceName *string `json:"instanceName,omitempty"`
-
-    // CreateTime 创建时间。
-    CreateTime *string `json:"createTime,omitempty"`
-
-    // ExpiredTime 到期时间。
-    ExpiredTime *string `json:"expiredTime,omitempty"`
-
-    // Period 周期。
-    Period *int `json:"period,omitempty"`
-
-    // ResourceGroupId 云盘所属的资源组ID。
-    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
-
-    // ResourceGroupName 云盘所属的资源组名称。
-    ResourceGroupName *string `json:"resourceGroupName,omitempty"`
-
-    // Serial 云盘序号。可能为null，表示取不到值。
-    Serial *string `json:"serial,omitempty"`
-
-    // SnapshotAbility 是否具体快照能力。
-    SnapshotAbility *bool `json:"snapshotAbility,omitempty"`
-
-    // AutoSnapshotPolicyId 云盘关联的自动快照策略ID。
-    AutoSnapshotPolicyId *string `json:"autoSnapshotPolicyId,omitempty"`
-
-    // Tags 该云盘关联的标签。
-    Tags *Tags `json:"tags,omitempty"`
-
-    // BurstingEnabled 是否开启 Burst。
-    BurstingEnabled *bool `json:"burstingEnabled,omitempty"`
-
-}
-
-// Tags 描述资源关联的标签信息。
-type Tags struct {
-
-    // Tags 标签对列表。
-    Tags []*Tag `json:"tags,omitempty"`
-
-}
-
-type DescribeDisksResponse struct {
+type DescribeZonesResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
 
-    Response *DescribeDisksResponseParams `json:"response,omitempty"`
+    Response *DescribeZonesResponseParams `json:"response,omitempty"`
 
 }
 
-type DescribeDiskRegionsRequest struct {
-    *common.BaseRequest
-
-}
-
-// DescribeDiskRegionsResponseParams 支持售卖云硬盘的节点响应结果。
-type DescribeDiskRegionsResponseParams struct {
+// DescribeZonesResponseParams 
+type DescribeZonesResponseParams struct {
 
     RequestId *string `json:"requestId,omitempty"`
 
-    // RegionIds 支持售卖云硬盘的节点ID列表。
-    RegionIds []string `json:"regionIds,omitempty"`
+    // ZoneSet 可用区列表。
+    ZoneSet []*ZoneInfo `json:"zoneSet,omitempty"`
 
 }
 
-type DescribeDiskRegionsResponse struct {
+// ZoneInfo 可用区的基本信息。
+type ZoneInfo struct {
+
+    // ZoneId 可用区ID。
+    ZoneId *string `json:"zoneId,omitempty"`
+
+    // RegionId 可用区所在的节点ID。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // ZoneName 可用区名称。
+    ZoneName *string `json:"zoneName,omitempty"`
+
+    // Deprecated: SupportSecurityGroup 已废弃，请不要使用。
+    // SupportSecurityGroup 可用区是否支持安全组。
+    // 该字段已废弃，当前所有节点均支持安全组。
+    SupportSecurityGroup *bool `json:"supportSecurityGroup,omitempty"`
+
+}
+
+// DescribeZoneInstanceConfigInfosRequest 
+type DescribeZoneInstanceConfigInfosRequest struct {
+    *common.BaseRequest
+
+    // ZoneId 要查询的可用区ID。
+    // 例如：asia-east-1a。
+    ZoneId *string `json:"zoneId,omitempty"`
+
+    // InstanceType 要查询的实例规格。
+    // 例如：z2a.cpu.1。
+    InstanceType *string `json:"instanceType,omitempty"`
+
+}
+
+type DescribeZoneInstanceConfigInfosResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
 
-    Response *DescribeDiskRegionsResponseParams `json:"response,omitempty"`
+    Response *DescribeZoneInstanceConfigInfosResponseParams `json:"response,omitempty"`
 
 }
 
-// InquiryPriceCreateDisksRequest 创建云硬盘询价的请求参数。
-type InquiryPriceCreateDisksRequest struct {
+// DescribeZoneInstanceConfigInfosResponseParams 
+type DescribeZoneInstanceConfigInfosResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // InstanceTypeQuotaSet 实例规格信息。
+    InstanceTypeQuotaSet []*InstanceTypeQuotaItem `json:"instanceTypeQuotaSet,omitempty"`
+
+}
+
+// InstanceTypeQuotaItem 描述实例规格的售卖信息。
+type InstanceTypeQuotaItem struct {
+
+    // ZoneId 可用区ID。
+    ZoneId *string `json:"zoneId,omitempty"`
+
+    // InstanceType 实例规格ID。
+    InstanceType *string `json:"instanceType,omitempty"`
+
+    // InstanceTypeName 实例规格的名称。
+    InstanceTypeName *string `json:"instanceTypeName,omitempty"`
+
+    // CpuCount CPU核数。
+    // 单位：核。
+    CpuCount *int `json:"cpuCount,omitempty"`
+
+    // Memory 实例内存容量。
+    // 单位：GiB。
+    Memory *int `json:"memory,omitempty"`
+
+    // InternetMaxBandwidthOutLimit 最大出口带宽限制。
+    InternetMaxBandwidthOutLimit *int `json:"internetMaxBandwidthOutLimit,omitempty"`
+
+    // WithStock 是否有库存。
+    WithStock *bool `json:"withStock,omitempty"`
+
+    // InternetChargeTypes 支持的网络计费类型。
+    InternetChargeTypes []string `json:"internetChargeTypes,omitempty"`
+
+}
+
+type DescribeTimeZonesRequest struct {
+    *common.BaseRequest
+
+}
+
+type DescribeTimeZonesResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeTimeZonesResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeTimeZonesResponseParams 
+type DescribeTimeZonesResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // TimeZones 所有的时区。
+    TimeZones []string `json:"timeZones,omitempty"`
+
+}
+
+type InquiryPriceCreateInstanceRequest struct {
     *common.BaseRequest
 
     // ZoneId 可用区ID。
     ZoneId *string `json:"zoneId,omitempty"`
 
-    // DiskSize 云硬盘大小。单位：GiB。
+    // InstanceType 实例机型。
+    // 具体取值可通过调用接口[DescribeZoneInstanceConfigInfos](describezoneinstanceconfiginfos.md)来获得最新的规格表。
+    InstanceType *string `json:"instanceType,omitempty"`
+
+    // Deprecated: EipV4Type 已废弃，请不要使用。
+    // EipV4Type 公网IPv4的线路类型。
+    // 目前不支持三线IP(`ThreeLine`)。
+    // 已废弃，请使用`networkLineType`。
+    EipV4Type *string `json:"eipV4Type,omitempty"`
+
+    // NetworkLineType 公网IPv4的线路类型。
+    // 目前不支持三线IP(`ThreeLine`)。
+    NetworkLineType *string `json:"networkLineType,omitempty"`
+
+    // InternetChargeType 公网IP的网络计费类型。
+    InternetChargeType *string `json:"internetChargeType,omitempty"`
+
+    // TrafficPackageSize 流量包订购大小。
+    // 单位为TB。
+    // 该值必须在`internetChargeType = ByTrafficPackage`时才会生效。
+    TrafficPackageSize *float64 `json:"trafficPackageSize,omitempty"`
+
+    // Bandwidth 公网出带宽上限。
+    // 单位：Mbps。
+    Bandwidth *int `json:"bandwidth,omitempty"`
+
+    // InstanceCount 实例数量。
+    InstanceCount *int `json:"instanceCount,omitempty"`
+
+    // SystemDisk 系统盘相关信息。
+    SystemDisk *SystemDisk `json:"systemDisk,omitempty"`
+
+    // DataDisk 数据盘相关信息。
+    DataDisk *DataDisk `json:"dataDisk,omitempty"`
+
+}
+
+// SystemDisk 描述系统盘的基本信息。
+type SystemDisk struct {
+
+    // DiskId 系统盘ID。
+    // 该参数目前仅用于`DescribeInstances`等查询类接口的返回参数，不可用于`CreateInstances`等写接口的入参。
+    DiskId *string `json:"diskId,omitempty"`
+
+    // DiskSize 系统盘大小。
+    // 单位：GiB。
     DiskSize *int `json:"diskSize,omitempty"`
 
-    // DiskAmount 云硬盘数量。
+    // DiskCategory 云硬盘种类。
+    // Basic NVMe SSD: 经济型 NVMe SSD。
+    // Standard NVMe SSD: 标准型 NVMe SSD。
+    // 默认为Standard NVMe SSD。
+    DiskCategory *string `json:"diskCategory,omitempty"`
+
+    // BurstingEnabled 是否开启性能突发。
+    BurstingEnabled *bool `json:"burstingEnabled,omitempty"`
+
+}
+
+// DataDisk 描述了数据盘的信息。
+type DataDisk struct {
+
+    // DiskId 数据盘ID。
+    // 该参数目前仅用于`DescribeInstances`等查询类接口的返回参数，不可用于`CreateInstances`等写接口的入参。
+    DiskId *string `json:"diskId,omitempty"`
+
+    // DiskName 云盘的名称。
+    // 该参数目前仅用于DescribeInstances等查询类接口的返回参数。
+    DiskName *string `json:"diskName,omitempty"`
+
+    // DiskSize 数据盘大小。
+    // 单位：GiB。
+    DiskSize *int `json:"diskSize,omitempty"`
+
+    // DiskAmount 数据盘数量。
+    // 该参数仅用于`CreateInstances`,`InquiryPriceCreateInstance`等接口的入参使用。
     DiskAmount *int `json:"diskAmount,omitempty"`
 
-    // DiskCategory 云硬盘种类。Basic NVMe SSD: 经济型 NVMe SSD。Standard NVMe SSD: 标准型 NVMe SSD。默认为Standard NVMe SSD。
+    // Portable 是否可拆卸。
+    // 该参数仅用于查询的回参，不用于入参。
+    // true代表不会随着实例删除而删除。
+    // false代表会随着实例删除而删除。
+    Portable *bool `json:"portable,omitempty"`
+
+    // BurstingEnabled 是否开启性能突发。
+    BurstingEnabled *bool `json:"burstingEnabled,omitempty"`
+
+    // DiskCategory 云硬盘种类。
+    // Basic NVMe SSD: 经济型 NVMe SSD。
+    // Standard NVMe SSD: 标准型 NVMe SSD。
+    // 默认为Standard NVMe SSD。
     DiskCategory *string `json:"diskCategory,omitempty"`
 
 }
 
-// InquiryPriceCreateDisksResponseParams 云硬盘的询价响应值。
-type InquiryPriceCreateDisksResponseParams struct {
+type InquiryPriceCreateInstanceResponse struct {
+    *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
 
-    // DataDiskPrice 云硬盘的价格。
+    Response *InquiryPriceCreateInstanceResponseParams `json:"response,omitempty"`
+
+}
+
+// InquiryPriceCreateInstanceResponseParams 
+type InquiryPriceCreateInstanceResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // SpecPrice 规格的价格。
+    SpecPrice *PriceItem `json:"specPrice,omitempty"`
+
+    // GpuPrice GPU规格的价格。
+    GpuPrice *PriceItem `json:"gpuPrice,omitempty"`
+
+    // Ipv4Price 公网IPv4的保留价格。
+    Ipv4Price *PriceItem `json:"ipv4Price,omitempty"`
+
+    // Ipv4BandwidthPrice 公网IPv4的带宽价格。
+    Ipv4BandwidthPrice *PriceItem `json:"ipv4BandwidthPrice,omitempty"`
+
+    // Ipv6Price IPv6的价格。
+    Ipv6Price *PriceItem `json:"ipv6Price,omitempty"`
+
+    // Ipv6BandwidthPrice IPv6的带宽价格。
+    Ipv6BandwidthPrice *PriceItem `json:"ipv6BandwidthPrice,omitempty"`
+
+    // SystemDiskPrice 系统盘的价格。
+    SystemDiskPrice *PriceItem `json:"systemDiskPrice,omitempty"`
+
+    // DataDiskPrice 数据盘的价格。
     DataDiskPrice *PriceItem `json:"dataDiskPrice,omitempty"`
 
 }
@@ -215,28 +282,39 @@ type InquiryPriceCreateDisksResponseParams struct {
 // PriceItem 描述价格的信息。
 type PriceItem struct {
 
-    // Discount 折扣大小。如80.0代表8折。
+    // Discount 折扣大小。
+    // 如80.0代表8折。
     Discount *float64 `json:"discount,omitempty"`
 
-    // DiscountPrice 后付费的单元折后价格。后付费模式使用，如果价格为阶梯价格，该项为null。
+    // DiscountPrice 后付费的单元折后价格。
+    // 后付费模式使用，如果价格为阶梯价格，该项为null。
     DiscountPrice *float64 `json:"discountPrice,omitempty"`
 
-    // OriginalPrice 预付费的原价。预付费模式使用，后付费该值为 null。
+    // OriginalPrice 预付费的原价。
+    // 预付费模式使用，后付费该值为 null。
     OriginalPrice *float64 `json:"originalPrice,omitempty"`
 
-    // UnitPrice 后付费的单元原始价格。后付费模式使用，如果价格为阶梯价格，该项为null。
+    // UnitPrice 后付费的单元原始价格。
+    // 后付费模式使用，如果价格为阶梯价格，该项为null。
     UnitPrice *float64 `json:"unitPrice,omitempty"`
 
-    // DiscountUnitPrice 后付费的单元折后价格。后付费模式使用，如果价格为阶梯价格，该项为null。
+    // DiscountUnitPrice 后付费的单元折后价格。
+    // 后付费模式使用，如果价格为阶梯价格，该项为null。
     DiscountUnitPrice *float64 `json:"discountUnitPrice,omitempty"`
 
-    // ChargeUnit 后付费计价单元。后付费模式使用，可取值范围：<br/>HOUR: 表示计价单元是按每小时来计算。DAY: 表示计价单元是按天来计算。MONTH: 表示计价单元是按月来计算，95计费则是这种。
+    // ChargeUnit 后付费计价单元。
+    // 后付费模式使用，可取值范围：<br/>HOUR: 表示计价单元是按每小时来计算。
+    // DAY: 表示计价单元是按天来计算。
+    // MONTH: 表示计价单元是按月来计算，95计费则是这种。
     ChargeUnit *string `json:"chargeUnit,omitempty"`
 
-    // StepPrices 后付费阶梯价格。后付费模式使用，如果非阶梯价格，该项为null。
+    // StepPrices 后付费阶梯价格。
+    // 后付费模式使用，如果非阶梯价格，该项为null。
     StepPrices []*StepPrice `json:"stepPrices,omitempty"`
 
-    // AmountUnit 用量单位。比如Mbps, LCU等。如果为null, 代表取不到值。
+    // AmountUnit 用量单位。
+    // 比如Mbps, LCU等。
+    // 如果为null, 代表取不到值。
     AmountUnit *string `json:"amountUnit,omitempty"`
 
     // ExcessUnitPrice 超量原始价格。
@@ -245,7 +323,8 @@ type PriceItem struct {
     // ExcessDiscountUnitPrice 超量折扣后价格。
     ExcessDiscountUnitPrice *float64 `json:"excessDiscountUnitPrice,omitempty"`
 
-    // ExcessAmountUnit 超量用量单位。如果为null, 代表取不到值。
+    // ExcessAmountUnit 超量用量单位。
+    // 如果为null, 代表取不到值。
     ExcessAmountUnit *string `json:"excessAmountUnit,omitempty"`
 
     // Category 价格所属类别。
@@ -259,7 +338,8 @@ type StepPrice struct {
     // StepStart 阶梯的起始值。
     StepStart *float64 `json:"stepStart,omitempty"`
 
-    // StepEnd 阶梯的到达值。为null代表最后一级阶梯。
+    // StepEnd 阶梯的到达值。
+    // 为null代表最后一级阶梯。
     StepEnd *float64 `json:"stepEnd,omitempty"`
 
     // UnitPrice 阶梯单价。
@@ -270,64 +350,153 @@ type StepPrice struct {
 
 }
 
-type InquiryPriceCreateDisksResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *InquiryPriceCreateDisksResponseParams `json:"response,omitempty"`
-
-}
-
-// CreateDisksRequest 创建云硬盘的请求信息。
-type CreateDisksRequest struct {
+// CreateZecInstancesRequest 
+type CreateZecInstancesRequest struct {
     *common.BaseRequest
 
-    // ZoneId 云硬盘所属的可用区ID。
+    // ZoneId 可用区ID。
     ZoneId *string `json:"zoneId,omitempty"`
 
-    // DiskName 云盘名称。范围1到64个字符。仅支持输入字母、数字、-/_和英文句点(.)。且必须以数字或字母开头和结尾。
-    DiskName *string `json:"diskName,omitempty"`
+    // ImageId 指定有效的镜像ID。
+    // 可以通过[DescribeImages](../image/describeimages.md)取返回信息中的imageId字段。
+    ImageId *string `json:"imageId,omitempty"`
 
-    // DiskSize 云硬盘大小，单位GiB。
-    DiskSize *int `json:"diskSize,omitempty"`
+    // TimeZone 设置操作系统的时区。
+    TimeZone *string `json:"timeZone,omitempty"`
 
-    // DiskAmount 需要创建的云硬盘的数量。
-    DiskAmount *int `json:"diskAmount,omitempty"`
+    // InstanceType 实例机型。
+    // 具体取值可通过调用接口[DescribeZoneInstanceConfigInfos](describezoneinstanceconfiginfos.md)来获得最新的规格表。
+    InstanceType *string `json:"instanceType,omitempty"`
 
-    // InstanceId 云硬盘挂载的实例ID。
-    InstanceId *string `json:"instanceId,omitempty"`
+    // InstanceName 实例显示名称。
+    // 范围2到63个字符。
+    // 仅支持输入字母、数字、-和英文句点(.)。
+    // 且必须以数字或字母开头和结尾。
+    // 购买多台实例，可以指定模式串[begin_number,bits]。
+    // begin_number：有序数值的起始值，取值支持[0,99999]，默认值为0。
+    // bits：有序数值所占的位数，取值支持[1,6]，默认值为6。
+    // 注意模式串中不得有空格。
+    // 购买1台时，例如server-[3,3]实例显示为server003；购买2台时，实例显示名分别为server003，server004。
+    // 支持指定多个模式串，如server-[3,3]-[1,1]。
+    // 默认值为 instance。
+    InstanceName *string `json:"instanceName,omitempty"`
 
-    // ResourceGroupId 云硬盘所在的资源组ID。如不指定则放入默认资源组。
+    // Password 实例的密码。
+    // 与keyId必须指定其中的一种（Windows和Generic类型的镜像无法指定密码和key）。
+    // 必须包含以下3种格式的字符：大小写字母: [a-zA-Z]数字: 0-9特殊字符: ~!@$^*-_=+。
+    Password *string `json:"password,omitempty"`
+
+    // KeyId 密钥ID。
+    // 与password必须指定其中的一种（Windows和Generic类型的镜像无法指定密码和key）。
+    // 可调用接口DescribeKeyPairs来获得最新的密钥对信息。
+    // 关联密钥后，就可以通过对应的私钥来访问实例；密钥与密码不能同时指定，同时Windows操作系统不支持指定密钥。
+    // 示例值：key-YWD2QFOl。
+    KeyId *string `json:"keyId,omitempty"`
+
+    // NicNetworkType 网卡模式。
+    NicNetworkType *string `json:"nicNetworkType,omitempty"`
+
+    // InstanceCount 要创建的实例数量。
+    InstanceCount *int `json:"instanceCount,omitempty"`
+
+    // SystemDisk 实例系统盘配置信息。
+    // 若不指定该参数，则按照系统默认值进行分配。
+    // 即操作系统要求的最小大小。
+    SystemDisk *SystemDisk `json:"systemDisk,omitempty"`
+
+    // DataDisks 实例数据盘配置信息。
+    // 若不指定该参数，则默认不额外购买数据盘。
+    // 目前只能附带1个数据盘。
+    DataDisks []*DataDisk `json:"dataDisks,omitempty"`
+
+    // SecurityGroupId 要配置在实例主网卡的安全组ID。
+    // 目前只能关联1个安全组。
+    // 如果未指定，会默认用VPC关联的安全组。
+    SecurityGroupId *string `json:"securityGroupId,omitempty"`
+
+    // SubnetId 子网ID。
+    SubnetId *string `json:"subnetId,omitempty"`
+
+    // LanIp 分配的内网起始IP。
+    // 如果内网IP被使用,则会往后分配。
+    LanIp *string `json:"lanIp,omitempty"`
+
+    // EnableAgent 是否安装启动Agent。
+    EnableAgent *bool `json:"enableAgent,omitempty"`
+
+    // EnableIpForward 是否开启IP转发。
+    EnableIpForward *bool `json:"enableIpForward,omitempty"`
+
+    // InternetChargeType 公网IP的网络计费类型。
+    // 如果不指定，则不会分配公网IP地址。
+    InternetChargeType *string `json:"internetChargeType,omitempty"`
+
+    // TrafficPackageSize 流量包订购大小。
+    // 单位为TB。
+    // 该值必须在`internetChargeType = ByTrafficPackage`时才会生效。
+    TrafficPackageSize *float64 `json:"trafficPackageSize,omitempty"`
+
+    // Bandwidth 公网出带宽上限。
+    // 单位：Mbps。
+    // 当分配公网IP时需要指定。
+    Bandwidth *int `json:"bandwidth,omitempty"`
+
+    // EipBindType 公网IP的绑定模式。
+    // 当分配公网IP时需要指定。
+    EipBindType *string `json:"eipBindType,omitempty"`
+
+    // Deprecated: EipV4Type 已废弃，请不要使用。
+    // EipV4Type 公网IPv4的线路类型。
+    // 当分配公网IP时需要指定。
+    // 请确保所选子网的堆栈类型支持`IPv4`。
+    // 目前不支持三线IP随实例一起创建。
+    // 已废弃，请使用`networkLineType`。
+    EipV4Type *string `json:"eipV4Type,omitempty"`
+
+    // IpStackType 设置IP堆栈类型。
+    // 如果不指定，子网堆栈类型IPv4或IPv4_IPv6，默认使用IPv4。
+    IpStackType *string `json:"ipStackType,omitempty"`
+
+    // NetworkLineType 公网IPv4的线路类型。
+    // 当分配公网IP时需要指定。
+    // 请确保所选子网的堆栈类型支持`IPv4`。
+    // 目前不支持三线IP随实例一起创建。
+    NetworkLineType *string `json:"networkLineType,omitempty"`
+
+    // ClusterId 共享带宽包ID。
+    // 当网络计费方式是共享带宽包计费(`BandwidthCluster`)时需要指定。
+    ClusterId *string `json:"clusterId,omitempty"`
+
+    // Ipv6ClusterId 公网IPv6加入的共享带宽包ID。
+    // 网络计费方式是共享带宽包计费(`BandwidthCluster`)时且`ipStackType`设定为IPv4_IPv6时需要指定。
+    // 如果不指定，则默认使用`clusterId`。
+    // 该字段一般用于IPv4/IPv6所属不同共享带宽包。
+    Ipv6ClusterId *string `json:"ipv6ClusterId,omitempty"`
+
+    // ResourceGroupId 创建后实例所在的资源组ID，如不指定则放入默认资源组。
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
-
-    // DiskCategory 云硬盘种类。Basic NVMe SSD: 经济型 NVMe SSD。Standard NVMe SSD: 标准型 NVMe SSD。默认为Standard NVMe SSD。
-    DiskCategory *string `json:"diskCategory,omitempty"`
-
-    // SnapshotId 使用快照ID进行创建。如果传入则根据此快照创建云硬盘，快照的云盘类型必须为数据盘快照。
-    SnapshotId *string `json:"snapshotId,omitempty"`
 
     // MarketingOptions 市场营销的相关选项。
     MarketingOptions *MarketingInfo `json:"marketingOptions,omitempty"`
 
-    // Tags 创建云硬盘时关联的标签。注意：·关联`标签键`不能重复。
+    // Tags 创建实例时关联的标签。
+    // 注意：·关联`标签键`不能重复。
     Tags *TagAssociation `json:"tags,omitempty"`
 
-    // InstanceIds 要绑定的实例ID。数量需要与`diskAmount`字段一致。
-    InstanceIds []string `json:"instanceIds,omitempty"`
-
-    // BurstingEnabled 是否开启性能突发。
-    BurstingEnabled *bool `json:"burstingEnabled,omitempty"`
+    // UserData 初始化命令。
+    UserData *string `json:"userData,omitempty"`
 
 }
 
 // MarketingInfo 描述市场活动的相关信息。
 type MarketingInfo struct {
 
-    // DiscountCode 使用市场发放的折扣码。如果折扣码不存在，最终折扣将不会生效。
+    // DiscountCode 使用市场发放的折扣码。
+    // 如果折扣码不存在，最终折扣将不会生效。
     DiscountCode *string `json:"discountCode,omitempty"`
 
-    // UsePocVoucher 是否使用POC代金券。 如果系统不存在POC代金券，相关创建流程会失败。
+    // UsePocVoucher 是否使用POC代金券。
+    // 如果系统不存在POC代金券，相关创建流程会失败。
     UsePocVoucher *bool `json:"usePocVoucher,omitempty"`
 
 }
@@ -340,1304 +509,82 @@ type TagAssociation struct {
 
 }
 
-// CreateDisksResponseParams 创建云硬盘的响应信息。
-type CreateDisksResponseParams struct {
+// Tag 描述一个标签键值对的信息。
+type Tag struct {
+
+    // Key 标签键。
+    // 长度限制：1～64个字符。
+    Key *string `json:"key,omitempty"`
+
+    // Value 标签值。
+    // 长度限制：1～64个字符。
+    Value *string `json:"value,omitempty"`
+
+}
+
+type CreateZecInstancesResponse struct {
+    *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
 
-    // DiskIds 创建的云硬盘ID列表。
-    DiskIds []string `json:"diskIds,omitempty"`
+    Response *CreateZecInstancesResponseParams `json:"response,omitempty"`
 
-    // OrderNumber 本次创建对应的订单编号。
+}
+
+// CreateZecInstancesResponseParams 
+type CreateZecInstancesResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // OrderNumber 订单编号。
     OrderNumber *string `json:"orderNumber,omitempty"`
 
-}
+    // InstanceIdSet 虚拟机实例ID列表。
+    InstanceIdSet []string `json:"instanceIdSet,omitempty"`
 
-type CreateDisksResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *CreateDisksResponseParams `json:"response,omitempty"`
+    // Instances 随机器创建的数据盘id集合。
+    // 如果请求中没有指定数据盘，返回空数组。
+    Instances []*DiskWithInstance `json:"instances,omitempty"`
 
 }
 
-// AttachDisksRequest 云硬盘挂载到实例的请求信息。
-type AttachDisksRequest struct {
-    *common.BaseRequest
+// DiskWithInstance 随机器创建的数据盘信息。
+type DiskWithInstance struct {
 
-    // DiskIds 需要挂载的云硬盘ID列表。
-    DiskIds []string `json:"diskIds,omitempty"`
-
-    // InstanceId 被挂载的实例ID。
+    // InstanceId 实例ID。
     InstanceId *string `json:"instanceId,omitempty"`
 
-}
-
-type AttachDisksResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// DetachDisksRequest 云硬盘从主机实例上卸载的请求参数。
-type DetachDisksRequest struct {
-    *common.BaseRequest
-
-    // DiskIds 要卸载的云盘ID列表。
-    DiskIds []string `json:"diskIds,omitempty"`
-
-    // InstanceCheckFlag 是否检测实例的运行状态。 默认为true，即实例关机才允许被卸载。否则必须实例关机才能调用本接口。
-    InstanceCheckFlag *bool `json:"instanceCheckFlag,omitempty"`
-
-}
-
-// DetachDisksResponseParams 云硬盘从实例解绑的响应信息。
-type DetachDisksResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // FailedDiskIds 解绑失败的云硬盘。
-    FailedDiskIds []string `json:"failedDiskIds,omitempty"`
-
-}
-
-type DetachDisksResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DetachDisksResponseParams `json:"response,omitempty"`
-
-}
-
-// ModifyDisksAttributesRequest 修改云盘属性的请求参数。
-type ModifyDisksAttributesRequest struct {
-    *common.BaseRequest
-
-    // DiskIds 需要修改的云盘ID列表。
-    DiskIds []string `json:"diskIds,omitempty"`
-
-    // DiskName 云盘名称。范围1到64个字符。仅支持输入字母、数字、-/_和英文句点(.)。且必须以数字或字母开头和结尾。
-    DiskName *string `json:"diskName,omitempty"`
-
-}
-
-type ModifyDisksAttributesResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-type ResizeDiskRequest struct {
-    *common.BaseRequest
-
-    // DiskId 云硬盘ID。通过DescribeDisks接口查询。
-    DiskId *string `json:"diskId,omitempty"`
-
-    // DiskSize 云硬盘扩容后的大小。单位GiB。必须大于当前云硬盘大小。云盘最大限制为32768GB(32TB)。
-    DiskSize *int `json:"diskSize,omitempty"`
-
-}
-
-type ResizeDiskResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// ReleaseDiskRequest 删除云硬盘的请求参数。
-type ReleaseDiskRequest struct {
-    *common.BaseRequest
-
-    // DiskId 要删除的云硬盘ID。
-    DiskId *string `json:"diskId,omitempty"`
-
-}
-
-type ReleaseDiskResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// RenewDiskRequest 恢复云硬盘的请求参数。
-type RenewDiskRequest struct {
-    *common.BaseRequest
-
-    // DiskId 要恢复的云硬盘ID。
-    DiskId *string `json:"diskId,omitempty"`
-
-}
-
-type RenewDiskResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// ModifyDisksResourceGroupRequest 修改云盘资源组的请求参数。
-type ModifyDisksResourceGroupRequest struct {
-    *common.BaseRequest
-
-    // DiskIds 要迁移资源组的云盘ID列表。
-    DiskIds []string `json:"diskIds,omitempty"`
-
-    // ResourceGroupId 目标资源组ID。
-    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
-
-}
-
-type ModifyDisksResourceGroupResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// DescribeDiskCategoryRequest 查询云硬盘支持的类型的请求信息。
-type DescribeDiskCategoryRequest struct {
-    *common.BaseRequest
-
-    // ZoneId 根据可用区ID筛选。
-    ZoneId *string `json:"zoneId,omitempty"`
-
-    // DiskCategory 根据云硬盘种类筛选。Basic NVMe SSD: 经济型 NVMe SSD。Standard NVMe SSD: 标准型 NVMe SSD。默认为Standard NVMe SSD。
-    DiskCategory *string `json:"diskCategory,omitempty"`
-
-}
-
-// DescribeDiskCategoryResponseParams 获取某个区域支持的云盘类型响应结果。
-type DescribeDiskCategoryResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // CategoryZoneSet 可用区支持的云盘类型。
-    CategoryZoneSet []*DescribeDiskCategoryItem `json:"categoryZoneSet,omitempty"`
-
-}
-
-// DescribeDiskCategoryItem 描述可用区支持的云盘类型的信息。
-type DescribeDiskCategoryItem struct {
-
-    // ZoneId 可用区ID。
-    ZoneId *string `json:"zoneId,omitempty"`
-
-    // CategorySet 支持的云硬盘类型。
-    CategorySet []string `json:"categorySet,omitempty"`
-
-}
-
-type DescribeDiskCategoryResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeDiskCategoryResponseParams `json:"response,omitempty"`
-
-}
-
-// DescribeDiskMonitorDataRequest 查询云硬盘监控指标请求。
-type DescribeDiskMonitorDataRequest struct {
-    *common.BaseRequest
-
-    // DiskId 云硬盘唯一标识ID。
-    DiskId *string `json:"diskId,omitempty"`
-
-    // MetricType 云硬盘监控指标类型。
-    MetricType *string `json:"metricType,omitempty"`
-
-    // StartTime 查询开始时间。时间格式：yyyy-MM-ddTHH:mm:ssZ。
-    StartTime *string `json:"startTime,omitempty"`
-
-    // EndTime 查询结束时间。时间格式：yyyy-MM-ddTHH:mm:ssZ。
-    EndTime *string `json:"endTime,omitempty"`
-
-}
-
-// DescribeDiskMonitorDataResponseParams 查询云硬盘监控数据的响应信息。
-type DescribeDiskMonitorDataResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // MaxValue 数据点的最大值。
-    MaxValue *float64 `json:"maxValue,omitempty"`
-
-    // MinValue 数据点的最小值。
-    MinValue *float64 `json:"minValue,omitempty"`
-
-    // AvgValue 数据点的平均值。
-    AvgValue *float64 `json:"avgValue,omitempty"`
-
-    // Metrics 监控数据集合。
-    Metrics []*MetricValue `json:"metrics,omitempty"`
-
-}
-
-// MetricValue 描述监控指标的数据值。
-type MetricValue struct {
-
-    // Time 数据点时间。
-    Time *string `json:"time,omitempty"`
-
-    // Value 数据点的值。如果该值为null,表示取不到相应的值。
-    Value *float64 `json:"value,omitempty"`
-
-}
-
-type DescribeDiskMonitorDataResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeDiskMonitorDataResponseParams `json:"response,omitempty"`
-
-}
-
-// CreateVpcRequest 创建全球VPC的请求参数。
-type CreateVpcRequest struct {
-    *common.BaseRequest
-
-    // Name VPC的名称。范围2到63个字符。仅支持输入字母、数字、-和英文句点(.)。且必须以数字或字母开头和结尾。
-    Name *string `json:"name,omitempty"`
-
-    // CidrBlock VPC的CIDR地址段。需要满足以下4种内网段内(10.0.0.0/9, 10.128.0.0/9, 172.16.0.0/12以及192.168.0.0/16)。
-    CidrBlock *string `json:"cidrBlock,omitempty"`
-
-    // Mtu VPC的传输单元 MTU。支持：1300、1500、9000。
-    Mtu *int `json:"mtu,omitempty"`
-
-    // EnablePriIpv6 是否开启内网IPv6。一旦开启，后续无法关闭。默认为关闭。
-    EnablePriIpv6 *bool `json:"enablePriIpv6,omitempty"`
-
-    // ResourceGroupId VPC所在的资源组ID。如果不指定资源组，则会放到默认的资源组中。
-    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
-
-    // Tags 创建VPC时关联的标签。注意：·关联`标签键`不能重复。
-    Tags *TagAssociation `json:"tags,omitempty"`
-
-}
-
-// CreateVpcResponseParams 创建全球VPC的响应结果。
-type CreateVpcResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // VpcId 创建的VPC ID。
-    VpcId *string `json:"vpcId,omitempty"`
-
-}
-
-type CreateVpcResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *CreateVpcResponseParams `json:"response,omitempty"`
-
-}
-
-// DeleteVpcRequest 删除VPC的响应信息。
-type DeleteVpcRequest struct {
-    *common.BaseRequest
-
-    // VpcId 要删除的VPC ID。
-    VpcId *string `json:"vpcId,omitempty"`
-
-}
-
-type DeleteVpcResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// ModifyVpcsAttributeRequest 批量修改VPC属性的请求参数
-type ModifyVpcsAttributeRequest struct {
-    *common.BaseRequest
-
-    // VpcIds 需要修改的VPC ID列表。
-    VpcIds []string `json:"vpcIds,omitempty"`
-
-    // Name VPC的名称。范围2到63个字符。仅支持输入字母、数字、-和英文句点(.)。且必须以数字或字母开头和结尾。
-    Name *string `json:"name,omitempty"`
-
-}
-
-type ModifyVpcsAttributeResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// DescribeSubnetRegionsRequest 查询支持创建子网区域的请求信息。
-type DescribeSubnetRegionsRequest struct {
-    *common.BaseRequest
-
-    // RegionIds 根据节点ID过滤。
-    RegionIds []string `json:"regionIds,omitempty"`
-
-}
-
-// DescribeSubnetRegionsResponseParams 查询支持创建子网区域的响应信息
-type DescribeSubnetRegionsResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // RegionSet 支持子网的节点信息。
-    RegionSet []*RegionInfo `json:"regionSet,omitempty"`
-
-}
-
-// RegionInfo 节点信息。
-type RegionInfo struct {
-
-    // RegionId 节点ID。
-    RegionId *string `json:"regionId,omitempty"`
-
-    // RegionName 节点名称。
-    RegionName *string `json:"regionName,omitempty"`
-
-    // RegionTitle 节点标题。
-    RegionTitle *string `json:"regionTitle,omitempty"`
-
-    // EnablePubIpv6 是否支持IPv6。
-    EnablePubIpv6 *bool `json:"enablePubIpv6,omitempty"`
-
-}
-
-type DescribeSubnetRegionsResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeSubnetRegionsResponseParams `json:"response,omitempty"`
-
-}
-
-// CreateSubnetRequest 创建子网请求参数。
-type CreateSubnetRequest struct {
-    *common.BaseRequest
-
-    // VpcId 需要添加子网的VPC ID。
-    VpcId *string `json:"vpcId,omitempty"`
-
-    // Name 子网名称。范围2到63个字符。仅支持输入字母、数字、-和英文句点(.)。且必须以数字或字母开头和结尾。
-    Name *string `json:"name,omitempty"`
-
-    // RegionId 子网所在的节点ID。
-    RegionId *string `json:"regionId,omitempty"`
-
-    // StackType 子网的IP堆栈类型。
-    StackType *string `json:"stackType,omitempty"`
-
-    // CidrBlock 子网的IPv4 CIDR地址段。如果指定堆栈类型`stackType` 包含 `IPv4`, 则该字段必填。指定的CIDR地址段必须属于VPC的CIDR范围内。
-    CidrBlock *string `json:"cidrBlock,omitempty"`
-
-    // Ipv6Type IPv6的类型。如果指定堆栈类型`stackType` 包含 `IPv6`, 则该字段必填。
-    Ipv6Type *string `json:"ipv6Type,omitempty"`
-
-    // DhcpOptionsSetId 要绑定的DHCP 选项集ID。
-    DhcpOptionsSetId *string `json:"dhcpOptionsSetId,omitempty"`
-
-    // Ipv6CidrBlockId 公网IPv6 CIDR ID。该字段仅当`ipv6Type`是公网(`Public`)时允许指定。如果不指定，将从系统默认IP池里分配。
-    Ipv6CidrBlockId *string `json:"ipv6CidrBlockId,omitempty"`
-
-    // Ipv6MaskLength 分配给虚拟机（VM）的IPv6 CIDR子网的大小。该参数仅当`ipv6CidrBlockId`时生效。当未显式传递时，默认值为96。
-    Ipv6MaskLength *int `json:"ipv6MaskLength,omitempty"`
-
-}
-
-// CreateSubnetResponseParams 创建子网的响应结果。
-type CreateSubnetResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // SubnetId 创建的子网ID。
-    SubnetId *string `json:"subnetId,omitempty"`
-
-}
-
-type CreateSubnetResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *CreateSubnetResponseParams `json:"response,omitempty"`
-
-}
-
-// DeleteSubnetRequest 删除子网的请求参数。
-type DeleteSubnetRequest struct {
-    *common.BaseRequest
-
-    // SubnetId 要删除的子网ID。
-    SubnetId *string `json:"subnetId,omitempty"`
-
-}
-
-type DeleteSubnetResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// ModifySubnetAttributeRequest 描述修改子网属性的请求参数。
-type ModifySubnetAttributeRequest struct {
-    *common.BaseRequest
-
-    // SubnetId 子网的ID。
-    SubnetId *string `json:"subnetId,omitempty"`
-
-    // SubnetName 子网的名称。仅支持输入字母、数字、-和英文句点(.)。且必须以数字或字母开头和结尾。
-    SubnetName *string `json:"subnetName,omitempty"`
-
-    // CidrBlock 需要修改的IPv4 CIDR Block。仅支持有IPv4堆栈类型的子网。
-    CidrBlock *string `json:"cidrBlock,omitempty"`
-
-}
-
-type ModifySubnetAttributeResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// ModifySubnetStackTypeRequest 切换子网堆栈类型的请求参数。
-type ModifySubnetStackTypeRequest struct {
-    *common.BaseRequest
-
-    // SubnetId 要操作的子网的ID。
-    SubnetId *string `json:"subnetId,omitempty"`
-
-    // StackType 子网堆栈类型。目前只支持`IPv4_IPv6`。
-    StackType *string `json:"stackType,omitempty"`
-
-    // Ipv6Type IPv6的类型。
-    Ipv6Type *string `json:"ipv6Type,omitempty"`
-
-    // Ipv6CidrBlockId 公网IPv6 CIDR ID。该字段仅当`ipv6Type`是公网(`Public`)时允许指定。如果不指定，将从系统默认IP池里分配。
-    Ipv6CidrBlockId *string `json:"ipv6CidrBlockId,omitempty"`
-
-    // Ipv6MaskLength 分配给虚拟机（VM）的IPv6 CIDR子网的大小。该参数仅当`ipv6CidrBlockId`时生效。当未显式传递时，默认值为96。
-    Ipv6MaskLength *int `json:"ipv6MaskLength,omitempty"`
-
-}
-
-// ModifySubnetStackTypeResponseParams 修改子网堆栈类型的响应结果。
-type ModifySubnetStackTypeResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // Ipv6CidrBlock 分配的IPv6地址段。
-    Ipv6CidrBlock *string `json:"ipv6CidrBlock,omitempty"`
-
-}
-
-type ModifySubnetStackTypeResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *ModifySubnetStackTypeResponseParams `json:"response,omitempty"`
-
-}
-
-type DescribeVpcsRequest struct {
-    *common.BaseRequest
-
-    // VpcIds VPC的ID列表。最多可传100个ID。
-    VpcIds []string `json:"vpcIds,omitempty"`
-
-    // Name 根据VPC名称过滤。支持模糊查询。
-    Name *string `json:"name,omitempty"`
-
-    // CidrBlock 根据VPC的IPv4 CIDR过滤。支持模糊查询。
-    CidrBlock *string `json:"cidrBlock,omitempty"`
-
-    // PageSize 返回的分页大小。
-    PageSize *int `json:"pageSize,omitempty"`
-
-    // PageNum 返回的分页数。
-    PageNum *int `json:"pageNum,omitempty"`
-
-    // ResourceGroupId 根据资源组ID过滤。
-    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
-
-    // TagKeys 根据标签键进行搜索。 最长不得超过20个标签键。
-    TagKeys []string `json:"tagKeys,omitempty"`
-
-    // Tags 根据标签进行搜索。 最长不得超过20个标签。
-    Tags []*Tag `json:"tags,omitempty"`
-
-}
-
-// DescribeVpcsResponseParams 描述Vpc列表的响应结果。
-type DescribeVpcsResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // TotalCount 匹配筛选条件的vpc总数量。
-    TotalCount *int `json:"totalCount,omitempty"`
-
-    // DataSet 返回分页的vpc集合数据。
-    DataSet []*VpcInfo `json:"dataSet,omitempty"`
-
-}
-
-// VpcInfo 描述VPC的基本信息。
-type VpcInfo struct {
-
-    // VpcId VPC的ID。
-    VpcId *string `json:"vpcId,omitempty"`
-
-    // Name VPC的名称。
-    Name *string `json:"name,omitempty"`
-
-    // CidrBlock VPC的IPv4 CIDR。
-    CidrBlock *string `json:"cidrBlock,omitempty"`
-
-    // Ipv6CidrBlock VPC的内网IPv6 CIDR。如果为null,说明未开启IPv6。
-    Ipv6CidrBlock *string `json:"ipv6CidrBlock,omitempty"`
-
-    // Mtu mtu值。
-    Mtu *int `json:"mtu,omitempty"`
-
-    // IsDefault 是否为默认VPC。
-    IsDefault *bool `json:"isDefault,omitempty"`
-
-    // CreateTime 创建时间。
-    CreateTime *string `json:"createTime,omitempty"`
-
-    // UsageIpv4Count VPC里已使用IPv4数量。
-    UsageIpv4Count *int `json:"usageIpv4Count,omitempty"`
-
-    // UsageIpv6Count VPC里已使用IPv6数量。
-    UsageIpv6Count *int `json:"usageIpv6Count,omitempty"`
-
-    // SecurityGroupId 关联的安全组ID。
-    SecurityGroupId *string `json:"securityGroupId,omitempty"`
-
-    // DnsZoneIds VPC关联的DNS内网权威域名ID。
-    DnsZoneIds []string `json:"dnsZoneIds,omitempty"`
-
-    // ResourceGroup VPC关联的资源组信息。
-    ResourceGroup *ResourceGroupInfo `json:"resourceGroup,omitempty"`
-
-    // Tags 该VPC关联的标签。
-    Tags *Tags `json:"tags,omitempty"`
-
-}
-
-// ResourceGroupInfo 描述资源所在资源组的相关信息，包括资源组名称和ID。
-type ResourceGroupInfo struct {
-
-    // ResourceGroupId 资源组ID。
-    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
-
-    // ResourceGroupName 资源组名称。
-    ResourceGroupName *string `json:"resourceGroupName,omitempty"`
-
-}
-
-type DescribeVpcsResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeVpcsResponseParams `json:"response,omitempty"`
-
-}
-
-// ModifyVpcAttributeRequest 修改VPC的属性请求参数。
-type ModifyVpcAttributeRequest struct {
-    *common.BaseRequest
-
-    // VpcId VPC的ID。
-    VpcId *string `json:"vpcId,omitempty"`
-
-    // VpcName VPC的名称。范围2到63个字符。仅支持输入字母、数字、-/_和英文句点(.)。且必须以数字或字母开头和结尾。
-    VpcName *string `json:"vpcName,omitempty"`
-
-    // CidrBlock 需要修改的IPv4 CIDR。需要满足以下4种内网段内(10.0.0.0/9, 10.128.0.0/9, 172.16.0.0/12以及192.168.0.0/16)。如果VPC存在子网，则修改的CIDR范围必须包含原VPC CIDR。默认VPC不支持修改。
-    CidrBlock *string `json:"cidrBlock,omitempty"`
-
-    // EnableIPv6 是否开启IPv6内网CIDR。当前仅允许打开(`true`)，一旦设置IPv6, 将无法关闭。
-    EnableIPv6 *bool `json:"enableIPv6,omitempty"`
-
-    // SecurityGroupId 修改VPC绑定的安全组ID。如果不指定，则不会修改。
-    SecurityGroupId *string `json:"securityGroupId,omitempty"`
-
-}
-
-type ModifyVpcAttributeResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// DescribeSubnetsRequest 查询子网列表的请求信息。
-type DescribeSubnetsRequest struct {
-    *common.BaseRequest
-
-    // SubnetIds 根据子网的ID进行筛选。
-    SubnetIds []string `json:"subnetIds,omitempty"`
-
-    // Name 根据子网的名称进行筛选。该字段支持模糊搜索。
-    Name *string `json:"name,omitempty"`
-
-    // CidrBlock 根据子网的CIDR进行筛选。
-    CidrBlock *string `json:"cidrBlock,omitempty"`
-
-    // RegionId 根据子网所在的节点进行筛选。
-    RegionId *string `json:"regionId,omitempty"`
-
-    // PageSize 返回的分页大小。
-    PageSize *int `json:"pageSize,omitempty"`
-
-    // PageNum 返回的分页数。
-    PageNum *int `json:"pageNum,omitempty"`
-
-    // VpcIds VPC的ID集合。
-    VpcIds []string `json:"vpcIds,omitempty"`
-
-    // DhcpOptionsSetId 子网绑定的DHCP 选项集ID。
-    DhcpOptionsSetId *string `json:"dhcpOptionsSetId,omitempty"`
-
-}
-
-// DescribeSubnetsResponseParams 子网列表的响应信息。
-type DescribeSubnetsResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // TotalCount 符合条件的数据总数。
-    TotalCount *int `json:"totalCount,omitempty"`
-
-    // DataSet 子网的结果集。
-    DataSet []*SubnetInfo `json:"dataSet,omitempty"`
-
-}
-
-// SubnetInfo 描述子网的基本信息。
-type SubnetInfo struct {
-
-    // SubnetId 子网的ID。
-    SubnetId *string `json:"subnetId,omitempty"`
-
-    // RegionId 子网所在节点的ID。
-    RegionId *string `json:"regionId,omitempty"`
-
-    // Name 子网的名称。
-    Name *string `json:"name,omitempty"`
-
-    // CidrBlock 子网的CIDR地址。
-    CidrBlock *string `json:"cidrBlock,omitempty"`
-
-    // GatewayIpAddress 网关地址。
-    GatewayIpAddress *string `json:"gatewayIpAddress,omitempty"`
-
-    // Ipv6CidrBlock 子网的IPv6 CIDR地址段。如果子网的IP堆栈类型不包括V6,该字段取不到值。
-    Ipv6CidrBlock *string `json:"ipv6CidrBlock,omitempty"`
-
-    // Ipv6GatewayIpAddress IPv6的网关地址。
-    Ipv6GatewayIpAddress *string `json:"ipv6GatewayIpAddress,omitempty"`
-
-    // StackType 子网的IP堆栈类型。
-    StackType *string `json:"stackType,omitempty"`
-
-    // Ipv6Type 子网上IPv6类型。如果子网的IP堆栈类型不包括V6,该字段取不到值。
-    Ipv6Type *string `json:"ipv6Type,omitempty"`
-
-    // VpcId 子网所属VPC的ID。
-    VpcId *string `json:"vpcId,omitempty"`
-
-    // VpcName 子网所属VPC的名称。
-    VpcName *string `json:"vpcName,omitempty"`
-
-    // UsageIpv4Count 子网已使用IPv4数量。
-    UsageIpv4Count *int `json:"usageIpv4Count,omitempty"`
-
-    // UsageIpv6Count 子网已使用IPv6数量。
-    UsageIpv6Count *int `json:"usageIpv6Count,omitempty"`
-
-    // CreateTime 子网的创建时间。
-    CreateTime *string `json:"createTime,omitempty"`
-
-    // IsDefault 子网是否为默认。
-    IsDefault *bool `json:"isDefault,omitempty"`
-
-    // DhcpOptionsSetId DHCP选项集ID。
-    DhcpOptionsSetId *string `json:"dhcpOptionsSetId,omitempty"`
-
-}
-
-type DescribeSubnetsResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeSubnetsResponseParams `json:"response,omitempty"`
-
-}
-
-// ModifySubnetsAttributeRequest 批量修改子网的请求参数。
-type ModifySubnetsAttributeRequest struct {
-    *common.BaseRequest
-
-    // SubnetIds 需要修改的子网ID列表。
-    SubnetIds []string `json:"subnetIds,omitempty"`
-
-    // Name 修改的子网名称。范围2到63个字符。仅支持输入字母、数字、-/_和英文句点(.)。且必须以数字或字母开头和结尾。
-    Name *string `json:"name,omitempty"`
-
-}
-
-type ModifySubnetsAttributeResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// CreateSnapshotRequest 描述创建快照的请求信息。
-type CreateSnapshotRequest struct {
-    *common.BaseRequest
-
-    // DiskId 云硬盘ID。
-    DiskId *string `json:"diskId,omitempty"`
-
-    // SnapshotName 快照名称。
-    SnapshotName *string `json:"snapshotName,omitempty"`
-
-    // RetentionTime 保留的到期时间。格式为：yyyy-MM-ddTHH:mm:ssZ。如果不传，则代表永久保留。指定时间必须在当前时间24小时后。
-    RetentionTime *string `json:"retentionTime,omitempty"`
-
-}
-
-// CreateSnapshotResponseParams 创建快照的响应信息。
-type CreateSnapshotResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // SnapshotId 创建的快照ID。
-    SnapshotId *string `json:"snapshotId,omitempty"`
-
-}
-
-type CreateSnapshotResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *CreateSnapshotResponseParams `json:"response,omitempty"`
-
-}
-
-type ModifySnapshotsAttributeRequest struct {
-    *common.BaseRequest
-
-    // SnapshotIds 快照ID列表。
-    SnapshotIds []string `json:"snapshotIds,omitempty"`
-
-    // SnapshotName 快照名称。
-    SnapshotName *string `json:"snapshotName,omitempty"`
-
-    // RetentionTime 快照过期时间。格式为：yyyy-MM-ddTHH:mm:ssZ。如果改成永久保留，请设置`isPermanent`=`true`，如果设置该时间必须设置为当前时间后24小时。
-    RetentionTime *string `json:"retentionTime,omitempty"`
-
-    // IsPermanent 该定期快照策略创建的快照是否永久保留。
-    IsPermanent *bool `json:"isPermanent,omitempty"`
-
-}
-
-type ModifySnapshotsAttributeResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-type DeleteSnapshotsRequest struct {
-    *common.BaseRequest
-
-    // SnapshotIds 快照ID列表。
-    SnapshotIds []string `json:"snapshotIds,omitempty"`
-
-}
-
-// DeleteSnapshotsResponseParams 删除快照的响应信息。
-type DeleteSnapshotsResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // SnapshotIds 操作失败的快照ID。
-    SnapshotIds []string `json:"snapshotIds,omitempty"`
-
-}
-
-type DeleteSnapshotsResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DeleteSnapshotsResponseParams `json:"response,omitempty"`
-
-}
-
-// DescribeSnapshotsRequest 描述查询快照列表的请求信息。
-type DescribeSnapshotsRequest struct {
-    *common.BaseRequest
-
-    // SnapshotIds 根据快照ID列表进行过滤。
-    SnapshotIds []string `json:"snapshotIds,omitempty"`
-
-    // ZoneId 快照所属的可用区ID。
-    ZoneId *string `json:"zoneId,omitempty"`
-
-    // Status 根据快照的状态过滤。
-    Status *string `json:"status,omitempty"`
-
-    // DiskIds 按照快照所属的Disk ID列表 过滤。
-    DiskIds []string `json:"diskIds,omitempty"`
-
-    // DiskType 根据快照的云盘类型过滤。
-    DiskType *string `json:"diskType,omitempty"`
-
-    // SnapshotType 根据快照类型过滤。
-    SnapshotType *string `json:"snapshotType,omitempty"`
-
-    // SnapshotName 根据快照显示名称过滤。该字段支持模糊搜索。
-    SnapshotName *string `json:"snapshotName,omitempty"`
-
-    // PageSize 返回的分页大小。
-    PageSize *int `json:"pageSize,omitempty"`
-
-    // PageNum 返回的分页数。
-    PageNum *int `json:"pageNum,omitempty"`
-
-    // ResourceGroupId 根据资源组ID过滤。
-    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
-
-}
-
-// DescribeSnapshotsResponseParams 描述快照列表的响应信息。
-type DescribeSnapshotsResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // TotalCount 满足过滤条件的快照总数。
-    TotalCount *int `json:"totalCount,omitempty"`
-
-    // DataSet 返回的快照列表数据。
-    DataSet []*SnapshotInfo `json:"dataSet,omitempty"`
-
-}
-
-// SnapshotInfo 描述快照的信息。
-type SnapshotInfo struct {
-
-    // SnapshotId 快照唯一ID。
-    SnapshotId *string `json:"snapshotId,omitempty"`
-
-    // SnapshotName 快照显示名称。
-    SnapshotName *string `json:"snapshotName,omitempty"`
-
-    // ZoneId 快照所属的可用区ID。
-    ZoneId *string `json:"zoneId,omitempty"`
-
-    // Status 快照的状态。
-    Status *string `json:"status,omitempty"`
-
-    // SnapshotType 快照的类型。
-    SnapshotType *string `json:"snapshotType,omitempty"`
-
-    // RetentionTime 快照的保留到期时间。如果取不到值，说明快照为永久保留。
-    RetentionTime *string `json:"retentionTime,omitempty"`
-
-    // DiskId 云盘ID。
-    DiskId *string `json:"diskId,omitempty"`
-
-    // CreateTime 创建时间。
-    CreateTime *string `json:"createTime,omitempty"`
-
-    // DiskAbility 是否具备创建disk的能力。
-    DiskAbility *bool `json:"diskAbility,omitempty"`
-
-    // ResourceGroup 所属的资源组信息。
-    ResourceGroup *ResourceGroupInfo `json:"resourceGroup,omitempty"`
-
-}
-
-type DescribeSnapshotsResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeSnapshotsResponseParams `json:"response,omitempty"`
-
-}
-
-type ApplySnapshotRequest struct {
-    *common.BaseRequest
-
-    // SnapshotId 快照唯一ID。
-    SnapshotId *string `json:"snapshotId,omitempty"`
-
-    // DiskId 云硬盘ID。
-    DiskId *string `json:"diskId,omitempty"`
-
-}
-
-type ApplySnapshotResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// CreateAutoSnapshotPolicyRequest 描述创建自动快照策略的请求信息。
-type CreateAutoSnapshotPolicyRequest struct {
-    *common.BaseRequest
-
-    // ZoneId 可用区ID。
-    ZoneId *string `json:"zoneId,omitempty"`
-
-    // AutoSnapshotPolicyName 自动快照策略的名称。范围2到63个字符。仅支持输入字母、数字、-/_和英文句点(.)。且必须以数字或字母开头和结尾。
-    AutoSnapshotPolicyName *string `json:"autoSnapshotPolicyName,omitempty"`
-
-    // RepeatWeekDays 自动快照的重复日期。单位为天，周期为星期，例如 1 表示周一。
-    RepeatWeekDays []int `json:"repeatWeekDays,omitempty"`
-
-    // Hours 指定定期快照策略的触发时间。使用 UTC 时间，单位为小时。00:00 ~ 23:00 共 24 个时间点可选，1表示 01:00，依此类推。
-    Hours []int `json:"hours,omitempty"`
-
-    // RetentionDays 自动快照的保留时间，单位为天。如果该值设置-1，则代表永久保留。默认为永久保存。取值范围：-1或[1,65535]。
-    RetentionDays *int `json:"retentionDays,omitempty"`
-
-    // ResourceGroupId 资源组ID。
-    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
-
-    // Tags 创建自动快照时关联的标签。注意：·关联`标签键`不能重复。
-    Tags *TagAssociation `json:"tags,omitempty"`
-
-}
-
-// CreateAutoSnapshotPolicyResponseParams 创建自动快照策略的响应信息。
-type CreateAutoSnapshotPolicyResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // AutoSnapshotPolicyId 自动快照策略的ID。
-    AutoSnapshotPolicyId *string `json:"autoSnapshotPolicyId,omitempty"`
-
-}
-
-type CreateAutoSnapshotPolicyResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *CreateAutoSnapshotPolicyResponseParams `json:"response,omitempty"`
-
-}
-
-type ApplyAutoSnapshotPolicyRequest struct {
-    *common.BaseRequest
-
-    // AutoSnapshotPolicyId 自动快照策略ID。
-    AutoSnapshotPolicyId *string `json:"autoSnapshotPolicyId,omitempty"`
-
-    // DiskIds 要添加的磁盘ID列表。
-    DiskIds []string `json:"diskIds,omitempty"`
-
-}
-
-type ApplyAutoSnapshotPolicyResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-type CancelAutoSnapshotPolicyRequest struct {
-    *common.BaseRequest
-
-    // AutoSnapshotPolicyId 自动快照策略ID。
-    AutoSnapshotPolicyId *string `json:"autoSnapshotPolicyId,omitempty"`
-
-    // DiskIds 要移除的磁盘ID列表。
-    DiskIds []string `json:"diskIds,omitempty"`
-
-}
-
-type CancelAutoSnapshotPolicyResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// DescribeAutoSnapshotPoliciesRequest 自动快照策略列表的请求参数。
-type DescribeAutoSnapshotPoliciesRequest struct {
-    *common.BaseRequest
-
-    // AutoSnapshotPolicyIds 根据自动快照策略的ID进行过滤。
-    AutoSnapshotPolicyIds []string `json:"autoSnapshotPolicyIds,omitempty"`
-
-    // ZoneIds 根据自动快照策略的可用区ID进行过滤。
-    ZoneIds []string `json:"zoneIds,omitempty"`
-
-    // AutoSnapshotPolicyName 根据自动快照策略的名称进行过滤。该字段支持模糊搜索。
-    AutoSnapshotPolicyName *string `json:"autoSnapshotPolicyName,omitempty"`
-
-    // ResourceGroupId 根据资源组ID进行过滤。
-    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
-
-    // PageSize 返回的分页大小。
-    PageSize *int `json:"pageSize,omitempty"`
-
-    // PageNum 返回的分页数。
-    PageNum *int `json:"pageNum,omitempty"`
-
-    // TagKeys 根据标签键进行搜索。 最长不得超过20个标签键。
-    TagKeys []string `json:"tagKeys,omitempty"`
-
-    // Tags 根据标签进行搜索。 最长不得超过20个标签。
-    Tags []*Tag `json:"tags,omitempty"`
-
-}
-
-// DescribeAutoSnapshotPoliciesResponseParams 查询自动快照策略的响应值。
-type DescribeAutoSnapshotPoliciesResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // DataSet 查询的自动快照策略数据结果。
-    DataSet []*AutoSnapshotPolicy `json:"dataSet,omitempty"`
-
-    // TotalCount 符合匹配的总数量。
-    TotalCount *int `json:"totalCount,omitempty"`
-
-}
-
-// AutoSnapshotPolicy 描述自动快照策略的相关信息。
-type AutoSnapshotPolicy struct {
-
-    // AutoSnapshotPolicyId 自动快照策略ID。
-    AutoSnapshotPolicyId *string `json:"autoSnapshotPolicyId,omitempty"`
-
-    // ZoneId 可用区ID。
-    ZoneId *string `json:"zoneId,omitempty"`
-
-    // AutoSnapshotPolicyName 自动快照策略的名称。
-    AutoSnapshotPolicyName *string `json:"autoSnapshotPolicyName,omitempty"`
-
-    // RepeatWeekDays 自动快照的重复日期。单位为天，周期为星期，例如 1 表示周一。
-    RepeatWeekDays []int `json:"repeatWeekDays,omitempty"`
-
-    // Hours 指定定期快照策略的触发时间。使用 UTC 时间，单位为小时。00:00 ~ 23:00 共 24 个时间点可选，1表示 01:00，依此类推。
-    Hours []int `json:"hours,omitempty"`
-
-    // RetentionDays 自动快照的保留时间，单位为天。如果该值设置-1，则代表永久保留。取值范围：-1或[1,65535]。
-    RetentionDays *int `json:"retentionDays,omitempty"`
-
-    // DiskNum 关联的云盘数量。
-    DiskNum *int `json:"diskNum,omitempty"`
-
-    // CreateTime 策略创建时间。
-    CreateTime *string `json:"createTime,omitempty"`
-
-    // ResourceGroup 资源组信息。
-    ResourceGroup *ResourceGroupInfo `json:"resourceGroup,omitempty"`
-
-    // DiskIdSet 关联的云盘ID。
+    // DiskIdSet 随机器创建的数据盘ID集合。
     DiskIdSet []string `json:"diskIdSet,omitempty"`
 
-    Tags *Tags `json:"tags,omitempty"`
-
 }
 
-type DescribeAutoSnapshotPoliciesResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeAutoSnapshotPoliciesResponseParams `json:"response,omitempty"`
-
-}
-
-type ModifyAutoSnapshotPolicyRequest struct {
+// DescribeInstancesRequest 
+type DescribeInstancesRequest struct {
     *common.BaseRequest
 
-    // AutoSnapshotPolicyId 自动快照策略的ID。
-    AutoSnapshotPolicyId *string `json:"autoSnapshotPolicyId,omitempty"`
+    // InstanceIds 根据实例ID列表进行筛选。
+    // 最大不能超过100个。
+    InstanceIds []string `json:"instanceIds,omitempty"`
 
-    // AutoSnapshotPolicyName 自动快照策略的名称。范围2到63个字符。仅支持输入字母、数字、-/_和英文句点(.)。且必须以数字或字母开头和结尾。
-    AutoSnapshotPolicyName *string `json:"autoSnapshotPolicyName,omitempty"`
+    // ZoneId 实例所属的可用区ID。
+    ZoneId *string `json:"zoneId,omitempty"`
 
-    // RepeatWeekDays 自动快照的重复日期。单位为天，周期为星期，例如 1 表示周一。
-    RepeatWeekDays []int `json:"repeatWeekDays,omitempty"`
+    // ImageId 镜像ID。
+    ImageId *string `json:"imageId,omitempty"`
 
-    // Hours 指定定期快照策略的触发时间。使用 UTC 时间，单位为小时。00:00 ~ 23:00 共 24 个时间点可选，1表示 01:00，依此类推。
-    Hours []int `json:"hours,omitempty"`
+    // Ipv4Address 根据实例关联的IPv4过滤。
+    Ipv4Address *string `json:"ipv4Address,omitempty"`
 
-    // RetentionDays 自动快照的保留时间，单位为天。如果该值设置-1，则代表永久保留。取值范围：-1或[1,65535]。
-    RetentionDays *int `json:"retentionDays,omitempty"`
+    // Ipv6Address 根据实例关联的IPv6信息过滤。
+    Ipv6Address *string `json:"ipv6Address,omitempty"`
 
-}
-
-type ModifyAutoSnapshotPolicyResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-type DeleteAutoSnapshotPoliciesRequest struct {
-    *common.BaseRequest
-
-    // AutoSnapshotPolicyIds 要删除的自动快照策略ID列表。
-    AutoSnapshotPolicyIds []string `json:"autoSnapshotPolicyIds,omitempty"`
-
-}
-
-type DeleteAutoSnapshotPoliciesResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-type DescribeNetworkInterfaceRegionsRequest struct {
-    *common.BaseRequest
-
-}
-
-// DescribeNetworkInterfaceRegionsResponseParams 支持网卡的区域信息。
-type DescribeNetworkInterfaceRegionsResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // RegionIds 支持网卡的节点ID。
-    RegionIds []string `json:"regionIds,omitempty"`
-
-}
-
-type DescribeNetworkInterfaceRegionsResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeNetworkInterfaceRegionsResponseParams `json:"response,omitempty"`
-
-}
-
-type DescribeNetworkInterfacesRequest struct {
-    *common.BaseRequest
-
-    // NicIds 根据网卡ID过滤。最多传入100个ID。
-    NicIds []string `json:"nicIds,omitempty"`
-
-    // Name 根据网卡所属的名称过滤。该字段支持模糊搜索。
-    Name *string `json:"name,omitempty"`
-
-    // RegionId 根据网卡所属的节点 ID过滤。
-    RegionId *string `json:"regionId,omitempty"`
-
-    // VpcId 根据网卡所属的VPC ID过滤。
-    VpcId *string `json:"vpcId,omitempty"`
-
-    // SubnetId 根据网卡所属的子网ID过滤。
-    SubnetId *string `json:"subnetId,omitempty"`
-
-    // InstanceId 网卡关联的实例ID过滤。
-    InstanceId *string `json:"instanceId,omitempty"`
-
-    // Status 根据网卡的状态过滤。
+    // Status 根据实例的状态过滤。
     Status *string `json:"status,omitempty"`
+
+    // Name 根据实例显示名称过滤。
+    // 该字段支持模糊搜索。
+    Name *string `json:"name,omitempty"`
 
     // PageSize 返回的分页大小。
     PageSize *int `json:"pageSize,omitempty"`
@@ -1645,33 +592,130 @@ type DescribeNetworkInterfacesRequest struct {
     // PageNum 返回的分页数。
     PageNum *int `json:"pageNum,omitempty"`
 
-    // NicType 根据网卡的类型筛选过滤。
-    NicType *string `json:"nicType,omitempty"`
-
-    // ResourceGroupId 根据网卡所属的资源组ID过滤。
+    // ResourceGroupId 根据资源组ID过滤。
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 
-    // SecurityGroupId 根据网卡所属的安全组ID过滤。
-    SecurityGroupId *string `json:"securityGroupId,omitempty"`
-
-    // TagKeys 根据标签键进行搜索。 最长不得超过20个标签键。
+    // TagKeys 根据标签键进行搜索。
+    // 最长不得超过20个标签键。
     TagKeys []string `json:"tagKeys,omitempty"`
 
-    // Tags 根据标签进行搜索。 最长不得超过20个标签。
+    // Tags 根据标签进行搜索。
+    // 最长不得超过20个标签。
     Tags []*Tag `json:"tags,omitempty"`
 
 }
 
-// DescribeNetworkInterfacesResponseParams 网卡列表的响应结果。
-type DescribeNetworkInterfacesResponseParams struct {
+type DescribeInstancesResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeInstancesResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeInstancesResponseParams 
+type DescribeInstancesResponseParams struct {
 
     RequestId *string `json:"requestId,omitempty"`
 
     // TotalCount 符合条件的数据总数。
     TotalCount *int `json:"totalCount,omitempty"`
 
-    // DataSet 网卡的结果集。
-    DataSet []*NicInfo `json:"dataSet,omitempty"`
+    // DataSet 实例列表的数据。
+    DataSet []*InstanceInfo `json:"dataSet,omitempty"`
+
+}
+
+// InstanceInfo 描述虚拟机实例的信息。包括规格，状态，网卡等。
+type InstanceInfo struct {
+
+    // InstanceId 实例唯一ID。
+    InstanceId *string `json:"instanceId,omitempty"`
+
+    // InstanceName 实例显示名称。
+    InstanceName *string `json:"instanceName,omitempty"`
+
+    // ZoneId 实例所属的可用区ID。
+    ZoneId *string `json:"zoneId,omitempty"`
+
+    // InstanceType CPU 规格。
+    // 如果是GPU实例，该字段取值为null。
+    InstanceType *string `json:"instanceType,omitempty"`
+
+    // Cpu CPU 核数。
+    // 单位：个。
+    Cpu *int `json:"cpu,omitempty"`
+
+    // Memory 内存容量。
+    // 单位：GiB。
+    Memory *int `json:"memory,omitempty"`
+
+    // ImageId 镜像ID。
+    ImageId *string `json:"imageId,omitempty"`
+
+    // ImageName 镜像名称。
+    ImageName *string `json:"imageName,omitempty"`
+
+    // TimeZone 设置的系统时区信息。
+    TimeZone *string `json:"timeZone,omitempty"`
+
+    // NicNetworkType 网卡模式。
+    NicNetworkType *string `json:"nicNetworkType,omitempty"`
+
+    // Status 实例状态。
+    Status *string `json:"status,omitempty"`
+
+    // SystemDisk 系统盘信息。
+    SystemDisk *SystemDisk `json:"systemDisk,omitempty"`
+
+    // DataDisks 实例上挂载的数据盘信息。
+    DataDisks []*DataDisk `json:"dataDisks,omitempty"`
+
+    // PublicIpAddresses 实例上公网IPv4列表。
+    PublicIpAddresses []string `json:"publicIpAddresses,omitempty"`
+
+    // PrivateIpAddresses 实例上内网IP列表。
+    PrivateIpAddresses []string `json:"privateIpAddresses,omitempty"`
+
+    // KeyId 安装的SSH密钥ID。
+    KeyId *string `json:"keyId,omitempty"`
+
+    // SubnetId 实例主网卡关联的子网ID。
+    SubnetId *string `json:"subnetId,omitempty"`
+
+    // SecurityGroupId 实例主网卡关联的安全组ID。
+    SecurityGroupId *string `json:"securityGroupId,omitempty"`
+
+    // EnableAgent 是否开启QGA Agent。
+    EnableAgent *bool `json:"enableAgent,omitempty"`
+
+    // EnableAgentMonitor 是否开启QGA 监控采集。
+    EnableAgentMonitor *bool `json:"enableAgentMonitor,omitempty"`
+
+    // EnableIpForward 是否开启IP转发。
+    EnableIpForward *bool `json:"enableIpForward,omitempty"`
+
+    // CreateTime 创建时间。
+    CreateTime *string `json:"createTime,omitempty"`
+
+    // ExpiredTime 到期时间。
+    ExpiredTime *string `json:"expiredTime,omitempty"`
+
+    // ResourceGroupId 实例所属的资源组ID。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // ResourceGroupName 实例所属的资源组名称。
+    ResourceGroupName *string `json:"resourceGroupName,omitempty"`
+
+    // Nics 实例上绑定的网卡信息。
+    Nics []*NicInfo `json:"nics,omitempty"`
+
+    // Tags 实例关联的标签。
+    Tags *Tags `json:"tags,omitempty"`
+
+    // LoadBalancerIds 实例上绑定的负载均衡ID列表。
+    LoadBalancerIds []string `json:"loadBalancerIds,omitempty"`
 
 }
 
@@ -1705,10 +749,12 @@ type NicInfo struct {
     // PrimaryIpv4 主的内网IPv4地址。
     PrimaryIpv4 *string `json:"primaryIpv4,omitempty"`
 
-    // PrimaryIpv6 网卡上的主IPv6地址。如果堆栈类型是V4,该值取值为空。
+    // PrimaryIpv6 网卡上的主IPv6地址。
+    // 如果堆栈类型是V4,该值取值为空。
     PrimaryIpv6 *string `json:"primaryIpv6,omitempty"`
 
-    // Ipv6Cidr 网卡上的IPv6地址。如果堆栈类型是V4,该值取值为空。
+    // Ipv6Cidr 网卡上的IPv6地址。
+    // 如果堆栈类型是V4,该值取值为空。
     Ipv6Cidr *string `json:"ipv6Cidr,omitempty"`
 
     // SecondaryIpv4s 网卡上的辅助 IPv4 地址。
@@ -1743,132 +789,91 @@ type NicInfo struct {
 
 }
 
-type DescribeNetworkInterfacesResponse struct {
-    *common.BaseResponse
+// ResourceGroupInfo 描述资源所在资源组的相关信息，包括资源组名称和ID。
+type ResourceGroupInfo struct {
 
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeNetworkInterfacesResponseParams `json:"response,omitempty"`
-
-}
-
-// ModifyNetworkInterfaceAttributeRequest 修改网卡属性的请求参数。
-type ModifyNetworkInterfaceAttributeRequest struct {
-    *common.BaseRequest
-
-    // NicId 需要修改的网卡ID。
-    NicId *string `json:"nicId,omitempty"`
-
-    // Name 名称。范围2到63个字符。仅支持输入字母、数字、-/_和英文句点(.)。且必须以数字或字母开头和结尾。
-    Name *string `json:"name,omitempty"`
-
-    // SecurityGroupId 修改网卡绑定的目标安全组ID。目前一张网卡只能关联一个安全组。指定该字段会解绑网卡原来的安全组。
-    SecurityGroupId *string `json:"securityGroupId,omitempty"`
-
-}
-
-type ModifyNetworkInterfaceAttributeResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// ModifyNetworkInterfacesAttributeRequest 修改网卡的属性的请求参数。
-type ModifyNetworkInterfacesAttributeRequest struct {
-    *common.BaseRequest
-
-    // NicIds 需要修改的网卡ID列表。
-    NicIds []string `json:"nicIds,omitempty"`
-
-    // Name 名称。范围2到63个字符。仅支持输入字母、数字、-/_和英文句点(.)。且必须以数字或字母开头和结尾。
-    Name *string `json:"name,omitempty"`
-
-}
-
-type ModifyNetworkInterfacesAttributeResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// CreateNetworkInterfaceRequest 创建辅助网卡的请求参数。
-type CreateNetworkInterfaceRequest struct {
-    *common.BaseRequest
-
-    // Name 网卡名称。范围2到63个字符。仅支持输入字母、数字、-/_和英文句点(.)。且必须以数字或字母开头和结尾。
-    Name *string `json:"name,omitempty"`
-
-    // SubnetId 子网的ID。
-    SubnetId *string `json:"subnetId,omitempty"`
-
-    // NicStackType 网卡的IP堆栈类型。如果不指定，会根据子网堆栈类型决定：如果子网是V4,则网卡为V4，如果子网是V6,则网卡为V6。如果网卡要V4&V6，请指定该参数。
-    NicStackType *string `json:"nicStackType,omitempty"`
-
-    // ResourceGroupId 网卡创建所在的资源组ID，如不指定则放入默认资源组。
+    // ResourceGroupId 资源组ID。
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 
-    // SecurityGroupId 指定安全组ID。目前一个网卡只能关联1个安全组。如果未指定，会默认用VPC关联下的安全组。
-    SecurityGroupId *string `json:"securityGroupId,omitempty"`
-
-    // InternetChargeType 公网IPv6的网络计费方式。当子网的堆栈类型包括V6且为公网时，需要指定。
-    InternetChargeType *string `json:"internetChargeType,omitempty"`
-
-    // Bandwidth 公网IPv6的带宽限速。单位Mbps。当子网的堆栈类型包括V6且为公网时，需要指定。
-    Bandwidth *int `json:"bandwidth,omitempty"`
-
-    // PackageSize 公网IPv6的流量包大小。单位为TB。值要求为0或0.1的倍数。当子网的堆栈类型包括V6且为公网时，且网络计费方式是流量计费(`ByTrafficPackage`)需要指定。
-    PackageSize *float64 `json:"packageSize,omitempty"`
-
-    // ClusterId 公网IPv6所指定的共享带宽包ID。当子网的堆栈类型包括V6且为公网时，且网络计费方式是共享带宽包计费(`BandwidthCluster`)需要指定。
-    ClusterId *string `json:"clusterId,omitempty"`
-
-    // MarketingOptions 市场营销相关的选项。
-    MarketingOptions *MarketingInfo `json:"marketingOptions,omitempty"`
-
-    // Tags 创建网卡时关联的标签。注意：·关联`标签键`不能重复。
-    Tags *TagAssociation `json:"tags,omitempty"`
+    // ResourceGroupName 资源组名称。
+    ResourceGroupName *string `json:"resourceGroupName,omitempty"`
 
 }
 
-// CreateNetworkInterfaceResponseParams 创建辅助网卡的响应结果。
-type CreateNetworkInterfaceResponseParams struct {
+// Tags 描述资源关联的标签信息。
+type Tags struct {
 
-    RequestId *string `json:"requestId,omitempty"`
-
-    // NicId 创建的辅助网卡ID。
-    NicId *string `json:"nicId,omitempty"`
+    // Tags 标签对列表。
+    Tags []*Tag `json:"tags,omitempty"`
 
 }
 
-type CreateNetworkInterfaceResponse struct {
+// DescribeInstancesStatusRequest 
+type DescribeInstancesStatusRequest struct {
+    *common.BaseRequest
+
+    // InstanceIds 要查询的实例ID列表。
+    InstanceIds []string `json:"instanceIds,omitempty"`
+
+    // PageSize 分页大小。
+    PageSize *int `json:"pageSize,omitempty"`
+
+    // PageNum 分页页数。
+    PageNum *int `json:"pageNum,omitempty"`
+
+    // ResourceGroupId 根据资源组ID过滤。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+}
+
+type DescribeInstancesStatusResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
 
-    Response *CreateNetworkInterfaceResponseParams `json:"response,omitempty"`
+    Response *DescribeInstancesStatusResponseParams `json:"response,omitempty"`
 
 }
 
-// DeleteNetworkInterfaceRequest 删除网卡的请求参数。
-type DeleteNetworkInterfaceRequest struct {
+// DescribeInstancesStatusResponseParams 
+type DescribeInstancesStatusResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // TotalCount 符合条件的数据总数。
+    TotalCount *int `json:"totalCount,omitempty"`
+
+    // DataSet 实例状态数据。
+    DataSet []*InstanceStatus `json:"dataSet,omitempty"`
+
+}
+
+// InstanceStatus 描述实例状态的信息。
+type InstanceStatus struct {
+
+    // InstanceId 实例的ID。
+    InstanceId *string `json:"instanceId,omitempty"`
+
+    // InstanceStatus 实例的状态。
+    InstanceStatus *string `json:"instanceStatus,omitempty"`
+
+}
+
+// ModifyInstancesAttributeRequest 
+type ModifyInstancesAttributeRequest struct {
     *common.BaseRequest
 
-    // NicId 要删除的网卡ID。
-    NicId *string `json:"nicId,omitempty"`
+    // InstanceIds 待修改属性的实例ID列表。
+    InstanceIds []string `json:"instanceIds,omitempty"`
+
+    // InstanceName 实例名称。
+    // 2～63个字符。
+    // 仅支持输入字母、数字、-和英文句点(.)。
+    InstanceName *string `json:"instanceName,omitempty"`
 
 }
 
-type DeleteNetworkInterfaceResponse struct {
+type ModifyInstancesAttributeResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
@@ -1879,19 +884,236 @@ type DeleteNetworkInterfaceResponse struct {
 
 }
 
-// AttachNetworkInterfaceRequest 网卡绑定实例的请求参数。
-type AttachNetworkInterfaceRequest struct {
+// StartInstancesRequest 
+type StartInstancesRequest struct {
     *common.BaseRequest
 
-    // NicId 需要操作的网卡ID。
-    NicId *string `json:"nicId,omitempty"`
+    // InstanceIds 要启动的实例ID。
+    InstanceIds []string `json:"instanceIds,omitempty"`
 
-    // InstanceId 需要绑定的实例ID。
+}
+
+type StartInstancesResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *StartInstancesResponseParams `json:"response,omitempty"`
+
+}
+
+// StartInstancesResponseParams 
+type StartInstancesResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // InstanceIds 启动失败的实例ID列表。
+    InstanceIds []string `json:"instanceIds,omitempty"`
+
+}
+
+// StopInstancesRequest 
+type StopInstancesRequest struct {
+    *common.BaseRequest
+
+    // InstanceIds 待关闭的实例ID。
+    InstanceIds []string `json:"instanceIds,omitempty"`
+
+    // ForceShutdown 是否强制关机。
+    ForceShutdown *bool `json:"forceShutdown,omitempty"`
+
+}
+
+type StopInstancesResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *StopInstancesResponseParams `json:"response,omitempty"`
+
+}
+
+// StopInstancesResponseParams 
+type StopInstancesResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // InstanceIds 操作失败的实例ID列表。
+    InstanceIds []string `json:"instanceIds,omitempty"`
+
+}
+
+// RebootInstancesRequest 
+type RebootInstancesRequest struct {
+    *common.BaseRequest
+
+    // InstanceIds 待重启虚拟机实例ID列表。
+    InstanceIds []string `json:"instanceIds,omitempty"`
+
+}
+
+type RebootInstancesResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *RebootInstancesResponseParams `json:"response,omitempty"`
+
+}
+
+// RebootInstancesResponseParams 
+type RebootInstancesResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // InstanceIds 重启操作失败的实例ID列表。
+    InstanceIds []string `json:"instanceIds,omitempty"`
+
+}
+
+// ResetInstancePasswordRequest 
+type ResetInstancePasswordRequest struct {
+    *common.BaseRequest
+
+    // InstanceId 待操作的实例ID。
+    InstanceId *string `json:"instanceId,omitempty"`
+
+    // Password 密码。
+    // 必须是8-16位。
+    // 必须包含以下3种格式的字符：大小写字母: [a-zA-Z]数字: 0-9特殊字符: ~!@$^*-_=+。
+    Password *string `json:"password,omitempty"`
+
+}
+
+type ResetInstancePasswordResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// ResetInstanceRequest 
+type ResetInstanceRequest struct {
+    *common.BaseRequest
+
+    // InstanceId 要重装的实例ID。
+    InstanceId *string `json:"instanceId,omitempty"`
+
+    // Password 实例的新密码。
+    // 与keyId必须指定其中的一种（Windows和Generic类型的镜像无法指定密码和key）。
+    // 必须包含以下3种格式的字符：大小写字母: [a-zA-Z]数字: 0-9特殊字符: ~!@$^*-_=+。
+    Password *string `json:"password,omitempty"`
+
+    // KeyId 密钥ID。
+    // 与password必须指定其中的一种（Windows和Generic类型的镜像无法指定密码和key）。
+    // 可调用接口DescribeKeyPairs来获得最新的密钥对信息。
+    // 关联密钥后，就可以通过对应的私钥来访问实例；密钥与密码不能同时指定，同时Windows操作系统不支持指定密钥。
+    // 示例值：key-YWD2QFOl。
+    KeyId *string `json:"keyId,omitempty"`
+
+    // ImageId 指定重装的的镜像ID。
+    // 可以通过[DescribeImages](describeimages.md)取返回信息中的`imageId`字段。
+    // 如果不指定，会根据当前镜像进行重装。
+    ImageId *string `json:"imageId,omitempty"`
+
+    // Timezone 操作系统时区设置。
+    Timezone *string `json:"timezone,omitempty"`
+
+    // EnableAgent 是否启用 QEMU Guest 代理 (QGA)。
+    EnableAgent *bool `json:"enableAgent,omitempty"`
+
+    // InstanceName 修改的实例名称。
+    // 2～63个字符。
+    // 仅支持输入字母、数字、-和英文句点(.)。
+    InstanceName *string `json:"instanceName,omitempty"`
+
+    // UserData 初始化命令。
+    UserData *string `json:"userData,omitempty"`
+
+}
+
+type ResetInstanceResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type ResetInstancesRequest struct {
+    *common.BaseRequest
+
+    // InstanceIds 待重装的实例ID。
+    InstanceIds []string `json:"instanceIds,omitempty"`
+
+    // Password 实例的新密码。
+    // 与keyId必须指定其中的一种（Windows和Generic类型的镜像无法指定密码和key）。
+    // 必须包含以下3种格式的字符：大小写字母: [a-zA-Z]数字: 0-9特殊字符: ~!@$^*-_=+。
+    Password *string `json:"password,omitempty"`
+
+    // KeyId 密钥ID。
+    // 与password必须指定其中的一种（Windows和Generic类型的镜像无法指定密码和key）。
+    // 可调用接口DescribeKeyPairs来获得最新的密钥对信息。
+    // 关联密钥后，就可以通过对应的私钥来访问实例；密钥与密码不能同时指定，同时Windows操作系统不支持指定密钥。
+    // 示例值：key-YWD2QFOl。
+    KeyId *string `json:"keyId,omitempty"`
+
+    // ImageId 指定重装的的镜像ID。
+    // 可以通过[DescribeImages](describeimages.md)取返回信息中的`imageId`字段。
+    // 如果不指定，会根据当前镜像进行重装。
+    ImageId *string `json:"imageId,omitempty"`
+
+    // Timezone 操作系统时区设置。
+    Timezone *string `json:"timezone,omitempty"`
+
+    // EnableAgent 是否启用 QEMU Guest 代理 (QGA)。
+    EnableAgent *bool `json:"enableAgent,omitempty"`
+
+    // InstanceName 修改的实例名称。
+    // 2～63个字符。
+    // 仅支持输入字母、数字、-和英文句点(.)。
+    InstanceName *string `json:"instanceName,omitempty"`
+
+    // UserData 初始化命令。
+    UserData *string `json:"userData,omitempty"`
+
+}
+
+type ResetInstancesResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *ResetInstancesResponseParams `json:"response,omitempty"`
+
+}
+
+type ResetInstancesResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // InstanceIds 重装操作失败的实例ID列表。
+    InstanceIds []string `json:"instanceIds,omitempty"`
+
+}
+
+// StartIpForwardRequest 
+type StartIpForwardRequest struct {
+    *common.BaseRequest
+
+    // InstanceId 要操作的实例ID。
     InstanceId *string `json:"instanceId,omitempty"`
 
 }
 
-type AttachNetworkInterfaceResponse struct {
+type StartIpForwardResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
@@ -1902,16 +1124,16 @@ type AttachNetworkInterfaceResponse struct {
 
 }
 
-// DetachNetworkInterfaceRequest 解绑网卡的请求参数。
-type DetachNetworkInterfaceRequest struct {
+// StopIpForwardRequest 
+type StopIpForwardRequest struct {
     *common.BaseRequest
 
-    // NicId 需要操作的网卡ID。
-    NicId *string `json:"nicId,omitempty"`
+    // InstanceId 要操作的实例ID。
+    InstanceId *string `json:"instanceId,omitempty"`
 
 }
 
-type DetachNetworkInterfaceResponse struct {
+type StopIpForwardResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
@@ -1922,19 +1144,16 @@ type DetachNetworkInterfaceResponse struct {
 
 }
 
-// AssignNetworkInterfaceIpv4Request 网卡绑定内网IPv4的请求参数。
-type AssignNetworkInterfaceIpv4Request struct {
+// StartAgentMonitorRequest 
+type StartAgentMonitorRequest struct {
     *common.BaseRequest
 
-    // NicId 需要绑定的网卡ID。
-    NicId *string `json:"nicId,omitempty"`
-
-    // IpAddress 绑定的内网IP地址。该地址必须属于子网的CIDR内，且未被使用。
-    IpAddress *string `json:"ipAddress,omitempty"`
+    // InstanceId 要操作的实例ID。
+    InstanceId *string `json:"instanceId,omitempty"`
 
 }
 
-type AssignNetworkInterfaceIpv4Response struct {
+type StartAgentMonitorResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
@@ -1945,54 +1164,16 @@ type AssignNetworkInterfaceIpv4Response struct {
 
 }
 
-type BatchAssignNetworkInterfaceIpv4Request struct {
+// StopAgentMonitorRequest 
+type StopAgentMonitorRequest struct {
     *common.BaseRequest
 
-    // NicId 要操作的网卡ID。
-    NicId *string `json:"nicId,omitempty"`
-
-    // IpAddresses 内网IP地址列表。IP地址必须在网卡所属子网CIDR范围内，且不能是网关/广播/网络地址。
-    IpAddresses []string `json:"ipAddresses,omitempty"`
-
-    // IpAddressCount 指定额外绑定的内网IP数量。 该字段和`ipAddresses`必须指定其一，如果都指定，则会以 `ipAddresses` 有效。
-    IpAddressCount *int `json:"ipAddressCount,omitempty"`
+    // InstanceId 要操作的实例ID。
+    InstanceId *string `json:"instanceId,omitempty"`
 
 }
 
-type BatchAssignNetworkInterfaceIpv4ResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // IpAddresses 绑定的内网IP地址。
-    IpAddresses []string `json:"ipAddresses,omitempty"`
-
-}
-
-type BatchAssignNetworkInterfaceIpv4Response struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *BatchAssignNetworkInterfaceIpv4ResponseParams `json:"response,omitempty"`
-
-}
-
-type UnassignNetworkInterfaceIpv4Request struct {
-    *common.BaseRequest
-
-    // NicId 网卡ID。
-    NicId *string `json:"nicId,omitempty"`
-
-    // Deprecated: IpAddress 已废弃，请不要使用。
-    // IpAddress 需要解绑的IPv4地址。该字段已过时，请使用`ipAddresses`，如果两者均指定， 则以`ipAddresses`为准。
-    IpAddress *string `json:"ipAddress,omitempty"`
-
-    // IpAddresses 需要解绑的内网IPv4地址。
-    IpAddresses []string `json:"ipAddresses,omitempty"`
-
-}
-
-type UnassignNetworkInterfaceIpv4Response struct {
+type StopAgentMonitorResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
@@ -2003,125 +1184,19 @@ type UnassignNetworkInterfaceIpv4Response struct {
 
 }
 
-type DescribeNetworkInterfacePublicIPv6Request struct {
+// ModifyInstanceTypeRequest 
+type ModifyInstanceTypeRequest struct {
     *common.BaseRequest
 
-    // NicId 网卡ID。
-    NicId *string `json:"nicId,omitempty"`
+    // InstanceId 要变更的实例ID。
+    InstanceId *string `json:"instanceId,omitempty"`
+
+    // InstanceType 变更的目标实例规格。
+    InstanceType *string `json:"instanceType,omitempty"`
 
 }
 
-type DescribeNetworkInterfacePublicIPv6ResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // Address 公网IPv6信息。网卡如果没有公网IPv6,则取值为空。
-    Address *PublicIpv6CidrAddress `json:"address,omitempty"`
-
-}
-
-// PublicIpv6CidrAddress 公网IPv6的基本信息。
-type PublicIpv6CidrAddress struct {
-
-    // Ipv6CidrId IPv6 CIDR的ID。
-    Ipv6CidrId *string `json:"ipv6CidrId,omitempty"`
-
-    // Ipv6Cidr IPv6 CIDR的地址。
-    Ipv6Cidr *string `json:"ipv6Cidr,omitempty"`
-
-    // PrimaryIpv6Address 网卡的主IPv6地址。
-    PrimaryIpv6Address *string `json:"primaryIpv6Address,omitempty"`
-
-    // InternetChargeType IPv6的网络计费类型。
-    InternetChargeType *string `json:"internetChargeType,omitempty"`
-
-    // Bandwidth IPv6的公网带宽限速。单位：Mbps。
-    Bandwidth *int `json:"bandwidth,omitempty"`
-
-    // TrafficPackageSize IPv6的流量包大小。单位：TB。
-    TrafficPackageSize *float64 `json:"trafficPackageSize,omitempty"`
-
-    // BandwidthCluster 关联的带宽组信息。
-    BandwidthCluster *BandwidthClusterInfo `json:"bandwidthCluster,omitempty"`
-
-}
-
-// BandwidthClusterInfo 描述带宽组的基本信息。
-type BandwidthClusterInfo struct {
-
-    // BandwidthClusterId 共享带宽包ID。
-    BandwidthClusterId *string `json:"bandwidthClusterId,omitempty"`
-
-    // BandwidthClusterName 共享带宽包名称。
-    BandwidthClusterName *string `json:"bandwidthClusterName,omitempty"`
-
-}
-
-type DescribeNetworkInterfacePublicIPv6Response struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeNetworkInterfacePublicIPv6ResponseParams `json:"response,omitempty"`
-
-}
-
-// InquiryPricePublicIpv6Request 公网IPv6流量包或固定带宽询价的请求参数。
-type InquiryPricePublicIpv6Request struct {
-    *common.BaseRequest
-
-    // RegionId 节点ID。
-    RegionId *string `json:"regionId,omitempty"`
-
-    // PackageSize 流量包订购大小。单位为TB。
-    PackageSize *float64 `json:"packageSize,omitempty"`
-
-    // Bandwidth 公网出带宽上限。单位：Mbps。不同机型带宽上限范围不一致，具体限制详见购买网络带宽。
-    Bandwidth *int `json:"bandwidth,omitempty"`
-
-}
-
-// InquiryPricePublicIpv6ResponseParams 公网Ipv6流量包或固定带宽询价的响应信息。
-type InquiryPricePublicIpv6ResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // BandwidthPrice 带宽的价格。
-    BandwidthPrice *PriceItem `json:"bandwidthPrice,omitempty"`
-
-}
-
-type InquiryPricePublicIpv6Response struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *InquiryPricePublicIpv6ResponseParams `json:"response,omitempty"`
-
-}
-
-// AssignNetworkInterfaceIpv6Request 网卡添加IPv6的请求信息。
-type AssignNetworkInterfaceIpv6Request struct {
-    *common.BaseRequest
-
-    // NicId 要添加IPv6的网卡ID。
-    NicId *string `json:"nicId,omitempty"`
-
-    // InternetChargeType 公网IPv6的网络计费方式。当子网的堆栈类型包括V6且为公网时，需要指定。
-    InternetChargeType *string `json:"internetChargeType,omitempty"`
-
-    // Bandwidth 公网IPv6的带宽限速。单位Mbps。当子网的堆栈类型包括V6且为公网时，需要指定。
-    Bandwidth *int `json:"bandwidth,omitempty"`
-
-    // PackageSize 公网IPv6的流量包大小。单位为TB。值要求为0或0.1的倍数。当子网的堆栈类型包括V6且为公网时，且网络计费方式是流量计费(`ByTrafficPackage`)需要指定。
-    PackageSize *float64 `json:"packageSize,omitempty"`
-
-    // ClusterId 公网IPv6所指定的共享带宽包ID。当子网的堆栈类型包括V6且为公网时，且网络计费方式是共享带宽包计费(`BandwidthCluster`)需要指定。
-    ClusterId *string `json:"clusterId,omitempty"`
-
-}
-
-type AssignNetworkInterfaceIpv6Response struct {
+type ModifyInstanceTypeResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
@@ -2132,7 +1207,146 @@ type AssignNetworkInterfaceIpv6Response struct {
 
 }
 
-// DescribeImagesRequest 描述镜像的请求信息
+// ChangeNicNetworkTypeRequest 
+type ChangeNicNetworkTypeRequest struct {
+    *common.BaseRequest
+
+    // InstanceId 待操作的实例ID。
+    InstanceId *string `json:"instanceId,omitempty"`
+
+    // NicNetworkType 要更改的网卡模式。
+    NicNetworkType *string `json:"nicNetworkType,omitempty"`
+
+}
+
+type ChangeNicNetworkTypeResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// ReleaseInstancesRequest 
+type ReleaseInstancesRequest struct {
+    *common.BaseRequest
+
+    // InstanceIds 要释放的实例ID列表。
+    InstanceIds []string `json:"instanceIds,omitempty"`
+
+}
+
+type ReleaseInstancesResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *ReleaseInstancesResponseParams `json:"response,omitempty"`
+
+}
+
+// ReleaseInstancesResponseParams 
+type ReleaseInstancesResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // InstanceIds 操作失败的实例ID列表。
+    InstanceIds []string `json:"instanceIds,omitempty"`
+
+}
+
+// DescribeVncUrlRequest 
+type DescribeVncUrlRequest struct {
+    *common.BaseRequest
+
+    // InstanceId 要查询的实例ID。
+    InstanceId *string `json:"instanceId,omitempty"`
+
+}
+
+type DescribeVncUrlResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeVncUrlResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeVncUrlResponseParams 
+type DescribeVncUrlResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // Url VNC地址URL。
+    Url *string `json:"url,omitempty"`
+
+}
+
+// DescribeInstanceMonitorDataRequest 
+type DescribeInstanceMonitorDataRequest struct {
+    *common.BaseRequest
+
+    // InstanceId 实例唯一标识ID。
+    InstanceId *string `json:"instanceId,omitempty"`
+
+    // MetricType 实例监控指标类型。
+    MetricType *string `json:"metricType,omitempty"`
+
+    // StartTime 查询开始时间。
+    // 时间格式：yyyy-MM-ddTHH:mm:ssZ。
+    StartTime *string `json:"startTime,omitempty"`
+
+    // EndTime 查询结束时间。
+    // 时间格式：yyyy-MM-ddTHH:mm:ssZ。
+    EndTime *string `json:"endTime,omitempty"`
+
+}
+
+type DescribeInstanceMonitorDataResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeInstanceMonitorDataResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeInstanceMonitorDataResponseParams 
+type DescribeInstanceMonitorDataResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // MaxValue 数据点的最大值。
+    MaxValue *float64 `json:"maxValue,omitempty"`
+
+    // MinValue 数据点的最小值。
+    MinValue *float64 `json:"minValue,omitempty"`
+
+    // AvgValue 数据点的平均值。
+    AvgValue *float64 `json:"avgValue,omitempty"`
+
+    // Metrics 监控数据集合。
+    Metrics []*MetricValue `json:"metrics,omitempty"`
+
+}
+
+// MetricValue 描述监控指标的数据值。
+type MetricValue struct {
+
+    // Time 数据点时间。
+    Time *string `json:"time,omitempty"`
+
+    // Value 数据点的值。
+    // 如果该值为null,表示取不到相应的值。
+    Value *float64 `json:"value,omitempty"`
+
+}
+
+// DescribeImagesRequest 
 type DescribeImagesRequest struct {
     *common.BaseRequest
 
@@ -2142,7 +1356,8 @@ type DescribeImagesRequest struct {
     // ImageIds 镜像ID列表。
     ImageIds []string `json:"imageIds,omitempty"`
 
-    // ImageName 根据镜像名称过滤。该字段支持模糊搜索。
+    // ImageName 根据镜像名称过滤。
+    // 该字段支持模糊搜索。
     ImageName *string `json:"imageName,omitempty"`
 
     // Category 镜像所属分类。
@@ -2160,21 +1375,33 @@ type DescribeImagesRequest struct {
     // ImageStatus 镜像的状态。
     ImageStatus *string `json:"imageStatus,omitempty"`
 
-    // PageNum 返回的分页页码。默认为1。
+    // PageNum 返回的分页页码。
     PageNum *int `json:"pageNum,omitempty"`
 
-    // PageSize 返回的分页大小。默认为20，最大为1000。
+    // PageSize 返回的分页大小。
+    // 默认为20，最大为1000。
     PageSize *int `json:"pageSize,omitempty"`
 
-    // TagKeys 根据标签键进行搜索。 最长不得超过20个标签键。
+    // TagKeys 根据标签键进行搜索。
+    // 最长不得超过20个标签键。
     TagKeys []string `json:"tagKeys,omitempty"`
 
-    // Tags 根据标签进行搜索。 最长不得超过20个标签。
+    // Tags 根据标签进行搜索。
+    // 最长不得超过20个标签。
     Tags []*Tag `json:"tags,omitempty"`
 
 }
 
-// DescribeImagesResponseParams 描述镜像列表的响应信息。
+type DescribeImagesResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeImagesResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeImagesResponseParams 
 type DescribeImagesResponseParams struct {
 
     RequestId *string `json:"requestId,omitempty"`
@@ -2228,29 +1455,33 @@ type Image struct {
 
 }
 
-type DescribeImagesResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeImagesResponseParams `json:"response,omitempty"`
-
-}
-
 type CreateImageRequest struct {
     *common.BaseRequest
 
     // InstanceId 需要制作镜像的实例ID。
     InstanceId *string `json:"instanceId,omitempty"`
 
-    // ImageName 名称。范围2到63个字符。仅支持输入字母、数字、-/_和英文句点(.)。且必须以数字或字母开头和结尾。
+    // ImageName 名称。
+    // 范围2到63个字符。
+    // 仅支持输入字母、数字、-/_和英文句点(.)。
+    // 且必须以数字或字母开头和结尾。
     ImageName *string `json:"imageName,omitempty"`
 
     // ResourceGroupId 镜像所放的资源组ID，如不指定则放入默认资源组。
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 
-    // Tags 创建镜像时关联的标签。注意：·关联`标签键`不能重复。
+    // Tags 创建镜像时关联的标签。
+    // 注意：·关联`标签键`不能重复。
     Tags *TagAssociation `json:"tags,omitempty"`
+
+}
+
+type CreateImageResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *CreateImageResponseParams `json:"response,omitempty"`
 
 }
 
@@ -2266,22 +1497,16 @@ type CreateImageResponseParams struct {
 
 }
 
-type CreateImageResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *CreateImageResponseParams `json:"response,omitempty"`
-
-}
-
 type ModifyImagesAttributesRequest struct {
     *common.BaseRequest
 
     // ImageIds 待修改属性的镜像ID列表。
     ImageIds []string `json:"imageIds,omitempty"`
 
-    // ImageName 名称。范围2到63个字符。仅支持输入字母、数字、-/_和英文句点(.)。且必须以数字或字母开头和结尾。
+    // ImageName 名称。
+    // 范围2到63个字符。
+    // 仅支持输入字母、数字、-/_和英文句点(.)。
+    // 且必须以数字或字母开头和结尾。
     ImageName *string `json:"imageName,omitempty"`
 
 }
@@ -2305,15 +1530,6 @@ type DeleteImagesRequest struct {
 
 }
 
-type DeleteImagesResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // ImageIds 操作失败的镜像ID列表。
-    ImageIds []string `json:"imageIds,omitempty"`
-
-}
-
 type DeleteImagesResponse struct {
     *common.BaseResponse
 
@@ -2323,660 +1539,680 @@ type DeleteImagesResponse struct {
 
 }
 
-// DescribeDDosAllEventListRequest 获取攻击事件列表的请求参数。
-type DescribeDDosAllEventListRequest struct {
+type DeleteImagesResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // ImageIds 操作失败的镜像ID列表。
+    ImageIds []string `json:"imageIds,omitempty"`
+
+}
+
+// DescribeDisksRequest 
+type DescribeDisksRequest struct {
     *common.BaseRequest
 
-    // Status 攻击状态。
-    Status *string `json:"status,omitempty"`
+    // DiskIds 根据云盘ID列表筛选。
+    DiskIds []string `json:"diskIds,omitempty"`
 
-    // IpAddress 被攻击的IP。
-    IpAddress *string `json:"ipAddress,omitempty"`
+    // DiskName 根据云盘名称筛选，该字段支持模糊搜索。
+    DiskName *string `json:"diskName,omitempty"`
 
-    // StartTime 攻击开始时间。
-    StartTime *string `json:"startTime,omitempty"`
+    // DiskStatus 根据云盘的状态进行筛选。
+    DiskStatus *string `json:"diskStatus,omitempty"`
 
-    // EndTime 攻击结束时间。
-    EndTime *string `json:"endTime,omitempty"`
+    // DiskType 根据云盘的类型进行筛选。
+    DiskType *string `json:"diskType,omitempty"`
 
-    // PageSize 返回的分页大小。
-    PageSize *int `json:"pageSize,omitempty"`
+    // DiskCategory 根据云盘的分类进行筛选。
+    DiskCategory *string `json:"diskCategory,omitempty"`
 
-    // PageNum 返回的分页数。
+    // InstanceId 根据云盘挂载的实例ID进行筛选。
+    InstanceId *string `json:"instanceId,omitempty"`
+
+    // ZoneId 根据云盘所在的可用区进行筛选。
+    ZoneId *string `json:"zoneId,omitempty"`
+
+    // PageNum 返回的分页大小。
+    // 默认为20，最大为1000。
     PageNum *int `json:"pageNum,omitempty"`
 
-}
+    // PageSize 返回的分页数。
+    PageSize *int `json:"pageSize,omitempty"`
 
-// DescribeDDosAllEventListResponseParams 攻击事件列表。
-type DescribeDDosAllEventListResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // TotalCount 符合条件的数据总数。
-    TotalCount *int `json:"totalCount,omitempty"`
-
-    // DataSet 攻击事件列表的数据。
-    DataSet []*AttackEventInfo `json:"dataSet,omitempty"`
-
-}
-
-// AttackEventInfo 攻击事件的信息。
-type AttackEventInfo struct {
-
-    // EventId 攻击事件唯一ID。
-    EventId *string `json:"eventId,omitempty"`
-
-    // Status 攻击状态。
-    Status *string `json:"status,omitempty"`
-
-    // IpAddress 被攻击的IP。
-    IpAddress *string `json:"ipAddress,omitempty"`
-
-    // Protecting IP是否正在防护中。
-    Protecting *bool `json:"protecting,omitempty"`
-
-    // StartTime 攻击开始时间。
-    StartTime *string `json:"startTime,omitempty"`
-
-    // EndTime 攻击结束时间。
-    EndTime *string `json:"endTime,omitempty"`
-
-    // EndBlackholeTime 从黑洞解封时间。
-    EndBlackholeTime *string `json:"endBlackholeTime,omitempty"`
-
-    // AttackBandwidthMax 攻击峰值流量。单位bps。
-    AttackBandwidthMax *float64 `json:"attackBandwidthMax,omitempty"`
-
-    // AttackPackageMax 攻击峰值包量。单位pps。
-    AttackPackageMax *float64 `json:"attackPackageMax,omitempty"`
-
-    // RegionId 事件发生所在区域ID。
+    // RegionId 根据云盘所在的节点ID进行筛选。
     RegionId *string `json:"regionId,omitempty"`
 
-}
+    // SnapshotAbility 根据云盘是否有快照能力进行筛选。
+    SnapshotAbility *bool `json:"snapshotAbility,omitempty"`
 
-type DescribeDDosAllEventListResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeDDosAllEventListResponseParams `json:"response,omitempty"`
-
-}
-
-// DescribeDDosEventDetailRequest 获取攻击事件详情的请求参数。
-type DescribeDDosEventDetailRequest struct {
-    *common.BaseRequest
-
-    // EventId 攻击事件唯一ID。
-    EventId *string `json:"eventId,omitempty"`
-
-    // RegionId 区域节点ID。
-    RegionId *string `json:"regionId,omitempty"`
-
-}
-
-// DescribeDDosEventDetailResponseParams 攻击事件详情。
-type DescribeDDosEventDetailResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // EventId 攻击事件唯一ID。
-    EventId *string `json:"eventId,omitempty"`
-
-    // Status 攻击状态。
-    Status *string `json:"status,omitempty"`
-
-    // Type 攻击类型。
-    Type *string `json:"type,omitempty"`
-
-    // IpAddress 被攻击的IP。
-    IpAddress *string `json:"ipAddress,omitempty"`
-
-    // Protecting IP是否正在防护中。
-    Protecting *bool `json:"protecting,omitempty"`
-
-    // StartTime 攻击开始时间。
-    StartTime *string `json:"startTime,omitempty"`
-
-    // EndTime 攻击结束时间。
-    EndTime *string `json:"endTime,omitempty"`
-
-    // EndBlackholeTime 从黑洞解封时间。
-    EndBlackholeTime *string `json:"endBlackholeTime,omitempty"`
-
-    // AttackBandwidthMax 攻击带宽峰值。单位bps。
-    AttackBandwidthMax *float64 `json:"attackBandwidthMax,omitempty"`
-
-    // ProtectedBandwidthMax 防护带宽峰值。单位bps。
-    ProtectedBandwidthMax *float64 `json:"protectedBandwidthMax,omitempty"`
-
-    // AttackPackageMax 攻击峰值包速率。单位pps。
-    AttackPackageMax *float64 `json:"attackPackageMax,omitempty"`
-
-    // ProtectedPackageMax 防护峰值包速率。单位pps。
-    ProtectedPackageMax *float64 `json:"protectedPackageMax,omitempty"`
-
-    // SourceIp 攻击来源IP。
-    SourceIp []string `json:"sourceIp,omitempty"`
-
-    // SourcePort 攻击来源端口。
-    SourcePort []*TopPort `json:"sourcePort,omitempty"`
-
-    // DesertionPort 攻击目标端口。
-    DesertionPort []*TopPort `json:"desertionPort,omitempty"`
-
-}
-
-// TopPort 攻击端口。
-type TopPort struct {
-
-    // Protocol 协议。
-    Protocol *string `json:"protocol,omitempty"`
-
-    // Port 端口号。
-    Port *int `json:"port,omitempty"`
-
-}
-
-type DescribeDDosEventDetailResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeDDosEventDetailResponseParams `json:"response,omitempty"`
-
-}
-
-// CreatePolicyRequest 创建防护策略的请求参数。
-type CreatePolicyRequest struct {
-    *common.BaseRequest
-
-    // PolicyName 防护策略的名称。范围2到63个字符。仅支持输入字母、数字、-和英文句点(.)。且必须以数字或字母开头和结尾。
-    PolicyName *string `json:"policyName,omitempty"`
-
-    // ResourceGroupId 创建后防护策略所在的资源组ID，如不指定则放入默认资源组。
+    // ResourceGroupId 根据快照所属的资源组进行筛选。
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 
-    // BlackIpList 黑名单列表。
-    BlackIpList []string `json:"blackIpList,omitempty"`
-
-    // WhiteIpList 白名单列表。
-    WhiteIpList []string `json:"whiteIpList,omitempty"`
-
-    // IpBlackTimeout 黑名单超时时间, 单位:分钟。
-    IpBlackTimeout *int `json:"ipBlackTimeout,omitempty"`
-
-    // Ports 端口封禁, 支持TCP和UDP。
-    Ports []*DdosPolicyPort `json:"ports,omitempty"`
-
-    // BlockProtocol 开启的封禁协议。不能同时开启UDP和TCP。
-    BlockProtocol []string `json:"blockProtocol,omitempty"`
-
-    // BlockRegions 封禁的区域。
-    BlockRegions []string `json:"blockRegions,omitempty"`
-
-    // Finger 指纹过滤相关配置。
-    Finger []*DdosFingerprintRule `json:"finger,omitempty"`
-
-    // ReflectUdpPort 反射攻击防护过滤的端口列表。
-    ReflectUdpPort []*DdosReflectUdpPort `json:"reflectUdpPort,omitempty"`
-
-    // TrafficControl 源限速配置。
-    TrafficControl *DdosTrafficControl `json:"trafficControl,omitempty"`
-
-    // Tags 创建DDoS时关联的标签。注意：·关联`标签键`不能重复。
-    Tags *TagAssociation `json:"tags,omitempty"`
-
-}
-
-type DdosPolicyPort struct {
-
-    // Protocol 协议类型。只支持 `UDP` / `TCP` 两种协议。
-    Protocol *string `json:"protocol,omitempty"`
-
-    // SrcPortStart 源端口范围的起始值。
-    SrcPortStart *int `json:"srcPortStart,omitempty"`
-
-    // SrcPortEnd 源端口范围的结束值。
-    SrcPortEnd *int `json:"srcPortEnd,omitempty"`
-
-    // DstPortStart 目的端口范围的起始值。
-    DstPortStart *int `json:"dstPortStart,omitempty"`
-
-    // DstPortEnd 目的端口范围的结束值。
-    DstPortEnd *int `json:"dstPortEnd,omitempty"`
-
-    // Action 匹配后的动作。
-    Action *string `json:"action,omitempty"`
-
-}
-
-type DdosFingerprintRule struct {
-
-    // Protocol 设置指纹的协议。
-    Protocol *string `json:"protocol,omitempty"`
-
-    // SrcPortStart 指纹源端口的范围起始值。
-    SrcPortStart *int `json:"srcPortStart,omitempty"`
-
-    // SrcPortEnd 指纹源端口的范围结束值。
-    SrcPortEnd *int `json:"srcPortEnd,omitempty"`
-
-    // DstPortStart 指纹目的端口的范围起始值。
-    DstPortStart *int `json:"dstPortStart,omitempty"`
-
-    // DstPortEnd 指纹目的端口的范围结束值。
-    DstPortEnd *int `json:"dstPortEnd,omitempty"`
-
-    // MinPktLength 需要过滤出的最小包长。
-    MinPktLength *int `json:"minPktLength,omitempty"`
-
-    // MaxPktLength 需要过滤出的最大包长。
-    MaxPktLength *int `json:"maxPktLength,omitempty"`
-
-    // Offset 报文载荷特征的偏移量。TCP/UDP payload 的偏移 [0-1500]。
-    Offset *int `json:"offset,omitempty"`
-
-    // MatchBytes 检测载荷。不含0x 的16进制 小写 补足2位。
-    MatchBytes *string `json:"matchBytes,omitempty"`
-
-    // Action 设置指纹匹配后的动作。
-    Action *string `json:"action,omitempty"`
-
-}
-
-type DdosReflectUdpPort struct {
-
-    // Port 反射攻击防护过滤的端口。
-    Port *int `json:"port,omitempty"`
-
-}
-
-type DdosTrafficControl struct {
-
-    // BpsEnabled 是否开启 bps 限速。
-    BpsEnabled *bool `json:"bpsEnabled,omitempty"`
-
-    // Bps bps 限速值。
-    Bps *int64 `json:"bps,omitempty"`
-
-    // PpsEnabled 是否开启 pps 限速。
-    PpsEnabled *bool `json:"ppsEnabled,omitempty"`
-
-    // Pps pps 限速值。
-    Pps *int64 `json:"pps,omitempty"`
-
-    // SynBPSEnabled 是否开启 sync bps 限速。
-    SynBPSEnabled *bool `json:"synBPSEnabled,omitempty"`
-
-    // SynBPS syn bps 限速值。
-    SynBPS *int64 `json:"synBPS,omitempty"`
-
-    // SynPPSEnabled 是否开启 sync pps 限速。
-    SynPPSEnabled *bool `json:"synPPSEnabled,omitempty"`
-
-    // SynPPS syn pps 限速值。
-    SynPPS *int64 `json:"synPPS,omitempty"`
-
-}
-
-// CreatePolicyResponseParams 创建防护策略的响应结果。
-type CreatePolicyResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // PolicyId 防护策略ID。
-    PolicyId *string `json:"policyId,omitempty"`
-
-}
-
-type CreatePolicyResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *CreatePolicyResponseParams `json:"response,omitempty"`
-
-}
-
-// DeletePolicyRequest 删除防护策略的请求信息。
-type DeletePolicyRequest struct {
-    *common.BaseRequest
-
-    // PolicyId 防护策略ID。
-    PolicyId *string `json:"policyId,omitempty"`
-
-}
-
-type DeletePolicyResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// ModifyPolicyRequest 修改防护策略请求参数
-type ModifyPolicyRequest struct {
-    *common.BaseRequest
-
-    // PolicyId 防护策略ID。
-    PolicyId *string `json:"policyId,omitempty"`
-
-    // PolicyName 防护策略的名称。范围2到63个字符。仅支持输入字母、数字、-和英文句点(.)。且必须以数字或字母开头和结尾。
-    PolicyName *string `json:"policyName,omitempty"`
-
-    // ConfigType 配置类型。
-    ConfigType *string `json:"configType,omitempty"`
-
-    // BlackIpList 黑名单列表。
-    BlackIpList []string `json:"blackIpList,omitempty"`
-
-    // WhiteIpList 白名单列表。
-    WhiteIpList []string `json:"whiteIpList,omitempty"`
-
-    // IpBlackTimeout 黑名单超时时间, 单位:分钟。
-    IpBlackTimeout *int `json:"ipBlackTimeout,omitempty"`
-
-    // Ports 端口封禁, 支持TCP和UDP。
-    Ports []*DdosPolicyPort `json:"ports,omitempty"`
-
-    // BlockProtocol 开启的封禁协议。不能同时开启UDP和TCP。
-    BlockProtocol []string `json:"blockProtocol,omitempty"`
-
-    // BlockRegions 封禁的区域。
-    BlockRegions []string `json:"blockRegions,omitempty"`
-
-    // Finger 指纹过滤相关配置。
-    Finger []*DdosFingerprintRule `json:"finger,omitempty"`
-
-    // ReflectUdpPort 反射攻击防护过滤的端口列表。
-    ReflectUdpPort []*DdosReflectUdpPort `json:"reflectUdpPort,omitempty"`
-
-    // TrafficControl 源限速配置。
-    TrafficControl *DdosTrafficControl `json:"trafficControl,omitempty"`
-
-    // Tags 创建DDoS时关联的标签。注意：·关联`标签键`不能重复。
-    Tags *TagAssociation `json:"tags,omitempty"`
-
-}
-
-type ModifyPolicyResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// DescribePolicysRequest 描述防护策略列表的请求参数。
-type DescribePolicysRequest struct {
-    *common.BaseRequest
-
-    // PolicyIds 根据防护策略ID列表进行筛选。最大不能超过100个。
-    PolicyIds []string `json:"policyIds,omitempty"`
-
-    // PolicyName 根据防护策略名称过滤。该字段支持模糊搜索。
-    PolicyName *string `json:"policyName,omitempty"`
-
-    // PageSize 返回的分页大小。
-    PageSize *int `json:"pageSize,omitempty"`
-
-    // PageNum 返回的分页数。
-    PageNum *int `json:"pageNum,omitempty"`
-
-    // TagKeys 根据标签键进行搜索。 最长不得超过20个标签键。
+    // TagKeys 根据标签键进行搜索。
+    // 最长不得超过20个标签键。
     TagKeys []string `json:"tagKeys,omitempty"`
 
-    // Tags 根据标签进行搜索。 最长不得超过20个标签。
+    // Tags 根据标签进行搜索。
+    // 最长不得超过20个标签。
     Tags []*Tag `json:"tags,omitempty"`
 
 }
 
-// DescribePolicysResponseParams 描述防护策略列表。
-type DescribePolicysResponseParams struct {
+type DescribeDisksResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeDisksResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeDisksResponseParams 
+type DescribeDisksResponseParams struct {
 
     RequestId *string `json:"requestId,omitempty"`
 
     // TotalCount 符合条件的数据总数。
-    TotalCount *int `json:"totalCount,omitempty"`
+    TotalCount *int64 `json:"totalCount,omitempty"`
 
-    // DataSet 防护策略列表的数据。
-    DataSet []*PolicyInfo `json:"dataSet,omitempty"`
-
-}
-
-// PolicyInfo 描述防护策略的信息。
-type PolicyInfo struct {
-
-    // PolicyId 防护策略唯一ID。
-    PolicyId *string `json:"policyId,omitempty"`
-
-    // PolicyName 防护策略名称。
-    PolicyName *string `json:"policyName,omitempty"`
-
-    // CreateTime 创建时间。
-    CreateTime *string `json:"createTime,omitempty"`
-
-    // ResourceGroupId 防护策略所属的资源组ID。
-    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
-
-    // ResourceGroupName 防护策略所属的资源组名称。
-    ResourceGroupName *string `json:"resourceGroupName,omitempty"`
-
-    // Tags 防护策略关联的标签。
-    Tags *Tags `json:"tags,omitempty"`
+    // DataSet 云盘的结果集。
+    DataSet []*DiskInfo `json:"dataSet,omitempty"`
 
 }
 
-type DescribePolicysResponse struct {
-    *common.BaseResponse
+// DiskInfo 描述云盘的基本信息。
+type DiskInfo struct {
 
-    RequestId *string `json:"requestId,omitempty"`
+    // DiskId 云盘的 ID。
+    DiskId *string `json:"diskId,omitempty"`
 
-    Response *DescribePolicysResponseParams `json:"response,omitempty"`
+    // DiskName 云盘的名称。
+    DiskName *string `json:"diskName,omitempty"`
 
-}
-
-// DescribePolicyDetailRequest 防护策略详情的请求参数
-type DescribePolicyDetailRequest struct {
-    *common.BaseRequest
-
-    // PolicyId 防护策略ID。
-    PolicyId *string `json:"policyId,omitempty"`
-
-}
-
-// DescribePolicyDetailResponseParams 查询防护策略详情
-type DescribePolicyDetailResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // PolicyId 防护策略的ID。
-    PolicyId *string `json:"policyId,omitempty"`
-
-    // PolicyName 防护策略的名称。
-    PolicyName *string `json:"policyName,omitempty"`
-
-    // AttachmentIps 防护对象关联IP列表。
-    AttachmentIps []string `json:"attachmentIps,omitempty"`
-
-    // CreateTime 创建时间。
-    CreateTime *string `json:"createTime,omitempty"`
-
-    // BlackIps 黑名单IP列表。
-    BlackIps []string `json:"blackIps,omitempty"`
-
-    // WhiteIps 白名单IP列表。
-    WhiteIps []string `json:"whiteIps,omitempty"`
-
-    // BlackIpListExpireAt 黑名单超时时间。
-    BlackIpListExpireAt *int `json:"blackIpListExpireAt,omitempty"`
-
-    // BlockProtocols 开启的封禁协议。不能同时开启UDP和TCP。
-    BlockProtocols []string `json:"blockProtocols,omitempty"`
-
-    // Ports 端口封禁。
-    Ports []*DdosPolicyPort `json:"ports,omitempty"`
-
-    // BlockRegions 封禁的区域。
-    BlockRegions []string `json:"blockRegions,omitempty"`
-
-    // ReflectUdpPort 反射攻击防护过滤的端口列表。
-    ReflectUdpPort []*DdosReflectUdpPort `json:"reflectUdpPort,omitempty"`
-
-    // TrafficControl 源限速配置。
-    TrafficControl *DdosTrafficControl `json:"trafficControl,omitempty"`
-
-    // FingerPrintRules 指纹过滤相关配置。
-    FingerPrintRules []*DdosFingerprintRule `json:"fingerPrintRules,omitempty"`
-
-}
-
-type DescribePolicyDetailResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribePolicyDetailResponseParams `json:"response,omitempty"`
-
-}
-
-// AttachToPolicyRequest 防护对象关联防护策略的请求参数
-type AttachToPolicyRequest struct {
-    *common.BaseRequest
-
-    // PolicyId 防护策略ID。
-    PolicyId *string `json:"policyId,omitempty"`
-
-    // Ipv4IdList 防护对象列表。
-    Ipv4IdList []string `json:"ipv4IdList,omitempty"`
-
-}
-
-type AttachToPolicyResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// DetachFromPolicyRequest 防护对象取消关联防护策略的请求参数
-type DetachFromPolicyRequest struct {
-    *common.BaseRequest
-
-    // PolicyId 防护策略ID。
-    PolicyId *string `json:"policyId,omitempty"`
-
-    // Ipv4IdList 防护对象列表。
-    Ipv4IdList []string `json:"ipv4IdList,omitempty"`
-
-}
-
-type DetachFromPolicyResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-type DescribePolicyRegionsRequest struct {
-    *common.BaseRequest
-
-}
-
-// DescribePolicyRegionsResponseParams 区域封禁可选区域列表
-type DescribePolicyRegionsResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // Regions 区域可选列表。
-    Regions []*PolicyRegion `json:"regions,omitempty"`
-
-}
-
-// PolicyRegion 区域的基本信息。
-type PolicyRegion struct {
-
-    // RegionId 区域ID。
+    // RegionId 云盘所在的节点ID。
     RegionId *string `json:"regionId,omitempty"`
 
-    // RegionName 国家名称。
-    RegionName *string `json:"regionName,omitempty"`
+    // ZoneId 云盘所在节点的可用区ID。
+    ZoneId *string `json:"zoneId,omitempty"`
 
-    // AreaName 地域名称。
-    AreaName *string `json:"areaName,omitempty"`
+    // DiskType 云盘的类型。
+    DiskType *string `json:"diskType,omitempty"`
+
+    // Portable 是否可卸载。
+    Portable *bool `json:"portable,omitempty"`
+
+    // DiskCategory 云盘的类别。
+    DiskCategory *string `json:"diskCategory,omitempty"`
+
+    // DiskSize 云盘的大小。
+    // 单位：GiB。
+    DiskSize *int `json:"diskSize,omitempty"`
+
+    // DiskStatus 云盘的状态。
+    DiskStatus *string `json:"diskStatus,omitempty"`
+
+    // InstanceId 云盘绑定实例的ID。
+    InstanceId *string `json:"instanceId,omitempty"`
+
+    // InstanceName 云盘绑定实例的名称。
+    InstanceName *string `json:"instanceName,omitempty"`
+
+    // CreateTime 创建时间。
+    CreateTime *string `json:"createTime,omitempty"`
+
+    // ExpiredTime 到期时间。
+    ExpiredTime *string `json:"expiredTime,omitempty"`
+
+    // Period 周期。
+    Period *int `json:"period,omitempty"`
+
+    // ResourceGroupId 云盘所属的资源组ID。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // ResourceGroupName 云盘所属的资源组名称。
+    ResourceGroupName *string `json:"resourceGroupName,omitempty"`
+
+    // Serial 云盘序号。
+    // 可能为null，表示取不到值。
+    Serial *string `json:"serial,omitempty"`
+
+    // SnapshotAbility 是否具体快照能力。
+    SnapshotAbility *bool `json:"snapshotAbility,omitempty"`
+
+    // AutoSnapshotPolicyId 云盘关联的自动快照策略ID。
+    AutoSnapshotPolicyId *string `json:"autoSnapshotPolicyId,omitempty"`
+
+    // Tags 该云盘关联的标签。
+    Tags *Tags `json:"tags,omitempty"`
+
+    // BurstingEnabled 是否开启 Burst。
+    BurstingEnabled *bool `json:"burstingEnabled,omitempty"`
 
 }
 
-type DescribePolicyRegionsResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribePolicyRegionsResponseParams `json:"response,omitempty"`
-
-}
-
-type DescribeReflectUdpPortOptionsRequest struct {
+type DescribeDiskRegionsRequest struct {
     *common.BaseRequest
 
 }
 
-// DescribeReflectUdpPortOptionsResponseParams 默认UDP反射源端口列表
-type DescribeReflectUdpPortOptionsResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // ReflectUdpPorts 默认UDP反射源端口列表。
-    ReflectUdpPorts []*ReflectUdpPortPolicy `json:"reflectUdpPorts,omitempty"`
-
-}
-
-// ReflectUdpPortPolicy UDP反射源端口
-type ReflectUdpPortPolicy struct {
-
-    // Name 反射攻击类型。
-    Name *string `json:"name,omitempty"`
-
-    // Port 反射源端口。
-    Port *int `json:"port,omitempty"`
-
-}
-
-type DescribeReflectUdpPortOptionsResponse struct {
+type DescribeDiskRegionsResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
 
-    Response *DescribeReflectUdpPortOptionsResponseParams `json:"response,omitempty"`
+    Response *DescribeDiskRegionsResponseParams `json:"response,omitempty"`
 
 }
 
-// DescribeSecurityGroupsRequest 查询安全组列表的请求参数。
-type DescribeSecurityGroupsRequest struct {
+// DescribeDiskRegionsResponseParams 
+type DescribeDiskRegionsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // RegionIds 支持售卖云硬盘的节点ID列表。
+    RegionIds []string `json:"regionIds,omitempty"`
+
+}
+
+// InquiryPriceCreateDisksRequest 
+type InquiryPriceCreateDisksRequest struct {
     *common.BaseRequest
 
-    // SecurityGroupIds 根据安全组ID列表筛选。
-    SecurityGroupIds []string `json:"securityGroupIds,omitempty"`
+    // ZoneId 可用区ID。
+    ZoneId *string `json:"zoneId,omitempty"`
 
-    // SecurityGroupName 根据安全组名称筛选。支持模糊搜索。
-    SecurityGroupName *string `json:"securityGroupName,omitempty"`
+    // DiskSize 云硬盘大小。
+    // 单位：GiB。
+    DiskSize *int `json:"diskSize,omitempty"`
+
+    // DiskAmount 云硬盘数量。
+    DiskAmount *int `json:"diskAmount,omitempty"`
+
+    // DiskCategory 云硬盘种类。
+    // Basic NVMe SSD: 经济型 NVMe SSD。
+    // Standard NVMe SSD: 标准型 NVMe SSD。
+    // 默认为Standard NVMe SSD。
+    DiskCategory *string `json:"diskCategory,omitempty"`
+
+}
+
+type InquiryPriceCreateDisksResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *InquiryPriceCreateDisksResponseParams `json:"response,omitempty"`
+
+}
+
+// InquiryPriceCreateDisksResponseParams 
+type InquiryPriceCreateDisksResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // DataDiskPrice 云硬盘的价格。
+    DataDiskPrice *PriceItem `json:"dataDiskPrice,omitempty"`
+
+}
+
+// CreateDisksRequest 
+type CreateDisksRequest struct {
+    *common.BaseRequest
+
+    // ZoneId 云硬盘所属的可用区ID。
+    ZoneId *string `json:"zoneId,omitempty"`
+
+    // DiskName 云盘名称。
+    // 范围1到64个字符。
+    // 仅支持输入字母、数字、-/_和英文句点(.)。
+    // 且必须以数字或字母开头和结尾。
+    DiskName *string `json:"diskName,omitempty"`
+
+    // DiskSize 云硬盘大小，单位GiB。
+    DiskSize *int `json:"diskSize,omitempty"`
+
+    // DiskAmount 需要创建的云硬盘的数量。
+    DiskAmount *int `json:"diskAmount,omitempty"`
+
+    // InstanceId 云硬盘挂载的实例ID。
+    InstanceId *string `json:"instanceId,omitempty"`
+
+    // ResourceGroupId 云硬盘所在的资源组ID。
+    // 如不指定则放入默认资源组。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // DiskCategory 云硬盘种类。
+    // Basic NVMe SSD: 经济型 NVMe SSD。
+    // Standard NVMe SSD: 标准型 NVMe SSD。
+    // 默认为Standard NVMe SSD。
+    DiskCategory *string `json:"diskCategory,omitempty"`
+
+    // SnapshotId 使用快照ID进行创建。
+    // 如果传入则根据此快照创建云硬盘，快照的云盘类型必须为数据盘快照。
+    SnapshotId *string `json:"snapshotId,omitempty"`
+
+    // MarketingOptions 市场营销的相关选项。
+    MarketingOptions *MarketingInfo `json:"marketingOptions,omitempty"`
+
+    // Tags 创建云硬盘时关联的标签。
+    // 注意：·关联`标签键`不能重复。
+    Tags *TagAssociation `json:"tags,omitempty"`
+
+    // InstanceIds 要绑定的实例ID。
+    // 数量需要与`diskAmount`字段一致。
+    InstanceIds []string `json:"instanceIds,omitempty"`
+
+    // BurstingEnabled 是否开启性能突发。
+    BurstingEnabled *bool `json:"burstingEnabled,omitempty"`
+
+}
+
+type CreateDisksResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *CreateDisksResponseParams `json:"response,omitempty"`
+
+}
+
+// CreateDisksResponseParams 
+type CreateDisksResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // DiskIds 创建的云硬盘ID列表。
+    DiskIds []string `json:"diskIds,omitempty"`
+
+    // OrderNumber 本次创建对应的订单编号。
+    OrderNumber *string `json:"orderNumber,omitempty"`
+
+}
+
+// AttachDisksRequest 
+type AttachDisksRequest struct {
+    *common.BaseRequest
+
+    // DiskIds 需要挂载的云硬盘ID列表。
+    DiskIds []string `json:"diskIds,omitempty"`
+
+    // InstanceId 被挂载的实例ID。
+    InstanceId *string `json:"instanceId,omitempty"`
+
+}
+
+type AttachDisksResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// DetachDisksRequest 
+type DetachDisksRequest struct {
+    *common.BaseRequest
+
+    // DiskIds 要卸载的云盘ID列表。
+    DiskIds []string `json:"diskIds,omitempty"`
+
+    // InstanceCheckFlag 是否检测实例的运行状态。
+    // 默认为true，即实例关机才允许被卸载。
+    // 否则必须实例关机才能调用本接口。
+    InstanceCheckFlag *bool `json:"instanceCheckFlag,omitempty"`
+
+}
+
+type DetachDisksResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DetachDisksResponseParams `json:"response,omitempty"`
+
+}
+
+// DetachDisksResponseParams 
+type DetachDisksResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // FailedDiskIds 解绑失败的云硬盘。
+    FailedDiskIds []string `json:"failedDiskIds,omitempty"`
+
+}
+
+// ModifyDisksAttributesRequest 
+type ModifyDisksAttributesRequest struct {
+    *common.BaseRequest
+
+    // DiskIds 需要修改的云盘ID列表。
+    DiskIds []string `json:"diskIds,omitempty"`
+
+    // DiskName 云盘名称。
+    // 范围1到64个字符。
+    // 仅支持输入字母、数字、-/_和英文句点(.)。
+    // 且必须以数字或字母开头和结尾。
+    DiskName *string `json:"diskName,omitempty"`
+
+}
+
+type ModifyDisksAttributesResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type ResizeDiskRequest struct {
+    *common.BaseRequest
+
+    // DiskId 云硬盘ID。
+    // 通过DescribeDisks接口查询。
+    DiskId *string `json:"diskId,omitempty"`
+
+    // DiskSize 云硬盘扩容后的大小。
+    // 单位GiB。
+    // 必须大于当前云硬盘大小。
+    // 云盘最大限制为32768GB(32TB)。
+    DiskSize *int `json:"diskSize,omitempty"`
+
+}
+
+type ResizeDiskResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// ReleaseDiskRequest 
+type ReleaseDiskRequest struct {
+    *common.BaseRequest
+
+    // DiskId 要删除的云硬盘ID。
+    DiskId *string `json:"diskId,omitempty"`
+
+}
+
+type ReleaseDiskResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// RenewDiskRequest 
+type RenewDiskRequest struct {
+    *common.BaseRequest
+
+    // DiskId 要恢复的云硬盘ID。
+    DiskId *string `json:"diskId,omitempty"`
+
+}
+
+type RenewDiskResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// ModifyDisksResourceGroupRequest 
+type ModifyDisksResourceGroupRequest struct {
+    *common.BaseRequest
+
+    // DiskIds 要迁移资源组的云盘ID列表。
+    DiskIds []string `json:"diskIds,omitempty"`
+
+    // ResourceGroupId 目标资源组ID。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+}
+
+type ModifyDisksResourceGroupResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// DescribeDiskCategoryRequest 
+type DescribeDiskCategoryRequest struct {
+    *common.BaseRequest
+
+    // ZoneId 根据可用区ID筛选。
+    ZoneId *string `json:"zoneId,omitempty"`
+
+    // DiskCategory 根据云硬盘种类筛选。
+    // Basic NVMe SSD: 经济型 NVMe SSD。
+    // Standard NVMe SSD: 标准型 NVMe SSD。
+    // 默认为Standard NVMe SSD。
+    DiskCategory *string `json:"diskCategory,omitempty"`
+
+}
+
+type DescribeDiskCategoryResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeDiskCategoryResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeDiskCategoryResponseParams 
+type DescribeDiskCategoryResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // CategoryZoneSet 可用区支持的云盘类型。
+    CategoryZoneSet []*DescribeDiskCategoryItem `json:"categoryZoneSet,omitempty"`
+
+}
+
+// DescribeDiskCategoryItem 描述可用区支持的云盘类型的信息。
+type DescribeDiskCategoryItem struct {
+
+    // ZoneId 可用区ID。
+    ZoneId *string `json:"zoneId,omitempty"`
+
+    // CategorySet 支持的云硬盘类型。
+    CategorySet []string `json:"categorySet,omitempty"`
+
+}
+
+// DescribeDiskMonitorDataRequest 
+type DescribeDiskMonitorDataRequest struct {
+    *common.BaseRequest
+
+    // DiskId 云硬盘唯一标识ID。
+    DiskId *string `json:"diskId,omitempty"`
+
+    // MetricType 云硬盘监控指标类型。
+    MetricType *string `json:"metricType,omitempty"`
+
+    // StartTime 查询开始时间。
+    // 时间格式：yyyy-MM-ddTHH:mm:ssZ。
+    StartTime *string `json:"startTime,omitempty"`
+
+    // EndTime 查询结束时间。
+    // 时间格式：yyyy-MM-ddTHH:mm:ssZ。
+    EndTime *string `json:"endTime,omitempty"`
+
+}
+
+type DescribeDiskMonitorDataResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeDiskMonitorDataResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeDiskMonitorDataResponseParams 
+type DescribeDiskMonitorDataResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // MaxValue 数据点的最大值。
+    MaxValue *float64 `json:"maxValue,omitempty"`
+
+    // MinValue 数据点的最小值。
+    MinValue *float64 `json:"minValue,omitempty"`
+
+    // AvgValue 数据点的平均值。
+    AvgValue *float64 `json:"avgValue,omitempty"`
+
+    // Metrics 监控数据集合。
+    Metrics []*MetricValue `json:"metrics,omitempty"`
+
+}
+
+// CreateSnapshotRequest 
+type CreateSnapshotRequest struct {
+    *common.BaseRequest
+
+    // DiskId 云硬盘ID。
+    DiskId *string `json:"diskId,omitempty"`
+
+    // SnapshotName 快照名称。
+    SnapshotName *string `json:"snapshotName,omitempty"`
+
+    // RetentionTime 保留的到期时间。
+    // 格式为：yyyy-MM-ddTHH:mm:ssZ。
+    // 如果不传，则代表永久保留。
+    // 指定时间必须在当前时间24小时后。
+    RetentionTime *string `json:"retentionTime,omitempty"`
+
+}
+
+type CreateSnapshotResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *CreateSnapshotResponseParams `json:"response,omitempty"`
+
+}
+
+// CreateSnapshotResponseParams 
+type CreateSnapshotResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // SnapshotId 创建的快照ID。
+    SnapshotId *string `json:"snapshotId,omitempty"`
+
+}
+
+type ModifySnapshotsAttributeRequest struct {
+    *common.BaseRequest
+
+    // SnapshotIds 快照ID列表。
+    SnapshotIds []string `json:"snapshotIds,omitempty"`
+
+    // SnapshotName 快照名称。
+    SnapshotName *string `json:"snapshotName,omitempty"`
+
+    // RetentionTime 快照过期时间。
+    // 格式为：yyyy-MM-ddTHH:mm:ssZ。
+    // 如果改成永久保留，请设置`isPermanent`=`true`，如果设置该时间必须设置为当前时间后24小时。
+    RetentionTime *string `json:"retentionTime,omitempty"`
+
+    // IsPermanent 该定期快照策略创建的快照是否永久保留。
+    IsPermanent *bool `json:"isPermanent,omitempty"`
+
+}
+
+type ModifySnapshotsAttributeResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type DeleteSnapshotsRequest struct {
+    *common.BaseRequest
+
+    // SnapshotIds 快照ID列表。
+    SnapshotIds []string `json:"snapshotIds,omitempty"`
+
+}
+
+type DeleteSnapshotsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DeleteSnapshotsResponseParams `json:"response,omitempty"`
+
+}
+
+// DeleteSnapshotsResponseParams 
+type DeleteSnapshotsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // SnapshotIds 操作失败的快照ID。
+    SnapshotIds []string `json:"snapshotIds,omitempty"`
+
+}
+
+// DescribeSnapshotsRequest 
+type DescribeSnapshotsRequest struct {
+    *common.BaseRequest
+
+    // SnapshotIds 根据快照ID列表进行过滤。
+    SnapshotIds []string `json:"snapshotIds,omitempty"`
+
+    // ZoneId 快照所属的可用区ID。
+    ZoneId *string `json:"zoneId,omitempty"`
+
+    // Status 根据快照的状态过滤。
+    Status *string `json:"status,omitempty"`
+
+    // DiskIds 按照快照所属的Disk ID列表 过滤。
+    DiskIds []string `json:"diskIds,omitempty"`
+
+    // DiskType 根据快照的云盘类型过滤。
+    DiskType *string `json:"diskType,omitempty"`
+
+    // SnapshotType 根据快照类型过滤。
+    SnapshotType *string `json:"snapshotType,omitempty"`
+
+    // SnapshotName 根据快照显示名称过滤。
+    // 该字段支持模糊搜索。
+    SnapshotName *string `json:"snapshotName,omitempty"`
 
     // PageSize 返回的分页大小。
     PageSize *int `json:"pageSize,omitempty"`
@@ -2984,75 +2220,1201 @@ type DescribeSecurityGroupsRequest struct {
     // PageNum 返回的分页数。
     PageNum *int `json:"pageNum,omitempty"`
 
+    // ResourceGroupId 根据资源组ID过滤。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
 }
 
-// DescribeSecurityGroupsResponseParams 查询安全组列表的响应结果。
-type DescribeSecurityGroupsResponseParams struct {
+type DescribeSnapshotsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeSnapshotsResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeSnapshotsResponseParams 
+type DescribeSnapshotsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // TotalCount 满足过滤条件的快照总数。
+    TotalCount *int `json:"totalCount,omitempty"`
+
+    // DataSet 返回的快照列表数据。
+    DataSet []*SnapshotInfo `json:"dataSet,omitempty"`
+
+}
+
+// SnapshotInfo 描述快照的信息。
+type SnapshotInfo struct {
+
+    // SnapshotId 快照唯一ID。
+    SnapshotId *string `json:"snapshotId,omitempty"`
+
+    // SnapshotName 快照显示名称。
+    SnapshotName *string `json:"snapshotName,omitempty"`
+
+    // ZoneId 快照所属的可用区ID。
+    ZoneId *string `json:"zoneId,omitempty"`
+
+    // Status 快照的状态。
+    Status *string `json:"status,omitempty"`
+
+    // SnapshotType 快照的类型。
+    SnapshotType *string `json:"snapshotType,omitempty"`
+
+    // RetentionTime 快照的保留到期时间。
+    // 如果取不到值，说明快照为永久保留。
+    RetentionTime *string `json:"retentionTime,omitempty"`
+
+    // DiskId 云盘ID。
+    DiskId *string `json:"diskId,omitempty"`
+
+    // CreateTime 创建时间。
+    CreateTime *string `json:"createTime,omitempty"`
+
+    // DiskAbility 是否具备创建disk的能力。
+    DiskAbility *bool `json:"diskAbility,omitempty"`
+
+    // ResourceGroup 所属的资源组信息。
+    ResourceGroup *ResourceGroupInfo `json:"resourceGroup,omitempty"`
+
+}
+
+type ApplySnapshotRequest struct {
+    *common.BaseRequest
+
+    // SnapshotId 快照唯一ID。
+    SnapshotId *string `json:"snapshotId,omitempty"`
+
+    // DiskId 云硬盘ID。
+    DiskId *string `json:"diskId,omitempty"`
+
+}
+
+type ApplySnapshotResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// CreateAutoSnapshotPolicyRequest 
+type CreateAutoSnapshotPolicyRequest struct {
+    *common.BaseRequest
+
+    // ZoneId 可用区ID。
+    ZoneId *string `json:"zoneId,omitempty"`
+
+    // AutoSnapshotPolicyName 自动快照策略的名称。
+    // 范围2到63个字符。
+    // 仅支持输入字母、数字、-/_和英文句点(.)。
+    // 且必须以数字或字母开头和结尾。
+    AutoSnapshotPolicyName *string `json:"autoSnapshotPolicyName,omitempty"`
+
+    // RepeatWeekDays 自动快照的重复日期。
+    // 单位为天，周期为星期，例如 1 表示周一。
+    RepeatWeekDays []int `json:"repeatWeekDays,omitempty"`
+
+    // Hours 指定定期快照策略的触发时间。
+    // 使用 UTC 时间，单位为小时。
+    // 00:00 ~ 23:00 共 24 个时间点可选，1表示 01:00，依此类推。
+    Hours []int `json:"hours,omitempty"`
+
+    // RetentionDays 自动快照的保留时间，单位为天。
+    // 如果该值设置-1，则代表永久保留。
+    // 默认为永久保存。
+    // 取值范围：-1或[1,65535]。
+    RetentionDays *int `json:"retentionDays,omitempty"`
+
+    // ResourceGroupId 资源组ID。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // Tags 创建自动快照时关联的标签。
+    // 注意：·关联`标签键`不能重复。
+    Tags *TagAssociation `json:"tags,omitempty"`
+
+}
+
+type CreateAutoSnapshotPolicyResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *CreateAutoSnapshotPolicyResponseParams `json:"response,omitempty"`
+
+}
+
+// CreateAutoSnapshotPolicyResponseParams 
+type CreateAutoSnapshotPolicyResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // AutoSnapshotPolicyId 自动快照策略的ID。
+    AutoSnapshotPolicyId *string `json:"autoSnapshotPolicyId,omitempty"`
+
+}
+
+type ApplyAutoSnapshotPolicyRequest struct {
+    *common.BaseRequest
+
+    // AutoSnapshotPolicyId 自动快照策略ID。
+    AutoSnapshotPolicyId *string `json:"autoSnapshotPolicyId,omitempty"`
+
+    // DiskIds 要添加的磁盘ID列表。
+    DiskIds []string `json:"diskIds,omitempty"`
+
+}
+
+type ApplyAutoSnapshotPolicyResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type CancelAutoSnapshotPolicyRequest struct {
+    *common.BaseRequest
+
+    // AutoSnapshotPolicyId 自动快照策略ID。
+    AutoSnapshotPolicyId *string `json:"autoSnapshotPolicyId,omitempty"`
+
+    // DiskIds 要移除的磁盘ID列表。
+    DiskIds []string `json:"diskIds,omitempty"`
+
+}
+
+type CancelAutoSnapshotPolicyResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// DescribeAutoSnapshotPoliciesRequest 
+type DescribeAutoSnapshotPoliciesRequest struct {
+    *common.BaseRequest
+
+    // AutoSnapshotPolicyIds 根据自动快照策略的ID进行过滤。
+    AutoSnapshotPolicyIds []string `json:"autoSnapshotPolicyIds,omitempty"`
+
+    // ZoneIds 根据自动快照策略的可用区ID进行过滤。
+    ZoneIds []string `json:"zoneIds,omitempty"`
+
+    // AutoSnapshotPolicyName 根据自动快照策略的名称进行过滤。
+    // 该字段支持模糊搜索。
+    AutoSnapshotPolicyName *string `json:"autoSnapshotPolicyName,omitempty"`
+
+    // ResourceGroupId 根据资源组ID进行过滤。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // PageSize 返回的分页大小。
+    PageSize *int `json:"pageSize,omitempty"`
+
+    // PageNum 返回的分页数。
+    PageNum *int `json:"pageNum,omitempty"`
+
+    // TagKeys 根据标签键进行搜索。
+    // 最长不得超过20个标签键。
+    TagKeys []string `json:"tagKeys,omitempty"`
+
+    // Tags 根据标签进行搜索。
+    // 最长不得超过20个标签。
+    Tags []*Tag `json:"tags,omitempty"`
+
+}
+
+type DescribeAutoSnapshotPoliciesResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeAutoSnapshotPoliciesResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeAutoSnapshotPoliciesResponseParams 
+type DescribeAutoSnapshotPoliciesResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // DataSet 查询的自动快照策略数据结果。
+    DataSet []*AutoSnapshotPolicy `json:"dataSet,omitempty"`
+
+    // TotalCount 符合匹配的总数量。
+    TotalCount *int `json:"totalCount,omitempty"`
+
+}
+
+// AutoSnapshotPolicy 描述自动快照策略的相关信息。
+type AutoSnapshotPolicy struct {
+
+    // AutoSnapshotPolicyId 自动快照策略ID。
+    AutoSnapshotPolicyId *string `json:"autoSnapshotPolicyId,omitempty"`
+
+    // ZoneId 可用区ID。
+    ZoneId *string `json:"zoneId,omitempty"`
+
+    // AutoSnapshotPolicyName 自动快照策略的名称。
+    AutoSnapshotPolicyName *string `json:"autoSnapshotPolicyName,omitempty"`
+
+    // RepeatWeekDays 自动快照的重复日期。
+    // 单位为天，周期为星期，例如 1 表示周一。
+    RepeatWeekDays []int `json:"repeatWeekDays,omitempty"`
+
+    // Hours 指定定期快照策略的触发时间。
+    // 使用 UTC 时间，单位为小时。
+    // 00:00 ~ 23:00 共 24 个时间点可选，1表示 01:00，依此类推。
+    Hours []int `json:"hours,omitempty"`
+
+    // RetentionDays 自动快照的保留时间，单位为天。
+    // 如果该值设置-1，则代表永久保留。
+    // 取值范围：-1或[1,65535]。
+    RetentionDays *int `json:"retentionDays,omitempty"`
+
+    // DiskNum 关联的云盘数量。
+    DiskNum *int `json:"diskNum,omitempty"`
+
+    // CreateTime 策略创建时间。
+    CreateTime *string `json:"createTime,omitempty"`
+
+    // ResourceGroup 资源组信息。
+    ResourceGroup *ResourceGroupInfo `json:"resourceGroup,omitempty"`
+
+    // DiskIdSet 关联的云盘ID。
+    DiskIdSet []string `json:"diskIdSet,omitempty"`
+
+    // Tags 自动快照策略关联的标签。
+    Tags *Tags `json:"tags,omitempty"`
+
+}
+
+type ModifyAutoSnapshotPolicyRequest struct {
+    *common.BaseRequest
+
+    // AutoSnapshotPolicyId 自动快照策略的ID。
+    AutoSnapshotPolicyId *string `json:"autoSnapshotPolicyId,omitempty"`
+
+    // AutoSnapshotPolicyName 自动快照策略的名称。
+    // 范围2到63个字符。
+    // 仅支持输入字母、数字、-/_和英文句点(.)。
+    // 且必须以数字或字母开头和结尾。
+    AutoSnapshotPolicyName *string `json:"autoSnapshotPolicyName,omitempty"`
+
+    // RepeatWeekDays 自动快照的重复日期。
+    // 单位为天，周期为星期，例如 1 表示周一。
+    RepeatWeekDays []int `json:"repeatWeekDays,omitempty"`
+
+    // Hours 指定定期快照策略的触发时间。
+    // 使用 UTC 时间，单位为小时。
+    // 00:00 ~ 23:00 共 24 个时间点可选，1表示 01:00，依此类推。
+    Hours []int `json:"hours,omitempty"`
+
+    // RetentionDays 自动快照的保留时间，单位为天。
+    // 如果该值设置-1，则代表永久保留。
+    // 取值范围：-1或[1,65535]。
+    RetentionDays *int `json:"retentionDays,omitempty"`
+
+}
+
+type ModifyAutoSnapshotPolicyResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type DeleteAutoSnapshotPoliciesRequest struct {
+    *common.BaseRequest
+
+    // AutoSnapshotPolicyIds 要删除的自动快照策略ID列表。
+    AutoSnapshotPolicyIds []string `json:"autoSnapshotPolicyIds,omitempty"`
+
+}
+
+type DeleteAutoSnapshotPoliciesResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type DescribeNetworkInterfaceRegionsRequest struct {
+    *common.BaseRequest
+
+}
+
+type DescribeNetworkInterfaceRegionsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeNetworkInterfaceRegionsResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeNetworkInterfaceRegionsResponseParams 
+type DescribeNetworkInterfaceRegionsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // RegionIds 支持网卡的节点ID。
+    RegionIds []string `json:"regionIds,omitempty"`
+
+}
+
+type DescribeNetworkInterfacesRequest struct {
+    *common.BaseRequest
+
+    // NicIds 根据网卡ID过滤。
+    // 最多传入100个ID。
+    NicIds []string `json:"nicIds,omitempty"`
+
+    // Name 根据网卡所属的名称过滤。
+    // 该字段支持模糊搜索。
+    Name *string `json:"name,omitempty"`
+
+    // RegionId 根据网卡所属的节点 ID过滤。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // VpcId 根据网卡所属的VPC ID过滤。
+    VpcId *string `json:"vpcId,omitempty"`
+
+    // SubnetId 根据网卡所属的子网ID过滤。
+    SubnetId *string `json:"subnetId,omitempty"`
+
+    // InstanceId 网卡关联的实例ID过滤。
+    InstanceId *string `json:"instanceId,omitempty"`
+
+    // Status 根据网卡的状态过滤。
+    Status *string `json:"status,omitempty"`
+
+    // PageSize 返回的分页大小。
+    PageSize *int `json:"pageSize,omitempty"`
+
+    // PageNum 返回的分页数。
+    PageNum *int `json:"pageNum,omitempty"`
+
+    // NicType 根据网卡的类型筛选过滤。
+    NicType *string `json:"nicType,omitempty"`
+
+    // ResourceGroupId 根据网卡所属的资源组ID过滤。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // SecurityGroupId 根据网卡所属的安全组ID过滤。
+    SecurityGroupId *string `json:"securityGroupId,omitempty"`
+
+    // TagKeys 根据标签键进行搜索。
+    // 最长不得超过20个标签键。
+    TagKeys []string `json:"tagKeys,omitempty"`
+
+    // Tags 根据标签进行搜索。
+    // 最长不得超过20个标签。
+    Tags []*Tag `json:"tags,omitempty"`
+
+}
+
+type DescribeNetworkInterfacesResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeNetworkInterfacesResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeNetworkInterfacesResponseParams 
+type DescribeNetworkInterfacesResponseParams struct {
 
     RequestId *string `json:"requestId,omitempty"`
 
     // TotalCount 符合条件的数据总数。
     TotalCount *int `json:"totalCount,omitempty"`
 
-    // DataSet 安全组的结果数据。
-    DataSet []*SecurityGroupInfo `json:"dataSet,omitempty"`
+    // DataSet 网卡的结果集。
+    DataSet []*NicInfo `json:"dataSet,omitempty"`
 
 }
 
-// SecurityGroupInfo 描述安全组的基本信息。
-type SecurityGroupInfo struct {
+// ModifyNetworkInterfaceAttributeRequest 
+type ModifyNetworkInterfaceAttributeRequest struct {
+    *common.BaseRequest
 
-    // SecurityGroupId 安全组ID。
+    // NicId 需要修改的网卡ID。
+    NicId *string `json:"nicId,omitempty"`
+
+    // Name 名称。
+    // 范围2到63个字符。
+    // 仅支持输入字母、数字、-/_和英文句点(.)。
+    // 且必须以数字或字母开头和结尾。
+    Name *string `json:"name,omitempty"`
+
+    // SecurityGroupId 修改网卡绑定的目标安全组ID。
+    // 目前一张网卡只能关联一个安全组。
+    // 指定该字段会解绑网卡原来的安全组。
     SecurityGroupId *string `json:"securityGroupId,omitempty"`
 
-    // SecurityGroupName 安全组名称。
-    SecurityGroupName *string `json:"securityGroupName,omitempty"`
+}
 
-    // Scope 范围。目前只有全球范围(`Global`)。
-    Scope *string `json:"scope,omitempty"`
+type ModifyNetworkInterfaceAttributeResponse struct {
+    *common.BaseResponse
 
-    // CreateTime 创建时间。
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// ModifyNetworkInterfacesAttributeRequest 
+type ModifyNetworkInterfacesAttributeRequest struct {
+    *common.BaseRequest
+
+    // NicIds 需要修改的网卡ID列表。
+    NicIds []string `json:"nicIds,omitempty"`
+
+    // Name 名称。
+    // 范围2到63个字符。
+    // 仅支持输入字母、数字、-/_和英文句点(.)。
+    // 且必须以数字或字母开头和结尾。
+    Name *string `json:"name,omitempty"`
+
+}
+
+type ModifyNetworkInterfacesAttributeResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// CreateNetworkInterfaceRequest 
+type CreateNetworkInterfaceRequest struct {
+    *common.BaseRequest
+
+    // Name 网卡名称。
+    // 范围2到63个字符。
+    // 仅支持输入字母、数字、-/_和英文句点(.)。
+    // 且必须以数字或字母开头和结尾。
+    Name *string `json:"name,omitempty"`
+
+    // SubnetId 子网的ID。
+    SubnetId *string `json:"subnetId,omitempty"`
+
+    // NicStackType 网卡的IP堆栈类型。
+    // 如果不指定，会根据子网堆栈类型决定：如果子网是V4,则网卡为V4，如果子网是V6,则网卡为V6。
+    // 如果网卡要V4&V6，请指定该参数。
+    NicStackType *string `json:"nicStackType,omitempty"`
+
+    // ResourceGroupId 网卡创建所在的资源组ID，如不指定则放入默认资源组。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // SecurityGroupId 指定安全组ID。
+    // 目前一个网卡只能关联1个安全组。
+    // 如果未指定，会默认用VPC关联下的安全组。
+    SecurityGroupId *string `json:"securityGroupId,omitempty"`
+
+    // InternetChargeType 公网IPv6的网络计费方式。
+    // 当子网的堆栈类型包括V6且为公网时，需要指定。
+    InternetChargeType *string `json:"internetChargeType,omitempty"`
+
+    // Bandwidth 公网IPv6的带宽限速。
+    // 单位Mbps。
+    // 当子网的堆栈类型包括V6且为公网时，需要指定。
+    Bandwidth *int `json:"bandwidth,omitempty"`
+
+    // PackageSize 公网IPv6的流量包大小。
+    // 单位为TB。
+    // 值要求为0或0.1的倍数。
+    // 当子网的堆栈类型包括V6且为公网时，且网络计费方式是流量计费(`ByTrafficPackage`)需要指定。
+    PackageSize *float64 `json:"packageSize,omitempty"`
+
+    // ClusterId 公网IPv6所指定的共享带宽包ID。
+    // 当子网的堆栈类型包括V6且为公网时，且网络计费方式是共享带宽包计费(`BandwidthCluster`)需要指定。
+    ClusterId *string `json:"clusterId,omitempty"`
+
+    // MarketingOptions 市场营销相关的选项。
+    MarketingOptions *MarketingInfo `json:"marketingOptions,omitempty"`
+
+    // Tags 创建网卡时关联的标签。
+    // 注意：·关联`标签键`不能重复。
+    Tags *TagAssociation `json:"tags,omitempty"`
+
+}
+
+type CreateNetworkInterfaceResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *CreateNetworkInterfaceResponseParams `json:"response,omitempty"`
+
+}
+
+// CreateNetworkInterfaceResponseParams 
+type CreateNetworkInterfaceResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // NicId 创建的辅助网卡ID。
+    NicId *string `json:"nicId,omitempty"`
+
+}
+
+// DeleteNetworkInterfaceRequest 
+type DeleteNetworkInterfaceRequest struct {
+    *common.BaseRequest
+
+    // NicId 要删除的网卡ID。
+    NicId *string `json:"nicId,omitempty"`
+
+}
+
+type DeleteNetworkInterfaceResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// AttachNetworkInterfaceRequest 
+type AttachNetworkInterfaceRequest struct {
+    *common.BaseRequest
+
+    // NicId 需要操作的网卡ID。
+    NicId *string `json:"nicId,omitempty"`
+
+    // InstanceId 需要绑定的实例ID。
+    InstanceId *string `json:"instanceId,omitempty"`
+
+}
+
+type AttachNetworkInterfaceResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// DetachNetworkInterfaceRequest 
+type DetachNetworkInterfaceRequest struct {
+    *common.BaseRequest
+
+    // NicId 需要操作的网卡ID。
+    NicId *string `json:"nicId,omitempty"`
+
+}
+
+type DetachNetworkInterfaceResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// AssignNetworkInterfaceIpv4Request 
+type AssignNetworkInterfaceIpv4Request struct {
+    *common.BaseRequest
+
+    // NicId 需要绑定的网卡ID。
+    NicId *string `json:"nicId,omitempty"`
+
+    // IpAddress 绑定的内网IP地址。
+    // 该地址必须属于子网的CIDR内，且未被使用。
+    IpAddress *string `json:"ipAddress,omitempty"`
+
+}
+
+type AssignNetworkInterfaceIpv4Response struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type BatchAssignNetworkInterfaceIpv4Request struct {
+    *common.BaseRequest
+
+    // NicId 要操作的网卡ID。
+    NicId *string `json:"nicId,omitempty"`
+
+    // IpAddresses 内网IP地址列表。
+    // IP地址必须在网卡所属子网CIDR范围内，且不能是网关/广播/网络地址。
+    IpAddresses []string `json:"ipAddresses,omitempty"`
+
+    // IpAddressCount 指定额外绑定的内网IP数量。
+    // 该字段和`ipAddresses`必须指定其一，如果都指定，则会以 `ipAddresses` 有效。
+    IpAddressCount *int `json:"ipAddressCount,omitempty"`
+
+}
+
+type BatchAssignNetworkInterfaceIpv4Response struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *BatchAssignNetworkInterfaceIpv4ResponseParams `json:"response,omitempty"`
+
+}
+
+type BatchAssignNetworkInterfaceIpv4ResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // IpAddresses 绑定的内网IP地址。
+    IpAddresses []string `json:"ipAddresses,omitempty"`
+
+}
+
+type UnassignNetworkInterfaceIpv4Request struct {
+    *common.BaseRequest
+
+    // NicId 网卡ID。
+    NicId *string `json:"nicId,omitempty"`
+
+    // Deprecated: IpAddress 已废弃，请不要使用。
+    // IpAddress 需要解绑的IPv4地址。
+    // 该字段已过时，请使用`ipAddresses`，如果两者均指定， 则以`ipAddresses`为准。
+    IpAddress *string `json:"ipAddress,omitempty"`
+
+    // IpAddresses 需要解绑的内网IPv4地址。
+    IpAddresses []string `json:"ipAddresses,omitempty"`
+
+}
+
+type UnassignNetworkInterfaceIpv4Response struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type DescribeNetworkInterfacePublicIPv6Request struct {
+    *common.BaseRequest
+
+    // NicId 网卡ID。
+    NicId *string `json:"nicId,omitempty"`
+
+}
+
+type DescribeNetworkInterfacePublicIPv6Response struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeNetworkInterfacePublicIPv6ResponseParams `json:"response,omitempty"`
+
+}
+
+type DescribeNetworkInterfacePublicIPv6ResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // Address 公网IPv6信息。
+    // 网卡如果没有公网IPv6,则取值为空。
+    Address *PublicIpv6CidrAddress `json:"address,omitempty"`
+
+}
+
+// PublicIpv6CidrAddress 公网IPv6的基本信息。
+type PublicIpv6CidrAddress struct {
+
+    // Ipv6CidrId IPv6 CIDR的ID。
+    Ipv6CidrId *string `json:"ipv6CidrId,omitempty"`
+
+    // Ipv6Cidr IPv6 CIDR的地址。
+    Ipv6Cidr *string `json:"ipv6Cidr,omitempty"`
+
+    // PrimaryIpv6Address 网卡的主IPv6地址。
+    PrimaryIpv6Address *string `json:"primaryIpv6Address,omitempty"`
+
+    // InternetChargeType IPv6的网络计费类型。
+    InternetChargeType *string `json:"internetChargeType,omitempty"`
+
+    // Bandwidth IPv6的公网带宽限速。
+    // 单位：Mbps。
+    Bandwidth *int `json:"bandwidth,omitempty"`
+
+    // TrafficPackageSize IPv6的流量包大小。
+    // 单位：TB。
+    TrafficPackageSize *float64 `json:"trafficPackageSize,omitempty"`
+
+    // BandwidthCluster 关联的带宽组信息。
+    BandwidthCluster *BandwidthClusterInfo `json:"bandwidthCluster,omitempty"`
+
+}
+
+// BandwidthClusterInfo 描述带宽组的基本信息。
+type BandwidthClusterInfo struct {
+
+    // BandwidthClusterId 共享带宽包ID。
+    BandwidthClusterId *string `json:"bandwidthClusterId,omitempty"`
+
+    // BandwidthClusterName 共享带宽包名称。
+    BandwidthClusterName *string `json:"bandwidthClusterName,omitempty"`
+
+}
+
+// InquiryPricePublicIpv6Request 
+type InquiryPricePublicIpv6Request struct {
+    *common.BaseRequest
+
+    // RegionId 节点ID。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // PackageSize 流量包订购大小。
+    // 单位为TB。
+    PackageSize *float64 `json:"packageSize,omitempty"`
+
+    // Bandwidth 公网出带宽上限。
+    // 单位：Mbps。
+    // 不同机型带宽上限范围不一致，具体限制详见购买网络带宽。
+    Bandwidth *int `json:"bandwidth,omitempty"`
+
+}
+
+type InquiryPricePublicIpv6Response struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *InquiryPricePublicIpv6ResponseParams `json:"response,omitempty"`
+
+}
+
+// InquiryPricePublicIpv6ResponseParams 
+type InquiryPricePublicIpv6ResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // BandwidthPrice 带宽的价格。
+    BandwidthPrice *PriceItem `json:"bandwidthPrice,omitempty"`
+
+}
+
+// AssignNetworkInterfaceIpv6Request 
+type AssignNetworkInterfaceIpv6Request struct {
+    *common.BaseRequest
+
+    // NicId 要添加IPv6的网卡ID。
+    NicId *string `json:"nicId,omitempty"`
+
+    // InternetChargeType 公网IPv6的网络计费方式。
+    // 当子网的堆栈类型包括V6且为公网时，需要指定。
+    InternetChargeType *string `json:"internetChargeType,omitempty"`
+
+    // Bandwidth 公网IPv6的带宽限速。
+    // 单位Mbps。
+    // 当子网的堆栈类型包括V6且为公网时，需要指定。
+    Bandwidth *int `json:"bandwidth,omitempty"`
+
+    // PackageSize 公网IPv6的流量包大小。
+    // 单位为TB。
+    // 值要求为0或0.1的倍数。
+    // 当子网的堆栈类型包括V6且为公网时，且网络计费方式是流量计费(`ByTrafficPackage`)需要指定。
+    PackageSize *float64 `json:"packageSize,omitempty"`
+
+    // ClusterId 公网IPv6所指定的共享带宽包ID。
+    // 当子网的堆栈类型包括V6且为公网时，且网络计费方式是共享带宽包计费(`BandwidthCluster`)需要指定。
+    ClusterId *string `json:"clusterId,omitempty"`
+
+}
+
+type AssignNetworkInterfaceIpv6Response struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// DescribePoolsRequest 
+type DescribePoolsRequest struct {
+    *common.BaseRequest
+
+    // PoolIds 根据公网IP池的ID。
+    PoolIds []string `json:"poolIds,omitempty"`
+
+    // RegionId 根据公网IP池的所在节点ID过滤。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // Name 根据公网IP池的名称过滤。
+    // 支持模糊查询。
+    Name *string `json:"name,omitempty"`
+
+    // PageSize 返回的分页大小，默认为20，最大为1000。
+    PageSize *int `json:"pageSize,omitempty"`
+
+    // PageNum 返回的分页数。
+    PageNum *int `json:"pageNum,omitempty"`
+
+}
+
+type DescribePoolsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribePoolsResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribePoolsResponseParams 
+type DescribePoolsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // TotalCount 符合条件的数据总数。
+    TotalCount *int `json:"totalCount,omitempty"`
+
+    // DataSet 公网IP池列表的结果数据。
+    DataSet []*PoolInfo `json:"dataSet,omitempty"`
+
+}
+
+// PoolInfo 描述公网IP池的基本信息。
+type PoolInfo struct {
+
+    // PoolId 公网IP池的ID。
+    PoolId *string `json:"poolId,omitempty"`
+
+    // RegionId 公网IP池所在的节点ID。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // Name 公网IP池的名称。
+    Name *string `json:"name,omitempty"`
+
+    // CreateTime 公网IP池的创建时间。
     CreateTime *string `json:"createTime,omitempty"`
 
-    // VpcIds 关联的VPC ID列表。
-    VpcIds []string `json:"vpcIds,omitempty"`
+    // Ipv4CidrCount CIDR IPv4的数量。
+    Ipv4CidrCount *int `json:"ipv4CidrCount,omitempty"`
 
-    // IsDefault 是否是默认安全组。
-    IsDefault *bool `json:"isDefault,omitempty"`
-
-    // NicIdList 关联安全组的网卡ID列表。
-    NicIdList []string `json:"nicIdList,omitempty"`
-
-    // NatIdList 关联安全组的NAT网关ID列表。
-    NatIdList []string `json:"natIdList,omitempty"`
-
-    // LoadBalancerIdList 关联安全组的负载均衡ID列表。
-    LoadBalancerIdList []string `json:"loadBalancerIdList,omitempty"`
+    // Ipv6CidrCount CIDR IPv6的数量。
+    Ipv6CidrCount *int `json:"ipv6CidrCount,omitempty"`
 
 }
 
-type DescribeSecurityGroupsResponse struct {
+type DescribeCidrRegionsRequest struct {
+    *common.BaseRequest
+
+}
+
+type DescribeCidrRegionsResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
 
-    Response *DescribeSecurityGroupsResponseParams `json:"response,omitempty"`
+    Response *DescribeCidrRegionsResponseParams `json:"response,omitempty"`
 
 }
 
-// ModifySecurityGroupsAttributeRequest 修改安全组的属性
-type ModifySecurityGroupsAttributeRequest struct {
+// DescribeCidrRegionsResponseParams 
+type DescribeCidrRegionsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // RegionIds 支持售卖CIDR的节点ID。
+    RegionIds []string `json:"regionIds,omitempty"`
+
+}
+
+// DescribeCidrPriceRequest 
+type DescribeCidrPriceRequest struct {
     *common.BaseRequest
 
-    // SecurityGroupName 安全组名称。范围2到63个字符。仅支持输入字母、数字、-和英文句点(.)。
-    SecurityGroupName *string `json:"securityGroupName,omitempty"`
+    // RegionId 查询CIDR所在的节点ID。
+    RegionId *string `json:"regionId,omitempty"`
 
-    // SecurityGroupIds 要操作的安全组ID列表。
-    SecurityGroupIds []string `json:"securityGroupIds,omitempty"`
+    // Deprecated: EipV4Type 已废弃，请不要使用。
+    // EipV4Type 查询CIDR的IP线路类型。
+    // 已废弃，请使用`networkLineType`。
+    EipV4Type *string `json:"eipV4Type,omitempty"`
+
+    // NetworkLineType 查询CIDR的IP线路类型。
+    NetworkLineType *string `json:"networkLineType,omitempty"`
+
+    // Netmask 需要查询的CIDR子网数量和掩码信息。
+    Netmask *NetmaskInfo `json:"netmask,omitempty"`
 
 }
 
-type ModifySecurityGroupsAttributeResponse struct {
+// NetmaskInfo 描述CIDR掩码的信息。
+type NetmaskInfo struct {
+
+    // Netmask 掩码大小。
+    Netmask *int `json:"netmask,omitempty"`
+
+    // Amount CIDR的数量。
+    Amount *int `json:"amount,omitempty"`
+
+}
+
+type DescribeCidrPriceResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeCidrPriceResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeCidrPriceResponseParams 
+type DescribeCidrPriceResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // CidrPrice CIDR的价格信息。
+    CidrPrice *PriceItem `json:"cidrPrice,omitempty"`
+
+}
+
+// DescribeCidrsRequest 
+type DescribeCidrsRequest struct {
+    *common.BaseRequest
+
+    // CidrIds 一个或多个待操作的Cidr ID，根据cidrId进行过滤。
+    CidrIds []string `json:"cidrIds,omitempty"`
+
+    // RegionId 根据CIDR所在的节点ID进行过滤。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // Name 根据CIDR名称进行过滤，支持模糊查询。
+    Name *string `json:"name,omitempty"`
+
+    // CidrBlock 根据CIDR地址进行过滤。
+    CidrBlock *string `json:"cidrBlock,omitempty"`
+
+    // Source 根据CIDR来源进行过滤。
+    Source *string `json:"source,omitempty"`
+
+    // ResourceGroupId 根据资源组ID进行过滤。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // PageSize 返回的分页大小，默认为20，最大为1000。
+    PageSize *int `json:"pageSize,omitempty"`
+
+    // PageNum 返回的分页数。
+    PageNum *int `json:"pageNum,omitempty"`
+
+    // TagKeys 根据标签键进行搜索。
+    // 最长不得超过20个标签键。
+    TagKeys []string `json:"tagKeys,omitempty"`
+
+    // Tags 根据标签进行搜索。
+    // 最长不得超过20个标签。
+    Tags []*Tag `json:"tags,omitempty"`
+
+}
+
+type DescribeCidrsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeCidrsResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeCidrsResponseParams 
+type DescribeCidrsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // TotalCount 符合条件的数据总数。
+    TotalCount *int `json:"totalCount,omitempty"`
+
+    // DataSet 查询CIDR地址的结果数据。
+    DataSet []*CidrInfo `json:"dataSet,omitempty"`
+
+}
+
+// CidrInfo CIDR信息详情。
+type CidrInfo struct {
+
+    // CidrId CIDR ID。
+    CidrId *string `json:"cidrId,omitempty"`
+
+    // RegionId CIDR所属的区域节点ID。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // Name CIDR的名称。
+    Name *string `json:"name,omitempty"`
+
+    // CidrBlock CIDR地址块，例如：10.0.0.0/16。
+    CidrBlock *string `json:"cidrBlock,omitempty"`
+
+    // TotalCount CIDR中IP地址的总数量。
+    TotalCount *int `json:"totalCount,omitempty"`
+
+    // UsedCount CIDR中已被使用的IP地址数量。
+    UsedCount *int `json:"usedCount,omitempty"`
+
+    // Source CIDR的来源。
+    // 如CONSOLE（属于zenlayer）或 BYOIP（客户自带IP）。
+    Source *string `json:"source,omitempty"`
+
+    // Deprecated: EipV4Type 已废弃，请不要使用。
+    // EipV4Type EIP网络类型。
+    // 表示该CIDR支持的公网IP线路类型。
+    // 已废弃，请参考`networkLineType`。
+    EipV4Type *string `json:"eipV4Type,omitempty"`
+
+    // NetworkLineType EIP网络类型。
+    // 表示该CIDR支持的公网IP线路类型。
+    NetworkLineType *string `json:"networkLineType,omitempty"`
+
+    // Netmask 子网掩码。
+    // 表示CIDR的网络位长度。
+    Netmask *int `json:"netmask,omitempty"`
+
+    // PoolId Pool的ID。
+    // 表示该CIDR所属的公网IP池。
+    PoolId *string `json:"poolId,omitempty"`
+
+    // CreateTime CIDR的创建时间。
+    CreateTime *string `json:"createTime,omitempty"`
+
+    // ExpiredTime CIDR的到期时间。
+    ExpiredTime *string `json:"expiredTime,omitempty"`
+
+    // ResourceGroupId 该CIDR所属的资源组。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // ResourceGroupName 该CIDR所属资源组的名称。
+    ResourceGroupName *string `json:"resourceGroupName,omitempty"`
+
+    // Status CIDR的状态。
+    Status *string `json:"status,omitempty"`
+
+    // Tags 该CIDR地址段关联的标签。
+    Tags *Tags `json:"tags,omitempty"`
+
+}
+
+// CreateCidrRequest 
+type CreateCidrRequest struct {
+    *common.BaseRequest
+
+    // RegionId 节点ID。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // Deprecated: EipV4Type 已废弃，请不要使用。
+    // EipV4Type 公网IPv4的网络类型。
+    // 已废弃，请使用`networkLineType`。
+    EipV4Type *string `json:"eipV4Type,omitempty"`
+
+    // NetworkLineType 公网IPv4的网络类型。
+    NetworkLineType *string `json:"networkLineType,omitempty"`
+
+    // Netmask CIDR掩码、数量。
+    Netmask *NetmaskInfo `json:"netmask,omitempty"`
+
+    // Name CIDR名称。
+    // 范围2到63个字符。
+    // 仅支持输入字母、数字、-/_和英文句点(.)。
+    // 且必须以数字或字母开头和结尾。
+    // 默认会将分配的CIDR地址作为名称。
+    Name *string `json:"name,omitempty"`
+
+    // ResourceGroupId 资源组ID。
+    // 如果不指定，则会加入默认资源组。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // MarketingOptions 市场营销相关的选项。
+    MarketingOptions *MarketingInfo `json:"marketingOptions,omitempty"`
+
+    // Tags 创建CIDR时关联的标签。
+    // 注意：关联`标签键`不能重复。
+    Tags *TagAssociation `json:"tags,omitempty"`
+
+}
+
+type CreateCidrResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *CreateCidrResponseParams `json:"response,omitempty"`
+
+}
+
+// CreateCidrResponseParams 
+type CreateCidrResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // CidrIds 创建的CIDR地址段ID列表。
+    CidrIds []string `json:"cidrIds,omitempty"`
+
+}
+
+// ModifyCidrAttributeRequest 
+type ModifyCidrAttributeRequest struct {
+    *common.BaseRequest
+
+    // CidrId 要修改CIDR地址段的ID。
+    CidrId *string `json:"cidrId,omitempty"`
+
+    // Name 要修改的名称。
+    // 范围2到63个字符。
+    // 仅支持输入字母、数字、-/_和英文句点(.)。
+    // 且必须以数字或字母开头和结尾。
+    Name *string `json:"name,omitempty"`
+
+}
+
+type ModifyCidrAttributeResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
@@ -3063,105 +3425,16 @@ type ModifySecurityGroupsAttributeResponse struct {
 
 }
 
-type DescribeSecurityGroupRuleRequest struct {
+// DeleteCidrRequest 
+type DeleteCidrRequest struct {
     *common.BaseRequest
 
-    // SecurityGroupId 安全组ID。
-    SecurityGroupId *string `json:"securityGroupId,omitempty"`
+    // CidrId 要删除的CIDR ID。
+    CidrId *string `json:"cidrId,omitempty"`
 
 }
 
-// DescribeSecurityGroupRuleResponseParams 查询安全组规则的响应结果
-type DescribeSecurityGroupRuleResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // IngressRuleList 入方向规则列表。
-    IngressRuleList []*SecurityGroupRuleInfo `json:"ingressRuleList,omitempty"`
-
-    // EgressRuleList 出方向规则列表。
-    EgressRuleList []*SecurityGroupRuleInfo `json:"egressRuleList,omitempty"`
-
-}
-
-// SecurityGroupRuleInfo 安全组规则信息。包括出入方向、端口范围、IP协议等信息。
-type SecurityGroupRuleInfo struct {
-
-    // Direction 规则方向。ingress: 入方向。egress：出方向。
-    Direction *string `json:"direction,omitempty"`
-
-    // Policy 设置访问权限。accept：接受访问。deny: 拒绝访问。
-    Policy *string `json:"policy,omitempty"`
-
-    // Priority 规则优先级。
-    Priority *int `json:"priority,omitempty"`
-
-    // IpProtocol 传输层协议。取值大小写敏感, 取值范围：<br/>tcp：TCP协议。udp：UDP协议。icmp：ICMP协议。all：支持所有协议。
-    IpProtocol *string `json:"ipProtocol,omitempty"`
-
-    // PortRange 目的端安全组开放的传输层协议相关的端口范围。取值范围：<br/> TCP/UDP协议：取值范围为1~65535。ICMP协议：-1。all：-1。
-    PortRange *string `json:"portRange,omitempty"`
-
-    // CidrIp 源端IP地址范围。支持CIDR格式和IPv4格式的IP地址范围。默认值：0.0.XX.XX/0。
-    CidrIp *string `json:"cidrIp,omitempty"`
-
-    // Desc 备注,长度在255个以内。
-    Desc *string `json:"desc,omitempty"`
-
-}
-
-type DescribeSecurityGroupRuleResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeSecurityGroupRuleResponseParams `json:"response,omitempty"`
-
-}
-
-// CreateSecurityGroupRequest 创建安全组的请求信息。
-type CreateSecurityGroupRequest struct {
-    *common.BaseRequest
-
-    // Scope 范围。目前只支持`Global`。
-    Scope *string `json:"scope,omitempty"`
-
-    // SecurityGroupName 安全组名称。范围1到64个字符。仅支持输入字母、数字、-和英文句点(.)。
-    SecurityGroupName *string `json:"securityGroupName,omitempty"`
-
-    // RuleInfos 安全组的规则。
-    RuleInfos []*SecurityGroupRuleInfo `json:"ruleInfos,omitempty"`
-
-}
-
-// CreateSecurityGroupResponseParams 创建安全组的响应信息。
-type CreateSecurityGroupResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // SecurityGroupId 创建的安全组ID。
-    SecurityGroupId *string `json:"securityGroupId,omitempty"`
-
-}
-
-type CreateSecurityGroupResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *CreateSecurityGroupResponseParams `json:"response,omitempty"`
-
-}
-
-type DeleteSecurityGroupRequest struct {
-    *common.BaseRequest
-
-    // SecurityGroupId 要删除的安全组ID。
-    SecurityGroupId *string `json:"securityGroupId,omitempty"`
-
-}
-
-type DeleteSecurityGroupResponse struct {
+type DeleteCidrResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
@@ -3172,19 +3445,42 @@ type DeleteSecurityGroupResponse struct {
 
 }
 
-// ConfigureSecurityGroupRulesRequest 配置安全组规则的请求参数。
-type ConfigureSecurityGroupRulesRequest struct {
+type DeleteCidrsRequest struct {
     *common.BaseRequest
 
-    // SecurityGroupId 要配置的安全组ID。
-    SecurityGroupId *string `json:"securityGroupId,omitempty"`
-
-    // RuleInfos 需要配置的安全组规则列表。注意：配置为全量覆盖。
-    RuleInfos []*SecurityGroupRuleInfo `json:"ruleInfos,omitempty"`
+    // CidrIds 要删除的cidrId列表。
+    CidrIds []string `json:"cidrIds,omitempty"`
 
 }
 
-type ConfigureSecurityGroupRulesResponse struct {
+type DeleteCidrsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DeleteCidrsResponseParams `json:"response,omitempty"`
+
+}
+
+// DeleteCidrsResponseParams 
+type DeleteCidrsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // FailedCidrIds 操作失败的CIDR ID列表。
+    FailedCidrIds []string `json:"failedCidrIds,omitempty"`
+
+}
+
+type RenewIpv6CidrRequest struct {
+    *common.BaseRequest
+
+    // CidrId IPv6 地址块ID。
+    CidrId *string `json:"cidrId,omitempty"`
+
+}
+
+type RenewIpv6CidrResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
@@ -3195,18 +3491,127 @@ type ConfigureSecurityGroupRulesResponse struct {
 
 }
 
-type AssignSecurityGroupVpcRequest struct {
+// DescribeIpv6CidrsRequest 
+type DescribeIpv6CidrsRequest struct {
     *common.BaseRequest
 
-    // VpcId 要操作的VPC ID。
-    VpcId *string `json:"vpcId,omitempty"`
+    // CidrIds 一个或多个待操作的Cidr ID，根据cidrId进行过滤。
+    CidrIds []string `json:"cidrIds,omitempty"`
 
-    // SecurityGroupId 要更换的目标安全组ID。
-    SecurityGroupId *string `json:"securityGroupId,omitempty"`
+    // RegionId 根据CIDR所在的节点ID进行过滤。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // Name 根据CIDR名称进行过滤，支持模糊查询。
+    Name *string `json:"name,omitempty"`
+
+    // CidrBlock 根据CIDR地址进行过滤。
+    CidrBlock *string `json:"cidrBlock,omitempty"`
+
+    // ResourceGroupId 根据资源组ID进行过滤。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // PageSize 返回的分页大小，默认为20，最大为1000。
+    PageSize *int `json:"pageSize,omitempty"`
+
+    // PageNum 返回的分页数。
+    PageNum *int `json:"pageNum,omitempty"`
+
+    // TagKeys 根据标签键进行搜索。
+    // 最长不得超过20个标签键。
+    TagKeys []string `json:"tagKeys,omitempty"`
+
+    // Tags 根据标签进行搜索。
+    // 最长不得超过20个标签。
+    Tags []*Tag `json:"tags,omitempty"`
 
 }
 
-type AssignSecurityGroupVpcResponse struct {
+type DescribeIpv6CidrsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeIpv6CidrsResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeIpv6CidrsResponseParams 
+type DescribeIpv6CidrsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // TotalCount 符合条件的数据总数。
+    TotalCount *int `json:"totalCount,omitempty"`
+
+    // DataSet 查询IPV6 CIDR地址的结果数据。
+    DataSet []*Ipv6CidrInfo `json:"dataSet,omitempty"`
+
+}
+
+// Ipv6CidrInfo IPv6 CIDR信息详情。
+type Ipv6CidrInfo struct {
+
+    // CidrId CIDR ID。
+    CidrId *string `json:"cidrId,omitempty"`
+
+    // RegionId CIDR所属的区域节点ID。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // Name CIDR的名称。
+    Name *string `json:"name,omitempty"`
+
+    // CidrBlock CIDR地址块，例如：2400:8a00::/28。
+    CidrBlock *string `json:"cidrBlock,omitempty"`
+
+    // Source CIDR的来源。
+    // 如CONSOLE（属于zenlayer）或 BYOIP（客户自带IP）。
+    Source *string `json:"source,omitempty"`
+
+    // NetworkLineType CIDR网络类型。
+    // 表示该CIDR支持的公网IP线路类型。
+    NetworkLineType *string `json:"networkLineType,omitempty"`
+
+    // SubnetIds 子网ID集合。
+    SubnetIds []string `json:"subnetIds,omitempty"`
+
+    // NicIds 网卡ID集合。
+    NicIds []string `json:"nicIds,omitempty"`
+
+    // Netmask 子网掩码。
+    // 表示CIDR的网络位长度。
+    Netmask *int `json:"netmask,omitempty"`
+
+    // PoolId Pool的ID。
+    // 表示该CIDR所属的公网IP池。
+    PoolId *string `json:"poolId,omitempty"`
+
+    // CreateTime CIDR的创建时间。
+    CreateTime *string `json:"createTime,omitempty"`
+
+    // ExpiredTime CIDR的到期时间。
+    ExpiredTime *string `json:"expiredTime,omitempty"`
+
+    // ResourceGroup 该CIDR所属的资源组。
+    ResourceGroup *ResourceGroupInfo `json:"resourceGroup,omitempty"`
+
+    // Status CIDR的状态。
+    Status *string `json:"status,omitempty"`
+
+    // Tags 该CIDR地址段关联的标签。
+    Tags *Tags `json:"tags,omitempty"`
+
+}
+
+// DeleteIpv6CidrRequest 
+type DeleteIpv6CidrRequest struct {
+    *common.BaseRequest
+
+    // CidrId IPv6 地址块ID。
+    CidrId *string `json:"cidrId,omitempty"`
+
+}
+
+type DeleteIpv6CidrResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
@@ -3217,16 +3622,16 @@ type AssignSecurityGroupVpcResponse struct {
 
 }
 
-// UnAssignSecurityGroupVpcRequest VPC解绑安全组的请求参数。
-type UnAssignSecurityGroupVpcRequest struct {
+// RenewCidrRequest 
+type RenewCidrRequest struct {
     *common.BaseRequest
 
-    // VpcId 要解绑的VPC ID。
-    VpcId *string `json:"vpcId,omitempty"`
+    // CidrId 要恢复的CIDR ID。
+    CidrId *string `json:"cidrId,omitempty"`
 
 }
 
-type UnAssignSecurityGroupVpcResponse struct {
+type RenewCidrResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
@@ -3242,16 +3647,6 @@ type DescribeEipRegionsRequest struct {
 
 }
 
-// DescribeEipRegionsResponseParams 查询支持售卖EIP的节点响应结果。
-type DescribeEipRegionsResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // RegionIds 支持售卖EIP的节点ID。
-    RegionIds []string `json:"regionIds,omitempty"`
-
-}
-
 type DescribeEipRegionsResponse struct {
     *common.BaseResponse
 
@@ -3261,7 +3656,17 @@ type DescribeEipRegionsResponse struct {
 
 }
 
-// DescribeEipInternetChargeTypesRequest 查询EIP支持的IP网络类型的请求信息。
+// DescribeEipRegionsResponseParams 
+type DescribeEipRegionsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // RegionIds 支持售卖EIP的节点ID。
+    RegionIds []string `json:"regionIds,omitempty"`
+
+}
+
+// DescribeEipInternetChargeTypesRequest 
 type DescribeEipInternetChargeTypesRequest struct {
     *common.BaseRequest
 
@@ -3269,21 +3674,12 @@ type DescribeEipInternetChargeTypesRequest struct {
     RegionId *string `json:"regionId,omitempty"`
 
     // Deprecated: EipV4Type 已废弃，请不要使用。
-    // EipV4Type EIP IP线路类型。已废弃，请使用`networkLineType`。
+    // EipV4Type EIP IP线路类型。
+    // 已废弃，请使用`networkLineType`。
     EipV4Type *string `json:"eipV4Type,omitempty"`
 
     // NetworkLineType EIP IP线路类型。
     NetworkLineType *string `json:"networkLineType,omitempty"`
-
-}
-
-// DescribeEipInternetChargeTypesResponseParams 查询EIP支持的网络计费模式的响应值。
-type DescribeEipInternetChargeTypesResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // InternetChargeTypes IP支持的网络计费方式。
-    InternetChargeTypes []string `json:"internetChargeTypes,omitempty"`
 
 }
 
@@ -3296,6 +3692,16 @@ type DescribeEipInternetChargeTypesResponse struct {
 
 }
 
+// DescribeEipInternetChargeTypesResponseParams 
+type DescribeEipInternetChargeTypesResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // InternetChargeTypes IP支持的网络计费方式。
+    InternetChargeTypes []string `json:"internetChargeTypes,omitempty"`
+
+}
+
 // DescribeEipRemoteRegionsRequest 
 type DescribeEipRemoteRegionsRequest struct {
     *common.BaseRequest
@@ -3304,21 +3710,12 @@ type DescribeEipRemoteRegionsRequest struct {
     RegionId *string `json:"regionId,omitempty"`
 
     // Deprecated: EipV4Type 已废弃，请不要使用。
-    // EipV4Type EIP IP线路类型。已废弃，请使用`networkLineType`。
+    // EipV4Type EIP IP线路类型。
+    // 已废弃，请使用`networkLineType`。
     EipV4Type *string `json:"eipV4Type,omitempty"`
 
     // NetworkLineType EIP IP线路类型。
     NetworkLineType *string `json:"networkLineType,omitempty"`
-
-}
-
-// DescribeEipRemoteRegionsResponseParams 查询EIP支持的远程指向的节点信息的响应信息。
-type DescribeEipRemoteRegionsResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // PeerRegionIds 支持的远端的节点ID列表。
-    PeerRegionIds []string `json:"peerRegionIds,omitempty"`
 
 }
 
@@ -3328,6 +3725,86 @@ type DescribeEipRemoteRegionsResponse struct {
     RequestId *string `json:"requestId,omitempty"`
 
     Response *DescribeEipRemoteRegionsResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeEipRemoteRegionsResponseParams 
+type DescribeEipRemoteRegionsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // PeerRegionIds 支持的远端的节点ID列表。
+    PeerRegionIds []string `json:"peerRegionIds,omitempty"`
+
+}
+
+// DescribeEipPriceRequest 
+type DescribeEipPriceRequest struct {
+    *common.BaseRequest
+
+    // RegionId 创建EIP所在的节点ID。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // InternetChargeType 公网弹性IP的网络计费方式。
+    InternetChargeType *string `json:"internetChargeType,omitempty"`
+
+    // Amount 需要创建EIP的数量。
+    Amount *int `json:"amount,omitempty"`
+
+    // Deprecated: EipV4Type 已废弃，请不要使用。
+    // EipV4Type 公网弹性IP的线路类型。
+    // 已废弃，请使用`networkLineType`。
+    EipV4Type *string `json:"eipV4Type,omitempty"`
+
+    // NetworkLineType 公网弹性IP的线路类型。
+    NetworkLineType *string `json:"networkLineType,omitempty"`
+
+    // Bandwidth 公网弹性IP的带宽限速。
+    // 单位：Mbps。
+    Bandwidth *int `json:"bandwidth,omitempty"`
+
+    // FlowPackage 公网IPv6的流量包大小。
+    // 单位为TB。
+    // 值要求为0或0.1的倍数。
+    // 当子网的堆栈类型包括V6且为公网时，且网络计费方式是流量计费(`ByTrafficPackage`)需要指定。
+    FlowPackage *float64 `json:"flowPackage,omitempty"`
+
+    // CidrId 指定CIDR ID，使用CIDR内分配弹性IP。
+    // 该字段和`eipV4Type`不能同时指定。
+    CidrId *string `json:"cidrId,omitempty"`
+
+    // ClusterId 公网IPv6所指定的共享带宽包ID。
+    // 当子网的堆栈类型包括V6且为公网时，且网络计费方式是共享带宽包计费(`BandwidthCluster`)需要指定。
+    ClusterId *string `json:"clusterId,omitempty"`
+
+    // PeerRegionId 远端的节点ID。
+    PeerRegionId *string `json:"peerRegionId,omitempty"`
+
+}
+
+type DescribeEipPriceResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeEipPriceResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeEipPriceResponseParams 
+type DescribeEipPriceResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // EipPrice 公网弹性IP的保留价格。
+    // 如果是通过cidr创建，则保留价格为null。
+    EipPrice *PriceItem `json:"eipPrice,omitempty"`
+
+    // BandwidthPrice 公网弹性IP的带宽价格。
+    BandwidthPrice *PriceItem `json:"bandwidthPrice,omitempty"`
+
+    // RemoteBandwidthPrice Remote IPT的带宽价格。
+    RemoteBandwidthPrice *PriceItem `json:"remoteBandwidthPrice,omitempty"`
 
 }
 
@@ -3349,22 +3826,24 @@ type DescribeEipsRequest struct {
     // IsDefault 按照 EIP 的默认属性进行过滤。
     IsDefault *bool `json:"isDefault,omitempty"`
 
-    // PageSize 返回的分页大小。默认为20，最大为1000。
+    // PageSize 返回的分页大小。
+    // 默认为20，最大为1000。
     PageSize *int `json:"pageSize,omitempty"`
 
-    // PageNum 返回的分页页码。默认为1。
+    // PageNum 返回的分页页码。
     PageNum *int `json:"pageNum,omitempty"`
 
     // PrivateIpAddress 按照 EIP 绑定的内网 IP 过滤。
     PrivateIpAddress *string `json:"privateIpAddress,omitempty"`
 
-    // IpAddress 按照 EIP 的 IP 过滤。
+    // IpAddress 按照 IP地址过滤。
     IpAddress *string `json:"ipAddress,omitempty"`
 
     // IpAddresses 按照 EIP 的 IP列表过滤。
     IpAddresses []string `json:"ipAddresses,omitempty"`
 
-    // InstanceId 按照 EIP 绑定的实例 ID 过滤。该字段过滤出该实例所绑定的网卡上的 EIP。
+    // InstanceId 按照 EIP 绑定的实例 ID 过滤。
+    // 该字段过滤出该实例所绑定的网卡上的 EIP。
     InstanceId *string `json:"instanceId,omitempty"`
 
     // AssociatedId 按照 EIP 绑定的资源 ID 过滤。
@@ -3376,14 +3855,25 @@ type DescribeEipsRequest struct {
     // ResourceGroupId 按照 EIP 所属的资源组ID过滤。
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 
-    // TagKeys 根据标签键进行搜索。 最长不得超过20个标签键。
+    // TagKeys 根据标签键进行搜索。
+    // 最长不得超过20个标签键。
     TagKeys []string `json:"tagKeys,omitempty"`
 
-    // Tags 根据标签进行搜索。 最长不得超过20个标签。
+    // Tags 根据标签进行搜索。
+    // 最长不得超过20个标签。
     Tags []*Tag `json:"tags,omitempty"`
 
     // InternetChargeType 按照 EIP 的网络计费方式过滤。
     InternetChargeType *string `json:"internetChargeType,omitempty"`
+
+}
+
+type DescribeEipsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeEipsResponseParams `json:"response,omitempty"`
 
 }
 
@@ -3411,7 +3901,8 @@ type EipInfo struct {
     // RegionId 节点ID。
     RegionId *string `json:"regionId,omitempty"`
 
-    // PeerRegionId 对端节点ID。仅当IP为Remote IP时该字段有效。
+    // PeerRegionId 对端节点ID。
+    // 仅当IP为Remote IP时该字段有效。
     PeerRegionId *string `json:"peerRegionId,omitempty"`
 
     // IsDefault 是否是默认类型。
@@ -3427,10 +3918,13 @@ type EipInfo struct {
     PrivateIpAddress *string `json:"privateIpAddress,omitempty"`
 
     // Deprecated: EipV4Type 已废弃，请不要使用。
-    // EipV4Type EIP网络类型。表示该CIDR支持的公网IP线路类型。已废弃，请参考`networkLineType`。
+    // EipV4Type EIP网络类型。
+    // 表示该CIDR支持的公网IP线路类型。
+    // 已废弃，请参考`networkLineType`。
     EipV4Type *string `json:"eipV4Type,omitempty"`
 
-    // NetworkLineType EIP网络类型。表示该CIDR支持的公网IP线路类型。
+    // NetworkLineType EIP网络类型。
+    // 表示该CIDR支持的公网IP线路类型。
     NetworkLineType *string `json:"networkLineType,omitempty"`
 
     // InternetChargeType EIP 的网络计费方式。
@@ -3440,25 +3934,32 @@ type EipInfo struct {
     CidrId *string `json:"cidrId,omitempty"`
 
     // Deprecated: NicId 已废弃，请不要使用。
-    // NicId EIP 关联的网卡ID。 该字段已废弃，请使用 `associatedId` 字段。
+    // NicId EIP 关联的网卡ID。
+    // 该字段已废弃，请使用 `associatedId` 字段。
     NicId *string `json:"nicId,omitempty"`
 
-    // AssociatedId EIP 绑定的资源ID。可能为负载均衡ID、网卡ID或者NAT网关ID。
+    // AssociatedId EIP 绑定的资源ID。
+    // 可能为负载均衡ID、网卡ID或者NAT网关ID。
     AssociatedId *string `json:"associatedId,omitempty"`
 
-    // AssociatedType EIP 资源类型。可能为负载均衡ID、网卡ID或者NAT网关ID。
+    // AssociatedType EIP 资源类型。
+    // 可能为负载均衡ID、网卡ID或者NAT网关ID。
     AssociatedType *string `json:"associatedType,omitempty"`
 
-    // InstanceId EIP 绑定的实例ID。当且仅当`associatedType`字段为`NIC`时可能有值。
+    // InstanceId EIP 绑定的实例ID。
+    // 当且仅当`associatedType`字段为`NIC`时可能有值。
     InstanceId *string `json:"instanceId,omitempty"`
 
     // BindType EIP 绑定类型。
     BindType *string `json:"bindType,omitempty"`
 
-    // FlowPackage EIP 流量包大小。 仅当网络计费方式为流量计费时可取到值。该字段可能为null。
+    // FlowPackage EIP 流量包大小。
+    // 仅当网络计费方式为流量计费时可取到值。
+    // 该字段可能为null。
     FlowPackage *float64 `json:"flowPackage,omitempty"`
 
-    // Bandwidth EIP 的带宽限速。单位为Mbps。
+    // Bandwidth EIP 的带宽限速。
+    // 单位为Mbps。
     Bandwidth *int `json:"bandwidth,omitempty"`
 
     // EipGeoRefs EIP 的地理位置信息。
@@ -3470,7 +3971,8 @@ type EipInfo struct {
     // CreateTime EIP 的创建时间。
     CreateTime *string `json:"createTime,omitempty"`
 
-    // ExpiredTime EIP 的到期时间。该字段可能为null。
+    // ExpiredTime EIP 的到期时间。
+    // 该字段可能为null。
     ExpiredTime *string `json:"expiredTime,omitempty"`
 
     // ResourceGroupId EIP 关联的资源组ID。
@@ -3533,23 +4035,17 @@ type BlockInfo struct {
 
 }
 
-type DescribeEipsResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeEipsResponseParams `json:"response,omitempty"`
-
-}
-
-// CreateEipsRequest 创建EIP的请求参数。
+// CreateEipsRequest 
 type CreateEipsRequest struct {
     *common.BaseRequest
 
     // RegionId 创建EIP所在的节点ID。
     RegionId *string `json:"regionId,omitempty"`
 
-    // Name EIP的名称。范围2到63个字符。仅支持输入字母、数字、-/_和英文句点(.)。且必须以数字或字母开头和结尾。
+    // Name EIP的名称。
+    // 范围2到63个字符。
+    // 仅支持输入字母、数字、-/_和英文句点(.)。
+    // 且必须以数字或字母开头和结尾。
     Name *string `json:"name,omitempty"`
 
     // InternetChargeType 公网弹性IP的网络计费方式。
@@ -3559,31 +4055,40 @@ type CreateEipsRequest struct {
     Amount *int `json:"amount,omitempty"`
 
     // Deprecated: EipV4Type 已废弃，请不要使用。
-    // EipV4Type 公网弹性IP的线路类型。已废弃，请使用`networkLineType`。
+    // EipV4Type 公网弹性IP的线路类型。
+    // 已废弃，请使用`networkLineType`。
     EipV4Type *string `json:"eipV4Type,omitempty"`
 
     // NetworkLineType 公网弹性IP的线路类型。
     NetworkLineType *string `json:"networkLineType,omitempty"`
 
-    // PrimaryIsp 主公网IP的运营商。该字段仅作用于三线IP(`ThreeLine`)。
+    // PrimaryIsp 主公网IP的运营商。
+    // 该字段仅作用于三线IP(`ThreeLine`)。
     PrimaryIsp *string `json:"primaryIsp,omitempty"`
 
-    // Bandwidth 公网弹性IP的带宽限速。单位：Mbps。
+    // Bandwidth 公网弹性IP的带宽限速。
+    // 单位：Mbps。
     Bandwidth *int `json:"bandwidth,omitempty"`
 
-    // CidrId 指定CIDR ID，使用CIDR内分配弹性IP。该字段和`eipV4Type`不能同时指定。
+    // CidrId 指定CIDR ID，使用CIDR内分配弹性IP。
+    // 该字段和`eipV4Type`不能同时指定。
     CidrId *string `json:"cidrId,omitempty"`
 
-    // PublicIp 从CIDR里指定公网起始IP地址开始创建弹性IP。该字段仅在指定`cidrId`时生效。
+    // PublicIp 从CIDR里指定公网起始IP地址开始创建弹性IP。
+    // 该字段仅在指定`cidrId`时生效。
     PublicIp *string `json:"publicIp,omitempty"`
 
     // ResourceGroupId 弹性公网IP所放的资源组ID，如不指定则放入默认资源组。
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 
-    // FlowPackage 公网IPv6的流量包大小。单位为TB。值要求为0或0.1的倍数。当子网的堆栈类型包括V6且为公网时，且网络计费方式是流量计费(`ByTrafficPackage`)需要指定。
+    // FlowPackage 公网IPv6的流量包大小。
+    // 单位为TB。
+    // 值要求为0或0.1的倍数。
+    // 当子网的堆栈类型包括V6且为公网时，且网络计费方式是流量计费(`ByTrafficPackage`)需要指定。
     FlowPackage *float64 `json:"flowPackage,omitempty"`
 
-    // ClusterId 公网IPv6所指定的共享带宽包ID。当子网的堆栈类型包括V6且为公网时，且网络计费方式是共享带宽包计费(`BandwidthCluster`)需要指定。
+    // ClusterId 公网IPv6所指定的共享带宽包ID。
+    // 当子网的堆栈类型包括V6且为公网时，且网络计费方式是共享带宽包计费(`BandwidthCluster`)需要指定。
     ClusterId *string `json:"clusterId,omitempty"`
 
     // PeerRegionId 远端的节点ID。
@@ -3592,27 +4097,18 @@ type CreateEipsRequest struct {
     // MarketingOptions 市场营销的相关选项。
     MarketingOptions *MarketingInfo `json:"marketingOptions,omitempty"`
 
-    // Tags 弹性公网IP绑定的标签。注意：实例关联`标签键`不能重复。
+    // Tags 弹性公网IP绑定的标签。
+    // 注意：实例关联`标签键`不能重复。
     Tags *TagAssociation `json:"tags,omitempty"`
 
-    // InstanceIds 要绑定的实例ID集合。数量需要与`amount`字段一致。
+    // InstanceIds 要绑定的实例ID集合。
+    // 数量需要与`amount`字段一致。
     InstanceIds []string `json:"instanceIds,omitempty"`
 
-    // BindType 绑定类型。当指定定`instanceIds`时生效。默认为普通NAT模式。
+    // BindType 绑定类型。
+    // 当指定定`instanceIds`时生效。
+    // 默认为普通NAT模式。
     BindType *string `json:"bindType,omitempty"`
-
-}
-
-// CreateEipsResponseParams 创建弹性公网IP的响应结果
-type CreateEipsResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // EipIds 创建的弹性公网IP ID列表。
-    EipIds []string `json:"eipIds,omitempty"`
-
-    // OrderNumber 本次创建的订单编号。
-    OrderNumber *string `json:"orderNumber,omitempty"`
 
 }
 
@@ -3625,16 +4121,35 @@ type CreateEipsResponse struct {
 
 }
 
-// DeleteEipRequest 删除弹性公网IP的请求参数。
-type DeleteEipRequest struct {
-    *common.BaseRequest
+// CreateEipsResponseParams 
+type CreateEipsResponseParams struct {
 
-    // EipId 要删除弹性公网IP的ID。
-    EipId *string `json:"eipId,omitempty"`
+    RequestId *string `json:"requestId,omitempty"`
+
+    // EipIds 创建的弹性公网IP ID列表。
+    EipIds []string `json:"eipIds,omitempty"`
+
+    // OrderNumber 本次创建的订单编号。
+    OrderNumber *string `json:"orderNumber,omitempty"`
 
 }
 
-type DeleteEipResponse struct {
+// ModifyEipAttributeRequest 
+type ModifyEipAttributeRequest struct {
+    *common.BaseRequest
+
+    // EipId 公网弹性IP的ID。
+    EipId *string `json:"eipId,omitempty"`
+
+    // Name 公网弹性IP的名称。
+    // 范围2到63个字符。
+    // 仅支持输入字母、数字、-/_和英文句点(.)。
+    // 且必须以数字或字母开头和结尾。
+    Name *string `json:"name,omitempty"`
+
+}
+
+type ModifyEipAttributeResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
@@ -3645,109 +4160,7 @@ type DeleteEipResponse struct {
 
 }
 
-// RenewEipRequest 恢复弹性公网IP的请求参数。
-type RenewEipRequest struct {
-    *common.BaseRequest
-
-    // EipId 要恢复弹性公网IP的ID。
-    EipId *string `json:"eipId,omitempty"`
-
-}
-
-type RenewEipResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// ConfigEipEgressIpRequest 指定IP作为出口IP的请求参数。
-type ConfigEipEgressIpRequest struct {
-    *common.BaseRequest
-
-    // EipId 要作为出口的公网弹性IP。
-    EipId *string `json:"eipId,omitempty"`
-
-}
-
-type ConfigEipEgressIpResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// DescribeEipPriceRequest 查询公网弹性IP的价格。
-type DescribeEipPriceRequest struct {
-    *common.BaseRequest
-
-    // RegionId 创建EIP所在的节点ID。
-    RegionId *string `json:"regionId,omitempty"`
-
-    // InternetChargeType 公网弹性IP的网络计费方式。
-    InternetChargeType *string `json:"internetChargeType,omitempty"`
-
-    // Amount 需要创建EIP的数量。
-    Amount *int `json:"amount,omitempty"`
-
-    // Deprecated: EipV4Type 已废弃，请不要使用。
-    // EipV4Type 公网弹性IP的线路类型。已废弃，请使用`networkLineType`。
-    EipV4Type *string `json:"eipV4Type,omitempty"`
-
-    // NetworkLineType 公网弹性IP的线路类型。
-    NetworkLineType *string `json:"networkLineType,omitempty"`
-
-    // Bandwidth 公网弹性IP的带宽限速。单位：Mbps。
-    Bandwidth *int `json:"bandwidth,omitempty"`
-
-    // FlowPackage 公网IPv6的流量包大小。单位为TB。值要求为0或0.1的倍数。当子网的堆栈类型包括V6且为公网时，且网络计费方式是流量计费(`ByTrafficPackage`)需要指定。
-    FlowPackage *float64 `json:"flowPackage,omitempty"`
-
-    // CidrId 指定CIDR ID，使用CIDR内分配弹性IP。该字段和`eipV4Type`不能同时指定。
-    CidrId *string `json:"cidrId,omitempty"`
-
-    // ClusterId 公网IPv6所指定的共享带宽包ID。当子网的堆栈类型包括V6且为公网时，且网络计费方式是共享带宽包计费(`BandwidthCluster`)需要指定。
-    ClusterId *string `json:"clusterId,omitempty"`
-
-    // PeerRegionId 远端的节点ID。
-    PeerRegionId *string `json:"peerRegionId,omitempty"`
-
-}
-
-// DescribeEipPriceResponseParams 查询公网弹性IP的价格的响应结果。
-type DescribeEipPriceResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // EipPrice 公网弹性IP的保留价格。如果是通过cidr创建，则保留价格为null。
-    EipPrice *PriceItem `json:"eipPrice,omitempty"`
-
-    // BandwidthPrice 公网弹性IP的带宽价格。
-    BandwidthPrice *PriceItem `json:"bandwidthPrice,omitempty"`
-
-    // RemoteBandwidthPrice Remote IPT的带宽价格。
-    RemoteBandwidthPrice *PriceItem `json:"remoteBandwidthPrice,omitempty"`
-
-}
-
-type DescribeEipPriceResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeEipPriceResponseParams `json:"response,omitempty"`
-
-}
-
-// ChangeEipInternetChargeTypeRequest 变更弹性公网IP更网络计费模式的请求参数。
+// ChangeEipInternetChargeTypeRequest 
 type ChangeEipInternetChargeTypeRequest struct {
     *common.BaseRequest
 
@@ -3757,18 +4170,9 @@ type ChangeEipInternetChargeTypeRequest struct {
     // InternetChargeType 要变更的目标网络计费类型。
     InternetChargeType *string `json:"internetChargeType,omitempty"`
 
-    // ClusterId 共享带宽包ID。如果要变更为共享带宽包计费，则需要指定。
+    // ClusterId 共享带宽包ID。
+    // 如果要变更为共享带宽包计费，则需要指定。
     ClusterId *string `json:"clusterId,omitempty"`
-
-}
-
-// ChangeEipInternetChargeTypeResponseParams 变更弹性公网IP更网络计费模式
-type ChangeEipInternetChargeTypeResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // OrderNumber 变更可能产生的订单号。
-    OrderNumber *string `json:"orderNumber,omitempty"`
 
 }
 
@@ -3781,7 +4185,17 @@ type ChangeEipInternetChargeTypeResponse struct {
 
 }
 
-// AvailableLanIpRequest 查询可供弹性公网IP绑定的网卡及内网IP信息的请求参数。
+// ChangeEipInternetChargeTypeResponseParams 
+type ChangeEipInternetChargeTypeResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // OrderNumber 变更可能产生的订单号。
+    OrderNumber *string `json:"orderNumber,omitempty"`
+
+}
+
+// AvailableLanIpRequest 
 type AvailableLanIpRequest struct {
     *common.BaseRequest
 
@@ -3790,7 +4204,16 @@ type AvailableLanIpRequest struct {
 
 }
 
-// AvailableLanIpResponseParams 查询可供弹性公网IP绑定的网卡及内网IP信息。
+type AvailableLanIpResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *AvailableLanIpResponseParams `json:"response,omitempty"`
+
+}
+
+// AvailableLanIpResponseParams 
 type AvailableLanIpResponseParams struct {
 
     RequestId *string `json:"requestId,omitempty"`
@@ -3820,100 +4243,7 @@ type PrivateIpInfo struct {
 
 }
 
-type AvailableLanIpResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *AvailableLanIpResponseParams `json:"response,omitempty"`
-
-}
-
-// DescribeEipTrafficRequest 查询Eip指定时间段内的流量信息的请求信息。
-type DescribeEipTrafficRequest struct {
-    *common.BaseRequest
-
-    // EipId 要查询的弹性IP ID。
-    EipId *string `json:"eipId,omitempty"`
-
-    // StartTime 查询开始时间。按照ISO8601标准表示，并且使用UTC时间。格式为：YYYY-MM-ddTHH:mm:ssZ。
-    StartTime *string `json:"startTime,omitempty"`
-
-    // EndTime 查询结束时间。按照ISO8601标准表示，并且使用UTC时间。格式为：YYYY-MM-ddTHH:mm:ssZ。
-    EndTime *string `json:"endTime,omitempty"`
-
-    // Step 查询数据点间隔。单位为分钟。支持参数：1,5。
-    Step *int `json:"step,omitempty"`
-
-    // WanIp 指定IP查询，该字段用于三线IP,可以指定IP地址查询流量。
-    WanIp *string `json:"wanIp,omitempty"`
-
-}
-
-// DescribeEipTrafficResponseParams 查询弹性公网IP指定时间段内的流量信息的响应值。
-type DescribeEipTrafficResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // DataList 查询的数据点。
-    DataList []*EipTrafficData `json:"dataList,omitempty"`
-
-    // In95 入方向带宽95值。单位：bps。
-    In95 *int64 `json:"in95,omitempty"`
-
-    // InAvg 入方向带宽平均值。单位：bps。
-    InAvg *int64 `json:"inAvg,omitempty"`
-
-    // InMax 入方向带宽的最大值。单位：bps。
-    InMax *int64 `json:"inMax,omitempty"`
-
-    // InMin 入方向带宽的最小值。单位：bps。
-    InMin *int64 `json:"inMin,omitempty"`
-
-    // InTotal 入方向的总字节。单位：Byte。
-    InTotal *int64 `json:"inTotal,omitempty"`
-
-    // Out95 出方向带宽95值。单位：bps。
-    Out95 *int64 `json:"out95,omitempty"`
-
-    // OutAvg 出方向带宽平均值。单位：bps。
-    OutAvg *int64 `json:"outAvg,omitempty"`
-
-    // OutMax 出方向带宽最大值。单位：bps。
-    OutMax *int64 `json:"outMax,omitempty"`
-
-    // OutMin 出方向带宽最小值。单位：bps。
-    OutMin *int64 `json:"outMin,omitempty"`
-
-    // OutTotal 入方向的总字节。单位：bps。
-    OutTotal *int64 `json:"outTotal,omitempty"`
-
-}
-
-// EipTrafficData 描述IP带宽的数据点信息。包括出/入方向的带宽。
-type EipTrafficData struct {
-
-    // InternetRX 入方向带宽值。单位：bps。
-    InternetRX *int64 `json:"internetRX,omitempty"`
-
-    // InternetTX 出方向带宽值。单位：bps。
-    InternetTX *int64 `json:"internetTX,omitempty"`
-
-    // Time 数据时间。按照ISO8601标准表示，并且使用UTC时间。格式为：YYYY-MM-ddTHH:mm:ssZ。
-    Time *string `json:"time,omitempty"`
-
-}
-
-type DescribeEipTrafficResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeEipTrafficResponseParams `json:"response,omitempty"`
-
-}
-
-// AssociateEipAddressRequest EIP绑定的请求信息。
+// AssociateEipAddressRequest 
 type AssociateEipAddressRequest struct {
     *common.BaseRequest
 
@@ -3923,27 +4253,21 @@ type AssociateEipAddressRequest struct {
     // NicId 虚拟网卡的ID。
     NicId *string `json:"nicId,omitempty"`
 
-    // LanIp 要绑定的网卡上的内网IP地址。当IP绑定的是网卡, 则该字段不能为空。
+    // LanIp 要绑定的网卡上的内网IP地址。
+    // 当IP绑定的是网卡, 则该字段不能为空。
     LanIp *string `json:"lanIp,omitempty"`
 
     // NatId NAT网关的ID。
     NatId *string `json:"natId,omitempty"`
 
-    // EipIds 要绑定的EIP的ID。EIP 必须是未绑定状态。
+    // EipIds 要绑定的EIP的ID。
+    // EIP 必须是未绑定状态。
     EipIds []string `json:"eipIds,omitempty"`
 
-    // BindType 绑定类型。当绑定的是网卡时生效。默认为普通NAT模式。
+    // BindType 绑定类型。
+    // 当绑定的是网卡时生效。
+    // 默认为普通NAT模式。
     BindType *string `json:"bindType,omitempty"`
-
-}
-
-// AssociateEipAddressResponseParams EIP绑定云产品的响应信息。
-type AssociateEipAddressResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // FailedEipIds 绑定失败的IP。
-    FailedEipIds []string `json:"failedEipIds,omitempty"`
 
 }
 
@@ -3956,22 +4280,22 @@ type AssociateEipAddressResponse struct {
 
 }
 
-// UnassociateEipAddressRequest 将弹性公网IP（EIP）从绑定的云产品上解绑的请求参数。
+// AssociateEipAddressResponseParams 
+type AssociateEipAddressResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // FailedEipIds 绑定失败的IP。
+    FailedEipIds []string `json:"failedEipIds,omitempty"`
+
+}
+
+// UnassociateEipAddressRequest 
 type UnassociateEipAddressRequest struct {
     *common.BaseRequest
 
     // EipIds 要解绑的弹性公网IP的ID列表。
     EipIds []string `json:"eipIds,omitempty"`
-
-}
-
-// UnassociateEipAddressResponseParams 将弹性公网IP（EIP）从绑定的云产品上解绑的响应结果。
-type UnassociateEipAddressResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // FailedEipIds 操作失败的弹性IP的ID集合。
-    FailedEipIds []string `json:"failedEipIds,omitempty"`
 
 }
 
@@ -3984,7 +4308,17 @@ type UnassociateEipAddressResponse struct {
 
 }
 
-// ReplaceEipAddressRequest 替换弹性公网IP的请求信息。
+// UnassociateEipAddressResponseParams 
+type UnassociateEipAddressResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // FailedEipIds 操作失败的弹性IP的ID集合。
+    FailedEipIds []string `json:"failedEipIds,omitempty"`
+
+}
+
+// ReplaceEipAddressRequest 
 type ReplaceEipAddressRequest struct {
     *common.BaseRequest
 
@@ -3999,21 +4333,13 @@ type ReplaceIp struct {
     // EipId 需要替换的弹性公网IP ID。
     EipId *string `json:"eipId,omitempty"`
 
-    // OwnIp 原IP。当IP是三线IP(IP线路类型为`ThreeLine`)时需要指定。
+    // OwnIp 原IP。
+    // 当IP是三线IP(IP线路类型为`ThreeLine`)时需要指定。
     OwnIp *string `json:"ownIp,omitempty"`
 
-    // TargetIp 需要变更的目标IP。如果未指定，将由系统随机分配。
+    // TargetIp 需要变更的目标IP。
+    // 如果未指定，将由系统随机分配。
     TargetIp *string `json:"targetIp,omitempty"`
-
-}
-
-// ReplaceEipAddressResponseParams 替换弹性公网IP的响应结果。
-type ReplaceEipAddressResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // FailedEipIds 替换失败的IP的ID集合。
-    FailedEipIds []string `json:"failedEipIds,omitempty"`
 
 }
 
@@ -4026,40 +4352,30 @@ type ReplaceEipAddressResponse struct {
 
 }
 
-// ModifyEipAttributeRequest 修改EIP属性的请求。
-type ModifyEipAttributeRequest struct {
-    *common.BaseRequest
-
-    // EipId 公网弹性IP的ID。
-    EipId *string `json:"eipId,omitempty"`
-
-    // Name 公网弹性IP的名称。范围2到63个字符。仅支持输入字母、数字、-/_和英文句点(.)。且必须以数字或字母开头和结尾。
-    Name *string `json:"name,omitempty"`
-
-}
-
-type ModifyEipAttributeResponse struct {
-    *common.BaseResponse
+// ReplaceEipAddressResponseParams 
+type ReplaceEipAddressResponseParams struct {
 
     RequestId *string `json:"requestId,omitempty"`
 
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
+    // FailedEipIds 替换失败的IP的ID集合。
+    FailedEipIds []string `json:"failedEipIds,omitempty"`
 
 }
 
-// ModifyEipBandwidthRequest 修改带宽限速请求。
+// ModifyEipBandwidthRequest 
 type ModifyEipBandwidthRequest struct {
     *common.BaseRequest
 
     // EipId EIP唯一标识ID。
     EipId *string `json:"eipId,omitempty"`
 
-    // Bandwidth 调整带宽限速的目标值。单位Mbps。
+    // Bandwidth 调整带宽限速的目标值。
+    // 单位Mbps。
     Bandwidth *int `json:"bandwidth,omitempty"`
 
-    // CommitBandwidth 保底带宽。单位Mbps。有且仅当为Remote IP，且为选择带宽包计费, 需要指定专线部分的保底带宽。
+    // CommitBandwidth 保底带宽。
+    // 单位Mbps。
+    // 有且仅当为Remote IP，且为选择带宽包计费, 需要指定专线部分的保底带宽。
     CommitBandwidth *int `json:"commitBandwidth,omitempty"`
 
 }
@@ -4075,14 +4391,16 @@ type ModifyEipBandwidthResponse struct {
 
 }
 
-// ChangeEipBindTypeRequest 更换弹性公网IP绑定模式请求信息。
+// ChangeEipBindTypeRequest 
 type ChangeEipBindTypeRequest struct {
     *common.BaseRequest
 
     // EipId 要更换绑定模式的EIP ID。
     EipId *string `json:"eipId,omitempty"`
 
-    // BindType 绑定类型。当绑定的是网卡时生效。默认为普通NAT模式。
+    // BindType 绑定类型。
+    // 当绑定的是网卡时生效。
+    // 默认为普通NAT模式。
     BindType *string `json:"bindType,omitempty"`
 
 }
@@ -4101,13 +4419,14 @@ type ChangeEipBindTypeResponse struct {
 type ConfigEipProbeRequest struct {
     *common.BaseRequest
 
-    // EipId 要更换绑定模式的EIP ID。
+    // EipId 配置公网探测的EIP ID。
     EipId *string `json:"eipId,omitempty"`
 
     // DisableIcmp 是否禁用ICMP。
     DisableIcmp *bool `json:"disableIcmp,omitempty"`
 
-    // TcpPort TCP探测端口, [1-65535]。不传表示不开启。
+    // TcpPort TCP探测端口, [1-65535]。
+    // 不传表示不开启。
     TcpPort *int `json:"tcpPort,omitempty"`
 
 }
@@ -4123,7 +4442,131 @@ type ConfigEipProbeResponse struct {
 
 }
 
-// DescribeEipMonitorDataRequest 查询弹性公网IP监控指标请求。
+// DeleteEipRequest 
+type DeleteEipRequest struct {
+    *common.BaseRequest
+
+    // EipId 要删除弹性公网IP的ID。
+    EipId *string `json:"eipId,omitempty"`
+
+}
+
+type DeleteEipResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// DescribeEipTrafficRequest 
+type DescribeEipTrafficRequest struct {
+    *common.BaseRequest
+
+    // EipId 要查询的弹性IP ID。
+    EipId *string `json:"eipId,omitempty"`
+
+    // StartTime 查询开始时间。
+    // 按照ISO8601标准表示，并且使用UTC时间。
+    // 格式为：YYYY-MM-ddTHH:mm:ssZ。
+    StartTime *string `json:"startTime,omitempty"`
+
+    // EndTime 查询结束时间。
+    // 按照ISO8601标准表示，并且使用UTC时间。
+    // 格式为：YYYY-MM-ddTHH:mm:ssZ。
+    EndTime *string `json:"endTime,omitempty"`
+
+    // Step 查询数据点间隔。
+    // 单位为分钟。
+    // 支持参数：1,5。
+    Step *int `json:"step,omitempty"`
+
+    // WanIp 指定IP查询，该字段用于三线IP,可以指定IP地址查询流量。
+    WanIp *string `json:"wanIp,omitempty"`
+
+}
+
+type DescribeEipTrafficResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeEipTrafficResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeEipTrafficResponseParams 
+type DescribeEipTrafficResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // DataList 查询的数据点。
+    DataList []*EipTrafficData `json:"dataList,omitempty"`
+
+    // In95 入方向带宽95值。
+    // 单位：bps。
+    In95 *int64 `json:"in95,omitempty"`
+
+    // InAvg 入方向带宽平均值。
+    // 单位：bps。
+    InAvg *int64 `json:"inAvg,omitempty"`
+
+    // InMax 入方向带宽的最大值。
+    // 单位：bps。
+    InMax *int64 `json:"inMax,omitempty"`
+
+    // InMin 入方向带宽的最小值。
+    // 单位：bps。
+    InMin *int64 `json:"inMin,omitempty"`
+
+    // InTotal 入方向的总字节。
+    // 单位：Byte。
+    InTotal *int64 `json:"inTotal,omitempty"`
+
+    // Out95 出方向带宽95值。
+    // 单位：bps。
+    Out95 *int64 `json:"out95,omitempty"`
+
+    // OutAvg 出方向带宽平均值。
+    // 单位：bps。
+    OutAvg *int64 `json:"outAvg,omitempty"`
+
+    // OutMax 出方向带宽最大值。
+    // 单位：bps。
+    OutMax *int64 `json:"outMax,omitempty"`
+
+    // OutMin 出方向带宽最小值。
+    // 单位：bps。
+    OutMin *int64 `json:"outMin,omitempty"`
+
+    // OutTotal 入方向的总字节。
+    // 单位：bps。
+    OutTotal *int64 `json:"outTotal,omitempty"`
+
+}
+
+// EipTrafficData 描述IP带宽的数据点信息。包括出/入方向的带宽。
+type EipTrafficData struct {
+
+    // InternetRX 入方向带宽值。
+    // 单位：bps。
+    InternetRX *int64 `json:"internetRX,omitempty"`
+
+    // InternetTX 出方向带宽值。
+    // 单位：bps。
+    InternetTX *int64 `json:"internetTX,omitempty"`
+
+    // Time 数据时间。
+    // 按照ISO8601标准表示，并且使用UTC时间。
+    // 格式为：YYYY-MM-ddTHH:mm:ssZ。
+    Time *string `json:"time,omitempty"`
+
+}
+
+// DescribeEipMonitorDataRequest 
 type DescribeEipMonitorDataRequest struct {
     *common.BaseRequest
 
@@ -4133,15 +4576,26 @@ type DescribeEipMonitorDataRequest struct {
     // MetricType EIP监控指标类型。
     MetricType *string `json:"metricType,omitempty"`
 
-    // StartTime 查询开始时间。时间格式：yyyy-MM-ddTHH:mm:ssZ。
+    // StartTime 查询开始时间。
+    // 时间格式：yyyy-MM-ddTHH:mm:ssZ。
     StartTime *string `json:"startTime,omitempty"`
 
-    // EndTime 查询结束时间。时间格式：yyyy-MM-ddTHH:mm:ssZ。
+    // EndTime 查询结束时间。
+    // 时间格式：yyyy-MM-ddTHH:mm:ssZ。
     EndTime *string `json:"endTime,omitempty"`
 
 }
 
-// DescribeEipMonitorDataResponseParams 查询弹性IP监控数据的响应信息。
+type DescribeEipMonitorDataResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeEipMonitorDataResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeEipMonitorDataResponseParams 
 type DescribeEipMonitorDataResponseParams struct {
 
     RequestId *string `json:"requestId,omitempty"`
@@ -4213,71 +4667,16 @@ type EipMetricValue struct {
 
 }
 
-type DescribeEipMonitorDataResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeEipMonitorDataResponseParams `json:"response,omitempty"`
-
-}
-
-type CreateDhcpOptionsSetRequest struct {
+// RenewEipRequest 
+type RenewEipRequest struct {
     *common.BaseRequest
 
-    // DhcpOptionsSetName DHCP 选项集的名称。长度为1～64个字符。
-    DhcpOptionsSetName *string `json:"dhcpOptionsSetName,omitempty"`
-
-    // DomainNameServers DNS 服务器 IP。最多传入 4 个 DNS 服务器 Ipv4，DNS 服务器 IP 之间用半角逗号（,）隔开。
-    DomainNameServers *string `json:"domainNameServers,omitempty"`
-
-    // Ipv6DomainNameServers DNS 服务器 IP。最多传入 4 个 DNS 服务器 Ipv6，DNS 服务器 IP 之间用半角逗号（,）隔开。
-    Ipv6DomainNameServers *string `json:"ipv6DomainNameServers,omitempty"`
-
-    // LeaseTime IPv4 DHCP 选项集的租赁时间。单位：h。取值范围：**24~1176**，**87600~175200**。
-    LeaseTime *string `json:"leaseTime,omitempty"`
-
-    // Ipv6LeaseTime IPv6 DHCP 选项集的租赁时间。单位：h。取值范围：**24~1176**，**87600~175200**。
-    Ipv6LeaseTime *string `json:"ipv6LeaseTime,omitempty"`
-
-    // Tags 创建DHCP 选项集时关联的标签。注意：·关联`标签键`不能重复。
-    Tags *TagAssociation `json:"tags,omitempty"`
-
-    // ResourceGroupId 资源组ID。如果不指定，则会创建在默认资源组。
-    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
-
-    // Description DHCP选项集 描述信息。最长不超过255个字符。
-    Description *string `json:"description,omitempty"`
+    // EipId 要恢复弹性公网IP的ID。
+    EipId *string `json:"eipId,omitempty"`
 
 }
 
-type CreateDhcpOptionsSetResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // DhcpOptionsSetId DHCP 选项集ID。
-    DhcpOptionsSetId *string `json:"dhcpOptionsSetId,omitempty"`
-
-}
-
-type CreateDhcpOptionsSetResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *CreateDhcpOptionsSetResponseParams `json:"response,omitempty"`
-
-}
-
-type DeleteDhcpOptionsSetRequest struct {
-    *common.BaseRequest
-
-    // DhcpOptionsSetId DHCP 选项集ID。
-    DhcpOptionsSetId *string `json:"dhcpOptionsSetId,omitempty"`
-
-}
-
-type DeleteDhcpOptionsSetResponse struct {
+type RenewEipResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
@@ -4288,178 +4687,16 @@ type DeleteDhcpOptionsSetResponse struct {
 
 }
 
-type AttachDhcpOptionsSetToSubnetRequest struct {
+// ConfigEipEgressIpRequest 
+type ConfigEipEgressIpRequest struct {
     *common.BaseRequest
 
-    // DhcpOptionsSetId DHCP 选项集ID。
-    DhcpOptionsSetId *string `json:"dhcpOptionsSetId,omitempty"`
-
-    // SubnetIds 要与 DHCP 选项集关联的 Subnet 的 ID集合。
-    SubnetIds []string `json:"subnetIds,omitempty"`
+    // EipId 要作为出口的公网弹性IP。
+    EipId *string `json:"eipId,omitempty"`
 
 }
 
-// AttachDhcpOptionsSetToSubnetResponseParams 将DHCP选项集关联到Subnet的响应信息。
-type AttachDhcpOptionsSetToSubnetResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // FailedSubnetIds 操作失败的subnet ID集合。
-    FailedSubnetIds []string `json:"failedSubnetIds,omitempty"`
-
-}
-
-type AttachDhcpOptionsSetToSubnetResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *AttachDhcpOptionsSetToSubnetResponseParams `json:"response,omitempty"`
-
-}
-
-type DetachDhcpOptionsSetFromSubnetRequest struct {
-    *common.BaseRequest
-
-    // SubnetIds 要与 DHCP 选项集取消关联的 Subnet 的 ID集合。
-    SubnetIds []string `json:"subnetIds,omitempty"`
-
-}
-
-// DetachDhcpOptionsSetFromSubnetResponseParams 将DHCP选项集取消关联到Subnet的响应信息。
-type DetachDhcpOptionsSetFromSubnetResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // FailedSubnetIds 操作失败的subnet ID集合。
-    FailedSubnetIds []string `json:"failedSubnetIds,omitempty"`
-
-}
-
-type DetachDhcpOptionsSetFromSubnetResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DetachDhcpOptionsSetFromSubnetResponseParams `json:"response,omitempty"`
-
-}
-
-type DescribeDhcpOptionsSetsRequest struct {
-    *common.BaseRequest
-
-    // DhcpOptionsSetIds DHCP 选项集的 ID。最多支持输入 20 个 DHCP 选项集的 ID。
-    DhcpOptionsSetIds []string `json:"dhcpOptionsSetIds,omitempty"`
-
-    // DhcpOptionsSetName DHCP 选项集的名称。该字段支持模糊搜索。
-    DhcpOptionsSetName *string `json:"dhcpOptionsSetName,omitempty"`
-
-    // SubnetId 关联的子网 ID。
-    SubnetId *string `json:"subnetId,omitempty"`
-
-    // PageSize 返回的分页大小，默认为20，最大为1000。
-    PageSize *int `json:"pageSize,omitempty"`
-
-    // PageNum 返回的分页数，默认为1。
-    PageNum *int `json:"pageNum,omitempty"`
-
-    // ResourceGroupId 根据资源组ID过滤。
-    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
-
-    // TagKeys 根据标签键进行搜索。 最长不得超过20个标签键。
-    TagKeys []string `json:"tagKeys,omitempty"`
-
-    // Tags 根据标签进行搜索。 最长不得超过20个标签。
-    Tags []*Tag `json:"tags,omitempty"`
-
-}
-
-type DescribeDhcpOptionsSetsResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // TotalCount 符合条件的数据总数。
-    TotalCount *int `json:"totalCount,omitempty"`
-
-    // DataSet DHCP 选项集列表的数据。
-    DataSet []*DhcpOptionsSet `json:"dataSet,omitempty"`
-
-}
-
-// DhcpOptionsSet 描述DHCP选项集的信息。
-type DhcpOptionsSet struct {
-
-    // DhcpOptionsSetId DHCP 选项集ID。
-    DhcpOptionsSetId *string `json:"dhcpOptionsSetId,omitempty"`
-
-    // DhcpOptionsSetName DHCP 选项集的名称。长度为1～64个字符。
-    DhcpOptionsSetName *string `json:"dhcpOptionsSetName,omitempty"`
-
-    // DomainNameServers DNS 服务器 IP。最多传入 4 个 DNS 服务器 Ipv4，DNS 服务器 IP 之间用半角逗号（,）隔开。
-    DomainNameServers *string `json:"domainNameServers,omitempty"`
-
-    // Ipv6DomainNameServers DNS 服务器 IP。最多传入 4 个 DNS 服务器 Ipv6，DNS 服务器 IP 之间用半角逗号（,）隔开。
-    Ipv6DomainNameServers *string `json:"ipv6DomainNameServers,omitempty"`
-
-    // LeaseTime IPv4 DHCP 选项集的租赁时间。单位：h。
-    LeaseTime *string `json:"leaseTime,omitempty"`
-
-    // Ipv6LeaseTime IPv6 DHCP 选项集的租赁时间。单位：h。
-    Ipv6LeaseTime *string `json:"ipv6LeaseTime,omitempty"`
-
-    // CreateTime 创建时间。按照ISO8601标准表示，并且使用UTC时间, 格式为：YYYY-MM-DDThh:mm:ssZ。
-    CreateTime *string `json:"createTime,omitempty"`
-
-    // Description DHCP选项集 描述信息。
-    Description *string `json:"description,omitempty"`
-
-    // ResourceGroupId 实例所属的资源组ID。
-    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
-
-    // ResourceGroupName 实例所属的资源组名称。
-    ResourceGroupName *string `json:"resourceGroupName,omitempty"`
-
-    // Tags 实例关联的标签。
-    Tags *Tags `json:"tags,omitempty"`
-
-}
-
-type DescribeDhcpOptionsSetsResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeDhcpOptionsSetsResponseParams `json:"response,omitempty"`
-
-}
-
-type ModifyDhcpOptionsSetAttributesRequest struct {
-    *common.BaseRequest
-
-    // DhcpOptionsSetId DHCP 选项集ID。
-    DhcpOptionsSetId *string `json:"dhcpOptionsSetId,omitempty"`
-
-    // DhcpOptionsSetName DHCP 选项集的名称。长度为1～64个字符。
-    DhcpOptionsSetName *string `json:"dhcpOptionsSetName,omitempty"`
-
-    // DomainNameServers DNS 服务器 IP。最多传入 4 个 DNS 服务器 Ipv4，DNS 服务器 IP 之间用半角逗号（,）隔开。
-    DomainNameServers *string `json:"domainNameServers,omitempty"`
-
-    // Ipv6DomainNameServers DNS 服务器 IP。最多传入 4 个 DNS 服务器 Ipv6，DNS 服务器 IP 之间用半角逗号（,）隔开。
-    Ipv6DomainNameServers *string `json:"ipv6DomainNameServers,omitempty"`
-
-    // LeaseTime IPv4 DHCP 选项集的租赁时间。单位：h。取值范围：**24~1176**，**87600~175200**。
-    LeaseTime *string `json:"leaseTime,omitempty"`
-
-    // Ipv6LeaseTime IPv6 DHCP 选项集的租赁时间。单位：h。取值范围：**24~1176**，**87600~175200**。
-    Ipv6LeaseTime *string `json:"ipv6LeaseTime,omitempty"`
-
-    // Description DHCP选项集 描述信息。最长不超过255个字符。
-    Description *string `json:"description,omitempty"`
-
-}
-
-type ModifyDhcpOptionsSetAttributesResponse struct {
+type ConfigEipEgressIpResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
@@ -4470,643 +4707,246 @@ type ModifyDhcpOptionsSetAttributesResponse struct {
 
 }
 
-// DescribeZonesRequest 查询可用区的请求信息。
-type DescribeZonesRequest struct {
+type DescribeRoutesRequest struct {
     *common.BaseRequest
 
-    // ZoneIds 根据可用区ID过滤。
-    ZoneIds []string `json:"zoneIds,omitempty"`
+    // RouteIds 根据路由ID过滤。
+    // 最多同时传入100个ID。
+    RouteIds []string `json:"routeIds,omitempty"`
 
-}
+    // VpcId 根据路由关联的VPC ID过滤。
+    VpcId *string `json:"vpcId,omitempty"`
 
-// DescribeZonesResponseParams 查询可用区
-type DescribeZonesResponseParams struct {
+    // IpVersion 根据IP类型过滤。
+    // 支持`IPv4`和`IPv6`两种类型。
+    IpVersion *string `json:"ipVersion,omitempty"`
 
-    RequestId *string `json:"requestId,omitempty"`
+    // RouteType 根据路由类型过滤。
+    RouteType *string `json:"routeType,omitempty"`
 
-    // ZoneSet 可用区列表。
-    ZoneSet []*ZoneInfo `json:"zoneSet,omitempty"`
-
-}
-
-// ZoneInfo 可用区的基本信息。
-type ZoneInfo struct {
-
-    // ZoneId 可用区ID。
-    ZoneId *string `json:"zoneId,omitempty"`
-
-    // RegionId 可用区所在的节点ID。
-    RegionId *string `json:"regionId,omitempty"`
-
-    // ZoneName 可用区名称。
-    ZoneName *string `json:"zoneName,omitempty"`
-
-    // Deprecated: SupportSecurityGroup 已废弃，请不要使用。
-    // SupportSecurityGroup 可用区是否支持安全组。该字段已废弃，当前所有节点均支持安全组。
-    SupportSecurityGroup *bool `json:"supportSecurityGroup,omitempty"`
-
-}
-
-type DescribeZonesResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeZonesResponseParams `json:"response,omitempty"`
-
-}
-
-// DescribePoolsRequest 描述公网IP池的请求参数。
-type DescribePoolsRequest struct {
-    *common.BaseRequest
-
-    // PoolIds 根据公网IP池的ID。
-    PoolIds []string `json:"poolIds,omitempty"`
-
-    // RegionId 根据公网IP池的所在节点ID过滤。
-    RegionId *string `json:"regionId,omitempty"`
-
-    // Name 根据公网IP池的名称过滤。支持模糊查询。
+    // Name 根据名称类型过滤。
+    // 该字段支持模糊搜索。
     Name *string `json:"name,omitempty"`
 
-    // PageSize 返回的分页大小，默认为20，最大为1000。
+    // DestinationCidrBlock 根据Ipv4或IPv6的目标网段过滤。
+    // 例如：10.0.1.0/24。
+    DestinationCidrBlock *string `json:"destinationCidrBlock,omitempty"`
+
+    // PageSize 返回的分页大小。
     PageSize *int `json:"pageSize,omitempty"`
 
-    // PageNum 返回的分页数，默认为1。
+    // PageNum 返回的分页数。
     PageNum *int `json:"pageNum,omitempty"`
 
 }
 
-// DescribePoolsResponseParams 描述公网IP池的请求参数。
-type DescribePoolsResponseParams struct {
+type DescribeRoutesResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeRoutesResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeRoutesResponseParams 
+type DescribeRoutesResponseParams struct {
 
     RequestId *string `json:"requestId,omitempty"`
 
     // TotalCount 符合条件的数据总数。
     TotalCount *int `json:"totalCount,omitempty"`
 
-    // DataSet 公网IP池列表的结果数据。
-    DataSet []*PoolInfo `json:"dataSet,omitempty"`
+    // DataSet 路由列表数据。
+    DataSet []*RouteInfo `json:"dataSet,omitempty"`
 
 }
 
-// PoolInfo 描述公网IP池的基本信息。
-type PoolInfo struct {
+// RouteInfo 描述路由的相关信息。
+type RouteInfo struct {
 
-    // PoolId 公网IP池的ID。
-    PoolId *string `json:"poolId,omitempty"`
+    // RouteId 路由ID。
+    RouteId *string `json:"routeId,omitempty"`
 
-    // RegionId 公网IP池所在的节点ID。
-    RegionId *string `json:"regionId,omitempty"`
-
-    // Name 公网IP池的名称。
+    // Name 路由的名称。
     Name *string `json:"name,omitempty"`
 
-    // CreateTime 公网IP池的创建时间。
+    // VpcId 路由关联的VPC的ID。
+    VpcId *string `json:"vpcId,omitempty"`
+
+    // VpcName 路由关联的VPC的名称。
+    VpcName *string `json:"vpcName,omitempty"`
+
+    // IpVersion IP类型。
+    // 支持`IPv4`和`IPv6`两种类型。
+    IpVersion *string `json:"ipVersion,omitempty"`
+
+    // Type 路由类型。
+    Type *string `json:"type,omitempty"`
+
+    // SourceCidrBlock 源IP地址。
+    // 当`路由类型`是`RouteTypePolicy(策略路由)`时可取值。
+    SourceCidrBlock *string `json:"sourceCidrBlock,omitempty"`
+
+    // DestinationCidrBlock IPv4或IPv6的目标网段。
+    // 例如：10.0.1.0/24。
+    DestinationCidrBlock *string `json:"destinationCidrBlock,omitempty"`
+
+    // CidrBlock IPv4或IPv6的目标网段。
+    // 例如：10.0.1.0/24。
+    // 该字段已废弃，请使用`destinationCidrBlock`。
+    CidrBlock *string `json:"cidrBlock,omitempty"`
+
+    // Priority 路由优先级。
+    Priority *int `json:"priority,omitempty"`
+
+    // NextHopId 下一跳资源ID。
+    NextHopId *string `json:"nextHopId,omitempty"`
+
+    // NextHopName 下一跳资源名称。
+    NextHopName *string `json:"nextHopName,omitempty"`
+
+    // NextHopType 下一跳的类型。
+    NextHopType *string `json:"nextHopType,omitempty"`
+
+    // CreateTime 路由的创建时间。
     CreateTime *string `json:"createTime,omitempty"`
-
-    // Ipv4CidrCount CIDR IPv4的数量。
-    Ipv4CidrCount *int `json:"ipv4CidrCount,omitempty"`
-
-    // Ipv6CidrCount CIDR IPv6的数量。
-    Ipv6CidrCount *int `json:"ipv6CidrCount,omitempty"`
 
 }
 
-type DescribePoolsResponse struct {
+type CreateRouteRequest struct {
+    *common.BaseRequest
+
+    // VpcId VPC的ID。
+    VpcId *string `json:"vpcId,omitempty"`
+
+    // IpVersion IP类型。
+    // 支持`IPv4`和`IPv6`两种类型。
+    IpVersion *string `json:"ipVersion,omitempty"`
+
+    // RouteType 路由类型。
+    RouteType *string `json:"routeType,omitempty"`
+
+    // SourceCidrBlock 源IP地址CIDR。
+    // `路由类型`配置`RouteTypePolicy(策略路由)`时需指定。
+    SourceCidrBlock *string `json:"sourceCidrBlock,omitempty"`
+
+    // DestinationCidrBlock IPv4或IPv6的目标网段。
+    // 例如：10.0.1.0/24。
+    DestinationCidrBlock *string `json:"destinationCidrBlock,omitempty"`
+
+    // CidrBlock IPv4或IPv6的目标网段。
+    // 例如：10.0.1.0/24。
+    // 该字段已废弃，请使用`destinationCidrBlock`。
+    CidrBlock *string `json:"cidrBlock,omitempty"`
+
+    // Priority 路由优先级。
+    // 数值越小，优先级越高。
+    Priority *int `json:"priority,omitempty"`
+
+    // NextHopId 下一跳资源ID。
+    // 目前只支持网卡ID。
+    NextHopId *string `json:"nextHopId,omitempty"`
+
+    // NextHotId 下一跳资源ID。
+    // 目前只支持网卡ID。
+    // 该字段已废弃， 请使用`nextHopId`。
+    NextHotId *string `json:"nextHotId,omitempty"`
+
+    // Name 路由名称。
+    // 名称长度为 2 到 63 个字符，仅支持字母、数字、连字符 (-) 、下划线(_) 、斜杠(/) 、和句点 (.)，且开头和结尾必须是字母或数字。
+    Name *string `json:"name,omitempty"`
+
+}
+
+type CreateRouteResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
 
-    Response *DescribePoolsResponseParams `json:"response,omitempty"`
+    Response *CreateRouteResponseParams `json:"response,omitempty"`
 
 }
 
-type DescribeCidrRegionsRequest struct {
+// CreateRouteResponseParams 
+type CreateRouteResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // RouteId 创建的路由ID。
+    RouteId *string `json:"routeId,omitempty"`
+
+}
+
+// ModifyRouteAttributeRequest 
+type ModifyRouteAttributeRequest struct {
+    *common.BaseRequest
+
+    // RouteId 路由ID。
+    RouteId *string `json:"routeId,omitempty"`
+
+    // Name 路由名称。
+    // 名称长度为 2 到 63 个字符，仅支持字母、数字、连字符 (-) 、下划线(_) 、斜杠(/) 、和句点 (.)，且开头和结尾必须是字母或数字。
+    Name *string `json:"name,omitempty"`
+
+}
+
+type ModifyRouteAttributeResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// DeleteRouteRequest 
+type DeleteRouteRequest struct {
+    *common.BaseRequest
+
+    // RouteId 路由ID。
+    RouteId *string `json:"routeId,omitempty"`
+
+}
+
+type DeleteRouteResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type DescribeCrossRegionBandwidthRegionsRequest struct {
     *common.BaseRequest
 
 }
 
-// DescribeCidrRegionsResponseParams 支持售卖CIDR的响应信息。
-type DescribeCidrRegionsResponseParams struct {
+type DescribeCrossRegionBandwidthRegionsResponse struct {
+    *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
 
-    // RegionIds 支持售卖CIDR的节点ID。
+    Response *DescribeCrossRegionBandwidthRegionsResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeCrossRegionBandwidthRegionsResponseParams 
+type DescribeCrossRegionBandwidthRegionsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // RegionIds 支持售卖内网跨区域带宽的节点ID集合。
     RegionIds []string `json:"regionIds,omitempty"`
 
 }
 
-type DescribeCidrRegionsResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeCidrRegionsResponseParams `json:"response,omitempty"`
-
-}
-
-// DescribeCidrPriceRequest 查询CIDR价格的请求信息。
-type DescribeCidrPriceRequest struct {
-    *common.BaseRequest
-
-    // RegionId 查询CIDR所在的节点ID。
-    RegionId *string `json:"regionId,omitempty"`
-
-    // Deprecated: EipV4Type 已废弃，请不要使用。
-    // EipV4Type 查询CIDR的IP线路类型。已废弃，请使用`networkLineType`。
-    EipV4Type *string `json:"eipV4Type,omitempty"`
-
-    // NetworkLineType 查询CIDR的IP线路类型。
-    NetworkLineType *string `json:"networkLineType,omitempty"`
-
-    // Netmask 需要查询的CIDR子网数量和掩码信息。
-    Netmask *NetmaskInfo `json:"netmask,omitempty"`
-
-}
-
-// NetmaskInfo 描述CIDR掩码的信息。
-type NetmaskInfo struct {
-
-    // Netmask 掩码大小。
-    Netmask *int `json:"netmask,omitempty"`
-
-    // Amount CIDR的数量。
-    Amount *int `json:"amount,omitempty"`
-
-}
-
-// DescribeCidrPriceResponseParams 查询CIDR价格的响应信息。
-type DescribeCidrPriceResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // CidrPrice CIDR的价格信息。
-    CidrPrice *PriceItem `json:"cidrPrice,omitempty"`
-
-}
-
-type DescribeCidrPriceResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeCidrPriceResponseParams `json:"response,omitempty"`
-
-}
-
-// DescribeCidrsRequest 查询CIDR列表的请求信息。
-type DescribeCidrsRequest struct {
-    *common.BaseRequest
-
-    // CidrIds 一个或多个待操作的Cidr ID，根据cidrId进行过滤。
-    CidrIds []string `json:"cidrIds,omitempty"`
-
-    // RegionId 根据CIDR所在的节点ID进行过滤。
-    RegionId *string `json:"regionId,omitempty"`
-
-    // Name 根据CIDR名称进行过滤，支持模糊查询。
-    Name *string `json:"name,omitempty"`
-
-    // CidrBlock 根据CIDR地址进行过滤。
-    CidrBlock *string `json:"cidrBlock,omitempty"`
-
-    // Source 根据CIDR来源进行过滤。
-    Source *string `json:"source,omitempty"`
-
-    // ResourceGroupId 根据资源组ID进行过滤。
-    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
-
-    // PageSize 返回的分页大小，默认为20，最大为1000。
-    PageSize *int `json:"pageSize,omitempty"`
-
-    // PageNum 返回的分页数，默认为1。
-    PageNum *int `json:"pageNum,omitempty"`
-
-    // TagKeys 根据标签键进行搜索。 最长不得超过20个标签键。
-    TagKeys []string `json:"tagKeys,omitempty"`
-
-    // Tags 根据标签进行搜索。 最长不得超过20个标签。
-    Tags []*Tag `json:"tags,omitempty"`
-
-}
-
-// DescribeCidrsResponseParams 查询CIDR地址的响应信息。
-type DescribeCidrsResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // TotalCount 符合条件的数据总数。
-    TotalCount *int `json:"totalCount,omitempty"`
-
-    // DataSet 查询CIDR地址的结果数据。
-    DataSet []*CidrInfo `json:"dataSet,omitempty"`
-
-}
-
-// CidrInfo CIDR信息详情。
-type CidrInfo struct {
-
-    // CidrId CIDR ID。
-    CidrId *string `json:"cidrId,omitempty"`
-
-    // RegionId CIDR所属的区域节点ID。
-    RegionId *string `json:"regionId,omitempty"`
-
-    // Name CIDR的名称。
-    Name *string `json:"name,omitempty"`
-
-    // CidrBlock CIDR地址块，例如：10.0.0.0/16。
-    CidrBlock *string `json:"cidrBlock,omitempty"`
-
-    // TotalCount CIDR中IP地址的总数量。
-    TotalCount *int `json:"totalCount,omitempty"`
-
-    // UsedCount CIDR中已被使用的IP地址数量。
-    UsedCount *int `json:"usedCount,omitempty"`
-
-    // Source CIDR的来源。如CONSOLE（属于zenlayer）或 BYOIP（客户自带IP）。
-    Source *string `json:"source,omitempty"`
-
-    // Deprecated: EipV4Type 已废弃，请不要使用。
-    // EipV4Type EIP网络类型。表示该CIDR支持的公网IP线路类型。已废弃，请参考`networkLineType`。
-    EipV4Type *string `json:"eipV4Type,omitempty"`
-
-    // NetworkLineType EIP网络类型。表示该CIDR支持的公网IP线路类型。
-    NetworkLineType *string `json:"networkLineType,omitempty"`
-
-    // Netmask 子网掩码。表示CIDR的网络位长度。
-    Netmask *int `json:"netmask,omitempty"`
-
-    // PoolId Pool的ID。表示该CIDR所属的公网IP池。
-    PoolId *string `json:"poolId,omitempty"`
-
-    // CreateTime CIDR的创建时间。
-    CreateTime *string `json:"createTime,omitempty"`
-
-    // ExpiredTime CIDR的到期时间。
-    ExpiredTime *string `json:"expiredTime,omitempty"`
-
-    // ResourceGroupId 该CIDR所属的资源组。
-    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
-
-    // ResourceGroupName 该CIDR所属资源组的名称。
-    ResourceGroupName *string `json:"resourceGroupName,omitempty"`
-
-    // Status CIDR的状态。
-    Status *string `json:"status,omitempty"`
-
-    // Tags 该CIDR地址段关联的标签。
-    Tags *Tags `json:"tags,omitempty"`
-
-}
-
-type DescribeCidrsResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeCidrsResponseParams `json:"response,omitempty"`
-
-}
-
-// CreateCidrRequest 创建CIDR请求参数
-type CreateCidrRequest struct {
-    *common.BaseRequest
-
-    // RegionId 节点ID。
-    RegionId *string `json:"regionId,omitempty"`
-
-    // Deprecated: EipV4Type 已废弃，请不要使用。
-    // EipV4Type 公网IPv4的网络类型。已废弃，请使用`networkLineType`。
-    EipV4Type *string `json:"eipV4Type,omitempty"`
-
-    // NetworkLineType 公网IPv4的网络类型。
-    NetworkLineType *string `json:"networkLineType,omitempty"`
-
-    // Netmask CIDR掩码、数量。
-    Netmask *NetmaskInfo `json:"netmask,omitempty"`
-
-    // Name CIDR名称。范围2到63个字符。仅支持输入字母、数字、-/_和英文句点(.)。且必须以数字或字母开头和结尾。默认会将分配的CIDR地址作为名称。
-    Name *string `json:"name,omitempty"`
-
-    // ResourceGroupId 资源组ID。如果不指定，则会加入默认资源组。
-    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
-
-    // MarketingOptions 市场营销相关的选项。
-    MarketingOptions *MarketingInfo `json:"marketingOptions,omitempty"`
-
-    // Tags 创建CIDR时关联的标签。注意：关联`标签键`不能重复。
-    Tags *TagAssociation `json:"tags,omitempty"`
-
-}
-
-// CreateCidrResponseParams 描述创建CIDR的响应信息。
-type CreateCidrResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // CidrIds 创建的CIDR地址段ID列表。
-    CidrIds []string `json:"cidrIds,omitempty"`
-
-}
-
-type CreateCidrResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *CreateCidrResponseParams `json:"response,omitempty"`
-
-}
-
-// ModifyCidrAttributeRequest 修改CIDR地址段的属性的请求信息
-type ModifyCidrAttributeRequest struct {
-    *common.BaseRequest
-
-    // CidrId 要修改CIDR地址段的ID。
-    CidrId *string `json:"cidrId,omitempty"`
-
-    // Name 要修改的名称。范围2到63个字符。仅支持输入字母、数字、-/_和英文句点(.)。且必须以数字或字母开头和结尾。
-    Name *string `json:"name,omitempty"`
-
-}
-
-type ModifyCidrAttributeResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// DeleteCidrRequest 描述删除CIDR请求信息。
-type DeleteCidrRequest struct {
-    *common.BaseRequest
-
-    // CidrId 要删除的CIDR ID。
-    CidrId *string `json:"cidrId,omitempty"`
-
-}
-
-type DeleteCidrResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// RenewCidrRequest 描述恢复CIDR请求信息。
-type RenewCidrRequest struct {
-    *common.BaseRequest
-
-    // CidrId 要恢复的CIDR ID。
-    CidrId *string `json:"cidrId,omitempty"`
-
-}
-
-type RenewCidrResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-type DeleteCidrsRequest struct {
-    *common.BaseRequest
-
-    // CidrIds 要删除的cidrId列表。
-    CidrIds []string `json:"cidrIds,omitempty"`
-
-}
-
-// DeleteCidrsResponseParams 删除CIDR的响应结果。
-type DeleteCidrsResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // FailedCidrIds 操作失败的CIDR ID列表。
-    FailedCidrIds []string `json:"failedCidrIds,omitempty"`
-
-}
-
-type DeleteCidrsResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DeleteCidrsResponseParams `json:"response,omitempty"`
-
-}
-
-// DescribeIpv6CidrsRequest 查询IPV6 CIDR列表的请求信息。
-type DescribeIpv6CidrsRequest struct {
-    *common.BaseRequest
-
-    // CidrIds 一个或多个待操作的Cidr ID，根据cidrId进行过滤。
-    CidrIds []string `json:"cidrIds,omitempty"`
-
-    // RegionId 根据CIDR所在的节点ID进行过滤。
-    RegionId *string `json:"regionId,omitempty"`
-
-    // Name 根据CIDR名称进行过滤，支持模糊查询。
-    Name *string `json:"name,omitempty"`
-
-    // CidrBlock 根据CIDR地址进行过滤。
-    CidrBlock *string `json:"cidrBlock,omitempty"`
-
-    // ResourceGroupId 根据资源组ID进行过滤。
-    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
-
-    // PageSize 返回的分页大小，默认为20，最大为1000。
-    PageSize *int `json:"pageSize,omitempty"`
-
-    // PageNum 返回的分页数，默认为1。
-    PageNum *int `json:"pageNum,omitempty"`
-
-    // TagKeys 根据标签键进行搜索。 最长不得超过20个标签键。
-    TagKeys []string `json:"tagKeys,omitempty"`
-
-    // Tags 根据标签进行搜索。 最长不得超过20个标签。
-    Tags []*Tag `json:"tags,omitempty"`
-
-}
-
-// DescribeIpv6CidrsResponseParams 查询CIDR IPV6地址的响应信息。
-type DescribeIpv6CidrsResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // TotalCount 符合条件的数据总数。
-    TotalCount *int `json:"totalCount,omitempty"`
-
-    // DataSet 查询IPV6 CIDR地址的结果数据。
-    DataSet []*Ipv6CidrInfo `json:"dataSet,omitempty"`
-
-}
-
-// Ipv6CidrInfo IPv6 CIDR信息详情。
-type Ipv6CidrInfo struct {
-
-    // CidrId CIDR ID。
-    CidrId *string `json:"cidrId,omitempty"`
-
-    // RegionId CIDR所属的区域节点ID。
-    RegionId *string `json:"regionId,omitempty"`
-
-    // Name CIDR的名称。
-    Name *string `json:"name,omitempty"`
-
-    // CidrBlock CIDR地址块，例如：2400:8a00::/28。
-    CidrBlock *string `json:"cidrBlock,omitempty"`
-
-    // Source CIDR的来源。如CONSOLE（属于zenlayer）或 BYOIP（客户自带IP）。
-    Source *string `json:"source,omitempty"`
-
-    // NetworkLineType CIDR网络类型。表示该CIDR支持的公网IP线路类型。
-    NetworkLineType *string `json:"networkLineType,omitempty"`
-
-    // SubnetIds 子网ID集合。
-    SubnetIds []string `json:"subnetIds,omitempty"`
-
-    // NicIds 网卡ID集合。
-    NicIds []string `json:"nicIds,omitempty"`
-
-    // Netmask 子网掩码。表示CIDR的网络位长度。
-    Netmask *int `json:"netmask,omitempty"`
-
-    // PoolId Pool的ID。表示该CIDR所属的公网IP池。
-    PoolId *string `json:"poolId,omitempty"`
-
-    // CreateTime CIDR的创建时间。
-    CreateTime *string `json:"createTime,omitempty"`
-
-    // ExpiredTime CIDR的到期时间。
-    ExpiredTime *string `json:"expiredTime,omitempty"`
-
-    // ResourceGroup 该CIDR所属的资源组。
-    ResourceGroup *ResourceGroupInfo `json:"resourceGroup,omitempty"`
-
-    // Status CIDR的状态。
-    Status *string `json:"status,omitempty"`
-
-    // Tags 该CIDR地址段关联的标签。
-    Tags *Tags `json:"tags,omitempty"`
-
-}
-
-type DescribeIpv6CidrsResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeIpv6CidrsResponseParams `json:"response,omitempty"`
-
-}
-
-// DeleteIpv6CidrRequest 删除IPv6地址块的请求信息。
-type DeleteIpv6CidrRequest struct {
-    *common.BaseRequest
-
-    // CidrId IPv6 地址块ID。
-    CidrId *string `json:"cidrId,omitempty"`
-
-}
-
-type DeleteIpv6CidrResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-type RenewIpv6CidrRequest struct {
-    *common.BaseRequest
-
-    // CidrId IPv6 地址块ID。
-    CidrId *string `json:"cidrId,omitempty"`
-
-}
-
-type RenewIpv6CidrResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// CreateCrossRegionBandwidthRequest 创建内网跨区域带宽请求参数。
-type CreateCrossRegionBandwidthRequest struct {
-    *common.BaseRequest
-
-    // VpcId 创建内网跨区域带宽所在的VPC ID。
-    VpcId *string `json:"vpcId,omitempty"`
-
-    // InternetChargeType 网络计费类型。
-    InternetChargeType *string `json:"internetChargeType,omitempty"`
-
-    // CrossRegionBandwidthName 内网跨区域带宽的名称。范围2到63个字符。仅支持输入字母、数字、-/_和英文句点(.)。且必须以数字或字母开头和结尾。
-    CrossRegionBandwidthName *string `json:"crossRegionBandwidthName,omitempty"`
-
-    // MarketingInfo 市场营销的相关选项。
-    MarketingInfo *MarketingInfo `json:"marketingInfo,omitempty"`
-
-    // RegionA 其中一端的区域连接点（A）。
-    RegionA *string `json:"regionA,omitempty"`
-
-    // RegionZ 另一端的区域连接点（Z）。
-    RegionZ *string `json:"regionZ,omitempty"`
-
-    // Bandwidth 带宽|保底带宽。单位：Mbps。
-    Bandwidth *int `json:"bandwidth,omitempty"`
-
-    // BandwidthCap 突发带宽。单位：Mbps。当且仅当internetChargeType为`ByInstanceBandwidth95`时此字段必填。
-    BandwidthCap *int `json:"bandwidthCap,omitempty"`
-
-}
-
-// CreateCrossRegionBandwidthResponseParams 创建内网跨区域带宽响应结果。
-type CreateCrossRegionBandwidthResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // OrderNumber 下单编号。
-    OrderNumber *string `json:"orderNumber,omitempty"`
-
-    // CrossRegionBandwidthId 内网跨区域带宽唯一ID。
-    CrossRegionBandwidthId *string `json:"crossRegionBandwidthId,omitempty"`
-
-}
-
-type CreateCrossRegionBandwidthResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *CreateCrossRegionBandwidthResponseParams `json:"response,omitempty"`
-
-}
-
-// InquiryPriceCreateCrossRegionBandwidthRequest 创建内网跨地域带宽询价请求参数
+// InquiryPriceCreateCrossRegionBandwidthRequest 
 type InquiryPriceCreateCrossRegionBandwidthRequest struct {
     *common.BaseRequest
 
@@ -5122,18 +4962,9 @@ type InquiryPriceCreateCrossRegionBandwidthRequest struct {
     // RegionZ 另一端的区域连接点（Z）。
     RegionZ *string `json:"regionZ,omitempty"`
 
-    // Bandwidth 带宽|保底带宽。单位：Mbps。
+    // Bandwidth 带宽|保底带宽。
+    // 单位：Mbps。
     Bandwidth *int `json:"bandwidth,omitempty"`
-
-}
-
-// InquiryPriceCreateCrossRegionBandwidthResponseParams 内网跨区域带宽的询价响应值。
-type InquiryPriceCreateCrossRegionBandwidthResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // CrossRegionBandwidthPrice 内网跨区域带宽的价格。
-    CrossRegionBandwidthPrice *PriceItem `json:"crossRegionBandwidthPrice,omitempty"`
 
 }
 
@@ -5146,19 +4977,252 @@ type InquiryPriceCreateCrossRegionBandwidthResponse struct {
 
 }
 
-// ModifyCrossRegionBandwidthAttributeRequest 修改内网跨区域带宽属性请求参数
+// InquiryPriceCreateCrossRegionBandwidthResponseParams 
+type InquiryPriceCreateCrossRegionBandwidthResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // CrossRegionBandwidthPrice 内网跨区域带宽的价格。
+    CrossRegionBandwidthPrice *PriceItem `json:"crossRegionBandwidthPrice,omitempty"`
+
+}
+
+// CreateCrossRegionBandwidthRequest 
+type CreateCrossRegionBandwidthRequest struct {
+    *common.BaseRequest
+
+    // VpcId 创建内网跨区域带宽所在的VPC ID。
+    VpcId *string `json:"vpcId,omitempty"`
+
+    // InternetChargeType 网络计费类型。
+    InternetChargeType *string `json:"internetChargeType,omitempty"`
+
+    // CrossRegionBandwidthName 内网跨区域带宽的名称。
+    // 范围2到63个字符。
+    // 仅支持输入字母、数字、-/_和英文句点(.)。
+    // 且必须以数字或字母开头和结尾。
+    CrossRegionBandwidthName *string `json:"crossRegionBandwidthName,omitempty"`
+
+    // MarketingInfo 市场营销的相关选项。
+    MarketingInfo *MarketingInfo `json:"marketingInfo,omitempty"`
+
+    // RegionA 其中一端的区域连接点（A）。
+    RegionA *string `json:"regionA,omitempty"`
+
+    // RegionZ 另一端的区域连接点（Z）。
+    RegionZ *string `json:"regionZ,omitempty"`
+
+    // Bandwidth 带宽|保底带宽。
+    // 单位：Mbps。
+    Bandwidth *int `json:"bandwidth,omitempty"`
+
+    // BandwidthCap 突发带宽。
+    // 单位：Mbps。
+    // 当且仅当internetChargeType为`ByInstanceBandwidth95`时此字段必填。
+    BandwidthCap *int `json:"bandwidthCap,omitempty"`
+
+}
+
+type CreateCrossRegionBandwidthResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *CreateCrossRegionBandwidthResponseParams `json:"response,omitempty"`
+
+}
+
+// CreateCrossRegionBandwidthResponseParams 
+type CreateCrossRegionBandwidthResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // OrderNumber 下单编号。
+    OrderNumber *string `json:"orderNumber,omitempty"`
+
+    // CrossRegionBandwidthId 内网跨区域带宽唯一ID。
+    CrossRegionBandwidthId *string `json:"crossRegionBandwidthId,omitempty"`
+
+}
+
+// DescribeCrossRegionBandwidthRequest 
+type DescribeCrossRegionBandwidthRequest struct {
+    *common.BaseRequest
+
+    // CrossRegionBandwidthIds 按照唯一ID过滤。
+    CrossRegionBandwidthIds []string `json:"crossRegionBandwidthIds,omitempty"`
+
+    // CrossRegionBandwidthName 按照显示名称过滤，该字段支持模糊匹配。
+    CrossRegionBandwidthName *string `json:"crossRegionBandwidthName,omitempty"`
+
+    // VpcId 按照所属的VPC的ID过滤。
+    VpcId *string `json:"vpcId,omitempty"`
+
+    // RegionA 按照其中一端的区域连接点（A）过滤。
+    RegionA *string `json:"regionA,omitempty"`
+
+    // RegionZ 按照另一端的区域连接点（Z）过滤。
+    RegionZ *string `json:"regionZ,omitempty"`
+
+    // Status 按照状态过滤。
+    Status *string `json:"status,omitempty"`
+
+    // PageSize 返回的分页大小。
+    // 默认为20，最大为1000。
+    PageSize *int `json:"pageSize,omitempty"`
+
+    // PageNum 返回的分页页码。
+    PageNum *int `json:"pageNum,omitempty"`
+
+    // ResourceGroupId 根据资源组ID过滤。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+}
+
+type DescribeCrossRegionBandwidthResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeCrossRegionBandwidthResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeCrossRegionBandwidthResponseParams 
+type DescribeCrossRegionBandwidthResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // TotalCount 匹配筛选条件的内网跨区域带宽的总数量。
+    TotalCount *int `json:"totalCount,omitempty"`
+
+    // DataSet 返回分页的内网跨区域带宽的集合数据。
+    DataSet []*CrossRegionBandwidthInfo `json:"dataSet,omitempty"`
+
+}
+
+// CrossRegionBandwidthInfo 描述内网跨区域带宽的基本信息。
+type CrossRegionBandwidthInfo struct {
+
+    // CrossRegionBandwidthId 内网跨区域带宽的唯一ID。
+    CrossRegionBandwidthId *string `json:"crossRegionBandwidthId,omitempty"`
+
+    // CrossRegionBandwidthName 内网跨区域带宽的名称。
+    CrossRegionBandwidthName *string `json:"crossRegionBandwidthName,omitempty"`
+
+    // Status 内网跨区域带宽的状态。
+    Status *string `json:"status,omitempty"`
+
+    // VpcId 内网跨区域带宽所属的VPC ID。
+    VpcId *string `json:"vpcId,omitempty"`
+
+    // RegionA 内网跨区域带宽的其中一端的区域连接点（A）。
+    RegionA *string `json:"regionA,omitempty"`
+
+    // RegionZ 内网跨区域带宽的另一端的区域连接点（Z）。
+    RegionZ *string `json:"regionZ,omitempty"`
+
+    // Bandwidth 内网跨区域带宽的带宽|保底带宽。
+    Bandwidth *int `json:"bandwidth,omitempty"`
+
+    // BandwidthCap 内网跨区域带宽的突发带宽。
+    // 该字段可能为null。
+    BandwidthCap *int `json:"bandwidthCap,omitempty"`
+
+    // CreateTime 内网跨区域带宽的创建时间。
+    CreateTime *string `json:"createTime,omitempty"`
+
+    // InternetChargeType 内网跨区域带宽的网络模型。
+    InternetChargeType *string `json:"internetChargeType,omitempty"`
+
+    // ExpiredTime 内网跨区域带宽的到期时间。
+    // 该字段可能为null。
+    ExpiredTime *string `json:"expiredTime,omitempty"`
+
+    // ResourceGroupId 内网跨区域带宽的所属的资源组。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // ResourceGroupName 内网跨区域带宽的所属资源组的名称。
+    ResourceGroupName *string `json:"resourceGroupName,omitempty"`
+
+}
+
+// InquiryPriceModifyCrossRegionBandwidthRequest 
+type InquiryPriceModifyCrossRegionBandwidthRequest struct {
+    *common.BaseRequest
+
+    // CrossRegionBandwidthId 要修改的内网跨区域带宽ID。
+    CrossRegionBandwidthId *string `json:"crossRegionBandwidthId,omitempty"`
+
+    // Bandwidth 带宽|保底带宽。
+    // 单位：Mbps。
+    Bandwidth *int `json:"bandwidth,omitempty"`
+
+}
+
+type InquiryPriceModifyCrossRegionBandwidthResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *InquiryPriceModifyCrossRegionBandwidthResponseParams `json:"response,omitempty"`
+
+}
+
+// InquiryPriceModifyCrossRegionBandwidthResponseParams 
+type InquiryPriceModifyCrossRegionBandwidthResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // CrossRegionBandwidthPrice 内网跨区域带宽的价格。
+    CrossRegionBandwidthPrice *PriceItem `json:"crossRegionBandwidthPrice,omitempty"`
+
+}
+
+// ModifyCrossRegionBandwidthAttributeRequest 
 type ModifyCrossRegionBandwidthAttributeRequest struct {
     *common.BaseRequest
 
     // CrossRegionBandwidthIds 要修改的内网跨区域带宽ID集合。
     CrossRegionBandwidthIds []string `json:"crossRegionBandwidthIds,omitempty"`
 
-    // CrossRegionBandwidthName 内网跨区域带宽的名称。范围2到63个字符。仅支持输入字母、数字、-/_和英文句点(.)。且必须以数字或字母开头和结尾。
+    // CrossRegionBandwidthName 内网跨区域带宽的名称。
+    // 范围2到63个字符。
+    // 仅支持输入字母、数字、-/_和英文句点(.)。
+    // 且必须以数字或字母开头和结尾。
     CrossRegionBandwidthName *string `json:"crossRegionBandwidthName,omitempty"`
 
 }
 
 type ModifyCrossRegionBandwidthAttributeResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// ModifyCrossRegionBandwidthRequest 
+type ModifyCrossRegionBandwidthRequest struct {
+    *common.BaseRequest
+
+    // CrossRegionBandwidthId 要调整的内网跨区域带宽ID。
+    CrossRegionBandwidthId *string `json:"crossRegionBandwidthId,omitempty"`
+
+    // Bandwidth 带宽|保底带宽。
+    // 单位：Mbps。
+    Bandwidth *int `json:"bandwidth,omitempty"`
+
+    // BandwidthCap 突发带宽。
+    // 单位：Mbps。
+    BandwidthCap *int `json:"bandwidthCap,omitempty"`
+
+}
+
+type ModifyCrossRegionBandwidthResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
@@ -5189,7 +5253,27 @@ type DeleteCrossRegionBandwidthResponse struct {
 
 }
 
-// DescribeCrossRegionBandwidthMonitorDataRequest 查询内网跨区域带宽监控指标数据请求。
+// RenewCrossRegionBandwidthRequest 
+type RenewCrossRegionBandwidthRequest struct {
+    *common.BaseRequest
+
+    // CrossRegionBandwidthId 要恢复的内网跨区域带宽ID。
+    CrossRegionBandwidthId *string `json:"crossRegionBandwidthId,omitempty"`
+
+}
+
+type RenewCrossRegionBandwidthResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// DescribeCrossRegionBandwidthMonitorDataRequest 
 type DescribeCrossRegionBandwidthMonitorDataRequest struct {
     *common.BaseRequest
 
@@ -5199,15 +5283,26 @@ type DescribeCrossRegionBandwidthMonitorDataRequest struct {
     // MetricType 内网跨区域带宽监控指标类型。
     MetricType *string `json:"metricType,omitempty"`
 
-    // StartTime 查询开始时间。时间格式：yyyy-MM-ddTHH:mm:ssZ。
+    // StartTime 查询开始时间。
+    // 时间格式：yyyy-MM-ddTHH:mm:ssZ。
     StartTime *string `json:"startTime,omitempty"`
 
-    // EndTime 查询结束时间。时间格式：yyyy-MM-ddTHH:mm:ssZ。
+    // EndTime 查询结束时间。
+    // 时间格式：yyyy-MM-ddTHH:mm:ssZ。
     EndTime *string `json:"endTime,omitempty"`
 
 }
 
-// DescribeCrossRegionBandwidthMonitorDataResponseParams 查询内网跨区域带宽监控指标数据响应。
+type DescribeCrossRegionBandwidthMonitorDataResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeCrossRegionBandwidthMonitorDataResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeCrossRegionBandwidthMonitorDataResponseParams 
 type DescribeCrossRegionBandwidthMonitorDataResponseParams struct {
 
     RequestId *string `json:"requestId,omitempty"`
@@ -5255,216 +5350,283 @@ type CrossRegionBandwidthMetricValue struct {
 
 }
 
-type DescribeCrossRegionBandwidthMonitorDataResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeCrossRegionBandwidthMonitorDataResponseParams `json:"response,omitempty"`
-
-}
-
-// InquiryPriceModifyCrossRegionBandwidthRequest 修改内网跨区域带宽询价请求参数
-type InquiryPriceModifyCrossRegionBandwidthRequest struct {
+type DescribeDhcpOptionsSetsRequest struct {
     *common.BaseRequest
 
-    // CrossRegionBandwidthId 要修改的内网跨区域带宽ID。
-    CrossRegionBandwidthId *string `json:"crossRegionBandwidthId,omitempty"`
+    // DhcpOptionsSetIds DHCP 选项集的 ID。
+    // 最多支持输入 20 个 DHCP 选项集的 ID。
+    DhcpOptionsSetIds []string `json:"dhcpOptionsSetIds,omitempty"`
 
-    // Bandwidth 带宽|保底带宽。单位：Mbps。
-    Bandwidth *int `json:"bandwidth,omitempty"`
+    // DhcpOptionsSetName DHCP 选项集的名称。
+    // 该字段支持模糊搜索。
+    DhcpOptionsSetName *string `json:"dhcpOptionsSetName,omitempty"`
 
-}
+    // SubnetId 关联的子网 ID。
+    SubnetId *string `json:"subnetId,omitempty"`
 
-// InquiryPriceModifyCrossRegionBandwidthResponseParams 变更内网跨区域带宽的询价响应值。
-type InquiryPriceModifyCrossRegionBandwidthResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // CrossRegionBandwidthPrice 内网跨区域带宽的价格。
-    CrossRegionBandwidthPrice *PriceItem `json:"crossRegionBandwidthPrice,omitempty"`
-
-}
-
-type InquiryPriceModifyCrossRegionBandwidthResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *InquiryPriceModifyCrossRegionBandwidthResponseParams `json:"response,omitempty"`
-
-}
-
-type DescribeCrossRegionBandwidthRegionsRequest struct {
-    *common.BaseRequest
-
-}
-
-// DescribeCrossRegionBandwidthRegionsResponseParams 查询支持售卖内网跨区域带宽的区域信息响应信息。
-type DescribeCrossRegionBandwidthRegionsResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // RegionIds 支持售卖内网跨区域带宽的节点ID集合。
-    RegionIds []string `json:"regionIds,omitempty"`
-
-}
-
-type DescribeCrossRegionBandwidthRegionsResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeCrossRegionBandwidthRegionsResponseParams `json:"response,omitempty"`
-
-}
-
-// ModifyCrossRegionBandwidthRequest 调整内网跨区域带宽请求参数
-type ModifyCrossRegionBandwidthRequest struct {
-    *common.BaseRequest
-
-    // CrossRegionBandwidthId 要调整的内网跨区域带宽ID。
-    CrossRegionBandwidthId *string `json:"crossRegionBandwidthId,omitempty"`
-
-    // Bandwidth 带宽|保底带宽。单位：Mbps。
-    Bandwidth *int `json:"bandwidth,omitempty"`
-
-    // BandwidthCap 突发带宽。单位：Mbps。
-    BandwidthCap *int `json:"bandwidthCap,omitempty"`
-
-}
-
-type ModifyCrossRegionBandwidthResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// RenewCrossRegionBandwidthRequest 恢复内网跨区域带宽请求参数。
-type RenewCrossRegionBandwidthRequest struct {
-    *common.BaseRequest
-
-    // CrossRegionBandwidthId 要恢复的内网跨区域带宽ID。
-    CrossRegionBandwidthId *string `json:"crossRegionBandwidthId,omitempty"`
-
-}
-
-type RenewCrossRegionBandwidthResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// DescribeCrossRegionBandwidthRequest 查询内网跨区域带宽列表请求参数。
-type DescribeCrossRegionBandwidthRequest struct {
-    *common.BaseRequest
-
-    // CrossRegionBandwidthIds 按照唯一ID过滤。
-    CrossRegionBandwidthIds []string `json:"crossRegionBandwidthIds,omitempty"`
-
-    // CrossRegionBandwidthName 按照显示名称过滤，该字段支持模糊匹配。
-    CrossRegionBandwidthName *string `json:"crossRegionBandwidthName,omitempty"`
-
-    // VpcId 按照所属的VPC的ID过滤。
-    VpcId *string `json:"vpcId,omitempty"`
-
-    // RegionA 按照其中一端的区域连接点（A）过滤。
-    RegionA *string `json:"regionA,omitempty"`
-
-    // RegionZ 按照另一端的区域连接点（Z）过滤。
-    RegionZ *string `json:"regionZ,omitempty"`
-
-    // Status 按照状态过滤。
-    Status *string `json:"status,omitempty"`
-
-    // PageSize 返回的分页大小。默认为20，最大为1000。
+    // PageSize 返回的分页大小，默认为20，最大为1000。
     PageSize *int `json:"pageSize,omitempty"`
 
-    // PageNum 返回的分页页码。默认为1。
+    // PageNum 返回的分页数。
     PageNum *int `json:"pageNum,omitempty"`
 
     // ResourceGroupId 根据资源组ID过滤。
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 
-}
+    // TagKeys 根据标签键进行搜索。
+    // 最长不得超过20个标签键。
+    TagKeys []string `json:"tagKeys,omitempty"`
 
-// DescribeCrossRegionBandwidthResponseParams 查询内网跨区域带宽列表响应。
-type DescribeCrossRegionBandwidthResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // TotalCount 匹配筛选条件的内网跨区域带宽的总数量。
-    TotalCount *int `json:"totalCount,omitempty"`
-
-    // DataSet 返回分页的内网跨区域带宽的集合数据。
-    DataSet []*CrossRegionBandwidthInfo `json:"dataSet,omitempty"`
+    // Tags 根据标签进行搜索。
+    // 最长不得超过20个标签。
+    Tags []*Tag `json:"tags,omitempty"`
 
 }
 
-// CrossRegionBandwidthInfo 描述内网跨区域带宽的基本信息。
-type CrossRegionBandwidthInfo struct {
-
-    // CrossRegionBandwidthId 内网跨区域带宽的唯一ID。
-    CrossRegionBandwidthId *string `json:"crossRegionBandwidthId,omitempty"`
-
-    // CrossRegionBandwidthName 内网跨区域带宽的名称。
-    CrossRegionBandwidthName *string `json:"crossRegionBandwidthName,omitempty"`
-
-    // Status 内网跨区域带宽的状态。
-    Status *string `json:"status,omitempty"`
-
-    // VpcId 内网跨区域带宽所属的VPC ID。
-    VpcId *string `json:"vpcId,omitempty"`
-
-    // RegionA 内网跨区域带宽的其中一端的区域连接点（A）。
-    RegionA *string `json:"regionA,omitempty"`
-
-    // RegionZ 内网跨区域带宽的另一端的区域连接点（Z）。
-    RegionZ *string `json:"regionZ,omitempty"`
-
-    // Bandwidth 内网跨区域带宽的带宽|保底带宽。
-    Bandwidth *int `json:"bandwidth,omitempty"`
-
-    // BandwidthCap 内网跨区域带宽的突发带宽。该字段可能为null。
-    BandwidthCap *int `json:"bandwidthCap,omitempty"`
-
-    // CreateTime 内网跨区域带宽的创建时间。
-    CreateTime *string `json:"createTime,omitempty"`
-
-    // InternetChargeType 内网跨区域带宽的网络模型。
-    InternetChargeType *string `json:"internetChargeType,omitempty"`
-
-    // ExpiredTime 内网跨区域带宽的到期时间。该字段可能为null。
-    ExpiredTime *string `json:"expiredTime,omitempty"`
-
-    // ResourceGroupId 内网跨区域带宽的所属的资源组。
-    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
-
-    // ResourceGroupName 内网跨区域带宽的所属资源组的名称。
-    ResourceGroupName *string `json:"resourceGroupName,omitempty"`
-
-}
-
-type DescribeCrossRegionBandwidthResponse struct {
+type DescribeDhcpOptionsSetsResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
 
-    Response *DescribeCrossRegionBandwidthResponseParams `json:"response,omitempty"`
+    Response *DescribeDhcpOptionsSetsResponseParams `json:"response,omitempty"`
 
 }
 
-// CreateBorderGatewayRequest 创建边界网关的请求参数。
+type DescribeDhcpOptionsSetsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // TotalCount 符合条件的数据总数。
+    TotalCount *int `json:"totalCount,omitempty"`
+
+    // DataSet DHCP 选项集列表的数据。
+    DataSet []*DhcpOptionsSet `json:"dataSet,omitempty"`
+
+}
+
+// DhcpOptionsSet 描述DHCP选项集的信息。
+type DhcpOptionsSet struct {
+
+    // DhcpOptionsSetId DHCP 选项集ID。
+    DhcpOptionsSetId *string `json:"dhcpOptionsSetId,omitempty"`
+
+    // DhcpOptionsSetName DHCP 选项集的名称。
+    // 长度为1～64个字符。
+    DhcpOptionsSetName *string `json:"dhcpOptionsSetName,omitempty"`
+
+    // DomainNameServers DNS 服务器 IP。
+    // 最多传入 4 个 DNS 服务器 Ipv4，DNS 服务器 IP 之间用半角逗号（,）隔开。
+    DomainNameServers *string `json:"domainNameServers,omitempty"`
+
+    // Ipv6DomainNameServers DNS 服务器 IP。
+    // 最多传入 4 个 DNS 服务器 Ipv6，DNS 服务器 IP 之间用半角逗号（,）隔开。
+    Ipv6DomainNameServers *string `json:"ipv6DomainNameServers,omitempty"`
+
+    // LeaseTime IPv4 DHCP 选项集的租赁时间。
+    // 单位：h。
+    LeaseTime *string `json:"leaseTime,omitempty"`
+
+    // Ipv6LeaseTime IPv6 DHCP 选项集的租赁时间。
+    // 单位：h。
+    Ipv6LeaseTime *string `json:"ipv6LeaseTime,omitempty"`
+
+    // CreateTime 创建时间。
+    // 按照ISO8601标准表示，并且使用UTC时间, 格式为：YYYY-MM-ddTHH:mm:ssZ。
+    CreateTime *string `json:"createTime,omitempty"`
+
+    // Description DHCP选项集 描述信息。
+    Description *string `json:"description,omitempty"`
+
+    // ResourceGroupId 实例所属的资源组ID。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // ResourceGroupName 实例所属的资源组名称。
+    ResourceGroupName *string `json:"resourceGroupName,omitempty"`
+
+    // Tags 实例关联的标签。
+    Tags *Tags `json:"tags,omitempty"`
+
+}
+
+type CreateDhcpOptionsSetRequest struct {
+    *common.BaseRequest
+
+    // DhcpOptionsSetName DHCP 选项集的名称。
+    // 长度为1～64个字符。
+    DhcpOptionsSetName *string `json:"dhcpOptionsSetName,omitempty"`
+
+    // DomainNameServers DNS 服务器 IP。
+    // 最多传入 4 个 DNS 服务器 Ipv4，DNS 服务器 IP 之间用半角逗号（,）隔开。
+    DomainNameServers *string `json:"domainNameServers,omitempty"`
+
+    // Ipv6DomainNameServers DNS 服务器 IP。
+    // 最多传入 4 个 DNS 服务器 Ipv6，DNS 服务器 IP 之间用半角逗号（,）隔开。
+    Ipv6DomainNameServers *string `json:"ipv6DomainNameServers,omitempty"`
+
+    // LeaseTime IPv4 DHCP 选项集的租赁时间。
+    // 单位：h。
+    // 取值范围：**24~1176**，**87600~175200**。
+    LeaseTime *string `json:"leaseTime,omitempty"`
+
+    // Ipv6LeaseTime IPv6 DHCP 选项集的租赁时间。
+    // 单位：h。
+    // 取值范围：**24~1176**，**87600~175200**。
+    Ipv6LeaseTime *string `json:"ipv6LeaseTime,omitempty"`
+
+    // Tags 创建DHCP 选项集时关联的标签。
+    // 注意：·关联`标签键`不能重复。
+    Tags *TagAssociation `json:"tags,omitempty"`
+
+    // ResourceGroupId 资源组ID。
+    // 如果不指定，则会创建在默认资源组。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // Description DHCP选项集 描述信息。
+    // 最长不超过255个字符。
+    Description *string `json:"description,omitempty"`
+
+}
+
+type CreateDhcpOptionsSetResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *CreateDhcpOptionsSetResponseParams `json:"response,omitempty"`
+
+}
+
+type CreateDhcpOptionsSetResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // DhcpOptionsSetId DHCP 选项集ID。
+    DhcpOptionsSetId *string `json:"dhcpOptionsSetId,omitempty"`
+
+}
+
+type ModifyDhcpOptionsSetAttributesRequest struct {
+    *common.BaseRequest
+
+    // DhcpOptionsSetId DHCP 选项集ID。
+    DhcpOptionsSetId *string `json:"dhcpOptionsSetId,omitempty"`
+
+    // DhcpOptionsSetName DHCP 选项集的名称。
+    // 长度为1～64个字符。
+    DhcpOptionsSetName *string `json:"dhcpOptionsSetName,omitempty"`
+
+    // DomainNameServers DNS 服务器 IP。
+    // 最多传入 4 个 DNS 服务器 Ipv4，DNS 服务器 IP 之间用半角逗号（,）隔开。
+    DomainNameServers *string `json:"domainNameServers,omitempty"`
+
+    // Ipv6DomainNameServers DNS 服务器 IP。
+    // 最多传入 4 个 DNS 服务器 Ipv6，DNS 服务器 IP 之间用半角逗号（,）隔开。
+    Ipv6DomainNameServers *string `json:"ipv6DomainNameServers,omitempty"`
+
+    // LeaseTime IPv4 DHCP 选项集的租赁时间。
+    // 单位：h。
+    // 取值范围：**24~1176**，**87600~175200**。
+    LeaseTime *string `json:"leaseTime,omitempty"`
+
+    // Ipv6LeaseTime IPv6 DHCP 选项集的租赁时间。
+    // 单位：h。
+    // 取值范围：**24~1176**，**87600~175200**。
+    Ipv6LeaseTime *string `json:"ipv6LeaseTime,omitempty"`
+
+    // Description DHCP选项集 描述信息。
+    // 最长不超过255个字符。
+    Description *string `json:"description,omitempty"`
+
+}
+
+type ModifyDhcpOptionsSetAttributesResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type AttachDhcpOptionsSetToSubnetRequest struct {
+    *common.BaseRequest
+
+    // DhcpOptionsSetId DHCP 选项集ID。
+    DhcpOptionsSetId *string `json:"dhcpOptionsSetId,omitempty"`
+
+    // SubnetIds 要与 DHCP 选项集关联的 Subnet 的 ID集合。
+    SubnetIds []string `json:"subnetIds,omitempty"`
+
+}
+
+type AttachDhcpOptionsSetToSubnetResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *AttachDhcpOptionsSetToSubnetResponseParams `json:"response,omitempty"`
+
+}
+
+// AttachDhcpOptionsSetToSubnetResponseParams 
+type AttachDhcpOptionsSetToSubnetResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // FailedSubnetIds 操作失败的subnet ID集合。
+    FailedSubnetIds []string `json:"failedSubnetIds,omitempty"`
+
+}
+
+type DetachDhcpOptionsSetFromSubnetRequest struct {
+    *common.BaseRequest
+
+    // SubnetIds 要与 DHCP 选项集取消关联的 Subnet 的 ID集合。
+    SubnetIds []string `json:"subnetIds,omitempty"`
+
+}
+
+type DetachDhcpOptionsSetFromSubnetResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DetachDhcpOptionsSetFromSubnetResponseParams `json:"response,omitempty"`
+
+}
+
+// DetachDhcpOptionsSetFromSubnetResponseParams 
+type DetachDhcpOptionsSetFromSubnetResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // FailedSubnetIds 操作失败的subnet ID集合。
+    FailedSubnetIds []string `json:"failedSubnetIds,omitempty"`
+
+}
+
+type DeleteDhcpOptionsSetRequest struct {
+    *common.BaseRequest
+
+    // DhcpOptionsSetId DHCP 选项集ID。
+    DhcpOptionsSetId *string `json:"dhcpOptionsSetId,omitempty"`
+
+}
+
+type DeleteDhcpOptionsSetResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// CreateBorderGatewayRequest 
 type CreateBorderGatewayRequest struct {
     *common.BaseRequest
 
@@ -5474,7 +5636,10 @@ type CreateBorderGatewayRequest struct {
     // VpcId VPC ID。
     VpcId *string `json:"vpcId,omitempty"`
 
-    // Label 名称。范围2到63个字符。仅支持输入字母、数字、-/_和英文句点(.)。且必须以数字或字母开头和结尾。
+    // Label 名称。
+    // 范围2到63个字符。
+    // 仅支持输入字母、数字、-/_和英文句点(.)。
+    // 且必须以数字或字母开头和结尾。
     Label *string `json:"label,omitempty"`
 
     // Asn ASN号。
@@ -5494,16 +5659,6 @@ type CreateBorderGatewayRequest struct {
 
 }
 
-// CreateBorderGatewayResponseParams 创建边界网关的响应值。
-type CreateBorderGatewayResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // ZbgId 边界网关的ID。
-    ZbgId *string `json:"zbgId,omitempty"`
-
-}
-
 type CreateBorderGatewayResponse struct {
     *common.BaseResponse
 
@@ -5513,13 +5668,24 @@ type CreateBorderGatewayResponse struct {
 
 }
 
+// CreateBorderGatewayResponseParams 
+type CreateBorderGatewayResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // ZbgId 边界网关的ID。
+    ZbgId *string `json:"zbgId,omitempty"`
+
+}
+
 type DescribeBorderGatewaysRequest struct {
     *common.BaseRequest
 
     // ZbgIds 根据边界网关ID列表过滤。
     ZbgIds []string `json:"zbgIds,omitempty"`
 
-    // Name 根据网关名称过滤。支持模糊搜索。
+    // Name 根据网关名称过滤。
+    // 支持模糊搜索。
     Name *string `json:"name,omitempty"`
 
     // RegionId 根据边界网关所在的节点过滤。
@@ -5536,7 +5702,16 @@ type DescribeBorderGatewaysRequest struct {
 
 }
 
-// DescribeBorderGatewaysResponseParams 查询边界网关列表的响应结果。
+type DescribeBorderGatewaysResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeBorderGatewaysResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeBorderGatewaysResponseParams 
 type DescribeBorderGatewaysResponseParams struct {
 
     RequestId *string `json:"requestId,omitempty"`
@@ -5593,36 +5768,7 @@ type ZbgInfo struct {
 
 }
 
-type DescribeBorderGatewaysResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeBorderGatewaysResponseParams `json:"response,omitempty"`
-
-}
-
-// DeleteBorderGatewayRequest 删除边界网关的请求信息。
-type DeleteBorderGatewayRequest struct {
-    *common.BaseRequest
-
-    // ZbgId 要删除的边界网关ID。
-    ZbgId *string `json:"zbgId,omitempty"`
-
-}
-
-type DeleteBorderGatewayResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// ModifyBorderGatewayAsnRequest 修改边界网关ASN的请求信息。
+// ModifyBorderGatewayAsnRequest 
 type ModifyBorderGatewayAsnRequest struct {
     *common.BaseRequest
 
@@ -5679,22 +5825,12 @@ type ModifyBorderGatewaysAttributeResponse struct {
 
 }
 
-// DescribeAvailableNatsRequest 请求可用NAT网关的请求信息。
+// DescribeAvailableNatsRequest 
 type DescribeAvailableNatsRequest struct {
     *common.BaseRequest
 
     // ZbgId 要查询需要绑定的边界网关ID。
     ZbgId *string `json:"zbgId,omitempty"`
-
-}
-
-// DescribeAvailableNatsResponseParams 查询可以绑定边界网关的NAT响应信息。
-type DescribeAvailableNatsResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // NatIds 可以绑定边界网关的NAT ID集合。
-    NatIds []string `json:"natIds,omitempty"`
 
 }
 
@@ -5707,7 +5843,17 @@ type DescribeAvailableNatsResponse struct {
 
 }
 
-// AssignBorderGatewayRequest 边界网关绑定NAT网关的请求信息。
+// DescribeAvailableNatsResponseParams 
+type DescribeAvailableNatsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // NatIds 可以绑定边界网关的NAT ID集合。
+    NatIds []string `json:"natIds,omitempty"`
+
+}
+
+// AssignBorderGatewayRequest 
 type AssignBorderGatewayRequest struct {
     *common.BaseRequest
 
@@ -5730,7 +5876,7 @@ type AssignBorderGatewayResponse struct {
 
 }
 
-// UnassignBorderGatewayRequest 解绑边界网关的请求信息。
+// UnassignBorderGatewayRequest 
 type UnassignBorderGatewayRequest struct {
     *common.BaseRequest
 
@@ -5772,7 +5918,7 @@ type AssignBorderGatewayRouteResponse struct {
 
 }
 
-// UnassignBorderGatewayRouteRequest 边界网关路由宣告中移除指定的自定义路由的请求信息。
+// UnassignBorderGatewayRouteRequest 
 type UnassignBorderGatewayRouteRequest struct {
     *common.BaseRequest
 
@@ -5795,357 +5941,40 @@ type UnassignBorderGatewayRouteResponse struct {
 
 }
 
-// DescribeZoneInstanceConfigInfosRequest 查询可用区售卖的机型信息请求信息。
-type DescribeZoneInstanceConfigInfosRequest struct {
+// DeleteBorderGatewayRequest 
+type DeleteBorderGatewayRequest struct {
     *common.BaseRequest
 
-    // ZoneId 要查询的可用区ID。例如：asia-east-1a。
-    ZoneId *string `json:"zoneId,omitempty"`
-
-    // InstanceType 要查询的实例规格。例如：z2a.cpu.1。
-    InstanceType *string `json:"instanceType,omitempty"`
+    // ZbgId 要删除的边界网关ID。
+    ZbgId *string `json:"zbgId,omitempty"`
 
 }
 
-// DescribeZoneInstanceConfigInfosResponseParams 查询可用区售卖的机型信息的响应结果
-type DescribeZoneInstanceConfigInfosResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // InstanceTypeQuotaSet 实例规格信息。
-    InstanceTypeQuotaSet []*InstanceTypeQuotaItem `json:"instanceTypeQuotaSet,omitempty"`
-
-}
-
-// InstanceTypeQuotaItem 描述实例规格的售卖信息。
-type InstanceTypeQuotaItem struct {
-
-    // ZoneId 可用区ID。
-    ZoneId *string `json:"zoneId,omitempty"`
-
-    // InstanceType 实例规格ID。
-    InstanceType *string `json:"instanceType,omitempty"`
-
-    // InstanceTypeName 实例规格的名称。
-    InstanceTypeName *string `json:"instanceTypeName,omitempty"`
-
-    // CpuCount CPU核数。单位：核。
-    CpuCount *int `json:"cpuCount,omitempty"`
-
-    // Memory 实例内存容量。单位：GiB。
-    Memory *int `json:"memory,omitempty"`
-
-    // InternetMaxBandwidthOutLimit 最大出口带宽限制。
-    InternetMaxBandwidthOutLimit *int `json:"internetMaxBandwidthOutLimit,omitempty"`
-
-    // WithStock 是否有库存。
-    WithStock *bool `json:"withStock,omitempty"`
-
-    // InternetChargeTypes 支持的网络计费类型。
-    InternetChargeTypes []string `json:"internetChargeTypes,omitempty"`
-
-}
-
-type DescribeZoneInstanceConfigInfosResponse struct {
+type DeleteBorderGatewayResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
 
-    Response *DescribeZoneInstanceConfigInfosResponseParams `json:"response,omitempty"`
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
 
 }
 
-type DescribeTimeZonesRequest struct {
+type DescribeVpcsRequest struct {
     *common.BaseRequest
 
-}
-
-// DescribeTimeZonesResponseParams 查询时区的响应结果。
-type DescribeTimeZonesResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // TimeZones 所有的时区。
-    TimeZones []string `json:"timeZones,omitempty"`
-
-}
-
-type DescribeTimeZonesResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeTimeZonesResponseParams `json:"response,omitempty"`
-
-}
-
-type InquiryPriceCreateInstanceRequest struct {
-    *common.BaseRequest
-
-    // ZoneId 可用区ID。
-    ZoneId *string `json:"zoneId,omitempty"`
-
-    // InstanceType 实例机型。具体取值可通过调用接口[DescribeZoneInstanceConfigInfos](describezoneinstanceconfiginfos.md)来获得最新的规格表。
-    InstanceType *string `json:"instanceType,omitempty"`
-
-    // Deprecated: EipV4Type 已废弃，请不要使用。
-    // EipV4Type 公网IPv4的线路类型。目前不支持三线IP(`ThreeLine`)。已废弃，请使用`networkLineType`。
-    EipV4Type *string `json:"eipV4Type,omitempty"`
-
-    // NetworkLineType 公网IPv4的线路类型。目前不支持三线IP(`ThreeLine`)。
-    NetworkLineType *string `json:"networkLineType,omitempty"`
-
-    // InternetChargeType 公网IP的网络计费类型。
-    InternetChargeType *string `json:"internetChargeType,omitempty"`
-
-    // TrafficPackageSize 流量包订购大小。单位为TB。该值必须在`internetChargeType = ByTrafficPackage`时才会生效。
-    TrafficPackageSize *float64 `json:"trafficPackageSize,omitempty"`
-
-    // Bandwidth 公网出带宽上限。单位：Mbps。
-    Bandwidth *int `json:"bandwidth,omitempty"`
-
-    // InstanceCount 实例数量。
-    InstanceCount *int `json:"instanceCount,omitempty"`
-
-    // SystemDisk 系统盘相关信息。
-    SystemDisk *SystemDisk `json:"systemDisk,omitempty"`
-
-    // DataDisk 数据盘相关信息。
-    DataDisk *DataDisk `json:"dataDisk,omitempty"`
-
-}
-
-// SystemDisk 描述系统盘的基本信息。
-type SystemDisk struct {
-
-    // DiskId 系统盘ID。该参数目前仅用于`DescribeInstances`等查询类接口的返回参数，不可用于`CreateInstances`等写接口的入参。
-    DiskId *string `json:"diskId,omitempty"`
-
-    // DiskSize 系统盘大小。单位：GiB。
-    DiskSize *int `json:"diskSize,omitempty"`
-
-    // DiskCategory 云硬盘种类。Basic NVMe SSD: 经济型 NVMe SSD。Standard NVMe SSD: 标准型 NVMe SSD。默认为Standard NVMe SSD。
-    DiskCategory *string `json:"diskCategory,omitempty"`
-
-    // BurstingEnabled 是否开启性能突发。
-    BurstingEnabled *bool `json:"burstingEnabled,omitempty"`
-
-}
-
-// DataDisk 描述了数据盘的信息。
-type DataDisk struct {
-
-    // DiskId 数据盘ID。该参数目前仅用于`DescribeInstances`等查询类接口的返回参数，不可用于`CreateInstances`等写接口的入参。
-    DiskId *string `json:"diskId,omitempty"`
-
-    // DiskName 云盘的名称。该参数目前仅用于DescribeInstances等查询类接口的返回参数。
-    DiskName *string `json:"diskName,omitempty"`
-
-    // DiskSize 数据盘大小。单位：GiB。
-    DiskSize *int `json:"diskSize,omitempty"`
-
-    // DiskAmount 数据盘数量。该参数仅用于`CreateInstances`,`InquiryPriceCreateInstance`等接口的入参使用。
-    DiskAmount *int `json:"diskAmount,omitempty"`
-
-    // Portable 是否可拆卸。该参数仅用于查询的回参，不用于入参。true代表不会随着实例删除而删除。false代表会随着实例删除而删除。
-    Portable *bool `json:"portable,omitempty"`
-
-    // BurstingEnabled 是否开启性能突发。
-    BurstingEnabled *bool `json:"burstingEnabled,omitempty"`
-
-    // DiskCategory 云硬盘种类。Basic NVMe SSD: 经济型 NVMe SSD。Standard NVMe SSD: 标准型 NVMe SSD。默认为Standard NVMe SSD。
-    DiskCategory *string `json:"diskCategory,omitempty"`
-
-}
-
-// InquiryPriceCreateInstanceResponseParams 
-type InquiryPriceCreateInstanceResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // SpecPrice 规格的价格。
-    SpecPrice *PriceItem `json:"specPrice,omitempty"`
-
-    // GpuPrice GPU规格的价格。
-    GpuPrice *PriceItem `json:"gpuPrice,omitempty"`
-
-    // Ipv4Price 公网IPv4的保留价格。
-    Ipv4Price *PriceItem `json:"ipv4Price,omitempty"`
-
-    // Ipv4BandwidthPrice 公网IPv4的带宽价格。
-    Ipv4BandwidthPrice *PriceItem `json:"ipv4BandwidthPrice,omitempty"`
-
-    // Ipv6Price IPv6的价格。
-    Ipv6Price *PriceItem `json:"ipv6Price,omitempty"`
-
-    // Ipv6BandwidthPrice IPv6的带宽价格。
-    Ipv6BandwidthPrice *PriceItem `json:"ipv6BandwidthPrice,omitempty"`
-
-    // SystemDiskPrice 系统盘的价格。
-    SystemDiskPrice *PriceItem `json:"systemDiskPrice,omitempty"`
-
-    // DataDiskPrice 数据盘的价格。
-    DataDiskPrice *PriceItem `json:"dataDiskPrice,omitempty"`
-
-}
-
-type InquiryPriceCreateInstanceResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *InquiryPriceCreateInstanceResponseParams `json:"response,omitempty"`
-
-}
-
-// CreateZecInstancesRequest 创建虚拟机实例的请求参数。
-type CreateZecInstancesRequest struct {
-    *common.BaseRequest
-
-    // ZoneId 可用区ID。
-    ZoneId *string `json:"zoneId,omitempty"`
-
-    // ImageId 指定有效的镜像ID。可以通过[DescribeImages](../image/describeimages.md)取返回信息中的imageId字段。
-    ImageId *string `json:"imageId,omitempty"`
-
-    // TimeZone 设置操作系统的时区。
-    TimeZone *string `json:"timeZone,omitempty"`
-
-    // InstanceType 实例机型。具体取值可通过调用接口[DescribeZoneInstanceConfigInfos](describezoneinstanceconfiginfos.md)来获得最新的规格表。
-    InstanceType *string `json:"instanceType,omitempty"`
-
-    // InstanceName 实例显示名称。范围2到63个字符。仅支持输入字母、数字、-和英文句点(.)。且必须以数字或字母开头和结尾。购买多台实例，可以指定模式串[begin_number,bits]。begin_number：有序数值的起始值，取值支持[0,99999]，默认值为0。bits：有序数值所占的位数，取值支持[1,6]，默认值为6。注意模式串中不得有空格。购买1台时，例如server-[3,3]实例显示为server003；购买2台时，实例显示名分别为server003，server004。支持指定多个模式串，如server-[3,3]-[1,1]。默认值为 instance。
-    InstanceName *string `json:"instanceName,omitempty"`
-
-    // Password 实例的密码。与keyId必须指定其中的一种（Windows和Generic类型的镜像无法指定密码和key）。必须包含以下3种格式的字符：大小写字母: [a-zA-Z]数字: 0-9特殊字符: ~!@$^*-_=+。
-    Password *string `json:"password,omitempty"`
-
-    // KeyId 密钥ID。与password必须指定其中的一种（Windows和Generic类型的镜像无法指定密码和key）。可调用接口DescribeKeyPairs来获得最新的密钥对信息。关联密钥后，就可以通过对应的私钥来访问实例；密钥与密码不能同时指定，同时Windows操作系统不支持指定密钥。示例值：key-YWD2QFOl。
-    KeyId *string `json:"keyId,omitempty"`
-
-    // NicNetworkType 网卡模式。
-    NicNetworkType *string `json:"nicNetworkType,omitempty"`
-
-    // InstanceCount 要创建的实例数量。
-    InstanceCount *int `json:"instanceCount,omitempty"`
-
-    // SystemDisk 实例系统盘配置信息。若不指定该参数，则按照系统默认值进行分配。即操作系统要求的最小大小。
-    SystemDisk *SystemDisk `json:"systemDisk,omitempty"`
-
-    // DataDisks 实例数据盘配置信息。若不指定该参数，则默认不额外购买数据盘。目前只能附带1个数据盘。
-    DataDisks []*DataDisk `json:"dataDisks,omitempty"`
-
-    // SecurityGroupId 要配置在实例主网卡的安全组ID。目前只能关联1个安全组。如果未指定，会默认用VPC关联的安全组。
-    SecurityGroupId *string `json:"securityGroupId,omitempty"`
-
-    // SubnetId 子网ID。
-    SubnetId *string `json:"subnetId,omitempty"`
-
-    // LanIp 分配的内网起始IP。如果内网IP被使用,则会往后分配。
-    LanIp *string `json:"lanIp,omitempty"`
-
-    // EnableAgent 是否安装启动Agent。
-    EnableAgent *bool `json:"enableAgent,omitempty"`
-
-    // EnableIpForward 是否开启IP转发。
-    EnableIpForward *bool `json:"enableIpForward,omitempty"`
-
-    // InternetChargeType 公网IP的网络计费类型。如果不指定，则不会分配公网IP地址。
-    InternetChargeType *string `json:"internetChargeType,omitempty"`
-
-    // TrafficPackageSize 流量包订购大小。单位为TB。该值必须在`internetChargeType = ByTrafficPackage`时才会生效。
-    TrafficPackageSize *float64 `json:"trafficPackageSize,omitempty"`
-
-    // Bandwidth 公网出带宽上限。单位：Mbps。当分配公网IP时需要指定。
-    Bandwidth *int `json:"bandwidth,omitempty"`
-
-    // EipBindType 公网IP的绑定模式。当分配公网IP时需要指定。
-    EipBindType *string `json:"eipBindType,omitempty"`
-
-    // Deprecated: EipV4Type 已废弃，请不要使用。
-    // EipV4Type 公网IPv4的线路类型。当分配公网IP时需要指定。请确保所选子网的堆栈类型支持`IPv4`。目前不支持三线IP随实例一起创建。已废弃，请使用`networkLineType`。
-    EipV4Type *string `json:"eipV4Type,omitempty"`
-
-    // NetworkLineType 公网IPv4的线路类型。当分配公网IP时需要指定。请确保所选子网的堆栈类型支持`IPv4`。目前不支持三线IP随实例一起创建。
-    NetworkLineType *string `json:"networkLineType,omitempty"`
-
-    // ClusterId 共享带宽包ID。当网络计费方式是共享带宽包计费(`BandwidthCluster`)时需要指定。
-    ClusterId *string `json:"clusterId,omitempty"`
-
-    // ResourceGroupId 创建后实例所在的资源组ID，如不指定则放入默认资源组。
-    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
-
-    // MarketingOptions 市场营销的相关选项。
-    MarketingOptions *MarketingInfo `json:"marketingOptions,omitempty"`
-
-    // Tags 创建实例时关联的标签。注意：·关联`标签键`不能重复。
-    Tags *TagAssociation `json:"tags,omitempty"`
-
-    // UserData 初始化命令。
-    UserData *string `json:"userData,omitempty"`
-
-}
-
-// CreateZecInstancesResponseParams 创建虚拟机实例的响应结果。
-type CreateZecInstancesResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // OrderNumber 订单编号。
-    OrderNumber *string `json:"orderNumber,omitempty"`
-
-    // InstanceIdSet 虚拟机实例ID列表。
-    InstanceIdSet []string `json:"instanceIdSet,omitempty"`
-
-    // Instances 随机器创建的数据盘id集合。如果请求中没有指定数据盘，返回空数组。
-    Instances []*DiskWithInstance `json:"instances,omitempty"`
-
-}
-
-// DiskWithInstance 随机器创建的数据盘信息。
-type DiskWithInstance struct {
-
-    // InstanceId 实例ID。
-    InstanceId *string `json:"instanceId,omitempty"`
-
-    // DiskIdSet 随机器创建的数据盘ID集合。
-    DiskIdSet []string `json:"diskIdSet,omitempty"`
-
-}
-
-type CreateZecInstancesResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *CreateZecInstancesResponseParams `json:"response,omitempty"`
-
-}
-
-// DescribeInstancesRequest 描述实例列表的请求参数。
-type DescribeInstancesRequest struct {
-    *common.BaseRequest
-
-    // InstanceIds 根据实例ID列表进行筛选。最大不能超过100个。
-    InstanceIds []string `json:"instanceIds,omitempty"`
-
-    // ZoneId 实例所属的可用区ID。
-    ZoneId *string `json:"zoneId,omitempty"`
-
-    // ImageId 镜像ID。
-    ImageId *string `json:"imageId,omitempty"`
-
-    // Ipv4Address 根据实例关联的IPv4过滤。
-    Ipv4Address *string `json:"ipv4Address,omitempty"`
-
-    // Ipv6Address 根据实例关联的IPv6信息过滤。
-    Ipv6Address *string `json:"ipv6Address,omitempty"`
-
-    // Status 根据实例的状态过滤。
-    Status *string `json:"status,omitempty"`
-
-    // Name 根据实例显示名称过滤。该字段支持模糊搜索。
+    // VpcIds VPC的ID列表。
+    // 最多可传100个ID。
+    VpcIds []string `json:"vpcIds,omitempty"`
+
+    // Name 根据VPC名称过滤。
+    // 支持模糊查询。
     Name *string `json:"name,omitempty"`
+
+    // CidrBlock 根据VPC的IPv4 CIDR过滤。
+    // 支持模糊查询。
+    CidrBlock *string `json:"cidrBlock,omitempty"`
 
     // PageSize 返回的分页大小。
     PageSize *int `json:"pageSize,omitempty"`
@@ -6156,697 +5985,548 @@ type DescribeInstancesRequest struct {
     // ResourceGroupId 根据资源组ID过滤。
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 
-    // TagKeys 根据标签键进行搜索。 最长不得超过20个标签键。
+    // TagKeys 根据标签键进行搜索。
+    // 最长不得超过20个标签键。
     TagKeys []string `json:"tagKeys,omitempty"`
 
-    // Tags 根据标签进行搜索。 最长不得超过20个标签。
+    // Tags 根据标签进行搜索。
+    // 最长不得超过20个标签。
     Tags []*Tag `json:"tags,omitempty"`
 
 }
 
-// DescribeInstancesResponseParams 描述实例列表的请求参数。
-type DescribeInstancesResponseParams struct {
+type DescribeVpcsResponse struct {
+    *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
 
-    // TotalCount 符合条件的数据总数。
-    TotalCount *int `json:"totalCount,omitempty"`
-
-    // DataSet 实例列表的数据。
-    DataSet []*InstanceInfo `json:"dataSet,omitempty"`
+    Response *DescribeVpcsResponseParams `json:"response,omitempty"`
 
 }
 
-// InstanceInfo 描述虚拟机实例的信息。包括规格，状态，网卡等。
-type InstanceInfo struct {
+// DescribeVpcsResponseParams 
+type DescribeVpcsResponseParams struct {
 
-    // InstanceId 实例唯一ID。
-    InstanceId *string `json:"instanceId,omitempty"`
+    RequestId *string `json:"requestId,omitempty"`
 
-    // InstanceName 实例显示名称。
-    InstanceName *string `json:"instanceName,omitempty"`
+    // TotalCount 匹配筛选条件的vpc总数量。
+    TotalCount *int `json:"totalCount,omitempty"`
 
-    // ZoneId 实例所属的可用区ID。
-    ZoneId *string `json:"zoneId,omitempty"`
+    // DataSet 返回分页的vpc集合数据。
+    DataSet []*VpcInfo `json:"dataSet,omitempty"`
 
-    // InstanceType CPU 规格。如果是GPU实例，该字段取值为null。
-    InstanceType *string `json:"instanceType,omitempty"`
+}
 
-    // Cpu CPU 核数。单位：个。
-    Cpu *int `json:"cpu,omitempty"`
+// VpcInfo 描述VPC的基本信息。
+type VpcInfo struct {
 
-    // Memory 内存容量。单位：GiB。
-    Memory *int `json:"memory,omitempty"`
+    // VpcId VPC的ID。
+    VpcId *string `json:"vpcId,omitempty"`
 
-    // ImageId 镜像ID。
-    ImageId *string `json:"imageId,omitempty"`
+    // Name VPC的名称。
+    Name *string `json:"name,omitempty"`
 
-    // ImageName 镜像名称。
-    ImageName *string `json:"imageName,omitempty"`
+    // CidrBlock VPC的IPv4 CIDR。
+    CidrBlock *string `json:"cidrBlock,omitempty"`
 
-    // TimeZone 设置的系统时区信息。
-    TimeZone *string `json:"timeZone,omitempty"`
+    // Ipv6CidrBlock VPC的内网IPv6 CIDR。
+    // 如果为null,说明未开启IPv6。
+    Ipv6CidrBlock *string `json:"ipv6CidrBlock,omitempty"`
 
-    // NicNetworkType 网卡模式。
-    NicNetworkType *string `json:"nicNetworkType,omitempty"`
+    // Mtu mtu值。
+    Mtu *int `json:"mtu,omitempty"`
 
-    // Status 实例状态。
-    Status *string `json:"status,omitempty"`
-
-    // SystemDisk 系统盘信息。
-    SystemDisk *SystemDisk `json:"systemDisk,omitempty"`
-
-    // DataDisks 实例上挂载的数据盘信息。
-    DataDisks []*DataDisk `json:"dataDisks,omitempty"`
-
-    // PublicIpAddresses 实例上公网IPv4列表。
-    PublicIpAddresses []string `json:"publicIpAddresses,omitempty"`
-
-    // PrivateIpAddresses 实例上内网IP列表。
-    PrivateIpAddresses []string `json:"privateIpAddresses,omitempty"`
-
-    // KeyId 安装的SSH密钥ID。
-    KeyId *string `json:"keyId,omitempty"`
-
-    // SubnetId 实例主网卡关联的子网ID。
-    SubnetId *string `json:"subnetId,omitempty"`
-
-    // SecurityGroupId 实例主网卡关联的安全组ID。
-    SecurityGroupId *string `json:"securityGroupId,omitempty"`
-
-    // EnableAgent 是否开启QGA Agent。
-    EnableAgent *bool `json:"enableAgent,omitempty"`
-
-    // EnableAgentMonitor 是否开启QGA 监控采集。
-    EnableAgentMonitor *bool `json:"enableAgentMonitor,omitempty"`
-
-    // EnableIpForward 是否开启IP转发。
-    EnableIpForward *bool `json:"enableIpForward,omitempty"`
+    // IsDefault 是否为默认VPC。
+    IsDefault *bool `json:"isDefault,omitempty"`
 
     // CreateTime 创建时间。
     CreateTime *string `json:"createTime,omitempty"`
 
-    // ExpiredTime 到期时间。
-    ExpiredTime *string `json:"expiredTime,omitempty"`
+    // UsageIpv4Count VPC里已使用IPv4数量。
+    UsageIpv4Count *int `json:"usageIpv4Count,omitempty"`
 
-    // ResourceGroupId 实例所属的资源组ID。
-    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+    // UsageIpv6Count VPC里已使用IPv6数量。
+    UsageIpv6Count *int `json:"usageIpv6Count,omitempty"`
 
-    // ResourceGroupName 实例所属的资源组名称。
-    ResourceGroupName *string `json:"resourceGroupName,omitempty"`
+    // SecurityGroupId 关联的安全组ID。
+    SecurityGroupId *string `json:"securityGroupId,omitempty"`
 
-    // Nics 实例上绑定的网卡信息。
-    Nics []*NicInfo `json:"nics,omitempty"`
+    // DnsZoneIds VPC关联的DNS内网权威域名ID。
+    DnsZoneIds []string `json:"dnsZoneIds,omitempty"`
 
-    // Tags 实例关联的标签。
+    // ResourceGroup VPC关联的资源组信息。
+    ResourceGroup *ResourceGroupInfo `json:"resourceGroup,omitempty"`
+
+    // Tags 该VPC关联的标签。
     Tags *Tags `json:"tags,omitempty"`
-
-    // LoadBalancerIds 实例上绑定的负载均衡ID列表。
-    LoadBalancerIds []string `json:"loadBalancerIds,omitempty"`
 
 }
 
-type DescribeInstancesResponse struct {
+// CreateVpcRequest 
+type CreateVpcRequest struct {
+    *common.BaseRequest
+
+    // Name VPC的名称。
+    // 范围2到63个字符。
+    // 仅支持输入字母、数字、-和英文句点(.)。
+    // 且必须以数字或字母开头和结尾。
+    Name *string `json:"name,omitempty"`
+
+    // CidrBlock VPC的CIDR地址段。
+    // 需要满足以下4种内网段内(10.0.0.0/9, 10.128.0.0/9, 172.16.0.0/12以及192.168.0.0/16)。
+    CidrBlock *string `json:"cidrBlock,omitempty"`
+
+    // Mtu VPC的传输单元 MTU。
+    // 支持：1300、1500、9000。
+    Mtu *int `json:"mtu,omitempty"`
+
+    // EnablePriIpv6 是否开启内网IPv6。
+    // 一旦开启，后续无法关闭。
+    // 默认为关闭。
+    EnablePriIpv6 *bool `json:"enablePriIpv6,omitempty"`
+
+    // ResourceGroupId VPC所在的资源组ID。
+    // 如果不指定资源组，则会放到默认的资源组中。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // Tags 创建VPC时关联的标签。
+    // 注意：·关联`标签键`不能重复。
+    Tags *TagAssociation `json:"tags,omitempty"`
+
+}
+
+type CreateVpcResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
 
-    Response *DescribeInstancesResponseParams `json:"response,omitempty"`
+    Response *CreateVpcResponseParams `json:"response,omitempty"`
 
 }
 
-// DescribeInstancesStatusRequest 查询实例状态的请求参数。
-type DescribeInstancesStatusRequest struct {
+// CreateVpcResponseParams 
+type CreateVpcResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // VpcId 创建的VPC ID。
+    VpcId *string `json:"vpcId,omitempty"`
+
+}
+
+// ModifyVpcAttributeRequest 
+type ModifyVpcAttributeRequest struct {
     *common.BaseRequest
 
-    // InstanceIds 要查询的实例ID列表。
-    InstanceIds []string `json:"instanceIds,omitempty"`
+    // VpcId VPC的ID。
+    VpcId *string `json:"vpcId,omitempty"`
 
-    // PageSize 分页大小。
-    PageSize *int `json:"pageSize,omitempty"`
+    // VpcName VPC的名称。
+    // 范围2到63个字符。
+    // 仅支持输入字母、数字、-/_和英文句点(.)。
+    // 且必须以数字或字母开头和结尾。
+    VpcName *string `json:"vpcName,omitempty"`
 
-    // PageNum 分页页数。
-    PageNum *int `json:"pageNum,omitempty"`
+    // CidrBlock 需要修改的IPv4 CIDR。
+    // 需要满足以下4种内网段内(10.0.0.0/9, 10.128.0.0/9, 172.16.0.0/12以及192.168.0.0/16)。
+    // 如果VPC存在子网，则修改的CIDR范围必须包含原VPC CIDR。
+    // 默认VPC不支持修改。
+    CidrBlock *string `json:"cidrBlock,omitempty"`
 
-    // ResourceGroupId 根据资源组ID过滤。
-    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+    // EnableIPv6 是否开启IPv6内网CIDR。
+    // 当前仅允许打开(`true`)，一旦设置IPv6, 将无法关闭。
+    EnableIPv6 *bool `json:"enableIPv6,omitempty"`
+
+    // SecurityGroupId 修改VPC绑定的安全组ID。
+    // 如果不指定，则不会修改。
+    SecurityGroupId *string `json:"securityGroupId,omitempty"`
 
 }
 
-// DescribeInstancesStatusResponseParams 查询实例状态
-type DescribeInstancesStatusResponseParams struct {
+type ModifyVpcAttributeResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// ModifyVpcsAttributeRequest 
+type ModifyVpcsAttributeRequest struct {
+    *common.BaseRequest
+
+    // VpcIds 需要修改的VPC ID列表。
+    VpcIds []string `json:"vpcIds,omitempty"`
+
+    // Name VPC的名称。
+    // 范围2到63个字符。
+    // 仅支持输入字母、数字、-和英文句点(.)。
+    // 且必须以数字或字母开头和结尾。
+    Name *string `json:"name,omitempty"`
+
+}
+
+type ModifyVpcsAttributeResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// DeleteVpcRequest 
+type DeleteVpcRequest struct {
+    *common.BaseRequest
+
+    // VpcId 要删除的VPC ID。
+    VpcId *string `json:"vpcId,omitempty"`
+
+}
+
+type DeleteVpcResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// DescribeSubnetRegionsRequest 
+type DescribeSubnetRegionsRequest struct {
+    *common.BaseRequest
+
+    // RegionIds 根据节点ID过滤。
+    RegionIds []string `json:"regionIds,omitempty"`
+
+}
+
+type DescribeSubnetRegionsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeSubnetRegionsResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeSubnetRegionsResponseParams 
+type DescribeSubnetRegionsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // RegionSet 支持子网的节点信息。
+    RegionSet []*RegionInfo `json:"regionSet,omitempty"`
+
+}
+
+// RegionInfo 节点信息。
+type RegionInfo struct {
+
+    // RegionId 节点ID。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // RegionName 节点名称。
+    RegionName *string `json:"regionName,omitempty"`
+
+    // RegionTitle 节点标题。
+    RegionTitle *string `json:"regionTitle,omitempty"`
+
+    // EnablePubIpv6 是否支持IPv6。
+    EnablePubIpv6 *bool `json:"enablePubIpv6,omitempty"`
+
+}
+
+// DescribeSubnetsRequest 
+type DescribeSubnetsRequest struct {
+    *common.BaseRequest
+
+    // SubnetIds 根据子网的ID进行筛选。
+    SubnetIds []string `json:"subnetIds,omitempty"`
+
+    // Name 根据子网的名称进行筛选。
+    // 该字段支持模糊搜索。
+    Name *string `json:"name,omitempty"`
+
+    // CidrBlock 根据子网的CIDR进行筛选。
+    CidrBlock *string `json:"cidrBlock,omitempty"`
+
+    // RegionId 根据子网所在的节点进行筛选。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // PageSize 返回的分页大小。
+    PageSize *int `json:"pageSize,omitempty"`
+
+    // PageNum 返回的分页数。
+    PageNum *int `json:"pageNum,omitempty"`
+
+    // VpcIds VPC的ID集合。
+    VpcIds []string `json:"vpcIds,omitempty"`
+
+    // DhcpOptionsSetId 子网绑定的DHCP 选项集ID。
+    DhcpOptionsSetId *string `json:"dhcpOptionsSetId,omitempty"`
+
+}
+
+type DescribeSubnetsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeSubnetsResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeSubnetsResponseParams 
+type DescribeSubnetsResponseParams struct {
 
     RequestId *string `json:"requestId,omitempty"`
 
     // TotalCount 符合条件的数据总数。
     TotalCount *int `json:"totalCount,omitempty"`
 
-    // DataSet 实例状态数据。
-    DataSet []*InstanceStatus `json:"dataSet,omitempty"`
+    // DataSet 子网的结果集。
+    DataSet []*SubnetInfo `json:"dataSet,omitempty"`
 
 }
 
-// InstanceStatus 描述实例状态的信息。
-type InstanceStatus struct {
+// SubnetInfo 描述子网的基本信息。
+type SubnetInfo struct {
 
-    // InstanceId 实例的ID。
-    InstanceId *string `json:"instanceId,omitempty"`
+    // SubnetId 子网的ID。
+    SubnetId *string `json:"subnetId,omitempty"`
 
-    // InstanceStatus 实例的状态。
-    InstanceStatus *string `json:"instanceStatus,omitempty"`
-
-}
-
-type DescribeInstancesStatusResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeInstancesStatusResponseParams `json:"response,omitempty"`
-
-}
-
-// ModifyInstancesAttributeRequest 修改实例属性（名称）的请求参数。
-type ModifyInstancesAttributeRequest struct {
-    *common.BaseRequest
-
-    // InstanceIds 待修改属性的实例ID列表。
-    InstanceIds []string `json:"instanceIds,omitempty"`
-
-    // InstanceName 实例名称。2～63个字符。仅支持输入字母、数字、-和英文句点(.)。
-    InstanceName *string `json:"instanceName,omitempty"`
-
-}
-
-type ModifyInstancesAttributeResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// StartInstancesRequest 启动虚拟机实例的参数。
-type StartInstancesRequest struct {
-    *common.BaseRequest
-
-    // InstanceIds 要启动的实例ID。
-    InstanceIds []string `json:"instanceIds,omitempty"`
-
-}
-
-// StartInstancesResponseParams 启动虚拟机实例的响应结果。
-type StartInstancesResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // InstanceIds 启动失败的实例ID列表。
-    InstanceIds []string `json:"instanceIds,omitempty"`
-
-}
-
-type StartInstancesResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *StartInstancesResponseParams `json:"response,omitempty"`
-
-}
-
-// StopInstancesRequest 关闭虚拟机实例的请求信息。
-type StopInstancesRequest struct {
-    *common.BaseRequest
-
-    // InstanceIds 待关闭的实例ID。
-    InstanceIds []string `json:"instanceIds,omitempty"`
-
-    // ForceShutdown 是否强制关机。
-    ForceShutdown *bool `json:"forceShutdown,omitempty"`
-
-}
-
-// StopInstancesResponseParams 关闭虚拟机实例
-type StopInstancesResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // InstanceIds 操作失败的实例ID列表。
-    InstanceIds []string `json:"instanceIds,omitempty"`
-
-}
-
-type StopInstancesResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *StopInstancesResponseParams `json:"response,omitempty"`
-
-}
-
-// RebootInstancesRequest 重启虚拟机实例的请求参数。
-type RebootInstancesRequest struct {
-    *common.BaseRequest
-
-    // InstanceIds 待重启虚拟机实例ID列表。
-    InstanceIds []string `json:"instanceIds,omitempty"`
-
-}
-
-// RebootInstancesResponseParams 重启虚拟机实例的响应结果
-type RebootInstancesResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // InstanceIds 重启操作失败的实例ID列表。
-    InstanceIds []string `json:"instanceIds,omitempty"`
-
-}
-
-type RebootInstancesResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *RebootInstancesResponseParams `json:"response,omitempty"`
-
-}
-
-// ResetInstancePasswordRequest 重置虚拟机实例密码的请求参数。
-type ResetInstancePasswordRequest struct {
-    *common.BaseRequest
-
-    // InstanceId 待操作的实例ID。
-    InstanceId *string `json:"instanceId,omitempty"`
-
-    // Password 密码。必须是8-16位。必须包含以下3种格式的字符：大小写字母: [a-zA-Z]数字: 0-9特殊字符: ~!@$^*-_=+。
-    Password *string `json:"password,omitempty"`
-
-}
-
-type ResetInstancePasswordResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// ResetInstanceRequest 重装一台虚拟机实例操作系统的请求参数。
-type ResetInstanceRequest struct {
-    *common.BaseRequest
-
-    // InstanceId 要重装的实例ID。
-    InstanceId *string `json:"instanceId,omitempty"`
-
-    // Password 实例的新密码。与keyId必须指定其中的一种（Windows和Generic类型的镜像无法指定密码和key）。必须包含以下3种格式的字符：大小写字母: [a-zA-Z]数字: 0-9特殊字符: ~!@$^*-_=+。
-    Password *string `json:"password,omitempty"`
-
-    // KeyId 密钥ID。与password必须指定其中的一种（Windows和Generic类型的镜像无法指定密码和key）。可调用接口DescribeKeyPairs来获得最新的密钥对信息。关联密钥后，就可以通过对应的私钥来访问实例；密钥与密码不能同时指定，同时Windows操作系统不支持指定密钥。示例值：key-YWD2QFOl。
-    KeyId *string `json:"keyId,omitempty"`
-
-    // ImageId 指定重装的的镜像ID。可以通过[DescribeImages](describeimages.md)取返回信息中的`imageId`字段。如果不指定，会根据当前镜像进行重装。
-    ImageId *string `json:"imageId,omitempty"`
-
-    // Timezone 操作系统时区设置。
-    Timezone *string `json:"timezone,omitempty"`
-
-    // EnableAgent 是否启用 QEMU Guest 代理 (QGA)。
-    EnableAgent *bool `json:"enableAgent,omitempty"`
-
-    // InstanceName 修改的实例名称。
-    InstanceName *string `json:"instanceName,omitempty"`
-
-    // UserData 初始化命令。
-    UserData *string `json:"userData,omitempty"`
-
-}
-
-type ResetInstanceResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-type ResetInstancesRequest struct {
-    *common.BaseRequest
-
-    // InstanceIds 待重装的实例ID。
-    InstanceIds []string `json:"instanceIds,omitempty"`
-
-    // Password 实例的新密码。与keyId必须指定其中的一种（Windows和Generic类型的镜像无法指定密码和key）。必须包含以下3种格式的字符：大小写字母: [a-zA-Z]数字: 0-9特殊字符: ~!@$^*-_=+。
-    Password *string `json:"password,omitempty"`
-
-    // KeyId 密钥ID。与password必须指定其中的一种（Windows和Generic类型的镜像无法指定密码和key）。可调用接口DescribeKeyPairs来获得最新的密钥对信息。关联密钥后，就可以通过对应的私钥来访问实例；密钥与密码不能同时指定，同时Windows操作系统不支持指定密钥。示例值：key-YWD2QFOl。
-    KeyId *string `json:"keyId,omitempty"`
-
-    // ImageId 指定重装的的镜像ID。可以通过[DescribeImages](describeimages.md)取返回信息中的`imageId`字段。如果不指定，会根据当前镜像进行重装。
-    ImageId *string `json:"imageId,omitempty"`
-
-    // Timezone 操作系统时区设置。
-    Timezone *string `json:"timezone,omitempty"`
-
-    // EnableAgent 是否启用 QEMU Guest 代理 (QGA)。
-    EnableAgent *bool `json:"enableAgent,omitempty"`
-
-    // InstanceName 修改的实例名称。
-    InstanceName *string `json:"instanceName,omitempty"`
-
-    // UserData 初始化命令。
-    UserData *string `json:"userData,omitempty"`
-
-}
-
-type ResetInstancesResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // InstanceIds 重装操作失败的实例ID列表。
-    InstanceIds []string `json:"instanceIds,omitempty"`
-
-}
-
-type ResetInstancesResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *ResetInstancesResponseParams `json:"response,omitempty"`
-
-}
-
-// StartIpForwardRequest 开启IP转发的请求信息。
-type StartIpForwardRequest struct {
-    *common.BaseRequest
-
-    // InstanceId 要操作的实例ID。
-    InstanceId *string `json:"instanceId,omitempty"`
-
-}
-
-type StartIpForwardResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// StopIpForwardRequest 关闭IP转发的请求信息。
-type StopIpForwardRequest struct {
-    *common.BaseRequest
-
-    // InstanceId 要操作的实例ID。
-    InstanceId *string `json:"instanceId,omitempty"`
-
-}
-
-type StopIpForwardResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// StartAgentMonitorRequest 开启Agent监控采集的请求信息。
-type StartAgentMonitorRequest struct {
-    *common.BaseRequest
-
-    // InstanceId 要操作的实例ID。
-    InstanceId *string `json:"instanceId,omitempty"`
-
-}
-
-type StartAgentMonitorResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// StopAgentMonitorRequest 关闭Agent监控采集的请求信息。
-type StopAgentMonitorRequest struct {
-    *common.BaseRequest
-
-    // InstanceId 要操作的实例ID。
-    InstanceId *string `json:"instanceId,omitempty"`
-
-}
-
-type StopAgentMonitorResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// ModifyInstanceTypeRequest 变更实例规格的请求参数。
-type ModifyInstanceTypeRequest struct {
-    *common.BaseRequest
-
-    // InstanceId 要变更的实例ID。
-    InstanceId *string `json:"instanceId,omitempty"`
-
-    // InstanceType 变更的目标实例规格。
-    InstanceType *string `json:"instanceType,omitempty"`
-
-}
-
-type ModifyInstanceTypeResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// ChangeNicNetworkTypeRequest 更改网卡模式的请求参数。
-type ChangeNicNetworkTypeRequest struct {
-    *common.BaseRequest
-
-    // InstanceId 待操作的实例ID。
-    InstanceId *string `json:"instanceId,omitempty"`
-
-    // NicNetworkType 要更改的网卡模式。
-    NicNetworkType *string `json:"nicNetworkType,omitempty"`
-
-}
-
-type ChangeNicNetworkTypeResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// ReleaseInstancesRequest 释放实例请求参数。
-type ReleaseInstancesRequest struct {
-    *common.BaseRequest
-
-    // InstanceIds 要释放的实例ID列表。
-    InstanceIds []string `json:"instanceIds,omitempty"`
-
-}
-
-// ReleaseInstancesResponseParams 删除实例的响应结果。
-type ReleaseInstancesResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // InstanceIds 操作失败的实例ID列表。
-    InstanceIds []string `json:"instanceIds,omitempty"`
-
-}
-
-type ReleaseInstancesResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *ReleaseInstancesResponseParams `json:"response,omitempty"`
-
-}
-
-// DescribeVncUrlRequest 获取实例VNC地址的请求信息。
-type DescribeVncUrlRequest struct {
-    *common.BaseRequest
-
-    // InstanceId 要查询的实例ID。
-    InstanceId *string `json:"instanceId,omitempty"`
-
-}
-
-// DescribeVncUrlResponseParams 获取实例VNC地址的响应结果。
-type DescribeVncUrlResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // Url VNC地址URL。
-    Url *string `json:"url,omitempty"`
-
-}
-
-type DescribeVncUrlResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeVncUrlResponseParams `json:"response,omitempty"`
-
-}
-
-// DescribeInstanceMonitorDataRequest 查询实例监控指标请求。
-type DescribeInstanceMonitorDataRequest struct {
-    *common.BaseRequest
-
-    // InstanceId 实例唯一标识ID。
-    InstanceId *string `json:"instanceId,omitempty"`
-
-    // MetricType 实例监控指标类型。
-    MetricType *string `json:"metricType,omitempty"`
-
-    // StartTime 查询开始时间。时间格式：yyyy-MM-ddTHH:mm:ssZ。
-    StartTime *string `json:"startTime,omitempty"`
-
-    // EndTime 查询结束时间。时间格式：yyyy-MM-ddTHH:mm:ssZ。
-    EndTime *string `json:"endTime,omitempty"`
-
-}
-
-// DescribeInstanceMonitorDataResponseParams 查询实例监控数据的响应信息。
-type DescribeInstanceMonitorDataResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // MaxValue 数据点的最大值。
-    MaxValue *float64 `json:"maxValue,omitempty"`
-
-    // MinValue 数据点的最小值。
-    MinValue *float64 `json:"minValue,omitempty"`
-
-    // AvgValue 数据点的平均值。
-    AvgValue *float64 `json:"avgValue,omitempty"`
-
-    // Metrics 监控数据集合。
-    Metrics []*MetricValue `json:"metrics,omitempty"`
-
-}
-
-type DescribeInstanceMonitorDataResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeInstanceMonitorDataResponseParams `json:"response,omitempty"`
-
-}
-
-type CreateNatGatewayRequest struct {
-    *common.BaseRequest
-
-    // RegionId 区域节点ID。
+    // RegionId 子网所在节点的ID。
     RegionId *string `json:"regionId,omitempty"`
 
-    // VpcId NAT网关所属的VPC网络ID。
-    VpcId *string `json:"vpcId,omitempty"`
-
-    // Name NAT网关的名称。长度为2～63个字符。
+    // Name 子网的名称。
     Name *string `json:"name,omitempty"`
 
-    // SubnetIds NAT网关所属的Subnet子网ID集合。如果未指定，则指定区域的所有子网将自动关联NAT网关。
-    SubnetIds []string `json:"subnetIds,omitempty"`
+    // CidrBlock 子网的CIDR地址。
+    CidrBlock *string `json:"cidrBlock,omitempty"`
 
-    // SecurityGroupId 安全组ID。如果未指定，则指定VPC所属的安全组ID。
-    SecurityGroupId *string `json:"securityGroupId,omitempty"`
+    // GatewayIpAddress 网关地址。
+    GatewayIpAddress *string `json:"gatewayIpAddress,omitempty"`
 
-    // ResourceGroupId 资源组ID。如果不指定，则会创建在默认资源组。
-    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+    // Ipv6CidrBlock 子网的IPv6 CIDR地址段。
+    // 如果子网的IP堆栈类型不包括V6,该字段取不到值。
+    Ipv6CidrBlock *string `json:"ipv6CidrBlock,omitempty"`
 
-    // Tags 创建NAT网关时关联的标签。注意：·关联`标签键`不能重复。
-    Tags *TagAssociation `json:"tags,omitempty"`
+    // Ipv6GatewayIpAddress IPv6的网关地址。
+    Ipv6GatewayIpAddress *string `json:"ipv6GatewayIpAddress,omitempty"`
+
+    // StackType 子网的IP堆栈类型。
+    StackType *string `json:"stackType,omitempty"`
+
+    // Ipv6Type 子网上IPv6类型。
+    // 如果子网的IP堆栈类型不包括V6,该字段取不到值。
+    Ipv6Type *string `json:"ipv6Type,omitempty"`
+
+    // VpcId 子网所属VPC的ID。
+    VpcId *string `json:"vpcId,omitempty"`
+
+    // VpcName 子网所属VPC的名称。
+    VpcName *string `json:"vpcName,omitempty"`
+
+    // UsageIpv4Count 子网已使用IPv4数量。
+    UsageIpv4Count *int `json:"usageIpv4Count,omitempty"`
+
+    // UsageIpv6Count 子网已使用IPv6数量。
+    UsageIpv6Count *int `json:"usageIpv6Count,omitempty"`
+
+    // CreateTime 子网的创建时间。
+    CreateTime *string `json:"createTime,omitempty"`
+
+    // IsDefault 子网是否为默认。
+    IsDefault *bool `json:"isDefault,omitempty"`
+
+    // DhcpOptionsSetId DHCP选项集ID。
+    DhcpOptionsSetId *string `json:"dhcpOptionsSetId,omitempty"`
 
 }
 
-type CreateNatGatewayResponseParams struct {
+// CreateSubnetRequest 
+type CreateSubnetRequest struct {
+    *common.BaseRequest
 
-    RequestId *string `json:"requestId,omitempty"`
+    // VpcId 需要添加子网的VPC ID。
+    VpcId *string `json:"vpcId,omitempty"`
 
-    // OrderNumber 下单编号。
-    OrderNumber *string `json:"orderNumber,omitempty"`
+    // Name 子网名称。
+    // 范围2到63个字符。
+    // 仅支持输入字母、数字、-和英文句点(.)。
+    // 且必须以数字或字母开头和结尾。
+    Name *string `json:"name,omitempty"`
 
-    // NatGatewayId NAT网关唯一ID。
-    NatGatewayId *string `json:"natGatewayId,omitempty"`
+    // RegionId 子网所在的节点ID。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // StackType 子网的IP堆栈类型。
+    StackType *string `json:"stackType,omitempty"`
+
+    // CidrBlock 子网的IPv4 CIDR地址段。
+    // 如果指定堆栈类型`stackType` 包含 `IPv4`, 则该字段必填。
+    // 指定的CIDR地址段必须属于VPC的CIDR范围内。
+    CidrBlock *string `json:"cidrBlock,omitempty"`
+
+    // Ipv6Type IPv6的类型。
+    // 如果指定堆栈类型`stackType` 包含 `IPv6`, 则该字段必填。
+    Ipv6Type *string `json:"ipv6Type,omitempty"`
+
+    // DhcpOptionsSetId 要绑定的DHCP 选项集ID。
+    DhcpOptionsSetId *string `json:"dhcpOptionsSetId,omitempty"`
+
+    // Ipv6CidrBlockId 公网IPv6 CIDR ID。
+    // 该字段仅当`ipv6Type`是公网(`Public`)时允许指定。
+    // 如果不指定，将从系统默认IP池里分配。
+    Ipv6CidrBlockId *string `json:"ipv6CidrBlockId,omitempty"`
+
+    // Ipv6MaskLength 分配给虚拟机（VM）的IPv6 CIDR前缀的大小。
+    // 该参数必须与`ipv6CidrBlockId`参数配合使用。
+    // 当未显式传递时，默认值为96。
+    // 最小必须大于或等于指定`ipv6CidrBlockId`的前缀，最大不能超过96。
+    Ipv6MaskLength *int `json:"ipv6MaskLength,omitempty"`
 
 }
 
-type CreateNatGatewayResponse struct {
+type CreateSubnetResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
 
-    Response *CreateNatGatewayResponseParams `json:"response,omitempty"`
+    Response *CreateSubnetResponseParams `json:"response,omitempty"`
 
 }
 
-// ModifyNatGatewayAttributeRequest 修改Nat网关属性的请求
-type ModifyNatGatewayAttributeRequest struct {
+// CreateSubnetResponseParams 
+type CreateSubnetResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // SubnetId 创建的子网ID。
+    SubnetId *string `json:"subnetId,omitempty"`
+
+}
+
+// ModifySubnetAttributeRequest 
+type ModifySubnetAttributeRequest struct {
     *common.BaseRequest
 
-    // NatGatewayId NAT网关 ID。
-    NatGatewayId *string `json:"natGatewayId,omitempty"`
+    // SubnetId 子网的ID。
+    SubnetId *string `json:"subnetId,omitempty"`
 
-    // Name NAT网关的名称。长度为2～63个字符。
-    Name *string `json:"name,omitempty"`
+    // SubnetName 子网的名称。
+    // 仅支持输入字母、数字、-和英文句点(.)。
+    // 且必须以数字或字母开头和结尾。
+    SubnetName *string `json:"subnetName,omitempty"`
 
-    // SubnetIds NAT网关的子网ID。
-    SubnetIds []string `json:"subnetIds,omitempty"`
-
-    // IsAllSubnet NAT网关对应的子网是否应用所有子网。该字段不能和`subnetIds`同时设置。
-    IsAllSubnet *bool `json:"isAllSubnet,omitempty"`
-
-    // IcmpReplyEnabled 是否开启ICMP代回。
-    IcmpReplyEnabled *bool `json:"icmpReplyEnabled,omitempty"`
-
-    // SecurityGroupId 修改NAT网关绑定的目标安全组ID。目前一张NAT网关只能关联一个安全组。指定该字段会解绑NAT网关原来的安全组。
-    SecurityGroupId *string `json:"securityGroupId,omitempty"`
+    // CidrBlock 需要修改的IPv4 CIDR Block。
+    // 仅支持有IPv4堆栈类型的子网。
+    CidrBlock *string `json:"cidrBlock,omitempty"`
 
 }
 
-type ModifyNatGatewayAttributeResponse struct {
+type ModifySubnetAttributeResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// ModifySubnetsAttributeRequest 
+type ModifySubnetsAttributeRequest struct {
+    *common.BaseRequest
+
+    // SubnetIds 需要修改的子网ID列表。
+    SubnetIds []string `json:"subnetIds,omitempty"`
+
+    // Name 修改的子网名称。
+    // 范围2到63个字符。
+    // 仅支持输入字母、数字、-/_和英文句点(.)。
+    // 且必须以数字或字母开头和结尾。
+    Name *string `json:"name,omitempty"`
+
+}
+
+type ModifySubnetsAttributeResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// ModifySubnetStackTypeRequest 
+type ModifySubnetStackTypeRequest struct {
+    *common.BaseRequest
+
+    // SubnetId 要操作的子网的ID。
+    SubnetId *string `json:"subnetId,omitempty"`
+
+    // StackType 子网堆栈类型。
+    // 目前只支持`IPv4_IPv6`。
+    StackType *string `json:"stackType,omitempty"`
+
+    // Ipv6Type IPv6的类型。
+    Ipv6Type *string `json:"ipv6Type,omitempty"`
+
+    // Ipv6CidrBlockId 公网IPv6 CIDR ID。
+    // 该字段仅当`ipv6Type`是公网(`Public`)时允许指定。
+    // 如果不指定，将从系统默认IP池里分配。
+    Ipv6CidrBlockId *string `json:"ipv6CidrBlockId,omitempty"`
+
+    // Ipv6MaskLength 分配给虚拟机（VM）的IPv6 CIDR前缀的大小。
+    // 该参数必须与`ipv6CidrBlockId`参数配合使用。
+    // 当未显式传递时，默认值为96。
+    // 最小必须大于或等于指定`ipv6CidrBlockId`的前缀，最大不能超过96。
+    Ipv6MaskLength *int `json:"ipv6MaskLength,omitempty"`
+
+}
+
+type ModifySubnetStackTypeResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *ModifySubnetStackTypeResponseParams `json:"response,omitempty"`
+
+}
+
+// ModifySubnetStackTypeResponseParams 
+type ModifySubnetStackTypeResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // Ipv6CidrBlock 分配的IPv6地址段。
+    Ipv6CidrBlock *string `json:"ipv6CidrBlock,omitempty"`
+
+}
+
+// DeleteSubnetRequest 
+type DeleteSubnetRequest struct {
+    *common.BaseRequest
+
+    // SubnetId 要删除的子网ID。
+    SubnetId *string `json:"subnetId,omitempty"`
+
+}
+
+type DeleteSubnetResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
@@ -6862,6 +6542,15 @@ type DescribeNatGatewayRegionsRequest struct {
 
 }
 
+type DescribeNatGatewayRegionsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeNatGatewayRegionsResponseParams `json:"response,omitempty"`
+
+}
+
 type DescribeNatGatewayRegionsResponseParams struct {
 
     RequestId *string `json:"requestId,omitempty"`
@@ -6871,12 +6560,113 @@ type DescribeNatGatewayRegionsResponseParams struct {
 
 }
 
-type DescribeNatGatewayRegionsResponse struct {
+// DescribeAvailableBorderGatewayRequest 
+type DescribeAvailableBorderGatewayRequest struct {
+    *common.BaseRequest
+
+    // NatGatewayId NAT网关 ID。
+    NatGatewayId *string `json:"natGatewayId,omitempty"`
+
+}
+
+type DescribeAvailableBorderGatewayResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
 
-    Response *DescribeNatGatewayRegionsResponseParams `json:"response,omitempty"`
+    Response *DescribeAvailableBorderGatewayResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeAvailableBorderGatewayResponseParams 
+type DescribeAvailableBorderGatewayResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // ZbgId 可绑定NAT的边界网关ID。
+    ZbgId *string `json:"zbgId,omitempty"`
+
+}
+
+type InquiryPriceCreateNatGatewayRequest struct {
+    *common.BaseRequest
+
+    // RegionId 区域节点ID。
+    RegionId *string `json:"regionId,omitempty"`
+
+}
+
+type InquiryPriceCreateNatGatewayResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *InquiryPriceCreateNatGatewayResponseParams `json:"response,omitempty"`
+
+}
+
+// InquiryPriceCreateNatGatewayResponseParams 
+type InquiryPriceCreateNatGatewayResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // NatGatewayPrice NAT网关的价格。
+    NatGatewayPrice *PriceItem `json:"natGatewayPrice,omitempty"`
+
+    // CuPrice NAT网关CU的价格。
+    CuPrice *PriceItem `json:"cuPrice,omitempty"`
+
+}
+
+type CreateNatGatewayRequest struct {
+    *common.BaseRequest
+
+    // RegionId 区域节点ID。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // VpcId NAT网关所属的VPC网络ID。
+    VpcId *string `json:"vpcId,omitempty"`
+
+    // Name NAT网关的名称。
+    // 长度为2～63个字符。
+    Name *string `json:"name,omitempty"`
+
+    // SubnetIds NAT网关所属的Subnet子网ID集合。
+    // 如果未指定，则指定区域的所有子网将自动关联NAT网关。
+    SubnetIds []string `json:"subnetIds,omitempty"`
+
+    // SecurityGroupId 安全组ID。
+    // 如果未指定，则指定VPC所属的安全组ID。
+    SecurityGroupId *string `json:"securityGroupId,omitempty"`
+
+    // ResourceGroupId 资源组ID。
+    // 如果不指定，则会创建在默认资源组。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // Tags 创建NAT网关时关联的标签。
+    // 注意：·关联`标签键`不能重复。
+    Tags *TagAssociation `json:"tags,omitempty"`
+
+}
+
+type CreateNatGatewayResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *CreateNatGatewayResponseParams `json:"response,omitempty"`
+
+}
+
+type CreateNatGatewayResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // OrderNumber 下单编号。
+    OrderNumber *string `json:"orderNumber,omitempty"`
+
+    // NatGatewayId NAT网关唯一ID。
+    NatGatewayId *string `json:"natGatewayId,omitempty"`
 
 }
 
@@ -6889,7 +6679,8 @@ type DescribeNatGatewaysRequest struct {
     // VpcId 根据NAT网关所属的VPC网络 ID过滤。
     VpcId *string `json:"vpcId,omitempty"`
 
-    // NatGatewayIds NAT网关ID集合。实例ID数量上限为100个。
+    // NatGatewayIds NAT网关ID集合。
+    // 实例ID数量上限为100个。
     NatGatewayIds []string `json:"natGatewayIds,omitempty"`
 
     // Name NAT网关名称。
@@ -6901,20 +6692,32 @@ type DescribeNatGatewaysRequest struct {
     // SecurityGroupId 根据NAT网关所属的安全组ID过滤。
     SecurityGroupId *string `json:"securityGroupId,omitempty"`
 
-    // PageSize 返回的分页大小。默认为20，最大为1000。
+    // PageSize 返回的分页大小。
+    // 默认为20，最大为1000。
     PageSize *int `json:"pageSize,omitempty"`
 
-    // PageNum 返回的分页页码。默认为1。
+    // PageNum 返回的分页页码。
     PageNum *int `json:"pageNum,omitempty"`
 
     // ResourceGroupId 资源组ID。
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 
-    // TagKeys 根据标签键进行搜索。 最长不得超过20个标签键。
+    // TagKeys 根据标签键进行搜索。
+    // 最长不得超过20个标签键。
     TagKeys []string `json:"tagKeys,omitempty"`
 
-    // Tags 根据标签进行搜索。 最长不得超过20个标签。
+    // Tags 根据标签进行搜索。
+    // 最长不得超过20个标签。
     Tags []*Tag `json:"tags,omitempty"`
+
+}
+
+type DescribeNatGatewaysResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeNatGatewaysResponseParams `json:"response,omitempty"`
 
 }
 
@@ -6972,23 +6775,16 @@ type NatGateway struct {
     // ResourceGroupName 资源组名称。
     ResourceGroupName *string `json:"resourceGroupName,omitempty"`
 
-    // CreateTime 创建时间。按照ISO8601标准表示，并且使用UTC时间, 格式为：YYYY-MM-DDThh:mm:ssZ。
+    // CreateTime 创建时间。
+    // 按照ISO8601标准表示，并且使用UTC时间, 格式为：YYYY-MM-ddTHH:mm:ssZ。
     CreateTime *string `json:"createTime,omitempty"`
 
-    // ExpiredTime 到期时间。按照ISO8601标准表示，并且使用UTC时间, 格式为：YYYY-MM-DDThh:mm:ssZ。
+    // ExpiredTime 到期时间。
+    // 按照ISO8601标准表示，并且使用UTC时间, 格式为：YYYY-MM-ddTHH:mm:ssZ。
     ExpiredTime *string `json:"expiredTime,omitempty"`
 
     // Tags 该CIDR地址段关联的标签。
     Tags *Tags `json:"tags,omitempty"`
-
-}
-
-type DescribeNatGatewaysResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeNatGatewaysResponseParams `json:"response,omitempty"`
 
 }
 
@@ -6997,6 +6793,15 @@ type DescribeNatGatewayDetailRequest struct {
 
     // NatGatewayId NAT网关 ID。
     NatGatewayId *string `json:"natGatewayId,omitempty"`
+
+}
+
+type DescribeNatGatewayDetailResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeNatGatewayDetailResponseParams `json:"response,omitempty"`
 
 }
 
@@ -7024,7 +6829,8 @@ type SnatEntry struct {
     // SnatEntryId SNAT规则 ID。
     SnatEntryId *string `json:"snatEntryId,omitempty"`
 
-    // Cidrs CIDR网段，不传默认是0.0.0.0/0。`cidrs` 和 `snatSubnets` 不会同时存在。
+    // Cidrs CIDR网段，不传默认是0.0.0.0/0。
+    // `cidrs` 和 `snatSubnets` 不会同时存在。
     Cidrs []string `json:"cidrs,omitempty"`
 
     // EipIds SNAT规则添加的弹性公网IP ID集合。
@@ -7075,24 +6881,35 @@ type DnatEntry struct {
 
 }
 
-type DescribeNatGatewayDetailResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeNatGatewayDetailResponseParams `json:"response,omitempty"`
-
-}
-
-type DeleteNatGatewayRequest struct {
+// ModifyNatGatewayAttributeRequest 
+type ModifyNatGatewayAttributeRequest struct {
     *common.BaseRequest
 
     // NatGatewayId NAT网关 ID。
     NatGatewayId *string `json:"natGatewayId,omitempty"`
 
+    // Name NAT网关的名称。
+    // 长度为2～63个字符。
+    Name *string `json:"name,omitempty"`
+
+    // SubnetIds NAT网关的子网ID。
+    SubnetIds []string `json:"subnetIds,omitempty"`
+
+    // IsAllSubnet NAT网关对应的子网是否应用所有子网。
+    // 该字段不能和`subnetIds`同时设置。
+    IsAllSubnet *bool `json:"isAllSubnet,omitempty"`
+
+    // IcmpReplyEnabled 是否开启ICMP代回。
+    IcmpReplyEnabled *bool `json:"icmpReplyEnabled,omitempty"`
+
+    // SecurityGroupId 修改NAT网关绑定的目标安全组ID。
+    // 目前一张NAT网关只能关联一个安全组。
+    // 指定该字段会解绑NAT网关原来的安全组。
+    SecurityGroupId *string `json:"securityGroupId,omitempty"`
+
 }
 
-type DeleteNatGatewayResponse struct {
+type ModifyNatGatewayAttributeResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
@@ -7122,33 +6939,22 @@ type RenewNatGatewayResponse struct {
 
 }
 
-type InquiryPriceCreateNatGatewayRequest struct {
+type DeleteNatGatewayRequest struct {
     *common.BaseRequest
 
-    // RegionId 区域节点ID。
-    RegionId *string `json:"regionId,omitempty"`
+    // NatGatewayId NAT网关 ID。
+    NatGatewayId *string `json:"natGatewayId,omitempty"`
 
 }
 
-// InquiryPriceCreateNatGatewayResponseParams 描述创建NAT网关的响应。
-type InquiryPriceCreateNatGatewayResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // NatGatewayPrice NAT网关的价格。
-    NatGatewayPrice *PriceItem `json:"natGatewayPrice,omitempty"`
-
-    // CuPrice NAT网关CU的价格。
-    CuPrice *PriceItem `json:"cuPrice,omitempty"`
-
-}
-
-type InquiryPriceCreateNatGatewayResponse struct {
+type DeleteNatGatewayResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
 
-    Response *InquiryPriceCreateNatGatewayResponseParams `json:"response,omitempty"`
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
 
 }
 
@@ -7158,26 +6964,24 @@ type CreateSnatEntryRequest struct {
     // NatGatewayId NAT网关 ID。
     NatGatewayId *string `json:"natGatewayId,omitempty"`
 
-    // EipIds SNAT规则添加的弹性公网IP集合。指定的公网IP ID必须属于NAT网关上绑定的公网弹性IP。为空则代表与该NAT网关绑定的所有的弹性公网IP。
+    // EipIds SNAT规则添加的弹性公网IP集合。
+    // 指定的公网IP ID必须属于NAT网关上绑定的公网弹性IP。
+    // 为空则代表与该NAT网关绑定的所有的弹性公网IP。
     EipIds []string `json:"eipIds,omitempty"`
 
-    // Cidr 源CIDR网段。该字段已废弃，请使用`sourceCidrBlocks`。
+    // Cidr 源CIDR网段。
+    // 该字段已废弃，请使用`sourceCidrBlocks`。
     Cidr *string `json:"cidr,omitempty"`
 
-    // SourceCidrBlocks 源CIDR地址段列表。与`subnetIds`必须指定其中的一种。如果使用全地址段，指定为`0.0.0.0/0`。
+    // SourceCidrBlocks 源CIDR地址段列表。
+    // 与`subnetIds`必须指定其中的一种。
+    // 如果使用全地址段，指定为`0.0.0.0/0`。
     SourceCidrBlocks []string `json:"sourceCidrBlocks,omitempty"`
 
-    // SubnetIds 指定子网ID集合。该参数表示该子网内的实例均可以通过`SNAT`规则访问外部网络。 与`sourceCidrBlocks`必须指定其中的一种。
+    // SubnetIds 指定子网ID集合。
+    // 该参数表示该子网内的实例均可以通过`SNAT`规则访问外部网络。
+    // 与`sourceCidrBlocks`必须指定其中的一种。
     SubnetIds []string `json:"subnetIds,omitempty"`
-
-}
-
-type CreateSnatEntryResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // SnatEntryId SNAT规则唯一ID。
-    SnatEntryId *string `json:"snatEntryId,omitempty"`
 
 }
 
@@ -7190,25 +6994,40 @@ type CreateSnatEntryResponse struct {
 
 }
 
+type CreateSnatEntryResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // SnatEntryId SNAT规则唯一ID。
+    SnatEntryId *string `json:"snatEntryId,omitempty"`
+
+}
+
 type ModifySnatEntryRequest struct {
     *common.BaseRequest
 
     // SnatEntryId SNAT规则 ID。
     SnatEntryId *string `json:"snatEntryId,omitempty"`
 
-    // EipIds SNAT规则添加的弹性公网IP ID集合。如果需要修改为NAT网关所有上弹性公网IP，请指定`isAllEip`=`true`。
+    // EipIds SNAT规则添加的弹性公网IP ID集合。
+    // 如果需要修改为NAT网关所有上弹性公网IP，请指定`isAllEip`=`true`。
     EipIds []string `json:"eipIds,omitempty"`
 
     // IsAllEip 弹性公网IP是否为所有的NAT网关上的公网弹性IP。
     IsAllEip *bool `json:"isAllEip,omitempty"`
 
-    // Cidr 源CIDR网段。该字段已废弃，请使用`sourceCidrBlocks`。
+    // Cidr 源CIDR网段。
+    // 该字段已废弃，请使用`sourceCidrBlocks`。
     Cidr *string `json:"cidr,omitempty"`
 
-    // SourceCidrBlocks 源CIDR地址段列表。与`subnetIds`必须指定其中的一种。如果使用全地址段，指定为`0.0.0.0/0`。
+    // SourceCidrBlocks 源CIDR地址段列表。
+    // 与`subnetIds`必须指定其中的一种。
+    // 如果使用全地址段，指定为`0.0.0.0/0`。
     SourceCidrBlocks []string `json:"sourceCidrBlocks,omitempty"`
 
-    // SubnetIds 要修改子网ID集合。该参数表示该子网内的实例均可以通过`SNAT`规则访问外部网络。与`sourceCidrBlocks`必须指定其中的一种。
+    // SubnetIds 要修改子网ID集合。
+    // 该参数表示该子网内的实例均可以通过`SNAT`规则访问外部网络。
+    // 与`sourceCidrBlocks`必须指定其中的一种。
     SubnetIds []string `json:"subnetIds,omitempty"`
 
 }
@@ -7255,23 +7074,21 @@ type CreateDnatEntryRequest struct {
     // PrivateIp DNAT规则的内网IP地址。
     PrivateIp *string `json:"privateIp,omitempty"`
 
-    // Protocol DNAT规则的协议类型。如果要转发所有流量，端口不变，请指定协议类型为`Any`且内部端口和公网外部端口不要设置。
+    // Protocol DNAT规则的协议类型。
+    // 如果要转发所有流量，端口不变，请指定协议类型为`Any`且内部端口和公网外部端口不要设置。
     Protocol *string `json:"protocol,omitempty"`
 
-    // ListenerPort DNAT规则端口转发的外部公网端口或端口段。可使用连字符（-）指定端口范围，例如：80-100，公网和内网端口数量需保持一致。取值范围1-65535。仅在协议类型不为`Any`时生效。
+    // ListenerPort DNAT规则端口转发的外部公网端口或端口段。
+    // 可使用连字符（-）指定端口范围，例如：80-100，公网和内网端口数量需保持一致。
+    // 取值范围1-65535。
+    // 仅在协议类型不为`Any`时生效。
     ListenerPort *string `json:"listenerPort,omitempty"`
 
-    // InternalPort DNAT规则端口转发的内部端口或端口段。可使用连字符（-）指定端口范围，例如：80-100，公网和内网端口数量需保持一致。取值范围1-65535。仅在协议类型不为`Any`时生效。
+    // InternalPort DNAT规则端口转发的内部端口或端口段。
+    // 可使用连字符（-）指定端口范围，例如：80-100，公网和内网端口数量需保持一致。
+    // 取值范围1-65535。
+    // 仅在协议类型不为`Any`时生效。
     InternalPort *string `json:"internalPort,omitempty"`
-
-}
-
-type CreateDnatEntryResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // DnatEntryId DNAT规则唯一ID。
-    DnatEntryId *string `json:"dnatEntryId,omitempty"`
 
 }
 
@@ -7281,6 +7098,15 @@ type CreateDnatEntryResponse struct {
     RequestId *string `json:"requestId,omitempty"`
 
     Response *CreateDnatEntryResponseParams `json:"response,omitempty"`
+
+}
+
+type CreateDnatEntryResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // DnatEntryId DNAT规则唯一ID。
+    DnatEntryId *string `json:"dnatEntryId,omitempty"`
 
 }
 
@@ -7337,101 +7163,359 @@ type DeleteDnatEntryResponse struct {
 
 }
 
-// DescribeAvailableBorderGatewayRequest 获取可绑定NAT的边界网关的请求信息。
-type DescribeAvailableBorderGatewayRequest struct {
+// CreatePolicyRequest 
+type CreatePolicyRequest struct {
     *common.BaseRequest
 
-    // NatGatewayId NAT网关 ID。
-    NatGatewayId *string `json:"natGatewayId,omitempty"`
+    // PolicyName 防护策略的名称。
+    // 范围2到63个字符。
+    // 仅支持输入字母、数字、-和英文句点(.)。
+    // 且必须以数字或字母开头和结尾。
+    PolicyName *string `json:"policyName,omitempty"`
+
+    // ResourceGroupId 创建后防护策略所在的资源组ID，如不指定则放入默认资源组。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // BlackIpList 黑名单列表。
+    BlackIpList []string `json:"blackIpList,omitempty"`
+
+    // WhiteIpList 白名单列表。
+    WhiteIpList []string `json:"whiteIpList,omitempty"`
+
+    // IpBlackTimeout 黑名单超时时间, 单位:分钟。
+    IpBlackTimeout *int `json:"ipBlackTimeout,omitempty"`
+
+    // Ports 端口封禁, 支持TCP和UDP。
+    Ports []*DdosPolicyPort `json:"ports,omitempty"`
+
+    // BlockProtocol 开启的封禁协议。
+    // 不能同时开启UDP和TCP。
+    BlockProtocol []string `json:"blockProtocol,omitempty"`
+
+    // BlockRegions 封禁的区域。
+    BlockRegions []string `json:"blockRegions,omitempty"`
+
+    // Finger 指纹过滤相关配置。
+    Finger []*DdosFingerprintRule `json:"finger,omitempty"`
+
+    // ReflectUdpPort 反射攻击防护过滤的端口列表。
+    ReflectUdpPort []*DdosReflectUdpPort `json:"reflectUdpPort,omitempty"`
+
+    // TrafficControl 源限速配置。
+    TrafficControl *DdosTrafficControl `json:"trafficControl,omitempty"`
+
+    // Tags 创建DDoS时关联的标签。
+    // 注意：·关联`标签键`不能重复。
+    Tags *TagAssociation `json:"tags,omitempty"`
 
 }
 
-// DescribeAvailableBorderGatewayResponseParams 可绑定NAT的边界网关的相应信息。
-type DescribeAvailableBorderGatewayResponseParams struct {
+// DdosPolicyPort DDoS端口封禁规则。
+type DdosPolicyPort struct {
 
-    RequestId *string `json:"requestId,omitempty"`
+    // Protocol 协议类型。
+    // 只支持 `UDP` / `TCP` 两种协议。
+    Protocol *string `json:"protocol,omitempty"`
 
-    // ZbgId 可绑定NAT的边界网关ID。
-    ZbgId *string `json:"zbgId,omitempty"`
+    // SrcPortStart 源端口范围的起始值。
+    SrcPortStart *int `json:"srcPortStart,omitempty"`
+
+    // SrcPortEnd 源端口范围的结束值。
+    SrcPortEnd *int `json:"srcPortEnd,omitempty"`
+
+    // DstPortStart 目的端口范围的起始值。
+    DstPortStart *int `json:"dstPortStart,omitempty"`
+
+    // DstPortEnd 目的端口范围的结束值。
+    DstPortEnd *int `json:"dstPortEnd,omitempty"`
+
+    // Action 匹配后的动作。
+    Action *string `json:"action,omitempty"`
 
 }
 
-type DescribeAvailableBorderGatewayResponse struct {
+// DdosFingerprintRule DDoS 指纹过滤的相关配置
+type DdosFingerprintRule struct {
+
+    // Protocol 设置指纹的协议。
+    Protocol *string `json:"protocol,omitempty"`
+
+    // SrcPortStart 指纹源端口的范围起始值。
+    SrcPortStart *int `json:"srcPortStart,omitempty"`
+
+    // SrcPortEnd 指纹源端口的范围结束值。
+    SrcPortEnd *int `json:"srcPortEnd,omitempty"`
+
+    // DstPortStart 指纹目的端口的范围起始值。
+    DstPortStart *int `json:"dstPortStart,omitempty"`
+
+    // DstPortEnd 指纹目的端口的范围结束值。
+    DstPortEnd *int `json:"dstPortEnd,omitempty"`
+
+    // MinPktLength 需要过滤出的最小包长。
+    MinPktLength *int `json:"minPktLength,omitempty"`
+
+    // MaxPktLength 需要过滤出的最大包长。
+    MaxPktLength *int `json:"maxPktLength,omitempty"`
+
+    // Offset 报文载荷特征的偏移量。
+    // TCP/UDP payload 的偏移 [0-1500]。
+    Offset *int `json:"offset,omitempty"`
+
+    // MatchBytes 检测载荷。
+    // 不含0x 的16进制 小写 补足2位。
+    MatchBytes *string `json:"matchBytes,omitempty"`
+
+    // Action 设置指纹匹配后的动作。
+    Action *string `json:"action,omitempty"`
+
+}
+
+// DdosReflectUdpPort DDoS 反射攻击相关信息。
+type DdosReflectUdpPort struct {
+
+    // Port 反射攻击防护过滤的端口。
+    Port *int `json:"port,omitempty"`
+
+}
+
+// DdosTrafficControl DDoS源限速相关设置
+type DdosTrafficControl struct {
+
+    // BpsEnabled 是否开启 bps 限速。
+    BpsEnabled *bool `json:"bpsEnabled,omitempty"`
+
+    // Bps bps 限速值。
+    Bps *int64 `json:"bps,omitempty"`
+
+    // PpsEnabled 是否开启 pps 限速。
+    PpsEnabled *bool `json:"ppsEnabled,omitempty"`
+
+    // Pps pps 限速值。
+    Pps *int64 `json:"pps,omitempty"`
+
+    // SynBPSEnabled 是否开启 sync bps 限速。
+    SynBPSEnabled *bool `json:"synBPSEnabled,omitempty"`
+
+    // SynBPS syn bps 限速值。
+    SynBPS *int64 `json:"synBPS,omitempty"`
+
+    // SynPPSEnabled 是否开启 sync pps 限速。
+    SynPPSEnabled *bool `json:"synPPSEnabled,omitempty"`
+
+    // SynPPS syn pps 限速值。
+    SynPPS *int64 `json:"synPPS,omitempty"`
+
+}
+
+type CreatePolicyResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
 
-    Response *DescribeAvailableBorderGatewayResponseParams `json:"response,omitempty"`
+    Response *CreatePolicyResponseParams `json:"response,omitempty"`
 
 }
 
-type CreateRouteRequest struct {
-    *common.BaseRequest
-
-    // VpcId VPC的ID。
-    VpcId *string `json:"vpcId,omitempty"`
-
-    // IpVersion IP类型。支持`IPv4`和`IPv6`两种类型。
-    IpVersion *string `json:"ipVersion,omitempty"`
-
-    // RouteType 路由类型。
-    RouteType *string `json:"routeType,omitempty"`
-
-    // SourceCidrBlock 源IP地址CIDR。`路由类型`配置`RouteTypePolicy(策略路由)`时需指定。
-    SourceCidrBlock *string `json:"sourceCidrBlock,omitempty"`
-
-    // DestinationCidrBlock IPv4或IPv6的目标网段。例如：10.0.1.0/24。
-    DestinationCidrBlock *string `json:"destinationCidrBlock,omitempty"`
-
-    // CidrBlock IPv4或IPv6的目标网段。例如：10.0.1.0/24。该字段已废弃，请使用`destinationCidrBlock`。
-    CidrBlock *string `json:"cidrBlock,omitempty"`
-
-    // Priority 路由优先级。数值越小，优先级越高。
-    Priority *int `json:"priority,omitempty"`
-
-    // NextHopId 下一跳资源ID。目前只支持网卡ID。
-    NextHopId *string `json:"nextHopId,omitempty"`
-
-    // NextHotId 下一跳资源ID。目前只支持网卡ID。该字段已废弃， 请使用`nextHopId`。
-    NextHotId *string `json:"nextHotId,omitempty"`
-
-    // Name 路由名称。名称长度为 2 到 63 个字符，仅支持字母、数字、连字符 (-) 、下划线(_) 、斜杠(/) 、和句点 (.)，且开头和结尾必须是字母或数字。
-    Name *string `json:"name,omitempty"`
-
-}
-
-// CreateRouteResponseParams 创建路由的响应信息。
-type CreateRouteResponseParams struct {
+// CreatePolicyResponseParams 
+type CreatePolicyResponseParams struct {
 
     RequestId *string `json:"requestId,omitempty"`
 
-    // RouteId 创建的路由ID。
-    RouteId *string `json:"routeId,omitempty"`
+    // PolicyId 防护策略ID。
+    PolicyId *string `json:"policyId,omitempty"`
 
 }
 
-type CreateRouteResponse struct {
+// DescribePolicysRequest 
+type DescribePolicysRequest struct {
+    *common.BaseRequest
+
+    // PolicyIds 根据防护策略ID列表进行筛选。
+    // 最大不能超过100个。
+    PolicyIds []string `json:"policyIds,omitempty"`
+
+    // PolicyName 根据防护策略名称过滤。
+    // 该字段支持模糊搜索。
+    PolicyName *string `json:"policyName,omitempty"`
+
+    // PageSize 返回的分页大小。
+    PageSize *int `json:"pageSize,omitempty"`
+
+    // PageNum 返回的分页数。
+    PageNum *int `json:"pageNum,omitempty"`
+
+    // TagKeys 根据标签键进行搜索。
+    // 最长不得超过20个标签键。
+    TagKeys []string `json:"tagKeys,omitempty"`
+
+    // Tags 根据标签进行搜索。
+    // 最长不得超过20个标签。
+    Tags []*Tag `json:"tags,omitempty"`
+
+}
+
+type DescribePolicysResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
 
-    Response *CreateRouteResponseParams `json:"response,omitempty"`
+    Response *DescribePolicysResponseParams `json:"response,omitempty"`
 
 }
 
-// ModifyRouteAttributeRequest 修改路由信息的请求信息。
-type ModifyRouteAttributeRequest struct {
+// DescribePolicysResponseParams 
+type DescribePolicysResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // TotalCount 符合条件的数据总数。
+    TotalCount *int `json:"totalCount,omitempty"`
+
+    // DataSet 防护策略列表的数据。
+    DataSet []*PolicyInfo `json:"dataSet,omitempty"`
+
+}
+
+// PolicyInfo 描述防护策略的信息。
+type PolicyInfo struct {
+
+    // PolicyId 防护策略唯一ID。
+    PolicyId *string `json:"policyId,omitempty"`
+
+    // PolicyName 防护策略名称。
+    PolicyName *string `json:"policyName,omitempty"`
+
+    // CreateTime 创建时间。
+    CreateTime *string `json:"createTime,omitempty"`
+
+    // ResourceGroupId 防护策略所属的资源组ID。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // ResourceGroupName 防护策略所属的资源组名称。
+    ResourceGroupName *string `json:"resourceGroupName,omitempty"`
+
+    // Tags 防护策略关联的标签。
+    Tags *Tags `json:"tags,omitempty"`
+
+}
+
+// DescribePolicyDetailRequest 
+type DescribePolicyDetailRequest struct {
     *common.BaseRequest
 
-    // RouteId 路由ID。
-    RouteId *string `json:"routeId,omitempty"`
-
-    // Name 路由名称。名称长度为 2 到 63 个字符，仅支持字母、数字、连字符 (-) 、下划线(_) 、斜杠(/) 、和句点 (.)，且开头和结尾必须是字母或数字。
-    Name *string `json:"name,omitempty"`
+    // PolicyId 防护策略ID。
+    PolicyId *string `json:"policyId,omitempty"`
 
 }
 
-type ModifyRouteAttributeResponse struct {
+type DescribePolicyDetailResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribePolicyDetailResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribePolicyDetailResponseParams 
+type DescribePolicyDetailResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // PolicyId 防护策略的ID。
+    PolicyId *string `json:"policyId,omitempty"`
+
+    // PolicyName 防护策略的名称。
+    PolicyName *string `json:"policyName,omitempty"`
+
+    // AttachmentIps 防护对象关联IP列表。
+    AttachmentIps []string `json:"attachmentIps,omitempty"`
+
+    // CreateTime 创建时间。
+    CreateTime *string `json:"createTime,omitempty"`
+
+    // BlackIps 黑名单IP列表。
+    BlackIps []string `json:"blackIps,omitempty"`
+
+    // WhiteIps 白名单IP列表。
+    WhiteIps []string `json:"whiteIps,omitempty"`
+
+    // BlackIpListExpireAt 黑名单超时时间。
+    BlackIpListExpireAt *int `json:"blackIpListExpireAt,omitempty"`
+
+    // BlockProtocols 开启的封禁协议。
+    // 不能同时开启UDP和TCP。
+    BlockProtocols []string `json:"blockProtocols,omitempty"`
+
+    // Ports 端口封禁。
+    Ports []*DdosPolicyPort `json:"ports,omitempty"`
+
+    // BlockRegions 封禁的区域。
+    BlockRegions []string `json:"blockRegions,omitempty"`
+
+    // ReflectUdpPort 反射攻击防护过滤的端口列表。
+    ReflectUdpPort []*DdosReflectUdpPort `json:"reflectUdpPort,omitempty"`
+
+    // TrafficControl 源限速配置。
+    TrafficControl *DdosTrafficControl `json:"trafficControl,omitempty"`
+
+    // FingerPrintRules 指纹过滤相关配置。
+    FingerPrintRules []*DdosFingerprintRule `json:"fingerPrintRules,omitempty"`
+
+}
+
+// ModifyPolicyRequest 
+type ModifyPolicyRequest struct {
+    *common.BaseRequest
+
+    // PolicyId 防护策略ID。
+    PolicyId *string `json:"policyId,omitempty"`
+
+    // PolicyName 防护策略的名称。
+    // 范围2到63个字符。
+    // 仅支持输入字母、数字、-和英文句点(.)。
+    // 且必须以数字或字母开头和结尾。
+    PolicyName *string `json:"policyName,omitempty"`
+
+    // ConfigType 配置类型。
+    ConfigType *string `json:"configType,omitempty"`
+
+    // BlackIpList 黑名单列表。
+    BlackIpList []string `json:"blackIpList,omitempty"`
+
+    // WhiteIpList 白名单列表。
+    WhiteIpList []string `json:"whiteIpList,omitempty"`
+
+    // IpBlackTimeout 黑名单超时时间, 单位:分钟。
+    IpBlackTimeout *int `json:"ipBlackTimeout,omitempty"`
+
+    // Ports 端口封禁, 支持TCP和UDP。
+    Ports []*DdosPolicyPort `json:"ports,omitempty"`
+
+    // BlockProtocol 开启的封禁协议。
+    // 不能同时开启UDP和TCP。
+    BlockProtocol []string `json:"blockProtocol,omitempty"`
+
+    // BlockRegions 封禁的区域。
+    BlockRegions []string `json:"blockRegions,omitempty"`
+
+    // Finger 指纹过滤相关配置。
+    Finger []*DdosFingerprintRule `json:"finger,omitempty"`
+
+    // ReflectUdpPort 反射攻击防护过滤的端口列表。
+    ReflectUdpPort []*DdosReflectUdpPort `json:"reflectUdpPort,omitempty"`
+
+    // TrafficControl 源限速配置。
+    TrafficControl *DdosTrafficControl `json:"trafficControl,omitempty"`
+
+    // Tags 创建DDoS时关联的标签。
+    // 注意：·关联`标签键`不能重复。
+    Tags *TagAssociation `json:"tags,omitempty"`
+
+}
+
+type ModifyPolicyResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
@@ -7442,16 +7526,19 @@ type ModifyRouteAttributeResponse struct {
 
 }
 
-// DeleteRouteRequest 删除路由的请求信息。
-type DeleteRouteRequest struct {
+// AttachToPolicyRequest 
+type AttachToPolicyRequest struct {
     *common.BaseRequest
 
-    // RouteId 路由ID。
-    RouteId *string `json:"routeId,omitempty"`
+    // PolicyId 防护策略ID。
+    PolicyId *string `json:"policyId,omitempty"`
+
+    // Ipv4IdList 防护对象列表。
+    Ipv4IdList []string `json:"ipv4IdList,omitempty"`
 
 }
 
-type DeleteRouteResponse struct {
+type AttachToPolicyResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
@@ -7462,26 +7549,227 @@ type DeleteRouteResponse struct {
 
 }
 
-type DescribeRoutesRequest struct {
+// DetachFromPolicyRequest 
+type DetachFromPolicyRequest struct {
     *common.BaseRequest
 
-    // RouteIds 根据路由ID过滤。最多同时传入100个ID。
-    RouteIds []string `json:"routeIds,omitempty"`
+    // PolicyId 防护策略ID。
+    PolicyId *string `json:"policyId,omitempty"`
 
-    // VpcId 根据路由关联的VPC ID过滤。
-    VpcId *string `json:"vpcId,omitempty"`
+    // Ipv4IdList 防护对象列表。
+    Ipv4IdList []string `json:"ipv4IdList,omitempty"`
 
-    // IpVersion 根据IP类型过滤。支持`IPv4`和`IPv6`两种类型。
-    IpVersion *string `json:"ipVersion,omitempty"`
+}
 
-    // RouteType 根据路由类型过滤。
-    RouteType *string `json:"routeType,omitempty"`
+type DetachFromPolicyResponse struct {
+    *common.BaseResponse
 
-    // Name 根据名称类型过滤。该字段支持模糊搜索。
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type DescribePolicyRegionsRequest struct {
+    *common.BaseRequest
+
+}
+
+type DescribePolicyRegionsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribePolicyRegionsResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribePolicyRegionsResponseParams 
+type DescribePolicyRegionsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // Regions 区域可选列表。
+    Regions []*PolicyRegion `json:"regions,omitempty"`
+
+}
+
+// PolicyRegion 区域的基本信息。
+type PolicyRegion struct {
+
+    // RegionId 区域ID。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // RegionName 国家名称。
+    RegionName *string `json:"regionName,omitempty"`
+
+    // AreaName 地域名称。
+    AreaName *string `json:"areaName,omitempty"`
+
+}
+
+type DescribeReflectUdpPortOptionsRequest struct {
+    *common.BaseRequest
+
+}
+
+type DescribeReflectUdpPortOptionsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeReflectUdpPortOptionsResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeReflectUdpPortOptionsResponseParams 
+type DescribeReflectUdpPortOptionsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // ReflectUdpPorts 默认UDP反射源端口列表。
+    ReflectUdpPorts []*ReflectUdpPortPolicy `json:"reflectUdpPorts,omitempty"`
+
+}
+
+// ReflectUdpPortPolicy UDP反射源端口
+type ReflectUdpPortPolicy struct {
+
+    // Name 反射攻击类型。
     Name *string `json:"name,omitempty"`
 
-    // DestinationCidrBlock 根据Ipv4或IPv6的目标网段过滤。例如：10.0.1.0/24。
-    DestinationCidrBlock *string `json:"destinationCidrBlock,omitempty"`
+    // Port 反射源端口。
+    Port *int `json:"port,omitempty"`
+
+}
+
+// DeletePolicyRequest 
+type DeletePolicyRequest struct {
+    *common.BaseRequest
+
+    // PolicyId 防护策略ID。
+    PolicyId *string `json:"policyId,omitempty"`
+
+}
+
+type DeletePolicyResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// DescribeDDosEventDetailRequest 
+type DescribeDDosEventDetailRequest struct {
+    *common.BaseRequest
+
+    // EventId 攻击事件唯一ID。
+    EventId *string `json:"eventId,omitempty"`
+
+    // RegionId 区域节点ID。
+    RegionId *string `json:"regionId,omitempty"`
+
+}
+
+type DescribeDDosEventDetailResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeDDosEventDetailResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeDDosEventDetailResponseParams 
+type DescribeDDosEventDetailResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // EventId 攻击事件唯一ID。
+    EventId *string `json:"eventId,omitempty"`
+
+    // Status 攻击状态。
+    Status *string `json:"status,omitempty"`
+
+    // Type 攻击类型。
+    Type *string `json:"type,omitempty"`
+
+    // IpAddress 被攻击的IP。
+    IpAddress *string `json:"ipAddress,omitempty"`
+
+    // Protecting IP是否正在防护中。
+    Protecting *bool `json:"protecting,omitempty"`
+
+    // StartTime 攻击开始时间。
+    StartTime *string `json:"startTime,omitempty"`
+
+    // EndTime 攻击结束时间。
+    EndTime *string `json:"endTime,omitempty"`
+
+    // EndBlackholeTime 从黑洞解封时间。
+    EndBlackholeTime *string `json:"endBlackholeTime,omitempty"`
+
+    // AttackBandwidthMax 攻击带宽峰值。
+    // 单位bps。
+    AttackBandwidthMax *float64 `json:"attackBandwidthMax,omitempty"`
+
+    // ProtectedBandwidthMax 防护带宽峰值。
+    // 单位bps。
+    ProtectedBandwidthMax *float64 `json:"protectedBandwidthMax,omitempty"`
+
+    // AttackPackageMax 攻击峰值包速率。
+    // 单位pps。
+    AttackPackageMax *float64 `json:"attackPackageMax,omitempty"`
+
+    // ProtectedPackageMax 防护峰值包速率。
+    // 单位pps。
+    ProtectedPackageMax *float64 `json:"protectedPackageMax,omitempty"`
+
+    // SourceIp 攻击来源IP。
+    SourceIp []string `json:"sourceIp,omitempty"`
+
+    // SourcePort 攻击来源端口。
+    SourcePort []*TopPort `json:"sourcePort,omitempty"`
+
+    // DesertionPort 攻击目标端口。
+    DesertionPort []*TopPort `json:"desertionPort,omitempty"`
+
+}
+
+// TopPort 攻击端口。
+type TopPort struct {
+
+    // Protocol 协议。
+    Protocol *string `json:"protocol,omitempty"`
+
+    // Port 端口号。
+    Port *int `json:"port,omitempty"`
+
+}
+
+// DescribeDDosAllEventListRequest 
+type DescribeDDosAllEventListRequest struct {
+    *common.BaseRequest
+
+    // Status 攻击状态。
+    Status *string `json:"status,omitempty"`
+
+    // IpAddress 被攻击的IP。
+    IpAddress *string `json:"ipAddress,omitempty"`
+
+    // StartTime 攻击开始时间。
+    // 时间格式：yyyy-MM-ddTHH:mm:ssZ。
+    StartTime *string `json:"startTime,omitempty"`
+
+    // EndTime 攻击结束时间。
+    // 时间格式：yyyy-MM-ddTHH:mm:ssZ。
+    EndTime *string `json:"endTime,omitempty"`
 
     // PageSize 返回的分页大小。
     PageSize *int `json:"pageSize,omitempty"`
@@ -7491,72 +7779,352 @@ type DescribeRoutesRequest struct {
 
 }
 
-// DescribeRoutesResponseParams 描述路由列表的响应信息。
-type DescribeRoutesResponseParams struct {
+type DescribeDDosAllEventListResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeDDosAllEventListResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeDDosAllEventListResponseParams 
+type DescribeDDosAllEventListResponseParams struct {
 
     RequestId *string `json:"requestId,omitempty"`
 
     // TotalCount 符合条件的数据总数。
     TotalCount *int `json:"totalCount,omitempty"`
 
-    // DataSet 路由列表数据。
-    DataSet []*RouteInfo `json:"dataSet,omitempty"`
+    // DataSet 攻击事件列表的数据。
+    DataSet []*AttackEventInfo `json:"dataSet,omitempty"`
 
 }
 
-// RouteInfo 描述路由的相关信息。
-type RouteInfo struct {
+// AttackEventInfo 攻击事件的信息。
+type AttackEventInfo struct {
 
-    // RouteId 路由ID。
-    RouteId *string `json:"routeId,omitempty"`
+    // EventId 攻击事件唯一ID。
+    EventId *string `json:"eventId,omitempty"`
 
-    // Name 路由的名称。
-    Name *string `json:"name,omitempty"`
+    // Status 攻击状态。
+    Status *string `json:"status,omitempty"`
 
-    // VpcId 路由关联的VPC的ID。
-    VpcId *string `json:"vpcId,omitempty"`
+    // IpAddress 被攻击的IP。
+    IpAddress *string `json:"ipAddress,omitempty"`
 
-    // VpcName 路由关联的VPC的名称。
-    VpcName *string `json:"vpcName,omitempty"`
+    // Protecting IP是否正在防护中。
+    Protecting *bool `json:"protecting,omitempty"`
 
-    // IpVersion IP类型。支持`IPv4`和`IPv6`两种类型。
-    IpVersion *string `json:"ipVersion,omitempty"`
+    // StartTime 攻击开始时间。
+    StartTime *string `json:"startTime,omitempty"`
 
-    // Type 路由类型。
-    Type *string `json:"type,omitempty"`
+    // EndTime 攻击结束时间。
+    EndTime *string `json:"endTime,omitempty"`
 
-    // SourceCidrBlock 源IP地址。当`路由类型`是`RouteTypePolicy(策略路由)`时可取值。
-    SourceCidrBlock *string `json:"sourceCidrBlock,omitempty"`
+    // EndBlackholeTime 从黑洞解封时间。
+    EndBlackholeTime *string `json:"endBlackholeTime,omitempty"`
 
-    // DestinationCidrBlock IPv4或IPv6的目标网段。例如：10.0.1.0/24。
-    DestinationCidrBlock *string `json:"destinationCidrBlock,omitempty"`
+    // AttackBandwidthMax 攻击峰值流量。
+    // 单位bps。
+    AttackBandwidthMax *float64 `json:"attackBandwidthMax,omitempty"`
 
-    // CidrBlock IPv4或IPv6的目标网段。例如：10.0.1.0/24。该字段已废弃，请使用`destinationCidrBlock`。
-    CidrBlock *string `json:"cidrBlock,omitempty"`
+    // AttackPackageMax 攻击峰值包量。
+    // 单位pps。
+    AttackPackageMax *float64 `json:"attackPackageMax,omitempty"`
 
-    // Priority 路由优先级。
-    Priority *int `json:"priority,omitempty"`
-
-    // NextHopId 下一跳资源ID。
-    NextHopId *string `json:"nextHopId,omitempty"`
-
-    // NextHopName 下一跳资源名称。
-    NextHopName *string `json:"nextHopName,omitempty"`
-
-    // NextHopType 下一跳的类型。
-    NextHopType *string `json:"nextHopType,omitempty"`
-
-    // CreateTime 路由的创建时间。
-    CreateTime *string `json:"createTime,omitempty"`
+    // RegionId 事件发生所在区域ID。
+    RegionId *string `json:"regionId,omitempty"`
 
 }
 
-type DescribeRoutesResponse struct {
+// DescribeSecurityGroupsRequest 
+type DescribeSecurityGroupsRequest struct {
+    *common.BaseRequest
+
+    // SecurityGroupIds 根据安全组ID列表筛选。
+    SecurityGroupIds []string `json:"securityGroupIds,omitempty"`
+
+    // SecurityGroupName 根据安全组名称筛选。
+    // 支持模糊搜索。
+    SecurityGroupName *string `json:"securityGroupName,omitempty"`
+
+    // PageSize 返回的分页大小。
+    PageSize *int `json:"pageSize,omitempty"`
+
+    // PageNum 返回的分页数。
+    PageNum *int `json:"pageNum,omitempty"`
+
+}
+
+type DescribeSecurityGroupsResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
 
-    Response *DescribeRoutesResponseParams `json:"response,omitempty"`
+    Response *DescribeSecurityGroupsResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeSecurityGroupsResponseParams 
+type DescribeSecurityGroupsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // TotalCount 符合条件的数据总数。
+    TotalCount *int `json:"totalCount,omitempty"`
+
+    // DataSet 安全组的结果数据。
+    DataSet []*SecurityGroupInfo `json:"dataSet,omitempty"`
+
+}
+
+// SecurityGroupInfo 描述安全组的基本信息。
+type SecurityGroupInfo struct {
+
+    // SecurityGroupId 安全组ID。
+    SecurityGroupId *string `json:"securityGroupId,omitempty"`
+
+    // SecurityGroupName 安全组名称。
+    SecurityGroupName *string `json:"securityGroupName,omitempty"`
+
+    // Scope 范围。
+    // 目前只有全球范围(`Global`)。
+    Scope *string `json:"scope,omitempty"`
+
+    // CreateTime 创建时间。
+    CreateTime *string `json:"createTime,omitempty"`
+
+    // VpcIds 关联的VPC ID列表。
+    VpcIds []string `json:"vpcIds,omitempty"`
+
+    // IsDefault 是否是默认安全组。
+    IsDefault *bool `json:"isDefault,omitempty"`
+
+    // NicIdList 关联安全组的网卡ID列表。
+    NicIdList []string `json:"nicIdList,omitempty"`
+
+    // NatIdList 关联安全组的NAT网关ID列表。
+    NatIdList []string `json:"natIdList,omitempty"`
+
+    // LoadBalancerIdList 关联安全组的负载均衡ID列表。
+    LoadBalancerIdList []string `json:"loadBalancerIdList,omitempty"`
+
+}
+
+// CreateSecurityGroupRequest 
+type CreateSecurityGroupRequest struct {
+    *common.BaseRequest
+
+    // Scope 范围。
+    // 目前只支持`Global`。
+    Scope *string `json:"scope,omitempty"`
+
+    // SecurityGroupName 安全组名称。
+    // 范围1到64个字符。
+    // 仅支持输入字母、数字、-和英文句点(.)。
+    SecurityGroupName *string `json:"securityGroupName,omitempty"`
+
+    // RuleInfos 安全组的规则。
+    RuleInfos []*SecurityGroupRuleInfo `json:"ruleInfos,omitempty"`
+
+}
+
+// SecurityGroupRuleInfo 安全组规则信息。包括出入方向、端口范围、IP协议等信息。
+type SecurityGroupRuleInfo struct {
+
+    // Direction 规则方向。
+    // ingress: 入方向。
+    // egress：出方向。
+    Direction *string `json:"direction,omitempty"`
+
+    // Policy 设置访问权限。
+    // accept：接受访问。
+    // deny: 拒绝访问。
+    Policy *string `json:"policy,omitempty"`
+
+    // Priority 规则优先级。
+    Priority *int `json:"priority,omitempty"`
+
+    // IpProtocol 传输层协议。
+    // 取值大小写敏感, 取值范围：<br/>tcp：TCP协议。
+    // udp：UDP协议。
+    // icmp：ICMP协议。
+    // all：支持所有协议。
+    IpProtocol *string `json:"ipProtocol,omitempty"`
+
+    // PortRange 目的端安全组开放的传输层协议相关的端口范围。
+    // 取值范围：<br/> TCP/UDP协议：取值范围为1~65535。
+    // ICMP协议：-1。
+    // all：-1。
+    PortRange *string `json:"portRange,omitempty"`
+
+    // CidrIp 源端IP地址范围。
+    // 支持CIDR格式和IPv4格式的IP地址范围。
+    // 默认值：0.0.XX.XX/0。
+    CidrIp *string `json:"cidrIp,omitempty"`
+
+    // Desc 备注,长度在255个以内。
+    Desc *string `json:"desc,omitempty"`
+
+}
+
+type CreateSecurityGroupResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *CreateSecurityGroupResponseParams `json:"response,omitempty"`
+
+}
+
+// CreateSecurityGroupResponseParams 
+type CreateSecurityGroupResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // SecurityGroupId 创建的安全组ID。
+    SecurityGroupId *string `json:"securityGroupId,omitempty"`
+
+}
+
+// ModifySecurityGroupsAttributeRequest 
+type ModifySecurityGroupsAttributeRequest struct {
+    *common.BaseRequest
+
+    // SecurityGroupName 安全组名称。
+    // 范围2到63个字符。
+    // 仅支持输入字母、数字、-和英文句点(.)。
+    SecurityGroupName *string `json:"securityGroupName,omitempty"`
+
+    // SecurityGroupIds 要操作的安全组ID列表。
+    SecurityGroupIds []string `json:"securityGroupIds,omitempty"`
+
+}
+
+type ModifySecurityGroupsAttributeResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type DeleteSecurityGroupRequest struct {
+    *common.BaseRequest
+
+    // SecurityGroupId 要删除的安全组ID。
+    SecurityGroupId *string `json:"securityGroupId,omitempty"`
+
+}
+
+type DeleteSecurityGroupResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type DescribeSecurityGroupRuleRequest struct {
+    *common.BaseRequest
+
+    // SecurityGroupId 安全组ID。
+    SecurityGroupId *string `json:"securityGroupId,omitempty"`
+
+}
+
+type DescribeSecurityGroupRuleResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeSecurityGroupRuleResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeSecurityGroupRuleResponseParams 
+type DescribeSecurityGroupRuleResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // IngressRuleList 入方向规则列表。
+    IngressRuleList []*SecurityGroupRuleInfo `json:"ingressRuleList,omitempty"`
+
+    // EgressRuleList 出方向规则列表。
+    EgressRuleList []*SecurityGroupRuleInfo `json:"egressRuleList,omitempty"`
+
+}
+
+// ConfigureSecurityGroupRulesRequest 
+type ConfigureSecurityGroupRulesRequest struct {
+    *common.BaseRequest
+
+    // SecurityGroupId 要配置的安全组ID。
+    SecurityGroupId *string `json:"securityGroupId,omitempty"`
+
+    // RuleInfos 需要配置的安全组规则列表。
+    // 注意：配置为全量覆盖。
+    RuleInfos []*SecurityGroupRuleInfo `json:"ruleInfos,omitempty"`
+
+}
+
+type ConfigureSecurityGroupRulesResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type AssignSecurityGroupVpcRequest struct {
+    *common.BaseRequest
+
+    // VpcId 要操作的VPC ID。
+    VpcId *string `json:"vpcId,omitempty"`
+
+    // SecurityGroupId 要更换的目标安全组ID。
+    SecurityGroupId *string `json:"securityGroupId,omitempty"`
+
+}
+
+type AssignSecurityGroupVpcResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// UnAssignSecurityGroupVpcRequest 
+type UnAssignSecurityGroupVpcRequest struct {
+    *common.BaseRequest
+
+    // VpcId 要解绑的VPC ID。
+    VpcId *string `json:"vpcId,omitempty"`
+
+}
+
+type UnAssignSecurityGroupVpcResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
 
 }
 

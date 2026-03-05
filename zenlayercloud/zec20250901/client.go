@@ -37,6 +37,627 @@ func NewClient(config *common.Config, secretKeyId, secretKeyPassword string) (cl
 }
 
 
+func NewDescribeZonesRequest() (request *DescribeZonesRequest) {
+	request = &DescribeZonesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeZones")
+
+	return
+}
+
+func NewDescribeZonesResponse() (response *DescribeZonesResponse) {
+	response = &DescribeZonesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeZones 查询可用区信息。包括名称，所属的节点等。
+func (c *Client) DescribeZones(request *DescribeZonesRequest) (response *DescribeZonesResponse, err error) {
+	response = NewDescribeZonesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeZoneInstanceConfigInfosRequest() (request *DescribeZoneInstanceConfigInfosRequest) {
+	request = &DescribeZoneInstanceConfigInfosRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeZoneInstanceConfigInfos")
+
+	return
+}
+
+func NewDescribeZoneInstanceConfigInfosResponse() (response *DescribeZoneInstanceConfigInfosResponse) {
+	response = &DescribeZoneInstanceConfigInfosResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeZoneInstanceConfigInfos 查询可用区售卖的机型信息
+func (c *Client) DescribeZoneInstanceConfigInfos(request *DescribeZoneInstanceConfigInfosRequest) (response *DescribeZoneInstanceConfigInfosResponse, err error) {
+	response = NewDescribeZoneInstanceConfigInfosResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeTimeZonesRequest() (request *DescribeTimeZonesRequest) {
+	request = &DescribeTimeZonesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeTimeZones")
+
+	return
+}
+
+func NewDescribeTimeZonesResponse() (response *DescribeTimeZonesResponse) {
+	response = &DescribeTimeZonesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeTimeZones 查询时区信息
+func (c *Client) DescribeTimeZones(request *DescribeTimeZonesRequest) (response *DescribeTimeZonesResponse, err error) {
+	response = NewDescribeTimeZonesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewInquiryPriceCreateInstanceRequest() (request *InquiryPriceCreateInstanceRequest) {
+	request = &InquiryPriceCreateInstanceRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryPriceCreateInstance")
+
+	return
+}
+
+func NewInquiryPriceCreateInstanceResponse() (response *InquiryPriceCreateInstanceResponse) {
+	response = &InquiryPriceCreateInstanceResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// InquiryPriceCreateInstance 创建虚拟机实例询价。
+func (c *Client) InquiryPriceCreateInstance(request *InquiryPriceCreateInstanceRequest) (response *InquiryPriceCreateInstanceResponse, err error) {
+	response = NewInquiryPriceCreateInstanceResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewCreateZecInstancesRequest() (request *CreateZecInstancesRequest) {
+	request = &CreateZecInstancesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateZecInstances")
+
+	return
+}
+
+func NewCreateZecInstancesResponse() (response *CreateZecInstancesResponse) {
+	response = &CreateZecInstancesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CreateZecInstances 创建一台或多台虚拟机实例。
+func (c *Client) CreateZecInstances(request *CreateZecInstancesRequest) (response *CreateZecInstancesResponse, err error) {
+	response = NewCreateZecInstancesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeInstancesRequest() (request *DescribeInstancesRequest) {
+	request = &DescribeInstancesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeInstances")
+
+	return
+}
+
+func NewDescribeInstancesResponse() (response *DescribeInstancesResponse) {
+	response = &DescribeInstancesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeInstances 查询一台或多台虚拟机实例的信息。用户可以根据实例ID、实例名称等条件来查询实例的详细信息。
+func (c *Client) DescribeInstances(request *DescribeInstancesRequest) (response *DescribeInstancesResponse, err error) {
+	response = NewDescribeInstancesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeInstancesStatusRequest() (request *DescribeInstancesStatusRequest) {
+	request = &DescribeInstancesStatusRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeInstancesStatus")
+
+	return
+}
+
+func NewDescribeInstancesStatusResponse() (response *DescribeInstancesStatusResponse) {
+	response = &DescribeInstancesStatusResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeInstancesStatus 查询实例的状态。
+func (c *Client) DescribeInstancesStatus(request *DescribeInstancesStatusRequest) (response *DescribeInstancesStatusResponse, err error) {
+	response = NewDescribeInstancesStatusResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyInstancesAttributeRequest() (request *ModifyInstancesAttributeRequest) {
+	request = &ModifyInstancesAttributeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyInstancesAttribute")
+
+	return
+}
+
+func NewModifyInstancesAttributeResponse() (response *ModifyInstancesAttributeResponse) {
+	response = &ModifyInstancesAttributeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyInstancesAttribute 修改实例属性（名称）。
+func (c *Client) ModifyInstancesAttribute(request *ModifyInstancesAttributeRequest) (response *ModifyInstancesAttributeResponse, err error) {
+	response = NewModifyInstancesAttributeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewStartInstancesRequest() (request *StartInstancesRequest) {
+	request = &StartInstancesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "StartInstances")
+
+	return
+}
+
+func NewStartInstancesResponse() (response *StartInstancesResponse) {
+	response = &StartInstancesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// StartInstances 启动一台或多台虚拟机实例。
+func (c *Client) StartInstances(request *StartInstancesRequest) (response *StartInstancesResponse, err error) {
+	response = NewStartInstancesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewStopInstancesRequest() (request *StopInstancesRequest) {
+	request = &StopInstancesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "StopInstances")
+
+	return
+}
+
+func NewStopInstancesResponse() (response *StopInstancesResponse) {
+	response = &StopInstancesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// StopInstances 关闭一台或多台虚拟机实例。
+func (c *Client) StopInstances(request *StopInstancesRequest) (response *StopInstancesResponse, err error) {
+	response = NewStopInstancesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewRebootInstancesRequest() (request *RebootInstancesRequest) {
+	request = &RebootInstancesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "RebootInstances")
+
+	return
+}
+
+func NewRebootInstancesResponse() (response *RebootInstancesResponse) {
+	response = &RebootInstancesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// RebootInstances 重启虚拟机实例。
+func (c *Client) RebootInstances(request *RebootInstancesRequest) (response *RebootInstancesResponse, err error) {
+	response = NewRebootInstancesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewResetInstancePasswordRequest() (request *ResetInstancePasswordRequest) {
+	request = &ResetInstancePasswordRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ResetInstancePassword")
+
+	return
+}
+
+func NewResetInstancePasswordResponse() (response *ResetInstancePasswordResponse) {
+	response = &ResetInstancePasswordResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ResetInstancePassword 重置一台虚拟机实例密码。
+func (c *Client) ResetInstancePassword(request *ResetInstancePasswordRequest) (response *ResetInstancePasswordResponse, err error) {
+	response = NewResetInstancePasswordResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewResetInstanceRequest() (request *ResetInstanceRequest) {
+	request = &ResetInstanceRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ResetInstance")
+
+	return
+}
+
+func NewResetInstanceResponse() (response *ResetInstanceResponse) {
+	response = &ResetInstanceResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ResetInstance 重装一台虚拟机实例操作系统。
+func (c *Client) ResetInstance(request *ResetInstanceRequest) (response *ResetInstanceResponse, err error) {
+	response = NewResetInstanceResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewResetInstancesRequest() (request *ResetInstancesRequest) {
+	request = &ResetInstancesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ResetInstances")
+
+	return
+}
+
+func NewResetInstancesResponse() (response *ResetInstancesResponse) {
+	response = &ResetInstancesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ResetInstances 重装多台虚拟机实例操作系统。
+func (c *Client) ResetInstances(request *ResetInstancesRequest) (response *ResetInstancesResponse, err error) {
+	response = NewResetInstancesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewStartIpForwardRequest() (request *StartIpForwardRequest) {
+	request = &StartIpForwardRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "StartIpForward")
+
+	return
+}
+
+func NewStartIpForwardResponse() (response *StartIpForwardResponse) {
+	response = &StartIpForwardResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// StartIpForward 开启IP转发
+func (c *Client) StartIpForward(request *StartIpForwardRequest) (response *StartIpForwardResponse, err error) {
+	response = NewStartIpForwardResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewStopIpForwardRequest() (request *StopIpForwardRequest) {
+	request = &StopIpForwardRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "StopIpForward")
+
+	return
+}
+
+func NewStopIpForwardResponse() (response *StopIpForwardResponse) {
+	response = &StopIpForwardResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// StopIpForward 关闭IP转发
+func (c *Client) StopIpForward(request *StopIpForwardRequest) (response *StopIpForwardResponse, err error) {
+	response = NewStopIpForwardResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewStartAgentMonitorRequest() (request *StartAgentMonitorRequest) {
+	request = &StartAgentMonitorRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "StartAgentMonitor")
+
+	return
+}
+
+func NewStartAgentMonitorResponse() (response *StartAgentMonitorResponse) {
+	response = &StartAgentMonitorResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// StartAgentMonitor 开启Agent监控采集。
+func (c *Client) StartAgentMonitor(request *StartAgentMonitorRequest) (response *StartAgentMonitorResponse, err error) {
+	response = NewStartAgentMonitorResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewStopAgentMonitorRequest() (request *StopAgentMonitorRequest) {
+	request = &StopAgentMonitorRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "StopAgentMonitor")
+
+	return
+}
+
+func NewStopAgentMonitorResponse() (response *StopAgentMonitorResponse) {
+	response = &StopAgentMonitorResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// StopAgentMonitor 关闭Agent监控采集。
+func (c *Client) StopAgentMonitor(request *StopAgentMonitorRequest) (response *StopAgentMonitorResponse, err error) {
+	response = NewStopAgentMonitorResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyInstanceTypeRequest() (request *ModifyInstanceTypeRequest) {
+	request = &ModifyInstanceTypeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyInstanceType")
+
+	return
+}
+
+func NewModifyInstanceTypeResponse() (response *ModifyInstanceTypeResponse) {
+	response = &ModifyInstanceTypeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyInstanceType 变更实例的规格
+func (c *Client) ModifyInstanceType(request *ModifyInstanceTypeRequest) (response *ModifyInstanceTypeResponse, err error) {
+	response = NewModifyInstanceTypeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewChangeNicNetworkTypeRequest() (request *ChangeNicNetworkTypeRequest) {
+	request = &ChangeNicNetworkTypeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ChangeNicNetworkType")
+
+	return
+}
+
+func NewChangeNicNetworkTypeResponse() (response *ChangeNicNetworkTypeResponse) {
+	response = &ChangeNicNetworkTypeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ChangeNicNetworkType 更改实例的网卡模式。
+func (c *Client) ChangeNicNetworkType(request *ChangeNicNetworkTypeRequest) (response *ChangeNicNetworkTypeResponse, err error) {
+	response = NewChangeNicNetworkTypeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewReleaseInstancesRequest() (request *ReleaseInstancesRequest) {
+	request = &ReleaseInstancesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ReleaseInstances")
+
+	return
+}
+
+func NewReleaseInstancesResponse() (response *ReleaseInstancesResponse) {
+	response = &ReleaseInstancesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ReleaseInstances 销毁一台或多台虚拟机实例。
+func (c *Client) ReleaseInstances(request *ReleaseInstancesRequest) (response *ReleaseInstancesResponse, err error) {
+	response = NewReleaseInstancesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeVncUrlRequest() (request *DescribeVncUrlRequest) {
+	request = &DescribeVncUrlRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeVncUrl")
+
+	return
+}
+
+func NewDescribeVncUrlResponse() (response *DescribeVncUrlResponse) {
+	response = &DescribeVncUrlResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeVncUrl 获取实例VNC地址。
+func (c *Client) DescribeVncUrl(request *DescribeVncUrlRequest) (response *DescribeVncUrlResponse, err error) {
+	response = NewDescribeVncUrlResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeInstanceMonitorDataRequest() (request *DescribeInstanceMonitorDataRequest) {
+	request = &DescribeInstanceMonitorDataRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeInstanceMonitorData")
+
+	return
+}
+
+func NewDescribeInstanceMonitorDataResponse() (response *DescribeInstanceMonitorDataResponse) {
+	response = &DescribeInstanceMonitorDataResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeInstanceMonitorData 查询一段时间的实例的监控指标数据。包括CPU,内存等相关指标数据。
+func (c *Client) DescribeInstanceMonitorData(request *DescribeInstanceMonitorDataRequest) (response *DescribeInstanceMonitorDataResponse, err error) {
+	response = NewDescribeInstanceMonitorDataResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeImagesRequest() (request *DescribeImagesRequest) {
+	request = &DescribeImagesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeImages")
+
+	return
+}
+
+func NewDescribeImagesResponse() (response *DescribeImagesResponse) {
+	response = &DescribeImagesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeImages 查询某节点支持的镜像列表。
+func (c *Client) DescribeImages(request *DescribeImagesRequest) (response *DescribeImagesResponse, err error) {
+	response = NewDescribeImagesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewCreateImageRequest() (request *CreateImageRequest) {
+	request = &CreateImageRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateImage")
+
+	return
+}
+
+func NewCreateImageResponse() (response *CreateImageResponse) {
+	response = &CreateImageResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CreateImage 用实例创建自定义镜像。
+func (c *Client) CreateImage(request *CreateImageRequest) (response *CreateImageResponse, err error) {
+	response = NewCreateImageResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyImagesAttributesRequest() (request *ModifyImagesAttributesRequest) {
+	request = &ModifyImagesAttributesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyImagesAttributes")
+
+	return
+}
+
+func NewModifyImagesAttributesResponse() (response *ModifyImagesAttributesResponse) {
+	response = &ModifyImagesAttributesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyImagesAttributes 修改自定义镜像属性。
+func (c *Client) ModifyImagesAttributes(request *ModifyImagesAttributesRequest) (response *ModifyImagesAttributesResponse, err error) {
+	response = NewModifyImagesAttributesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteImagesRequest() (request *DeleteImagesRequest) {
+	request = &DeleteImagesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteImages")
+
+	return
+}
+
+func NewDeleteImagesResponse() (response *DeleteImagesResponse) {
+	response = &DeleteImagesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeleteImages 删除一个或多个镜像。
+func (c *Client) DeleteImages(request *DeleteImagesRequest) (response *DeleteImagesResponse, err error) {
+	response = NewDeleteImagesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewDescribeDisksRequest() (request *DescribeDisksRequest) {
 	request = &DescribeDisksRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -332,282 +953,6 @@ func NewDescribeDiskMonitorDataResponse() (response *DescribeDiskMonitorDataResp
 // DescribeDiskMonitorData 查询一段时间的云硬盘的监控指标数据。
 func (c *Client) DescribeDiskMonitorData(request *DescribeDiskMonitorDataRequest) (response *DescribeDiskMonitorDataResponse, err error) {
 	response = NewDescribeDiskMonitorDataResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewCreateVpcRequest() (request *CreateVpcRequest) {
-	request = &CreateVpcRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateVpc")
-
-	return
-}
-
-func NewCreateVpcResponse() (response *CreateVpcResponse) {
-	response = &CreateVpcResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// CreateVpc 创建全球VPC。
-func (c *Client) CreateVpc(request *CreateVpcRequest) (response *CreateVpcResponse, err error) {
-	response = NewCreateVpcResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDeleteVpcRequest() (request *DeleteVpcRequest) {
-	request = &DeleteVpcRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteVpc")
-
-	return
-}
-
-func NewDeleteVpcResponse() (response *DeleteVpcResponse) {
-	response = &DeleteVpcResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DeleteVpc 删除VPC
-func (c *Client) DeleteVpc(request *DeleteVpcRequest) (response *DeleteVpcResponse, err error) {
-	response = NewDeleteVpcResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewModifyVpcsAttributeRequest() (request *ModifyVpcsAttributeRequest) {
-	request = &ModifyVpcsAttributeRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyVpcsAttribute")
-
-	return
-}
-
-func NewModifyVpcsAttributeResponse() (response *ModifyVpcsAttributeResponse) {
-	response = &ModifyVpcsAttributeResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// ModifyVpcsAttribute 修改一个或多个VPC的属性。该接口只支持修改VPC的名称。
-func (c *Client) ModifyVpcsAttribute(request *ModifyVpcsAttributeRequest) (response *ModifyVpcsAttributeResponse, err error) {
-	response = NewModifyVpcsAttributeResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeSubnetRegionsRequest() (request *DescribeSubnetRegionsRequest) {
-	request = &DescribeSubnetRegionsRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeSubnetRegions")
-
-	return
-}
-
-func NewDescribeSubnetRegionsResponse() (response *DescribeSubnetRegionsResponse) {
-	response = &DescribeSubnetRegionsResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeSubnetRegions 查询支持创建子网区域以及是否IPv6。
-func (c *Client) DescribeSubnetRegions(request *DescribeSubnetRegionsRequest) (response *DescribeSubnetRegionsResponse, err error) {
-	response = NewDescribeSubnetRegionsResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewCreateSubnetRequest() (request *CreateSubnetRequest) {
-	request = &CreateSubnetRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateSubnet")
-
-	return
-}
-
-func NewCreateSubnetResponse() (response *CreateSubnetResponse) {
-	response = &CreateSubnetResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// CreateSubnet 创建子网。
-func (c *Client) CreateSubnet(request *CreateSubnetRequest) (response *CreateSubnetResponse, err error) {
-	response = NewCreateSubnetResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDeleteSubnetRequest() (request *DeleteSubnetRequest) {
-	request = &DeleteSubnetRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteSubnet")
-
-	return
-}
-
-func NewDeleteSubnetResponse() (response *DeleteSubnetResponse) {
-	response = &DeleteSubnetResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DeleteSubnet 删除一个子网。
-func (c *Client) DeleteSubnet(request *DeleteSubnetRequest) (response *DeleteSubnetResponse, err error) {
-	response = NewDeleteSubnetResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewModifySubnetAttributeRequest() (request *ModifySubnetAttributeRequest) {
-	request = &ModifySubnetAttributeRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifySubnetAttribute")
-
-	return
-}
-
-func NewModifySubnetAttributeResponse() (response *ModifySubnetAttributeResponse) {
-	response = &ModifySubnetAttributeResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// ModifySubnetAttribute 修改子网属性。包括名称，CIDR等。
-func (c *Client) ModifySubnetAttribute(request *ModifySubnetAttributeRequest) (response *ModifySubnetAttributeResponse, err error) {
-	response = NewModifySubnetAttributeResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewModifySubnetStackTypeRequest() (request *ModifySubnetStackTypeRequest) {
-	request = &ModifySubnetStackTypeRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifySubnetStackType")
-
-	return
-}
-
-func NewModifySubnetStackTypeResponse() (response *ModifySubnetStackTypeResponse) {
-	response = &ModifySubnetStackTypeResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// ModifySubnetStackType 修改子网堆栈类型
-func (c *Client) ModifySubnetStackType(request *ModifySubnetStackTypeRequest) (response *ModifySubnetStackTypeResponse, err error) {
-	response = NewModifySubnetStackTypeResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeVpcsRequest() (request *DescribeVpcsRequest) {
-	request = &DescribeVpcsRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeVpcs")
-
-	return
-}
-
-func NewDescribeVpcsResponse() (response *DescribeVpcsResponse) {
-	response = &DescribeVpcsResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeVpcs 查询私有网络（VPC）列表，用户可以根据 VPC ID、VPC 名称等信息来筛选过滤VPC信息。
-func (c *Client) DescribeVpcs(request *DescribeVpcsRequest) (response *DescribeVpcsResponse, err error) {
-	response = NewDescribeVpcsResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewModifyVpcAttributeRequest() (request *ModifyVpcAttributeRequest) {
-	request = &ModifyVpcAttributeRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyVpcAttribute")
-
-	return
-}
-
-func NewModifyVpcAttributeResponse() (response *ModifyVpcAttributeResponse) {
-	response = &ModifyVpcAttributeResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// ModifyVpcAttribute 修改私有网络（VPC）的相关属性。
-func (c *Client) ModifyVpcAttribute(request *ModifyVpcAttributeRequest) (response *ModifyVpcAttributeResponse, err error) {
-	response = NewModifyVpcAttributeResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeSubnetsRequest() (request *DescribeSubnetsRequest) {
-	request = &DescribeSubnetsRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeSubnets")
-
-	return
-}
-
-func NewDescribeSubnetsResponse() (response *DescribeSubnetsResponse) {
-	response = &DescribeSubnetsResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeSubnets 查询子网列表信息。可以根据子网ID, 名称等信息筛选查询子网。
-func (c *Client) DescribeSubnets(request *DescribeSubnetsRequest) (response *DescribeSubnetsResponse, err error) {
-	response = NewDescribeSubnetsResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewModifySubnetsAttributeRequest() (request *ModifySubnetsAttributeRequest) {
-	request = &ModifySubnetsAttributeRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifySubnetsAttribute")
-
-	return
-}
-
-func NewModifySubnetsAttributeResponse() (response *ModifySubnetsAttributeResponse) {
-	response = &ModifySubnetsAttributeResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// ModifySubnetsAttribute 批量修改子网的属性。
-func (c *Client) ModifySubnetsAttribute(request *ModifySubnetsAttributeRequest) (response *ModifySubnetsAttributeResponse, err error) {
-	response = NewModifySubnetsAttributeResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -1134,7 +1479,7 @@ func NewDescribeNetworkInterfacePublicIPv6Response() (response *DescribeNetworkI
 	return
 }
 
-// DescribeNetworkInterfacePublicIPv6 网卡的公网IPv6信息。
+// DescribeNetworkInterfacePublicIPv6 查询网卡的公网IPv6信息。
 func (c *Client) DescribeNetworkInterfacePublicIPv6(request *DescribeNetworkInterfacePublicIPv6Request) (response *DescribeNetworkInterfacePublicIPv6Response, err error) {
 	response = NewDescribeNetworkInterfacePublicIPv6Response()
 	err = c.ApiCall(request, response)
@@ -1183,1156 +1528,6 @@ func NewAssignNetworkInterfaceIpv6Response() (response *AssignNetworkInterfaceIp
 // AssignNetworkInterfaceIpv6 给网卡添加IPv6。
 func (c *Client) AssignNetworkInterfaceIpv6(request *AssignNetworkInterfaceIpv6Request) (response *AssignNetworkInterfaceIpv6Response, err error) {
 	response = NewAssignNetworkInterfaceIpv6Response()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeImagesRequest() (request *DescribeImagesRequest) {
-	request = &DescribeImagesRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeImages")
-
-	return
-}
-
-func NewDescribeImagesResponse() (response *DescribeImagesResponse) {
-	response = &DescribeImagesResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeImages 查询某节点支持的镜像列表。
-func (c *Client) DescribeImages(request *DescribeImagesRequest) (response *DescribeImagesResponse, err error) {
-	response = NewDescribeImagesResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewCreateImageRequest() (request *CreateImageRequest) {
-	request = &CreateImageRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateImage")
-
-	return
-}
-
-func NewCreateImageResponse() (response *CreateImageResponse) {
-	response = &CreateImageResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// CreateImage 用实例创建自定义镜像。
-func (c *Client) CreateImage(request *CreateImageRequest) (response *CreateImageResponse, err error) {
-	response = NewCreateImageResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewModifyImagesAttributesRequest() (request *ModifyImagesAttributesRequest) {
-	request = &ModifyImagesAttributesRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyImagesAttributes")
-
-	return
-}
-
-func NewModifyImagesAttributesResponse() (response *ModifyImagesAttributesResponse) {
-	response = &ModifyImagesAttributesResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// ModifyImagesAttributes 修改自定义镜像属性。
-func (c *Client) ModifyImagesAttributes(request *ModifyImagesAttributesRequest) (response *ModifyImagesAttributesResponse, err error) {
-	response = NewModifyImagesAttributesResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDeleteImagesRequest() (request *DeleteImagesRequest) {
-	request = &DeleteImagesRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteImages")
-
-	return
-}
-
-func NewDeleteImagesResponse() (response *DeleteImagesResponse) {
-	response = &DeleteImagesResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DeleteImages 删除一个或多个镜像。
-func (c *Client) DeleteImages(request *DeleteImagesRequest) (response *DeleteImagesResponse, err error) {
-	response = NewDeleteImagesResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeDDosAllEventListRequest() (request *DescribeDDosAllEventListRequest) {
-	request = &DescribeDDosAllEventListRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeDDosAllEventList")
-
-	return
-}
-
-func NewDescribeDDosAllEventListResponse() (response *DescribeDDosAllEventListResponse) {
-	response = &DescribeDDosAllEventListResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeDDosAllEventList 获取攻击事件列表
-func (c *Client) DescribeDDosAllEventList(request *DescribeDDosAllEventListRequest) (response *DescribeDDosAllEventListResponse, err error) {
-	response = NewDescribeDDosAllEventListResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeDDosEventDetailRequest() (request *DescribeDDosEventDetailRequest) {
-	request = &DescribeDDosEventDetailRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeDDosEventDetail")
-
-	return
-}
-
-func NewDescribeDDosEventDetailResponse() (response *DescribeDDosEventDetailResponse) {
-	response = &DescribeDDosEventDetailResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeDDosEventDetail 获取攻击事件详情
-func (c *Client) DescribeDDosEventDetail(request *DescribeDDosEventDetailRequest) (response *DescribeDDosEventDetailResponse, err error) {
-	response = NewDescribeDDosEventDetailResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewCreatePolicyRequest() (request *CreatePolicyRequest) {
-	request = &CreatePolicyRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreatePolicy")
-
-	return
-}
-
-func NewCreatePolicyResponse() (response *CreatePolicyResponse) {
-	response = &CreatePolicyResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// CreatePolicy 创建防护策略
-func (c *Client) CreatePolicy(request *CreatePolicyRequest) (response *CreatePolicyResponse, err error) {
-	response = NewCreatePolicyResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDeletePolicyRequest() (request *DeletePolicyRequest) {
-	request = &DeletePolicyRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeletePolicy")
-
-	return
-}
-
-func NewDeletePolicyResponse() (response *DeletePolicyResponse) {
-	response = &DeletePolicyResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DeletePolicy 删除防护策略
-func (c *Client) DeletePolicy(request *DeletePolicyRequest) (response *DeletePolicyResponse, err error) {
-	response = NewDeletePolicyResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewModifyPolicyRequest() (request *ModifyPolicyRequest) {
-	request = &ModifyPolicyRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyPolicy")
-
-	return
-}
-
-func NewModifyPolicyResponse() (response *ModifyPolicyResponse) {
-	response = &ModifyPolicyResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// ModifyPolicy 修改防护策略
-func (c *Client) ModifyPolicy(request *ModifyPolicyRequest) (response *ModifyPolicyResponse, err error) {
-	response = NewModifyPolicyResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribePolicysRequest() (request *DescribePolicysRequest) {
-	request = &DescribePolicysRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribePolicys")
-
-	return
-}
-
-func NewDescribePolicysResponse() (response *DescribePolicysResponse) {
-	response = &DescribePolicysResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribePolicys 获取防护策略列表
-func (c *Client) DescribePolicys(request *DescribePolicysRequest) (response *DescribePolicysResponse, err error) {
-	response = NewDescribePolicysResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribePolicyDetailRequest() (request *DescribePolicyDetailRequest) {
-	request = &DescribePolicyDetailRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribePolicyDetail")
-
-	return
-}
-
-func NewDescribePolicyDetailResponse() (response *DescribePolicyDetailResponse) {
-	response = &DescribePolicyDetailResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribePolicyDetail 获取防护策略详情
-func (c *Client) DescribePolicyDetail(request *DescribePolicyDetailRequest) (response *DescribePolicyDetailResponse, err error) {
-	response = NewDescribePolicyDetailResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewAttachToPolicyRequest() (request *AttachToPolicyRequest) {
-	request = &AttachToPolicyRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "AttachToPolicy")
-
-	return
-}
-
-func NewAttachToPolicyResponse() (response *AttachToPolicyResponse) {
-	response = &AttachToPolicyResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// AttachToPolicy 防护对象关联防护策略
-func (c *Client) AttachToPolicy(request *AttachToPolicyRequest) (response *AttachToPolicyResponse, err error) {
-	response = NewAttachToPolicyResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDetachFromPolicyRequest() (request *DetachFromPolicyRequest) {
-	request = &DetachFromPolicyRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DetachFromPolicy")
-
-	return
-}
-
-func NewDetachFromPolicyResponse() (response *DetachFromPolicyResponse) {
-	response = &DetachFromPolicyResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DetachFromPolicy 防护对象取消关联防护策略
-func (c *Client) DetachFromPolicy(request *DetachFromPolicyRequest) (response *DetachFromPolicyResponse, err error) {
-	response = NewDetachFromPolicyResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribePolicyRegionsRequest() (request *DescribePolicyRegionsRequest) {
-	request = &DescribePolicyRegionsRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribePolicyRegions")
-
-	return
-}
-
-func NewDescribePolicyRegionsResponse() (response *DescribePolicyRegionsResponse) {
-	response = &DescribePolicyRegionsResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribePolicyRegions 获取区域封禁可选区域列表
-func (c *Client) DescribePolicyRegions(request *DescribePolicyRegionsRequest) (response *DescribePolicyRegionsResponse, err error) {
-	response = NewDescribePolicyRegionsResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeReflectUdpPortOptionsRequest() (request *DescribeReflectUdpPortOptionsRequest) {
-	request = &DescribeReflectUdpPortOptionsRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeReflectUdpPortOptions")
-
-	return
-}
-
-func NewDescribeReflectUdpPortOptionsResponse() (response *DescribeReflectUdpPortOptionsResponse) {
-	response = &DescribeReflectUdpPortOptionsResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeReflectUdpPortOptions 获取默认UDP反射源端口列表
-func (c *Client) DescribeReflectUdpPortOptions(request *DescribeReflectUdpPortOptionsRequest) (response *DescribeReflectUdpPortOptionsResponse, err error) {
-	response = NewDescribeReflectUdpPortOptionsResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeSecurityGroupsRequest() (request *DescribeSecurityGroupsRequest) {
-	request = &DescribeSecurityGroupsRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeSecurityGroups")
-
-	return
-}
-
-func NewDescribeSecurityGroupsResponse() (response *DescribeSecurityGroupsResponse) {
-	response = &DescribeSecurityGroupsResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeSecurityGroups 查询安全组列表。
-func (c *Client) DescribeSecurityGroups(request *DescribeSecurityGroupsRequest) (response *DescribeSecurityGroupsResponse, err error) {
-	response = NewDescribeSecurityGroupsResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewModifySecurityGroupsAttributeRequest() (request *ModifySecurityGroupsAttributeRequest) {
-	request = &ModifySecurityGroupsAttributeRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifySecurityGroupsAttribute")
-
-	return
-}
-
-func NewModifySecurityGroupsAttributeResponse() (response *ModifySecurityGroupsAttributeResponse) {
-	response = &ModifySecurityGroupsAttributeResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// ModifySecurityGroupsAttribute 修改安全组的属性（目前只支持修改安全组的名称）。
-func (c *Client) ModifySecurityGroupsAttribute(request *ModifySecurityGroupsAttributeRequest) (response *ModifySecurityGroupsAttributeResponse, err error) {
-	response = NewModifySecurityGroupsAttributeResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeSecurityGroupRuleRequest() (request *DescribeSecurityGroupRuleRequest) {
-	request = &DescribeSecurityGroupRuleRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeSecurityGroupRule")
-
-	return
-}
-
-func NewDescribeSecurityGroupRuleResponse() (response *DescribeSecurityGroupRuleResponse) {
-	response = &DescribeSecurityGroupRuleResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeSecurityGroupRule 查询指定安全组内的规则。
-func (c *Client) DescribeSecurityGroupRule(request *DescribeSecurityGroupRuleRequest) (response *DescribeSecurityGroupRuleResponse, err error) {
-	response = NewDescribeSecurityGroupRuleResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewCreateSecurityGroupRequest() (request *CreateSecurityGroupRequest) {
-	request = &CreateSecurityGroupRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateSecurityGroup")
-
-	return
-}
-
-func NewCreateSecurityGroupResponse() (response *CreateSecurityGroupResponse) {
-	response = &CreateSecurityGroupResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// CreateSecurityGroup 创建一个安全组。
-func (c *Client) CreateSecurityGroup(request *CreateSecurityGroupRequest) (response *CreateSecurityGroupResponse, err error) {
-	response = NewCreateSecurityGroupResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDeleteSecurityGroupRequest() (request *DeleteSecurityGroupRequest) {
-	request = &DeleteSecurityGroupRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteSecurityGroup")
-
-	return
-}
-
-func NewDeleteSecurityGroupResponse() (response *DeleteSecurityGroupResponse) {
-	response = &DeleteSecurityGroupResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DeleteSecurityGroup 删除一个安全组。
-func (c *Client) DeleteSecurityGroup(request *DeleteSecurityGroupRequest) (response *DeleteSecurityGroupResponse, err error) {
-	response = NewDeleteSecurityGroupResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewConfigureSecurityGroupRulesRequest() (request *ConfigureSecurityGroupRulesRequest) {
-	request = &ConfigureSecurityGroupRulesRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ConfigureSecurityGroupRules")
-
-	return
-}
-
-func NewConfigureSecurityGroupRulesResponse() (response *ConfigureSecurityGroupRulesResponse) {
-	response = &ConfigureSecurityGroupRulesResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// ConfigureSecurityGroupRules 配置安全组规则。
-func (c *Client) ConfigureSecurityGroupRules(request *ConfigureSecurityGroupRulesRequest) (response *ConfigureSecurityGroupRulesResponse, err error) {
-	response = NewConfigureSecurityGroupRulesResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewAssignSecurityGroupVpcRequest() (request *AssignSecurityGroupVpcRequest) {
-	request = &AssignSecurityGroupVpcRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "AssignSecurityGroupVpc")
-
-	return
-}
-
-func NewAssignSecurityGroupVpcResponse() (response *AssignSecurityGroupVpcResponse) {
-	response = &AssignSecurityGroupVpcResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// AssignSecurityGroupVpc VPC更换绑定安全组。
-func (c *Client) AssignSecurityGroupVpc(request *AssignSecurityGroupVpcRequest) (response *AssignSecurityGroupVpcResponse, err error) {
-	response = NewAssignSecurityGroupVpcResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewUnAssignSecurityGroupVpcRequest() (request *UnAssignSecurityGroupVpcRequest) {
-	request = &UnAssignSecurityGroupVpcRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "UnAssignSecurityGroupVpc")
-
-	return
-}
-
-func NewUnAssignSecurityGroupVpcResponse() (response *UnAssignSecurityGroupVpcResponse) {
-	response = &UnAssignSecurityGroupVpcResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// UnAssignSecurityGroupVpc VPC解绑安全组。
-func (c *Client) UnAssignSecurityGroupVpc(request *UnAssignSecurityGroupVpcRequest) (response *UnAssignSecurityGroupVpcResponse, err error) {
-	response = NewUnAssignSecurityGroupVpcResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeEipRegionsRequest() (request *DescribeEipRegionsRequest) {
-	request = &DescribeEipRegionsRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeEipRegions")
-
-	return
-}
-
-func NewDescribeEipRegionsResponse() (response *DescribeEipRegionsResponse) {
-	response = &DescribeEipRegionsResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeEipRegions 查询支持售卖EIP的区域信息。
-func (c *Client) DescribeEipRegions(request *DescribeEipRegionsRequest) (response *DescribeEipRegionsResponse, err error) {
-	response = NewDescribeEipRegionsResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeEipInternetChargeTypesRequest() (request *DescribeEipInternetChargeTypesRequest) {
-	request = &DescribeEipInternetChargeTypesRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeEipInternetChargeTypes")
-
-	return
-}
-
-func NewDescribeEipInternetChargeTypesResponse() (response *DescribeEipInternetChargeTypesResponse) {
-	response = &DescribeEipInternetChargeTypesResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeEipInternetChargeTypes 查询EIP支持的网络计费模式。
-func (c *Client) DescribeEipInternetChargeTypes(request *DescribeEipInternetChargeTypesRequest) (response *DescribeEipInternetChargeTypesResponse, err error) {
-	response = NewDescribeEipInternetChargeTypesResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeEipRemoteRegionsRequest() (request *DescribeEipRemoteRegionsRequest) {
-	request = &DescribeEipRemoteRegionsRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeEipRemoteRegions")
-
-	return
-}
-
-func NewDescribeEipRemoteRegionsResponse() (response *DescribeEipRemoteRegionsResponse) {
-	response = &DescribeEipRemoteRegionsResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeEipRemoteRegions 查询EIP支持的远程指向的节点信息。
-func (c *Client) DescribeEipRemoteRegions(request *DescribeEipRemoteRegionsRequest) (response *DescribeEipRemoteRegionsResponse, err error) {
-	response = NewDescribeEipRemoteRegionsResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeEipsRequest() (request *DescribeEipsRequest) {
-	request = &DescribeEipsRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeEips")
-
-	return
-}
-
-func NewDescribeEipsResponse() (response *DescribeEipsResponse) {
-	response = &DescribeEipsResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeEips 指定条件查询已创建的弹性IPv4的信息。用户可以根据ID、名称等信息来搜索。
-func (c *Client) DescribeEips(request *DescribeEipsRequest) (response *DescribeEipsResponse, err error) {
-	response = NewDescribeEipsResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewCreateEipsRequest() (request *CreateEipsRequest) {
-	request = &CreateEipsRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateEips")
-
-	return
-}
-
-func NewCreateEipsResponse() (response *CreateEipsResponse) {
-	response = &CreateEipsResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// CreateEips 创建弹性公网IP。
-func (c *Client) CreateEips(request *CreateEipsRequest) (response *CreateEipsResponse, err error) {
-	response = NewCreateEipsResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDeleteEipRequest() (request *DeleteEipRequest) {
-	request = &DeleteEipRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteEip")
-
-	return
-}
-
-func NewDeleteEipResponse() (response *DeleteEipResponse) {
-	response = &DeleteEipResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DeleteEip 删除指定的弹性公网IP。
-func (c *Client) DeleteEip(request *DeleteEipRequest) (response *DeleteEipResponse, err error) {
-	response = NewDeleteEipResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewRenewEipRequest() (request *RenewEipRequest) {
-	request = &RenewEipRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "RenewEip")
-
-	return
-}
-
-func NewRenewEipResponse() (response *RenewEipResponse) {
-	response = &RenewEipResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// RenewEip 恢复弹性公网IP
-func (c *Client) RenewEip(request *RenewEipRequest) (response *RenewEipResponse, err error) {
-	response = NewRenewEipResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewConfigEipEgressIpRequest() (request *ConfigEipEgressIpRequest) {
-	request = &ConfigEipEgressIpRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ConfigEipEgressIp")
-
-	return
-}
-
-func NewConfigEipEgressIpResponse() (response *ConfigEipEgressIpResponse) {
-	response = &ConfigEipEgressIpResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// ConfigEipEgressIp 指定IP作为出口IP。
-func (c *Client) ConfigEipEgressIp(request *ConfigEipEgressIpRequest) (response *ConfigEipEgressIpResponse, err error) {
-	response = NewConfigEipEgressIpResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeEipPriceRequest() (request *DescribeEipPriceRequest) {
-	request = &DescribeEipPriceRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeEipPrice")
-
-	return
-}
-
-func NewDescribeEipPriceResponse() (response *DescribeEipPriceResponse) {
-	response = &DescribeEipPriceResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeEipPrice 创建公网弹性IP询价。
-func (c *Client) DescribeEipPrice(request *DescribeEipPriceRequest) (response *DescribeEipPriceResponse, err error) {
-	response = NewDescribeEipPriceResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewChangeEipInternetChargeTypeRequest() (request *ChangeEipInternetChargeTypeRequest) {
-	request = &ChangeEipInternetChargeTypeRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ChangeEipInternetChargeType")
-
-	return
-}
-
-func NewChangeEipInternetChargeTypeResponse() (response *ChangeEipInternetChargeTypeResponse) {
-	response = &ChangeEipInternetChargeTypeResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// ChangeEipInternetChargeType 变更弹性公网IP更网络计费模式。
-func (c *Client) ChangeEipInternetChargeType(request *ChangeEipInternetChargeTypeRequest) (response *ChangeEipInternetChargeTypeResponse, err error) {
-	response = NewChangeEipInternetChargeTypeResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewAvailableLanIpRequest() (request *AvailableLanIpRequest) {
-	request = &AvailableLanIpRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "AvailableLanIp")
-
-	return
-}
-
-func NewAvailableLanIpResponse() (response *AvailableLanIpResponse) {
-	response = &AvailableLanIpResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// AvailableLanIp 查询可供弹性公网IP绑定的网卡及内网IP信息。
-func (c *Client) AvailableLanIp(request *AvailableLanIpRequest) (response *AvailableLanIpResponse, err error) {
-	response = NewAvailableLanIpResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeEipTrafficRequest() (request *DescribeEipTrafficRequest) {
-	request = &DescribeEipTrafficRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeEipTraffic")
-
-	return
-}
-
-func NewDescribeEipTrafficResponse() (response *DescribeEipTrafficResponse) {
-	response = &DescribeEipTrafficResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeEipTraffic 查询弹性公网IP指定时间段内的流量信息。
-func (c *Client) DescribeEipTraffic(request *DescribeEipTrafficRequest) (response *DescribeEipTrafficResponse, err error) {
-	response = NewDescribeEipTrafficResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewAssociateEipAddressRequest() (request *AssociateEipAddressRequest) {
-	request = &AssociateEipAddressRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "AssociateEipAddress")
-
-	return
-}
-
-func NewAssociateEipAddressResponse() (response *AssociateEipAddressResponse) {
-	response = &AssociateEipAddressResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// AssociateEipAddress 批量将弹性公网IP（EIP）绑定到同地域的云产品实例上。
-func (c *Client) AssociateEipAddress(request *AssociateEipAddressRequest) (response *AssociateEipAddressResponse, err error) {
-	response = NewAssociateEipAddressResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewUnassociateEipAddressRequest() (request *UnassociateEipAddressRequest) {
-	request = &UnassociateEipAddressRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "UnassociateEipAddress")
-
-	return
-}
-
-func NewUnassociateEipAddressResponse() (response *UnassociateEipAddressResponse) {
-	response = &UnassociateEipAddressResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// UnassociateEipAddress 将弹性公网IP（EIP）从绑定的云产品上解绑。
-func (c *Client) UnassociateEipAddress(request *UnassociateEipAddressRequest) (response *UnassociateEipAddressResponse, err error) {
-	response = NewUnassociateEipAddressResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewReplaceEipAddressRequest() (request *ReplaceEipAddressRequest) {
-	request = &ReplaceEipAddressRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ReplaceEipAddress")
-
-	return
-}
-
-func NewReplaceEipAddressResponse() (response *ReplaceEipAddressResponse) {
-	response = &ReplaceEipAddressResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// ReplaceEipAddress 替换一个或者多个弹性公网IP地址。
-func (c *Client) ReplaceEipAddress(request *ReplaceEipAddressRequest) (response *ReplaceEipAddressResponse, err error) {
-	response = NewReplaceEipAddressResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewModifyEipAttributeRequest() (request *ModifyEipAttributeRequest) {
-	request = &ModifyEipAttributeRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyEipAttribute")
-
-	return
-}
-
-func NewModifyEipAttributeResponse() (response *ModifyEipAttributeResponse) {
-	response = &ModifyEipAttributeResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// ModifyEipAttribute 修改弹性公网IP属性。
-func (c *Client) ModifyEipAttribute(request *ModifyEipAttributeRequest) (response *ModifyEipAttributeResponse, err error) {
-	response = NewModifyEipAttributeResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewModifyEipBandwidthRequest() (request *ModifyEipBandwidthRequest) {
-	request = &ModifyEipBandwidthRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyEipBandwidth")
-
-	return
-}
-
-func NewModifyEipBandwidthResponse() (response *ModifyEipBandwidthResponse) {
-	response = &ModifyEipBandwidthResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// ModifyEipBandwidth 调整弹性公网IP的带宽限速。
-func (c *Client) ModifyEipBandwidth(request *ModifyEipBandwidthRequest) (response *ModifyEipBandwidthResponse, err error) {
-	response = NewModifyEipBandwidthResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewChangeEipBindTypeRequest() (request *ChangeEipBindTypeRequest) {
-	request = &ChangeEipBindTypeRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ChangeEipBindType")
-
-	return
-}
-
-func NewChangeEipBindTypeResponse() (response *ChangeEipBindTypeResponse) {
-	response = &ChangeEipBindTypeResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// ChangeEipBindType 弹性公网IP（EIP）更换绑定模式。
-func (c *Client) ChangeEipBindType(request *ChangeEipBindTypeRequest) (response *ChangeEipBindTypeResponse, err error) {
-	response = NewChangeEipBindTypeResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewConfigEipProbeRequest() (request *ConfigEipProbeRequest) {
-	request = &ConfigEipProbeRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ConfigEipProbe")
-
-	return
-}
-
-func NewConfigEipProbeResponse() (response *ConfigEipProbeResponse) {
-	response = &ConfigEipProbeResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// ConfigEipProbe 弹性公网IP（EIP）探测配置。
-func (c *Client) ConfigEipProbe(request *ConfigEipProbeRequest) (response *ConfigEipProbeResponse, err error) {
-	response = NewConfigEipProbeResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeEipMonitorDataRequest() (request *DescribeEipMonitorDataRequest) {
-	request = &DescribeEipMonitorDataRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeEipMonitorData")
-
-	return
-}
-
-func NewDescribeEipMonitorDataResponse() (response *DescribeEipMonitorDataResponse) {
-	response = &DescribeEipMonitorDataResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeEipMonitorData 查询一段时间的弹性公网IP监控指标数据。
-func (c *Client) DescribeEipMonitorData(request *DescribeEipMonitorDataRequest) (response *DescribeEipMonitorDataResponse, err error) {
-	response = NewDescribeEipMonitorDataResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewCreateDhcpOptionsSetRequest() (request *CreateDhcpOptionsSetRequest) {
-	request = &CreateDhcpOptionsSetRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateDhcpOptionsSet")
-
-	return
-}
-
-func NewCreateDhcpOptionsSetResponse() (response *CreateDhcpOptionsSetResponse) {
-	response = &CreateDhcpOptionsSetResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// CreateDhcpOptionsSet 创建DHCP选项集。
-func (c *Client) CreateDhcpOptionsSet(request *CreateDhcpOptionsSetRequest) (response *CreateDhcpOptionsSetResponse, err error) {
-	response = NewCreateDhcpOptionsSetResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDeleteDhcpOptionsSetRequest() (request *DeleteDhcpOptionsSetRequest) {
-	request = &DeleteDhcpOptionsSetRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteDhcpOptionsSet")
-
-	return
-}
-
-func NewDeleteDhcpOptionsSetResponse() (response *DeleteDhcpOptionsSetResponse) {
-	response = &DeleteDhcpOptionsSetResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DeleteDhcpOptionsSet 删除DHCP选项集。
-func (c *Client) DeleteDhcpOptionsSet(request *DeleteDhcpOptionsSetRequest) (response *DeleteDhcpOptionsSetResponse, err error) {
-	response = NewDeleteDhcpOptionsSetResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewAttachDhcpOptionsSetToSubnetRequest() (request *AttachDhcpOptionsSetToSubnetRequest) {
-	request = &AttachDhcpOptionsSetToSubnetRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "AttachDhcpOptionsSetToSubnet")
-
-	return
-}
-
-func NewAttachDhcpOptionsSetToSubnetResponse() (response *AttachDhcpOptionsSetToSubnetResponse) {
-	response = &AttachDhcpOptionsSetToSubnetResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// AttachDhcpOptionsSetToSubnet 将DHCP选项集关联到Subnet。
-func (c *Client) AttachDhcpOptionsSetToSubnet(request *AttachDhcpOptionsSetToSubnetRequest) (response *AttachDhcpOptionsSetToSubnetResponse, err error) {
-	response = NewAttachDhcpOptionsSetToSubnetResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDetachDhcpOptionsSetFromSubnetRequest() (request *DetachDhcpOptionsSetFromSubnetRequest) {
-	request = &DetachDhcpOptionsSetFromSubnetRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DetachDhcpOptionsSetFromSubnet")
-
-	return
-}
-
-func NewDetachDhcpOptionsSetFromSubnetResponse() (response *DetachDhcpOptionsSetFromSubnetResponse) {
-	response = &DetachDhcpOptionsSetFromSubnetResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DetachDhcpOptionsSetFromSubnet 将DHCP选项集与Subnet取消关联。
-func (c *Client) DetachDhcpOptionsSetFromSubnet(request *DetachDhcpOptionsSetFromSubnetRequest) (response *DetachDhcpOptionsSetFromSubnetResponse, err error) {
-	response = NewDetachDhcpOptionsSetFromSubnetResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeDhcpOptionsSetsRequest() (request *DescribeDhcpOptionsSetsRequest) {
-	request = &DescribeDhcpOptionsSetsRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeDhcpOptionsSets")
-
-	return
-}
-
-func NewDescribeDhcpOptionsSetsResponse() (response *DescribeDhcpOptionsSetsResponse) {
-	response = &DescribeDhcpOptionsSetsResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeDhcpOptionsSets 查询已创建的DHCP选项集列表。
-func (c *Client) DescribeDhcpOptionsSets(request *DescribeDhcpOptionsSetsRequest) (response *DescribeDhcpOptionsSetsResponse, err error) {
-	response = NewDescribeDhcpOptionsSetsResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewModifyDhcpOptionsSetAttributesRequest() (request *ModifyDhcpOptionsSetAttributesRequest) {
-	request = &ModifyDhcpOptionsSetAttributesRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyDhcpOptionsSetAttributes")
-
-	return
-}
-
-func NewModifyDhcpOptionsSetAttributesResponse() (response *ModifyDhcpOptionsSetAttributesResponse) {
-	response = &ModifyDhcpOptionsSetAttributesResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// ModifyDhcpOptionsSetAttributes 修改DHCP选项集配置信息。
-func (c *Client) ModifyDhcpOptionsSetAttributes(request *ModifyDhcpOptionsSetAttributesRequest) (response *ModifyDhcpOptionsSetAttributesResponse, err error) {
-	response = NewModifyDhcpOptionsSetAttributesResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeZonesRequest() (request *DescribeZonesRequest) {
-	request = &DescribeZonesRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeZones")
-
-	return
-}
-
-func NewDescribeZonesResponse() (response *DescribeZonesResponse) {
-	response = &DescribeZonesResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeZones 查询可用区信息。包括名称，所属的节点等。
-func (c *Client) DescribeZones(request *DescribeZonesRequest) (response *DescribeZonesResponse, err error) {
-	response = NewDescribeZonesResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -2498,29 +1693,6 @@ func (c *Client) DeleteCidr(request *DeleteCidrRequest) (response *DeleteCidrRes
 	return
 }
 
-func NewRenewCidrRequest() (request *RenewCidrRequest) {
-	request = &RenewCidrRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "RenewCidr")
-
-	return
-}
-
-func NewRenewCidrResponse() (response *RenewCidrResponse) {
-	response = &RenewCidrResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// RenewCidr 将一个处于回收站的IPv4 CIDR地址段恢复回正常。
-func (c *Client) RenewCidr(request *RenewCidrRequest) (response *RenewCidrResponse, err error) {
-	response = NewRenewCidrResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
 func NewDeleteCidrsRequest() (request *DeleteCidrsRequest) {
 	request = &DeleteCidrsRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -2540,6 +1712,29 @@ func NewDeleteCidrsResponse() (response *DeleteCidrsResponse) {
 // DeleteCidrs 删除一个或多个IPv4 CIDR地址块。
 func (c *Client) DeleteCidrs(request *DeleteCidrsRequest) (response *DeleteCidrsResponse, err error) {
 	response = NewDeleteCidrsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewRenewIpv6CidrRequest() (request *RenewIpv6CidrRequest) {
+	request = &RenewIpv6CidrRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "RenewIpv6Cidr")
+
+	return
+}
+
+func NewRenewIpv6CidrResponse() (response *RenewIpv6CidrResponse) {
+	response = &RenewIpv6CidrResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// RenewIpv6Cidr 将一个处于回收站的IPv6 CIDR地址段恢复回正常。
+func (c *Client) RenewIpv6Cidr(request *RenewIpv6CidrRequest) (response *RenewIpv6CidrResponse, err error) {
+	response = NewRenewIpv6CidrResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -2590,163 +1785,577 @@ func (c *Client) DeleteIpv6Cidr(request *DeleteIpv6CidrRequest) (response *Delet
 	return
 }
 
-func NewRenewIpv6CidrRequest() (request *RenewIpv6CidrRequest) {
-	request = &RenewIpv6CidrRequest{
+func NewRenewCidrRequest() (request *RenewCidrRequest) {
+	request = &RenewCidrRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "RenewIpv6Cidr")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "RenewCidr")
 
 	return
 }
 
-func NewRenewIpv6CidrResponse() (response *RenewIpv6CidrResponse) {
-	response = &RenewIpv6CidrResponse{
+func NewRenewCidrResponse() (response *RenewCidrResponse) {
+	response = &RenewCidrResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-// RenewIpv6Cidr 将一个处于回收站的IPv6 CIDR地址段恢复回正常。
-func (c *Client) RenewIpv6Cidr(request *RenewIpv6CidrRequest) (response *RenewIpv6CidrResponse, err error) {
-	response = NewRenewIpv6CidrResponse()
+// RenewCidr 将一个处于回收站的IPv4 CIDR地址段恢复回正常。
+func (c *Client) RenewCidr(request *RenewCidrRequest) (response *RenewCidrResponse, err error) {
+	response = NewRenewCidrResponse()
 	err = c.ApiCall(request, response)
 	return
 }
 
-func NewCreateCrossRegionBandwidthRequest() (request *CreateCrossRegionBandwidthRequest) {
-	request = &CreateCrossRegionBandwidthRequest{
+func NewDescribeEipRegionsRequest() (request *DescribeEipRegionsRequest) {
+	request = &DescribeEipRegionsRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateCrossRegionBandwidth")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeEipRegions")
 
 	return
 }
 
-func NewCreateCrossRegionBandwidthResponse() (response *CreateCrossRegionBandwidthResponse) {
-	response = &CreateCrossRegionBandwidthResponse{
+func NewDescribeEipRegionsResponse() (response *DescribeEipRegionsResponse) {
+	response = &DescribeEipRegionsResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-// CreateCrossRegionBandwidth 创建内网跨区域带宽。
-func (c *Client) CreateCrossRegionBandwidth(request *CreateCrossRegionBandwidthRequest) (response *CreateCrossRegionBandwidthResponse, err error) {
-	response = NewCreateCrossRegionBandwidthResponse()
+// DescribeEipRegions 查询支持售卖EIP的区域信息。
+func (c *Client) DescribeEipRegions(request *DescribeEipRegionsRequest) (response *DescribeEipRegionsResponse, err error) {
+	response = NewDescribeEipRegionsResponse()
 	err = c.ApiCall(request, response)
 	return
 }
 
-func NewInquiryPriceCreateCrossRegionBandwidthRequest() (request *InquiryPriceCreateCrossRegionBandwidthRequest) {
-	request = &InquiryPriceCreateCrossRegionBandwidthRequest{
+func NewDescribeEipInternetChargeTypesRequest() (request *DescribeEipInternetChargeTypesRequest) {
+	request = &DescribeEipInternetChargeTypesRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryPriceCreateCrossRegionBandwidth")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeEipInternetChargeTypes")
 
 	return
 }
 
-func NewInquiryPriceCreateCrossRegionBandwidthResponse() (response *InquiryPriceCreateCrossRegionBandwidthResponse) {
-	response = &InquiryPriceCreateCrossRegionBandwidthResponse{
+func NewDescribeEipInternetChargeTypesResponse() (response *DescribeEipInternetChargeTypesResponse) {
+	response = &DescribeEipInternetChargeTypesResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-// InquiryPriceCreateCrossRegionBandwidth 创建内网跨区域带宽询价。
-func (c *Client) InquiryPriceCreateCrossRegionBandwidth(request *InquiryPriceCreateCrossRegionBandwidthRequest) (response *InquiryPriceCreateCrossRegionBandwidthResponse, err error) {
-	response = NewInquiryPriceCreateCrossRegionBandwidthResponse()
+// DescribeEipInternetChargeTypes 查询EIP支持的网络计费模式。
+func (c *Client) DescribeEipInternetChargeTypes(request *DescribeEipInternetChargeTypesRequest) (response *DescribeEipInternetChargeTypesResponse, err error) {
+	response = NewDescribeEipInternetChargeTypesResponse()
 	err = c.ApiCall(request, response)
 	return
 }
 
-func NewModifyCrossRegionBandwidthAttributeRequest() (request *ModifyCrossRegionBandwidthAttributeRequest) {
-	request = &ModifyCrossRegionBandwidthAttributeRequest{
+func NewDescribeEipRemoteRegionsRequest() (request *DescribeEipRemoteRegionsRequest) {
+	request = &DescribeEipRemoteRegionsRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyCrossRegionBandwidthAttribute")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeEipRemoteRegions")
 
 	return
 }
 
-func NewModifyCrossRegionBandwidthAttributeResponse() (response *ModifyCrossRegionBandwidthAttributeResponse) {
-	response = &ModifyCrossRegionBandwidthAttributeResponse{
+func NewDescribeEipRemoteRegionsResponse() (response *DescribeEipRemoteRegionsResponse) {
+	response = &DescribeEipRemoteRegionsResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-// ModifyCrossRegionBandwidthAttribute 修改内网跨区域带宽属性（名称）。
-func (c *Client) ModifyCrossRegionBandwidthAttribute(request *ModifyCrossRegionBandwidthAttributeRequest) (response *ModifyCrossRegionBandwidthAttributeResponse, err error) {
-	response = NewModifyCrossRegionBandwidthAttributeResponse()
+// DescribeEipRemoteRegions 查询EIP支持的远程指向的节点信息。
+func (c *Client) DescribeEipRemoteRegions(request *DescribeEipRemoteRegionsRequest) (response *DescribeEipRemoteRegionsResponse, err error) {
+	response = NewDescribeEipRemoteRegionsResponse()
 	err = c.ApiCall(request, response)
 	return
 }
 
-func NewDeleteCrossRegionBandwidthRequest() (request *DeleteCrossRegionBandwidthRequest) {
-	request = &DeleteCrossRegionBandwidthRequest{
+func NewDescribeEipPriceRequest() (request *DescribeEipPriceRequest) {
+	request = &DescribeEipPriceRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteCrossRegionBandwidth")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeEipPrice")
 
 	return
 }
 
-func NewDeleteCrossRegionBandwidthResponse() (response *DeleteCrossRegionBandwidthResponse) {
-	response = &DeleteCrossRegionBandwidthResponse{
+func NewDescribeEipPriceResponse() (response *DescribeEipPriceResponse) {
+	response = &DescribeEipPriceResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-// DeleteCrossRegionBandwidth 删除内网跨区域带宽。
-func (c *Client) DeleteCrossRegionBandwidth(request *DeleteCrossRegionBandwidthRequest) (response *DeleteCrossRegionBandwidthResponse, err error) {
-	response = NewDeleteCrossRegionBandwidthResponse()
+// DescribeEipPrice 创建公网弹性IP询价。
+func (c *Client) DescribeEipPrice(request *DescribeEipPriceRequest) (response *DescribeEipPriceResponse, err error) {
+	response = NewDescribeEipPriceResponse()
 	err = c.ApiCall(request, response)
 	return
 }
 
-func NewDescribeCrossRegionBandwidthMonitorDataRequest() (request *DescribeCrossRegionBandwidthMonitorDataRequest) {
-	request = &DescribeCrossRegionBandwidthMonitorDataRequest{
+func NewDescribeEipsRequest() (request *DescribeEipsRequest) {
+	request = &DescribeEipsRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeCrossRegionBandwidthMonitorData")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeEips")
 
 	return
 }
 
-func NewDescribeCrossRegionBandwidthMonitorDataResponse() (response *DescribeCrossRegionBandwidthMonitorDataResponse) {
-	response = &DescribeCrossRegionBandwidthMonitorDataResponse{
+func NewDescribeEipsResponse() (response *DescribeEipsResponse) {
+	response = &DescribeEipsResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-// DescribeCrossRegionBandwidthMonitorData 查询内网跨区域带宽监控指标数据。
-func (c *Client) DescribeCrossRegionBandwidthMonitorData(request *DescribeCrossRegionBandwidthMonitorDataRequest) (response *DescribeCrossRegionBandwidthMonitorDataResponse, err error) {
-	response = NewDescribeCrossRegionBandwidthMonitorDataResponse()
+// DescribeEips 指定条件查询已创建的弹性IPv4的信息。用户可以根据ID、名称等信息来搜索。
+func (c *Client) DescribeEips(request *DescribeEipsRequest) (response *DescribeEipsResponse, err error) {
+	response = NewDescribeEipsResponse()
 	err = c.ApiCall(request, response)
 	return
 }
 
-func NewInquiryPriceModifyCrossRegionBandwidthRequest() (request *InquiryPriceModifyCrossRegionBandwidthRequest) {
-	request = &InquiryPriceModifyCrossRegionBandwidthRequest{
+func NewCreateEipsRequest() (request *CreateEipsRequest) {
+	request = &CreateEipsRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryPriceModifyCrossRegionBandwidth")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateEips")
 
 	return
 }
 
-func NewInquiryPriceModifyCrossRegionBandwidthResponse() (response *InquiryPriceModifyCrossRegionBandwidthResponse) {
-	response = &InquiryPriceModifyCrossRegionBandwidthResponse{
+func NewCreateEipsResponse() (response *CreateEipsResponse) {
+	response = &CreateEipsResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-// InquiryPriceModifyCrossRegionBandwidth 调整内网跨区域带宽询价。
-func (c *Client) InquiryPriceModifyCrossRegionBandwidth(request *InquiryPriceModifyCrossRegionBandwidthRequest) (response *InquiryPriceModifyCrossRegionBandwidthResponse, err error) {
-	response = NewInquiryPriceModifyCrossRegionBandwidthResponse()
+// CreateEips 创建弹性公网IP。
+func (c *Client) CreateEips(request *CreateEipsRequest) (response *CreateEipsResponse, err error) {
+	response = NewCreateEipsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyEipAttributeRequest() (request *ModifyEipAttributeRequest) {
+	request = &ModifyEipAttributeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyEipAttribute")
+
+	return
+}
+
+func NewModifyEipAttributeResponse() (response *ModifyEipAttributeResponse) {
+	response = &ModifyEipAttributeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyEipAttribute 修改弹性公网IP属性。
+func (c *Client) ModifyEipAttribute(request *ModifyEipAttributeRequest) (response *ModifyEipAttributeResponse, err error) {
+	response = NewModifyEipAttributeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewChangeEipInternetChargeTypeRequest() (request *ChangeEipInternetChargeTypeRequest) {
+	request = &ChangeEipInternetChargeTypeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ChangeEipInternetChargeType")
+
+	return
+}
+
+func NewChangeEipInternetChargeTypeResponse() (response *ChangeEipInternetChargeTypeResponse) {
+	response = &ChangeEipInternetChargeTypeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ChangeEipInternetChargeType 变更弹性公网IP更网络计费模式。
+func (c *Client) ChangeEipInternetChargeType(request *ChangeEipInternetChargeTypeRequest) (response *ChangeEipInternetChargeTypeResponse, err error) {
+	response = NewChangeEipInternetChargeTypeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewAvailableLanIpRequest() (request *AvailableLanIpRequest) {
+	request = &AvailableLanIpRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "AvailableLanIp")
+
+	return
+}
+
+func NewAvailableLanIpResponse() (response *AvailableLanIpResponse) {
+	response = &AvailableLanIpResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// AvailableLanIp 查询可供弹性公网IP绑定的网卡及内网IP信息。
+func (c *Client) AvailableLanIp(request *AvailableLanIpRequest) (response *AvailableLanIpResponse, err error) {
+	response = NewAvailableLanIpResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewAssociateEipAddressRequest() (request *AssociateEipAddressRequest) {
+	request = &AssociateEipAddressRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "AssociateEipAddress")
+
+	return
+}
+
+func NewAssociateEipAddressResponse() (response *AssociateEipAddressResponse) {
+	response = &AssociateEipAddressResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// AssociateEipAddress 批量将弹性公网IP（EIP）绑定到同地域的云产品实例上。
+func (c *Client) AssociateEipAddress(request *AssociateEipAddressRequest) (response *AssociateEipAddressResponse, err error) {
+	response = NewAssociateEipAddressResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewUnassociateEipAddressRequest() (request *UnassociateEipAddressRequest) {
+	request = &UnassociateEipAddressRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "UnassociateEipAddress")
+
+	return
+}
+
+func NewUnassociateEipAddressResponse() (response *UnassociateEipAddressResponse) {
+	response = &UnassociateEipAddressResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// UnassociateEipAddress 将弹性公网IP（EIP）从绑定的云产品上解绑。
+func (c *Client) UnassociateEipAddress(request *UnassociateEipAddressRequest) (response *UnassociateEipAddressResponse, err error) {
+	response = NewUnassociateEipAddressResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewReplaceEipAddressRequest() (request *ReplaceEipAddressRequest) {
+	request = &ReplaceEipAddressRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ReplaceEipAddress")
+
+	return
+}
+
+func NewReplaceEipAddressResponse() (response *ReplaceEipAddressResponse) {
+	response = &ReplaceEipAddressResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ReplaceEipAddress 替换一个或者多个弹性公网IP地址。
+func (c *Client) ReplaceEipAddress(request *ReplaceEipAddressRequest) (response *ReplaceEipAddressResponse, err error) {
+	response = NewReplaceEipAddressResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyEipBandwidthRequest() (request *ModifyEipBandwidthRequest) {
+	request = &ModifyEipBandwidthRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyEipBandwidth")
+
+	return
+}
+
+func NewModifyEipBandwidthResponse() (response *ModifyEipBandwidthResponse) {
+	response = &ModifyEipBandwidthResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyEipBandwidth 调整弹性公网IP的带宽限速。
+func (c *Client) ModifyEipBandwidth(request *ModifyEipBandwidthRequest) (response *ModifyEipBandwidthResponse, err error) {
+	response = NewModifyEipBandwidthResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewChangeEipBindTypeRequest() (request *ChangeEipBindTypeRequest) {
+	request = &ChangeEipBindTypeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ChangeEipBindType")
+
+	return
+}
+
+func NewChangeEipBindTypeResponse() (response *ChangeEipBindTypeResponse) {
+	response = &ChangeEipBindTypeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ChangeEipBindType 弹性公网IP（EIP）更换绑定模式。
+func (c *Client) ChangeEipBindType(request *ChangeEipBindTypeRequest) (response *ChangeEipBindTypeResponse, err error) {
+	response = NewChangeEipBindTypeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewConfigEipProbeRequest() (request *ConfigEipProbeRequest) {
+	request = &ConfigEipProbeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ConfigEipProbe")
+
+	return
+}
+
+func NewConfigEipProbeResponse() (response *ConfigEipProbeResponse) {
+	response = &ConfigEipProbeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ConfigEipProbe 弹性公网IP（EIP）探测配置。
+func (c *Client) ConfigEipProbe(request *ConfigEipProbeRequest) (response *ConfigEipProbeResponse, err error) {
+	response = NewConfigEipProbeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteEipRequest() (request *DeleteEipRequest) {
+	request = &DeleteEipRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteEip")
+
+	return
+}
+
+func NewDeleteEipResponse() (response *DeleteEipResponse) {
+	response = &DeleteEipResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeleteEip 删除指定的弹性公网IP。
+func (c *Client) DeleteEip(request *DeleteEipRequest) (response *DeleteEipResponse, err error) {
+	response = NewDeleteEipResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeEipTrafficRequest() (request *DescribeEipTrafficRequest) {
+	request = &DescribeEipTrafficRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeEipTraffic")
+
+	return
+}
+
+func NewDescribeEipTrafficResponse() (response *DescribeEipTrafficResponse) {
+	response = &DescribeEipTrafficResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeEipTraffic 查询弹性公网IP指定时间段内的流量信息。
+func (c *Client) DescribeEipTraffic(request *DescribeEipTrafficRequest) (response *DescribeEipTrafficResponse, err error) {
+	response = NewDescribeEipTrafficResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeEipMonitorDataRequest() (request *DescribeEipMonitorDataRequest) {
+	request = &DescribeEipMonitorDataRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeEipMonitorData")
+
+	return
+}
+
+func NewDescribeEipMonitorDataResponse() (response *DescribeEipMonitorDataResponse) {
+	response = &DescribeEipMonitorDataResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeEipMonitorData 查询一段时间的弹性公网IP监控指标数据。
+func (c *Client) DescribeEipMonitorData(request *DescribeEipMonitorDataRequest) (response *DescribeEipMonitorDataResponse, err error) {
+	response = NewDescribeEipMonitorDataResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewRenewEipRequest() (request *RenewEipRequest) {
+	request = &RenewEipRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "RenewEip")
+
+	return
+}
+
+func NewRenewEipResponse() (response *RenewEipResponse) {
+	response = &RenewEipResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// RenewEip 恢复弹性公网IP
+func (c *Client) RenewEip(request *RenewEipRequest) (response *RenewEipResponse, err error) {
+	response = NewRenewEipResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewConfigEipEgressIpRequest() (request *ConfigEipEgressIpRequest) {
+	request = &ConfigEipEgressIpRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ConfigEipEgressIp")
+
+	return
+}
+
+func NewConfigEipEgressIpResponse() (response *ConfigEipEgressIpResponse) {
+	response = &ConfigEipEgressIpResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ConfigEipEgressIp 指定IP作为出口IP。
+func (c *Client) ConfigEipEgressIp(request *ConfigEipEgressIpRequest) (response *ConfigEipEgressIpResponse, err error) {
+	response = NewConfigEipEgressIpResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeRoutesRequest() (request *DescribeRoutesRequest) {
+	request = &DescribeRoutesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeRoutes")
+
+	return
+}
+
+func NewDescribeRoutesResponse() (response *DescribeRoutesResponse) {
+	response = &DescribeRoutesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeRoutes 查询路由列表。用户可以根据ID、名称等信息来搜索Route信息。路由列表包括系统生成的以及用户创建的路由。
+func (c *Client) DescribeRoutes(request *DescribeRoutesRequest) (response *DescribeRoutesResponse, err error) {
+	response = NewDescribeRoutesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewCreateRouteRequest() (request *CreateRouteRequest) {
+	request = &CreateRouteRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateRoute")
+
+	return
+}
+
+func NewCreateRouteResponse() (response *CreateRouteResponse) {
+	response = &CreateRouteResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CreateRoute 创建一个自定义路由。
+func (c *Client) CreateRoute(request *CreateRouteRequest) (response *CreateRouteResponse, err error) {
+	response = NewCreateRouteResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyRouteAttributeRequest() (request *ModifyRouteAttributeRequest) {
+	request = &ModifyRouteAttributeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyRouteAttribute")
+
+	return
+}
+
+func NewModifyRouteAttributeResponse() (response *ModifyRouteAttributeResponse) {
+	response = &ModifyRouteAttributeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyRouteAttribute 修改路由的基本信息，目前只允许修改路由的名称。
+func (c *Client) ModifyRouteAttribute(request *ModifyRouteAttributeRequest) (response *ModifyRouteAttributeResponse, err error) {
+	response = NewModifyRouteAttributeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteRouteRequest() (request *DeleteRouteRequest) {
+	request = &DeleteRouteRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteRoute")
+
+	return
+}
+
+func NewDeleteRouteResponse() (response *DeleteRouteResponse) {
+	response = &DeleteRouteResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeleteRoute 删除一条自定义路由。
+func (c *Client) DeleteRoute(request *DeleteRouteRequest) (response *DeleteRouteResponse, err error) {
+	response = NewDeleteRouteResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -2774,6 +2383,121 @@ func (c *Client) DescribeCrossRegionBandwidthRegions(request *DescribeCrossRegio
 	return
 }
 
+func NewInquiryPriceCreateCrossRegionBandwidthRequest() (request *InquiryPriceCreateCrossRegionBandwidthRequest) {
+	request = &InquiryPriceCreateCrossRegionBandwidthRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryPriceCreateCrossRegionBandwidth")
+
+	return
+}
+
+func NewInquiryPriceCreateCrossRegionBandwidthResponse() (response *InquiryPriceCreateCrossRegionBandwidthResponse) {
+	response = &InquiryPriceCreateCrossRegionBandwidthResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// InquiryPriceCreateCrossRegionBandwidth 创建内网跨区域带宽询价。
+func (c *Client) InquiryPriceCreateCrossRegionBandwidth(request *InquiryPriceCreateCrossRegionBandwidthRequest) (response *InquiryPriceCreateCrossRegionBandwidthResponse, err error) {
+	response = NewInquiryPriceCreateCrossRegionBandwidthResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewCreateCrossRegionBandwidthRequest() (request *CreateCrossRegionBandwidthRequest) {
+	request = &CreateCrossRegionBandwidthRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateCrossRegionBandwidth")
+
+	return
+}
+
+func NewCreateCrossRegionBandwidthResponse() (response *CreateCrossRegionBandwidthResponse) {
+	response = &CreateCrossRegionBandwidthResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CreateCrossRegionBandwidth 创建内网跨区域带宽。
+func (c *Client) CreateCrossRegionBandwidth(request *CreateCrossRegionBandwidthRequest) (response *CreateCrossRegionBandwidthResponse, err error) {
+	response = NewCreateCrossRegionBandwidthResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeCrossRegionBandwidthRequest() (request *DescribeCrossRegionBandwidthRequest) {
+	request = &DescribeCrossRegionBandwidthRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeCrossRegionBandwidth")
+
+	return
+}
+
+func NewDescribeCrossRegionBandwidthResponse() (response *DescribeCrossRegionBandwidthResponse) {
+	response = &DescribeCrossRegionBandwidthResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeCrossRegionBandwidth 查询内网跨区域带宽列表。
+func (c *Client) DescribeCrossRegionBandwidth(request *DescribeCrossRegionBandwidthRequest) (response *DescribeCrossRegionBandwidthResponse, err error) {
+	response = NewDescribeCrossRegionBandwidthResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewInquiryPriceModifyCrossRegionBandwidthRequest() (request *InquiryPriceModifyCrossRegionBandwidthRequest) {
+	request = &InquiryPriceModifyCrossRegionBandwidthRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryPriceModifyCrossRegionBandwidth")
+
+	return
+}
+
+func NewInquiryPriceModifyCrossRegionBandwidthResponse() (response *InquiryPriceModifyCrossRegionBandwidthResponse) {
+	response = &InquiryPriceModifyCrossRegionBandwidthResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// InquiryPriceModifyCrossRegionBandwidth 调整内网跨区域带宽询价。
+func (c *Client) InquiryPriceModifyCrossRegionBandwidth(request *InquiryPriceModifyCrossRegionBandwidthRequest) (response *InquiryPriceModifyCrossRegionBandwidthResponse, err error) {
+	response = NewInquiryPriceModifyCrossRegionBandwidthResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyCrossRegionBandwidthAttributeRequest() (request *ModifyCrossRegionBandwidthAttributeRequest) {
+	request = &ModifyCrossRegionBandwidthAttributeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyCrossRegionBandwidthAttribute")
+
+	return
+}
+
+func NewModifyCrossRegionBandwidthAttributeResponse() (response *ModifyCrossRegionBandwidthAttributeResponse) {
+	response = &ModifyCrossRegionBandwidthAttributeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyCrossRegionBandwidthAttribute 修改内网跨区域带宽属性（名称）。
+func (c *Client) ModifyCrossRegionBandwidthAttribute(request *ModifyCrossRegionBandwidthAttributeRequest) (response *ModifyCrossRegionBandwidthAttributeResponse, err error) {
+	response = NewModifyCrossRegionBandwidthAttributeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewModifyCrossRegionBandwidthRequest() (request *ModifyCrossRegionBandwidthRequest) {
 	request = &ModifyCrossRegionBandwidthRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -2793,6 +2517,29 @@ func NewModifyCrossRegionBandwidthResponse() (response *ModifyCrossRegionBandwid
 // ModifyCrossRegionBandwidth 调整内网跨区域带宽。
 func (c *Client) ModifyCrossRegionBandwidth(request *ModifyCrossRegionBandwidthRequest) (response *ModifyCrossRegionBandwidthResponse, err error) {
 	response = NewModifyCrossRegionBandwidthResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteCrossRegionBandwidthRequest() (request *DeleteCrossRegionBandwidthRequest) {
+	request = &DeleteCrossRegionBandwidthRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteCrossRegionBandwidth")
+
+	return
+}
+
+func NewDeleteCrossRegionBandwidthResponse() (response *DeleteCrossRegionBandwidthResponse) {
+	response = &DeleteCrossRegionBandwidthResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeleteCrossRegionBandwidth 删除内网跨区域带宽。
+func (c *Client) DeleteCrossRegionBandwidth(request *DeleteCrossRegionBandwidthRequest) (response *DeleteCrossRegionBandwidthResponse, err error) {
+	response = NewDeleteCrossRegionBandwidthResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -2820,25 +2567,163 @@ func (c *Client) RenewCrossRegionBandwidth(request *RenewCrossRegionBandwidthReq
 	return
 }
 
-func NewDescribeCrossRegionBandwidthRequest() (request *DescribeCrossRegionBandwidthRequest) {
-	request = &DescribeCrossRegionBandwidthRequest{
+func NewDescribeCrossRegionBandwidthMonitorDataRequest() (request *DescribeCrossRegionBandwidthMonitorDataRequest) {
+	request = &DescribeCrossRegionBandwidthMonitorDataRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeCrossRegionBandwidth")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeCrossRegionBandwidthMonitorData")
 
 	return
 }
 
-func NewDescribeCrossRegionBandwidthResponse() (response *DescribeCrossRegionBandwidthResponse) {
-	response = &DescribeCrossRegionBandwidthResponse{
+func NewDescribeCrossRegionBandwidthMonitorDataResponse() (response *DescribeCrossRegionBandwidthMonitorDataResponse) {
+	response = &DescribeCrossRegionBandwidthMonitorDataResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-// DescribeCrossRegionBandwidth 查询内网跨区域带宽列表。
-func (c *Client) DescribeCrossRegionBandwidth(request *DescribeCrossRegionBandwidthRequest) (response *DescribeCrossRegionBandwidthResponse, err error) {
-	response = NewDescribeCrossRegionBandwidthResponse()
+// DescribeCrossRegionBandwidthMonitorData 查询内网跨区域带宽监控指标数据。
+func (c *Client) DescribeCrossRegionBandwidthMonitorData(request *DescribeCrossRegionBandwidthMonitorDataRequest) (response *DescribeCrossRegionBandwidthMonitorDataResponse, err error) {
+	response = NewDescribeCrossRegionBandwidthMonitorDataResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeDhcpOptionsSetsRequest() (request *DescribeDhcpOptionsSetsRequest) {
+	request = &DescribeDhcpOptionsSetsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeDhcpOptionsSets")
+
+	return
+}
+
+func NewDescribeDhcpOptionsSetsResponse() (response *DescribeDhcpOptionsSetsResponse) {
+	response = &DescribeDhcpOptionsSetsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeDhcpOptionsSets 查询已创建的DHCP选项集列表。
+func (c *Client) DescribeDhcpOptionsSets(request *DescribeDhcpOptionsSetsRequest) (response *DescribeDhcpOptionsSetsResponse, err error) {
+	response = NewDescribeDhcpOptionsSetsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewCreateDhcpOptionsSetRequest() (request *CreateDhcpOptionsSetRequest) {
+	request = &CreateDhcpOptionsSetRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateDhcpOptionsSet")
+
+	return
+}
+
+func NewCreateDhcpOptionsSetResponse() (response *CreateDhcpOptionsSetResponse) {
+	response = &CreateDhcpOptionsSetResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CreateDhcpOptionsSet 创建DHCP选项集。
+func (c *Client) CreateDhcpOptionsSet(request *CreateDhcpOptionsSetRequest) (response *CreateDhcpOptionsSetResponse, err error) {
+	response = NewCreateDhcpOptionsSetResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyDhcpOptionsSetAttributesRequest() (request *ModifyDhcpOptionsSetAttributesRequest) {
+	request = &ModifyDhcpOptionsSetAttributesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyDhcpOptionsSetAttributes")
+
+	return
+}
+
+func NewModifyDhcpOptionsSetAttributesResponse() (response *ModifyDhcpOptionsSetAttributesResponse) {
+	response = &ModifyDhcpOptionsSetAttributesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyDhcpOptionsSetAttributes 修改DHCP选项集配置信息。
+func (c *Client) ModifyDhcpOptionsSetAttributes(request *ModifyDhcpOptionsSetAttributesRequest) (response *ModifyDhcpOptionsSetAttributesResponse, err error) {
+	response = NewModifyDhcpOptionsSetAttributesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewAttachDhcpOptionsSetToSubnetRequest() (request *AttachDhcpOptionsSetToSubnetRequest) {
+	request = &AttachDhcpOptionsSetToSubnetRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "AttachDhcpOptionsSetToSubnet")
+
+	return
+}
+
+func NewAttachDhcpOptionsSetToSubnetResponse() (response *AttachDhcpOptionsSetToSubnetResponse) {
+	response = &AttachDhcpOptionsSetToSubnetResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// AttachDhcpOptionsSetToSubnet 将DHCP选项集关联到Subnet。
+func (c *Client) AttachDhcpOptionsSetToSubnet(request *AttachDhcpOptionsSetToSubnetRequest) (response *AttachDhcpOptionsSetToSubnetResponse, err error) {
+	response = NewAttachDhcpOptionsSetToSubnetResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDetachDhcpOptionsSetFromSubnetRequest() (request *DetachDhcpOptionsSetFromSubnetRequest) {
+	request = &DetachDhcpOptionsSetFromSubnetRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DetachDhcpOptionsSetFromSubnet")
+
+	return
+}
+
+func NewDetachDhcpOptionsSetFromSubnetResponse() (response *DetachDhcpOptionsSetFromSubnetResponse) {
+	response = &DetachDhcpOptionsSetFromSubnetResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DetachDhcpOptionsSetFromSubnet 将DHCP选项集与Subnet取消关联。
+func (c *Client) DetachDhcpOptionsSetFromSubnet(request *DetachDhcpOptionsSetFromSubnetRequest) (response *DetachDhcpOptionsSetFromSubnetResponse, err error) {
+	response = NewDetachDhcpOptionsSetFromSubnetResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteDhcpOptionsSetRequest() (request *DeleteDhcpOptionsSetRequest) {
+	request = &DeleteDhcpOptionsSetRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteDhcpOptionsSet")
+
+	return
+}
+
+func NewDeleteDhcpOptionsSetResponse() (response *DeleteDhcpOptionsSetResponse) {
+	response = &DeleteDhcpOptionsSetResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeleteDhcpOptionsSet 删除DHCP选项集。
+func (c *Client) DeleteDhcpOptionsSet(request *DeleteDhcpOptionsSetRequest) (response *DeleteDhcpOptionsSetResponse, err error) {
+	response = NewDeleteDhcpOptionsSetResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -2885,29 +2770,6 @@ func NewDescribeBorderGatewaysResponse() (response *DescribeBorderGatewaysRespon
 // DescribeBorderGateways 查询边界网关列表。
 func (c *Client) DescribeBorderGateways(request *DescribeBorderGatewaysRequest) (response *DescribeBorderGatewaysResponse, err error) {
 	response = NewDescribeBorderGatewaysResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDeleteBorderGatewayRequest() (request *DeleteBorderGatewayRequest) {
-	request = &DeleteBorderGatewayRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteBorderGateway")
-
-	return
-}
-
-func NewDeleteBorderGatewayResponse() (response *DeleteBorderGatewayResponse) {
-	response = &DeleteBorderGatewayResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DeleteBorderGateway 删除一个指定的边界网关。
-func (c *Client) DeleteBorderGateway(request *DeleteBorderGatewayRequest) (response *DeleteBorderGatewayResponse, err error) {
-	response = NewDeleteBorderGatewayResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -3073,554 +2935,301 @@ func (c *Client) UnassignBorderGatewayRoute(request *UnassignBorderGatewayRouteR
 	return
 }
 
-func NewDescribeZoneInstanceConfigInfosRequest() (request *DescribeZoneInstanceConfigInfosRequest) {
-	request = &DescribeZoneInstanceConfigInfosRequest{
+func NewDeleteBorderGatewayRequest() (request *DeleteBorderGatewayRequest) {
+	request = &DeleteBorderGatewayRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeZoneInstanceConfigInfos")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteBorderGateway")
 
 	return
 }
 
-func NewDescribeZoneInstanceConfigInfosResponse() (response *DescribeZoneInstanceConfigInfosResponse) {
-	response = &DescribeZoneInstanceConfigInfosResponse{
+func NewDeleteBorderGatewayResponse() (response *DeleteBorderGatewayResponse) {
+	response = &DeleteBorderGatewayResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-// DescribeZoneInstanceConfigInfos 查询可用区售卖的机型信息
-func (c *Client) DescribeZoneInstanceConfigInfos(request *DescribeZoneInstanceConfigInfosRequest) (response *DescribeZoneInstanceConfigInfosResponse, err error) {
-	response = NewDescribeZoneInstanceConfigInfosResponse()
+// DeleteBorderGateway 删除一个指定的边界网关。
+func (c *Client) DeleteBorderGateway(request *DeleteBorderGatewayRequest) (response *DeleteBorderGatewayResponse, err error) {
+	response = NewDeleteBorderGatewayResponse()
 	err = c.ApiCall(request, response)
 	return
 }
 
-func NewDescribeTimeZonesRequest() (request *DescribeTimeZonesRequest) {
-	request = &DescribeTimeZonesRequest{
+func NewDescribeVpcsRequest() (request *DescribeVpcsRequest) {
+	request = &DescribeVpcsRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeTimeZones")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeVpcs")
 
 	return
 }
 
-func NewDescribeTimeZonesResponse() (response *DescribeTimeZonesResponse) {
-	response = &DescribeTimeZonesResponse{
+func NewDescribeVpcsResponse() (response *DescribeVpcsResponse) {
+	response = &DescribeVpcsResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-// DescribeTimeZones 查询时区信息
-func (c *Client) DescribeTimeZones(request *DescribeTimeZonesRequest) (response *DescribeTimeZonesResponse, err error) {
-	response = NewDescribeTimeZonesResponse()
+// DescribeVpcs 查询私有网络（VPC）列表，用户可以根据 VPC ID、VPC 名称等信息来筛选过滤VPC信息。
+func (c *Client) DescribeVpcs(request *DescribeVpcsRequest) (response *DescribeVpcsResponse, err error) {
+	response = NewDescribeVpcsResponse()
 	err = c.ApiCall(request, response)
 	return
 }
 
-func NewInquiryPriceCreateInstanceRequest() (request *InquiryPriceCreateInstanceRequest) {
-	request = &InquiryPriceCreateInstanceRequest{
+func NewCreateVpcRequest() (request *CreateVpcRequest) {
+	request = &CreateVpcRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryPriceCreateInstance")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateVpc")
 
 	return
 }
 
-func NewInquiryPriceCreateInstanceResponse() (response *InquiryPriceCreateInstanceResponse) {
-	response = &InquiryPriceCreateInstanceResponse{
+func NewCreateVpcResponse() (response *CreateVpcResponse) {
+	response = &CreateVpcResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-// InquiryPriceCreateInstance 创建虚拟机实例询价。
-func (c *Client) InquiryPriceCreateInstance(request *InquiryPriceCreateInstanceRequest) (response *InquiryPriceCreateInstanceResponse, err error) {
-	response = NewInquiryPriceCreateInstanceResponse()
+// CreateVpc 创建全球VPC。
+func (c *Client) CreateVpc(request *CreateVpcRequest) (response *CreateVpcResponse, err error) {
+	response = NewCreateVpcResponse()
 	err = c.ApiCall(request, response)
 	return
 }
 
-func NewCreateZecInstancesRequest() (request *CreateZecInstancesRequest) {
-	request = &CreateZecInstancesRequest{
+func NewModifyVpcAttributeRequest() (request *ModifyVpcAttributeRequest) {
+	request = &ModifyVpcAttributeRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateZecInstances")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyVpcAttribute")
 
 	return
 }
 
-func NewCreateZecInstancesResponse() (response *CreateZecInstancesResponse) {
-	response = &CreateZecInstancesResponse{
+func NewModifyVpcAttributeResponse() (response *ModifyVpcAttributeResponse) {
+	response = &ModifyVpcAttributeResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-// CreateZecInstances 创建一台或多台虚拟机实例。
-func (c *Client) CreateZecInstances(request *CreateZecInstancesRequest) (response *CreateZecInstancesResponse, err error) {
-	response = NewCreateZecInstancesResponse()
+// ModifyVpcAttribute 修改私有网络（VPC）的相关属性。
+func (c *Client) ModifyVpcAttribute(request *ModifyVpcAttributeRequest) (response *ModifyVpcAttributeResponse, err error) {
+	response = NewModifyVpcAttributeResponse()
 	err = c.ApiCall(request, response)
 	return
 }
 
-func NewDescribeInstancesRequest() (request *DescribeInstancesRequest) {
-	request = &DescribeInstancesRequest{
+func NewModifyVpcsAttributeRequest() (request *ModifyVpcsAttributeRequest) {
+	request = &ModifyVpcsAttributeRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeInstances")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyVpcsAttribute")
 
 	return
 }
 
-func NewDescribeInstancesResponse() (response *DescribeInstancesResponse) {
-	response = &DescribeInstancesResponse{
+func NewModifyVpcsAttributeResponse() (response *ModifyVpcsAttributeResponse) {
+	response = &ModifyVpcsAttributeResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-// DescribeInstances 查询一台或多台虚拟机实例的信息。用户可以根据实例ID、实例名称等条件来查询实例的详细信息。
-func (c *Client) DescribeInstances(request *DescribeInstancesRequest) (response *DescribeInstancesResponse, err error) {
-	response = NewDescribeInstancesResponse()
+// ModifyVpcsAttribute 修改一个或多个VPC的属性。该接口只支持修改VPC的名称。
+func (c *Client) ModifyVpcsAttribute(request *ModifyVpcsAttributeRequest) (response *ModifyVpcsAttributeResponse, err error) {
+	response = NewModifyVpcsAttributeResponse()
 	err = c.ApiCall(request, response)
 	return
 }
 
-func NewDescribeInstancesStatusRequest() (request *DescribeInstancesStatusRequest) {
-	request = &DescribeInstancesStatusRequest{
+func NewDeleteVpcRequest() (request *DeleteVpcRequest) {
+	request = &DeleteVpcRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeInstancesStatus")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteVpc")
 
 	return
 }
 
-func NewDescribeInstancesStatusResponse() (response *DescribeInstancesStatusResponse) {
-	response = &DescribeInstancesStatusResponse{
+func NewDeleteVpcResponse() (response *DeleteVpcResponse) {
+	response = &DeleteVpcResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-// DescribeInstancesStatus 查询实例的状态。
-func (c *Client) DescribeInstancesStatus(request *DescribeInstancesStatusRequest) (response *DescribeInstancesStatusResponse, err error) {
-	response = NewDescribeInstancesStatusResponse()
+// DeleteVpc 删除VPC
+func (c *Client) DeleteVpc(request *DeleteVpcRequest) (response *DeleteVpcResponse, err error) {
+	response = NewDeleteVpcResponse()
 	err = c.ApiCall(request, response)
 	return
 }
 
-func NewModifyInstancesAttributeRequest() (request *ModifyInstancesAttributeRequest) {
-	request = &ModifyInstancesAttributeRequest{
+func NewDescribeSubnetRegionsRequest() (request *DescribeSubnetRegionsRequest) {
+	request = &DescribeSubnetRegionsRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyInstancesAttribute")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeSubnetRegions")
 
 	return
 }
 
-func NewModifyInstancesAttributeResponse() (response *ModifyInstancesAttributeResponse) {
-	response = &ModifyInstancesAttributeResponse{
+func NewDescribeSubnetRegionsResponse() (response *DescribeSubnetRegionsResponse) {
+	response = &DescribeSubnetRegionsResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-// ModifyInstancesAttribute 修改实例属性（名称）。
-func (c *Client) ModifyInstancesAttribute(request *ModifyInstancesAttributeRequest) (response *ModifyInstancesAttributeResponse, err error) {
-	response = NewModifyInstancesAttributeResponse()
+// DescribeSubnetRegions 查询支持创建子网区域以及是否IPv6。
+func (c *Client) DescribeSubnetRegions(request *DescribeSubnetRegionsRequest) (response *DescribeSubnetRegionsResponse, err error) {
+	response = NewDescribeSubnetRegionsResponse()
 	err = c.ApiCall(request, response)
 	return
 }
 
-func NewStartInstancesRequest() (request *StartInstancesRequest) {
-	request = &StartInstancesRequest{
+func NewDescribeSubnetsRequest() (request *DescribeSubnetsRequest) {
+	request = &DescribeSubnetsRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "StartInstances")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeSubnets")
 
 	return
 }
 
-func NewStartInstancesResponse() (response *StartInstancesResponse) {
-	response = &StartInstancesResponse{
+func NewDescribeSubnetsResponse() (response *DescribeSubnetsResponse) {
+	response = &DescribeSubnetsResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-// StartInstances 启动一台或多台虚拟机实例。
-func (c *Client) StartInstances(request *StartInstancesRequest) (response *StartInstancesResponse, err error) {
-	response = NewStartInstancesResponse()
+// DescribeSubnets 查询子网列表信息。可以根据子网ID, 名称等信息筛选查询子网。
+func (c *Client) DescribeSubnets(request *DescribeSubnetsRequest) (response *DescribeSubnetsResponse, err error) {
+	response = NewDescribeSubnetsResponse()
 	err = c.ApiCall(request, response)
 	return
 }
 
-func NewStopInstancesRequest() (request *StopInstancesRequest) {
-	request = &StopInstancesRequest{
+func NewCreateSubnetRequest() (request *CreateSubnetRequest) {
+	request = &CreateSubnetRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "StopInstances")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateSubnet")
 
 	return
 }
 
-func NewStopInstancesResponse() (response *StopInstancesResponse) {
-	response = &StopInstancesResponse{
+func NewCreateSubnetResponse() (response *CreateSubnetResponse) {
+	response = &CreateSubnetResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-// StopInstances 关闭一台或多台虚拟机实例。
-func (c *Client) StopInstances(request *StopInstancesRequest) (response *StopInstancesResponse, err error) {
-	response = NewStopInstancesResponse()
+// CreateSubnet 创建子网。
+func (c *Client) CreateSubnet(request *CreateSubnetRequest) (response *CreateSubnetResponse, err error) {
+	response = NewCreateSubnetResponse()
 	err = c.ApiCall(request, response)
 	return
 }
 
-func NewRebootInstancesRequest() (request *RebootInstancesRequest) {
-	request = &RebootInstancesRequest{
+func NewModifySubnetAttributeRequest() (request *ModifySubnetAttributeRequest) {
+	request = &ModifySubnetAttributeRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "RebootInstances")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifySubnetAttribute")
 
 	return
 }
 
-func NewRebootInstancesResponse() (response *RebootInstancesResponse) {
-	response = &RebootInstancesResponse{
+func NewModifySubnetAttributeResponse() (response *ModifySubnetAttributeResponse) {
+	response = &ModifySubnetAttributeResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-// RebootInstances 重启虚拟机实例。
-func (c *Client) RebootInstances(request *RebootInstancesRequest) (response *RebootInstancesResponse, err error) {
-	response = NewRebootInstancesResponse()
+// ModifySubnetAttribute 修改子网属性。包括名称，CIDR等。
+func (c *Client) ModifySubnetAttribute(request *ModifySubnetAttributeRequest) (response *ModifySubnetAttributeResponse, err error) {
+	response = NewModifySubnetAttributeResponse()
 	err = c.ApiCall(request, response)
 	return
 }
 
-func NewResetInstancePasswordRequest() (request *ResetInstancePasswordRequest) {
-	request = &ResetInstancePasswordRequest{
+func NewModifySubnetsAttributeRequest() (request *ModifySubnetsAttributeRequest) {
+	request = &ModifySubnetsAttributeRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ResetInstancePassword")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifySubnetsAttribute")
 
 	return
 }
 
-func NewResetInstancePasswordResponse() (response *ResetInstancePasswordResponse) {
-	response = &ResetInstancePasswordResponse{
+func NewModifySubnetsAttributeResponse() (response *ModifySubnetsAttributeResponse) {
+	response = &ModifySubnetsAttributeResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-// ResetInstancePassword 重置一台虚拟机实例密码。
-func (c *Client) ResetInstancePassword(request *ResetInstancePasswordRequest) (response *ResetInstancePasswordResponse, err error) {
-	response = NewResetInstancePasswordResponse()
+// ModifySubnetsAttribute 批量修改子网的属性。
+func (c *Client) ModifySubnetsAttribute(request *ModifySubnetsAttributeRequest) (response *ModifySubnetsAttributeResponse, err error) {
+	response = NewModifySubnetsAttributeResponse()
 	err = c.ApiCall(request, response)
 	return
 }
 
-func NewResetInstanceRequest() (request *ResetInstanceRequest) {
-	request = &ResetInstanceRequest{
+func NewModifySubnetStackTypeRequest() (request *ModifySubnetStackTypeRequest) {
+	request = &ModifySubnetStackTypeRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ResetInstance")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifySubnetStackType")
 
 	return
 }
 
-func NewResetInstanceResponse() (response *ResetInstanceResponse) {
-	response = &ResetInstanceResponse{
+func NewModifySubnetStackTypeResponse() (response *ModifySubnetStackTypeResponse) {
+	response = &ModifySubnetStackTypeResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-// ResetInstance 重装一台虚拟机实例操作系统。
-func (c *Client) ResetInstance(request *ResetInstanceRequest) (response *ResetInstanceResponse, err error) {
-	response = NewResetInstanceResponse()
+// ModifySubnetStackType 修改子网堆栈类型
+func (c *Client) ModifySubnetStackType(request *ModifySubnetStackTypeRequest) (response *ModifySubnetStackTypeResponse, err error) {
+	response = NewModifySubnetStackTypeResponse()
 	err = c.ApiCall(request, response)
 	return
 }
 
-func NewResetInstancesRequest() (request *ResetInstancesRequest) {
-	request = &ResetInstancesRequest{
+func NewDeleteSubnetRequest() (request *DeleteSubnetRequest) {
+	request = &DeleteSubnetRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ResetInstances")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteSubnet")
 
 	return
 }
 
-func NewResetInstancesResponse() (response *ResetInstancesResponse) {
-	response = &ResetInstancesResponse{
+func NewDeleteSubnetResponse() (response *DeleteSubnetResponse) {
+	response = &DeleteSubnetResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-// ResetInstances 重装多台虚拟机实例操作系统。
-func (c *Client) ResetInstances(request *ResetInstancesRequest) (response *ResetInstancesResponse, err error) {
-	response = NewResetInstancesResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewStartIpForwardRequest() (request *StartIpForwardRequest) {
-	request = &StartIpForwardRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "StartIpForward")
-
-	return
-}
-
-func NewStartIpForwardResponse() (response *StartIpForwardResponse) {
-	response = &StartIpForwardResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// StartIpForward 开启IP转发
-func (c *Client) StartIpForward(request *StartIpForwardRequest) (response *StartIpForwardResponse, err error) {
-	response = NewStartIpForwardResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewStopIpForwardRequest() (request *StopIpForwardRequest) {
-	request = &StopIpForwardRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "StopIpForward")
-
-	return
-}
-
-func NewStopIpForwardResponse() (response *StopIpForwardResponse) {
-	response = &StopIpForwardResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// StopIpForward 关闭IP转发
-func (c *Client) StopIpForward(request *StopIpForwardRequest) (response *StopIpForwardResponse, err error) {
-	response = NewStopIpForwardResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewStartAgentMonitorRequest() (request *StartAgentMonitorRequest) {
-	request = &StartAgentMonitorRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "StartAgentMonitor")
-
-	return
-}
-
-func NewStartAgentMonitorResponse() (response *StartAgentMonitorResponse) {
-	response = &StartAgentMonitorResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// StartAgentMonitor 开启Agent监控采集。
-func (c *Client) StartAgentMonitor(request *StartAgentMonitorRequest) (response *StartAgentMonitorResponse, err error) {
-	response = NewStartAgentMonitorResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewStopAgentMonitorRequest() (request *StopAgentMonitorRequest) {
-	request = &StopAgentMonitorRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "StopAgentMonitor")
-
-	return
-}
-
-func NewStopAgentMonitorResponse() (response *StopAgentMonitorResponse) {
-	response = &StopAgentMonitorResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// StopAgentMonitor 关闭Agent监控采集。
-func (c *Client) StopAgentMonitor(request *StopAgentMonitorRequest) (response *StopAgentMonitorResponse, err error) {
-	response = NewStopAgentMonitorResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewModifyInstanceTypeRequest() (request *ModifyInstanceTypeRequest) {
-	request = &ModifyInstanceTypeRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyInstanceType")
-
-	return
-}
-
-func NewModifyInstanceTypeResponse() (response *ModifyInstanceTypeResponse) {
-	response = &ModifyInstanceTypeResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// ModifyInstanceType 变更实例的规格
-func (c *Client) ModifyInstanceType(request *ModifyInstanceTypeRequest) (response *ModifyInstanceTypeResponse, err error) {
-	response = NewModifyInstanceTypeResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewChangeNicNetworkTypeRequest() (request *ChangeNicNetworkTypeRequest) {
-	request = &ChangeNicNetworkTypeRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ChangeNicNetworkType")
-
-	return
-}
-
-func NewChangeNicNetworkTypeResponse() (response *ChangeNicNetworkTypeResponse) {
-	response = &ChangeNicNetworkTypeResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// ChangeNicNetworkType 更改实例的网卡模式。
-func (c *Client) ChangeNicNetworkType(request *ChangeNicNetworkTypeRequest) (response *ChangeNicNetworkTypeResponse, err error) {
-	response = NewChangeNicNetworkTypeResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewReleaseInstancesRequest() (request *ReleaseInstancesRequest) {
-	request = &ReleaseInstancesRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ReleaseInstances")
-
-	return
-}
-
-func NewReleaseInstancesResponse() (response *ReleaseInstancesResponse) {
-	response = &ReleaseInstancesResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// ReleaseInstances 销毁一台或多台虚拟机实例。
-func (c *Client) ReleaseInstances(request *ReleaseInstancesRequest) (response *ReleaseInstancesResponse, err error) {
-	response = NewReleaseInstancesResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeVncUrlRequest() (request *DescribeVncUrlRequest) {
-	request = &DescribeVncUrlRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeVncUrl")
-
-	return
-}
-
-func NewDescribeVncUrlResponse() (response *DescribeVncUrlResponse) {
-	response = &DescribeVncUrlResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeVncUrl 获取实例VNC地址。
-func (c *Client) DescribeVncUrl(request *DescribeVncUrlRequest) (response *DescribeVncUrlResponse, err error) {
-	response = NewDescribeVncUrlResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeInstanceMonitorDataRequest() (request *DescribeInstanceMonitorDataRequest) {
-	request = &DescribeInstanceMonitorDataRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeInstanceMonitorData")
-
-	return
-}
-
-func NewDescribeInstanceMonitorDataResponse() (response *DescribeInstanceMonitorDataResponse) {
-	response = &DescribeInstanceMonitorDataResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeInstanceMonitorData 查询一段时间的实例的监控指标数据。包括CPU,内存等相关指标数据。
-func (c *Client) DescribeInstanceMonitorData(request *DescribeInstanceMonitorDataRequest) (response *DescribeInstanceMonitorDataResponse, err error) {
-	response = NewDescribeInstanceMonitorDataResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewCreateNatGatewayRequest() (request *CreateNatGatewayRequest) {
-	request = &CreateNatGatewayRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateNatGateway")
-
-	return
-}
-
-func NewCreateNatGatewayResponse() (response *CreateNatGatewayResponse) {
-	response = &CreateNatGatewayResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// CreateNatGateway 创建NAT网关。
-func (c *Client) CreateNatGateway(request *CreateNatGatewayRequest) (response *CreateNatGatewayResponse, err error) {
-	response = NewCreateNatGatewayResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewModifyNatGatewayAttributeRequest() (request *ModifyNatGatewayAttributeRequest) {
-	request = &ModifyNatGatewayAttributeRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyNatGatewayAttribute")
-
-	return
-}
-
-func NewModifyNatGatewayAttributeResponse() (response *ModifyNatGatewayAttributeResponse) {
-	response = &ModifyNatGatewayAttributeResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// ModifyNatGatewayAttribute 修改NAT网关的属性。
-func (c *Client) ModifyNatGatewayAttribute(request *ModifyNatGatewayAttributeRequest) (response *ModifyNatGatewayAttributeResponse, err error) {
-	response = NewModifyNatGatewayAttributeResponse()
+// DeleteSubnet 删除一个子网。
+func (c *Client) DeleteSubnet(request *DeleteSubnetRequest) (response *DeleteSubnetResponse, err error) {
+	response = NewDeleteSubnetResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -3644,6 +3253,75 @@ func NewDescribeNatGatewayRegionsResponse() (response *DescribeNatGatewayRegions
 // DescribeNatGatewayRegions 支持售卖NAT网关的区域信息。
 func (c *Client) DescribeNatGatewayRegions(request *DescribeNatGatewayRegionsRequest) (response *DescribeNatGatewayRegionsResponse, err error) {
 	response = NewDescribeNatGatewayRegionsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeAvailableBorderGatewayRequest() (request *DescribeAvailableBorderGatewayRequest) {
+	request = &DescribeAvailableBorderGatewayRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeAvailableBorderGateway")
+
+	return
+}
+
+func NewDescribeAvailableBorderGatewayResponse() (response *DescribeAvailableBorderGatewayResponse) {
+	response = &DescribeAvailableBorderGatewayResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeAvailableBorderGateway 获取可绑定NAT的边界网关。
+func (c *Client) DescribeAvailableBorderGateway(request *DescribeAvailableBorderGatewayRequest) (response *DescribeAvailableBorderGatewayResponse, err error) {
+	response = NewDescribeAvailableBorderGatewayResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewInquiryPriceCreateNatGatewayRequest() (request *InquiryPriceCreateNatGatewayRequest) {
+	request = &InquiryPriceCreateNatGatewayRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryPriceCreateNatGateway")
+
+	return
+}
+
+func NewInquiryPriceCreateNatGatewayResponse() (response *InquiryPriceCreateNatGatewayResponse) {
+	response = &InquiryPriceCreateNatGatewayResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// InquiryPriceCreateNatGateway 查询创建NAT网关的价格。
+func (c *Client) InquiryPriceCreateNatGateway(request *InquiryPriceCreateNatGatewayRequest) (response *InquiryPriceCreateNatGatewayResponse, err error) {
+	response = NewInquiryPriceCreateNatGatewayResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewCreateNatGatewayRequest() (request *CreateNatGatewayRequest) {
+	request = &CreateNatGatewayRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateNatGateway")
+
+	return
+}
+
+func NewCreateNatGatewayResponse() (response *CreateNatGatewayResponse) {
+	response = &CreateNatGatewayResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CreateNatGateway 创建NAT网关。
+func (c *Client) CreateNatGateway(request *CreateNatGatewayRequest) (response *CreateNatGatewayResponse, err error) {
+	response = NewCreateNatGatewayResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -3694,25 +3372,25 @@ func (c *Client) DescribeNatGatewayDetail(request *DescribeNatGatewayDetailReque
 	return
 }
 
-func NewDeleteNatGatewayRequest() (request *DeleteNatGatewayRequest) {
-	request = &DeleteNatGatewayRequest{
+func NewModifyNatGatewayAttributeRequest() (request *ModifyNatGatewayAttributeRequest) {
+	request = &ModifyNatGatewayAttributeRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteNatGateway")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyNatGatewayAttribute")
 
 	return
 }
 
-func NewDeleteNatGatewayResponse() (response *DeleteNatGatewayResponse) {
-	response = &DeleteNatGatewayResponse{
+func NewModifyNatGatewayAttributeResponse() (response *ModifyNatGatewayAttributeResponse) {
+	response = &ModifyNatGatewayAttributeResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-// DeleteNatGateway 删除一个指定的NAT网关。
-func (c *Client) DeleteNatGateway(request *DeleteNatGatewayRequest) (response *DeleteNatGatewayResponse, err error) {
-	response = NewDeleteNatGatewayResponse()
+// ModifyNatGatewayAttribute 修改NAT网关的属性。
+func (c *Client) ModifyNatGatewayAttribute(request *ModifyNatGatewayAttributeRequest) (response *ModifyNatGatewayAttributeResponse, err error) {
+	response = NewModifyNatGatewayAttributeResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -3740,25 +3418,25 @@ func (c *Client) RenewNatGateway(request *RenewNatGatewayRequest) (response *Ren
 	return
 }
 
-func NewInquiryPriceCreateNatGatewayRequest() (request *InquiryPriceCreateNatGatewayRequest) {
-	request = &InquiryPriceCreateNatGatewayRequest{
+func NewDeleteNatGatewayRequest() (request *DeleteNatGatewayRequest) {
+	request = &DeleteNatGatewayRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryPriceCreateNatGateway")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteNatGateway")
 
 	return
 }
 
-func NewInquiryPriceCreateNatGatewayResponse() (response *InquiryPriceCreateNatGatewayResponse) {
-	response = &InquiryPriceCreateNatGatewayResponse{
+func NewDeleteNatGatewayResponse() (response *DeleteNatGatewayResponse) {
+	response = &DeleteNatGatewayResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-// InquiryPriceCreateNatGateway 查询创建NAT网关的价格。
-func (c *Client) InquiryPriceCreateNatGateway(request *InquiryPriceCreateNatGatewayRequest) (response *InquiryPriceCreateNatGatewayResponse, err error) {
-	response = NewInquiryPriceCreateNatGatewayResponse()
+// DeleteNatGateway 删除一个指定的NAT网关。
+func (c *Client) DeleteNatGateway(request *DeleteNatGatewayRequest) (response *DeleteNatGatewayResponse, err error) {
+	response = NewDeleteNatGatewayResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -3901,117 +3579,439 @@ func (c *Client) DeleteDnatEntry(request *DeleteDnatEntryRequest) (response *Del
 	return
 }
 
-func NewDescribeAvailableBorderGatewayRequest() (request *DescribeAvailableBorderGatewayRequest) {
-	request = &DescribeAvailableBorderGatewayRequest{
+func NewCreatePolicyRequest() (request *CreatePolicyRequest) {
+	request = &CreatePolicyRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeAvailableBorderGateway")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreatePolicy")
 
 	return
 }
 
-func NewDescribeAvailableBorderGatewayResponse() (response *DescribeAvailableBorderGatewayResponse) {
-	response = &DescribeAvailableBorderGatewayResponse{
+func NewCreatePolicyResponse() (response *CreatePolicyResponse) {
+	response = &CreatePolicyResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-// DescribeAvailableBorderGateway 获取可绑定NAT的边界网关。
-func (c *Client) DescribeAvailableBorderGateway(request *DescribeAvailableBorderGatewayRequest) (response *DescribeAvailableBorderGatewayResponse, err error) {
-	response = NewDescribeAvailableBorderGatewayResponse()
+// CreatePolicy 创建防护策略
+func (c *Client) CreatePolicy(request *CreatePolicyRequest) (response *CreatePolicyResponse, err error) {
+	response = NewCreatePolicyResponse()
 	err = c.ApiCall(request, response)
 	return
 }
 
-func NewCreateRouteRequest() (request *CreateRouteRequest) {
-	request = &CreateRouteRequest{
+func NewDescribePolicysRequest() (request *DescribePolicysRequest) {
+	request = &DescribePolicysRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateRoute")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribePolicys")
 
 	return
 }
 
-func NewCreateRouteResponse() (response *CreateRouteResponse) {
-	response = &CreateRouteResponse{
+func NewDescribePolicysResponse() (response *DescribePolicysResponse) {
+	response = &DescribePolicysResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-// CreateRoute 创建一个自定义路由。
-func (c *Client) CreateRoute(request *CreateRouteRequest) (response *CreateRouteResponse, err error) {
-	response = NewCreateRouteResponse()
+// DescribePolicys 获取防护策略列表
+func (c *Client) DescribePolicys(request *DescribePolicysRequest) (response *DescribePolicysResponse, err error) {
+	response = NewDescribePolicysResponse()
 	err = c.ApiCall(request, response)
 	return
 }
 
-func NewModifyRouteAttributeRequest() (request *ModifyRouteAttributeRequest) {
-	request = &ModifyRouteAttributeRequest{
+func NewDescribePolicyDetailRequest() (request *DescribePolicyDetailRequest) {
+	request = &DescribePolicyDetailRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyRouteAttribute")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribePolicyDetail")
 
 	return
 }
 
-func NewModifyRouteAttributeResponse() (response *ModifyRouteAttributeResponse) {
-	response = &ModifyRouteAttributeResponse{
+func NewDescribePolicyDetailResponse() (response *DescribePolicyDetailResponse) {
+	response = &DescribePolicyDetailResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-// ModifyRouteAttribute 修改路由的基本信息，目前只允许修改路由的名称。
-func (c *Client) ModifyRouteAttribute(request *ModifyRouteAttributeRequest) (response *ModifyRouteAttributeResponse, err error) {
-	response = NewModifyRouteAttributeResponse()
+// DescribePolicyDetail 获取防护策略详情
+func (c *Client) DescribePolicyDetail(request *DescribePolicyDetailRequest) (response *DescribePolicyDetailResponse, err error) {
+	response = NewDescribePolicyDetailResponse()
 	err = c.ApiCall(request, response)
 	return
 }
 
-func NewDeleteRouteRequest() (request *DeleteRouteRequest) {
-	request = &DeleteRouteRequest{
+func NewModifyPolicyRequest() (request *ModifyPolicyRequest) {
+	request = &ModifyPolicyRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteRoute")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyPolicy")
 
 	return
 }
 
-func NewDeleteRouteResponse() (response *DeleteRouteResponse) {
-	response = &DeleteRouteResponse{
+func NewModifyPolicyResponse() (response *ModifyPolicyResponse) {
+	response = &ModifyPolicyResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-// DeleteRoute 删除一条自定义路由。
-func (c *Client) DeleteRoute(request *DeleteRouteRequest) (response *DeleteRouteResponse, err error) {
-	response = NewDeleteRouteResponse()
+// ModifyPolicy 修改防护策略
+func (c *Client) ModifyPolicy(request *ModifyPolicyRequest) (response *ModifyPolicyResponse, err error) {
+	response = NewModifyPolicyResponse()
 	err = c.ApiCall(request, response)
 	return
 }
 
-func NewDescribeRoutesRequest() (request *DescribeRoutesRequest) {
-	request = &DescribeRoutesRequest{
+func NewAttachToPolicyRequest() (request *AttachToPolicyRequest) {
+	request = &AttachToPolicyRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeRoutes")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "AttachToPolicy")
 
 	return
 }
 
-func NewDescribeRoutesResponse() (response *DescribeRoutesResponse) {
-	response = &DescribeRoutesResponse{
+func NewAttachToPolicyResponse() (response *AttachToPolicyResponse) {
+	response = &AttachToPolicyResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-// DescribeRoutes 查询路由列表。用户可以根据ID、名称等信息来搜索Route信息。路由列表包括系统生成的以及用户创建的路由。
-func (c *Client) DescribeRoutes(request *DescribeRoutesRequest) (response *DescribeRoutesResponse, err error) {
-	response = NewDescribeRoutesResponse()
+// AttachToPolicy 防护对象关联防护策略
+func (c *Client) AttachToPolicy(request *AttachToPolicyRequest) (response *AttachToPolicyResponse, err error) {
+	response = NewAttachToPolicyResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDetachFromPolicyRequest() (request *DetachFromPolicyRequest) {
+	request = &DetachFromPolicyRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DetachFromPolicy")
+
+	return
+}
+
+func NewDetachFromPolicyResponse() (response *DetachFromPolicyResponse) {
+	response = &DetachFromPolicyResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DetachFromPolicy 防护对象取消关联防护策略
+func (c *Client) DetachFromPolicy(request *DetachFromPolicyRequest) (response *DetachFromPolicyResponse, err error) {
+	response = NewDetachFromPolicyResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribePolicyRegionsRequest() (request *DescribePolicyRegionsRequest) {
+	request = &DescribePolicyRegionsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribePolicyRegions")
+
+	return
+}
+
+func NewDescribePolicyRegionsResponse() (response *DescribePolicyRegionsResponse) {
+	response = &DescribePolicyRegionsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribePolicyRegions 获取区域封禁可选区域列表
+func (c *Client) DescribePolicyRegions(request *DescribePolicyRegionsRequest) (response *DescribePolicyRegionsResponse, err error) {
+	response = NewDescribePolicyRegionsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeReflectUdpPortOptionsRequest() (request *DescribeReflectUdpPortOptionsRequest) {
+	request = &DescribeReflectUdpPortOptionsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeReflectUdpPortOptions")
+
+	return
+}
+
+func NewDescribeReflectUdpPortOptionsResponse() (response *DescribeReflectUdpPortOptionsResponse) {
+	response = &DescribeReflectUdpPortOptionsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeReflectUdpPortOptions 获取默认UDP反射源端口列表
+func (c *Client) DescribeReflectUdpPortOptions(request *DescribeReflectUdpPortOptionsRequest) (response *DescribeReflectUdpPortOptionsResponse, err error) {
+	response = NewDescribeReflectUdpPortOptionsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeletePolicyRequest() (request *DeletePolicyRequest) {
+	request = &DeletePolicyRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeletePolicy")
+
+	return
+}
+
+func NewDeletePolicyResponse() (response *DeletePolicyResponse) {
+	response = &DeletePolicyResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeletePolicy 删除防护策略
+func (c *Client) DeletePolicy(request *DeletePolicyRequest) (response *DeletePolicyResponse, err error) {
+	response = NewDeletePolicyResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeDDosEventDetailRequest() (request *DescribeDDosEventDetailRequest) {
+	request = &DescribeDDosEventDetailRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeDDosEventDetail")
+
+	return
+}
+
+func NewDescribeDDosEventDetailResponse() (response *DescribeDDosEventDetailResponse) {
+	response = &DescribeDDosEventDetailResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeDDosEventDetail 获取攻击事件详情
+func (c *Client) DescribeDDosEventDetail(request *DescribeDDosEventDetailRequest) (response *DescribeDDosEventDetailResponse, err error) {
+	response = NewDescribeDDosEventDetailResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeDDosAllEventListRequest() (request *DescribeDDosAllEventListRequest) {
+	request = &DescribeDDosAllEventListRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeDDosAllEventList")
+
+	return
+}
+
+func NewDescribeDDosAllEventListResponse() (response *DescribeDDosAllEventListResponse) {
+	response = &DescribeDDosAllEventListResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeDDosAllEventList 获取攻击事件列表
+func (c *Client) DescribeDDosAllEventList(request *DescribeDDosAllEventListRequest) (response *DescribeDDosAllEventListResponse, err error) {
+	response = NewDescribeDDosAllEventListResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeSecurityGroupsRequest() (request *DescribeSecurityGroupsRequest) {
+	request = &DescribeSecurityGroupsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeSecurityGroups")
+
+	return
+}
+
+func NewDescribeSecurityGroupsResponse() (response *DescribeSecurityGroupsResponse) {
+	response = &DescribeSecurityGroupsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeSecurityGroups 查询安全组列表。
+func (c *Client) DescribeSecurityGroups(request *DescribeSecurityGroupsRequest) (response *DescribeSecurityGroupsResponse, err error) {
+	response = NewDescribeSecurityGroupsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewCreateSecurityGroupRequest() (request *CreateSecurityGroupRequest) {
+	request = &CreateSecurityGroupRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateSecurityGroup")
+
+	return
+}
+
+func NewCreateSecurityGroupResponse() (response *CreateSecurityGroupResponse) {
+	response = &CreateSecurityGroupResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CreateSecurityGroup 创建一个安全组。
+func (c *Client) CreateSecurityGroup(request *CreateSecurityGroupRequest) (response *CreateSecurityGroupResponse, err error) {
+	response = NewCreateSecurityGroupResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifySecurityGroupsAttributeRequest() (request *ModifySecurityGroupsAttributeRequest) {
+	request = &ModifySecurityGroupsAttributeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifySecurityGroupsAttribute")
+
+	return
+}
+
+func NewModifySecurityGroupsAttributeResponse() (response *ModifySecurityGroupsAttributeResponse) {
+	response = &ModifySecurityGroupsAttributeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifySecurityGroupsAttribute 修改安全组的属性（目前只支持修改安全组的名称）。
+func (c *Client) ModifySecurityGroupsAttribute(request *ModifySecurityGroupsAttributeRequest) (response *ModifySecurityGroupsAttributeResponse, err error) {
+	response = NewModifySecurityGroupsAttributeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteSecurityGroupRequest() (request *DeleteSecurityGroupRequest) {
+	request = &DeleteSecurityGroupRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteSecurityGroup")
+
+	return
+}
+
+func NewDeleteSecurityGroupResponse() (response *DeleteSecurityGroupResponse) {
+	response = &DeleteSecurityGroupResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeleteSecurityGroup 删除一个安全组。
+func (c *Client) DeleteSecurityGroup(request *DeleteSecurityGroupRequest) (response *DeleteSecurityGroupResponse, err error) {
+	response = NewDeleteSecurityGroupResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeSecurityGroupRuleRequest() (request *DescribeSecurityGroupRuleRequest) {
+	request = &DescribeSecurityGroupRuleRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeSecurityGroupRule")
+
+	return
+}
+
+func NewDescribeSecurityGroupRuleResponse() (response *DescribeSecurityGroupRuleResponse) {
+	response = &DescribeSecurityGroupRuleResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeSecurityGroupRule 查询指定安全组内的规则。
+func (c *Client) DescribeSecurityGroupRule(request *DescribeSecurityGroupRuleRequest) (response *DescribeSecurityGroupRuleResponse, err error) {
+	response = NewDescribeSecurityGroupRuleResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewConfigureSecurityGroupRulesRequest() (request *ConfigureSecurityGroupRulesRequest) {
+	request = &ConfigureSecurityGroupRulesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ConfigureSecurityGroupRules")
+
+	return
+}
+
+func NewConfigureSecurityGroupRulesResponse() (response *ConfigureSecurityGroupRulesResponse) {
+	response = &ConfigureSecurityGroupRulesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ConfigureSecurityGroupRules 配置安全组规则。
+func (c *Client) ConfigureSecurityGroupRules(request *ConfigureSecurityGroupRulesRequest) (response *ConfigureSecurityGroupRulesResponse, err error) {
+	response = NewConfigureSecurityGroupRulesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewAssignSecurityGroupVpcRequest() (request *AssignSecurityGroupVpcRequest) {
+	request = &AssignSecurityGroupVpcRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "AssignSecurityGroupVpc")
+
+	return
+}
+
+func NewAssignSecurityGroupVpcResponse() (response *AssignSecurityGroupVpcResponse) {
+	response = &AssignSecurityGroupVpcResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// AssignSecurityGroupVpc VPC更换绑定安全组。
+func (c *Client) AssignSecurityGroupVpc(request *AssignSecurityGroupVpcRequest) (response *AssignSecurityGroupVpcResponse, err error) {
+	response = NewAssignSecurityGroupVpcResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewUnAssignSecurityGroupVpcRequest() (request *UnAssignSecurityGroupVpcRequest) {
+	request = &UnAssignSecurityGroupVpcRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "UnAssignSecurityGroupVpc")
+
+	return
+}
+
+func NewUnAssignSecurityGroupVpcResponse() (response *UnAssignSecurityGroupVpcResponse) {
+	response = &UnAssignSecurityGroupVpcResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// UnAssignSecurityGroupVpc VPC解绑安全组。
+func (c *Client) UnAssignSecurityGroupVpc(request *UnAssignSecurityGroupVpcRequest) (response *UnAssignSecurityGroupVpcResponse, err error) {
+	response = NewUnAssignSecurityGroupVpcResponse()
 	err = c.ApiCall(request, response)
 	return
 }
