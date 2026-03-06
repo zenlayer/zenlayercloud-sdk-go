@@ -938,6 +938,8 @@ type CreateEndpointParam struct {
 
 	//高可用类型
 	HaType string `json:"haType,omitempty"`
+
+	CloudBandwidthMbps int `json:"cloudBandwidthMbps,omitempty"`
 }
 
 type CreatePrivateConnectResponse struct {
@@ -1282,6 +1284,8 @@ type CloudRouterEdgePoint struct {
 	// 边缘连接点的ID。
 	EdgePointId string `json:"edgePointId,omitempty"`
 
+	ZbgId string `json:"zbgId,omitempty"`
+
 	// 边缘连接点的名称。
 	EdgePointName string `json:"edgePointName,omitempty"`
 
@@ -1513,6 +1517,9 @@ type CreateCloudRouterEdgePoint struct {
 
 	// 备用IPSec配置
 	BackupIpSec *BackupIPSecConfig `json:"backupIpSec,omitempty"`
+
+	// 云连接带宽限速。
+    CloudBandwidthMbps int `json:"cloudBandwidthMbps,omitempty"`
 }
 
 type IPSecBGPConnection struct {
@@ -2143,4 +2150,62 @@ type DescribeAzureVlanUsageResponseParams struct {
 	End int `json:"end,omitempty"`
 
 	UsedVlans []int `json:"usedVlans,omitempty"`
+}
+
+
+
+type DescribeCloudAvailableBandwidthTiersRequest struct {
+	*common.BaseRequest
+
+	CloudPortId string `json:"cloudPortId,omitempty"`
+
+	CloudType string `json:"cloudType,omitempty"`
+
+	CloudAccountId string `json:"cloudAccountId,omitempty"`
+
+	CloudRegionId string `json:"cloudRegionId,omitempty"`
+
+	DcId string `json:"dcId,omitempty"`
+
+	VlanId int `json:"vlanId,omitempty"`
+}
+
+
+
+type DescribeCloudAvailableBandwidthTiersResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeCloudAvailableBandwidthTiersResponseParams `json:"response,omitempty"`
+}
+
+type DescribeCloudAvailableBandwidthTiersResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+
+	AvailableBandwidthTiers []int `json:"availableBandwidthTiers,omitempty"`
+}
+
+
+
+type ModifyCloudBandwidthRequest struct {
+	*common.BaseRequest
+
+	CloudPortId string `json:"cloudPortId,omitempty"`
+
+	BandwidthMbps int `json:"bandwidthMbps,omitempty"`
+}
+
+
+type ModifyCloudBandwidthResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response struct {
+		// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
 }

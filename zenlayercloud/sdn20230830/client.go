@@ -1433,3 +1433,61 @@ func NewDescribeAzureVlanUsageResponse() (response *DescribeAzureVlanUsageRespon
 	}
 	return
 }
+
+
+
+
+func NewDescribeCloudAvailableBandwidthTiersRequest() (request *DescribeCloudAvailableBandwidthTiersRequest) {
+	request = &DescribeCloudAvailableBandwidthTiersRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeCloudAvailableBandwidthTiers")
+
+	return
+}
+
+// DescribeCloudAvailableBandwidthTiers
+// 调用本接口查询云连接可用的带宽阶梯信息。
+//
+// Possible error codes to return:
+func (c *Client) DescribeCloudAvailableBandwidthTiers(request *DescribeCloudAvailableBandwidthTiersRequest) (response *DescribeCloudAvailableBandwidthTiersResponse, err error) {
+	response = NewDescribeCloudAvailableBandwidthTiersResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeCloudAvailableBandwidthTiersResponse() (response *DescribeCloudAvailableBandwidthTiersResponse) {
+	response = &DescribeCloudAvailableBandwidthTiersResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+
+
+
+func NewModifyCloudBandwidthRequest() (request *ModifyCloudBandwidthRequest) {
+	request = &ModifyCloudBandwidthRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyCloudBandwidth")
+
+	return
+}
+
+// ModifyCloudBandwidth
+// 调用本接口查询云连接可用的带宽阶梯信息。
+//
+// Possible error codes to return:
+func (c *Client) ModifyCloudBandwidth(request *ModifyCloudBandwidthRequest) (response *ModifyCloudBandwidthResponse, err error) {
+	response = NewModifyCloudBandwidthResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyCloudBandwidthResponse() (response *ModifyCloudBandwidthResponse) {
+	response = &ModifyCloudBandwidthResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
