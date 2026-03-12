@@ -1640,7 +1640,7 @@ func NewCreateCidrResponse() (response *CreateCidrResponse) {
 	return
 }
 
-// CreateCidr 创建IPv6/IPv4 CIDR地址段。
+// CreateCidr 创建IPv4 CIDR地址段。
 func (c *Client) CreateCidr(request *CreateCidrRequest) (response *CreateCidrResponse, err error) {
 	response = NewCreateCidrResponse()
 	err = c.ApiCall(request, response)
@@ -1804,6 +1804,75 @@ func NewRenewCidrResponse() (response *RenewCidrResponse) {
 // RenewCidr 将一个处于回收站的IPv4 CIDR地址段恢复回正常。
 func (c *Client) RenewCidr(request *RenewCidrRequest) (response *RenewCidrResponse, err error) {
 	response = NewRenewCidrResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeByoipRegionsRequest() (request *DescribeByoipRegionsRequest) {
+	request = &DescribeByoipRegionsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeByoipRegions")
+
+	return
+}
+
+func NewDescribeByoipRegionsResponse() (response *DescribeByoipRegionsResponse) {
+	response = &DescribeByoipRegionsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeByoipRegions 返回支持售卖 BYOIP 的区域及对应网段、网络类型等信息。
+func (c *Client) DescribeByoipRegions(request *DescribeByoipRegionsRequest) (response *DescribeByoipRegionsResponse, err error) {
+	response = NewDescribeByoipRegionsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeByoipPriceRequest() (request *DescribeByoipPriceRequest) {
+	request = &DescribeByoipPriceRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeByoipPrice")
+
+	return
+}
+
+func NewDescribeByoipPriceResponse() (response *DescribeByoipPriceResponse) {
+	response = &DescribeByoipPriceResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeByoipPrice 根据宣告 IP 段、区域、线路类型等查询 BYOIP 价格。
+func (c *Client) DescribeByoipPrice(request *DescribeByoipPriceRequest) (response *DescribeByoipPriceResponse, err error) {
+	response = NewDescribeByoipPriceResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewCreateByoipRequest() (request *CreateByoipRequest) {
+	request = &CreateByoipRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateByoip")
+
+	return
+}
+
+func NewCreateByoipResponse() (response *CreateByoipResponse) {
+	response = &CreateByoipResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CreateByoip 提交自带 IP 段（BYOIP）创建 CIDR。返回 RPKI/IRR 校验失败列表。
+func (c *Client) CreateByoip(request *CreateByoipRequest) (response *CreateByoipResponse, err error) {
+	response = NewCreateByoipResponse()
 	err = c.ApiCall(request, response)
 	return
 }

@@ -434,6 +434,7 @@ type CreateZecInstancesRequest struct {
     // TrafficPackageSize 流量包订购大小。
     // 单位为TB。
     // 该值必须在`internetChargeType = ByTrafficPackage`时才会生效。
+    // 当`IpStackType` = `IPv4_IPv6`时，流量包大小作用于IPv4。
     TrafficPackageSize *float64 `json:"trafficPackageSize,omitempty"`
 
     // Bandwidth 公网出带宽上限。
@@ -454,7 +455,7 @@ type CreateZecInstancesRequest struct {
     EipV4Type *string `json:"eipV4Type,omitempty"`
 
     // IpStackType 设置IP堆栈类型。
-    // 如果不指定，子网堆栈类型IPv4或IPv4_IPv6，默认使用IPv4。
+    // 如果不指定，当子网堆栈类型IPv4或IPv4_IPv6时，默认使用IPv4。
     IpStackType *string `json:"ipStackType,omitempty"`
 
     // NetworkLineType 公网IPv4的线路类型。
@@ -485,6 +486,9 @@ type CreateZecInstancesRequest struct {
 
     // UserData 初始化命令。
     UserData *string `json:"userData,omitempty"`
+
+    // InstanceOptions 实例选项。
+    InstanceOptions *InstanceOptions `json:"instanceOptions,omitempty"`
 
 }
 
@@ -519,6 +523,15 @@ type Tag struct {
     // Value 标签值。
     // 长度限制：1～64个字符。
     Value *string `json:"value,omitempty"`
+
+}
+
+// InstanceOptions 实例选项配置。
+type InstanceOptions struct {
+
+    // NestedVirtualization 是否启用嵌套虚拟化。
+    // 如果要开启嵌套虚拟化，需要联系Support开通,否则设置无效。
+    NestedVirtualization *bool `json:"nestedVirtualization,omitempty"`
 
 }
 
@@ -716,6 +729,9 @@ type InstanceInfo struct {
 
     // LoadBalancerIds 实例上绑定的负载均衡ID列表。
     LoadBalancerIds []string `json:"loadBalancerIds,omitempty"`
+
+    // InstanceOptions 实例选项配置。
+    InstanceOptions *InstanceOptions `json:"instanceOptions,omitempty"`
 
 }
 
@@ -3642,6 +3658,162 @@ type RenewCidrResponse struct {
 
 }
 
+type DescribeByoipRegionsRequest struct {
+    *common.BaseRequest
+
+}
+
+type DescribeByoipRegionsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeByoipRegionsResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeByoipRegionsResponseParams 
+type DescribeByoipRegionsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // Regions 支持售卖 BYOIP 的区域列表。
+    Regions []*Region `json:"regions,omitempty"`
+
+}
+
+// Region 支持售卖 ByoIP CIDR 的区域。
+type Region struct {
+
+    // Netmask 支持的网段。
+    Netmask *int `json:"netmask,omitempty"`
+
+    // RegionId 支持售卖的区域。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // Network 支持的网络类型。
+    Network *string `json:"network,omitempty"`
+
+    // IpType 支持的IP类型。
+    IpType *string `json:"ipType,omitempty"`
+
+}
+
+// DescribeByoipPriceRequest 
+type DescribeByoipPriceRequest struct {
+    *common.BaseRequest
+
+    // ByoipList 待询价的 BYOIP 列表。
+    ByoipList []*ByoipPriceItem `json:"byoipList,omitempty"`
+
+    // MarketingInfo 市场营销相关选项。
+    MarketingInfo *MarketingInfo `json:"marketingInfo,omitempty"`
+
+}
+
+// ByoipPriceItem BYOIP 询价单项。
+type ByoipPriceItem struct {
+
+    // CidrBlock 宣告ip段。
+    CidrBlock *string `json:"cidrBlock,omitempty"`
+
+    // NetworkType 线路类型。
+    NetworkType *string `json:"networkType,omitempty"`
+
+    // RegionId 区域id。
+    RegionId *string `json:"regionId,omitempty"`
+
+}
+
+type DescribeByoipPriceResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeByoipPriceResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeByoipPriceResponseParams 
+type DescribeByoipPriceResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // ByoipPrices BYOIP 价格列表。
+    ByoipPrices []*PriceItem `json:"byoipPrices,omitempty"`
+
+}
+
+// CreateByoipRequest 
+type CreateByoipRequest struct {
+    *common.BaseRequest
+
+    // ByoipList 待创建的 BYOIP 列表。
+    ByoipList []*ByoipCreateItem `json:"byoipList,omitempty"`
+
+    // MarketingInfo 市场营销相关选项。
+    MarketingInfo *MarketingInfo `json:"marketingInfo,omitempty"`
+
+    // ResourceGroupId 创建后 BYOIP 所在的资源组ID。
+    // 如不指定则放入默认资源组。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // Tags 创建 BYOIP 时关联的标签。
+    // 注意：关联「标签键」不能重复。
+    Tags *TagAssociation `json:"tags,omitempty"`
+
+}
+
+// ByoipCreateItem 创建 BYOIP 单项。
+type ByoipCreateItem struct {
+
+    // CidrBlock 宣告IPv4或IPv6地址段。
+    CidrBlock *string `json:"cidrBlock,omitempty"`
+
+    // NetworkType 线路类型。
+    // IPv6仅支持PremiumBGP。
+    NetworkType *string `json:"networkType,omitempty"`
+
+    // RegionId 区域id。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // Asn ASN号。
+    Asn *int `json:"asn,omitempty"`
+
+    // SubnetMaskLength 该参数仅在`cidrBlock`字段为IPv6地址段时生效。
+    // 分配给子网的掩码长度。
+    // 必须大于或等于CIDR的掩码长度。
+    // 与CIDR的掩码长度范围差值小于等于4, 最大值为64。
+    // 默认为CIDR的掩码长度。
+    SubnetMaskLength *int `json:"subnetMaskLength,omitempty"`
+
+}
+
+type CreateByoipResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *CreateByoipResponseParams `json:"response,omitempty"`
+
+}
+
+// CreateByoipResponseParams 
+type CreateByoipResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // RpkiFailedList RPKI 校验失败的 BYOIP 列表。
+    RpkiFailedList []string `json:"rpkiFailedList,omitempty"`
+
+    // IrrFailedList IRR 校验失败的 BYOIP 列表。
+    IrrFailedList []string `json:"irrFailedList,omitempty"`
+
+    // ByoipIds 创建成功的 BYOIP ID 列表。
+    ByoipIds []string `json:"byoipIds,omitempty"`
+
+}
+
 type DescribeEipRegionsRequest struct {
     *common.BaseRequest
 
@@ -4656,7 +4828,7 @@ type EipMetricValue struct {
     // InValue 入方向值。
     InValue *float64 `json:"inValue,omitempty"`
 
-    // OutValue 入方向值。
+    // OutValue 出方向值。
     OutValue *float64 `json:"outValue,omitempty"`
 
     // LoseIn 丢失入方向值。

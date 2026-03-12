@@ -2782,6 +2782,8 @@ type CidrBlockInfo struct {
 	// IPv6
 	CidrBlockType string `json:"cidrBlockType,omitempty"`
 
+	CidrType string `json:"cidrType,omitempty"`
+
 	// CIDR block name.
 	CidrBlockName string `json:"cidrBlockName,omitempty"`
 
@@ -2923,6 +2925,8 @@ type DescribeAvailableIpv4ResourcesResponseParam struct {
 	// SELL_SHORTAGE: available for sale, stock < 10.
 	// SOLD_OUT: sold out.
 	SellStatus string `json:"sellStatus,omitempty"`
+
+	CidrType string `json:"cidrType,omitempty"`
 }
 
 type DescribeAvailableIpv6ResourcesRequest struct {
@@ -3002,6 +3006,8 @@ type DescribeInstanceAvailableCidrBlockResponseParam struct {
 	// IPv6
 	CidrBlockType string `json:"cidrBlockType,omitempty"`
 
+	CidrType string `json:"cidrType,omitempty"`
+
 	// CIDR block.
 	CidrBlock string `json:"cidrBlock,omitempty"`
 
@@ -3022,6 +3028,8 @@ type InquiryPriceCreateIpv4BlockRequest struct {
 	// PREPAID: subscription
 	// POSTPAID: pay-as-you-go
 	ChargeType string `json:"chargeType,omitempty"`
+
+	CidrType string `json:"cidrType,omitempty"`
 
 	// Details of the monthly subscription, including the purchase period, auto-renewal. It is required if the chargeType is PREPAID.
 	ChargePrepaid *ChargePrepaid `json:"chargePrepaid,omitempty"`
@@ -3063,6 +3071,8 @@ type CreateIpv4BlockRequest struct {
 	// CIDR block name to be displayed.
 	// This parameter can contain up to 64 characters.
 	Name string `json:"name,omitempty"`
+
+	CidrType string `json:"cidrType,omitempty"`
 
 	// CIDR block pricing model.
 	// PREPAID: subscription
