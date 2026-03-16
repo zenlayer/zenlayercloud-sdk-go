@@ -487,7 +487,7 @@ type CreateZecInstancesRequest struct {
     // UserData 初始化命令。
     UserData *string `json:"userData,omitempty"`
 
-    // InstanceOptions 实例选项。
+    // InstanceOptions 实例选项配置。
     InstanceOptions *InstanceOptions `json:"instanceOptions,omitempty"`
 
 }
@@ -526,7 +526,7 @@ type Tag struct {
 
 }
 
-// InstanceOptions 实例选项配置。
+// InstanceOptions 描述实例选项相关配置。
 type InstanceOptions struct {
 
     // NestedVirtualization 是否启用嵌套虚拟化。
@@ -1564,6 +1564,116 @@ type DeleteImagesResponseParams struct {
 
 }
 
+type DescribeDiskRegionsRequest struct {
+    *common.BaseRequest
+
+}
+
+type DescribeDiskRegionsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeDiskRegionsResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeDiskRegionsResponseParams 
+type DescribeDiskRegionsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // RegionIds 支持售卖云硬盘的节点ID列表。
+    RegionIds []string `json:"regionIds,omitempty"`
+
+}
+
+// DescribeDiskCategoryRequest 
+type DescribeDiskCategoryRequest struct {
+    *common.BaseRequest
+
+    // ZoneId 根据可用区ID筛选。
+    ZoneId *string `json:"zoneId,omitempty"`
+
+    // DiskCategory 根据云硬盘种类筛选。
+    // Basic NVMe SSD: 经济型 NVMe SSD。
+    // Standard NVMe SSD: 标准型 NVMe SSD。
+    // 默认为Standard NVMe SSD。
+    DiskCategory *string `json:"diskCategory,omitempty"`
+
+}
+
+type DescribeDiskCategoryResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeDiskCategoryResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeDiskCategoryResponseParams 
+type DescribeDiskCategoryResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // CategoryZoneSet 可用区支持的云盘类型。
+    CategoryZoneSet []*DescribeDiskCategoryItem `json:"categoryZoneSet,omitempty"`
+
+}
+
+// DescribeDiskCategoryItem 描述可用区支持的云盘类型的信息。
+type DescribeDiskCategoryItem struct {
+
+    // ZoneId 可用区ID。
+    ZoneId *string `json:"zoneId,omitempty"`
+
+    // CategorySet 支持的云硬盘类型。
+    CategorySet []string `json:"categorySet,omitempty"`
+
+}
+
+// InquiryPriceCreateDisksRequest 
+type InquiryPriceCreateDisksRequest struct {
+    *common.BaseRequest
+
+    // ZoneId 可用区ID。
+    ZoneId *string `json:"zoneId,omitempty"`
+
+    // DiskSize 云硬盘大小。
+    // 单位：GiB。
+    DiskSize *int `json:"diskSize,omitempty"`
+
+    // DiskAmount 云硬盘数量。
+    DiskAmount *int `json:"diskAmount,omitempty"`
+
+    // DiskCategory 云硬盘种类。
+    // Basic NVMe SSD: 经济型 NVMe SSD。
+    // Standard NVMe SSD: 标准型 NVMe SSD。
+    // 默认为Standard NVMe SSD。
+    DiskCategory *string `json:"diskCategory,omitempty"`
+
+}
+
+type InquiryPriceCreateDisksResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *InquiryPriceCreateDisksResponseParams `json:"response,omitempty"`
+
+}
+
+// InquiryPriceCreateDisksResponseParams 
+type InquiryPriceCreateDisksResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // DataDiskPrice 云硬盘的价格。
+    DataDiskPrice *PriceItem `json:"dataDiskPrice,omitempty"`
+
+}
+
 // DescribeDisksRequest 
 type DescribeDisksRequest struct {
     *common.BaseRequest
@@ -1704,71 +1814,6 @@ type DiskInfo struct {
 
     // BurstingEnabled 是否开启 Burst。
     BurstingEnabled *bool `json:"burstingEnabled,omitempty"`
-
-}
-
-type DescribeDiskRegionsRequest struct {
-    *common.BaseRequest
-
-}
-
-type DescribeDiskRegionsResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeDiskRegionsResponseParams `json:"response,omitempty"`
-
-}
-
-// DescribeDiskRegionsResponseParams 
-type DescribeDiskRegionsResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // RegionIds 支持售卖云硬盘的节点ID列表。
-    RegionIds []string `json:"regionIds,omitempty"`
-
-}
-
-// InquiryPriceCreateDisksRequest 
-type InquiryPriceCreateDisksRequest struct {
-    *common.BaseRequest
-
-    // ZoneId 可用区ID。
-    ZoneId *string `json:"zoneId,omitempty"`
-
-    // DiskSize 云硬盘大小。
-    // 单位：GiB。
-    DiskSize *int `json:"diskSize,omitempty"`
-
-    // DiskAmount 云硬盘数量。
-    DiskAmount *int `json:"diskAmount,omitempty"`
-
-    // DiskCategory 云硬盘种类。
-    // Basic NVMe SSD: 经济型 NVMe SSD。
-    // Standard NVMe SSD: 标准型 NVMe SSD。
-    // 默认为Standard NVMe SSD。
-    DiskCategory *string `json:"diskCategory,omitempty"`
-
-}
-
-type InquiryPriceCreateDisksResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *InquiryPriceCreateDisksResponseParams `json:"response,omitempty"`
-
-}
-
-// InquiryPriceCreateDisksResponseParams 
-type InquiryPriceCreateDisksResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // DataDiskPrice 云硬盘的价格。
-    DataDiskPrice *PriceItem `json:"dataDiskPrice,omitempty"`
 
 }
 
@@ -2017,51 +2062,6 @@ type ModifyDisksResourceGroupResponse struct {
 
 }
 
-// DescribeDiskCategoryRequest 
-type DescribeDiskCategoryRequest struct {
-    *common.BaseRequest
-
-    // ZoneId 根据可用区ID筛选。
-    ZoneId *string `json:"zoneId,omitempty"`
-
-    // DiskCategory 根据云硬盘种类筛选。
-    // Basic NVMe SSD: 经济型 NVMe SSD。
-    // Standard NVMe SSD: 标准型 NVMe SSD。
-    // 默认为Standard NVMe SSD。
-    DiskCategory *string `json:"diskCategory,omitempty"`
-
-}
-
-type DescribeDiskCategoryResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeDiskCategoryResponseParams `json:"response,omitempty"`
-
-}
-
-// DescribeDiskCategoryResponseParams 
-type DescribeDiskCategoryResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // CategoryZoneSet 可用区支持的云盘类型。
-    CategoryZoneSet []*DescribeDiskCategoryItem `json:"categoryZoneSet,omitempty"`
-
-}
-
-// DescribeDiskCategoryItem 描述可用区支持的云盘类型的信息。
-type DescribeDiskCategoryItem struct {
-
-    // ZoneId 可用区ID。
-    ZoneId *string `json:"zoneId,omitempty"`
-
-    // CategorySet 支持的云硬盘类型。
-    CategorySet []string `json:"categorySet,omitempty"`
-
-}
-
 // DescribeDiskMonitorDataRequest 
 type DescribeDiskMonitorDataRequest struct {
     *common.BaseRequest
@@ -2107,100 +2107,6 @@ type DescribeDiskMonitorDataResponseParams struct {
 
     // Metrics 监控数据集合。
     Metrics []*MetricValue `json:"metrics,omitempty"`
-
-}
-
-// CreateSnapshotRequest 
-type CreateSnapshotRequest struct {
-    *common.BaseRequest
-
-    // DiskId 云硬盘ID。
-    DiskId *string `json:"diskId,omitempty"`
-
-    // SnapshotName 快照名称。
-    SnapshotName *string `json:"snapshotName,omitempty"`
-
-    // RetentionTime 保留的到期时间。
-    // 格式为：yyyy-MM-ddTHH:mm:ssZ。
-    // 如果不传，则代表永久保留。
-    // 指定时间必须在当前时间24小时后。
-    RetentionTime *string `json:"retentionTime,omitempty"`
-
-}
-
-type CreateSnapshotResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *CreateSnapshotResponseParams `json:"response,omitempty"`
-
-}
-
-// CreateSnapshotResponseParams 
-type CreateSnapshotResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // SnapshotId 创建的快照ID。
-    SnapshotId *string `json:"snapshotId,omitempty"`
-
-}
-
-type ModifySnapshotsAttributeRequest struct {
-    *common.BaseRequest
-
-    // SnapshotIds 快照ID列表。
-    SnapshotIds []string `json:"snapshotIds,omitempty"`
-
-    // SnapshotName 快照名称。
-    SnapshotName *string `json:"snapshotName,omitempty"`
-
-    // RetentionTime 快照过期时间。
-    // 格式为：yyyy-MM-ddTHH:mm:ssZ。
-    // 如果改成永久保留，请设置`isPermanent`=`true`，如果设置该时间必须设置为当前时间后24小时。
-    RetentionTime *string `json:"retentionTime,omitempty"`
-
-    // IsPermanent 该定期快照策略创建的快照是否永久保留。
-    IsPermanent *bool `json:"isPermanent,omitempty"`
-
-}
-
-type ModifySnapshotsAttributeResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-type DeleteSnapshotsRequest struct {
-    *common.BaseRequest
-
-    // SnapshotIds 快照ID列表。
-    SnapshotIds []string `json:"snapshotIds,omitempty"`
-
-}
-
-type DeleteSnapshotsResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DeleteSnapshotsResponseParams `json:"response,omitempty"`
-
-}
-
-// DeleteSnapshotsResponseParams 
-type DeleteSnapshotsResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // SnapshotIds 操作失败的快照ID。
-    SnapshotIds []string `json:"snapshotIds,omitempty"`
 
 }
 
@@ -2299,6 +2205,73 @@ type SnapshotInfo struct {
 
 }
 
+// CreateSnapshotRequest 
+type CreateSnapshotRequest struct {
+    *common.BaseRequest
+
+    // DiskId 云硬盘ID。
+    DiskId *string `json:"diskId,omitempty"`
+
+    // SnapshotName 快照名称。
+    SnapshotName *string `json:"snapshotName,omitempty"`
+
+    // RetentionTime 保留的到期时间。
+    // 格式为：yyyy-MM-ddTHH:mm:ssZ。
+    // 如果不传，则代表永久保留。
+    // 指定时间必须在当前时间24小时后。
+    RetentionTime *string `json:"retentionTime,omitempty"`
+
+}
+
+type CreateSnapshotResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *CreateSnapshotResponseParams `json:"response,omitempty"`
+
+}
+
+// CreateSnapshotResponseParams 
+type CreateSnapshotResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // SnapshotId 创建的快照ID。
+    SnapshotId *string `json:"snapshotId,omitempty"`
+
+}
+
+type ModifySnapshotsAttributeRequest struct {
+    *common.BaseRequest
+
+    // SnapshotIds 快照ID列表。
+    SnapshotIds []string `json:"snapshotIds,omitempty"`
+
+    // SnapshotName 快照名称。
+    SnapshotName *string `json:"snapshotName,omitempty"`
+
+    // RetentionTime 快照过期时间。
+    // 格式为：yyyy-MM-ddTHH:mm:ssZ。
+    // 如果改成永久保留，请设置`isPermanent`=`true`，如果设置该时间必须设置为当前时间后24小时。
+    RetentionTime *string `json:"retentionTime,omitempty"`
+
+    // IsPermanent 该定期快照策略创建的快照是否永久保留。
+    IsPermanent *bool `json:"isPermanent,omitempty"`
+
+}
+
+type ModifySnapshotsAttributeResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
 type ApplySnapshotRequest struct {
     *common.BaseRequest
 
@@ -2318,6 +2291,33 @@ type ApplySnapshotResponse struct {
     Response struct {
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response,omitempty"`
+
+}
+
+type DeleteSnapshotsRequest struct {
+    *common.BaseRequest
+
+    // SnapshotIds 快照ID列表。
+    SnapshotIds []string `json:"snapshotIds,omitempty"`
+
+}
+
+type DeleteSnapshotsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DeleteSnapshotsResponseParams `json:"response,omitempty"`
+
+}
+
+// DeleteSnapshotsResponseParams 
+type DeleteSnapshotsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // SnapshotIds 操作失败的快照ID。
+    SnapshotIds []string `json:"snapshotIds,omitempty"`
 
 }
 
@@ -2374,50 +2374,6 @@ type CreateAutoSnapshotPolicyResponseParams struct {
 
     // AutoSnapshotPolicyId 自动快照策略的ID。
     AutoSnapshotPolicyId *string `json:"autoSnapshotPolicyId,omitempty"`
-
-}
-
-type ApplyAutoSnapshotPolicyRequest struct {
-    *common.BaseRequest
-
-    // AutoSnapshotPolicyId 自动快照策略ID。
-    AutoSnapshotPolicyId *string `json:"autoSnapshotPolicyId,omitempty"`
-
-    // DiskIds 要添加的磁盘ID列表。
-    DiskIds []string `json:"diskIds,omitempty"`
-
-}
-
-type ApplyAutoSnapshotPolicyResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-type CancelAutoSnapshotPolicyRequest struct {
-    *common.BaseRequest
-
-    // AutoSnapshotPolicyId 自动快照策略ID。
-    AutoSnapshotPolicyId *string `json:"autoSnapshotPolicyId,omitempty"`
-
-    // DiskIds 要移除的磁盘ID列表。
-    DiskIds []string `json:"diskIds,omitempty"`
-
-}
-
-type CancelAutoSnapshotPolicyResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
 
 }
 
@@ -2516,6 +2472,50 @@ type AutoSnapshotPolicy struct {
 
     // Tags 自动快照策略关联的标签。
     Tags *Tags `json:"tags,omitempty"`
+
+}
+
+type ApplyAutoSnapshotPolicyRequest struct {
+    *common.BaseRequest
+
+    // AutoSnapshotPolicyId 自动快照策略ID。
+    AutoSnapshotPolicyId *string `json:"autoSnapshotPolicyId,omitempty"`
+
+    // DiskIds 要添加的磁盘ID列表。
+    DiskIds []string `json:"diskIds,omitempty"`
+
+}
+
+type ApplyAutoSnapshotPolicyResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type CancelAutoSnapshotPolicyRequest struct {
+    *common.BaseRequest
+
+    // AutoSnapshotPolicyId 自动快照策略ID。
+    AutoSnapshotPolicyId *string `json:"autoSnapshotPolicyId,omitempty"`
+
+    // DiskIds 要移除的磁盘ID列表。
+    DiskIds []string `json:"diskIds,omitempty"`
+
+}
+
+type CancelAutoSnapshotPolicyResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
 
 }
 
@@ -3658,92 +3658,6 @@ type RenewCidrResponse struct {
 
 }
 
-type DescribeByoipRegionsRequest struct {
-    *common.BaseRequest
-
-}
-
-type DescribeByoipRegionsResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeByoipRegionsResponseParams `json:"response,omitempty"`
-
-}
-
-// DescribeByoipRegionsResponseParams 
-type DescribeByoipRegionsResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // Regions 支持售卖 BYOIP 的区域列表。
-    Regions []*Region `json:"regions,omitempty"`
-
-}
-
-// Region 支持售卖 ByoIP CIDR 的区域。
-type Region struct {
-
-    // Netmask 支持的网段。
-    Netmask *int `json:"netmask,omitempty"`
-
-    // RegionId 支持售卖的区域。
-    RegionId *string `json:"regionId,omitempty"`
-
-    // Network 支持的网络类型。
-    Network *string `json:"network,omitempty"`
-
-    // IpType 支持的IP类型。
-    IpType *string `json:"ipType,omitempty"`
-
-}
-
-// DescribeByoipPriceRequest 
-type DescribeByoipPriceRequest struct {
-    *common.BaseRequest
-
-    // ByoipList 待询价的 BYOIP 列表。
-    ByoipList []*ByoipPriceItem `json:"byoipList,omitempty"`
-
-    // MarketingInfo 市场营销相关选项。
-    MarketingInfo *MarketingInfo `json:"marketingInfo,omitempty"`
-
-}
-
-// ByoipPriceItem BYOIP 询价单项。
-type ByoipPriceItem struct {
-
-    // CidrBlock 宣告ip段。
-    CidrBlock *string `json:"cidrBlock,omitempty"`
-
-    // NetworkType 线路类型。
-    NetworkType *string `json:"networkType,omitempty"`
-
-    // RegionId 区域id。
-    RegionId *string `json:"regionId,omitempty"`
-
-}
-
-type DescribeByoipPriceResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeByoipPriceResponseParams `json:"response,omitempty"`
-
-}
-
-// DescribeByoipPriceResponseParams 
-type DescribeByoipPriceResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // ByoipPrices BYOIP 价格列表。
-    ByoipPrices []*PriceItem `json:"byoipPrices,omitempty"`
-
-}
-
 // CreateByoipRequest 
 type CreateByoipRequest struct {
     *common.BaseRequest
@@ -3811,6 +3725,89 @@ type CreateByoipResponseParams struct {
 
     // ByoipIds 创建成功的 BYOIP ID 列表。
     ByoipIds []string `json:"byoipIds,omitempty"`
+
+}
+
+type DescribeByoipRegionsRequest struct {
+    *common.BaseRequest
+
+}
+
+type DescribeByoipRegionsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeByoipRegionsResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeByoipRegionsResponseParams 
+type DescribeByoipRegionsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // Regions 支持售卖 BYOIP 的区域列表。
+    Regions []*Region `json:"regions,omitempty"`
+
+}
+
+// Region 支持售卖 ByoIP CIDR 的区域。
+type Region struct {
+
+    // Netmask 支持的网段。
+    Netmask *int `json:"netmask,omitempty"`
+
+    // RegionId 支持售卖的区域。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // Network 支持的网络类型。
+    Network *string `json:"network,omitempty"`
+
+    // IpType 支持的IP类型。
+    IpType *string `json:"ipType,omitempty"`
+
+}
+
+// DescribeByoipPriceRequest 
+type DescribeByoipPriceRequest struct {
+    *common.BaseRequest
+
+    // ByoipList 待询价的 BYOIP 列表。
+    ByoipList []*ByoipPriceItem `json:"byoipList,omitempty"`
+
+}
+
+// ByoipPriceItem BYOIP 询价单项。
+type ByoipPriceItem struct {
+
+    // CidrBlock 宣告ip段。
+    CidrBlock *string `json:"cidrBlock,omitempty"`
+
+    // NetworkType 线路类型。
+    NetworkType *string `json:"networkType,omitempty"`
+
+    // RegionId 区域id。
+    RegionId *string `json:"regionId,omitempty"`
+
+}
+
+type DescribeByoipPriceResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeByoipPriceResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeByoipPriceResponseParams 
+type DescribeByoipPriceResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // ByoipPrices BYOIP 价格列表。
+    ByoipPrices []*PriceItem `json:"byoipPrices,omitempty"`
 
 }
 
@@ -4332,41 +4329,6 @@ type ModifyEipAttributeResponse struct {
 
 }
 
-// ChangeEipInternetChargeTypeRequest 
-type ChangeEipInternetChargeTypeRequest struct {
-    *common.BaseRequest
-
-    // EipId 要操作的公网弹性IP。
-    EipId *string `json:"eipId,omitempty"`
-
-    // InternetChargeType 要变更的目标网络计费类型。
-    InternetChargeType *string `json:"internetChargeType,omitempty"`
-
-    // ClusterId 共享带宽包ID。
-    // 如果要变更为共享带宽包计费，则需要指定。
-    ClusterId *string `json:"clusterId,omitempty"`
-
-}
-
-type ChangeEipInternetChargeTypeResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *ChangeEipInternetChargeTypeResponseParams `json:"response,omitempty"`
-
-}
-
-// ChangeEipInternetChargeTypeResponseParams 
-type ChangeEipInternetChargeTypeResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // OrderNumber 变更可能产生的订单号。
-    OrderNumber *string `json:"orderNumber,omitempty"`
-
-}
-
 // AvailableLanIpRequest 
 type AvailableLanIpRequest struct {
     *common.BaseRequest
@@ -4534,6 +4496,41 @@ type ReplaceEipAddressResponseParams struct {
 
 }
 
+// ChangeEipInternetChargeTypeRequest 
+type ChangeEipInternetChargeTypeRequest struct {
+    *common.BaseRequest
+
+    // EipId 要操作的公网弹性IP。
+    EipId *string `json:"eipId,omitempty"`
+
+    // InternetChargeType 要变更的目标网络计费类型。
+    InternetChargeType *string `json:"internetChargeType,omitempty"`
+
+    // ClusterId 共享带宽包ID。
+    // 如果要变更为共享带宽包计费，则需要指定。
+    ClusterId *string `json:"clusterId,omitempty"`
+
+}
+
+type ChangeEipInternetChargeTypeResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *ChangeEipInternetChargeTypeResponseParams `json:"response,omitempty"`
+
+}
+
+// ChangeEipInternetChargeTypeResponseParams 
+type ChangeEipInternetChargeTypeResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // OrderNumber 变更可能产生的订单号。
+    OrderNumber *string `json:"orderNumber,omitempty"`
+
+}
+
 // ModifyEipBandwidthRequest 
 type ModifyEipBandwidthRequest struct {
     *common.BaseRequest
@@ -4614,6 +4611,26 @@ type ConfigEipProbeResponse struct {
 
 }
 
+// ConfigEipEgressIpRequest 
+type ConfigEipEgressIpRequest struct {
+    *common.BaseRequest
+
+    // EipId 要作为出口的公网弹性IP。
+    EipId *string `json:"eipId,omitempty"`
+
+}
+
+type ConfigEipEgressIpResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
 // DeleteEipRequest 
 type DeleteEipRequest struct {
     *common.BaseRequest
@@ -4624,6 +4641,26 @@ type DeleteEipRequest struct {
 }
 
 type DeleteEipResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// RenewEipRequest 
+type RenewEipRequest struct {
+    *common.BaseRequest
+
+    // EipId 要恢复弹性公网IP的ID。
+    EipId *string `json:"eipId,omitempty"`
+
+}
+
+type RenewEipResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
@@ -4836,46 +4873,6 @@ type EipMetricValue struct {
 
     // LoseOut 丢失出方向值。
     LoseOut *float64 `json:"loseOut,omitempty"`
-
-}
-
-// RenewEipRequest 
-type RenewEipRequest struct {
-    *common.BaseRequest
-
-    // EipId 要恢复弹性公网IP的ID。
-    EipId *string `json:"eipId,omitempty"`
-
-}
-
-type RenewEipResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// ConfigEipEgressIpRequest 
-type ConfigEipEgressIpRequest struct {
-    *common.BaseRequest
-
-    // EipId 要作为出口的公网弹性IP。
-    EipId *string `json:"eipId,omitempty"`
-
-}
-
-type ConfigEipEgressIpResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
 
 }
 

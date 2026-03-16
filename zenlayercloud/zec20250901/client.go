@@ -658,29 +658,6 @@ func (c *Client) DeleteImages(request *DeleteImagesRequest) (response *DeleteIma
 	return
 }
 
-func NewDescribeDisksRequest() (request *DescribeDisksRequest) {
-	request = &DescribeDisksRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeDisks")
-
-	return
-}
-
-func NewDescribeDisksResponse() (response *DescribeDisksResponse) {
-	response = &DescribeDisksResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeDisks 查询云盘的列表信息。
-func (c *Client) DescribeDisks(request *DescribeDisksRequest) (response *DescribeDisksResponse, err error) {
-	response = NewDescribeDisksResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
 func NewDescribeDiskRegionsRequest() (request *DescribeDiskRegionsRequest) {
 	request = &DescribeDiskRegionsRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -704,6 +681,29 @@ func (c *Client) DescribeDiskRegions(request *DescribeDiskRegionsRequest) (respo
 	return
 }
 
+func NewDescribeDiskCategoryRequest() (request *DescribeDiskCategoryRequest) {
+	request = &DescribeDiskCategoryRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeDiskCategory")
+
+	return
+}
+
+func NewDescribeDiskCategoryResponse() (response *DescribeDiskCategoryResponse) {
+	response = &DescribeDiskCategoryResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeDiskCategory 获取某个区域支持的云盘类型。
+func (c *Client) DescribeDiskCategory(request *DescribeDiskCategoryRequest) (response *DescribeDiskCategoryResponse, err error) {
+	response = NewDescribeDiskCategoryResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewInquiryPriceCreateDisksRequest() (request *InquiryPriceCreateDisksRequest) {
 	request = &InquiryPriceCreateDisksRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -723,6 +723,29 @@ func NewInquiryPriceCreateDisksResponse() (response *InquiryPriceCreateDisksResp
 // InquiryPriceCreateDisks 创建一块或多块云硬盘的询价。
 func (c *Client) InquiryPriceCreateDisks(request *InquiryPriceCreateDisksRequest) (response *InquiryPriceCreateDisksResponse, err error) {
 	response = NewInquiryPriceCreateDisksResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeDisksRequest() (request *DescribeDisksRequest) {
+	request = &DescribeDisksRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeDisks")
+
+	return
+}
+
+func NewDescribeDisksResponse() (response *DescribeDisksResponse) {
+	response = &DescribeDisksResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeDisks 查询云盘的列表信息。
+func (c *Client) DescribeDisks(request *DescribeDisksRequest) (response *DescribeDisksResponse, err error) {
+	response = NewDescribeDisksResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -911,29 +934,6 @@ func (c *Client) ModifyDisksResourceGroup(request *ModifyDisksResourceGroupReque
 	return
 }
 
-func NewDescribeDiskCategoryRequest() (request *DescribeDiskCategoryRequest) {
-	request = &DescribeDiskCategoryRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeDiskCategory")
-
-	return
-}
-
-func NewDescribeDiskCategoryResponse() (response *DescribeDiskCategoryResponse) {
-	response = &DescribeDiskCategoryResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeDiskCategory 获取某个区域支持的云盘类型。
-func (c *Client) DescribeDiskCategory(request *DescribeDiskCategoryRequest) (response *DescribeDiskCategoryResponse, err error) {
-	response = NewDescribeDiskCategoryResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
 func NewDescribeDiskMonitorDataRequest() (request *DescribeDiskMonitorDataRequest) {
 	request = &DescribeDiskMonitorDataRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -953,6 +953,29 @@ func NewDescribeDiskMonitorDataResponse() (response *DescribeDiskMonitorDataResp
 // DescribeDiskMonitorData 查询一段时间的云硬盘的监控指标数据。
 func (c *Client) DescribeDiskMonitorData(request *DescribeDiskMonitorDataRequest) (response *DescribeDiskMonitorDataResponse, err error) {
 	response = NewDescribeDiskMonitorDataResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeSnapshotsRequest() (request *DescribeSnapshotsRequest) {
+	request = &DescribeSnapshotsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeSnapshots")
+
+	return
+}
+
+func NewDescribeSnapshotsResponse() (response *DescribeSnapshotsResponse) {
+	response = &DescribeSnapshotsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeSnapshots 查询快照的详细信息。
+func (c *Client) DescribeSnapshots(request *DescribeSnapshotsRequest) (response *DescribeSnapshotsResponse, err error) {
+	response = NewDescribeSnapshotsResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -1003,52 +1026,6 @@ func (c *Client) ModifySnapshotsAttribute(request *ModifySnapshotsAttributeReque
 	return
 }
 
-func NewDeleteSnapshotsRequest() (request *DeleteSnapshotsRequest) {
-	request = &DeleteSnapshotsRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteSnapshots")
-
-	return
-}
-
-func NewDeleteSnapshotsResponse() (response *DeleteSnapshotsResponse) {
-	response = &DeleteSnapshotsResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DeleteSnapshots 删除指定快照集合。
-func (c *Client) DeleteSnapshots(request *DeleteSnapshotsRequest) (response *DeleteSnapshotsResponse, err error) {
-	response = NewDeleteSnapshotsResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeSnapshotsRequest() (request *DescribeSnapshotsRequest) {
-	request = &DescribeSnapshotsRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeSnapshots")
-
-	return
-}
-
-func NewDescribeSnapshotsResponse() (response *DescribeSnapshotsResponse) {
-	response = &DescribeSnapshotsResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeSnapshots 查询快照的详细信息。
-func (c *Client) DescribeSnapshots(request *DescribeSnapshotsRequest) (response *DescribeSnapshotsResponse, err error) {
-	response = NewDescribeSnapshotsResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
 func NewApplySnapshotRequest() (request *ApplySnapshotRequest) {
 	request = &ApplySnapshotRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -1072,6 +1049,29 @@ func (c *Client) ApplySnapshot(request *ApplySnapshotRequest) (response *ApplySn
 	return
 }
 
+func NewDeleteSnapshotsRequest() (request *DeleteSnapshotsRequest) {
+	request = &DeleteSnapshotsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteSnapshots")
+
+	return
+}
+
+func NewDeleteSnapshotsResponse() (response *DeleteSnapshotsResponse) {
+	response = &DeleteSnapshotsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeleteSnapshots 删除指定快照集合。
+func (c *Client) DeleteSnapshots(request *DeleteSnapshotsRequest) (response *DeleteSnapshotsResponse, err error) {
+	response = NewDeleteSnapshotsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewCreateAutoSnapshotPolicyRequest() (request *CreateAutoSnapshotPolicyRequest) {
 	request = &CreateAutoSnapshotPolicyRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -1091,6 +1091,29 @@ func NewCreateAutoSnapshotPolicyResponse() (response *CreateAutoSnapshotPolicyRe
 // CreateAutoSnapshotPolicy 创建一个自动快照策略。
 func (c *Client) CreateAutoSnapshotPolicy(request *CreateAutoSnapshotPolicyRequest) (response *CreateAutoSnapshotPolicyResponse, err error) {
 	response = NewCreateAutoSnapshotPolicyResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeAutoSnapshotPoliciesRequest() (request *DescribeAutoSnapshotPoliciesRequest) {
+	request = &DescribeAutoSnapshotPoliciesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeAutoSnapshotPolicies")
+
+	return
+}
+
+func NewDescribeAutoSnapshotPoliciesResponse() (response *DescribeAutoSnapshotPoliciesResponse) {
+	response = &DescribeAutoSnapshotPoliciesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeAutoSnapshotPolicies 查询自动快照策略的列表数据。
+func (c *Client) DescribeAutoSnapshotPolicies(request *DescribeAutoSnapshotPoliciesRequest) (response *DescribeAutoSnapshotPoliciesResponse, err error) {
+	response = NewDescribeAutoSnapshotPoliciesResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -1137,29 +1160,6 @@ func NewCancelAutoSnapshotPolicyResponse() (response *CancelAutoSnapshotPolicyRe
 // CancelAutoSnapshotPolicy 云硬盘从指定的自动快照策略中移除。
 func (c *Client) CancelAutoSnapshotPolicy(request *CancelAutoSnapshotPolicyRequest) (response *CancelAutoSnapshotPolicyResponse, err error) {
 	response = NewCancelAutoSnapshotPolicyResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeAutoSnapshotPoliciesRequest() (request *DescribeAutoSnapshotPoliciesRequest) {
-	request = &DescribeAutoSnapshotPoliciesRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeAutoSnapshotPolicies")
-
-	return
-}
-
-func NewDescribeAutoSnapshotPoliciesResponse() (response *DescribeAutoSnapshotPoliciesResponse) {
-	response = &DescribeAutoSnapshotPoliciesResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeAutoSnapshotPolicies 查询自动快照策略的列表数据。
-func (c *Client) DescribeAutoSnapshotPolicies(request *DescribeAutoSnapshotPoliciesRequest) (response *DescribeAutoSnapshotPoliciesResponse, err error) {
-	response = NewDescribeAutoSnapshotPoliciesResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -1808,6 +1808,29 @@ func (c *Client) RenewCidr(request *RenewCidrRequest) (response *RenewCidrRespon
 	return
 }
 
+func NewCreateByoipRequest() (request *CreateByoipRequest) {
+	request = &CreateByoipRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateByoip")
+
+	return
+}
+
+func NewCreateByoipResponse() (response *CreateByoipResponse) {
+	response = &CreateByoipResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CreateByoip 提交自带 IP 段（BYOIP）创建 CIDR。返回 RPKI/IRR 校验失败列表。
+func (c *Client) CreateByoip(request *CreateByoipRequest) (response *CreateByoipResponse, err error) {
+	response = NewCreateByoipResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewDescribeByoipRegionsRequest() (request *DescribeByoipRegionsRequest) {
 	request = &DescribeByoipRegionsRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -1850,29 +1873,6 @@ func NewDescribeByoipPriceResponse() (response *DescribeByoipPriceResponse) {
 // DescribeByoipPrice 根据宣告 IP 段、区域、线路类型等查询 BYOIP 价格。
 func (c *Client) DescribeByoipPrice(request *DescribeByoipPriceRequest) (response *DescribeByoipPriceResponse, err error) {
 	response = NewDescribeByoipPriceResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewCreateByoipRequest() (request *CreateByoipRequest) {
-	request = &CreateByoipRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateByoip")
-
-	return
-}
-
-func NewCreateByoipResponse() (response *CreateByoipResponse) {
-	response = &CreateByoipResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// CreateByoip 提交自带 IP 段（BYOIP）创建 CIDR。返回 RPKI/IRR 校验失败列表。
-func (c *Client) CreateByoip(request *CreateByoipRequest) (response *CreateByoipResponse, err error) {
-	response = NewCreateByoipResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -2038,29 +2038,6 @@ func (c *Client) ModifyEipAttribute(request *ModifyEipAttributeRequest) (respons
 	return
 }
 
-func NewChangeEipInternetChargeTypeRequest() (request *ChangeEipInternetChargeTypeRequest) {
-	request = &ChangeEipInternetChargeTypeRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ChangeEipInternetChargeType")
-
-	return
-}
-
-func NewChangeEipInternetChargeTypeResponse() (response *ChangeEipInternetChargeTypeResponse) {
-	response = &ChangeEipInternetChargeTypeResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// ChangeEipInternetChargeType 变更弹性公网IP更网络计费模式。
-func (c *Client) ChangeEipInternetChargeType(request *ChangeEipInternetChargeTypeRequest) (response *ChangeEipInternetChargeTypeResponse, err error) {
-	response = NewChangeEipInternetChargeTypeResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
 func NewAvailableLanIpRequest() (request *AvailableLanIpRequest) {
 	request = &AvailableLanIpRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -2153,6 +2130,29 @@ func (c *Client) ReplaceEipAddress(request *ReplaceEipAddressRequest) (response 
 	return
 }
 
+func NewChangeEipInternetChargeTypeRequest() (request *ChangeEipInternetChargeTypeRequest) {
+	request = &ChangeEipInternetChargeTypeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ChangeEipInternetChargeType")
+
+	return
+}
+
+func NewChangeEipInternetChargeTypeResponse() (response *ChangeEipInternetChargeTypeResponse) {
+	response = &ChangeEipInternetChargeTypeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ChangeEipInternetChargeType 变更弹性公网IP更网络计费模式。
+func (c *Client) ChangeEipInternetChargeType(request *ChangeEipInternetChargeTypeRequest) (response *ChangeEipInternetChargeTypeResponse, err error) {
+	response = NewChangeEipInternetChargeTypeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewModifyEipBandwidthRequest() (request *ModifyEipBandwidthRequest) {
 	request = &ModifyEipBandwidthRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -2222,6 +2222,29 @@ func (c *Client) ConfigEipProbe(request *ConfigEipProbeRequest) (response *Confi
 	return
 }
 
+func NewConfigEipEgressIpRequest() (request *ConfigEipEgressIpRequest) {
+	request = &ConfigEipEgressIpRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ConfigEipEgressIp")
+
+	return
+}
+
+func NewConfigEipEgressIpResponse() (response *ConfigEipEgressIpResponse) {
+	response = &ConfigEipEgressIpResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ConfigEipEgressIp 指定IP作为出口IP。
+func (c *Client) ConfigEipEgressIp(request *ConfigEipEgressIpRequest) (response *ConfigEipEgressIpResponse, err error) {
+	response = NewConfigEipEgressIpResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewDeleteEipRequest() (request *DeleteEipRequest) {
 	request = &DeleteEipRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -2241,6 +2264,29 @@ func NewDeleteEipResponse() (response *DeleteEipResponse) {
 // DeleteEip 删除指定的弹性公网IP。
 func (c *Client) DeleteEip(request *DeleteEipRequest) (response *DeleteEipResponse, err error) {
 	response = NewDeleteEipResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewRenewEipRequest() (request *RenewEipRequest) {
+	request = &RenewEipRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "RenewEip")
+
+	return
+}
+
+func NewRenewEipResponse() (response *RenewEipResponse) {
+	response = &RenewEipResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// RenewEip 恢复弹性公网IP
+func (c *Client) RenewEip(request *RenewEipRequest) (response *RenewEipResponse, err error) {
+	response = NewRenewEipResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -2287,52 +2333,6 @@ func NewDescribeEipMonitorDataResponse() (response *DescribeEipMonitorDataRespon
 // DescribeEipMonitorData 查询一段时间的弹性公网IP监控指标数据。
 func (c *Client) DescribeEipMonitorData(request *DescribeEipMonitorDataRequest) (response *DescribeEipMonitorDataResponse, err error) {
 	response = NewDescribeEipMonitorDataResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewRenewEipRequest() (request *RenewEipRequest) {
-	request = &RenewEipRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "RenewEip")
-
-	return
-}
-
-func NewRenewEipResponse() (response *RenewEipResponse) {
-	response = &RenewEipResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// RenewEip 恢复弹性公网IP
-func (c *Client) RenewEip(request *RenewEipRequest) (response *RenewEipResponse, err error) {
-	response = NewRenewEipResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewConfigEipEgressIpRequest() (request *ConfigEipEgressIpRequest) {
-	request = &ConfigEipEgressIpRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ConfigEipEgressIp")
-
-	return
-}
-
-func NewConfigEipEgressIpResponse() (response *ConfigEipEgressIpResponse) {
-	response = &ConfigEipEgressIpResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// ConfigEipEgressIp 指定IP作为出口IP。
-func (c *Client) ConfigEipEgressIp(request *ConfigEipEgressIpRequest) (response *ConfigEipEgressIpResponse, err error) {
-	response = NewConfigEipEgressIpResponse()
 	err = c.ApiCall(request, response)
 	return
 }
