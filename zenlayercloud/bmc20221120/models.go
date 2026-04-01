@@ -1141,6 +1141,9 @@ type InquiryPriceCreateInstanceResponseParams struct {
 	// Price of the instance.
 	InstancePrice *Price `json:"instancePrice,omitempty"`
 
+	// Price of the instance primary ip.
+    PrimaryIpPrice *Price `json:"primaryIpPrice,omitempty"`
+
 	// Price of public bandwidth.
 	// Kinds of prices may exist. For example, traffic package billing method may contain the package price and overage price.
 	BandwidthPrice []*Price `json:"bandwidthPrice,omitempty"`

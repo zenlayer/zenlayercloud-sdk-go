@@ -1124,7 +1124,8 @@ type InquiryPriceCreateInstanceResponse struct {
 
 type InquiryPriceCreateInstanceResponseParams struct {
 	RequestId       string   `json:"requestId,omitempty"`
-	InstancePrice   Price    `json:"instancePrice,omitempty"`
+	InstancePrice   *Price   `json:"instancePrice,omitempty"`
+	EipPrice        *Price   `json:"eipPrice,omitempty"`
 	BandwidthPrice  []*Price `json:"bandwidthPrice,omitempty"`
 	SystemDiskPrice *Price   `json:"systemDiskPrice,omitempty"`
 	DataDiskPrice   *Price   `json:"dataDiskPrice,omitempty"`

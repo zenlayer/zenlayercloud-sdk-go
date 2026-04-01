@@ -48,6 +48,9 @@ type ZoneInfo struct {
     // 该字段已废弃，当前所有节点均支持安全组。
     SupportSecurityGroup *bool `json:"supportSecurityGroup,omitempty"`
 
+    // TimeZone 可用区所在的时区。
+    TimeZone *string `json:"timeZone,omitempty"`
+
 }
 
 // DescribeZoneInstanceConfigInfosRequest 
@@ -362,6 +365,7 @@ type CreateZecInstancesRequest struct {
     ImageId *string `json:"imageId,omitempty"`
 
     // TimeZone 设置操作系统的时区。
+    // 如果未设置默认为节点所在的时区。
     TimeZone *string `json:"timeZone,omitempty"`
 
     // InstanceType 实例机型。

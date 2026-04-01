@@ -37,6 +37,29 @@ func NewClient(config *common.Config, secretKeyId, secretKeyPassword string) (cl
 }
 
 
+func NewDescribeTagsRequest() (request *DescribeTagsRequest) {
+	request = &DescribeTagsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeTags")
+
+	return
+}
+
+func NewDescribeTagsResponse() (response *DescribeTagsResponse) {
+	response = &DescribeTagsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeTags 获取某个资源下绑定的所有标签列表。
+func (c *Client) DescribeTags(request *DescribeTagsRequest) (response *DescribeTagsResponse, err error) {
+	response = NewDescribeTagsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewCreateTagsRequest() (request *CreateTagsRequest) {
 	request = &CreateTagsRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -53,7 +76,7 @@ func NewCreateTagsResponse() (response *CreateTagsResponse) {
 	return
 }
 
-// CreateTags 批量创建标签
+// CreateTags 批量创建标签。
 func (c *Client) CreateTags(request *CreateTagsRequest) (response *CreateTagsResponse, err error) {
 	response = NewCreateTagsResponse()
 	err = c.ApiCall(request, response)
@@ -76,78 +99,9 @@ func NewDeleteTagsResponse() (response *DeleteTagsResponse) {
 	return
 }
 
-// DeleteTags 批量删除标签
+// DeleteTags 批量删除标签。
 func (c *Client) DeleteTags(request *DeleteTagsRequest) (response *DeleteTagsResponse, err error) {
 	response = NewDeleteTagsResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeTagsRequest() (request *DescribeTagsRequest) {
-	request = &DescribeTagsRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeTags")
-
-	return
-}
-
-func NewDescribeTagsResponse() (response *DescribeTagsResponse) {
-	response = &DescribeTagsResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeTags 标签分页列表
-func (c *Client) DescribeTags(request *DescribeTagsRequest) (response *DescribeTagsResponse, err error) {
-	response = NewDescribeTagsResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewTagBindResourcesRequest() (request *TagBindResourcesRequest) {
-	request = &TagBindResourcesRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "TagBindResources")
-
-	return
-}
-
-func NewTagBindResourcesResponse() (response *TagBindResourcesResponse) {
-	response = &TagBindResourcesResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// TagBindResources 标签批量绑定资源
-func (c *Client) TagBindResources(request *TagBindResourcesRequest) (response *TagBindResourcesResponse, err error) {
-	response = NewTagBindResourcesResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewTagUnbindResourcesRequest() (request *TagUnbindResourcesRequest) {
-	request = &TagUnbindResourcesRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "TagUnbindResources")
-
-	return
-}
-
-func NewTagUnbindResourcesResponse() (response *TagUnbindResourcesResponse) {
-	response = &TagUnbindResourcesResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// TagUnbindResources 标签批量解绑资源
-func (c *Client) TagUnbindResources(request *TagUnbindResourcesRequest) (response *TagUnbindResourcesResponse, err error) {
-	response = NewTagUnbindResourcesResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -194,6 +148,75 @@ func NewModifyResourceTagsResponse() (response *ModifyResourceTagsResponse) {
 // ModifyResourceTags 修改某个资源的标签。
 func (c *Client) ModifyResourceTags(request *ModifyResourceTagsRequest) (response *ModifyResourceTagsResponse, err error) {
 	response = NewModifyResourceTagsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewTagBindResourcesRequest() (request *TagBindResourcesRequest) {
+	request = &TagBindResourcesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "TagBindResources")
+
+	return
+}
+
+func NewTagBindResourcesResponse() (response *TagBindResourcesResponse) {
+	response = &TagBindResourcesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// TagBindResources 标签批量绑定资源。
+func (c *Client) TagBindResources(request *TagBindResourcesRequest) (response *TagBindResourcesResponse, err error) {
+	response = NewTagBindResourcesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewTagUnbindResourcesRequest() (request *TagUnbindResourcesRequest) {
+	request = &TagUnbindResourcesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "TagUnbindResources")
+
+	return
+}
+
+func NewTagUnbindResourcesResponse() (response *TagUnbindResourcesResponse) {
+	response = &TagUnbindResourcesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// TagUnbindResources 标签批量解绑资源。
+func (c *Client) TagUnbindResources(request *TagUnbindResourcesRequest) (response *TagUnbindResourcesResponse, err error) {
+	response = NewTagUnbindResourcesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeResourceByTagsRequest() (request *DescribeResourceByTagsRequest) {
+	request = &DescribeResourceByTagsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeResourceByTags")
+
+	return
+}
+
+func NewDescribeResourceByTagsResponse() (response *DescribeResourceByTagsResponse) {
+	response = &DescribeResourceByTagsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeResourceByTags 获取标签下绑定的所有资源列表。
+func (c *Client) DescribeResourceByTags(request *DescribeResourceByTagsRequest) (response *DescribeResourceByTagsResponse, err error) {
+	response = NewDescribeResourceByTagsResponse()
 	err = c.ApiCall(request, response)
 	return
 }
