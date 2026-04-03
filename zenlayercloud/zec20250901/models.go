@@ -734,6 +734,9 @@ type InstanceInfo struct {
     // LoadBalancerIds 实例上绑定的负载均衡ID列表。
     LoadBalancerIds []string `json:"loadBalancerIds,omitempty"`
 
+    // PlacementGroupId 实例所属的置放组ID。
+    PlacementGroupId *string `json:"placementGroupId,omitempty"`
+
     // InstanceOptions 实例选项配置。
     InstanceOptions *InstanceOptions `json:"instanceOptions,omitempty"`
 
@@ -8291,6 +8294,232 @@ type UnAssignSecurityGroupVpcRequest struct {
 }
 
 type UnAssignSecurityGroupVpcResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// CreatePlacementGroupRequest 
+type CreatePlacementGroupRequest struct {
+    *common.BaseRequest
+
+    // ZoneId 置放组所属可用区ID。
+    // 置放组的管理范围为zone维度。
+    ZoneId *string `json:"zoneId,omitempty"`
+
+    // Name 置放组名称。
+    // 长度2到63个字符。
+    // 必须以字母或数字开头和结尾，支持字母、数字、空格、连字符、斜杠、点号。
+    Name *string `json:"name,omitempty"`
+
+    // PartitionNum 置放组的分区数。
+    // 决定置放组最大可关联实例数。
+    PartitionNum *int `json:"partitionNum,omitempty"`
+
+    // Affinity 置放组的亲和度。
+    // 取值范围为1到分区数向下取整除以2。
+    // 不填时默认为分区数向下取整除以2。
+    Affinity *int `json:"affinity,omitempty"`
+
+    // ResourceGroupId 资源组ID。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // Tags 创建置放组时关联的标签。
+    Tags *TagAssociation `json:"tags,omitempty"`
+
+}
+
+type CreatePlacementGroupResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *CreatePlacementGroupResponseParams `json:"response,omitempty"`
+
+}
+
+// CreatePlacementGroupResponseParams 
+type CreatePlacementGroupResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // PlacementGroupId 创建成功的置放组ID。
+    PlacementGroupId *string `json:"placementGroupId,omitempty"`
+
+}
+
+// ModifyPlacementGroupAttributesRequest 
+type ModifyPlacementGroupAttributesRequest struct {
+    *common.BaseRequest
+
+    // PlacementGroupId 置放组ID。
+    PlacementGroupId *string `json:"placementGroupId,omitempty"`
+
+    // Name 置放组新名称。
+    // 长度2到63个字符。
+    // 必须以字母或数字开头和结尾，支持字母、数字、空格、连字符、斜杠、点号。
+    Name *string `json:"name,omitempty"`
+
+    // PartitionNum 置放组的分区数。
+    // 取值范围为2到5。
+    // 分区数只能调大，不能调小。
+    // 若修改后的分区数或亲和度不满足当前实例分布状态，会拒绝修改。
+    PartitionNum *int `json:"partitionNum,omitempty"`
+
+    // Affinity 置放组的亲和度。
+    // 取值范围为1到分区数向下取整除以2。
+    Affinity *int `json:"affinity,omitempty"`
+
+}
+
+type ModifyPlacementGroupAttributesResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// DescribePlacementGroupsRequest 
+type DescribePlacementGroupsRequest struct {
+    *common.BaseRequest
+
+    // PlacementGroupIds 根据置放组ID列表筛选。
+    // 最多支持100个ID查询。
+    PlacementGroupIds []string `json:"placementGroupIds,omitempty"`
+
+    // Name 根据置放组名称筛选。
+    // 支持模糊匹配。
+    Name *string `json:"name,omitempty"`
+
+    // ZoneId 根据置放组所属可用区筛选。
+    ZoneId *string `json:"zoneId,omitempty"`
+
+    // PageSize 返回的分页大小。
+    // 默认为20，最大为1000。
+    PageSize *int `json:"pageSize,omitempty"`
+
+    // PageNum 返回的分页数。
+    PageNum *int `json:"pageNum,omitempty"`
+
+    // ResourceGroupId 根据资源组ID筛选。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+}
+
+type DescribePlacementGroupsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribePlacementGroupsResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribePlacementGroupsResponseParams 
+type DescribePlacementGroupsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // TotalCount 符合条件的数据总数。
+    TotalCount *int `json:"totalCount,omitempty"`
+
+    // DataSet 置放组结果集。
+    DataSet []*PlacementGroupInfo `json:"dataSet,omitempty"`
+
+}
+
+// PlacementGroupInfo 描述置放组的详细信息。
+type PlacementGroupInfo struct {
+
+    // PlacementGroupId 置放组ID。
+    PlacementGroupId *string `json:"placementGroupId,omitempty"`
+
+    // Name 置放组名称。
+    Name *string `json:"name,omitempty"`
+
+    // ZoneId 置放组所属可用区ID。
+    ZoneId *string `json:"zoneId,omitempty"`
+
+    // PartitionNum 置放组的分区数。
+    // 取值范围为2到5，决定置放组最大可关联实例数。
+    PartitionNum *int `json:"partitionNum,omitempty"`
+
+    // Affinity 置放组的亲和度。
+    // 取值范围为1到分区数向下取整除以2。
+    Affinity *int `json:"affinity,omitempty"`
+
+    // InstanceCount 置放组内的实例数量。
+    InstanceCount *int `json:"instanceCount,omitempty"`
+
+    // InstanceIds 置放组内关联的实例ID列表。
+    InstanceIds []string `json:"instanceIds,omitempty"`
+
+    // ConstraintStatus 置放组约束满足状态。
+    ConstraintStatus *string `json:"constraintStatus,omitempty"`
+
+    // CreateTime 置放组的创建时间。
+    CreateTime *string `json:"createTime,omitempty"`
+
+    // ResourceGroup 置放组所属的资源组信息。
+    ResourceGroup *ResourceGroupInfo `json:"resourceGroup,omitempty"`
+
+    // Tags 置放组的标签。
+    Tags *Tags `json:"tags,omitempty"`
+
+}
+
+// DeletePlacementGroupsRequest 
+type DeletePlacementGroupsRequest struct {
+    *common.BaseRequest
+
+    // PlacementGroupIds 要删除的置放组ID列表。
+    PlacementGroupIds []string `json:"placementGroupIds,omitempty"`
+
+}
+
+type DeletePlacementGroupsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DeletePlacementGroupsResponseParams `json:"response,omitempty"`
+
+}
+
+// DeletePlacementGroupsResponseParams 
+type DeletePlacementGroupsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // FailedPlacementGroupIds 删除失败的置放组ID列表。
+    // 若全量成功则为空。
+    FailedPlacementGroupIds []string `json:"failedPlacementGroupIds,omitempty"`
+
+}
+
+// ModifyInstancePlacementRequest 
+type ModifyInstancePlacementRequest struct {
+    *common.BaseRequest
+
+    // InstanceId 实例ID。
+    InstanceId *string `json:"instanceId,omitempty"`
+
+    // PlacementGroupId 置放组ID。
+    // 为空表示从当前置放组移除。
+    PlacementGroupId *string `json:"placementGroupId,omitempty"`
+
+}
+
+type ModifyInstancePlacementResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`

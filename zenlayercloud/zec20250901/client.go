@@ -4085,3 +4085,118 @@ func (c *Client) UnAssignSecurityGroupVpc(request *UnAssignSecurityGroupVpcReque
 	return
 }
 
+func NewCreatePlacementGroupRequest() (request *CreatePlacementGroupRequest) {
+	request = &CreatePlacementGroupRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreatePlacementGroup")
+
+	return
+}
+
+func NewCreatePlacementGroupResponse() (response *CreatePlacementGroupResponse) {
+	response = &CreatePlacementGroupResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CreatePlacementGroup 创建一个置放组。
+func (c *Client) CreatePlacementGroup(request *CreatePlacementGroupRequest) (response *CreatePlacementGroupResponse, err error) {
+	response = NewCreatePlacementGroupResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyPlacementGroupAttributesRequest() (request *ModifyPlacementGroupAttributesRequest) {
+	request = &ModifyPlacementGroupAttributesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyPlacementGroupAttributes")
+
+	return
+}
+
+func NewModifyPlacementGroupAttributesResponse() (response *ModifyPlacementGroupAttributesResponse) {
+	response = &ModifyPlacementGroupAttributesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyPlacementGroupAttributes 修改置放组的名称、分区数、亲和度等属性。
+func (c *Client) ModifyPlacementGroupAttributes(request *ModifyPlacementGroupAttributesRequest) (response *ModifyPlacementGroupAttributesResponse, err error) {
+	response = NewModifyPlacementGroupAttributesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribePlacementGroupsRequest() (request *DescribePlacementGroupsRequest) {
+	request = &DescribePlacementGroupsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribePlacementGroups")
+
+	return
+}
+
+func NewDescribePlacementGroupsResponse() (response *DescribePlacementGroupsResponse) {
+	response = &DescribePlacementGroupsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribePlacementGroups 查询一个或多个置放组的信息。用户可以根据置放组ID、名称或可用区等条件来查询置放组的详细信息。
+func (c *Client) DescribePlacementGroups(request *DescribePlacementGroupsRequest) (response *DescribePlacementGroupsResponse, err error) {
+	response = NewDescribePlacementGroupsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeletePlacementGroupsRequest() (request *DeletePlacementGroupsRequest) {
+	request = &DeletePlacementGroupsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeletePlacementGroups")
+
+	return
+}
+
+func NewDeletePlacementGroupsResponse() (response *DeletePlacementGroupsResponse) {
+	response = &DeletePlacementGroupsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeletePlacementGroups 删除一个或多个置放组。删除后置放组内所有实例解除放置策略约束。
+func (c *Client) DeletePlacementGroups(request *DeletePlacementGroupsRequest) (response *DeletePlacementGroupsResponse, err error) {
+	response = NewDeletePlacementGroupsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyInstancePlacementRequest() (request *ModifyInstancePlacementRequest) {
+	request = &ModifyInstancePlacementRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyInstancePlacement")
+
+	return
+}
+
+func NewModifyInstancePlacementResponse() (response *ModifyInstancePlacementResponse) {
+	response = &ModifyInstancePlacementResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyInstancePlacement 将实例加入置放组、从一个置放组迁移到另一个、或从置放组移除（placementGroupId 为空表示移除）。
+func (c *Client) ModifyInstancePlacement(request *ModifyInstancePlacementRequest) (response *ModifyInstancePlacementResponse, err error) {
+	response = NewModifyInstancePlacementResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
