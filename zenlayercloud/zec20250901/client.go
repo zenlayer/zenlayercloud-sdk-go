@@ -658,6 +658,52 @@ func (c *Client) DeleteImages(request *DeleteImagesRequest) (response *DeleteIma
 	return
 }
 
+func NewCopyImageRequest() (request *CopyImageRequest) {
+	request = &CopyImageRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CopyImage")
+
+	return
+}
+
+func NewCopyImageResponse() (response *CopyImageResponse) {
+	response = &CopyImageResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CopyImage 将自定义镜像复制到指定区域列表。
+func (c *Client) CopyImage(request *CopyImageRequest) (response *CopyImageResponse, err error) {
+	response = NewCopyImageResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteImageCopyRequest() (request *DeleteImageCopyRequest) {
+	request = &DeleteImageCopyRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteImageCopy")
+
+	return
+}
+
+func NewDeleteImageCopyResponse() (response *DeleteImageCopyResponse) {
+	response = &DeleteImageCopyResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeleteImageCopy 删除镜像在指定区域的副本。
+func (c *Client) DeleteImageCopy(request *DeleteImageCopyRequest) (response *DeleteImageCopyResponse, err error) {
+	response = NewDeleteImageCopyResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewDescribeDiskRegionsRequest() (request *DescribeDiskRegionsRequest) {
 	request = &DescribeDiskRegionsRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -4193,7 +4239,7 @@ func NewModifyInstancePlacementResponse() (response *ModifyInstancePlacementResp
 	return
 }
 
-// ModifyInstancePlacement 将实例加入置放组、从一个置放组迁移到另一个、或从置放组移除（placementGroupId 为空表示移除）。
+// ModifyInstancePlacement 将实例加入置放组、从一个置放组迁移到另一个、或从置放组移除。
 func (c *Client) ModifyInstancePlacement(request *ModifyInstancePlacementRequest) (response *ModifyInstancePlacementResponse, err error) {
 	response = NewModifyInstancePlacementResponse()
 	err = c.ApiCall(request, response)

@@ -1571,6 +1571,50 @@ type DeleteImagesResponseParams struct {
 
 }
 
+type CopyImageRequest struct {
+    *common.BaseRequest
+
+    // ImageId 自定义镜像 ID。
+    ImageId *string `json:"imageId,omitempty"`
+
+    // RegionIdList 目标区域 ID 列表。
+    RegionIdList []string `json:"regionIdList,omitempty"`
+
+}
+
+type CopyImageResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type DeleteImageCopyRequest struct {
+    *common.BaseRequest
+
+    // ImageId 自定义镜像 ID。
+    ImageId *string `json:"imageId,omitempty"`
+
+    // RegionIds 待删除副本的区域 ID 列表。
+    RegionIds []string `json:"regionIds,omitempty"`
+
+}
+
+type DeleteImageCopyResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
 type DescribeDiskRegionsRequest struct {
     *common.BaseRequest
 

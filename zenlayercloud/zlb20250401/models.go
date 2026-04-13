@@ -728,6 +728,7 @@ type HealthCheck struct {
     CheckType *string `json:"checkType,omitempty"`
 
     // CheckPort 健康检查端口。
+    // 当监听器端口为全端口（0）且健康检查类型为TCP或HTTP时，必须指定该端口。
     // 默认为后端服务的端口，除非您希望指定特定端口，否则建议留空。
     CheckPort *int `json:"checkPort,omitempty"`
 
@@ -988,10 +989,10 @@ type BackendServer struct {
     // 删除时不需要指定该参数。
     Weight *int `json:"weight,omitempty"`
 
-    // Port 请求转发和健康检查的目标端口。
+    // Port 求转发和健康检查的目标端口。
     // 如果为空，将跟随监听器端口配置。
     // 删除时不需要指定该参数。
-    // 如果监听器转发模式为`DR`，不支持指定目标端口，跟随监听器端口。
+    // 如果监听器转发模式为`DR`、监听器端口为全端口（0）或监听多个端口，不支持指定目标端口，必须跟随监听器端口。
     Port *int `json:"port,omitempty"`
 
 }
