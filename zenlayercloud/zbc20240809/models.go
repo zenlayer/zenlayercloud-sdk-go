@@ -64,6 +64,8 @@ type DescribeBillDetailRequest struct {
 	OrderSn string `json:"orderSn,omitempty"`
 
 	ResourceId string `json:"resourceId,omitempty"`
+
+	Product string `json:"product,omitempty"`
 }
 
 type BillingDetailInfo struct {

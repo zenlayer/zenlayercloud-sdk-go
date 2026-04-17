@@ -9,6 +9,7 @@ const (
 	SERVICE    = "bmc"
 )
 
+// Deprecated: For maintaining enhanced SDK consistency. This client is no longer in use, please use zenlayercloud.bmc20260201.Client
 type Client struct {
 	common.Client
 }
@@ -1048,6 +1049,29 @@ func NewUnassociateEipAddressResponse() (response *UnassociateEipAddressResponse
 // OPERATION_DENIED_EIP_STATUS_NOT_SUPPORT = "Operation.Denied.Eip.Status.Not.Support"
 func (c *Client) UnassociateEipAddress(request *UnassociateEipAddressRequest) (response *UnassociateEipAddressResponse, err error) {
 	response = NewUnassociateEipAddressResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewCreateByoipRequest() (request *CreateByoipRequest) {
+	request = &CreateByoipRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateByoip")
+
+	return
+}
+
+func NewCreateByoipResponse() (response *CreateByoipResponse) {
+	response = &CreateByoipResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CreateByoip 创建一个BYO IP。
+func (c *Client) CreateByoip(request *CreateByoipRequest) (response *CreateByoipResponse, err error) {
+	response = NewCreateByoipResponse()
 	err = c.ApiCall(request, response)
 	return
 }

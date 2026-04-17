@@ -1118,6 +1118,29 @@ func (c *Client) UnbindCidrBlockIps(request *UnbindCidrBlockIpsRequest) (respons
 	return
 }
 
+func NewCreateByoipRequest() (request *CreateByoipRequest) {
+	request = &CreateByoipRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateByoip")
+
+	return
+}
+
+func NewCreateByoipResponse() (response *CreateByoipResponse) {
+	response = &CreateByoipResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CreateByoip 创建一个BYO IP。
+func (c *Client) CreateByoip(request *CreateByoipRequest) (response *CreateByoipResponse, err error) {
+	response = NewCreateByoipResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewInquiryPriceCreateEipAddressRequest() (request *InquiryPriceCreateEipAddressRequest) {
 	request = &InquiryPriceCreateEipAddressRequest{
 		BaseRequest: &common.BaseRequest{},

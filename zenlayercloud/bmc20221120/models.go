@@ -1741,6 +1741,45 @@ type UnassociateEipAddressResponse struct {
 	} `json:"response"`
 }
 
+type CreateByoipRequest struct {
+	*common.BaseRequest
+
+	// IpType IP 类型。
+	IpType *string `json:"ipType,omitempty"`
+
+	// Cidr 宣告IPv4或IPv6地址段。
+	Cidr *string `json:"cidr,omitempty"`
+
+	// Asn ASN号。
+	Asn *int64 `json:"asn,omitempty"`
+
+	// PublicVirtualInterfaceId 公网VLAN 唯一标识。
+	PublicVirtualInterfaceId *string `json:"publicVirtualInterfaceId,omitempty"`
+
+}
+
+type CreateByoipResponse struct {
+	*common.BaseResponse
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	Response *CreateByoipResponseParams `json:"response,omitempty"`
+
+}
+
+// CreateByoipResponseParams
+type CreateByoipResponseParams struct {
+
+	RequestId *string `json:"requestId,omitempty"`
+
+	// ByoipId 创建成功的 BYOIP ID。
+	ByoipId *string `json:"byoipId,omitempty"`
+
+	// CidrBlockId 创建成功的 CIDR ID。
+	CidrBlockId *string `json:"cidrBlockId,omitempty"`
+
+}
+
 type InquiryPriceCreateEipAddressRequest struct {
 	*common.BaseRequest
 
