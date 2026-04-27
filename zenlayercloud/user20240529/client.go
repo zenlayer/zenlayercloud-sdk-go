@@ -1,3 +1,7 @@
+/*
+ * Zenlayer.com Inc.
+ * Copyright (c) 2014-2022 All Rights Reserved.
+ */
 package user
 
 import (
@@ -32,21 +36,335 @@ func NewClient(config *common.Config, secretKeyId, secretKeyPassword string) (cl
 	return client, nil
 }
 
+
+func NewDescribeMembersRequest() (request *DescribeMembersRequest) {
+	request = &DescribeMembersRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeMembers")
+
+	return
+}
+
+func NewDescribeMembersResponse() (response *DescribeMembersResponse) {
+	response = &DescribeMembersResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeMembers 查询成员列表。用户可以根据名称、邮箱等信息来搜索成员信息。
+func (c *Client) DescribeMembers(request *DescribeMembersRequest) (response *DescribeMembersResponse, err error) {
+	response = NewDescribeMembersResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeMemberRequest() (request *DescribeMemberRequest) {
+	request = &DescribeMemberRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeMember")
+
+	return
+}
+
+func NewDescribeMemberResponse() (response *DescribeMemberResponse) {
+	response = &DescribeMemberResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeMember 查询单个成员信息。
+func (c *Client) DescribeMember(request *DescribeMemberRequest) (response *DescribeMemberResponse, err error) {
+	response = NewDescribeMemberResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewInviteMemberRequest() (request *InviteMemberRequest) {
+	request = &InviteMemberRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InviteMember")
+
+	return
+}
+
+func NewInviteMemberResponse() (response *InviteMemberResponse) {
+	response = &InviteMemberResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// InviteMember 邀请单个成员信息。
+func (c *Client) InviteMember(request *InviteMemberRequest) (response *InviteMemberResponse, err error) {
+	response = NewInviteMemberResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteMemberRequest() (request *DeleteMemberRequest) {
+	request = &DeleteMemberRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteMember")
+
+	return
+}
+
+func NewDeleteMemberResponse() (response *DeleteMemberResponse) {
+	response = &DeleteMemberResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeleteMember 删除一个成员信息。
+func (c *Client) DeleteMember(request *DeleteMemberRequest) (response *DeleteMemberResponse, err error) {
+	response = NewDeleteMemberResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewSendInviteMemberEmailRequest() (request *SendInviteMemberEmailRequest) {
+	request = &SendInviteMemberEmailRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "SendInviteMemberEmail")
+
+	return
+}
+
+func NewSendInviteMemberEmailResponse() (response *SendInviteMemberEmailResponse) {
+	response = &SendInviteMemberEmailResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// SendInviteMemberEmail 重新发送一个成员信息的邮件。
+func (c *Client) SendInviteMemberEmail(request *SendInviteMemberEmailRequest) (response *SendInviteMemberEmailResponse, err error) {
+	response = NewSendInviteMemberEmailResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeMemberGroupsRequest() (request *DescribeMemberGroupsRequest) {
+	request = &DescribeMemberGroupsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeMemberGroups")
+
+	return
+}
+
+func NewDescribeMemberGroupsResponse() (response *DescribeMemberGroupsResponse) {
+	response = &DescribeMemberGroupsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeMemberGroups 查询成员组列表。用户可以根据名称信息来搜索成员组信息。
+func (c *Client) DescribeMemberGroups(request *DescribeMemberGroupsRequest) (response *DescribeMemberGroupsResponse, err error) {
+	response = NewDescribeMemberGroupsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewCreateMemberGroupRequest() (request *CreateMemberGroupRequest) {
+	request = &CreateMemberGroupRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateMemberGroup")
+
+	return
+}
+
+func NewCreateMemberGroupResponse() (response *CreateMemberGroupResponse) {
+	response = &CreateMemberGroupResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CreateMemberGroup 创建一个成员组。
+func (c *Client) CreateMemberGroup(request *CreateMemberGroupRequest) (response *CreateMemberGroupResponse, err error) {
+	response = NewCreateMemberGroupResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyMemberGroupRequest() (request *ModifyMemberGroupRequest) {
+	request = &ModifyMemberGroupRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyMemberGroup")
+
+	return
+}
+
+func NewModifyMemberGroupResponse() (response *ModifyMemberGroupResponse) {
+	response = &ModifyMemberGroupResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyMemberGroup 修改一个成员组信息。
+func (c *Client) ModifyMemberGroup(request *ModifyMemberGroupRequest) (response *ModifyMemberGroupResponse, err error) {
+	response = NewModifyMemberGroupResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteMemberGroupRequest() (request *DeleteMemberGroupRequest) {
+	request = &DeleteMemberGroupRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteMemberGroup")
+
+	return
+}
+
+func NewDeleteMemberGroupResponse() (response *DeleteMemberGroupResponse) {
+	response = &DeleteMemberGroupResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeleteMemberGroup 删除一个成员组信息。
+func (c *Client) DeleteMemberGroup(request *DeleteMemberGroupRequest) (response *DeleteMemberGroupResponse, err error) {
+	response = NewDeleteMemberGroupResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewCreateMemberGroupPermissionRequest() (request *CreateMemberGroupPermissionRequest) {
+	request = &CreateMemberGroupPermissionRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateMemberGroupPermission")
+
+	return
+}
+
+func NewCreateMemberGroupPermissionResponse() (response *CreateMemberGroupPermissionResponse) {
+	response = &CreateMemberGroupPermissionResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CreateMemberGroupPermission 授予一个成员组相关访问策略信息，从而对进行成员组下所有成员进行权限控制。
+func (c *Client) CreateMemberGroupPermission(request *CreateMemberGroupPermissionRequest) (response *CreateMemberGroupPermissionResponse, err error) {
+	response = NewCreateMemberGroupPermissionResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribePermissionsRequest() (request *DescribePermissionsRequest) {
+	request = &DescribePermissionsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribePermissions")
+
+	return
+}
+
+func NewDescribePermissionsResponse() (response *DescribePermissionsResponse) {
+	response = &DescribePermissionsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribePermissions 查询权限列表。用户可以根据成员ID、策略名称、成员组等信息来搜索权限信息。
+func (c *Client) DescribePermissions(request *DescribePermissionsRequest) (response *DescribePermissionsResponse, err error) {
+	response = NewDescribePermissionsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewCreateMemberPermissionRequest() (request *CreateMemberPermissionRequest) {
+	request = &CreateMemberPermissionRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateMemberPermission")
+
+	return
+}
+
+func NewCreateMemberPermissionResponse() (response *CreateMemberPermissionResponse) {
+	response = &CreateMemberPermissionResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CreateMemberPermission 授予成员对于资源组相关的访问策略，从而对资源组进行权限控制。
+func (c *Client) CreateMemberPermission(request *CreateMemberPermissionRequest) (response *CreateMemberPermissionResponse, err error) {
+	response = NewCreateMemberPermissionResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeletePermissionRequest() (request *DeletePermissionRequest) {
+	request = &DeletePermissionRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeletePermission")
+
+	return
+}
+
+func NewDeletePermissionResponse() (response *DeletePermissionResponse) {
+	response = &DeletePermissionResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeletePermission 删除一个权限信息。
+func (c *Client) DeletePermission(request *DeletePermissionRequest) (response *DeletePermissionResponse, err error) {
+	response = NewDeletePermissionResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribePoliciesRequest() (request *DescribePoliciesRequest) {
+	request = &DescribePoliciesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribePolicies")
+
+	return
+}
+
+func NewDescribePoliciesResponse() (response *DescribePoliciesResponse) {
+	response = &DescribePoliciesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribePolicies 查询访问策略。
+func (c *Client) DescribePolicies(request *DescribePoliciesRequest) (response *DescribePoliciesResponse, err error) {
+	response = NewDescribePoliciesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewDescribeResourceGroupsRequest() (request *DescribeResourceGroupsRequest) {
 	request = &DescribeResourceGroupsRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
 	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeResourceGroups")
 
-	return
-}
-
-// DescribeResourceGroups
-// 调用本接口用于查询一个或多个资源组的信息。
-// Possible error codes to return:
-func (c *Client) DescribeResourceGroups(request *DescribeResourceGroupsRequest) (response *DescribeResourceGroupsResponse, err error) {
-	response = NewDescribeResourceGroupsResponse()
-	err = c.ApiCall(request, response)
 	return
 }
 
@@ -57,73 +375,19 @@ func NewDescribeResourceGroupsResponse() (response *DescribeResourceGroupsRespon
 	return
 }
 
-func NewDescribeResourceTypesRequest() (request *DescribeResourceTypesRequest) {
-	request = &DescribeResourceTypesRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeResourceTypes")
-
-	return
-}
-
-// DescribeResourceTypes
-// 调用本接口用于查询全量的资源类型的信息。
-// Possible error codes to return:
-func (c *Client) DescribeResourceTypes(request *DescribeResourceTypesRequest) (response *DescribeResourceTypesResponse, err error) {
-	response = NewDescribeResourceTypesResponse()
+// DescribeResourceGroups 查询所有资源组列表信息。
+func (c *Client) DescribeResourceGroups(request *DescribeResourceGroupsRequest) (response *DescribeResourceGroupsResponse, err error) {
+	response = NewDescribeResourceGroupsResponse()
 	err = c.ApiCall(request, response)
 	return
 }
 
-func NewDescribeResourceTypesResponse() (response *DescribeResourceTypesResponse) {
-	response = &DescribeResourceTypesResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-func NewDescribeResourcesByGroupRequest() (request *DescribeResourcesByGroupRequest) {
-	request = &DescribeResourcesByGroupRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeResourcesByGroup")
-
-	return
-}
-
-// DescribeResourcesByGroup
-// 调用本接口用于查询某个资源组下资源的信息。
-// Possible error codes to return:
-func (c *Client) DescribeResourcesByGroup(request *DescribeResourcesByGroupRequest) (response *DescribeResourcesByGroupResponse, err error) {
-	response = NewDescribeResourcesByGroupResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeResourcesByGroupResponse() (response *DescribeResourcesByGroupResponse) {
-	response = &DescribeResourcesByGroupResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-
-// 2025-07-23
 func NewCreateResourceGroupRequest() (request *CreateResourceGroupRequest) {
 	request = &CreateResourceGroupRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
 	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateResourceGroup")
 
-	return
-}
-
-// CreateResourceGroup
-// 调用本接口用于创建某个资源组信息。
-// Possible error codes to return:
-func (c *Client) CreateResourceGroup(request *CreateResourceGroupRequest) (response *CreateResourceGroupResponse, err error) {
-	response = NewCreateResourceGroupResponse()
-	err = c.ApiCall(request, response)
 	return
 }
 
@@ -134,54 +398,10 @@ func NewCreateResourceGroupResponse() (response *CreateResourceGroupResponse) {
 	return
 }
 
-
-func NewModifyResourceGroupRequest() (request *ModifyResourceGroupRequest) {
-	request = &ModifyResourceGroupRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyResourceGroup")
-
-	return
-}
-
-// ModifyResourceGroup
-// 调用本接口用于修改某个资源组信息。
-// Possible error codes to return:
-func (c *Client) ModifyResourceGroup(request *ModifyResourceGroupRequest) (response *ModifyResourceGroupResponse, err error) {
-	response = NewModifyResourceGroupResponse()
+// CreateResourceGroup 创建一个资源组信息。
+func (c *Client) CreateResourceGroup(request *CreateResourceGroupRequest) (response *CreateResourceGroupResponse, err error) {
+	response = NewCreateResourceGroupResponse()
 	err = c.ApiCall(request, response)
-	return
-}
-
-func NewModifyResourceGroupResponse() (response *ModifyResourceGroupResponse) {
-	response = &ModifyResourceGroupResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-func NewDeleteResourceGroupRequest() (request *DeleteResourceGroupRequest) {
-	request = &DeleteResourceGroupRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteResourceGroup")
-
-	return
-}
-
-// DeleteResourceGroup
-// 调用本接口用于删除某个资源组。
-// Possible error codes to return:
-func (c *Client) DeleteResourceGroup(request *DeleteResourceGroupRequest) (response *DeleteResourceGroupResponse, err error) {
-	response = NewDeleteResourceGroupResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDeleteResourceGroupResponse() (response *DeleteResourceGroupResponse) {
-	response = &DeleteResourceGroupResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
 	return
 }
 
@@ -194,15 +414,6 @@ func NewAddResourceResourceGroupRequest() (request *AddResourceResourceGroupRequ
 	return
 }
 
-// AddResourceResourceGroup
-// 调用本接口用于添加某个资源组下的资源。
-// Possible error codes to return:
-func (c *Client) AddResourceResourceGroup(request *AddResourceResourceGroupRequest) (response *AddResourceResourceGroupResponse, err error) {
-	response = NewAddResourceResourceGroupResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
 func NewAddResourceResourceGroupResponse() (response *AddResourceResourceGroupResponse) {
 	response = &AddResourceResourceGroupResponse{
 		BaseResponse: &common.BaseResponse{},
@@ -210,4 +421,56 @@ func NewAddResourceResourceGroupResponse() (response *AddResourceResourceGroupRe
 	return
 }
 
+// AddResourceResourceGroup 将资源添加到一个资源组。
+func (c *Client) AddResourceResourceGroup(request *AddResourceResourceGroupRequest) (response *AddResourceResourceGroupResponse, err error) {
+	response = NewAddResourceResourceGroupResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyResourceGroupRequest() (request *ModifyResourceGroupRequest) {
+	request = &ModifyResourceGroupRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyResourceGroup")
+
+	return
+}
+
+func NewModifyResourceGroupResponse() (response *ModifyResourceGroupResponse) {
+	response = &ModifyResourceGroupResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyResourceGroup 修改一个资源组信息。
+func (c *Client) ModifyResourceGroup(request *ModifyResourceGroupRequest) (response *ModifyResourceGroupResponse, err error) {
+	response = NewModifyResourceGroupResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteResourceGroupRequest() (request *DeleteResourceGroupRequest) {
+	request = &DeleteResourceGroupRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteResourceGroup")
+
+	return
+}
+
+func NewDeleteResourceGroupResponse() (response *DeleteResourceGroupResponse) {
+	response = &DeleteResourceGroupResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeleteResourceGroup 删除一个资源组信息。
+func (c *Client) DeleteResourceGroup(request *DeleteResourceGroupRequest) (response *DeleteResourceGroupResponse, err error) {
+	response = NewDeleteResourceGroupResponse()
+	err = c.ApiCall(request, response)
+	return
+}
 

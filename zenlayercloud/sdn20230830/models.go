@@ -2209,3 +2209,58 @@ type ModifyCloudBandwidthResponse struct {
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response,omitempty"`
 }
+
+
+
+
+
+type DescribeOracleRegionsRequest struct {
+	*common.BaseRequest
+
+	OcId string `json:"ocId,omitempty"`
+
+	Product string `json:"product,omitempty"`
+}
+
+type DescribeOracleRegionsResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeOracleRegionsResponseParams `json:"response,omitempty"`
+}
+
+type DescribeOracleRegionsResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+
+	CloudRegions []*CloudRegion `json:"cloudRegions,omitempty"`
+}
+
+
+
+
+type DescribeOracleVlanUsageRequest struct {
+	*common.BaseRequest
+
+	DcId string `json:"dcId,omitempty"`
+}
+
+type DescribeOracleVlanUsageResponse struct {
+	*common.BaseResponse
+
+	// The unique request ID, which is returned for each request. RequestId is required for locating a problem.
+	RequestId string `json:"requestId,omitempty"`
+
+	Response *DescribeOracleVlanUsageResponseParams `json:"response,omitempty"`
+}
+
+type DescribeOracleVlanUsageResponseParams struct {
+	RequestId string `json:"requestId,omitempty"`
+
+	Start int `json:"start,omitempty"`
+
+	End int `json:"end,omitempty"`
+
+	UsedVlans []int `json:"usedVlans,omitempty"`
+}

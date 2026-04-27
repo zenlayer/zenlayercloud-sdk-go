@@ -1491,3 +1491,63 @@ func NewModifyCloudBandwidthResponse() (response *ModifyCloudBandwidthResponse) 
 	}
 	return
 }
+
+
+
+
+
+
+func NewDescribeOracleRegionsRequest() (request *DescribeOracleRegionsRequest) {
+	request = &DescribeOracleRegionsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeOracleRegions")
+
+	return
+}
+
+// DescribeOracleRegions
+// 调用本接口用户查询Azure云连接支持的接入点区域信息。
+//
+// Possible error codes to return:
+func (c *Client) DescribeOracleRegions(request *DescribeOracleRegionsRequest) (response *DescribeOracleRegionsResponse, err error) {
+	response = NewDescribeOracleRegionsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeOracleRegionsResponse() (response *DescribeOracleRegionsResponse) {
+	response = &DescribeOracleRegionsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+
+
+
+func NewDescribeOracleVlanUsageRequest() (request *DescribeOracleVlanUsageRequest) {
+	request = &DescribeOracleVlanUsageRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeOracleVlanUsage")
+
+	return
+}
+
+// DescribeOracleVlanUsage
+// 调用本接口用户查询Azure云连接支持的接入点区域信息。
+//
+// Possible error codes to return:
+func (c *Client) DescribeOracleVlanUsage(request *DescribeOracleVlanUsageRequest) (response *DescribeOracleVlanUsageResponse, err error) {
+	response = NewDescribeOracleVlanUsageResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeOracleVlanUsageResponse() (response *DescribeOracleVlanUsageResponse) {
+	response = &DescribeOracleVlanUsageResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}

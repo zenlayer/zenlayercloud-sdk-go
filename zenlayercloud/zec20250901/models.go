@@ -365,7 +365,6 @@ type CreateZecInstancesRequest struct {
     ImageId *string `json:"imageId,omitempty"`
 
     // TimeZone 设置操作系统的时区。
-    // 如果未设置默认为节点所在的时区。
     TimeZone *string `json:"timeZone,omitempty"`
 
     // InstanceType 实例机型。
@@ -3145,6 +3144,54 @@ type AssignNetworkInterfaceIpv6Response struct {
 
 }
 
+// DescribeNetworkInterfaceMonitorDataRequest 
+type DescribeNetworkInterfaceMonitorDataRequest struct {
+    *common.BaseRequest
+
+    // NicId 网卡唯一标识ID。
+    NicId *string `json:"nicId,omitempty"`
+
+    // MetricType 网卡监控指标类型。
+    MetricType *string `json:"metricType,omitempty"`
+
+    // StartTime 查询开始时间。
+    // 时间格式：yyyy-MM-ddTHH:mm:ssZ。
+    StartTime *string `json:"startTime,omitempty"`
+
+    // EndTime 查询结束时间。
+    // 时间格式：yyyy-MM-ddTHH:mm:ssZ。
+    EndTime *string `json:"endTime,omitempty"`
+
+}
+
+type DescribeNetworkInterfaceMonitorDataResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeNetworkInterfaceMonitorDataResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeNetworkInterfaceMonitorDataResponseParams 
+type DescribeNetworkInterfaceMonitorDataResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // MaxValue 数据点的最大值。
+    MaxValue *float64 `json:"maxValue,omitempty"`
+
+    // MinValue 数据点的最小值。
+    MinValue *float64 `json:"minValue,omitempty"`
+
+    // AvgValue 数据点的平均值。
+    AvgValue *float64 `json:"avgValue,omitempty"`
+
+    // Metrics 监控数据集合。
+    Metrics []*MetricValue `json:"metrics,omitempty"`
+
+}
+
 // DescribePoolsRequest 
 type DescribePoolsRequest struct {
     *common.BaseRequest
@@ -4384,7 +4431,9 @@ type ModifyEipAttributeResponse struct {
 type AvailableLanIpRequest struct {
     *common.BaseRequest
 
-    // EipId 要查询的公网弹性IP ID。
+    // EipId 待查询的弹性公网 IP 的 ID。
+    // 接口将返回与该 EIP 同地域子网下的所有可绑定 vNIC 及内网 IP。
+    // 可通过 DescribeEips 接口获取 EIP ID。
     EipId *string `json:"eipId,omitempty"`
 
 }
@@ -4403,7 +4452,7 @@ type AvailableLanIpResponseParams struct {
 
     RequestId *string `json:"requestId,omitempty"`
 
-    // LanIps 可以绑定的网卡及内网信息。
+    // LanIps 可与指定 EIP 绑定的 vNIC 与内网 IP 组合列表。
     LanIps []*PrivateIpInfo `json:"lanIps,omitempty"`
 
 }
@@ -4411,19 +4460,21 @@ type AvailableLanIpResponseParams struct {
 // PrivateIpInfo 公网弹性IP可以绑定的网卡及内网信息
 type PrivateIpInfo struct {
 
-    // LanIp 网卡上的内网IP地址。
+    // LanIp 该 vNIC 上已分配的内网 IPv4 地址，可用于与指定 EIP 进行绑定。
     LanIp *string `json:"lanIp,omitempty"`
 
-    // NicId 网卡ID。
+    // NicId 弹性网卡（vNIC）的 ID。
     NicId *string `json:"nicId,omitempty"`
 
-    // NicName 网卡的名称。
+    // NicName 弹性网卡（vNIC）的名称。
     NicName *string `json:"nicName,omitempty"`
 
-    // InstanceId 网卡关联的实例ID。
+    // InstanceId vNIC 所挂载实例的 ID。
+    // 若 vNIC 未挂载至任何实例，则为 null。
     InstanceId *string `json:"instanceId,omitempty"`
 
-    // InstanceName 网卡关联的实例名称。
+    // InstanceName vNIC 所挂载实例的名称。
+    // 若 vNIC 未挂载至任何实例，则为 null。
     InstanceName *string `json:"instanceName,omitempty"`
 
 }
