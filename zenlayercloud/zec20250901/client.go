@@ -704,6 +704,29 @@ func (c *Client) DeleteImageCopy(request *DeleteImageCopyRequest) (response *Del
 	return
 }
 
+func NewDescribeCustomImagesRequest() (request *DescribeCustomImagesRequest) {
+	request = &DescribeCustomImagesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeCustomImages")
+
+	return
+}
+
+func NewDescribeCustomImagesResponse() (response *DescribeCustomImagesResponse) {
+	response = &DescribeCustomImagesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeCustomImages 查询当前账号下的自定义镜像列表。
+func (c *Client) DescribeCustomImages(request *DescribeCustomImagesRequest) (response *DescribeCustomImagesResponse, err error) {
+	response = NewDescribeCustomImagesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewDescribeDiskRegionsRequest() (request *DescribeDiskRegionsRequest) {
 	request = &DescribeDiskRegionsRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -4265,6 +4288,167 @@ func NewModifyInstancePlacementResponse() (response *ModifyInstancePlacementResp
 // ModifyInstancePlacement 将实例加入置放组、从一个置放组迁移到另一个、或从置放组移除。
 func (c *Client) ModifyInstancePlacement(request *ModifyInstancePlacementRequest) (response *ModifyInstancePlacementResponse, err error) {
 	response = NewModifyInstancePlacementResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewRemoveQosPolicyGroupMembersRequest() (request *RemoveQosPolicyGroupMembersRequest) {
+	request = &RemoveQosPolicyGroupMembersRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "RemoveQosPolicyGroupMembers")
+
+	return
+}
+
+func NewRemoveQosPolicyGroupMembersResponse() (response *RemoveQosPolicyGroupMembersResponse) {
+	response = &RemoveQosPolicyGroupMembersResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// RemoveQosPolicyGroupMembers 从QoS策略组中移除成员。
+func (c *Client) RemoveQosPolicyGroupMembers(request *RemoveQosPolicyGroupMembersRequest) (response *RemoveQosPolicyGroupMembersResponse, err error) {
+	response = NewRemoveQosPolicyGroupMembersResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeQosPolicyGroupTrafficRequest() (request *DescribeQosPolicyGroupTrafficRequest) {
+	request = &DescribeQosPolicyGroupTrafficRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeQosPolicyGroupTraffic")
+
+	return
+}
+
+func NewDescribeQosPolicyGroupTrafficResponse() (response *DescribeQosPolicyGroupTrafficResponse) {
+	response = &DescribeQosPolicyGroupTrafficResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeQosPolicyGroupTraffic 查询QoS策略组的聚合流量监控数据。
+func (c *Client) DescribeQosPolicyGroupTraffic(request *DescribeQosPolicyGroupTrafficRequest) (response *DescribeQosPolicyGroupTrafficResponse, err error) {
+	response = NewDescribeQosPolicyGroupTrafficResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyQosPolicyGroupRequest() (request *ModifyQosPolicyGroupRequest) {
+	request = &ModifyQosPolicyGroupRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyQosPolicyGroup")
+
+	return
+}
+
+func NewModifyQosPolicyGroupResponse() (response *ModifyQosPolicyGroupResponse) {
+	response = &ModifyQosPolicyGroupResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyQosPolicyGroup 修改QoS策略组的名称或带宽限制。
+func (c *Client) ModifyQosPolicyGroup(request *ModifyQosPolicyGroupRequest) (response *ModifyQosPolicyGroupResponse, err error) {
+	response = NewModifyQosPolicyGroupResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteQosPolicyGroupRequest() (request *DeleteQosPolicyGroupRequest) {
+	request = &DeleteQosPolicyGroupRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteQosPolicyGroup")
+
+	return
+}
+
+func NewDeleteQosPolicyGroupResponse() (response *DeleteQosPolicyGroupResponse) {
+	response = &DeleteQosPolicyGroupResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeleteQosPolicyGroup 删除一个QoS策略组。删除前需确保策略组内无成员。
+func (c *Client) DeleteQosPolicyGroup(request *DeleteQosPolicyGroupRequest) (response *DeleteQosPolicyGroupResponse, err error) {
+	response = NewDeleteQosPolicyGroupResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewAddQosPolicyGroupMembersRequest() (request *AddQosPolicyGroupMembersRequest) {
+	request = &AddQosPolicyGroupMembersRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "AddQosPolicyGroupMembers")
+
+	return
+}
+
+func NewAddQosPolicyGroupMembersResponse() (response *AddQosPolicyGroupMembersResponse) {
+	response = &AddQosPolicyGroupMembersResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// AddQosPolicyGroupMembers 向QoS策略组中添加EIP、IPv6或UNMANAGED出口IP。
+func (c *Client) AddQosPolicyGroupMembers(request *AddQosPolicyGroupMembersRequest) (response *AddQosPolicyGroupMembersResponse, err error) {
+	response = NewAddQosPolicyGroupMembersResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewCreateQosPolicyGroupRequest() (request *CreateQosPolicyGroupRequest) {
+	request = &CreateQosPolicyGroupRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateQosPolicyGroup")
+
+	return
+}
+
+func NewCreateQosPolicyGroupResponse() (response *CreateQosPolicyGroupResponse) {
+	response = &CreateQosPolicyGroupResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CreateQosPolicyGroup 创建一个QoS策略组，将EIP、IPv6或UNMANAGED出口IP纳入同一策略组实施共享带宽限速。
+func (c *Client) CreateQosPolicyGroup(request *CreateQosPolicyGroupRequest) (response *CreateQosPolicyGroupResponse, err error) {
+	response = NewCreateQosPolicyGroupResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeQosPolicyGroupsRequest() (request *DescribeQosPolicyGroupsRequest) {
+	request = &DescribeQosPolicyGroupsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeQosPolicyGroups")
+
+	return
+}
+
+func NewDescribeQosPolicyGroupsResponse() (response *DescribeQosPolicyGroupsResponse) {
+	response = &DescribeQosPolicyGroupsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeQosPolicyGroups 查询一个或多个QoS策略组的详细信息。
+func (c *Client) DescribeQosPolicyGroups(request *DescribeQosPolicyGroupsRequest) (response *DescribeQosPolicyGroupsResponse, err error) {
+	response = NewDescribeQosPolicyGroupsResponse()
 	err = c.ApiCall(request, response)
 	return
 }
