@@ -312,7 +312,7 @@ type DescribeZonesRequest struct {
     *common.BaseRequest
 
     // AcceptLanguage 接收的区域地域的语言。可选值如下：
-    // <ul><li>zh-CN：中文</li><li>en-US：英文</li></ul>默认值：en-US。
+    // <ul><li>zh-CN：中文</li><li>en-US：英文</li></ul>
     AcceptLanguage *string `json:"acceptLanguage,omitempty"`
 
     // IsCloudRouterAvailable 根据可用区是否支持SDN三层网络进行筛选。可选值如下：
@@ -357,6 +357,9 @@ type Zone struct {
 
     // IsCloudRouterAvailable 可用区是否支持SDN三层网络。
     IsCloudRouterAvailable *bool `json:"isCloudRouterAvailable,omitempty"`
+
+    // IsByoipEnabled 可用区是否支持BYO IP 宣告。
+    IsByoipEnabled *bool `json:"isByoipEnabled,omitempty"`
 
 }
 
@@ -481,6 +484,15 @@ type InstanceType struct {
     // DiskInfo 硬盘配置。
     // 单位：GB。
     DiskInfo *InstanceDiskInfo `json:"diskInfo,omitempty"`
+
+    // VpuVendor VPU 供应商
+    VpuVendor *string `json:"vpuVendor,omitempty"`
+
+    // VpuCard VPU 型号。示例：T1U
+    VpuCard *string `json:"vpuCard,omitempty"`
+
+    // VpuCount VPU 数量
+    VpuCount *int `json:"vpuCount,omitempty"`
 
 }
 
@@ -3605,6 +3617,9 @@ type BackendInfo struct {
     // InstanceId 实例ID。
     InstanceId *string `json:"instanceId,omitempty"`
 
+    // InstanceType 实例类型。
+    InstanceType *string `json:"instanceType,omitempty"`
+
     // InstanceName 实例名称。
     InstanceName *string `json:"instanceName,omitempty"`
 
@@ -3931,6 +3946,9 @@ type DescribeBackendsRequest struct {
     // BackendName 后端配置服务器的名称。
     BackendName *string `json:"backendName,omitempty"`
 
+    // InstanceType 实例类型。默认为`BM`
+    InstanceType *string `json:"instanceType,omitempty"`
+
     // PageNum 返回的分页数。
     PageNum *int `json:"pageNum,omitempty"`
 
@@ -3972,6 +3990,9 @@ type RegisterBackendRequest struct {
 
     // InstanceId 裸金属实例ID。
     InstanceId *string `json:"instanceId,omitempty"`
+
+    // InstanceType 实例类型。
+    InstanceType *string `json:"instanceType,omitempty"`
 
     // ClientToken 用于保证请求的幂等性。
     ClientToken *string `json:"clientToken,omitempty"`
