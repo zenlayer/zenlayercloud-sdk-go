@@ -237,7 +237,7 @@ func NewDescribeZonesResponse() (response *DescribeZonesResponse) {
 	return
 }
 
-// DescribeZones 查询可用区信息。​
+// DescribeZones 查询可用区信息。
 func (c *Client) DescribeZones(request *DescribeZonesRequest) (response *DescribeZonesResponse, err error) {
 	response = NewDescribeZonesResponse()
 	err = c.ApiCall(request, response)

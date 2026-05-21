@@ -63,6 +63,9 @@ type ZoneInfo struct {
     // CountryName 可用区所在的国家名称。
     CountryName *string `json:"countryName,omitempty"`
 
+    // SupportHaVip 可用区是否支持高可用虚拟IP（HaVip）。
+    SupportHaVip *bool `json:"supportHaVip,omitempty"`
+
 }
 
 // DescribeZoneInstanceConfigInfosRequest 
@@ -118,6 +121,12 @@ type InstanceTypeQuotaItem struct {
     // 单位：GiB。
     Memory *int `json:"memory,omitempty"`
 
+    // Bps 单张网卡的带宽上限。
+    Bps *int64 `json:"bps,omitempty"`
+
+    // Pps 单张网卡的收发包上限。
+    Pps *int64 `json:"pps,omitempty"`
+
     // InternetMaxBandwidthOutLimit 最大出口带宽限制。
     InternetMaxBandwidthOutLimit *int `json:"internetMaxBandwidthOutLimit,omitempty"`
 
@@ -152,6 +161,9 @@ type DescribeVmInventoryCapacityResponse struct {
 type DescribeVmInventoryCapacityResponseParams struct {
 
     RequestId *string `json:"requestId,omitempty"`
+
+    // Remark 库存容量档位说明，描述各档位对应的可售核数范围。
+    Remark *string `json:"remark,omitempty"`
 
     // DataSet 各节点库存容量列表。
     DataSet []*VmRegionCapacityItem `json:"dataSet,omitempty"`
@@ -1398,6 +1410,11 @@ type DescribeInstanceMonitorDataRequest struct {
     // 时间格式：yyyy-MM-ddTHH:mm:ssZ。
     EndTime *string `json:"endTime,omitempty"`
 
+    // Step 查询数据点间隔。
+    // 单位为分钟。
+    // 支持参数：1,5。
+    Step *int `json:"step,omitempty"`
+
 }
 
 type DescribeInstanceMonitorDataResponse struct {
@@ -1936,11 +1953,11 @@ type DescribeDisksRequest struct {
     // ZoneId 根据云盘所在的可用区进行筛选。
     ZoneId *string `json:"zoneId,omitempty"`
 
-    // PageNum 返回的分页大小。
-    // 默认为20，最大为1000。
+    // PageNum 返回的分页数。
     PageNum *int `json:"pageNum,omitempty"`
 
-    // PageSize 返回的分页数。
+    // PageSize 返回的分页大小。
+    // 默认为20，最大为1000。
     PageSize *int `json:"pageSize,omitempty"`
 
     // RegionId 根据云盘所在的节点ID进行筛选。
@@ -2316,6 +2333,11 @@ type DescribeDiskMonitorDataRequest struct {
     // EndTime 查询结束时间。
     // 时间格式：yyyy-MM-ddTHH:mm:ssZ。
     EndTime *string `json:"endTime,omitempty"`
+
+    // Step 查询数据点间隔。
+    // 单位为分钟。
+    // 支持参数：1,5。
+    Step *int `json:"step,omitempty"`
 
 }
 
@@ -3354,6 +3376,11 @@ type DescribeNetworkInterfaceMonitorDataRequest struct {
     // EndTime 查询结束时间。
     // 时间格式：yyyy-MM-ddTHH:mm:ssZ。
     EndTime *string `json:"endTime,omitempty"`
+
+    // Step 查询数据点间隔。
+    // 单位为分钟。
+    // 支持参数：1,5。
+    Step *int `json:"step,omitempty"`
 
 }
 
@@ -4738,6 +4765,9 @@ type AssociateEipAddressRequest struct {
     // EIP 必须是未绑定状态。
     EipIds []string `json:"eipIds,omitempty"`
 
+    // HaVipId 高可用虚拟IP的ID。
+    HaVipId *string `json:"haVipId,omitempty"`
+
     // BindType 绑定类型。
     // 当绑定的是网卡时生效。
     // 默认为普通NAT模式。
@@ -5132,6 +5162,11 @@ type DescribeEipMonitorDataRequest struct {
     // EndTime 查询结束时间。
     // 时间格式：yyyy-MM-ddTHH:mm:ssZ。
     EndTime *string `json:"endTime,omitempty"`
+
+    // Step 查询数据点间隔。
+    // 单位为分钟。
+    // 支持参数：1,5。
+    Step *int `json:"step,omitempty"`
 
 }
 
@@ -6509,7 +6544,6 @@ type DescribeUnmanagedEgressIpsRequest struct {
     PageSize *int `json:"pageSize,omitempty"`
 
     // PageNum 返回的分页页码。
-    // 默认为1。
     PageNum *int `json:"pageNum,omitempty"`
 
 }
@@ -6559,8 +6593,7 @@ type UnmanagedEgressIpInfo struct {
     // InternetChargeType 网络计费方式。
     InternetChargeType *string `json:"internetChargeType,omitempty"`
 
-    // BandwidthCap 带宽上限，单位 Mbps。
-    // 无固定带宽时为 null。
+    // BandwidthCap 带宽上限，单位 Mbps。资源未单独配置带宽时返回团队默认带宽上限。
     BandwidthCap *int `json:"bandwidthCap,omitempty"`
 
     // RateLimitMode 限速模式。
@@ -8546,6 +8579,9 @@ type SecurityGroupInfo struct {
     // LoadBalancerIdList 关联安全组的负载均衡ID列表。
     LoadBalancerIdList []string `json:"loadBalancerIdList,omitempty"`
 
+    // HaVipIdList 关联安全组的高可用虚拟IP ID列表。
+    HaVipIdList []string `json:"haVipIdList,omitempty"`
+
 }
 
 // CreateSecurityGroupRequest 
@@ -9280,6 +9316,256 @@ type TrafficDataPoint struct {
 
     // BandwidthOut 出向带宽，单位bps。
     BandwidthOut *int64 `json:"bandwidthOut,omitempty"`
+
+}
+
+// CreateHaVipRequest 
+type CreateHaVipRequest struct {
+    *common.BaseRequest
+
+    // SubnetId HaVip所属子网ID。
+    SubnetId *string `json:"subnetId,omitempty"`
+
+    // Name HaVip名称。
+    // 长度1到64个字符。
+    Name *string `json:"name,omitempty"`
+
+    // IpAddress 指定HaVip的私网IP地址。
+    // 不填时系统自动分配。
+    IpAddress *string `json:"ipAddress,omitempty"`
+
+    // SecurityGroupId 安全组ID。
+    // 不填时使用VPC默认安全组。
+    SecurityGroupId *string `json:"securityGroupId,omitempty"`
+
+    // Tags 创建HaVip时关联的标签。
+    Tags *TagAssociation `json:"tags,omitempty"`
+
+}
+
+type CreateHaVipResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *CreateHaVipResponseParams `json:"response,omitempty"`
+
+}
+
+// CreateHaVipResponseParams 
+type CreateHaVipResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // HaVipId 高可用虚拟IP的ID。
+    HaVipId *string `json:"haVipId,omitempty"`
+
+}
+
+// DescribeHaVipsRequest 
+type DescribeHaVipsRequest struct {
+    *common.BaseRequest
+
+    // HaVipIds HaVip ID列表。
+    // 最多支持100个ID查询。
+    HaVipIds []string `json:"haVipIds,omitempty"`
+
+    // Name HaVip名称，支持模糊查询。
+    Name *string `json:"name,omitempty"`
+
+    // RegionId 所在地域ID。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // VpcIds 所属VPC ID列表。
+    VpcIds []string `json:"vpcIds,omitempty"`
+
+    // SubnetIds 所属子网ID列表。
+    SubnetIds []string `json:"subnetIds,omitempty"`
+
+    // IpAddresses 私网IP地址列表。
+    IpAddresses []string `json:"ipAddresses,omitempty"`
+
+    // InstanceIds 实例ID列表，返回绑定了指定实例的高可用虚拟IP。
+    InstanceIds []string `json:"instanceIds,omitempty"`
+
+    // PageSize 分页大小，最大为1000。
+    PageSize *int `json:"pageSize,omitempty"`
+
+    // PageNum 分页页码。
+    PageNum *int `json:"pageNum,omitempty"`
+
+    // TagKeys 根据标签键进行搜索。
+    // 最多支持20个标签键。
+    TagKeys []string `json:"tagKeys,omitempty"`
+
+    // Tags 根据标签进行搜索。
+    // 最多支持20个标签。
+    Tags []*Tag `json:"tags,omitempty"`
+
+}
+
+type DescribeHaVipsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeHaVipsResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeHaVipsResponseParams 
+type DescribeHaVipsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // TotalCount 符合条件的数据总数。
+    TotalCount *int `json:"totalCount,omitempty"`
+
+    // DataSet HaVip结果集。
+    DataSet []*HaVipInfo `json:"dataSet,omitempty"`
+
+}
+
+// HaVipInfo 高可用虚拟IP信息。
+type HaVipInfo struct {
+
+    // HaVipId 高可用虚拟IP的ID。
+    HaVipId *string `json:"haVipId,omitempty"`
+
+    // Name 高可用虚拟IP名称。
+    Name *string `json:"name,omitempty"`
+
+    // RegionId 地域ID。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // VpcId 所属VPC的ID。
+    VpcId *string `json:"vpcId,omitempty"`
+
+    // SubnetId 所属子网ID。
+    SubnetId *string `json:"subnetId,omitempty"`
+
+    // SecurityGroupId 安全组ID。
+    SecurityGroupId *string `json:"securityGroupId,omitempty"`
+
+    // IpAddress 高可用虚拟IP的私网IPv4地址。
+    IpAddress *string `json:"ipAddress,omitempty"`
+
+    // AssociatedInstances 关联的实例ID列表。
+    AssociatedInstances []string `json:"associatedInstances,omitempty"`
+
+    // MasterInstanceId 当前主实例ID，未绑定实例时为null。
+    MasterInstanceId *string `json:"masterInstanceId,omitempty"`
+
+    // AssociatedEips 关联的弹性公网IP信息列表，未绑定时为空列表。
+    AssociatedEips []*HaVipEipAttachment `json:"associatedEips,omitempty"`
+
+    // CreateTime 创建时间。
+    CreateTime *string `json:"createTime,omitempty"`
+
+    // Tags 标签列表。
+    Tags *Tags `json:"tags,omitempty"`
+
+}
+
+// HaVipEipAttachment HaVip关联EIP信息。
+type HaVipEipAttachment struct {
+
+    // EipId 弹性公网IP的ID。
+    EipId *string `json:"eipId,omitempty"`
+
+    // EipAddress 弹性公网IP地址。
+    EipAddress *string `json:"eipAddress,omitempty"`
+
+}
+
+// ModifyHaVipAttributeRequest 
+type ModifyHaVipAttributeRequest struct {
+    *common.BaseRequest
+
+    // HaVipId 高可用虚拟IP的ID。
+    HaVipId *string `json:"haVipId,omitempty"`
+
+    // Name HaVip名称。
+    // 长度1到64个字符。
+    Name *string `json:"name,omitempty"`
+
+}
+
+type ModifyHaVipAttributeResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// DeleteHaVipRequest 
+type DeleteHaVipRequest struct {
+    *common.BaseRequest
+
+    // HaVipId 高可用虚拟IP的ID。
+    HaVipId *string `json:"haVipId,omitempty"`
+
+}
+
+type DeleteHaVipResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// AssociateHaVipRequest 
+type AssociateHaVipRequest struct {
+    *common.BaseRequest
+
+    // HaVipId 高可用虚拟IP的ID。
+    HaVipId *string `json:"haVipId,omitempty"`
+
+    // InstanceId 要绑定的实例ID。
+    // 实例网卡必须与HaVip处于同一子网。
+    InstanceId *string `json:"instanceId,omitempty"`
+
+}
+
+type AssociateHaVipResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// UnassociateHaVipRequest 
+type UnassociateHaVipRequest struct {
+    *common.BaseRequest
+
+    // HaVipId 高可用虚拟IP的ID。
+    HaVipId *string `json:"haVipId,omitempty"`
+
+    // InstanceId 要解绑的实例ID。
+    InstanceId *string `json:"instanceId,omitempty"`
+
+}
+
+type UnassociateHaVipResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
 
 }
 

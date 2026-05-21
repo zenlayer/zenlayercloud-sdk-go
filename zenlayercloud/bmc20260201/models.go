@@ -485,13 +485,13 @@ type InstanceType struct {
     // 单位：GB。
     DiskInfo *InstanceDiskInfo `json:"diskInfo,omitempty"`
 
-    // VpuVendor VPU 供应商
+    // VpuVendor 
     VpuVendor *string `json:"vpuVendor,omitempty"`
 
-    // VpuCard VPU 型号。示例：T1U
+    // VpuCard 
     VpuCard *string `json:"vpuCard,omitempty"`
 
-    // VpuCount VPU 数量
+    // VpuCount 
     VpuCount *int `json:"vpuCount,omitempty"`
 
 }
@@ -3617,9 +3617,6 @@ type BackendInfo struct {
     // InstanceId 实例ID。
     InstanceId *string `json:"instanceId,omitempty"`
 
-    // InstanceType 实例类型。
-    InstanceType *string `json:"instanceType,omitempty"`
-
     // InstanceName 实例名称。
     InstanceName *string `json:"instanceName,omitempty"`
 
@@ -3946,9 +3943,6 @@ type DescribeBackendsRequest struct {
     // BackendName 后端配置服务器的名称。
     BackendName *string `json:"backendName,omitempty"`
 
-    // InstanceType 实例类型。默认为`BM`
-    InstanceType *string `json:"instanceType,omitempty"`
-
     // PageNum 返回的分页数。
     PageNum *int `json:"pageNum,omitempty"`
 
@@ -3990,9 +3984,6 @@ type RegisterBackendRequest struct {
 
     // InstanceId 裸金属实例ID。
     InstanceId *string `json:"instanceId,omitempty"`
-
-    // InstanceType 实例类型。
-    InstanceType *string `json:"instanceType,omitempty"`
 
     // ClientToken 用于保证请求的幂等性。
     ClientToken *string `json:"clientToken,omitempty"`

@@ -1663,7 +1663,7 @@ func NewModifyNetworkInterfacePublicIPv6BandwidthLimitModeResponse() (response *
 	return
 }
 
-// ModifyNetworkInterfacePublicIPv6BandwidthLimitMode 修改指定公网IPv6的带宽限速模式。LOOSE为宽松模式（允许短时突发），STRICT为严格模式（不允许突发）。仅支持已配置固定带宽的IPv6。
+// ModifyNetworkInterfacePublicIPv6BandwidthLimitMode 修改指定公网IPv6的带宽限速模式。
 func (c *Client) ModifyNetworkInterfacePublicIPv6BandwidthLimitMode(request *ModifyNetworkInterfacePublicIPv6BandwidthLimitModeRequest) (response *ModifyNetworkInterfacePublicIPv6BandwidthLimitModeResponse, err error) {
 	response = NewModifyNetworkInterfacePublicIPv6BandwidthLimitModeResponse()
 	err = c.ApiCall(request, response)
@@ -2491,7 +2491,7 @@ func NewModifyEipBandwidthLimitModeResponse() (response *ModifyEipBandwidthLimit
 	return
 }
 
-// ModifyEipBandwidthLimitMode 修改指定弹性公网IP的带宽限速模式。LOOSE为宽松模式（允许短时突发），STRICT为严格模式（不允许突发）。仅支持已配置固定带宽的IP。
+// ModifyEipBandwidthLimitMode 修改指定弹性公网IP的带宽限速模式。
 func (c *Client) ModifyEipBandwidthLimitMode(request *ModifyEipBandwidthLimitModeRequest) (response *ModifyEipBandwidthLimitModeResponse, err error) {
 	response = NewModifyEipBandwidthLimitModeResponse()
 	err = c.ApiCall(request, response)
@@ -3227,7 +3227,7 @@ func NewModifyUnmanagedEgressIpBandwidthLimitModeResponse() (response *ModifyUnm
 	return
 }
 
-// ModifyUnmanagedEgressIpBandwidthLimitMode 修改指定非托管出口IP的带宽限速模式。LOOSE为宽松模式（允许短时突发），STRICT为严格模式（不允许突发）。仅支持已配置固定带宽的IP。
+// ModifyUnmanagedEgressIpBandwidthLimitMode 修改指定非托管出口IP的带宽限速模式。
 func (c *Client) ModifyUnmanagedEgressIpBandwidthLimitMode(request *ModifyUnmanagedEgressIpBandwidthLimitModeRequest) (response *ModifyUnmanagedEgressIpBandwidthLimitModeResponse, err error) {
 	response = NewModifyUnmanagedEgressIpBandwidthLimitModeResponse()
 	err = c.ApiCall(request, response)
@@ -4564,6 +4564,144 @@ func NewDescribeQosPolicyGroupTrafficResponse() (response *DescribeQosPolicyGrou
 // DescribeQosPolicyGroupTraffic 查询QoS策略组的聚合流量监控数据。
 func (c *Client) DescribeQosPolicyGroupTraffic(request *DescribeQosPolicyGroupTrafficRequest) (response *DescribeQosPolicyGroupTrafficResponse, err error) {
 	response = NewDescribeQosPolicyGroupTrafficResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewCreateHaVipRequest() (request *CreateHaVipRequest) {
+	request = &CreateHaVipRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateHaVip")
+
+	return
+}
+
+func NewCreateHaVipResponse() (response *CreateHaVipResponse) {
+	response = &CreateHaVipResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CreateHaVip 创建一个高可用虚拟IP。
+func (c *Client) CreateHaVip(request *CreateHaVipRequest) (response *CreateHaVipResponse, err error) {
+	response = NewCreateHaVipResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeHaVipsRequest() (request *DescribeHaVipsRequest) {
+	request = &DescribeHaVipsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeHaVips")
+
+	return
+}
+
+func NewDescribeHaVipsResponse() (response *DescribeHaVipsResponse) {
+	response = &DescribeHaVipsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeHaVips 查询一个或多个高可用虚拟IP的详细信息。
+func (c *Client) DescribeHaVips(request *DescribeHaVipsRequest) (response *DescribeHaVipsResponse, err error) {
+	response = NewDescribeHaVipsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyHaVipAttributeRequest() (request *ModifyHaVipAttributeRequest) {
+	request = &ModifyHaVipAttributeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyHaVipAttribute")
+
+	return
+}
+
+func NewModifyHaVipAttributeResponse() (response *ModifyHaVipAttributeResponse) {
+	response = &ModifyHaVipAttributeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyHaVipAttribute 修改高可用虚拟IP的名称。
+func (c *Client) ModifyHaVipAttribute(request *ModifyHaVipAttributeRequest) (response *ModifyHaVipAttributeResponse, err error) {
+	response = NewModifyHaVipAttributeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteHaVipRequest() (request *DeleteHaVipRequest) {
+	request = &DeleteHaVipRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteHaVip")
+
+	return
+}
+
+func NewDeleteHaVipResponse() (response *DeleteHaVipResponse) {
+	response = &DeleteHaVipResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeleteHaVip 删除高可用虚拟IP。
+func (c *Client) DeleteHaVip(request *DeleteHaVipRequest) (response *DeleteHaVipResponse, err error) {
+	response = NewDeleteHaVipResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewAssociateHaVipRequest() (request *AssociateHaVipRequest) {
+	request = &AssociateHaVipRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "AssociateHaVip")
+
+	return
+}
+
+func NewAssociateHaVipResponse() (response *AssociateHaVipResponse) {
+	response = &AssociateHaVipResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// AssociateHaVip 将高可用虚拟IP绑定到一台ZEC实例。
+func (c *Client) AssociateHaVip(request *AssociateHaVipRequest) (response *AssociateHaVipResponse, err error) {
+	response = NewAssociateHaVipResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewUnassociateHaVipRequest() (request *UnassociateHaVipRequest) {
+	request = &UnassociateHaVipRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "UnassociateHaVip")
+
+	return
+}
+
+func NewUnassociateHaVipResponse() (response *UnassociateHaVipResponse) {
+	response = &UnassociateHaVipResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// UnassociateHaVip 将高可用虚拟IP从实例解绑。
+func (c *Client) UnassociateHaVip(request *UnassociateHaVipRequest) (response *UnassociateHaVipResponse, err error) {
+	response = NewUnassociateHaVipResponse()
 	err = c.ApiCall(request, response)
 	return
 }
