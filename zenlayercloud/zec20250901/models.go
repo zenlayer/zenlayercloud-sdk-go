@@ -121,10 +121,10 @@ type InstanceTypeQuotaItem struct {
     // 单位：GiB。
     Memory *int `json:"memory,omitempty"`
 
-    // Bps 单张网卡的带宽上限。
+    // Bps 单张网卡的带宽上限。单位：比特/秒。
     Bps *int64 `json:"bps,omitempty"`
 
-    // Pps 单张网卡的收发包上限。
+    // Pps 单张网卡的收发包上限。单位：个/秒。
     Pps *int64 `json:"pps,omitempty"`
 
     // InternetMaxBandwidthOutLimit 最大出口带宽限制。
@@ -1815,6 +1815,56 @@ type DeleteImageCopyResponse struct {
     Response struct {
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response,omitempty"`
+
+}
+
+type DescribeImageCopyProgressRequest struct {
+    *common.BaseRequest
+
+    // ImageId 自定义镜像 ID。
+    ImageId *string `json:"imageId,omitempty"`
+
+}
+
+type DescribeImageCopyProgressResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeImageCopyProgressResponseParams `json:"response,omitempty"`
+
+}
+
+type DescribeImageCopyProgressResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // DataSet 镜像复制进度列表，仅包含进行中的目标区域。
+    // 镜像状态非SYNCING时返回空列表。
+    DataSet []*ImageCopyProgress `json:"dataSet,omitempty"`
+
+}
+
+// ImageCopyProgress 描述自定义镜像在单个目标区域的复制进度。
+type ImageCopyProgress struct {
+
+    // DestRegionId 目标区域 ID。
+    DestRegionId *string `json:"destRegionId,omitempty"`
+
+    // DestRegionName 目标区域名称。
+    DestRegionName *string `json:"destRegionName,omitempty"`
+
+    // SyncStage 复制阶段。
+    SyncStage *string `json:"syncStage,omitempty"`
+
+    // Queued 是否处于排队等待中，传输任务正在等待系统调度执行。
+    Queued *bool `json:"queued,omitempty"`
+
+    // SyncPercent 复制进度百分比，保留2位小数（如74.23）。
+    SyncPercent *float64 `json:"syncPercent,omitempty"`
+
+    // ErrorInfo 该目标区域复制异常或失败时返回的错误信息。
+    ErrorInfo *string `json:"errorInfo,omitempty"`
 
 }
 
@@ -6626,6 +6676,299 @@ type ModifyUnmanagedEgressIpBandwidthLimitModeResponse struct {
 
 }
 
+type DescribeQosPolicyGroupsRequest struct {
+    *common.BaseRequest
+
+    // QosPolicyGroupIds QoS策略组ID列表。
+    // 最多支持100个ID查询。
+    QosPolicyGroupIds []string `json:"qosPolicyGroupIds,omitempty"`
+
+    // RegionId QoS策略组所在地域ID。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // ResourceGroupId 根据资源组ID进行过滤。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // ResourceId 成员资源ID（EIP、IPv6或UNMANAGED出口IP的console侧UUID）。
+    // 返回包含该资源的策略组。
+    ResourceId *string `json:"resourceId,omitempty"`
+
+    // PageSize 返回的分页大小。
+    // 默认为20，最大为1000。
+    PageSize *int `json:"pageSize,omitempty"`
+
+    // PageNum 返回的分页数。
+    // 默认为1。
+    PageNum *int `json:"pageNum,omitempty"`
+
+    // TagKeys 根据标签键进行搜索。
+    // 最长不得超过20个标签键。
+    TagKeys []string `json:"tagKeys,omitempty"`
+
+    // Tags 根据标签进行搜索。
+    // 最长不得超过20个标签。
+    Tags []*Tag `json:"tags,omitempty"`
+
+}
+
+type DescribeQosPolicyGroupsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeQosPolicyGroupsResponseParams `json:"response,omitempty"`
+
+}
+
+type DescribeQosPolicyGroupsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // TotalCount 符合条件的数据总数。
+    TotalCount *int `json:"totalCount,omitempty"`
+
+    // DataSet QoS策略组结果集。
+    DataSet []*QosPolicyGroup `json:"dataSet,omitempty"`
+
+}
+
+// QosPolicyGroup QoS策略组信息。
+type QosPolicyGroup struct {
+
+    // QosPolicyGroupId QoS策略组ID。
+    QosPolicyGroupId *string `json:"qosPolicyGroupId,omitempty"`
+
+    // Name QoS策略组名称。
+    Name *string `json:"name,omitempty"`
+
+    // RegionId 地域ID。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // BandwidthLimit 带宽限制，单位Mbps。
+    BandwidthLimit *int64 `json:"bandwidthLimit,omitempty"`
+
+    // RateLimitMode 限速模式。
+    RateLimitMode *string `json:"rateLimitMode,omitempty"`
+
+    // MemberCount 成员数量。
+    MemberCount *int `json:"memberCount,omitempty"`
+
+    // Members 成员列表。
+    Members []*QosPolicyGroupMember `json:"members,omitempty"`
+
+    // CreateTime 创建时间。
+    CreateTime *string `json:"createTime,omitempty"`
+
+    // ResourceGroup 所属资源组信息。
+    ResourceGroup *ResourceGroupInfo `json:"resourceGroup,omitempty"`
+
+    // Tags 标签列表。
+    Tags *Tags `json:"tags,omitempty"`
+
+}
+
+// QosPolicyGroupMember QoS策略组成员信息。
+type QosPolicyGroupMember struct {
+
+    // ResourceId IP 资源 的ID。
+    ResourceId *string `json:"resourceId,omitempty"`
+
+    // IpType IP类型。
+    IpType *string `json:"ipType,omitempty"`
+
+}
+
+type CreateQosPolicyGroupRequest struct {
+    *common.BaseRequest
+
+    // RegionId QoS策略组所在地域ID。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // Name QoS策略组名称。
+    // 长度不能超过64个字符。
+    Name *string `json:"name,omitempty"`
+
+    // BandwidthLimit 带宽限制，单位Mbps。
+    // 最大不得超过100000000 Mbps。
+    BandwidthLimit *int64 `json:"bandwidthLimit,omitempty"`
+
+    // RateLimitMode 限速模式。
+    RateLimitMode *string `json:"rateLimitMode,omitempty"`
+
+    // ResourceGroupId 资源组ID。
+    // 不填则加入默认资源组。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // Tags 标签列表。
+    Tags *TagAssociation `json:"tags,omitempty"`
+
+}
+
+type CreateQosPolicyGroupResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *CreateQosPolicyGroupResponseParams `json:"response,omitempty"`
+
+}
+
+type CreateQosPolicyGroupResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // QosPolicyGroupId 新建QoS策略组ID。
+    QosPolicyGroupId *string `json:"qosPolicyGroupId,omitempty"`
+
+}
+
+type ModifyQosPolicyGroupRequest struct {
+    *common.BaseRequest
+
+    // QosPolicyGroupId QoS策略组ID。
+    QosPolicyGroupId *string `json:"qosPolicyGroupId,omitempty"`
+
+    // Name QoS策略组新名称。
+    // 长度不能超过64个字符。
+    Name *string `json:"name,omitempty"`
+
+    // BandwidthLimit 新的带宽限制，单位Mbps。
+    // 最大不得超过100000000 Mbps。
+    BandwidthLimit *int64 `json:"bandwidthLimit,omitempty"`
+
+    // RateLimitMode 新的限速模式。
+    RateLimitMode *string `json:"rateLimitMode,omitempty"`
+
+}
+
+type ModifyQosPolicyGroupResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type AddQosPolicyGroupMembersRequest struct {
+    *common.BaseRequest
+
+    // QosPolicyGroupId QoS策略组ID。
+    QosPolicyGroupId *string `json:"qosPolicyGroupId,omitempty"`
+
+    // Members 要加入策略组的成员列表。
+    Members []*QosPolicyGroupMember `json:"members,omitempty"`
+
+}
+
+type AddQosPolicyGroupMembersResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type RemoveQosPolicyGroupMembersRequest struct {
+    *common.BaseRequest
+
+    // QosPolicyGroupId QoS策略组ID。
+    QosPolicyGroupId *string `json:"qosPolicyGroupId,omitempty"`
+
+    // ResourceIds 要移出策略组的成员资源ID列表。
+    // 不传则移除该策略组的全部成员。
+    ResourceIds []string `json:"resourceIds,omitempty"`
+
+}
+
+type RemoveQosPolicyGroupMembersResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type DeleteQosPolicyGroupRequest struct {
+    *common.BaseRequest
+
+    // QosPolicyGroupId QoS策略组ID。
+    QosPolicyGroupId *string `json:"qosPolicyGroupId,omitempty"`
+
+}
+
+type DeleteQosPolicyGroupResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type DescribeQosPolicyGroupTrafficRequest struct {
+    *common.BaseRequest
+
+    // QosPolicyGroupId QoS策略组ID。
+    QosPolicyGroupId *string `json:"qosPolicyGroupId,omitempty"`
+
+    // StartTime 查询开始时间。
+    // 时间格式：yyyy-MM-ddTHH:mm:ssZ。
+    StartTime *string `json:"startTime,omitempty"`
+
+    // EndTime 查询结束时间。
+    // 时间格式：yyyy-MM-ddTHH:mm:ssZ。
+    EndTime *string `json:"endTime,omitempty"`
+
+    // Period 数据粒度，单位秒。
+    // 支持的值：60、300、600、3600。
+    Period *int `json:"period,omitempty"`
+
+}
+
+type DescribeQosPolicyGroupTrafficResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeQosPolicyGroupTrafficResponseParams `json:"response,omitempty"`
+
+}
+
+type DescribeQosPolicyGroupTrafficResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // DataSet 流量监控数据点列表。
+    DataSet []*TrafficDataPoint `json:"dataSet,omitempty"`
+
+}
+
+// TrafficDataPoint 流量监控数据点。
+type TrafficDataPoint struct {
+
+    // Timestamp 数据点时间。
+    // 时间格式：yyyy-MM-ddTHH:mm:ssZ。
+    Timestamp *string `json:"timestamp,omitempty"`
+
+    // BandwidthIn 入向带宽，单位bps。
+    BandwidthIn *int64 `json:"bandwidthIn,omitempty"`
+
+    // BandwidthOut 出向带宽，单位bps。
+    BandwidthOut *int64 `json:"bandwidthOut,omitempty"`
+
+}
+
 type DescribeVpcsRequest struct {
     *common.BaseRequest
 
@@ -9023,299 +9366,6 @@ type ModifyInstancePlacementResponse struct {
     Response struct {
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response,omitempty"`
-
-}
-
-type DescribeQosPolicyGroupsRequest struct {
-    *common.BaseRequest
-
-    // QosPolicyGroupIds QoS策略组ID列表。
-    // 最多支持100个ID查询。
-    QosPolicyGroupIds []string `json:"qosPolicyGroupIds,omitempty"`
-
-    // RegionId QoS策略组所在地域ID。
-    RegionId *string `json:"regionId,omitempty"`
-
-    // ResourceGroupId 根据资源组ID进行过滤。
-    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
-
-    // ResourceId 成员资源ID（EIP、IPv6或UNMANAGED出口IP的console侧UUID）。
-    // 返回包含该资源的策略组。
-    ResourceId *string `json:"resourceId,omitempty"`
-
-    // PageSize 返回的分页大小。
-    // 默认为20，最大为1000。
-    PageSize *int `json:"pageSize,omitempty"`
-
-    // PageNum 返回的分页数。
-    // 默认为1。
-    PageNum *int `json:"pageNum,omitempty"`
-
-    // TagKeys 根据标签键进行搜索。
-    // 最长不得超过20个标签键。
-    TagKeys []string `json:"tagKeys,omitempty"`
-
-    // Tags 根据标签进行搜索。
-    // 最长不得超过20个标签。
-    Tags []*Tag `json:"tags,omitempty"`
-
-}
-
-type DescribeQosPolicyGroupsResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeQosPolicyGroupsResponseParams `json:"response,omitempty"`
-
-}
-
-type DescribeQosPolicyGroupsResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // TotalCount 符合条件的数据总数。
-    TotalCount *int `json:"totalCount,omitempty"`
-
-    // DataSet QoS策略组结果集。
-    DataSet []*QosPolicyGroup `json:"dataSet,omitempty"`
-
-}
-
-// QosPolicyGroup QoS策略组信息。
-type QosPolicyGroup struct {
-
-    // QosPolicyGroupId QoS策略组ID。
-    QosPolicyGroupId *string `json:"qosPolicyGroupId,omitempty"`
-
-    // Name QoS策略组名称。
-    Name *string `json:"name,omitempty"`
-
-    // RegionId 地域ID。
-    RegionId *string `json:"regionId,omitempty"`
-
-    // BandwidthLimit 带宽限制，单位Mbps。
-    BandwidthLimit *int64 `json:"bandwidthLimit,omitempty"`
-
-    // RateLimitMode 限速模式。
-    RateLimitMode *string `json:"rateLimitMode,omitempty"`
-
-    // MemberCount 成员数量。
-    MemberCount *int `json:"memberCount,omitempty"`
-
-    // Members 成员列表。
-    Members []*QosPolicyGroupMember `json:"members,omitempty"`
-
-    // CreateTime 创建时间。
-    CreateTime *string `json:"createTime,omitempty"`
-
-    // ResourceGroup 所属资源组信息。
-    ResourceGroup *ResourceGroupInfo `json:"resourceGroup,omitempty"`
-
-    // Tags 标签列表。
-    Tags *Tags `json:"tags,omitempty"`
-
-}
-
-// QosPolicyGroupMember QoS策略组成员信息。
-type QosPolicyGroupMember struct {
-
-    // ResourceId IP 资源 的ID。
-    ResourceId *string `json:"resourceId,omitempty"`
-
-    // IpType IP类型。
-    IpType *string `json:"ipType,omitempty"`
-
-}
-
-type CreateQosPolicyGroupRequest struct {
-    *common.BaseRequest
-
-    // RegionId QoS策略组所在地域ID。
-    RegionId *string `json:"regionId,omitempty"`
-
-    // Name QoS策略组名称。
-    // 长度不能超过64个字符。
-    Name *string `json:"name,omitempty"`
-
-    // BandwidthLimit 带宽限制，单位Mbps。
-    // 最大不得超过100000000 Mbps。
-    BandwidthLimit *int64 `json:"bandwidthLimit,omitempty"`
-
-    // RateLimitMode 限速模式。
-    RateLimitMode *string `json:"rateLimitMode,omitempty"`
-
-    // ResourceGroupId 资源组ID。
-    // 不填则加入默认资源组。
-    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
-
-    // Tags 标签列表。
-    Tags *TagAssociation `json:"tags,omitempty"`
-
-}
-
-type CreateQosPolicyGroupResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *CreateQosPolicyGroupResponseParams `json:"response,omitempty"`
-
-}
-
-type CreateQosPolicyGroupResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // QosPolicyGroupId 新建QoS策略组ID。
-    QosPolicyGroupId *string `json:"qosPolicyGroupId,omitempty"`
-
-}
-
-type ModifyQosPolicyGroupRequest struct {
-    *common.BaseRequest
-
-    // QosPolicyGroupId QoS策略组ID。
-    QosPolicyGroupId *string `json:"qosPolicyGroupId,omitempty"`
-
-    // Name QoS策略组新名称。
-    // 长度不能超过64个字符。
-    Name *string `json:"name,omitempty"`
-
-    // BandwidthLimit 新的带宽限制，单位Mbps。
-    // 最大不得超过100000000 Mbps。
-    BandwidthLimit *int64 `json:"bandwidthLimit,omitempty"`
-
-    // RateLimitMode 新的限速模式。
-    RateLimitMode *string `json:"rateLimitMode,omitempty"`
-
-}
-
-type ModifyQosPolicyGroupResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-type AddQosPolicyGroupMembersRequest struct {
-    *common.BaseRequest
-
-    // QosPolicyGroupId QoS策略组ID。
-    QosPolicyGroupId *string `json:"qosPolicyGroupId,omitempty"`
-
-    // Members 要加入策略组的成员列表。
-    Members []*QosPolicyGroupMember `json:"members,omitempty"`
-
-}
-
-type AddQosPolicyGroupMembersResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-type RemoveQosPolicyGroupMembersRequest struct {
-    *common.BaseRequest
-
-    // QosPolicyGroupId QoS策略组ID。
-    QosPolicyGroupId *string `json:"qosPolicyGroupId,omitempty"`
-
-    // ResourceIds 要移出策略组的成员资源ID列表。
-    // 不传则移除该策略组的全部成员。
-    ResourceIds []string `json:"resourceIds,omitempty"`
-
-}
-
-type RemoveQosPolicyGroupMembersResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-type DeleteQosPolicyGroupRequest struct {
-    *common.BaseRequest
-
-    // QosPolicyGroupId QoS策略组ID。
-    QosPolicyGroupId *string `json:"qosPolicyGroupId,omitempty"`
-
-}
-
-type DeleteQosPolicyGroupResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-type DescribeQosPolicyGroupTrafficRequest struct {
-    *common.BaseRequest
-
-    // QosPolicyGroupId QoS策略组ID。
-    QosPolicyGroupId *string `json:"qosPolicyGroupId,omitempty"`
-
-    // StartTime 查询开始时间。
-    // 时间格式：yyyy-MM-ddTHH:mm:ssZ。
-    StartTime *string `json:"startTime,omitempty"`
-
-    // EndTime 查询结束时间。
-    // 时间格式：yyyy-MM-ddTHH:mm:ssZ。
-    EndTime *string `json:"endTime,omitempty"`
-
-    // Period 数据粒度，单位秒。
-    // 支持的值：60、300、600、3600。
-    Period *int `json:"period,omitempty"`
-
-}
-
-type DescribeQosPolicyGroupTrafficResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeQosPolicyGroupTrafficResponseParams `json:"response,omitempty"`
-
-}
-
-type DescribeQosPolicyGroupTrafficResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // DataSet 流量监控数据点列表。
-    DataSet []*TrafficDataPoint `json:"dataSet,omitempty"`
-
-}
-
-// TrafficDataPoint 流量监控数据点。
-type TrafficDataPoint struct {
-
-    // Timestamp 数据点时间。
-    // 时间格式：yyyy-MM-ddTHH:mm:ssZ。
-    Timestamp *string `json:"timestamp,omitempty"`
-
-    // BandwidthIn 入向带宽，单位bps。
-    BandwidthIn *int64 `json:"bandwidthIn,omitempty"`
-
-    // BandwidthOut 出向带宽，单位bps。
-    BandwidthOut *int64 `json:"bandwidthOut,omitempty"`
 
 }
 
