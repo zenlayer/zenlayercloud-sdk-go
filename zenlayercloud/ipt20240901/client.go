@@ -35,6 +35,25 @@ func NewClient(config *common.Config, secretKeyId, secretKeyPassword string) (cl
 	}
 	return client, nil
 }
+func NewClientWithToken(token string) (client *Client, err error) {
+	return NewClientWithTokenAndConfig(common.NewConfig(), token)
+}
+
+func NewClientWithTokenAndConfig(config *common.Config, token string) (client *Client, err error) {
+	client = &Client{}
+
+	err = client.InitWithTokenCredential(common.NewTokenCredential(token))
+	if err != nil {
+		return nil, err
+	}
+	err = client.WithConfig(config)
+
+	if err != nil {
+		return nil, err
+	}
+	return client, nil
+}
+
 
 
 func NewDescribeIPTransitDatacentersRequest() (request *DescribeIPTransitDatacentersRequest) {

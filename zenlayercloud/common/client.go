@@ -23,22 +23,37 @@ var version = "0.0.1"
 const SdkLang = "go"
 
 type Client struct {
-	credential         *Credential
-	httpClient         *http.Client
-	logger             *log.Logger
-	config             *Config
-	debug              bool
-	signatureAlgorithm string
-	requestClient      string
+	credential    CredentialIface
+	httpClient    *http.Client
+	logger        *log.Logger
+	config        *Config
+	debug         bool
+	requestClient string
 }
 
+// InitWithCredential initializes the client with HMAC-SHA256 signing credentials.
 func (c *Client) InitWithCredential(credential *Credential) (err error) {
-	c.signatureAlgorithm = "ZC2-HMAC-SHA256"
-	c.credential = credential
 	if credential.SecretKeyId == "" || credential.SecretKeyPassword == "" {
 		return NewZenlayerCloudSdkError(CredentialMissingError, "SecretKeyId or SecretKeyPassword is missing", "")
 	}
+	c.credential = credential
 	return
+}
+
+// InitWithTokenCredential initializes the client with a Bearer token credential.
+func (c *Client) InitWithTokenCredential(credential *TokenCredential) (err error) {
+	if credential.Token == "" {
+		return NewZenlayerCloudSdkError(CredentialMissingError, "Token is missing", "")
+	}
+	c.credential = credential
+	return
+}
+
+// WithCredential sets the credential on the client and returns the client for chaining.
+// Accepts any CredentialIface implementation (Credential or TokenCredential).
+func (c *Client) WithCredential(credential CredentialIface) *Client {
+	c.credential = credential
+	return c
 }
 
 func (c *Client) WithConfig(config *Config) error {
@@ -101,11 +116,6 @@ func (c *Client) WithRequestClient(rc string) *Client {
 }
 
 func (c *Client) ApiCall(request Request, response Response) (err error) {
-	// client validation
-	//err = Validate(request)
-	//if err != nil {
-	//	return err
-	//}
 	if request.GetScheme() == "" {
 		request.SetScheme(c.config.Scheme)
 	}
@@ -115,7 +125,6 @@ func (c *Client) ApiCall(request Request, response Response) (err error) {
 
 	headers := request.GetHeaders()
 	headers["x-zc-version"] = request.GetApiVersion()
-	headers["x-zc-signature-method"] = c.signatureAlgorithm
 	headers["x-zc-service"] = request.GetServiceName()
 	headers["x-zc-action"] = request.GetAction()
 	headers["x-zc-sdk-version"] = version
@@ -133,11 +142,16 @@ func (c *Client) ApiCall(request Request, response Response) (err error) {
 	}
 	request.SetBody(body)
 
-	authorization, err := c.signRequest(request)
-	if err != nil {
-		return err
+	if token := c.credential.GetToken(); token != "" {
+		headers["Authorization"] = "Bearer " + token
+	} else {
+		headers["x-zc-signature-method"] = "ZC2-HMAC-SHA256"
+		authorization, err := c.signRequest(request)
+		if err != nil {
+			return err
+		}
+		headers["Authorization"] = authorization
 	}
-	request.GetHeaders()["Authorization"] = authorization
 
 	httpResponse, err := c.apiCallWithRetry(request)
 	if err != nil {
@@ -148,7 +162,6 @@ func (c *Client) ApiCall(request Request, response Response) (err error) {
 }
 
 func (c *Client) apiCallWithRetry(request Request) (resp *http.Response, err error) {
-
 
 	var maxRetryTimes int
 	var autoRetries bool
@@ -222,6 +235,7 @@ func (c *Client) sendHttp(request *http.Request) (response *http.Response, err e
 }
 
 func (c *Client) signRequest(request Request) (string, error) {
+	const algorithm = "ZC2-HMAC-SHA256"
 	httpRequestMethod := request.GetHttpMethod()
 	canonicalURI := "/"
 	headers := request.GetHeaders()
@@ -243,12 +257,12 @@ func (c *Client) signRequest(request Request) (string, error) {
 
 	request.GetHeaders()["x-zc-timestamp"] = timestamp
 	string2sign := fmt.Sprintf("%s\n%s\n%s",
-		c.signatureAlgorithm,
+		algorithm,
 		timestamp,
 		hashedCanonicalRequest)
 	signature := hex.EncodeToString([]byte(hmacsha256(string2sign, c.credential.GetSecretKeyPassword())))
 	authorization := fmt.Sprintf("%s Credential=%s, SignedHeaders=%s, Signature=%s",
-		c.signatureAlgorithm,
+		algorithm,
 		c.credential.GetSecretKeyId(),
 		signedHeaders,
 		signature)
