@@ -352,6 +352,9 @@ type InquiryPriceCreateInstanceResponseParams struct {
     // Ipv4BandwidthPrice 公网IPv4的带宽价格。
     Ipv4BandwidthPrice *PriceItem `json:"ipv4BandwidthPrice,omitempty"`
 
+    // Ipv4BandwidthPrices 各流量方向的IPv4带宽价格明细。仅当`internetChargeType`有值时返回。PathBasedBandwidthIP 线路返回多项（ipv4BandwidthPrice 为 null）；其他线路返回单项（trafficType=ALL）。
+    Ipv4BandwidthPrices []*BandwidthPriceResponseItem `json:"ipv4BandwidthPrices,omitempty"`
+
     // Ipv6Price IPv6的价格。
     Ipv6Price *PriceItem `json:"ipv6Price,omitempty"`
 
@@ -434,6 +437,18 @@ type StepPrice struct {
 
     // DiscountUnitPrice 阶梯折后价。
     DiscountUnitPrice *float64 `json:"discountUnitPrice,omitempty"`
+
+}
+
+// BandwidthPriceResponseItem 带宽价格明细。
+type BandwidthPriceResponseItem struct {
+
+    // TrafficType 流量方向类型。
+    // LOCAL：境内；INTERNATIONAL：境外；ALL：全部方向。
+    TrafficType *string `json:"trafficType,omitempty"`
+
+    // Price 该方向的带宽价格。
+    Price *PriceItem `json:"price,omitempty"`
 
 }
 
@@ -1457,6 +1472,40 @@ type MetricValue struct {
 
 }
 
+// InquiryPriceModifyInstanceTypeRequest 
+type InquiryPriceModifyInstanceTypeRequest struct {
+    *common.BaseRequest
+
+    // InstanceId 要变更规格的实例ID。
+    InstanceId *string `json:"instanceId,omitempty"`
+
+    // InstanceType 变更的目标实例规格。
+    InstanceType *string `json:"instanceType,omitempty"`
+
+}
+
+type InquiryPriceModifyInstanceTypeResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *InquiryPriceModifyInstanceTypeResponseParams `json:"response,omitempty"`
+
+}
+
+// InquiryPriceModifyInstanceTypeResponseParams 
+type InquiryPriceModifyInstanceTypeResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // SpecPrice 变更后规格的价格。
+    SpecPrice *PriceItem `json:"specPrice,omitempty"`
+
+    // SystemDiskPrice 系统盘的价格。
+    SystemDiskPrice *PriceItem `json:"systemDiskPrice,omitempty"`
+
+}
+
 // DescribeImagesRequest 
 type DescribeImagesRequest struct {
     *common.BaseRequest
@@ -2419,6 +2468,66 @@ type DescribeDiskMonitorDataResponseParams struct {
 
 }
 
+// InquiryPriceResizeDiskRequest 
+type InquiryPriceResizeDiskRequest struct {
+    *common.BaseRequest
+
+    // DiskId 云硬盘ID。
+    DiskId *string `json:"diskId,omitempty"`
+
+    // DiskSize 云硬盘扩容后的目标大小。
+    // 单位：GiB。
+    DiskSize *int `json:"diskSize,omitempty"`
+
+}
+
+type InquiryPriceResizeDiskResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *InquiryPriceResizeDiskResponseParams `json:"response,omitempty"`
+
+}
+
+// InquiryPriceResizeDiskResponseParams 
+type InquiryPriceResizeDiskResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // DiskPrice 扩容后云硬盘的价格。
+    DiskPrice *PriceItem `json:"diskPrice,omitempty"`
+
+    // SpecPrice 系统盘扩容时，对应实例的规格价格。
+    // 仅当云硬盘为系统盘且实例类型为 VM 时返回。
+    SpecPrice *PriceItem `json:"specPrice,omitempty"`
+
+    // GpuPrice 系统盘扩容时，对应实例的 GPU 价格。
+    // 仅当云硬盘为系统盘且实例类型为 GPU 时返回。
+    GpuPrice *PriceItem `json:"gpuPrice,omitempty"`
+
+    // DiskPerf 扩容后云硬盘的性能配置信息。
+    DiskPerf *DiskPerfItem `json:"diskPerf,omitempty"`
+
+}
+
+// DiskPerfItem 云硬盘性能信息。
+type DiskPerfItem struct {
+
+    // MaxIops 未开启突发时的最大 IOPS。
+    MaxIops *int `json:"maxIops,omitempty"`
+
+    // MaxBandwidth 未开启突发时的最大带宽，单位：MB/s。
+    MaxBandwidth *int `json:"maxBandwidth,omitempty"`
+
+    // IopsBurst 开启突发后的 IOPS。
+    IopsBurst *int `json:"iopsBurst,omitempty"`
+
+    // BandwidthBurst 开启突发后的带宽，单位：MB/s。
+    BandwidthBurst *int `json:"bandwidthBurst,omitempty"`
+
+}
+
 // DescribeSnapshotsRequest 
 type DescribeSnapshotsRequest struct {
     *common.BaseRequest
@@ -2959,6 +3068,11 @@ type DescribeNetworkInterfacesRequest struct {
     // 最长不得超过20个标签。
     Tags []*Tag `json:"tags,omitempty"`
 
+    // NicSubnetType 根据网卡堆栈类型筛选。
+    // 枚举值：IPv4 / IPv4_IPv6 / IPv6。
+    // 配合subnetId使用可查出子网内持有IPv6的全部网卡。
+    NicSubnetType *string `json:"nicSubnetType,omitempty"`
+
 }
 
 type DescribeNetworkInterfacesResponse struct {
@@ -3474,6 +3588,109 @@ type ModifyNetworkInterfacePublicIPv6BandwidthLimitModeRequest struct {
 }
 
 type ModifyNetworkInterfacePublicIPv6BandwidthLimitModeResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// InquiryPriceModifyIpv6BandwidthRequest 
+type InquiryPriceModifyIpv6BandwidthRequest struct {
+    *common.BaseRequest
+
+    // Ipv6Id 要操作的公网IPv6。
+    Ipv6Id *string `json:"ipv6Id,omitempty"`
+
+    // Bandwidth 调整后的带宽上限。
+    // 单位：Mbps。
+    Bandwidth *int `json:"bandwidth,omitempty"`
+
+}
+
+type InquiryPriceModifyIpv6BandwidthResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *InquiryPriceModifyIpv6BandwidthResponseParams `json:"response,omitempty"`
+
+}
+
+// InquiryPriceModifyIpv6BandwidthResponseParams 
+type InquiryPriceModifyIpv6BandwidthResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // Ipv6Price 公网IPv6的保留价格。
+    Ipv6Price *PriceItem `json:"ipv6Price,omitempty"`
+
+    // BandwidthPrice 公网IPv6的带宽价格。
+    BandwidthPrice *PriceItem `json:"bandwidthPrice,omitempty"`
+
+}
+
+// InquiryPriceChangeIpv6InternetChargeTypeRequest 
+type InquiryPriceChangeIpv6InternetChargeTypeRequest struct {
+    *common.BaseRequest
+
+    // Ipv6Id 要操作的公网IPv6。
+    Ipv6Id *string `json:"ipv6Id,omitempty"`
+
+    // InternetChargeType 要变更的目标网络计费类型。
+    InternetChargeType *string `json:"internetChargeType,omitempty"`
+
+    // Bandwidth 带宽限速。
+    // 单位：Mbps。
+    // 网络计费方式为按带宽计费（`ByBandwidth`）时需指定。
+    Bandwidth *int `json:"bandwidth,omitempty"`
+
+    // FlowPackage 流量包大小。
+    // 单位：TB。
+    // 网络计费方式为流量包计费（`ByTrafficPackage`）时需指定。
+    FlowPackage *float64 `json:"flowPackage,omitempty"`
+
+    // ClusterId 共享带宽包ID。
+    // 网络计费方式为共享带宽包计费（`BandwidthCluster`）时需指定。
+    ClusterId *string `json:"clusterId,omitempty"`
+
+}
+
+type InquiryPriceChangeIpv6InternetChargeTypeResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *InquiryPriceChangeIpv6InternetChargeTypeResponseParams `json:"response,omitempty"`
+
+}
+
+// InquiryPriceChangeIpv6InternetChargeTypeResponseParams 
+type InquiryPriceChangeIpv6InternetChargeTypeResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // Ipv6Price 公网IPv6的保留价格。
+    Ipv6Price *PriceItem `json:"ipv6Price,omitempty"`
+
+    // BandwidthPrice 公网IPv6的带宽价格。
+    BandwidthPrice *PriceItem `json:"bandwidthPrice,omitempty"`
+
+}
+
+// UnassignNetworkInterfaceIpv6Request 
+type UnassignNetworkInterfaceIpv6Request struct {
+    *common.BaseRequest
+
+    // NicId 要删除IPv6的网卡ID。
+    NicId *string `json:"nicId,omitempty"`
+
+}
+
+type UnassignNetworkInterfaceIpv6Response struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
@@ -4376,6 +4593,10 @@ type DescribeEipPriceResponseParams struct {
     // BandwidthPrice 公网弹性IP的带宽价格。
     BandwidthPrice *PriceItem `json:"bandwidthPrice,omitempty"`
 
+    // BandwidthPrices 各流量方向的带宽价格明细。
+    // PathBasedBandwidthIP 线路返回多项（bandwidthPrice 为 null）；其他线路返回单项（trafficType=ALL）。
+    BandwidthPrices []*BandwidthPriceResponseItem `json:"bandwidthPrices,omitempty"`
+
     // RemoteBandwidthPrice Remote IPT的带宽价格。
     RemoteBandwidthPrice *PriceItem `json:"remoteBandwidthPrice,omitempty"`
 
@@ -4531,6 +4752,11 @@ type EipInfo struct {
     // 该字段可能为null。
     FlowPackage *float64 `json:"flowPackage,omitempty"`
 
+    // FlowPackages EIP 多方向流量包列表。
+    // 仅当网络计费方式为流量计费时可取到值。
+    // 该字段可能为null。
+    FlowPackages []*FlowPackageResponseItem `json:"flowPackages,omitempty"`
+
     // Bandwidth EIP 的带宽限速。
     // 单位为Mbps。
     Bandwidth *int `json:"bandwidth,omitempty"`
@@ -4562,6 +4788,18 @@ type EipInfo struct {
 
     // Tags EIP关联的标签。
     Tags *Tags `json:"tags,omitempty"`
+
+}
+
+// FlowPackageResponseItem 流量包明细。
+type FlowPackageResponseItem struct {
+
+    // TrafficType 流量方向类型。
+    // LOCAL：境内；INTERNATIONAL：境外；ALL：全部方向。
+    TrafficType *string `json:"trafficType,omitempty"`
+
+    // FlowPackage 该方向的流量包大小，单位 TB。
+    FlowPackage *float64 `json:"flowPackage,omitempty"`
 
 }
 
@@ -4641,6 +4879,7 @@ type CreateEipsRequest struct {
     // NetworkLineType 公网弹性IP的线路类型。
     NetworkLineType *string `json:"networkLineType,omitempty"`
 
+    // Deprecated: PrimaryIsp 已废弃，请不要使用。
     // PrimaryIsp 主公网IP的运营商。
     // 该字段仅作用于三线IP(`ThreeLine`)。
     PrimaryIsp *string `json:"primaryIsp,omitempty"`
@@ -5116,6 +5355,10 @@ type DescribeEipTrafficRequest struct {
     // WanIp 指定IP查询，该字段用于三线IP,可以指定IP地址查询流量。
     WanIp *string `json:"wanIp,omitempty"`
 
+    // Direction 流量方向。
+    // 仅 PathBasedBandwidthIP 类型有效；不传则返回全部方向数据。
+    Direction *string `json:"direction,omitempty"`
+
 }
 
 type DescribeEipTrafficResponse struct {
@@ -5217,6 +5460,10 @@ type DescribeEipMonitorDataRequest struct {
     // 单位为分钟。
     // 支持参数：1,5。
     Step *int `json:"step,omitempty"`
+
+    // Direction 流量方向。
+    // 仅 PathBasedBandwidthIP 类型有效；不传则返回全部方向数据。
+    Direction *string `json:"direction,omitempty"`
 
 }
 
@@ -5320,6 +5567,154 @@ type ModifyEipBandwidthLimitModeResponse struct {
     Response struct {
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response,omitempty"`
+
+}
+
+// InquiryPriceModifyEipBandwidthRequest 
+type InquiryPriceModifyEipBandwidthRequest struct {
+    *common.BaseRequest
+
+    // EipId 要操作的公网弹性IP。
+    EipId *string `json:"eipId,omitempty"`
+
+    // Bandwidth 调整后的带宽上限。
+    // 单位：Mbps。
+    Bandwidth *int `json:"bandwidth,omitempty"`
+
+}
+
+type InquiryPriceModifyEipBandwidthResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *InquiryPriceModifyEipBandwidthResponseParams `json:"response,omitempty"`
+
+}
+
+// InquiryPriceModifyEipBandwidthResponseParams 
+type InquiryPriceModifyEipBandwidthResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // EipPrice 公网弹性IP的保留价格。
+    // 通过CIDR创建的IP保留价格为null。
+    EipPrice *PriceItem `json:"eipPrice,omitempty"`
+
+    // BandwidthPrice 公网弹性IP的带宽价格。
+    // PathBasedBandwidthIP线路时为null，详见`bandwidthPrices`。
+    BandwidthPrice *PriceItem `json:"bandwidthPrice,omitempty"`
+
+    // BandwidthPrices 各流量方向的带宽价格明细。
+    // PathBasedBandwidthIP线路返回多项；其他线路返回单项（trafficType=ALL）。
+    BandwidthPrices []*BandwidthPriceResponseItem `json:"bandwidthPrices,omitempty"`
+
+    // RemoteBandwidthPrice Remote IPT的带宽价格。
+    // EIP未开启Remote IPT时为null。
+    RemoteBandwidthPrice *PriceItem `json:"remoteBandwidthPrice,omitempty"`
+
+}
+
+// InquiryPriceModifyEipFlowPackageRequest 
+type InquiryPriceModifyEipFlowPackageRequest struct {
+    *common.BaseRequest
+
+    // EipId 要操作的公网弹性IP。
+    EipId *string `json:"eipId,omitempty"`
+
+    // FlowPackage 调整后的流量包大小。
+    // 单位：TB，为0或0.1的倍数。
+    FlowPackage *float64 `json:"flowPackage,omitempty"`
+
+}
+
+type InquiryPriceModifyEipFlowPackageResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *InquiryPriceModifyEipFlowPackageResponseParams `json:"response,omitempty"`
+
+}
+
+// InquiryPriceModifyEipFlowPackageResponseParams 
+type InquiryPriceModifyEipFlowPackageResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // EipPrice 公网弹性IP的保留价格。
+    // 通过CIDR创建的IP保留价格为null。
+    EipPrice *PriceItem `json:"eipPrice,omitempty"`
+
+    // BandwidthPrice 公网弹性IP的带宽价格。
+    // PathBasedBandwidthIP线路时为null，详见`bandwidthPrices`。
+    BandwidthPrice *PriceItem `json:"bandwidthPrice,omitempty"`
+
+    // BandwidthPrices 各流量方向的带宽价格明细。
+    // PathBasedBandwidthIP线路返回多项；其他线路返回单项（trafficType=ALL）。
+    BandwidthPrices []*BandwidthPriceResponseItem `json:"bandwidthPrices,omitempty"`
+
+    // RemoteBandwidthPrice Remote IPT的带宽价格。
+    // EIP未开启Remote IPT时为null。
+    RemoteBandwidthPrice *PriceItem `json:"remoteBandwidthPrice,omitempty"`
+
+}
+
+// InquiryPriceChangeEipInternetChargeTypeRequest 
+type InquiryPriceChangeEipInternetChargeTypeRequest struct {
+    *common.BaseRequest
+
+    // EipId 要操作的公网弹性IP。
+    EipId *string `json:"eipId,omitempty"`
+
+    // InternetChargeType 要变更的目标网络计费类型。
+    InternetChargeType *string `json:"internetChargeType,omitempty"`
+
+    // Bandwidth 带宽限速。
+    // 单位：Mbps。
+    // 网络计费方式为按带宽计费（`ByBandwidth`）时需指定。
+    Bandwidth *int `json:"bandwidth,omitempty"`
+
+    // FlowPackage 流量包大小。
+    // 单位：TB。
+    // 网络计费方式为流量包计费（`ByTrafficPackage`）时需指定。
+    FlowPackage *float64 `json:"flowPackage,omitempty"`
+
+    // ClusterId 共享带宽包ID。
+    // 网络计费方式为共享带宽包计费（`BandwidthCluster`）时需指定。
+    ClusterId *string `json:"clusterId,omitempty"`
+
+}
+
+type InquiryPriceChangeEipInternetChargeTypeResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *InquiryPriceChangeEipInternetChargeTypeResponseParams `json:"response,omitempty"`
+
+}
+
+// InquiryPriceChangeEipInternetChargeTypeResponseParams 
+type InquiryPriceChangeEipInternetChargeTypeResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // EipPrice 公网弹性IP的保留价格。
+    // 通过CIDR创建的IP保留价格为null。
+    EipPrice *PriceItem `json:"eipPrice,omitempty"`
+
+    // BandwidthPrice 公网弹性IP的带宽价格。
+    // PathBasedBandwidthIP线路时为null，详见`bandwidthPrices`。
+    BandwidthPrice *PriceItem `json:"bandwidthPrice,omitempty"`
+
+    // BandwidthPrices 各流量方向的带宽价格明细。
+    // PathBasedBandwidthIP线路返回多项；其他线路返回单项（trafficType=ALL）。
+    BandwidthPrices []*BandwidthPriceResponseItem `json:"bandwidthPrices,omitempty"`
+
+    // RemoteBandwidthPrice Remote IPT的带宽价格。
+    // EIP未开启Remote IPT时为null。
+    RemoteBandwidthPrice *PriceItem `json:"remoteBandwidthPrice,omitempty"`
 
 }
 
@@ -6676,6 +7071,81 @@ type ModifyUnmanagedEgressIpBandwidthLimitModeResponse struct {
 
 }
 
+// InquiryPriceModifyUnmanagedEgressIpBandwidthRequest 
+type InquiryPriceModifyUnmanagedEgressIpBandwidthRequest struct {
+    *common.BaseRequest
+
+    // UnmanagedEgressIpId 要操作的非托管出口IP。
+    UnmanagedEgressIpId *string `json:"unmanagedEgressIpId,omitempty"`
+
+    // Bandwidth 调整后的带宽上限。
+    // 单位：Mbps。
+    Bandwidth *int `json:"bandwidth,omitempty"`
+
+}
+
+type InquiryPriceModifyUnmanagedEgressIpBandwidthResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *InquiryPriceModifyUnmanagedEgressIpBandwidthResponseParams `json:"response,omitempty"`
+
+}
+
+// InquiryPriceModifyUnmanagedEgressIpBandwidthResponseParams 
+type InquiryPriceModifyUnmanagedEgressIpBandwidthResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // BandwidthPrice 非托管出口IP的带宽价格。
+    // 变更为共享带宽包计费（BandwidthCluster）时为null（免费）。
+    BandwidthPrice *PriceItem `json:"bandwidthPrice,omitempty"`
+
+}
+
+// InquiryPriceChangeUnmanagedEgressIpInternetChargeTypeRequest 
+type InquiryPriceChangeUnmanagedEgressIpInternetChargeTypeRequest struct {
+    *common.BaseRequest
+
+    // UnmanagedEgressIpId 要操作的非托管出口IP。
+    UnmanagedEgressIpId *string `json:"unmanagedEgressIpId,omitempty"`
+
+    // InternetChargeType 要变更的目标网络计费类型。
+    InternetChargeType *string `json:"internetChargeType,omitempty"`
+
+    // Bandwidth 带宽限速。
+    // 单位：Mbps。
+    // 变更为按带宽计费（ByBandwidth）时必传。
+    Bandwidth *int `json:"bandwidth,omitempty"`
+
+    // FlowPackage 流量包大小。
+    // 单位：TB，为0或0.1的倍数。
+    // 变更为流量包计费（ByTrafficPackage）时必传。
+    FlowPackage *float64 `json:"flowPackage,omitempty"`
+
+}
+
+type InquiryPriceChangeUnmanagedEgressIpInternetChargeTypeResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *InquiryPriceChangeUnmanagedEgressIpInternetChargeTypeResponseParams `json:"response,omitempty"`
+
+}
+
+// InquiryPriceChangeUnmanagedEgressIpInternetChargeTypeResponseParams 
+type InquiryPriceChangeUnmanagedEgressIpInternetChargeTypeResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // BandwidthPrice 非托管出口IP的带宽价格。
+    // 变更为共享带宽包计费（BandwidthCluster）时为null（免费）。
+    BandwidthPrice *PriceItem `json:"bandwidthPrice,omitempty"`
+
+}
+
 type DescribeQosPolicyGroupsRequest struct {
     *common.BaseRequest
 
@@ -7041,7 +7511,7 @@ type VpcInfo struct {
     // 如果为null,说明未开启IPv6。
     Ipv6CidrBlock *string `json:"ipv6CidrBlock,omitempty"`
 
-    // Mtu mtu值。
+    // Mtu VPC的MTU（最大传输单元），单位字节。
     Mtu *int `json:"mtu,omitempty"`
 
     // IsDefault 是否为默认VPC。
@@ -7050,10 +7520,10 @@ type VpcInfo struct {
     // CreateTime 创建时间。
     CreateTime *string `json:"createTime,omitempty"`
 
-    // UsageIpv4Count VPC里已使用IPv4数量。
+    // UsageIpv4Count VPC内已分配的IPv4地址数量。
     UsageIpv4Count *int `json:"usageIpv4Count,omitempty"`
 
-    // UsageIpv6Count VPC里已使用IPv6数量。
+    // UsageIpv6Count VPC内已分配的IPv6地址数量。
     UsageIpv6Count *int `json:"usageIpv6Count,omitempty"`
 
     // SecurityGroupId 关联的安全组ID。
@@ -7080,12 +7550,10 @@ type CreateVpcRequest struct {
     // 且必须以数字或字母开头和结尾。
     Name *string `json:"name,omitempty"`
 
-    // CidrBlock VPC的CIDR地址段。
-    // 需要满足以下4种内网段内(10.0.0.0/9, 10.128.0.0/9, 172.16.0.0/12以及192.168.0.0/16)。
+    // CidrBlock VPC的CIDR地址段。必须属于以下4种内网地址段之一：10.0.0.0/9、10.128.0.0/9、172.16.0.0/12 或 192.168.0.0/16。
     CidrBlock *string `json:"cidrBlock,omitempty"`
 
-    // Mtu VPC的传输单元 MTU。
-    // 支持：1300、1500、9000。
+    // Mtu VPC的MTU（最大传输单元）。支持：1300、1500、9000。
     Mtu *int `json:"mtu,omitempty"`
 
     // EnablePriIpv6 是否开启内网IPv6。
@@ -7097,8 +7565,7 @@ type CreateVpcRequest struct {
     // 如果不指定资源组，则会放到默认的资源组中。
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 
-    // Tags 创建VPC时关联的标签。
-    // 注意：·关联`标签键`不能重复。
+    // Tags 创建VPC时关联的标签。同一资源中标签键不能重复。
     Tags *TagAssociation `json:"tags,omitempty"`
 
 }
@@ -7276,7 +7743,7 @@ type DescribeSubnetsRequest struct {
     // PageNum 返回的分页数。
     PageNum *int `json:"pageNum,omitempty"`
 
-    // VpcIds VPC的ID集合。
+    // VpcIds 根据所属VPC的ID进行筛选。最多支持100个VPC ID。
     VpcIds []string `json:"vpcIds,omitempty"`
 
     // DhcpOptionsSetId 子网绑定的DHCP 选项集ID。
@@ -7318,14 +7785,13 @@ type SubnetInfo struct {
     // Name 子网的名称。
     Name *string `json:"name,omitempty"`
 
-    // CidrBlock 子网的CIDR地址。
+    // CidrBlock 子网的IPv4 CIDR地址段。
     CidrBlock *string `json:"cidrBlock,omitempty"`
 
     // GatewayIpAddress 网关地址。
     GatewayIpAddress *string `json:"gatewayIpAddress,omitempty"`
 
-    // Ipv6CidrBlock 子网的IPv6 CIDR地址段。
-    // 如果子网的IP堆栈类型不包括V6,该字段取不到值。
+    // Ipv6CidrBlock 子网的IPv6 CIDR地址段。当IP堆栈类型不包含IPv6时为null。
     Ipv6CidrBlock *string `json:"ipv6CidrBlock,omitempty"`
 
     // Ipv6GatewayIpAddress IPv6的网关地址。
@@ -7334,8 +7800,7 @@ type SubnetInfo struct {
     // StackType 子网的IP堆栈类型。
     StackType *string `json:"stackType,omitempty"`
 
-    // Ipv6Type 子网上IPv6类型。
-    // 如果子网的IP堆栈类型不包括V6,该字段取不到值。
+    // Ipv6Type 子网的IPv6类型。可选值：Private（内网）、Public（公网）。当IP堆栈类型不包含IPv6时为null。
     Ipv6Type *string `json:"ipv6Type,omitempty"`
 
     // VpcId 子网所属VPC的ID。
@@ -7353,14 +7818,13 @@ type SubnetInfo struct {
     // CreateTime 子网的创建时间。
     CreateTime *string `json:"createTime,omitempty"`
 
-    // IsDefault 子网是否为默认。
+    // IsDefault 是否为默认子网。
     IsDefault *bool `json:"isDefault,omitempty"`
 
     // DhcpOptionsSetId DHCP选项集ID。
     DhcpOptionsSetId *string `json:"dhcpOptionsSetId,omitempty"`
 
-    // Ipv6MaskLength 分配给网卡的IPv6掩码长度。
-    // 如果子网的IP堆栈类型不包括V6,该字段取不到值。
+    // Ipv6MaskLength 分配给虚拟机的IPv6前缀长度。当IP堆栈类型不包含IPv6时为null。
     Ipv6MaskLength *int `json:"ipv6MaskLength,omitempty"`
 
 }
@@ -7378,10 +7842,10 @@ type CreateSubnetRequest struct {
     // 且必须以数字或字母开头和结尾。
     Name *string `json:"name,omitempty"`
 
-    // RegionId 子网所在的节点ID。
+    // RegionId 子网所在节点的ID。必须是VPC所在节点之一。
     RegionId *string `json:"regionId,omitempty"`
 
-    // StackType 子网的IP堆栈类型。
+    // StackType 子网的IP堆栈类型。可选值：IPv4（仅IPv4）、IPv4_IPv6（IPv4和IPv6双栈）、IPv6（仅IPv6）。
     StackType *string `json:"stackType,omitempty"`
 
     // CidrBlock 子网的IPv4 CIDR地址段。
@@ -9423,7 +9887,7 @@ type DescribeHaVipsRequest struct {
     // Name HaVip名称，支持模糊查询。
     Name *string `json:"name,omitempty"`
 
-    // RegionId 所在地域ID。
+    // RegionId 所在节点ID。
     RegionId *string `json:"regionId,omitempty"`
 
     // VpcIds 所属VPC ID列表。
@@ -9432,13 +9896,13 @@ type DescribeHaVipsRequest struct {
     // SubnetIds 所属子网ID列表。
     SubnetIds []string `json:"subnetIds,omitempty"`
 
-    // IpAddresses 私网IP地址列表。
+    // IpAddresses 私网IP地址列表。最多支持100个地址查询。
     IpAddresses []string `json:"ipAddresses,omitempty"`
 
     // InstanceIds 实例ID列表，返回绑定了指定实例的高可用虚拟IP。
     InstanceIds []string `json:"instanceIds,omitempty"`
 
-    // PageSize 分页大小，最大为1000。
+    // PageSize 分页大小。
     PageSize *int `json:"pageSize,omitempty"`
 
     // PageNum 分页页码。
@@ -9485,7 +9949,7 @@ type HaVipInfo struct {
     // Name 高可用虚拟IP名称。
     Name *string `json:"name,omitempty"`
 
-    // RegionId 地域ID。
+    // RegionId HaVip所在节点的ID。
     RegionId *string `json:"regionId,omitempty"`
 
     // VpcId 所属VPC的ID。
@@ -9503,10 +9967,10 @@ type HaVipInfo struct {
     // AssociatedInstances 关联的实例ID列表。
     AssociatedInstances []string `json:"associatedInstances,omitempty"`
 
-    // MasterInstanceId 当前主实例ID，未绑定实例时为null。
+    // MasterInstanceId 当前持有该VIP流量的主实例ID。未绑定实例或无主实例时为null。
     MasterInstanceId *string `json:"masterInstanceId,omitempty"`
 
-    // AssociatedEips 关联的弹性公网IP信息列表，未绑定时为空列表。
+    // AssociatedEips 绑定的弹性公网IP列表。未绑定时返回空列表。
     AssociatedEips []*HaVipEipAttachment `json:"associatedEips,omitempty"`
 
     // CreateTime 创建时间。

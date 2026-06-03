@@ -35,6 +35,7 @@ func NewClient(config *common.Config, secretKeyId, secretKeyPassword string) (cl
 	}
 	return client, nil
 }
+
 func NewClientWithToken(token string) (client *Client, err error) {
 	return NewClientWithTokenAndConfig(common.NewConfig(), token)
 }
@@ -53,7 +54,6 @@ func NewClientWithTokenAndConfig(config *common.Config, token string) (client *C
 	}
 	return client, nil
 }
-
 
 
 func NewDescribeZonesRequest() (request *DescribeZonesRequest) {
@@ -608,6 +608,29 @@ func (c *Client) DescribeInstanceMonitorData(request *DescribeInstanceMonitorDat
 	return
 }
 
+func NewInquiryPriceModifyInstanceTypeRequest() (request *InquiryPriceModifyInstanceTypeRequest) {
+	request = &InquiryPriceModifyInstanceTypeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryPriceModifyInstanceType")
+
+	return
+}
+
+func NewInquiryPriceModifyInstanceTypeResponse() (response *InquiryPriceModifyInstanceTypeResponse) {
+	response = &InquiryPriceModifyInstanceTypeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// InquiryPriceModifyInstanceType 查询变更虚拟机实例规格后的新规格价格。
+func (c *Client) InquiryPriceModifyInstanceType(request *InquiryPriceModifyInstanceTypeRequest) (response *InquiryPriceModifyInstanceTypeResponse, err error) {
+	response = NewInquiryPriceModifyInstanceTypeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewDescribeImagesRequest() (request *DescribeImagesRequest) {
 	request = &DescribeImagesRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -1087,6 +1110,29 @@ func NewDescribeDiskMonitorDataResponse() (response *DescribeDiskMonitorDataResp
 // DescribeDiskMonitorData 查询一段时间的云硬盘的监控指标数据。
 func (c *Client) DescribeDiskMonitorData(request *DescribeDiskMonitorDataRequest) (response *DescribeDiskMonitorDataResponse, err error) {
 	response = NewDescribeDiskMonitorDataResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewInquiryPriceResizeDiskRequest() (request *InquiryPriceResizeDiskRequest) {
+	request = &InquiryPriceResizeDiskRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryPriceResizeDisk")
+
+	return
+}
+
+func NewInquiryPriceResizeDiskResponse() (response *InquiryPriceResizeDiskResponse) {
+	response = &InquiryPriceResizeDiskResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// InquiryPriceResizeDisk 查询云硬盘扩容后的新价格。
+func (c *Client) InquiryPriceResizeDisk(request *InquiryPriceResizeDiskRequest) (response *InquiryPriceResizeDiskResponse, err error) {
+	response = NewInquiryPriceResizeDiskResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -1708,6 +1754,75 @@ func NewModifyNetworkInterfacePublicIPv6BandwidthLimitModeResponse() (response *
 // ModifyNetworkInterfacePublicIPv6BandwidthLimitMode 修改指定公网IPv6的带宽限速模式。
 func (c *Client) ModifyNetworkInterfacePublicIPv6BandwidthLimitMode(request *ModifyNetworkInterfacePublicIPv6BandwidthLimitModeRequest) (response *ModifyNetworkInterfacePublicIPv6BandwidthLimitModeResponse, err error) {
 	response = NewModifyNetworkInterfacePublicIPv6BandwidthLimitModeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewInquiryPriceModifyIpv6BandwidthRequest() (request *InquiryPriceModifyIpv6BandwidthRequest) {
+	request = &InquiryPriceModifyIpv6BandwidthRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryPriceModifyIpv6Bandwidth")
+
+	return
+}
+
+func NewInquiryPriceModifyIpv6BandwidthResponse() (response *InquiryPriceModifyIpv6BandwidthResponse) {
+	response = &InquiryPriceModifyIpv6BandwidthResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// InquiryPriceModifyIpv6Bandwidth 查询调整IPv6带宽后的价格。
+func (c *Client) InquiryPriceModifyIpv6Bandwidth(request *InquiryPriceModifyIpv6BandwidthRequest) (response *InquiryPriceModifyIpv6BandwidthResponse, err error) {
+	response = NewInquiryPriceModifyIpv6BandwidthResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewInquiryPriceChangeIpv6InternetChargeTypeRequest() (request *InquiryPriceChangeIpv6InternetChargeTypeRequest) {
+	request = &InquiryPriceChangeIpv6InternetChargeTypeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryPriceChangeIpv6InternetChargeType")
+
+	return
+}
+
+func NewInquiryPriceChangeIpv6InternetChargeTypeResponse() (response *InquiryPriceChangeIpv6InternetChargeTypeResponse) {
+	response = &InquiryPriceChangeIpv6InternetChargeTypeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// InquiryPriceChangeIpv6InternetChargeType 查询变更IPv6网络计费模式后的价格。
+func (c *Client) InquiryPriceChangeIpv6InternetChargeType(request *InquiryPriceChangeIpv6InternetChargeTypeRequest) (response *InquiryPriceChangeIpv6InternetChargeTypeResponse, err error) {
+	response = NewInquiryPriceChangeIpv6InternetChargeTypeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewUnassignNetworkInterfaceIpv6Request() (request *UnassignNetworkInterfaceIpv6Request) {
+	request = &UnassignNetworkInterfaceIpv6Request{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "UnassignNetworkInterfaceIpv6")
+
+	return
+}
+
+func NewUnassignNetworkInterfaceIpv6Response() (response *UnassignNetworkInterfaceIpv6Response) {
+	response = &UnassignNetworkInterfaceIpv6Response{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// UnassignNetworkInterfaceIpv6 删除网卡IPv6。
+func (c *Client) UnassignNetworkInterfaceIpv6(request *UnassignNetworkInterfaceIpv6Request) (response *UnassignNetworkInterfaceIpv6Response, err error) {
+	response = NewUnassignNetworkInterfaceIpv6Response()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -2540,6 +2655,75 @@ func (c *Client) ModifyEipBandwidthLimitMode(request *ModifyEipBandwidthLimitMod
 	return
 }
 
+func NewInquiryPriceModifyEipBandwidthRequest() (request *InquiryPriceModifyEipBandwidthRequest) {
+	request = &InquiryPriceModifyEipBandwidthRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryPriceModifyEipBandwidth")
+
+	return
+}
+
+func NewInquiryPriceModifyEipBandwidthResponse() (response *InquiryPriceModifyEipBandwidthResponse) {
+	response = &InquiryPriceModifyEipBandwidthResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// InquiryPriceModifyEipBandwidth 查询调整EIP带宽后的价格。
+func (c *Client) InquiryPriceModifyEipBandwidth(request *InquiryPriceModifyEipBandwidthRequest) (response *InquiryPriceModifyEipBandwidthResponse, err error) {
+	response = NewInquiryPriceModifyEipBandwidthResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewInquiryPriceModifyEipFlowPackageRequest() (request *InquiryPriceModifyEipFlowPackageRequest) {
+	request = &InquiryPriceModifyEipFlowPackageRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryPriceModifyEipFlowPackage")
+
+	return
+}
+
+func NewInquiryPriceModifyEipFlowPackageResponse() (response *InquiryPriceModifyEipFlowPackageResponse) {
+	response = &InquiryPriceModifyEipFlowPackageResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// InquiryPriceModifyEipFlowPackage 查询调整EIP流量包后的价格。
+func (c *Client) InquiryPriceModifyEipFlowPackage(request *InquiryPriceModifyEipFlowPackageRequest) (response *InquiryPriceModifyEipFlowPackageResponse, err error) {
+	response = NewInquiryPriceModifyEipFlowPackageResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewInquiryPriceChangeEipInternetChargeTypeRequest() (request *InquiryPriceChangeEipInternetChargeTypeRequest) {
+	request = &InquiryPriceChangeEipInternetChargeTypeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryPriceChangeEipInternetChargeType")
+
+	return
+}
+
+func NewInquiryPriceChangeEipInternetChargeTypeResponse() (response *InquiryPriceChangeEipInternetChargeTypeResponse) {
+	response = &InquiryPriceChangeEipInternetChargeTypeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// InquiryPriceChangeEipInternetChargeType 查询变更EIP网络计费模式后的价格。
+func (c *Client) InquiryPriceChangeEipInternetChargeType(request *InquiryPriceChangeEipInternetChargeTypeRequest) (response *InquiryPriceChangeEipInternetChargeTypeResponse, err error) {
+	response = NewInquiryPriceChangeEipInternetChargeTypeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewDescribeRoutesRequest() (request *DescribeRoutesRequest) {
 	request = &DescribeRoutesRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -3272,6 +3456,52 @@ func NewModifyUnmanagedEgressIpBandwidthLimitModeResponse() (response *ModifyUnm
 // ModifyUnmanagedEgressIpBandwidthLimitMode 修改指定非托管出口IP的带宽限速模式。
 func (c *Client) ModifyUnmanagedEgressIpBandwidthLimitMode(request *ModifyUnmanagedEgressIpBandwidthLimitModeRequest) (response *ModifyUnmanagedEgressIpBandwidthLimitModeResponse, err error) {
 	response = NewModifyUnmanagedEgressIpBandwidthLimitModeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewInquiryPriceModifyUnmanagedEgressIpBandwidthRequest() (request *InquiryPriceModifyUnmanagedEgressIpBandwidthRequest) {
+	request = &InquiryPriceModifyUnmanagedEgressIpBandwidthRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryPriceModifyUnmanagedEgressIpBandwidth")
+
+	return
+}
+
+func NewInquiryPriceModifyUnmanagedEgressIpBandwidthResponse() (response *InquiryPriceModifyUnmanagedEgressIpBandwidthResponse) {
+	response = &InquiryPriceModifyUnmanagedEgressIpBandwidthResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// InquiryPriceModifyUnmanagedEgressIpBandwidth 查询调整非托管出口IP带宽后的价格。
+func (c *Client) InquiryPriceModifyUnmanagedEgressIpBandwidth(request *InquiryPriceModifyUnmanagedEgressIpBandwidthRequest) (response *InquiryPriceModifyUnmanagedEgressIpBandwidthResponse, err error) {
+	response = NewInquiryPriceModifyUnmanagedEgressIpBandwidthResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewInquiryPriceChangeUnmanagedEgressIpInternetChargeTypeRequest() (request *InquiryPriceChangeUnmanagedEgressIpInternetChargeTypeRequest) {
+	request = &InquiryPriceChangeUnmanagedEgressIpInternetChargeTypeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryPriceChangeUnmanagedEgressIpInternetChargeType")
+
+	return
+}
+
+func NewInquiryPriceChangeUnmanagedEgressIpInternetChargeTypeResponse() (response *InquiryPriceChangeUnmanagedEgressIpInternetChargeTypeResponse) {
+	response = &InquiryPriceChangeUnmanagedEgressIpInternetChargeTypeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// InquiryPriceChangeUnmanagedEgressIpInternetChargeType 查询变更非托管出口IP网络计费模式后的价格。
+func (c *Client) InquiryPriceChangeUnmanagedEgressIpInternetChargeType(request *InquiryPriceChangeUnmanagedEgressIpInternetChargeTypeRequest) (response *InquiryPriceChangeUnmanagedEgressIpInternetChargeTypeResponse, err error) {
+	response = NewInquiryPriceChangeUnmanagedEgressIpInternetChargeTypeResponse()
 	err = c.ApiCall(request, response)
 	return
 }

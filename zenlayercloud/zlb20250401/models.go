@@ -233,6 +233,10 @@ type InquiryPriceCreateLoadBalancerResponseParams struct {
     // EipNetworkPrice 弹性IP的网络计费的价格。
     EipNetworkPrice *PriceItem `json:"eipNetworkPrice,omitempty"`
 
+    // EipNetworkPrices 各流量方向的带宽价格明细。
+    // PathBasedBandwidthIP 线路返回多项（eipNetworkPrice 为 null）；其他线路返回单项（trafficType=ALL）。
+    EipNetworkPrices []*BandwidthPriceResponseItem `json:"eipNetworkPrices,omitempty"`
+
     // LcuPrice 负载均衡实例LCU的价格。
     LcuPrice *PriceItem `json:"lcuPrice,omitempty"`
 
@@ -306,6 +310,18 @@ type StepPrice struct {
 
     // DiscountUnitPrice 阶梯折后价。
     DiscountUnitPrice *float64 `json:"discountUnitPrice,omitempty"`
+
+}
+
+// BandwidthPriceResponseItem 
+type BandwidthPriceResponseItem struct {
+
+    // TrafficType 流量方向类型。
+    // LOCAL：境内；INTERNATIONAL：境外；ALL：全部方向。
+    TrafficType *string `json:"trafficType,omitempty"`
+
+    // Price 该方向的带宽价格。
+    Price *PriceItem `json:"price,omitempty"`
 
 }
 
@@ -546,6 +562,11 @@ type DescribeLoadBalancerMonitorDataRequest struct {
     // EndTime 查询结束时间。
     // 时间格式：yyyy-MM-ddTHH:mm:ssZ。
     EndTime *string `json:"endTime,omitempty"`
+
+    // Step 查询数据点间隔。
+    // 单位为分钟。
+    // 支持参数：1,5。
+    Step *int `json:"step,omitempty"`
 
 }
 
@@ -989,7 +1010,7 @@ type BackendServer struct {
     // 删除时不需要指定该参数。
     Weight *int `json:"weight,omitempty"`
 
-    // Port 求转发和健康检查的目标端口。
+    // Port 请求转发和健康检查的目标端口。
     // 如果为空，将跟随监听器端口配置。
     // 删除时不需要指定该参数。
     // 如果监听器转发模式为`DR`、监听器端口为全端口（0）或监听多个端口，不支持指定目标端口，必须跟随监听器端口。

@@ -35,6 +35,7 @@ func NewClient(config *common.Config, secretKeyId, secretKeyPassword string) (cl
 	}
 	return client, nil
 }
+
 func NewClientWithToken(token string) (client *Client, err error) {
 	return NewClientWithTokenAndConfig(common.NewConfig(), token)
 }
@@ -53,7 +54,6 @@ func NewClientWithTokenAndConfig(config *common.Config, token string) (client *C
 	}
 	return client, nil
 }
-
 
 
 func NewDescribeLoadBalancerRegionsRequest() (request *DescribeLoadBalancerRegionsRequest) {
@@ -325,7 +325,7 @@ func NewUnbindSecurityGroupFromLoadBalancersResponse() (response *UnbindSecurity
 	return
 }
 
-// UnbindSecurityGroupFromLoadBalancers 批量解绑负载器均衡的安全组。
+// UnbindSecurityGroupFromLoadBalancers 将一个或多个负载均衡实例与其绑定的安全组解除关联。
 func (c *Client) UnbindSecurityGroupFromLoadBalancers(request *UnbindSecurityGroupFromLoadBalancersRequest) (response *UnbindSecurityGroupFromLoadBalancersResponse, err error) {
 	response = NewUnbindSecurityGroupFromLoadBalancersResponse()
 	err = c.ApiCall(request, response)
@@ -371,7 +371,7 @@ func NewCreateListenerResponse() (response *CreateListenerResponse) {
 	return
 }
 
-// CreateListener 查询创建负载均衡监听器。
+// CreateListener 在指定的网络型负载均衡实例中创建一个监听器，支持 TCP、UDP 协议。创建时可配置监听端口、调度算法、转发模式及健康检查策略。
 func (c *Client) CreateListener(request *CreateListenerRequest) (response *CreateListenerResponse, err error) {
 	response = NewCreateListenerResponse()
 	err = c.ApiCall(request, response)
