@@ -332,6 +332,46 @@ type InstanceTypeQuotaItem struct {
 
 }
 
+// DescribeVmInventoryCapacityRequest 
+type DescribeVmInventoryCapacityRequest struct {
+    *common.BaseRequest
+
+    // ZoneId 可用区ID。
+    ZoneId *string `json:"zoneId,omitempty"`
+
+}
+
+type DescribeVmInventoryCapacityResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeVmInventoryCapacityResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeVmInventoryCapacityResponseParams 
+type DescribeVmInventoryCapacityResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // DataSet 可用区库存集合。
+    DataSet []*VmInventoryCapacityInfo `json:"dataSet,omitempty"`
+
+}
+
+// VmInventoryCapacityInfo 可用区库存相关信息。
+type VmInventoryCapacityInfo struct {
+
+    // ZoneId 可用区ID。
+    ZoneId *string `json:"zoneId,omitempty"`
+
+    // Capacity 档位。
+    // 库存容量根据所有机型可售核数定义。
+    Capacity *string `json:"capacity,omitempty"`
+
+}
+
 type CreateInstancesRequest struct {
     *common.BaseRequest
 
@@ -562,6 +602,9 @@ type ResetInstanceRequest struct {
 
     // LanName 内网网卡名称。
     LanName *string `json:"lanName,omitempty"`
+
+    // InitScript 初始化脚本。
+    InitScript *string `json:"initScript,omitempty"`
 
 }
 
@@ -832,44 +875,11 @@ type DescribeInstancesStatusResponseParams struct {
 // InstanceStatus 描述实例的状态。
 type InstanceStatus struct {
 
-    // PENDING 待创建
-    PENDING *string `json:"PENDING,omitempty"`
+    // InstanceId 实例ID。
+    InstanceId *string `json:"instanceId,omitempty"`
 
-    // DEPLOYING 部署中
-    DEPLOYING *string `json:"DEPLOYING,omitempty"`
-
-    // REBUILDING 重建中。
-    REBUILDING *string `json:"REBUILDING,omitempty"`
-
-    // REBOOT 重启中
-    REBOOT *string `json:"REBOOT,omitempty"`
-
-    // RUNNING 运行中。
-    RUNNING *string `json:"RUNNING,omitempty"`
-
-    // STOPPED 关机的。
-    STOPPED *string `json:"STOPPED,omitempty"`
-
-    // BOOTING 启动中。
-    BOOTING *string `json:"BOOTING,omitempty"`
-
-    // RELEASING 删除释放中。
-    RELEASING *string `json:"RELEASING,omitempty"`
-
-    // STOPPING 关机中。
-    STOPPING *string `json:"STOPPING,omitempty"`
-
-    // RECYCLE 已删除，回收保留中。
-    RECYCLE *string `json:"RECYCLE,omitempty"`
-
-    // RECYCLING 回收中。
-    RECYCLING *string `json:"RECYCLING,omitempty"`
-
-    // CREATE_FAILED 创建失败。
-    CREATE_FAILED *string `json:"CREATE_FAILED,omitempty"`
-
-    // IMAGING 镜像制作中。
-    IMAGING *string `json:"IMAGING,omitempty"`
+    // InstanceStatus 实例状态。
+    InstanceStatus *string `json:"instanceStatus,omitempty"`
 
 }
 

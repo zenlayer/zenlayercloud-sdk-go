@@ -35,6 +35,7 @@ func NewClient(config *common.Config, secretKeyId, secretKeyPassword string) (cl
 	}
 	return client, nil
 }
+
 func NewClientWithToken(token string) (client *Client, err error) {
 	return NewClientWithTokenAndConfig(common.NewConfig(), token)
 }
@@ -53,7 +54,6 @@ func NewClientWithTokenAndConfig(config *common.Config, token string) (client *C
 	}
 	return client, nil
 }
-
 
 
 func NewDescribeZonesRequest() (request *DescribeZonesRequest) {
@@ -121,6 +121,29 @@ func NewDescribeZoneInstanceConfigInfosResponse() (response *DescribeZoneInstanc
 // DescribeZoneInstanceConfigInfos 查询售卖可用区的机型信息。
 func (c *Client) DescribeZoneInstanceConfigInfos(request *DescribeZoneInstanceConfigInfosRequest) (response *DescribeZoneInstanceConfigInfosResponse, err error) {
 	response = NewDescribeZoneInstanceConfigInfosResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeVmInventoryCapacityRequest() (request *DescribeVmInventoryCapacityRequest) {
+	request = &DescribeVmInventoryCapacityRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeVmInventoryCapacity")
+
+	return
+}
+
+func NewDescribeVmInventoryCapacityResponse() (response *DescribeVmInventoryCapacityResponse) {
+	response = &DescribeVmInventoryCapacityResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeVmInventoryCapacity 获取可用区库存。
+func (c *Client) DescribeVmInventoryCapacity(request *DescribeVmInventoryCapacityRequest) (response *DescribeVmInventoryCapacityResponse, err error) {
+	response = NewDescribeVmInventoryCapacityResponse()
 	err = c.ApiCall(request, response)
 	return
 }

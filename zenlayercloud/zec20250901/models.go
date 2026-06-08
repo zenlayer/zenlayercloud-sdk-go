@@ -241,11 +241,10 @@ type InquiryPriceCreateInstanceRequest struct {
     // 已废弃，请使用`networkLineType`。
     EipV4Type *string `json:"eipV4Type,omitempty"`
 
-    // NetworkLineType 公网IPv4的线路类型。
-    // 目前不支持三线IP(`ThreeLine`)。
+    // NetworkLineType 公网IPv4的线路类型。当`internetChargeType`有值时必填。
     NetworkLineType *string `json:"networkLineType,omitempty"`
 
-    // InternetChargeType 公网IP的网络计费类型。
+    // InternetChargeType 公网IP的网络计费类型。如果不指定，则不会询价公网IP。
     InternetChargeType *string `json:"internetChargeType,omitempty"`
 
     // TrafficPackageSize 流量包订购大小。
@@ -346,19 +345,19 @@ type InquiryPriceCreateInstanceResponseParams struct {
     // GpuPrice GPU规格的价格。
     GpuPrice *PriceItem `json:"gpuPrice,omitempty"`
 
-    // Ipv4Price 公网IPv4的保留价格。
+    // Ipv4Price 公网IPv4的保留价格。仅当`internetChargeType`有值时返回。
     Ipv4Price *PriceItem `json:"ipv4Price,omitempty"`
 
-    // Ipv4BandwidthPrice 公网IPv4的带宽价格。
+    // Ipv4BandwidthPrice 公网IPv4的带宽价格。仅当`internetChargeType`有值时返回。
     Ipv4BandwidthPrice *PriceItem `json:"ipv4BandwidthPrice,omitempty"`
 
     // Ipv4BandwidthPrices 各流量方向的IPv4带宽价格明细。仅当`internetChargeType`有值时返回。PathBasedBandwidthIP 线路返回多项（ipv4BandwidthPrice 为 null）；其他线路返回单项（trafficType=ALL）。
     Ipv4BandwidthPrices []*BandwidthPriceResponseItem `json:"ipv4BandwidthPrices,omitempty"`
 
-    // Ipv6Price IPv6的价格。
+    // Ipv6Price 公网IPv6的价格。仅当`internetChargeType`有值时返回。
     Ipv6Price *PriceItem `json:"ipv6Price,omitempty"`
 
-    // Ipv6BandwidthPrice IPv6的带宽价格。
+    // Ipv6BandwidthPrice 公网IPv6的带宽价格。仅当`internetChargeType`有值时返回。
     Ipv6BandwidthPrice *PriceItem `json:"ipv6BandwidthPrice,omitempty"`
 
     // SystemDiskPrice 系统盘的价格。
@@ -3523,6 +3522,26 @@ type AssignNetworkInterfaceIpv6Response struct {
 
 }
 
+// UnassignNetworkInterfaceIpv6Request 
+type UnassignNetworkInterfaceIpv6Request struct {
+    *common.BaseRequest
+
+    // NicId 要删除IPv6的网卡ID。
+    NicId *string `json:"nicId,omitempty"`
+
+}
+
+type UnassignNetworkInterfaceIpv6Response struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
 // DescribeNetworkInterfaceMonitorDataRequest 
 type DescribeNetworkInterfaceMonitorDataRequest struct {
     *common.BaseRequest
@@ -3653,10 +3672,6 @@ type InquiryPriceChangeIpv6InternetChargeTypeRequest struct {
     // 网络计费方式为流量包计费（`ByTrafficPackage`）时需指定。
     FlowPackage *float64 `json:"flowPackage,omitempty"`
 
-    // ClusterId 共享带宽包ID。
-    // 网络计费方式为共享带宽包计费（`BandwidthCluster`）时需指定。
-    ClusterId *string `json:"clusterId,omitempty"`
-
 }
 
 type InquiryPriceChangeIpv6InternetChargeTypeResponse struct {
@@ -3678,26 +3693,6 @@ type InquiryPriceChangeIpv6InternetChargeTypeResponseParams struct {
 
     // BandwidthPrice 公网IPv6的带宽价格。
     BandwidthPrice *PriceItem `json:"bandwidthPrice,omitempty"`
-
-}
-
-// UnassignNetworkInterfaceIpv6Request 
-type UnassignNetworkInterfaceIpv6Request struct {
-    *common.BaseRequest
-
-    // NicId 要删除IPv6的网卡ID。
-    NicId *string `json:"nicId,omitempty"`
-
-}
-
-type UnassignNetworkInterfaceIpv6Response struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
 
 }
 
@@ -5227,7 +5222,7 @@ type ChangeEipBindTypeRequest struct {
     EipId *string `json:"eipId,omitempty"`
 
     // BindType 绑定类型。
-    // 当绑定的是网卡时生效。
+    // 当绑定的是网卡或 HaVip 时生效。
     // 默认为普通NAT模式。
     BindType *string `json:"bindType,omitempty"`
 
@@ -5352,7 +5347,7 @@ type DescribeEipTrafficRequest struct {
     // 支持参数：1,5。
     Step *int `json:"step,omitempty"`
 
-    // WanIp 指定IP查询，该字段用于三线IP,可以指定IP地址查询流量。
+    // WanIp 指定IP查询，可以指定IP地址查询流量。
     WanIp *string `json:"wanIp,omitempty"`
 
     // Direction 流量方向。
@@ -7955,10 +7950,12 @@ type ModifySubnetStackTypeRequest struct {
     SubnetId *string `json:"subnetId,omitempty"`
 
     // StackType 子网堆栈类型。
-    // 目前只支持`IPv4_IPv6`。
+    // `IPv4_IPv6`：开启 IPv6，公网或内网由`ipv6Type`指定。
+    // `IPv4`：关闭 IPv6，公网和内网 IPv6 类型的子网均支持；关闭前须确保子网内所有网卡已通过 `UnassignNetworkInterfaceIpv6` 删除其 IPv6 地址。
     StackType *string `json:"stackType,omitempty"`
 
-    // Ipv6Type IPv6的类型。
+    // Ipv6Type IPv6 的类型，当`stackType`为`IPv4_IPv6`时必填。
+    // `Public`：公网 IPv6；`Private`：内网 IPv6。
     Ipv6Type *string `json:"ipv6Type,omitempty"`
 
     // Ipv6CidrBlockId 公网IPv6 CIDR ID。
@@ -9999,9 +9996,11 @@ type ModifyHaVipAttributeRequest struct {
     // HaVipId 高可用虚拟IP的ID。
     HaVipId *string `json:"haVipId,omitempty"`
 
-    // Name HaVip名称。
-    // 长度1到64个字符。
+    // Name HaVip名称。长度1到64个字符。name 与 securityGroupId 至少提供一个。
     Name *string `json:"name,omitempty"`
+
+    // SecurityGroupId 安全组ID。若设置，则将HaVip绑定的安全组修改为指定安全组。name 与 securityGroupId 至少提供一个。
+    SecurityGroupId *string `json:"securityGroupId,omitempty"`
 
 }
 

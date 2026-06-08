@@ -1712,6 +1712,29 @@ func (c *Client) AssignNetworkInterfaceIpv6(request *AssignNetworkInterfaceIpv6R
 	return
 }
 
+func NewUnassignNetworkInterfaceIpv6Request() (request *UnassignNetworkInterfaceIpv6Request) {
+	request = &UnassignNetworkInterfaceIpv6Request{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "UnassignNetworkInterfaceIpv6")
+
+	return
+}
+
+func NewUnassignNetworkInterfaceIpv6Response() (response *UnassignNetworkInterfaceIpv6Response) {
+	response = &UnassignNetworkInterfaceIpv6Response{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// UnassignNetworkInterfaceIpv6 删除网卡IPv6。
+func (c *Client) UnassignNetworkInterfaceIpv6(request *UnassignNetworkInterfaceIpv6Request) (response *UnassignNetworkInterfaceIpv6Response, err error) {
+	response = NewUnassignNetworkInterfaceIpv6Response()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewDescribeNetworkInterfaceMonitorDataRequest() (request *DescribeNetworkInterfaceMonitorDataRequest) {
 	request = &DescribeNetworkInterfaceMonitorDataRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -1800,29 +1823,6 @@ func NewInquiryPriceChangeIpv6InternetChargeTypeResponse() (response *InquiryPri
 // InquiryPriceChangeIpv6InternetChargeType 查询变更IPv6网络计费模式后的价格。
 func (c *Client) InquiryPriceChangeIpv6InternetChargeType(request *InquiryPriceChangeIpv6InternetChargeTypeRequest) (response *InquiryPriceChangeIpv6InternetChargeTypeResponse, err error) {
 	response = NewInquiryPriceChangeIpv6InternetChargeTypeResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewUnassignNetworkInterfaceIpv6Request() (request *UnassignNetworkInterfaceIpv6Request) {
-	request = &UnassignNetworkInterfaceIpv6Request{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "UnassignNetworkInterfaceIpv6")
-
-	return
-}
-
-func NewUnassignNetworkInterfaceIpv6Response() (response *UnassignNetworkInterfaceIpv6Response) {
-	response = &UnassignNetworkInterfaceIpv6Response{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// UnassignNetworkInterfaceIpv6 删除网卡IPv6。
-func (c *Client) UnassignNetworkInterfaceIpv6(request *UnassignNetworkInterfaceIpv6Request) (response *UnassignNetworkInterfaceIpv6Response, err error) {
-	response = NewUnassignNetworkInterfaceIpv6Response()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -4902,7 +4902,7 @@ func NewModifyHaVipAttributeResponse() (response *ModifyHaVipAttributeResponse) 
 	return
 }
 
-// ModifyHaVipAttribute 修改高可用虚拟IP的名称。
+// ModifyHaVipAttribute 修改高可用虚拟IP的名称或绑定的安全组。
 func (c *Client) ModifyHaVipAttribute(request *ModifyHaVipAttributeRequest) (response *ModifyHaVipAttributeResponse, err error) {
 	response = NewModifyHaVipAttributeResponse()
 	err = c.ApiCall(request, response)

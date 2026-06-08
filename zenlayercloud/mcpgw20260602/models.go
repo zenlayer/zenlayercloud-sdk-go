@@ -52,5 +52,14 @@ type BillingItem struct {
     // Usage 用量（字符串，保留精度）。
     Usage *string `json:"usage,omitempty"`
 
+    // ModelName 模型名称。
+    ModelName *string `json:"modelName,omitempty"`
+
+    // UnitPrice 单价（字符串，保留精度）。
+    UnitPrice *string `json:"unitPrice,omitempty"`
+
+    // OriginalPrice 原价（字符串，保留精度）。
+    OriginalPrice *string `json:"originalPrice,omitempty"`
+
 }
 
