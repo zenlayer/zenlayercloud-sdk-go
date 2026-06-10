@@ -547,6 +547,9 @@ type CreateZecInstancesRequest struct {
     // 当分配公网IP时需要指定。
     EipBindType *string `json:"eipBindType,omitempty"`
 
+    // EipIds 配置在实例主网卡的公网IP ID集合。
+    EipIds []string `json:"eipIds,omitempty"`
+
     // Deprecated: EipV4Type 已废弃，请不要使用。
     // EipV4Type 公网IPv4的线路类型。
     // 当分配公网IP时需要指定。
@@ -3197,6 +3200,13 @@ type CreateNetworkInterfaceRequest struct {
     // ClusterId 公网IPv6所指定的共享带宽包ID。
     // 当子网的堆栈类型包括V6且为公网时，且网络计费方式是共享带宽包计费(`BandwidthCluster`)需要指定。
     ClusterId *string `json:"clusterId,omitempty"`
+
+    // EipBindType 公网IP的绑定模式。
+    // 当分配公网IP时需要指定。
+    EipBindType *string `json:"eipBindType,omitempty"`
+
+    // EipIds 配置在网卡的公网IP ID集合。
+    EipIds []string `json:"eipIds,omitempty"`
 
     // MarketingOptions 市场营销相关的选项。
     MarketingOptions *MarketingInfo `json:"marketingOptions,omitempty"`
@@ -6657,6 +6667,9 @@ type CreateBorderGatewayRequest struct {
     // AdvertisedSubnet 子网宣告控制。
     AdvertisedSubnet *string `json:"advertisedSubnet,omitempty"`
 
+    // AdvertisedSubnetIds 子网ID集合。
+    AdvertisedSubnetIds []string `json:"advertisedSubnetIds,omitempty"`
+
     // AdvertisedCidrs IPv4 Cidr集合。
     AdvertisedCidrs []string `json:"advertisedCidrs,omitempty"`
 
@@ -6766,6 +6779,9 @@ type ZbgInfo struct {
     // AdvertisedSubnet 子网控制。
     AdvertisedSubnet *string `json:"advertisedSubnet,omitempty"`
 
+    // AdvertisedSubnetIds 子网ID集合。
+    AdvertisedSubnetIds []string `json:"advertisedSubnetIds,omitempty"`
+
     // AdvertisedCidrs IPv4 Cidr集合。
     AdvertisedCidrs []string `json:"advertisedCidrs,omitempty"`
 
@@ -6811,6 +6827,9 @@ type ModifyBorderGatewaysAttributeRequest struct {
 
     // AdvertisedSubnet 子网控制。
     AdvertisedSubnet *string `json:"advertisedSubnet,omitempty"`
+
+    // AdvertisedSubnetIds Subnet子网ID集合。
+    AdvertisedSubnetIds []string `json:"advertisedSubnetIds,omitempty"`
 
     // AdvertisedCidrs IPv4 Cidr集合。
     AdvertisedCidrs []string `json:"advertisedCidrs,omitempty"`

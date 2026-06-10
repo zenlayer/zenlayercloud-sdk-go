@@ -22,3 +22,6 @@
 go.work
 
 .idea
+
+# 本地手动测试目录（不提交）
+/localtest/
