@@ -56,6 +56,11 @@ type InquiryBandwidthClusterPriceRequest struct {
     // 单位: Mbps。
     CommitBandwidthMbps *int `json:"commitBandwidthMbps,omitempty"`
 
+    // InternationalCommitBandwidthMbps 国际线路保底带宽值。
+    // 单位: Mbps。
+    // 仅 PathBasedBandwidth 使用。
+    InternationalCommitBandwidthMbps *int `json:"internationalCommitBandwidthMbps,omitempty"`
+
     // NetworkType IP 网络类型。
     NetworkType *string `json:"networkType,omitempty"`
 
@@ -83,6 +88,10 @@ type InquiryBandwidthClusterPriceResponseParams struct {
 
     // Price 描述带宽包的价格信息。
     Price *PriceItem `json:"price,omitempty"`
+
+    // InternationalPrice 国际线路价格信息。
+    // 仅 PathBasedBandwidth 线路返回。
+    InternationalPrice *PriceItem `json:"internationalPrice,omitempty"`
 
 }
 
@@ -180,6 +189,30 @@ type DescribeBandwidthClustersRequest struct {
     // PageSize 返回的分页数。
     PageSize *int `json:"pageSize,omitempty"`
 
+    // ResourceGroupId 根据资源组ID过滤。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // TagKeys 根据标签键进行搜索。
+    // 最长不得超过20个标签键。
+    TagKeys []string `json:"tagKeys,omitempty"`
+
+    // Tags 根据标签进行搜索。
+    // 最长不得超过20个标签。
+    Tags []*Tag `json:"tags,omitempty"`
+
+}
+
+// Tag 描述一个标签键值对的信息。
+type Tag struct {
+
+    // Key 标签键。
+    // 长度限制：1～64个字符。
+    Key *string `json:"key,omitempty"`
+
+    // Value 标签值。
+    // 长度限制：1～64个字符。
+    Value *string `json:"value,omitempty"`
+
 }
 
 type DescribeBandwidthClustersResponse struct {
@@ -234,6 +267,11 @@ type BandwidthClusterInfo struct {
     // 单位：Mbps。
     CommitBandwidthMbps *int `json:"commitBandwidthMbps,omitempty"`
 
+    // InternationalCommitBandwidthMbps 国际保底带宽。
+    // 单位：Mbps。
+    // 仅 PathBasedBandwidth 类型返回。
+    InternationalCommitBandwidthMbps *int `json:"internationalCommitBandwidthMbps,omitempty"`
+
     // Location 所属区域。
     Location *string `json:"location,omitempty"`
 
@@ -246,6 +284,12 @@ type BandwidthClusterInfo struct {
 
     // Cities 城市信息。
     Cities []*CityInfo `json:"cities,omitempty"`
+
+    // Tags 共享带宽包关联的标签。
+    Tags *Tags `json:"tags,omitempty"`
+
+    // ResourceGroup 共享带宽包所属的资源组。
+    ResourceGroup *ResourceGroupInfo `json:"resourceGroup,omitempty"`
 
 }
 
@@ -260,6 +304,25 @@ type CityInfo struct {
 
 }
 
+// Tags 描述资源关联的标签信息。
+type Tags struct {
+
+    // Tags 标签对列表。
+    Tags []*Tag `json:"tags,omitempty"`
+
+}
+
+// ResourceGroupInfo 描述资源所在资源组的相关信息，包括资源组名称和ID。
+type ResourceGroupInfo struct {
+
+    // ResourceGroupId 资源组ID。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // ResourceGroupName 资源组名称。
+    ResourceGroupName *string `json:"resourceGroupName,omitempty"`
+
+}
+
 // CreateBandwidthClusterRequest 
 type CreateBandwidthClusterRequest struct {
     *common.BaseRequest
@@ -271,6 +334,11 @@ type CreateBandwidthClusterRequest struct {
     // CommitBandwidthMbps 保底带宽值。
     // 单位: Mbps。
     CommitBandwidthMbps *int `json:"commitBandwidthMbps,omitempty"`
+
+    // InternationalCommitBandwidthMbps 国际线路保底带宽值。
+    // 单位: Mbps。
+    // 仅 PathBasedBandwidth 线路使用。
+    InternationalCommitBandwidthMbps *int `json:"internationalCommitBandwidthMbps,omitempty"`
 
     // NetworkLineType IP网络类型。
     // 城市共享带宽包该字段必填。
@@ -291,6 +359,20 @@ type CreateBandwidthClusterRequest struct {
 
     // Product 城市带宽包所属的产品线范围。
     Product *string `json:"product,omitempty"`
+
+    // ResourceGroupId 创建后共享带宽包所在的资源组ID，如不指定则放入默认资源组。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // Tags 创建共享带宽包时关联的标签。
+    Tags *TagAssociation `json:"tags,omitempty"`
+
+}
+
+// TagAssociation 描述创建资源时同时绑定的标签对的信息。
+type TagAssociation struct {
+
+    // Tags 标签对列表。
+    Tags []*Tag `json:"tags,omitempty"`
 
 }
 
@@ -337,6 +419,11 @@ type DescribeBandwidthClusterTrafficRequest struct {
     // 指定该值，将会只返回该城市的带宽流量数据。
     // 当前带宽组的城市码和城市名称可以在[DescribeBandwidthClusters](../bandwidth-cluster/describebandwidthclusters.md)中的cities字段中查看。
     City *string `json:"city,omitempty"`
+
+    // TrafficType 按流量类型进行过滤。
+    // 可选值：`LOCAL`（本地）、`INTERNATIONAL`（国际）。
+    // 仅 PathBasedBandwidth 类型的带宽包支持该参数。
+    TrafficType *string `json:"trafficType,omitempty"`
 
 }
 
@@ -433,6 +520,10 @@ type UpdateBandwidthClusterCommitBandwidthRequest struct {
 
     // CommitBandwidthMbps 保底带宽。
     CommitBandwidthMbps *int `json:"commitBandwidthMbps,omitempty"`
+
+    // InternationalCommitBandwidthMbps 国际线路保底带宽。
+    // 仅 PathBasedBandwidth 线路使用。
+    InternationalCommitBandwidthMbps *int `json:"internationalCommitBandwidthMbps,omitempty"`
 
 }
 
@@ -566,7 +657,6 @@ type DescribeBandwidthClusterUsageRequest struct {
     PageSize *int `json:"pageSize,omitempty"`
 
     // PageNum 返回的分页数。
-    // 默认为1。
     PageNum *int `json:"pageNum,omitempty"`
 
 }
@@ -604,8 +694,25 @@ type BandwidthClusterUsageData struct {
     // 单位：Mbps。
     Value *float64 `json:"value,omitempty"`
 
+    // TypeValues 分类型带宽值列表。
+    // 仅 PathBasedBandwidth 类型填充。
+    TypeValues []*TrafficTypeValue `json:"typeValues,omitempty"`
+
     // Details 带宽详情列表。
     Details []*BandwidthClusterUsageDetail `json:"details,omitempty"`
+
+}
+
+// TrafficTypeValue 分类型带宽值。
+type TrafficTypeValue struct {
+
+    // TrafficType 流量类型。
+    // LOCAL：本地；INTERNATIONAL：国际。
+    TrafficType *string `json:"trafficType,omitempty"`
+
+    // Value 带宽值。
+    // 单位：Mbps。
+    Value *float64 `json:"value,omitempty"`
 
 }
 
@@ -624,6 +731,10 @@ type BandwidthClusterUsageDetail struct {
     // Value 带宽值。
     // 单位：Mbps。
     Value *float64 `json:"value,omitempty"`
+
+    // TypeValues 分类型带宽值列表。
+    // 仅 PathBasedBandwidth 类型填充。
+    TypeValues []*TrafficTypeValue `json:"typeValues,omitempty"`
 
 }
 
