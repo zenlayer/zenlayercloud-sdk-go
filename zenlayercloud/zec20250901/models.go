@@ -547,7 +547,10 @@ type CreateZecInstancesRequest struct {
     // 当分配公网IP时需要指定。
     EipBindType *string `json:"eipBindType,omitempty"`
 
-    // EipIds 配置在实例主网卡的公网IP ID集合。
+    // EipIds 分配已有的EIP到实例上。
+    // IP数量必须和创建的实例数量一致。
+    // 如果指定该字段，则不会新建EIP, 相关字段将无效（`networkLineType`)。 
+    // 请确保创建的网卡`ipStackType` 包含`IPv4`。
     EipIds []string `json:"eipIds,omitempty"`
 
     // Deprecated: EipV4Type 已废弃，请不要使用。
@@ -1360,6 +1363,10 @@ type ReleaseInstancesRequest struct {
     // InstanceIds 要释放的实例ID列表。
     InstanceIds []string `json:"instanceIds,omitempty"`
 
+    // DependResource 释放实例时是否同步释放关联资源。
+    // true：同步释放（默认）；false：仅释放实例本身，关联资源保留。
+    DependResource *bool `json:"dependResource,omitempty"`
+
 }
 
 type ReleaseInstancesResponse struct {
@@ -1503,8 +1510,85 @@ type InquiryPriceModifyInstanceTypeResponseParams struct {
     // SpecPrice 变更后规格的价格。
     SpecPrice *PriceItem `json:"specPrice,omitempty"`
 
+    // GpuPrice 变更后 GPU 规格的价格。
+    // GPU 实例变配时返回，VM 实例变配时为 null。
+    GpuPrice *PriceItem `json:"gpuPrice,omitempty"`
+
     // SystemDiskPrice 系统盘的价格。
     SystemDiskPrice *PriceItem `json:"systemDiskPrice,omitempty"`
+
+}
+
+// DescribeZoneGpuInstanceConfigInfosRequest 
+type DescribeZoneGpuInstanceConfigInfosRequest struct {
+    *common.BaseRequest
+
+    // ZoneId 要查询的可用区 ID。
+    // 例如：na-us-la-2a。
+    // 不传时返回所有可用区的 GPU 规格。
+    ZoneId *string `json:"zoneId,omitempty"`
+
+    // InstanceType 要查询的 GPU 规格 ID。
+    // 例如：z3a.g.C49.c8m32.1。
+    // 不传时返回所有规格。
+    InstanceType *string `json:"instanceType,omitempty"`
+
+}
+
+type DescribeZoneGpuInstanceConfigInfosResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeZoneGpuInstanceConfigInfosResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeZoneGpuInstanceConfigInfosResponseParams 
+type DescribeZoneGpuInstanceConfigInfosResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // InstanceTypeQuotaSet GPU 规格售卖信息列表。
+    InstanceTypeQuotaSet []*GpuInstanceTypeQuotaItem `json:"instanceTypeQuotaSet,omitempty"`
+
+}
+
+// GpuInstanceTypeQuotaItem 描述 GPU 规格在某可用区的售卖信息。
+type GpuInstanceTypeQuotaItem struct {
+
+    // ZoneId 可用区 ID。
+    ZoneId *string `json:"zoneId,omitempty"`
+
+    // InstanceType GPU 规格 ID。
+    // 例如：z3a.g.C49.c8m32.1。
+    // 变更规格时将此值传入 ModifyInstanceType 的 instanceType 参数。
+    InstanceType *string `json:"instanceType,omitempty"`
+
+    // CpuCount CPU 核数。
+    // 单位：核。
+    CpuCount *int `json:"cpuCount,omitempty"`
+
+    // Memory 内存容量。
+    // 单位：GiB。
+    Memory *int `json:"memory,omitempty"`
+
+    // GpuAmount GPU 卡数。
+    GpuAmount *int `json:"gpuAmount,omitempty"`
+
+    // InstanceTypeName GPU 规格描述。
+    InstanceTypeName *string `json:"instanceTypeName,omitempty"`
+
+    // Bps 单张网卡的带宽上限。
+    // 单位：比特/秒。
+    Bps *int64 `json:"bps,omitempty"`
+
+    // Pps 单张网卡的收发包上限。
+    // 单位：个/秒。
+    Pps *int64 `json:"pps,omitempty"`
+
+    // InventoryCapacity GPU 系列库存档位。
+    InventoryCapacity *string `json:"inventoryCapacity,omitempty"`
 
 }
 
@@ -3205,7 +3289,9 @@ type CreateNetworkInterfaceRequest struct {
     // 当分配公网IP时需要指定。
     EipBindType *string `json:"eipBindType,omitempty"`
 
-    // EipIds 配置在网卡的公网IP ID集合。
+    // EipIds 分配已有的EIP到网卡上。
+    // IP数量必须和创建的网卡数量一致。
+    // 请确保创建的网卡`ipStackType` 包含`IPv4`。
     EipIds []string `json:"eipIds,omitempty"`
 
     // MarketingOptions 市场营销相关的选项。
@@ -5720,6 +5806,29 @@ type InquiryPriceChangeEipInternetChargeTypeResponseParams struct {
     // RemoteBandwidthPrice Remote IPT的带宽价格。
     // EIP未开启Remote IPT时为null。
     RemoteBandwidthPrice *PriceItem `json:"remoteBandwidthPrice,omitempty"`
+
+}
+
+// ModifyEipTrafficPackageRequest 
+type ModifyEipTrafficPackageRequest struct {
+    *common.BaseRequest
+
+    // EipId EIP唯一标识ID。
+    EipId *string `json:"eipId,omitempty"`
+
+    // TrafficPackageSize 流量包大小，单位TB。
+    TrafficPackageSize *float64 `json:"trafficPackageSize,omitempty"`
+
+}
+
+type ModifyEipTrafficPackageResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
 
 }
 

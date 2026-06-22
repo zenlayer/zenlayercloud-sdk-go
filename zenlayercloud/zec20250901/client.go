@@ -631,6 +631,29 @@ func (c *Client) InquiryPriceModifyInstanceType(request *InquiryPriceModifyInsta
 	return
 }
 
+func NewDescribeZoneGpuInstanceConfigInfosRequest() (request *DescribeZoneGpuInstanceConfigInfosRequest) {
+	request = &DescribeZoneGpuInstanceConfigInfosRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeZoneGpuInstanceConfigInfos")
+
+	return
+}
+
+func NewDescribeZoneGpuInstanceConfigInfosResponse() (response *DescribeZoneGpuInstanceConfigInfosResponse) {
+	response = &DescribeZoneGpuInstanceConfigInfosResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeZoneGpuInstanceConfigInfos 查询可用区售卖的 GPU 规格信息
+func (c *Client) DescribeZoneGpuInstanceConfigInfos(request *DescribeZoneGpuInstanceConfigInfosRequest) (response *DescribeZoneGpuInstanceConfigInfosResponse, err error) {
+	response = NewDescribeZoneGpuInstanceConfigInfosResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewDescribeImagesRequest() (request *DescribeImagesRequest) {
 	request = &DescribeImagesRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -2720,6 +2743,29 @@ func NewInquiryPriceChangeEipInternetChargeTypeResponse() (response *InquiryPric
 // InquiryPriceChangeEipInternetChargeType 查询变更EIP网络计费模式后的价格。
 func (c *Client) InquiryPriceChangeEipInternetChargeType(request *InquiryPriceChangeEipInternetChargeTypeRequest) (response *InquiryPriceChangeEipInternetChargeTypeResponse, err error) {
 	response = NewInquiryPriceChangeEipInternetChargeTypeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyEipTrafficPackageRequest() (request *ModifyEipTrafficPackageRequest) {
+	request = &ModifyEipTrafficPackageRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyEipTrafficPackage")
+
+	return
+}
+
+func NewModifyEipTrafficPackageResponse() (response *ModifyEipTrafficPackageResponse) {
+	response = &ModifyEipTrafficPackageResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyEipTrafficPackage 调整弹性公网IP流量包。
+func (c *Client) ModifyEipTrafficPackage(request *ModifyEipTrafficPackageRequest) (response *ModifyEipTrafficPackageResponse, err error) {
+	response = NewModifyEipTrafficPackageResponse()
 	err = c.ApiCall(request, response)
 	return
 }

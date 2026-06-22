@@ -112,5 +112,24 @@ func main() {
 
 ```
 
+## Rate Limit Retries
+
+When the server returns the `REQUEST_LIMIT_EXCEEDED` error code (HTTP 429), the SDK will automatically retry the
+request with an exponential backoff (1s, 2s, 4s, ...). This behavior is **enabled by default** with a maximum of
+**3 retries**, so most callers do not need any extra configuration.
+
+You can customize the maximum retries and the backoff strategy via `WithRateLimitRetry`, or disable it entirely by
+passing `0`:
+
+```go
+config := common.NewConfig()
+
+// Customize: retry up to 5 times with a constant 2-second wait
+config.WithRateLimitRetry(5, func(int) time.Duration { return 2 * time.Second })
+
+// Or disable rate limit retries
+config.WithRateLimitRetry(0, nil)
+```
+
 ---
 快速开始[(中文)](./README-CN.md)

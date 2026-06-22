@@ -2,6 +2,7 @@ package common
 
 import (
 	"bytes"
+	"context"
 	"io"
 	"strings"
 )
@@ -37,6 +38,8 @@ type Request interface {
 	GetMaxAttempts() int
 	GetAutoRetries() bool
 	GetBodyStr() string
+	GetContext() context.Context
+	SetContext(context.Context)
 	SetScheme(string)
 	SetDomain(string)
 	SetPath(string)
@@ -70,6 +73,31 @@ type BaseRequest struct {
 	apiVersion  string
 	autoRetries bool `default:"false"`
 	maxAttempts int  `default:"0"`
+
+	context context.Context
+}
+
+// GetContext returns the context associated with this request.
+// It defaults to context.Background() when no context has been set,
+// so callers can always rely on a non-nil context.
+func (br *BaseRequest) GetContext() context.Context {
+	if br.context == nil {
+		return context.Background()
+	}
+	return br.context
+}
+
+// SetContext binds a context to this request. The context is used to control
+// the lifecycle (timeout / cancellation / value propagation) of the underlying
+// HTTP call made by the client.
+func (br *BaseRequest) SetContext(ctx context.Context) {
+	br.context = ctx
+}
+
+// WithContext is a chainable variant of SetContext.
+func (br *BaseRequest) WithContext(ctx context.Context) *BaseRequest {
+	br.context = ctx
+	return br
 }
 
 func (br *BaseRequest) SetMaxAttempts(maxAttempts int) {

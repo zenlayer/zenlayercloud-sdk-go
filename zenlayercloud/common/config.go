@@ -1,9 +1,19 @@
 package common
 
 import (
+	"math"
 	"net/http"
 	"time"
 )
+
+// DurationFunc determines how long to wait between retries given the retry index.
+type DurationFunc func(index int) time.Duration
+
+// ExponentialBackoff returns exponentially increasing durations: 1s, 2s, 4s, 8s, ...
+func ExponentialBackoff(index int) time.Duration {
+	seconds := math.Pow(2, float64(index))
+	return time.Duration(seconds) * time.Second
+}
 
 type Config struct {
 	AutoRetry     bool `default:"false"`
@@ -17,6 +27,12 @@ type Config struct {
 	// timeout in seconds
 	Timeout int `default:"300"`
 	Debug   *bool
+
+	// RateLimitExceededMaxRetries defines the maximum number of retries when rate limit is exceeded.
+	RateLimitExceededMaxRetries int `default:"3"`
+	// RateLimitExceededRetryDuration determines the wait duration between rate limit retries.
+	// Defaults to ExponentialBackoff if nil.
+	RateLimitExceededRetryDuration DurationFunc
 }
 
 func NewConfig() (config *Config) {
@@ -47,5 +63,11 @@ func (c *Config) WithHttpTransport(httpTransport *http.Transport) *Config {
 
 func (c *Config) WithScheme(scheme string) *Config {
 	c.Scheme = scheme
+	return c
+}
+
+func (c *Config) WithRateLimitRetry(maxRetries int, durationFunc DurationFunc) *Config {
+	c.RateLimitExceededMaxRetries = maxRetries
+	c.RateLimitExceededRetryDuration = durationFunc
 	return c
 }

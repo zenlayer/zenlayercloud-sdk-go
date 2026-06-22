@@ -18,7 +18,7 @@ import (
 )
 
 // version this value will be replaced while build: -ldflags="-X 'common.version=x.x.x'"
-var version = "0.2.42"
+var version = "0.2.43"
 
 const SdkLang = "go"
 
@@ -162,45 +162,63 @@ func (c *Client) ApiCall(request Request, response Response) (err error) {
 }
 
 func (c *Client) apiCallWithRetry(request Request) (resp *http.Response, err error) {
+	return c.sendWithRateLimitRetry(request)
+}
 
+func (c *Client) sendWithNetworkFailureRetry(request Request) (resp *http.Response, err error) {
 	var maxRetryTimes int
 	var autoRetries bool
 	if request.GetAutoRetries() {
 		autoRetries = true
-	} else {
-		autoRetries = c.config.AutoRetry
-	}
-	if request.GetAutoRetries() {
 		maxRetryTimes = request.GetMaxAttempts()
 	} else {
+		autoRetries = c.config.AutoRetry
 		maxRetryTimes = c.config.MaxRetryTime
 	}
+
+	ctx := request.GetContext()
+
 	for retryTimes := 0; retryTimes <= maxRetryTimes; retryTimes++ {
+		// Honor context cancellation/deadline before issuing each (re)try.
+		if err = ctx.Err(); err != nil {
+			return resp, err
+		}
+
 		httpRequest, err := http.NewRequest(request.GetHttpMethod(), request.GetUrl(), request.GetBodyReader())
 		if err != nil {
 			return nil, err
 		}
+		httpRequest = httpRequest.WithContext(ctx)
 
 		for k, v := range request.GetHeaders() {
 			httpRequest.Header[k] = []string{v}
 		}
 
-		resp, err := c.sendHttp(httpRequest)
-		if err != nil && autoRetries && retryTimes < maxRetryTimes {
-			if err, ok := err.(net.Error); ok && (err.Timeout() || err.Temporary()) {
+		resp, err = c.sendHttp(httpRequest)
+		if err != nil && autoRetries && retryTimes < maxRetryTimes && ctx.Err() == nil {
+			if netErr, ok := err.(net.Error); ok && (netErr.Timeout() || netErr.Temporary()) {
 				duration := c.config.RetryDuration
-
 				if c.debug {
-					c.logger.Printf("[WARN] network failure, retrying (%d/%d) in %f seconds: %s", retryTimes, maxRetryTimes, duration.Seconds(), err.Error())
+					c.logger.Printf("[WARN] network failure, retrying (%d/%d) in %f seconds: %s", retryTimes, maxRetryTimes, duration.Seconds(), netErr.Error())
 				}
-
 				if duration > 0 {
-					time.Sleep(duration)
+					select {
+					case <-time.After(duration):
+					case <-ctx.Done():
+						return resp, ctx.Err()
+					}
 				}
 				continue
 			}
 		}
 		if err != nil {
+			// When the failure stems from the caller's context (cancellation
+			// or deadline), surface the original context error so callers can
+			// detect it via errors.Is(err, context.Canceled) etc., instead of
+			// masking it as a generic network error.
+			if ctxErr := ctx.Err(); ctxErr != nil {
+				return resp, ctxErr
+			}
 			c.logger.Printf("[WARN] api request occurs error, action: %s, %v", request.GetAction(), err)
 			msg := fmt.Sprintf("Fail to get response because %s", err)
 			err = NewZenlayerCloudSdkError(NetworkError, msg, "")

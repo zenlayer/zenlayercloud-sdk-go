@@ -112,5 +112,22 @@ func main() {
 
 ```
 
+## 限流重试
+
+当服务端返回 `REQUEST_LIMIT_EXCEEDED` 错误码（HTTP 429）时，SDK 会自动按指数退避（1s、2s、4s ……）进行重试。该行为**默认开启**，
+默认最大重试次数为 **3 次**，多数调用方无需额外配置。
+
+如需自定义重试次数或退避策略，可通过 `WithRateLimitRetry` 调整；传入 `0` 即可关闭限流重试：
+
+```go
+config := common.NewConfig()
+
+// 自定义：最多重试 5 次，每次等待固定 2 秒
+config.WithRateLimitRetry(5, func(int) time.Duration { return 2 * time.Second })
+
+// 或者关闭限流重试
+config.WithRateLimitRetry(0, nil)
+```
+
 ---
 Quick Start[(English)](./README.md)
