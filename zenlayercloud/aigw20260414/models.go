@@ -802,3 +802,71 @@ type ModelCacheHitSeries struct {
 
 }
 
+// DescribeAiModelDailyUsageRequest 
+type DescribeAiModelDailyUsageRequest struct {
+    *common.BaseRequest
+
+    // InstanceIds 实例ID。
+    InstanceIds *string `json:"instanceIds,omitempty"`
+
+    // ResourceGroupId 资源组ID。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // Month 月份，格式："2026-2" 或 "2026-02"。
+    Month *string `json:"month,omitempty"`
+
+}
+
+type DescribeAiModelDailyUsageResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeAiModelDailyUsageResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeAiModelDailyUsageResponseParams 
+type DescribeAiModelDailyUsageResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // Metric 日用量数据列表。
+    Metric []*DailyMetricItem `json:"metric,omitempty"`
+
+}
+
+// DailyMetricItem 日用量条目。
+type DailyMetricItem struct {
+
+    // Date 日期，格式：yyyy-MM-dd。
+    Date *string `json:"date,omitempty"`
+
+    // Model_usage 各模型用量列表。
+    Model_usage []*ModelDailyUsage `json:"model_usage,omitempty"`
+
+}
+
+// ModelDailyUsage 模型日用量。
+type ModelDailyUsage struct {
+
+    // ModelName 模型名称。
+    ModelName *string `json:"modelName,omitempty"`
+
+    // PromptMissedTokens 未命中缓存的输入Token数。
+    PromptMissedTokens *int64 `json:"promptMissedTokens,omitempty"`
+
+    // CompletionTokens 输出Token数。
+    CompletionTokens *int64 `json:"completionTokens,omitempty"`
+
+    // CachedTokens 命中缓存的Token数。
+    CachedTokens *int64 `json:"cachedTokens,omitempty"`
+
+    // CacheCreationInputTokens 缓存创建Token数（Anthropic模型）。
+    CacheCreationInputTokens *int64 `json:"cacheCreationInputTokens,omitempty"`
+
+    // ReasoningTokens 推理Token数。
+    ReasoningTokens *int64 `json:"reasoningTokens,omitempty"`
+
+}
+

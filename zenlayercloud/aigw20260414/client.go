@@ -35,6 +35,7 @@ func NewClient(config *common.Config, secretKeyId, secretKeyPassword string) (cl
 	}
 	return client, nil
 }
+
 func NewClientWithToken(token string) (client *Client, err error) {
 	return NewClientWithTokenAndConfig(common.NewConfig(), token)
 }
@@ -53,7 +54,6 @@ func NewClientWithTokenAndConfig(config *common.Config, token string) (client *C
 	}
 	return client, nil
 }
-
 
 
 func NewDescribeAiGatewaysRequest() (request *DescribeAiGatewaysRequest) {
@@ -512,6 +512,29 @@ func NewDescribeAiModelDailyCacheHitRateResponse() (response *DescribeAiModelDai
 // DescribeAiModelDailyCacheHitRate 查询AI网关日模型缓存命中率
 func (c *Client) DescribeAiModelDailyCacheHitRate(request *DescribeAiModelDailyCacheHitRateRequest) (response *DescribeAiModelDailyCacheHitRateResponse, err error) {
 	response = NewDescribeAiModelDailyCacheHitRateResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeAiModelDailyUsageRequest() (request *DescribeAiModelDailyUsageRequest) {
+	request = &DescribeAiModelDailyUsageRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeAiModelDailyUsage")
+
+	return
+}
+
+func NewDescribeAiModelDailyUsageResponse() (response *DescribeAiModelDailyUsageResponse) {
+	response = &DescribeAiModelDailyUsageResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeAiModelDailyUsage 查询AI网关日用量数据
+func (c *Client) DescribeAiModelDailyUsage(request *DescribeAiModelDailyUsageRequest) (response *DescribeAiModelDailyUsageResponse, err error) {
+	response = NewDescribeAiModelDailyUsageResponse()
 	err = c.ApiCall(request, response)
 	return
 }
