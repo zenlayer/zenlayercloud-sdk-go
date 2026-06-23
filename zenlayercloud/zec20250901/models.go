@@ -231,13 +231,11 @@ type InquiryPriceCreateInstanceRequest struct {
     // ZoneId 可用区ID。
     ZoneId *string `json:"zoneId,omitempty"`
 
-    // InstanceType 实例机型。
-    // 具体取值可通过调用接口[DescribeZoneInstanceConfigInfos](describezoneinstanceconfiginfos.md)来获得最新的规格表。
+    // InstanceType 实例机型。普通实例取值可通过[DescribeZoneInstanceConfigInfos](describezoneinstanceconfiginfos.md)获得；GPU 实例取值可通过[DescribeZoneGpuInstanceConfigInfos](describezoneGpuinstanceconfiginfos.md)获得。
     InstanceType *string `json:"instanceType,omitempty"`
 
     // Deprecated: EipV4Type 已废弃，请不要使用。
     // EipV4Type 公网IPv4的线路类型。
-    // 目前不支持三线IP(`ThreeLine`)。
     // 已废弃，请使用`networkLineType`。
     EipV4Type *string `json:"eipV4Type,omitempty"`
 
@@ -463,10 +461,10 @@ type CreateZecInstancesRequest struct {
     ImageId *string `json:"imageId,omitempty"`
 
     // TimeZone 设置操作系统的时区。
+    // 如果未指定，将使用区域所在的时区。
     TimeZone *string `json:"timeZone,omitempty"`
 
-    // InstanceType 实例机型。
-    // 具体取值可通过调用接口[DescribeZoneInstanceConfigInfos](describezoneinstanceconfiginfos.md)来获得最新的规格表。
+    // InstanceType 实例机型。普通实例取值可通过[DescribeZoneInstanceConfigInfos](describezoneinstanceconfiginfos.md)获得；GPU 实例取值可通过[DescribeZoneGpuInstanceConfigInfos](describezoneGpuinstanceconfiginfos.md)获得。
     InstanceType *string `json:"instanceType,omitempty"`
 
     // InstanceName 实例显示名称。
@@ -557,7 +555,6 @@ type CreateZecInstancesRequest struct {
     // EipV4Type 公网IPv4的线路类型。
     // 当分配公网IP时需要指定。
     // 请确保所选子网的堆栈类型支持`IPv4`。
-    // 目前不支持三线IP随实例一起创建。
     // 已废弃，请使用`networkLineType`。
     EipV4Type *string `json:"eipV4Type,omitempty"`
 
@@ -568,10 +565,9 @@ type CreateZecInstancesRequest struct {
     // NetworkLineType 公网IPv4的线路类型。
     // 当分配公网IP时需要指定。
     // 请确保所选子网的堆栈类型支持`IPv4`。
-    // 目前不支持三线IP随实例一起创建。
     NetworkLineType *string `json:"networkLineType,omitempty"`
 
-    // ClusterId 共享带宽包ID。
+    // ClusterId 公网IPv4/IPv6加入的共享带宽包ID。
     // 当网络计费方式是共享带宽包计费(`BandwidthCluster`)时需要指定。
     ClusterId *string `json:"clusterId,omitempty"`
 
@@ -1317,7 +1313,7 @@ type ModifyInstanceTypeRequest struct {
     // InstanceId 要变更的实例ID。
     InstanceId *string `json:"instanceId,omitempty"`
 
-    // InstanceType 变更的目标实例规格。
+    // InstanceType 变更的目标实例规格。普通实例取值可通过[DescribeZoneInstanceConfigInfos](describezoneinstanceconfiginfos.md)获得；GPU 实例取值可通过[DescribeZoneGpuInstanceConfigInfos](describezoneGpuinstanceconfiginfos.md)获得。
     InstanceType *string `json:"instanceType,omitempty"`
 
 }
@@ -1488,7 +1484,7 @@ type InquiryPriceModifyInstanceTypeRequest struct {
     // InstanceId 要变更规格的实例ID。
     InstanceId *string `json:"instanceId,omitempty"`
 
-    // InstanceType 变更的目标实例规格。
+    // InstanceType 变更的目标实例规格。普通实例取值可通过[DescribeZoneInstanceConfigInfos](describezoneinstanceconfiginfos.md)获得；GPU 实例取值可通过[DescribeZoneGpuInstanceConfigInfos](describezoneGpuinstanceconfiginfos.md)获得。
     InstanceType *string `json:"instanceType,omitempty"`
 
 }
@@ -1507,7 +1503,7 @@ type InquiryPriceModifyInstanceTypeResponseParams struct {
 
     RequestId *string `json:"requestId,omitempty"`
 
-    // SpecPrice 变更后规格的价格。
+    // SpecPrice 变更后规格的价格。VM 实例变配时返回，GPU 实例变配时为 null。
     SpecPrice *PriceItem `json:"specPrice,omitempty"`
 
     // GpuPrice 变更后 GPU 规格的价格。
@@ -3789,6 +3785,30 @@ type InquiryPriceChangeIpv6InternetChargeTypeResponseParams struct {
 
     // BandwidthPrice 公网IPv6的带宽价格。
     BandwidthPrice *PriceItem `json:"bandwidthPrice,omitempty"`
+
+}
+
+// ModifyIpv6BandwidthRequest 
+type ModifyIpv6BandwidthRequest struct {
+    *common.BaseRequest
+
+    // Ipv6Id IPv6唯一标识ID。
+    Ipv6Id *string `json:"ipv6Id,omitempty"`
+
+    // Bandwidth 调整带宽限速的目标值。
+    // 单位Mbps。
+    Bandwidth *int `json:"bandwidth,omitempty"`
+
+}
+
+type ModifyIpv6BandwidthResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
 
 }
 

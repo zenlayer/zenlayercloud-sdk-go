@@ -624,7 +624,7 @@ func NewInquiryPriceModifyInstanceTypeResponse() (response *InquiryPriceModifyIn
 	return
 }
 
-// InquiryPriceModifyInstanceType 查询变更虚拟机实例规格后的新规格价格。
+// InquiryPriceModifyInstanceType 查询变更实例规格后的价格。
 func (c *Client) InquiryPriceModifyInstanceType(request *InquiryPriceModifyInstanceTypeRequest) (response *InquiryPriceModifyInstanceTypeResponse, err error) {
 	response = NewInquiryPriceModifyInstanceTypeResponse()
 	err = c.ApiCall(request, response)
@@ -1846,6 +1846,29 @@ func NewInquiryPriceChangeIpv6InternetChargeTypeResponse() (response *InquiryPri
 // InquiryPriceChangeIpv6InternetChargeType 查询变更IPv6网络计费模式后的价格。
 func (c *Client) InquiryPriceChangeIpv6InternetChargeType(request *InquiryPriceChangeIpv6InternetChargeTypeRequest) (response *InquiryPriceChangeIpv6InternetChargeTypeResponse, err error) {
 	response = NewInquiryPriceChangeIpv6InternetChargeTypeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyIpv6BandwidthRequest() (request *ModifyIpv6BandwidthRequest) {
+	request = &ModifyIpv6BandwidthRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyIpv6Bandwidth")
+
+	return
+}
+
+func NewModifyIpv6BandwidthResponse() (response *ModifyIpv6BandwidthResponse) {
+	response = &ModifyIpv6BandwidthResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyIpv6Bandwidth 调整公网IPv6的带宽限速。
+func (c *Client) ModifyIpv6Bandwidth(request *ModifyIpv6BandwidthRequest) (response *ModifyIpv6BandwidthResponse, err error) {
+	response = NewModifyIpv6BandwidthResponse()
 	err = c.ApiCall(request, response)
 	return
 }
