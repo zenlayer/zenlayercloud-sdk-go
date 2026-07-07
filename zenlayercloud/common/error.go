@@ -7,6 +7,8 @@ const (
 	NetworkError           = "NETWORK_ERROR"
 	CredentialMissingError = "CREDENTIAL_VALUE_MISSING"
 	IoError                = "IO_ERROR"
+	SecurityChallengeError = "SECURITY_CHALLENGE"
+	RequestBlockedError    = "REQUEST_BLOCKED"
 )
 
 type ZenlayerCloudSdkError struct {

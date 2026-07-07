@@ -39,9 +39,16 @@ func ParseFromHttpResponse(hr *http.Response, response Response) (err error) {
 	}
 
 	if hr.StatusCode != 200 {
-		_ = fmt.Sprintf("Request fail with http status code: %s, with body: %s", hr.Status, body)
-
-		// parse error
+		if hr.StatusCode == 403 && hr.Header.Get("cf-mitigated") == "challenge" {
+			return NewZenlayerCloudSdkError(SecurityChallengeError,
+				"Request was intercepted by a security challenge (HTTP 403). This is a network-layer block, not an API error. Contact support if it persists.",
+				"")
+		}
+		if hr.StatusCode == 451 {
+			return NewZenlayerCloudSdkError(RequestBlockedError,
+				"Request was blocked by a security policy (HTTP 451). Contact support to investigate.",
+				"")
+		}
 		return response.ParseErrorResponse(body)
 	}
 
