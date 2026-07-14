@@ -1712,6 +1712,29 @@ func (c *Client) InquiryPricePublicIpv6(request *InquiryPricePublicIpv6Request) 
 	return
 }
 
+func NewInquiryPriceChangeIpv6InternetChargeTypeRequest() (request *InquiryPriceChangeIpv6InternetChargeTypeRequest) {
+	request = &InquiryPriceChangeIpv6InternetChargeTypeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryPriceChangeIpv6InternetChargeType")
+
+	return
+}
+
+func NewInquiryPriceChangeIpv6InternetChargeTypeResponse() (response *InquiryPriceChangeIpv6InternetChargeTypeResponse) {
+	response = &InquiryPriceChangeIpv6InternetChargeTypeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// InquiryPriceChangeIpv6InternetChargeType 查询变更IPv6网络计费模式后的价格。
+func (c *Client) InquiryPriceChangeIpv6InternetChargeType(request *InquiryPriceChangeIpv6InternetChargeTypeRequest) (response *InquiryPriceChangeIpv6InternetChargeTypeResponse, err error) {
+	response = NewInquiryPriceChangeIpv6InternetChargeTypeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewAssignNetworkInterfaceIpv6Request() (request *AssignNetworkInterfaceIpv6Request) {
 	request = &AssignNetworkInterfaceIpv6Request{
 		BaseRequest: &common.BaseRequest{},
@@ -1827,29 +1850,6 @@ func (c *Client) InquiryPriceModifyIpv6Bandwidth(request *InquiryPriceModifyIpv6
 	return
 }
 
-func NewInquiryPriceChangeIpv6InternetChargeTypeRequest() (request *InquiryPriceChangeIpv6InternetChargeTypeRequest) {
-	request = &InquiryPriceChangeIpv6InternetChargeTypeRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryPriceChangeIpv6InternetChargeType")
-
-	return
-}
-
-func NewInquiryPriceChangeIpv6InternetChargeTypeResponse() (response *InquiryPriceChangeIpv6InternetChargeTypeResponse) {
-	response = &InquiryPriceChangeIpv6InternetChargeTypeResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// InquiryPriceChangeIpv6InternetChargeType 查询变更IPv6网络计费模式后的价格。
-func (c *Client) InquiryPriceChangeIpv6InternetChargeType(request *InquiryPriceChangeIpv6InternetChargeTypeRequest) (response *InquiryPriceChangeIpv6InternetChargeTypeResponse, err error) {
-	response = NewInquiryPriceChangeIpv6InternetChargeTypeResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
 func NewModifyIpv6BandwidthRequest() (request *ModifyIpv6BandwidthRequest) {
 	request = &ModifyIpv6BandwidthRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -1869,6 +1869,29 @@ func NewModifyIpv6BandwidthResponse() (response *ModifyIpv6BandwidthResponse) {
 // ModifyIpv6Bandwidth 调整公网IPv6的带宽限速。
 func (c *Client) ModifyIpv6Bandwidth(request *ModifyIpv6BandwidthRequest) (response *ModifyIpv6BandwidthResponse, err error) {
 	response = NewModifyIpv6BandwidthResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyIpv6TrafficPackageRequest() (request *ModifyIpv6TrafficPackageRequest) {
+	request = &ModifyIpv6TrafficPackageRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyIpv6TrafficPackage")
+
+	return
+}
+
+func NewModifyIpv6TrafficPackageResponse() (response *ModifyIpv6TrafficPackageResponse) {
+	response = &ModifyIpv6TrafficPackageResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyIpv6TrafficPackage 调整公网IPv6流量包。
+func (c *Client) ModifyIpv6TrafficPackage(request *ModifyIpv6TrafficPackageRequest) (response *ModifyIpv6TrafficPackageResponse, err error) {
+	response = NewModifyIpv6TrafficPackageResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -2214,6 +2237,29 @@ func NewDescribeByoipPriceResponse() (response *DescribeByoipPriceResponse) {
 // DescribeByoipPrice 根据宣告 IP 段、区域、线路类型等查询 BYOIP 价格。
 func (c *Client) DescribeByoipPrice(request *DescribeByoipPriceRequest) (response *DescribeByoipPriceResponse, err error) {
 	response = NewDescribeByoipPriceResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeEipNetworkLineTypesRequest() (request *DescribeEipNetworkLineTypesRequest) {
+	request = &DescribeEipNetworkLineTypesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeEipNetworkLineTypes")
+
+	return
+}
+
+func NewDescribeEipNetworkLineTypesResponse() (response *DescribeEipNetworkLineTypesResponse) {
+	response = &DescribeEipNetworkLineTypesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeEipNetworkLineTypes 查询EIP支持的IP线路类型列表，可按节点过滤。
+func (c *Client) DescribeEipNetworkLineTypes(request *DescribeEipNetworkLineTypesRequest) (response *DescribeEipNetworkLineTypesResponse, err error) {
+	response = NewDescribeEipNetworkLineTypesResponse()
 	err = c.ApiCall(request, response)
 	return
 }

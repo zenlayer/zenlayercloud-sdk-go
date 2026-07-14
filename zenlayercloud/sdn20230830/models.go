@@ -819,6 +819,9 @@ type PrivateConnectEndpoint struct {
 
 	// 连接点的连通性状态。
 	ConnectivityStatus string `json:"connectivityStatus,omitempty"`
+
+	// 共享通道ID。公有云接入点对应的云侧连接标识，仅公有云类型接入点时有值。
+    SharedChannelId string `json:"sharedChannelId,omitempty"`
 }
 
 type DatacenterInfo struct {
@@ -1327,6 +1330,9 @@ type CloudRouterEdgePoint struct {
 
 	// 创建时间。
 	CreateTime string `json:"createTime,omitempty"`
+
+	// 共享通道ID。公有云接入点对应的云侧连接标识，仅公有云类型接入点时有值。
+    SharedChannelId string `json:"sharedChannelId,omitempty"`
 }
 
 type BGPConnection struct {
