@@ -195,9 +195,7 @@ type InquiryPriceCreateLoadBalancerRequest struct {
     // NetworkLineType IP 的网络类型。
     NetworkLineType *string `json:"networkLineType,omitempty"`
 
-    // BandwidthMbps EIP的最大出带宽。
-    // 单位为Mbps。
-    // 最大限制通常为10000，如果有额外要求， 请联系Support。
+    // BandwidthMbps EIP的最大出带宽。单位为Mbps。最大限制通常为10000，如果有额外要求，请联系Support。当`internetChargeType`为`ByBandwidth`时，此参数必填。
     BandwidthMbps *int `json:"bandwidthMbps,omitempty"`
 
     // TrafficPackageSize 流量包大小。
@@ -313,7 +311,7 @@ type StepPrice struct {
 
 }
 
-// BandwidthPriceResponseItem 
+// BandwidthPriceResponseItem 带宽价格明细。
 type BandwidthPriceResponseItem struct {
 
     // TrafficType 流量方向类型。
@@ -349,9 +347,7 @@ type CreateLoadBalancerRequest struct {
     // NetworkLineType IP 的网络类型。
     NetworkLineType *string `json:"networkLineType,omitempty"`
 
-    // BandwidthMbps EIP的最大出带宽。
-    // 单位为Mbps。
-    // 最大限制通常为10000，如果有额外要求， 请联系Support。
+    // BandwidthMbps EIP的最大出带宽。单位为Mbps。最大限制通常为10000，如果有额外要求，请联系Support。当`internetChargeType`为`ByBandwidth`时，此参数必填。
     BandwidthMbps *int `json:"bandwidthMbps,omitempty"`
 
     // TrafficPackageSize 流量包大小。

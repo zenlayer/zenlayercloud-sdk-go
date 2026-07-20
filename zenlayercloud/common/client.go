@@ -18,7 +18,7 @@ import (
 )
 
 // version this value will be replaced while build: -ldflags="-X 'common.version=x.x.x'"
-var version = "0.2.47"
+var version = "0.2.48"
 
 const SdkLang = "go"
 
