@@ -3,14 +3,20 @@ package ipt
 import "github.com/zenlayer/zenlayercloud-sdk-go/zenlayercloud/common"
 
 
+// DescribeIPTransitDatacentersRequest 
 type DescribeIPTransitDatacentersRequest struct {
     *common.BaseRequest
 
-    // PeerPortId 指定端口ID。
+    // PeerPortId 对端数据中心端口 ID。
+    // 传入时查询以该数据中心端口为接入侧的可连接数据中心列表。
     PeerPortId *string `json:"peerPortId,omitempty"`
 
-    // PeerDcId 指定数据中心ID。
+    // PeerDcId 对端数据中心 ID。
     PeerDcId *string `json:"peerDcId,omitempty"`
+
+    // ZbgRegionId ZBG 接入节点 ID。
+    // 非空时查询以该 ZBG 节点为接入侧的 Router RIPT 可连接 DC 列表。
+    ZbgRegionId *string `json:"zbgRegionId,omitempty"`
 
 }
 
@@ -23,27 +29,28 @@ type DescribeIPTransitDatacentersResponse struct {
 
 }
 
+// DescribeIPTransitDatacentersResponseParams 
 type DescribeIPTransitDatacentersResponseParams struct {
 
     RequestId *string `json:"requestId,omitempty"`
 
-    // SupportSet 结果集。
+    // SupportSet 可连接数据中心结果集。
     SupportSet []*IPTransitDatacenter `json:"supportSet,omitempty"`
 
 }
 
-// IPTransitDatacenter 描述支持IP Transit的数据中心信息，包括数据中心的基本信息以及支持的路由类型等。
+// IPTransitDatacenter 可连接数据中心信息。
 type IPTransitDatacenter struct {
 
     // DataCenter 数据中心信息。
     DataCenter *DatacenterInfo `json:"dataCenter,omitempty"`
 
-    // AvailableRoutingTypes 支持的路由类型配置。
+    // AvailableRoutingTypes 该数据中心可用的路由模式列表。
     AvailableRoutingTypes []*RemoteIptAvailableRoutingType `json:"availableRoutingTypes,omitempty"`
 
 }
 
-// DatacenterInfo 描述数据中心的信息。
+// DatacenterInfo 数据中心的基本信息。
 type DatacenterInfo struct {
 
     // DcId 数据中心ID。
@@ -55,45 +62,145 @@ type DatacenterInfo struct {
     // DcAddress 数据中心地址。
     DcAddress *string `json:"dcAddress,omitempty"`
 
-    // CityName 城市名称。
+    // CityName 数据中心所在城市名称。
     CityName *string `json:"cityName,omitempty"`
 
-    // CountryName 国家名称。
+    // CountryName 数据中心所在国家名称。
     CountryName *string `json:"countryName,omitempty"`
 
-    // AreaName 地区名称。
+    // AreaName 数据中心所在区域名称。
     AreaName *string `json:"areaName,omitempty"`
 
-    // Latitude 数据中心所在地理位置的维度。
+    // Latitude 数据中心所在地纬度。
     Latitude *float64 `json:"latitude,omitempty"`
 
-    // Longitude 数据中心所在地理位置的经度。
+    // Longitude 数据中心所在地经度。
     Longitude *float64 `json:"longitude,omitempty"`
 
 }
 
-// RemoteIptAvailableRoutingType 可用的路由类型信息。
+// RemoteIptAvailableRoutingType IP Transit可用路由模式信息。
 type RemoteIptAvailableRoutingType struct {
 
-    // RoutingType 路由类型。
+    // RoutingType 路由模式。
     RoutingType *string `json:"routingType,omitempty"`
 
-    // DeliveryType 交付模式。
+    // AvailableBgpRouteTypes 可选的 BGP 路由通告类型列表。
+    // 仅 `routingType` 为 BGP 时有值。
+    AvailableBgpRouteTypes []string `json:"availableBgpRouteTypes,omitempty"`
+
+    // DeliveryType 开通方式。
     DeliveryType *string `json:"deliveryType,omitempty"`
+
+    // PublicInterconnectNetmasks IPv4 公网互联可选掩码列表。
+    // 目前仅 30 / 31。
+    PublicInterconnectNetmasks []int `json:"publicInterconnectNetmasks,omitempty"`
 
 }
 
+type DescribeIPTransitAvailableAsnsRequest struct {
+    *common.BaseRequest
+
+}
+
+type DescribeIPTransitAvailableAsnsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeIPTransitAvailableAsnsResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeIPTransitAvailableAsnsResponseParams 
+type DescribeIPTransitAvailableAsnsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // DataSet 可用 ASN 列表。
+    DataSet []*AsnInfo `json:"dataSet,omitempty"`
+
+}
+
+// AsnInfo 可用 ASN 信息。
+type AsnInfo struct {
+
+    // Asn ASN 值。
+    Asn *string `json:"asn,omitempty"`
+
+    // AsnType ASN 类型。
+    AsnType *string `json:"asnType,omitempty"`
+
+}
+
+// DescribeIPTransitAvailableCidrBlocksRequest 
+type DescribeIPTransitAvailableCidrBlocksRequest struct {
+    *common.BaseRequest
+
+    // IptDcId 目标数据中心 ID。
+    // 传入 `ipUuid` 时可不传，将从该 IP 块所在数据中心自动推导。
+    IptDcId *string `json:"iptDcId,omitempty"`
+
+    // RoutingType 路由类型。
+    // 不同路由类型下可用掩码范围不同；不传则返回全量掩码。
+    RoutingType *string `json:"routingType,omitempty"`
+
+    // ZbgRegionId ZBG 区域 ID。
+    // ZBG 场景下必传。
+    ZbgRegionId *string `json:"zbgRegionId,omitempty"`
+
+    // IpUuid IP 地址 UUID。
+    // 传入后接口会自动推导所属数据中心和路由类型，仅返回掩码长度不小于当前 IP 块的可选项。
+    IpUuid *string `json:"ipUuid,omitempty"`
+
+}
+
+type DescribeIPTransitAvailableCidrBlocksResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeIPTransitAvailableCidrBlocksResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeIPTransitAvailableCidrBlocksResponseParams 
+type DescribeIPTransitAvailableCidrBlocksResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // Ipv4CidrBlocks 可用 IPv4 CIDR 块列表。
+    Ipv4CidrBlocks []*CidrBlock `json:"ipv4CidrBlocks,omitempty"`
+
+    // Ipv6CidrBlocks 可用 IPv6 CIDR 块列表。
+    Ipv6CidrBlocks []*CidrBlock `json:"ipv6CidrBlocks,omitempty"`
+
+}
+
+// CidrBlock 可用 CIDR 块信息。
+type CidrBlock struct {
+
+    // Netmask 掩码长度。
+    // IPv4 范围 24–32，IPv6 范围 48–64。
+    Netmask *int `json:"netmask,omitempty"`
+
+    // IpNetworkType IP 网络类型。
+    IpNetworkType *string `json:"ipNetworkType,omitempty"`
+
+}
+
+// InquiryCreateIPTransitPriceRequest 
 type InquiryCreateIPTransitPriceRequest struct {
     *common.BaseRequest
 
-    // PeerPortId 端口的ID。
+    // PeerPortId 对端数据中心端口 ID。
     PeerPortId *string `json:"peerPortId,omitempty"`
 
-    // IptDcId IP Transit 目的地数据中心ID。
-    // 如果不指定，则代表和端口位于同一个数据中心。
+    // IptDcId 本端数据中心 ID。
+    // 为空代表本地连接（Local IPT）。
     IptDcId *string `json:"iptDcId,omitempty"`
 
-    // InternetType IP Transit的带宽计费方式。
+    // InternetType 网络计费方式。
     InternetType *string `json:"internetType,omitempty"`
 
     // CommitBandwidth 保底带宽。
@@ -103,20 +210,77 @@ type InquiryCreateIPTransitPriceRequest struct {
 
     // Bandwidth 带宽限速。
     // 单位Mbps。
-    // 最小值不能低于10Mbps。
+    // 最小值不能低于5Mbps。
+    // 默认值为5Mbps。
+    // 95 计费下必须大于等于 `commitBandwidth`。
     Bandwidth *int `json:"bandwidth,omitempty"`
 
-    // RoutingType 路由类型。
+    // RoutingType 路由模式。
     RoutingType *string `json:"routingType,omitempty"`
 
-    // PublicIPv4BlockSize 公网IPv4地址。
-    // 网段范围：24～30
-    // 有且仅当路由类型是Static 或 Gateway时必须指定。
-    // 目前只允许指定一个公网CIDR。
+    // PublicIPv4BlockSize 公网 IPv4 地址段大小列表。
+    // 与 `publicIpList` 互斥，优先级更低。
     PublicIPv4BlockSize []int `json:"publicIPv4BlockSize,omitempty"`
 
     // BgpRouteType BGP入站路由类型。
     BgpRouteType *string `json:"bgpRouteType,omitempty"`
+
+    // IpType IP 类型（IPV4 / IPV6）。
+    // 默认 IPV4。
+    IpType *string `json:"ipType,omitempty"`
+
+    // PublicIpList 公网 IP 分配列表。
+    // 与 `publicIPv4BlockSize` 互斥，优先级更高。
+    // 传此字段时 `publicIPv4BlockSize` 被忽略。
+    PublicIpList []*IPTransitIpRequest `json:"publicIpList,omitempty"`
+
+    // ZbgRegionId ZBG 接入节点 ID。
+    // 非空时走 Router RIPT 询价流程。
+    ZbgRegionId *string `json:"zbgRegionId,omitempty"`
+
+    // HaConfig HA 高可用配置。
+    // 非空时询价包含 2 条 VLL 价格。
+    HaConfig *IPTransitHaConfig `json:"haConfig,omitempty"`
+
+    // PublicInterconnectNetmask 公网互联块掩码。
+    // 非空时响应包含公网互联 IP 块价格。
+    PublicInterconnectNetmask *int `json:"publicInterconnectNetmask,omitempty"`
+
+}
+
+// IPTransitIpRequest 公网 IP 分配请求。
+type IPTransitIpRequest struct {
+
+    // Netmask CIDR 掩码长度。
+    // IPv4 有效范围 24–30，IPv6 有效范围 48–64。
+    Netmask *int `json:"netmask,omitempty"`
+
+    // IpType IP 类型（IPV4 / IPV6）。
+    IpType *string `json:"ipType,omitempty"`
+
+    // IpNetworkType IP 类型。
+    // 默认 BGP_IP（从 IP 池分配）。
+    // LOCAL_IP 表示原生 IP。
+    IpNetworkType *string `json:"ipNetworkType,omitempty"`
+
+    // Amount 购买数量。
+    // 指定相同掩码长度的 IP 块数量，默认为 1。
+    Amount *int `json:"amount,omitempty"`
+
+}
+
+// IPTransitHaConfig IP Transit HA配置信息。
+type IPTransitHaConfig struct {
+
+    // HaMode HA 运行模式。
+    HaMode *string `json:"haMode,omitempty"`
+
+    // SecondaryPortId 备链路接入数据中心端口 ID。
+    // 与顶层 peerPortId 必须同城不同 DC。
+    SecondaryPortId *string `json:"secondaryPortId,omitempty"`
+
+    // SecondaryPortVlanId 备链路数据中心端口 VLAN ID。
+    SecondaryPortVlanId *int `json:"secondaryPortVlanId,omitempty"`
 
 }
 
@@ -129,19 +293,24 @@ type InquiryCreateIPTransitPriceResponse struct {
 
 }
 
+// InquiryCreateIPTransitPriceResponseParams 
 type InquiryCreateIPTransitPriceResponseParams struct {
 
     RequestId *string `json:"requestId,omitempty"`
 
-    // PrivateConnectPrice IP Transit 的 专线价格。
-    // 如果IP Transit 和端口位于同一个数据中心，则取值为null。
+    // PrivateConnectPrice 二层网络专线价格。
+    // 可能为空。
     PrivateConnectPrice *PriceItem `json:"privateConnectPrice,omitempty"`
 
-    // IptBandwidthPrice IP Transit 的公网带宽价格。
+    // IptBandwidthPrice IP Transit带宽价格。
     IptBandwidthPrice *PriceItem `json:"iptBandwidthPrice,omitempty"`
 
-    // PublicIpPrices IP Transit 的公网IP价格。
+    // PublicIpPrices 公网 IP 价格列表。
     PublicIpPrices []*IPPrice `json:"publicIpPrices,omitempty"`
+
+    // PublicInterconnectIpPrice 公网互联 IP 价格。
+    // 仅 publicInterconnectNetmask 非空时返回。
+    PublicInterconnectIpPrice *IPPrice `json:"publicInterconnectIpPrice,omitempty"`
 
 }
 
@@ -198,100 +367,113 @@ type PriceItem struct {
 
 }
 
-// StepPrice 后付费阶梯价格。描述了价格的一个阶梯的信息。
+// StepPrice 描述阶梯价格的信息。
 type StepPrice struct {
 
-    // StepStart 阶梯用量的开始。
+    // StepStart 阶梯的起始值。
     StepStart *float64 `json:"stepStart,omitempty"`
 
-    // StepEnd 阶梯用量的结束。
+    // StepEnd 阶梯的到达值。
+    // 为null代表最后一级阶梯。
     StepEnd *float64 `json:"stepEnd,omitempty"`
 
-    // UnitPrice 当前阶梯的单元原始价格。
-    // 后付费模式使用。
+    // UnitPrice 阶梯单价。
     UnitPrice *float64 `json:"unitPrice,omitempty"`
 
-    // DiscountUnitPrice 当前阶梯的单元折后价格。
-    // 后付费模式使用。
+    // DiscountUnitPrice 阶梯折后价。
     DiscountUnitPrice *float64 `json:"discountUnitPrice,omitempty"`
 
 }
 
-// IPPrice IP价格信息。
+// IPPrice IP 价格信息。
 type IPPrice struct {
 
-    // Price IP CIDR 的价格信息。
+    // Price 价格详情。
     Price *PriceItem `json:"price,omitempty"`
 
-    // Netmask IP CIDR 的网段。
+    // Netmask 掩码长度。
     Netmask *int `json:"netmask,omitempty"`
 
-    // Qty IP CIDR 的数量。
+    // Qty 数量。
     Qty *int `json:"qty,omitempty"`
+
+    // IpNetworkType IP 网络类型。
+    IpNetworkType *string `json:"ipNetworkType,omitempty"`
 
 }
 
+// CreateIPTransitRequest 
 type CreateIPTransitRequest struct {
     *common.BaseRequest
 
-    // IptName IP Transit的名称。
-    // 长度不能超过255。
+    // IptName IP Transit名称。
     IptName *string `json:"iptName,omitempty"`
 
-    // IptDescription IP Transit的描述信息。
-    // 长度不能超过255。
+    // IptDescription IP Transit描述。
     IptDescription *string `json:"iptDescription,omitempty"`
 
-    // PeerPortId 端口的ID。
-    // 端口的连通性状态必须是ACTIVE。
+    // PeerPortId 对端数据中心端口 ID。
     PeerPortId *string `json:"peerPortId,omitempty"`
 
-    // PeerPortVlan VLAN ID。
-    // 范围为1000～4000。
-    // 必须为未分配的vlan, 可以通过DescribePortUsableVlan来查询一个可以使用的vlan。
+    // PeerPortVlan 对端数据中心端口 VLAN。
     PeerPortVlan *int `json:"peerPortVlan,omitempty"`
 
-    // IptDcId IP Transit 目的地数据中心ID。
-    // 如果不指定，则代表和端口位于同一个数据中心。
+    // IptDcId 本端数据中心 ID。
+    // 为空代表本地连接（Local IPT）。
+    // 传 `haConfig` 创建高可用 IP Transit 时必传。
     IptDcId *string `json:"iptDcId,omitempty"`
 
-    // InternetType IP Transit的带宽计费方式。
+    // InternetType 网络计费方式。
     InternetType *string `json:"internetType,omitempty"`
 
-    // CommitBandwidth 保底带宽。
-    // 单位Mbps。
-    // 有且仅当internetType=ByInstanceBandwidth95时该字段必传。
+    // CommitBandwidth 保底带宽（Mbps）。
+    // 95 计费（internetType=ByInstanceBandwidth95）下必传。
     CommitBandwidth *int `json:"commitBandwidth,omitempty"`
 
-    // Bandwidth 带宽限速。
-    // 单位Mbps。
-    // 最小值不能低于10Mbps。
+    // Bandwidth 带宽（Mbps）。
+    // 95 计费（internetType=ByInstanceBandwidth95）下必须大于等于 `commitBandwidth`。
     Bandwidth *int `json:"bandwidth,omitempty"`
 
-    // RoutingType 路由类型。
+    // RoutingType 路由模式。
     RoutingType *string `json:"routingType,omitempty"`
 
-    // PublicIPv4BlockSize 公网IPv4地址。
-    // 网段范围：24～30。
-    // 有且仅当路由类型是Static 或 Gateway时必须指定。
-    // 目前只允许指定一个公网CIDR。
+    // PublicIPv4BlockSize 公网 IPv4 地址段大小列表。
+    // 与 `publicIpList` 互斥，优先级更低。
     PublicIPv4BlockSize []int `json:"publicIPv4BlockSize,omitempty"`
 
-    // Bfd 启用 BFD配置。
-    // 如果不传该字段，则默认不启用BFD。
-    // 网关模式不支持配置BFD。
+    // Bfd BFD 配置。
+    // 传 `haConfig` 创建高可用 IP Transit 时必传，且后续不允许关闭。
     Bfd *BFDConfig `json:"bfd,omitempty"`
 
-    // ResourceGroupId 资源组的ID。
-    // 如果不传，则会放到默认资源组。
+    // ResourceGroupId 资源组 ID。
+    // 不传则放入默认资源组。
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 
     // Bgp BGP相关配置。
     Bgp *RiptBgpConfig `json:"bgp,omitempty"`
 
-    // Tags 创建IP Transit时关联的标签。
-    // 注意：关联标签键不能重复。
+    // Tags 创建CIDR时关联的标签。
+    // 注意：关联`标签键`不能重复。
     Tags *TagAssociation `json:"tags,omitempty"`
+
+    // PublicIpList 公网 IP 分配列表。
+    // 与 `publicIPv4BlockSize` 互斥，优先级更高。
+    // 传此字段时 `publicIPv4BlockSize` 被忽略。
+    PublicIpList []*IPTransitIpRequest `json:"publicIpList,omitempty"`
+
+    // ZbgRegionId ZBG 接入节点 ID。
+    // 非空时走 Router RIPT 流程，与 `haConfig` 互斥。
+    // 调用 ~~zec:DescribeInterconnectBorderGatewayRegions~~ 以获取可用的节点信息。
+    ZbgRegionId *string `json:"zbgRegionId,omitempty"`
+
+    // HaConfig HA 高可用配置。
+    // 非空时走 HA 创建流程，与 `zbgRegionId` 互斥，且此时 `iptDcId` 和 `bfd` 均必传。
+    HaConfig *IPTransitHaConfig `json:"haConfig,omitempty"`
+
+    // PublicInterconnectNetmask 公网互联块掩码。
+    // 非空启用公网地址互联，仅 BGP / Static 路由支持。
+    // 合法值见 ~~DescribeIPTransitDatacenters~~ 响应中 availableRoutingTypes[].publicInterconnectNetmasks。
+    PublicInterconnectNetmask *int `json:"publicInterconnectNetmask,omitempty"`
 
 }
 
@@ -314,7 +496,7 @@ type BFDConfig struct {
 
 }
 
-// RiptBgpConfig BGP相关配置。
+// RiptBgpConfig BGP相关配置
 type RiptBgpConfig struct {
 
     // RouteType 入站路由类型。
@@ -346,11 +528,11 @@ type TagAssociation struct {
 type Tag struct {
 
     // Key 标签键。
-    // 长度限制：1～128个字符。
+    // 长度限制：1～64个字符。
     Key *string `json:"key,omitempty"`
 
     // Value 标签值。
-    // 长度限制：1～128个字符。
+    // 长度限制：1～64个字符。
     Value *string `json:"value,omitempty"`
 
 }
@@ -364,50 +546,51 @@ type CreateIPTransitResponse struct {
 
 }
 
+// CreateIPTransitResponseParams 
 type CreateIPTransitResponseParams struct {
 
     RequestId *string `json:"requestId,omitempty"`
 
-    // OrderNumber 创建时产生的订单编号。
+    // OrderNumber 订单号。
     OrderNumber *string `json:"orderNumber,omitempty"`
 
-    // IptId IP Transit 的 ID。
+    // IptId IP Transit ID。
     IptId *string `json:"iptId,omitempty"`
 
 }
 
+// DescribeIPTransitsRequest 
 type DescribeIPTransitsRequest struct {
     *common.BaseRequest
 
-    // IptIds IP Transit ID列表。
-    // 最大支持长度为100。
+    // IptIds IP Transit ID 列表。
+    // 最多支持 100 个 ID 查询。
     IptIds []string `json:"iptIds,omitempty"`
 
-    // IptName IPT 名称。
-    // 支持模糊搜索。
+    // IptName IP Transit名称。
+    // 模糊匹配。
     IptName *string `json:"iptName,omitempty"`
 
-    // ResourceGroupId 资源组ID。
+    // ResourceGroupId 资源组 ID。
+    // 不传则返回该用户可见的所有资源组内的IP Transit。
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 
-    // PeerPortId 端口ID。
-    // 通过该字段可以筛选与指定端口有关的IP Transit。
+    // PeerPortId 对端数据中心端口 ID 过滤。
     PeerPortId *string `json:"peerPortId,omitempty"`
 
-    // IptDcId 数据中心ID。
-    // 具体取值可通过调用接口DescribeDataCenters来获得最新的数据中心列表。
+    // IptDcId 本端数据中心 ID 过滤。
     IptDcId *string `json:"iptDcId,omitempty"`
 
     // PageSize 返回的分页大小。
-    // 默认为20，最大为1000。
+    // 默认为 20，最大为 1000。
     PageSize *int `json:"pageSize,omitempty"`
 
     // PageNum 返回的分页数。
-    // 默认为1。
+    // 默认为 1。
     PageNum *int `json:"pageNum,omitempty"`
 
-    // TagKeys 根据标签进行搜索。
-    // 最长不得超过20个标签。
+    // TagKeys 根据标签键进行搜索。
+    // 最长不得超过20个标签键。
     TagKeys []string `json:"tagKeys,omitempty"`
 
     // Tags 根据标签进行搜索。
@@ -425,6 +608,7 @@ type DescribeIPTransitsResponse struct {
 
 }
 
+// DescribeIPTransitsResponseParams 
 type DescribeIPTransitsResponseParams struct {
 
     RequestId *string `json:"requestId,omitempty"`
@@ -432,96 +616,119 @@ type DescribeIPTransitsResponseParams struct {
     // TotalCount 符合条件的数据总数。
     TotalCount *int `json:"totalCount,omitempty"`
 
-    // DataSet IP Transit列表结果集。
+    // DataSet IP Transit结果集。
     DataSet []*IPTransit `json:"dataSet,omitempty"`
 
 }
 
-// IPTransit 描述一个IP Transit资源相关的信息。包括关联的端口，所属资源组等信息。
+// IPTransit IP Transit信息。
 type IPTransit struct {
 
     // IptId IP Transit ID。
     IptId *string `json:"iptId,omitempty"`
 
-    // IptName IP Transit 名称。
+    // IptName IP Transit名称。
     IptName *string `json:"iptName,omitempty"`
 
-    // IptDescription IP Transit 描述信息。
+    // IptDescription IP Transit描述。
     IptDescription *string `json:"iptDescription,omitempty"`
 
-    // DataCenter IP Transit 对应的数据中心。
+    // DataCenter IP Transit所在数据中心。
     DataCenter *DatacenterInfo `json:"dataCenter,omitempty"`
 
-    // PeerPortId 连接的端口ID。
+    // PeerPortId 对端数据中心端口 ID。
     PeerPortId *string `json:"peerPortId,omitempty"`
 
-    // PeerPortName 连接的端口名称。
+    // PeerPortName 对端数据中心端口名称。
     PeerPortName *string `json:"peerPortName,omitempty"`
 
-    // PeerDataCenter 端口侧所属数据中心。
+    // PeerDataCenter 对端数据中心端口所在数据中心。
     PeerDataCenter *DatacenterInfo `json:"peerDataCenter,omitempty"`
 
-    // DeliveryType 交付类型。
+    // DeliveryType 开通方式。
     DeliveryType *string `json:"deliveryType,omitempty"`
 
-    // ResourceGroupId IP Transit 所属资源组ID。
+    // ResourceGroupId 资源组 ID。
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 
-    // ResourceGroupName IP Transit 所属资源组名称。
+    // ResourceGroupName 资源组名称。
     ResourceGroupName *string `json:"resourceGroupName,omitempty"`
 
     // CreateTime 创建时间。
-    // 格式为：YYYY-MM-ddTHH:mm:ssZ。
     CreateTime *string `json:"createTime,omitempty"`
 
-    // RoutingType 路由类型。
+    // RoutingType 路由模式。
     RoutingType *string `json:"routingType,omitempty"`
 
-    // InternetType 带宽计费方式。
+    // InternetType 网络计费方式。
     InternetType *string `json:"internetType,omitempty"`
 
-    // Bandwidth 带宽限速。
-    // 单位Mbps。
+    // Bandwidth 带宽（Mbps）。
     Bandwidth *int `json:"bandwidth,omitempty"`
 
-    // CommitBandwidth 承诺保底带宽。
-    // 仅当带宽计费方式为ByInstanceBandwidth95 可取到值。
+    // CommitBandwidth 保底带宽（Mbps）。
     CommitBandwidth *int `json:"commitBandwidth,omitempty"`
 
     // Bfd BFD 配置。
     Bfd *BFDConfig `json:"bfd,omitempty"`
 
-    // Bgp BGP相关配置。
+    // Bgp BGP 相关配置。
     Bgp *RiptBgpConfig `json:"bgp,omitempty"`
 
-    // Interconnect 互联IP地址信息。
+    // Interconnect 互联地址配置。
     Interconnect *Interconnect `json:"interconnect,omitempty"`
 
-    // PrivateConnectId IP Transit 互联的专线ID。
+    // PrivateConnectId 关联的 VLL ID。
     PrivateConnectId *string `json:"privateConnectId,omitempty"`
 
-    // PrivateConnectName IP Transit 互联的专线名称。
+    // PrivateConnectName 关联的 VLL 名称。
     PrivateConnectName *string `json:"privateConnectName,omitempty"`
 
-    // PublicIpv4Addresses 公网IP信息。
+    // PublicIpv4Addresses 公网 IPv4 地址列表。
     PublicIpv4Addresses []*IPAddress `json:"publicIpv4Addresses,omitempty"`
 
-    // IptStatus IP Transit 的业务状态。
+    // IptStatus 业务状态。
     IptStatus *string `json:"iptStatus,omitempty"`
+
+    // ConnectivityStatus 链路连通性状态。
+    ConnectivityStatus *string `json:"connectivityStatus,omitempty"`
 
     // Tags 该IP Transit关联的标签。
     Tags *Tags `json:"tags,omitempty"`
 
+    // PublicIpAddresses 公网 IP 地址列表。
+    PublicIpAddresses []*IPTransitIpAddress `json:"publicIpAddresses,omitempty"`
+
+    // HaMode 高可用模式。
+    HaMode *string `json:"haMode,omitempty"`
+
+    // ZbgRegionId ZBG 区域 ID。
+    // ZBG 场景下的 IP Transit 将返回此字段。
+    ZbgRegionId *string `json:"zbgRegionId,omitempty"`
+
+    // PeerPortType 对端数据中心端口类型。
+    PeerPortType *string `json:"peerPortType,omitempty"`
+
+    // HaLinks HA 子链路列表。
+    // 非 HA 模式下为 null；HA 模式下含两个子链路对象。
+    HaLinks []*HaLink `json:"haLinks,omitempty"`
+
 }
 
-// Interconnect 描述IP Transit 互联IP地址的信息。
+// Interconnect 互联地址配置。
 type Interconnect struct {
 
-    // VendorIpv4Address 运营商侧的IPv4地址。
+    // VendorIpv4Address Zenlayer 侧 IPv4 互联地址。
     VendorIpv4Address *string `json:"vendorIpv4Address,omitempty"`
 
-    // CustomerIpv4Address 用户侧的IPv4地址。
+    // CustomerIpv4Address 客户侧 IPv4 互联地址。
     CustomerIpv4Address *string `json:"customerIpv4Address,omitempty"`
+
+    // VendorIpv6Address Zenlayer 侧 IPv6 互联地址。
+    VendorIpv6Address *string `json:"vendorIpv6Address,omitempty"`
+
+    // CustomerIpv6Address 客户侧 IPv6 互联地址。
+    CustomerIpv6Address *string `json:"customerIpv6Address,omitempty"`
 
 }
 
@@ -547,19 +754,78 @@ type Tags struct {
 
 }
 
+// IPTransitIpAddress IP Transit公网 IP 地址信息。
+type IPTransitIpAddress struct {
+
+    // IpUuid IP 块 UUID。
+    // 变更（升降级/删除）时作为 ipUuid 传入。
+    IpUuid *string `json:"ipUuid,omitempty"`
+
+    // IpAddress IP 地址（CIDR 表示法，如 192.0.2.0/30）。
+    IpAddress *string `json:"ipAddress,omitempty"`
+
+    // Netmask 掩码长度。
+    Netmask *int `json:"netmask,omitempty"`
+
+    // GatewayIpAddress 网关 IP。
+    GatewayIpAddress *string `json:"gatewayIpAddress,omitempty"`
+
+    // IpType IP 类型（IPV4 / IPV6）。
+    IpType *string `json:"ipType,omitempty"`
+
+    // IpNetworkType IP 网络类型（BGP_IP / LOCAL_IP）。
+    IpNetworkType *string `json:"ipNetworkType,omitempty"`
+
+}
+
+// HaLink HA 子链路信息。
+type HaLink struct {
+
+    // IsPrimary 当前是否为主线。
+    // ACTIVE_STANDBY 模式下动态反映主备切换状态；ACTIVE_ACTIVE 模式下为 null。
+    IsPrimary *bool `json:"isPrimary,omitempty"`
+
+    // IptStatus 子链路业务状态。
+    IptStatus *string `json:"iptStatus,omitempty"`
+
+    // ConnectivityStatus 子链路连通性状态。
+    ConnectivityStatus *string `json:"connectivityStatus,omitempty"`
+
+    // PrivateConnectId 所属 VLL ID。
+    PrivateConnectId *string `json:"privateConnectId,omitempty"`
+
+    // PrivateConnectName 所属 VLL 名称。
+    PrivateConnectName *string `json:"privateConnectName,omitempty"`
+
+    // PeerPortId 对端数据中心端口 ID。
+    PeerPortId *string `json:"peerPortId,omitempty"`
+
+    // PeerPortName 对端数据中心端口名称。
+    PeerPortName *string `json:"peerPortName,omitempty"`
+
+    // PeerDataCenter 数据中心端口所在数据中心。
+    PeerDataCenter *DatacenterInfo `json:"peerDataCenter,omitempty"`
+
+    // PeerPortVlan VLAN ID。
+    PeerPortVlan *int `json:"peerPortVlan,omitempty"`
+
+    // Interconnect 互联 IP 配置。
+    Interconnect *Interconnect `json:"interconnect,omitempty"`
+
+}
+
+// ModifyIPTransitBandwidthRequest 
 type ModifyIPTransitBandwidthRequest struct {
     *common.BaseRequest
 
     // IptId IP Transit ID。
     IptId *string `json:"iptId,omitempty"`
 
-    // Bandwidth 需要修改的带宽限速。
-    // 范围：1~1000。
-    // 单位：Mbps。
+    // Bandwidth 目标带宽（Mbps）。
     Bandwidth *int `json:"bandwidth,omitempty"`
 
-    // CommitBandwidth 保底带宽。
-    // 当IP Transit的带宽计费方式为95计费时该参数有效，如果不设置，则不会修改保底。
+    // CommitBandwidth 保底带宽（Mbps）。
+    // 不填则与 bandwidth 相同。
     CommitBandwidth *int `json:"commitBandwidth,omitempty"`
 
 }
@@ -575,20 +841,18 @@ type ModifyIPTransitBandwidthResponse struct {
 
 }
 
+// ModifyIPTransitsAttributeRequest 
 type ModifyIPTransitsAttributeRequest struct {
     *common.BaseRequest
 
     // IptIds IP Transit ID 列表。
-    // 数量不得超过100。
+    // 最多支持 100 个。
     IptIds []string `json:"iptIds,omitempty"`
 
     // IptName IP Transit名称。
-    // 不得超过255个字符。
-    // 名称和描述信息至少需要有一项指定。
     IptName *string `json:"iptName,omitempty"`
 
-    // IptDescription IP Transit 描述信息。
-    // 名称和描述信息至少需要有一项指定。
+    // IptDescription IP Transit描述。
     IptDescription *string `json:"iptDescription,omitempty"`
 
 }
@@ -604,6 +868,7 @@ type ModifyIPTransitsAttributeResponse struct {
 
 }
 
+// DeleteIPTransitRequest 
 type DeleteIPTransitRequest struct {
     *common.BaseRequest
 
@@ -623,6 +888,7 @@ type DeleteIPTransitResponse struct {
 
 }
 
+// DescribeIPTransitTrafficRequest 
 type DescribeIPTransitTrafficRequest struct {
     *common.BaseRequest
 
@@ -630,12 +896,11 @@ type DescribeIPTransitTrafficRequest struct {
     IptId *string `json:"iptId,omitempty"`
 
     // StartTime 查询开始时间。
-    // 按照ISO8601标准表示，并且使用UTC时间。格式为：YYYY-MM-ddTHH:mm:ssZ。
+    // ISO8601 UTC 格式：YYYY-MM-DDThh:mm:ssZ。
     StartTime *string `json:"startTime,omitempty"`
 
     // EndTime 查询结束时间。
-    // 按照ISO8601标准表示，并且使用UTC时间。格式为：YYYY-MM-ddTHH:mm:ssZ。
-    // 默认为当前时间。
+    // ISO8601 UTC 格式：YYYY-MM-DDThh:mm:ssZ，默认为当前时间。
     EndTime *string `json:"endTime,omitempty"`
 
 }
@@ -685,18 +950,183 @@ type DescribeIPTransitTrafficResponseParams struct {
 
 }
 
-// TrafficData 带宽数据。
+// TrafficData 描述带宽的数据点信息。
 type TrafficData struct {
 
-    // InternetRX 入口带宽。单位：bps。
+    // InternetRX 入方向带宽值。
+    // 单位：bps。
     InternetRX *int64 `json:"internetRX,omitempty"`
 
-    // InternetTX 出口带宽。单位：bps。
+    // InternetTX 出方向带宽值。
+    // 单位：bps。
     InternetTX *int64 `json:"internetTX,omitempty"`
 
     // Time 数据时间。
-    // 格式为：YYYY-MM-DDThh:mm:ssZ。
+    // 按照ISO8601标准表示，并且使用UTC时间。
+    // 格式为：YYYY-MM-ddTHH:mm:ssZ。
     Time *string `json:"time,omitempty"`
+
+}
+
+// InquiryModifyIPTransitPriceRequest 
+type InquiryModifyIPTransitPriceRequest struct {
+    *common.BaseRequest
+
+    // IptId IP Transit 实例 ID。
+    IptId *string `json:"iptId,omitempty"`
+
+    // Type 变配类型。
+    // 支持 BANDWIDTH、ADD_CIDR_BLOCK、DEL_CIDR_BLOCK、EXPAND_CIDR_BLOCK、SHRINK_CIDR_BLOCK，BFD/BGP/HA 操作无费用，不允许传入。
+    Type *string `json:"type,omitempty"`
+
+    // Bandwidth 目标带宽（Mbps）。
+    // type=BANDWIDTH 时必填。
+    // 95 计费下必须大于等于 `commitBandwidth`。
+    Bandwidth *int `json:"bandwidth,omitempty"`
+
+    // CommitBandwidth 保底带宽（Mbps）。
+    // type=BANDWIDTH 时有效，不填则与 `bandwidth` 相同；95 计费（internetType=ByInstanceBandwidth95）下必填，不能用 `bandwidth` 代替。
+    CommitBandwidth *int `json:"commitBandwidth,omitempty"`
+
+    // PublicIPv4BlockSize IPv4 CIDR 掩码长度（24–32）。
+    // type=ADD_CIDR_BLOCK、EXPAND_CIDR_BLOCK、SHRINK_CIDR_BLOCK 时必填。
+    PublicIPv4BlockSize *int `json:"publicIPv4BlockSize,omitempty"`
+
+    // IpUuid 目标 IP 块 UUID。
+    // type=DEL_CIDR_BLOCK、EXPAND_CIDR_BLOCK、SHRINK_CIDR_BLOCK 时必填。
+    IpUuid *string `json:"ipUuid,omitempty"`
+
+    // IpNetworkType IP 网络类型。
+    // type=ADD_CIDR_BLOCK 时有效，默认 BGP_IP。
+    IpNetworkType *string `json:"ipNetworkType,omitempty"`
+
+}
+
+type InquiryModifyIPTransitPriceResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *InquiryModifyIPTransitPriceResponseParams `json:"response,omitempty"`
+
+}
+
+// InquiryModifyIPTransitPriceResponseParams 
+type InquiryModifyIPTransitPriceResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // PrivateConnectPrice 专线（VLL）价格。
+    // BANDWIDTH 类型时可能有值，Router RIPT 为空。
+    PrivateConnectPrice *PriceItem `json:"privateConnectPrice,omitempty"`
+
+    // PrivateConnectBandwidth 专线带宽（Mbps）。
+    // BANDWIDTH 类型时有值。
+    PrivateConnectBandwidth *int `json:"privateConnectBandwidth,omitempty"`
+
+    // IptPrice RIPT 带宽价格。
+    IptPrice *PriceItem `json:"iptPrice,omitempty"`
+
+    // IptIpPrices 公网 CIDR 块价格列表。
+    // ADD_CIDR_BLOCK、EXPAND_CIDR_BLOCK 类型时有值。
+    IptIpPrices []*IPTransitIpPriceItem `json:"iptIpPrices,omitempty"`
+
+    // PublicInterconnectIpPrice 公网互联块价格。
+    // 启用公网互联时填充，否则为空。
+    PublicInterconnectIpPrice *IPTransitIpPriceItem `json:"publicInterconnectIpPrice,omitempty"`
+
+}
+
+// IPTransitIpPriceItem CIDR 块价格信息。
+type IPTransitIpPriceItem struct {
+
+    // Price 价格信息。
+    Price *PriceItem `json:"price,omitempty"`
+
+    // Netmask CIDR 掩码长度。
+    Netmask *int `json:"netmask,omitempty"`
+
+    // Amount 数量。
+    Amount *int `json:"amount,omitempty"`
+
+    // IpNetworkType IP 网络类型（BGP_IP / LOCAL_IP）。
+    IpNetworkType *string `json:"ipNetworkType,omitempty"`
+
+}
+
+// ModifyIPTransitConfigRequest 
+type ModifyIPTransitConfigRequest struct {
+    *common.BaseRequest
+
+    // IptId IP Transit 实例 ID。
+    IptId *string `json:"iptId,omitempty"`
+
+    // Type 变配操作类型。
+    Type *string `json:"type,omitempty"`
+
+    // Bandwidth 目标带宽（Mbps）。
+    // type=BANDWIDTH 时必填。
+    // 95 计费下必须大于等于生效后的 `commitBandwidth`。
+    Bandwidth *int `json:"bandwidth,omitempty"`
+
+    // CommitBandwidth 保底带宽（Mbps）。
+    // type=BANDWIDTH 时有效，不填则与 `bandwidth` 相同。
+    CommitBandwidth *int `json:"commitBandwidth,omitempty"`
+
+    // Bfd BFD 配置。
+    // type=BFD 时填写；传 null 表示关闭 BFD。
+    // 高可用 IP Transit 不允许关闭 BFD。
+    Bfd *BFDConfig `json:"bfd,omitempty"`
+
+    // Bgp BGP 配置参数。
+    // type=BGP_ROUTE_TYPE、BGP_ASN_AS_SET、BGP_PASSWORD 时必填，并填写对应子字段。
+    Bgp *BgpConfigParam `json:"bgp,omitempty"`
+
+    // PublicIPv4BlockSize IPv4 CIDR 掩码长度（24–32）。
+    // type=ADD_CIDR_BLOCK、EXPAND_CIDR_BLOCK、SHRINK_CIDR_BLOCK 时必填。
+    PublicIPv4BlockSize *int `json:"publicIPv4BlockSize,omitempty"`
+
+    // IpUuid 目标 IP 块 UUID。
+    // type=DEL_CIDR_BLOCK、EXPAND_CIDR_BLOCK、SHRINK_CIDR_BLOCK 时必填。
+    IpUuid *string `json:"ipUuid,omitempty"`
+
+    // IpNetworkType IP 网络类型。
+    // type=ADD_CIDR_BLOCK 时有效，默认 BGP_IP。
+    IpNetworkType *string `json:"ipNetworkType,omitempty"`
+
+}
+
+// BgpConfigParam BGP 变配参数。
+type BgpConfigParam struct {
+
+    // RouteType BGP inbound 路由类型。
+    // type=BGP_ROUTE_TYPE 时必填。
+    RouteType *string `json:"routeType,omitempty"`
+
+    // AsnList ASN 列表。
+    // type=BGP_ASN_AS_SET 时与 `asSetList` 二选一。
+    // `asn` 创建后不支持修改。
+    AsnList []int64 `json:"asnList,omitempty"`
+
+    // AsSetList AS-SET 列表。
+    // type=BGP_ASN_AS_SET 时与 `asnList` 二选一。
+    // `asn` 创建后不支持修改。
+    AsSetList []string `json:"asSetList,omitempty"`
+
+    // Password BGP MD5 密码（长度 8–64）。
+    // type=BGP_PASSWORD 时必填。
+    Password *string `json:"password,omitempty"`
+
+}
+
+type ModifyIPTransitConfigResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
 
 }
 

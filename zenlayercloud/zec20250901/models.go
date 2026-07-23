@@ -121,10 +121,12 @@ type InstanceTypeQuotaItem struct {
     // 单位：GiB。
     Memory *int `json:"memory,omitempty"`
 
-    // Bps 单张网卡的带宽上限。单位：比特/秒。
+    // Bps 单张网卡的带宽上限。
+    // 单位：比特/秒。
     Bps *int64 `json:"bps,omitempty"`
 
-    // Pps 单张网卡的收发包上限。单位：个/秒。
+    // Pps 单张网卡的收发包上限。
+    // 单位：个/秒。
     Pps *int64 `json:"pps,omitempty"`
 
     // InternetMaxBandwidthOutLimit 最大出口带宽限制。
@@ -231,7 +233,8 @@ type InquiryPriceCreateInstanceRequest struct {
     // ZoneId 可用区ID。
     ZoneId *string `json:"zoneId,omitempty"`
 
-    // InstanceType 实例机型。普通实例取值可通过[DescribeZoneInstanceConfigInfos](describezoneinstanceconfiginfos.md)获得；GPU 实例取值可通过[DescribeZoneGpuInstanceConfigInfos](describezoneGpuinstanceconfiginfos.md)获得。
+    // InstanceType 实例机型。
+    // 普通实例取值可通过[DescribeZoneInstanceConfigInfos](describezoneinstanceconfiginfos.md)获得；GPU 实例取值可通过[DescribeZoneGpuInstanceConfigInfos](describezonegpuinstanceconfiginfos.md)获得。
     InstanceType *string `json:"instanceType,omitempty"`
 
     // Deprecated: EipV4Type 已废弃，请不要使用。
@@ -239,10 +242,12 @@ type InquiryPriceCreateInstanceRequest struct {
     // 已废弃，请使用`networkLineType`。
     EipV4Type *string `json:"eipV4Type,omitempty"`
 
-    // NetworkLineType 公网IPv4的线路类型。当`internetChargeType`有值时必填。
+    // NetworkLineType 公网IPv4的线路类型。
+    // 当`internetChargeType`有值时必填。
     NetworkLineType *string `json:"networkLineType,omitempty"`
 
-    // InternetChargeType 公网IP的网络计费类型。如果不指定，则不会询价公网IP。
+    // InternetChargeType 公网IP的网络计费类型。
+    // 如果不指定，则不会询价公网IP。
     InternetChargeType *string `json:"internetChargeType,omitempty"`
 
     // TrafficPackageSize 流量包订购大小。
@@ -261,6 +266,7 @@ type InquiryPriceCreateInstanceRequest struct {
     SystemDisk *SystemDisk `json:"systemDisk,omitempty"`
 
     // DataDisk 数据盘相关信息。
+    // 只能配置1块数据盘，配置多块数据盘请使用`dataDisks`；同时指定时以`dataDisks`为准。
     DataDisk *DataDisk `json:"dataDisk,omitempty"`
 
     // DataDisks 数据盘相关信息，支持传入多块数据盘。
@@ -347,25 +353,32 @@ type InquiryPriceCreateInstanceResponseParams struct {
     // GpuPrice GPU规格的价格。
     GpuPrice *PriceItem `json:"gpuPrice,omitempty"`
 
-    // Ipv4Price 公网IPv4的保留价格。仅当`internetChargeType`有值时返回。
+    // Ipv4Price 公网IPv4的保留价格。
+    // 仅当`internetChargeType`有值时返回。
     Ipv4Price *PriceItem `json:"ipv4Price,omitempty"`
 
-    // Ipv4BandwidthPrice 公网IPv4的带宽价格。仅当`internetChargeType`有值时返回。
+    // Ipv4BandwidthPrice 公网IPv4的带宽价格。
+    // 仅当`internetChargeType`有值时返回。
     Ipv4BandwidthPrice *PriceItem `json:"ipv4BandwidthPrice,omitempty"`
 
-    // Ipv4BandwidthPrices 各流量方向的IPv4带宽价格明细。仅当`internetChargeType`有值时返回。PathBasedBandwidthIP 线路返回多项（ipv4BandwidthPrice 为 null）；其他线路返回单项（trafficType=ALL）。
+    // Ipv4BandwidthPrices 各流量方向的IPv4带宽价格明细。
+    // PathBasedBandwidthIP 线路返回多项（ipv4BandwidthPrice 为 null）；其他线路该字段为 null，带宽价格见 ipv4BandwidthPrice。
     Ipv4BandwidthPrices []*BandwidthPriceResponseItem `json:"ipv4BandwidthPrices,omitempty"`
 
-    // Ipv6Price 公网IPv6的价格。仅当`internetChargeType`有值时返回。
+    // Ipv6Price 公网IPv6的价格。
+    // 仅当`internetChargeType`有值时返回。
     Ipv6Price *PriceItem `json:"ipv6Price,omitempty"`
 
-    // Ipv6BandwidthPrice 公网IPv6的带宽价格。仅当`internetChargeType`有值时返回。
+    // Ipv6BandwidthPrice 公网IPv6的带宽价格。
+    // 仅当`internetChargeType`有值时返回。
     Ipv6BandwidthPrice *PriceItem `json:"ipv6BandwidthPrice,omitempty"`
 
     // SystemDiskPrice 系统盘的价格。
     SystemDiskPrice *PriceItem `json:"systemDiskPrice,omitempty"`
 
     // DataDiskPrice 数据盘的价格。
+    // 仅当配置1块数据盘时返回。
+    // 完整价格明细见`dataDiskPrices`。
     DataDiskPrice *PriceItem `json:"dataDiskPrice,omitempty"`
 
     // DataDiskPrices 数据盘的价格明细，与请求中的`dataDisks`按顺序一一对应。
@@ -471,7 +484,8 @@ type CreateZecInstancesRequest struct {
     // 如果未指定，将使用区域所在的时区。
     TimeZone *string `json:"timeZone,omitempty"`
 
-    // InstanceType 实例机型。普通实例取值可通过[DescribeZoneInstanceConfigInfos](describezoneinstanceconfiginfos.md)获得；GPU 实例取值可通过[DescribeZoneGpuInstanceConfigInfos](describezoneGpuinstanceconfiginfos.md)获得。
+    // InstanceType 实例机型。
+    // 普通实例取值可通过[DescribeZoneInstanceConfigInfos](describezoneinstanceconfiginfos.md)获得；GPU 实例取值可通过[DescribeZoneGpuInstanceConfigInfos](describezonegpuinstanceconfiginfos.md)获得。
     InstanceType *string `json:"instanceType,omitempty"`
 
     // InstanceName 实例显示名称。
@@ -512,7 +526,7 @@ type CreateZecInstancesRequest struct {
 
     // DataDisks 实例数据盘配置信息。
     // 若不指定该参数，则默认不额外购买数据盘。
-    // 目前只能附带1个数据盘。
+    // 列表中每一项对应一块独立的数据盘，数据盘总数量受团队配额限制。
     DataDisks []*DataDisk `json:"dataDisks,omitempty"`
 
     // SecurityGroupId 要配置在实例主网卡的安全组ID。
@@ -550,11 +564,12 @@ type CreateZecInstancesRequest struct {
 
     // EipBindType 公网IP的绑定模式。
     // 当分配公网IP时需要指定。
+    // 绑定网段(Block)型EIP时只能使用`Passthrough`，必须显式指定（不能省略，省略等价于`FullNat`会被拒绝）。
     EipBindType *string `json:"eipBindType,omitempty"`
 
     // EipIds 分配已有的EIP到实例上。
     // IP数量必须和创建的实例数量一致。
-    // 如果指定该字段，则不会新建EIP, 相关字段将无效（`networkLineType`)。 
+    // 如果指定该字段，则不会新建EIP, 相关字段将无效（`networkLineType`)。
     // 请确保创建的网卡`ipStackType` 包含`IPv4`。
     EipIds []string `json:"eipIds,omitempty"`
 
@@ -636,7 +651,7 @@ type Tag struct {
 
 }
 
-// InstanceOptions 描述实例选项相关配置。
+// InstanceOptions 实例选项配置。
 type InstanceOptions struct {
 
     // NestedVirtualization 是否启用嵌套虚拟化。
@@ -697,6 +712,7 @@ type DescribeInstancesRequest struct {
     ImageId *string `json:"imageId,omitempty"`
 
     // Ipv4Address 根据实例关联的IPv4过滤。
+    // 若指定为网段(CIDR)形式，掩码长度必须在20–31之间。
     Ipv4Address *string `json:"ipv4Address,omitempty"`
 
     // Ipv6Address 根据实例关联的IPv6信息过滤。
@@ -762,8 +778,7 @@ type InstanceInfo struct {
     // ZoneId 实例所属的可用区ID。
     ZoneId *string `json:"zoneId,omitempty"`
 
-    // InstanceType CPU 规格。
-    // 如果是GPU实例，该字段取值为null。
+    // InstanceType 规格唯一ID。
     InstanceType *string `json:"instanceType,omitempty"`
 
     // Cpu CPU 核数。
@@ -1148,7 +1163,7 @@ type ResetInstanceRequest struct {
     KeyId *string `json:"keyId,omitempty"`
 
     // ImageId 指定重装的的镜像ID。
-    // 可以通过[DescribeImages](describeimages.md)取返回信息中的`imageId`字段。
+    // 可以通过[DescribeImages](../image/describeimages.md)取返回信息中的`imageId`字段。
     // 如果不指定，会根据当前镜像进行重装。
     ImageId *string `json:"imageId,omitempty"`
 
@@ -1198,7 +1213,7 @@ type ResetInstancesRequest struct {
     KeyId *string `json:"keyId,omitempty"`
 
     // ImageId 指定重装的的镜像ID。
-    // 可以通过[DescribeImages](describeimages.md)取返回信息中的`imageId`字段。
+    // 可以通过[DescribeImages](../image/describeimages.md)取返回信息中的`imageId`字段。
     // 如果不指定，会根据当前镜像进行重装。
     ImageId *string `json:"imageId,omitempty"`
 
@@ -1323,7 +1338,8 @@ type ModifyInstanceTypeRequest struct {
     // InstanceId 要变更的实例ID。
     InstanceId *string `json:"instanceId,omitempty"`
 
-    // InstanceType 变更的目标实例规格。普通实例取值可通过[DescribeZoneInstanceConfigInfos](describezoneinstanceconfiginfos.md)获得；GPU 实例取值可通过[DescribeZoneGpuInstanceConfigInfos](describezoneGpuinstanceconfiginfos.md)获得。
+    // InstanceType 变更的目标实例规格。
+    // 普通实例取值可通过[DescribeZoneInstanceConfigInfos](describezoneinstanceconfiginfos.md)获得；GPU 实例取值可通过[DescribeZoneGpuInstanceConfigInfos](describezonegpuinstanceconfiginfos.md)获得。
     InstanceType *string `json:"instanceType,omitempty"`
 
 }
@@ -1494,7 +1510,8 @@ type InquiryPriceModifyInstanceTypeRequest struct {
     // InstanceId 要变更规格的实例ID。
     InstanceId *string `json:"instanceId,omitempty"`
 
-    // InstanceType 变更的目标实例规格。普通实例取值可通过[DescribeZoneInstanceConfigInfos](describezoneinstanceconfiginfos.md)获得；GPU 实例取值可通过[DescribeZoneGpuInstanceConfigInfos](describezoneGpuinstanceconfiginfos.md)获得。
+    // InstanceType 变更的目标实例规格。
+    // 普通实例取值可通过[DescribeZoneInstanceConfigInfos](describezoneinstanceconfiginfos.md)获得；GPU 实例取值可通过[DescribeZoneGpuInstanceConfigInfos](describezonegpuinstanceconfiginfos.md)获得。
     InstanceType *string `json:"instanceType,omitempty"`
 
 }
@@ -1513,7 +1530,8 @@ type InquiryPriceModifyInstanceTypeResponseParams struct {
 
     RequestId *string `json:"requestId,omitempty"`
 
-    // SpecPrice 变更后规格的价格。VM 实例变配时返回，GPU 实例变配时为 null。
+    // SpecPrice 变更后规格的价格。
+    // VM 实例变配时返回，GPU 实例变配时为 null。
     SpecPrice *PriceItem `json:"specPrice,omitempty"`
 
     // GpuPrice 变更后 GPU 规格的价格。
@@ -1681,7 +1699,8 @@ type Image struct {
     // ImageSource 镜像的来源。
     ImageSource *string `json:"imageSource,omitempty"`
 
-    // ImageSize 镜像的大小。
+    // ImageSize 镜像的大小，单位GiB。
+    // 当镜像为自定义镜像时此字段可能为null，当镜像状态处于`AVAILABLE`后有值。
     ImageSize *string `json:"imageSize,omitempty"`
 
     // MinDiskSize 创建实例系统盘所需最小容量，单位GiB。
@@ -1821,6 +1840,7 @@ type DescribeCustomImagesResponseParams struct {
 type CustomImage struct {
 
     // RegionIdList 镜像当前可用的区域ID列表。
+    // 为空则说明镜像还处于创建中暂无任何区域可用。
     RegionIdList []string `json:"regionIdList,omitempty"`
 
     // ResourceGroupId 资源组ID。
@@ -1841,7 +1861,8 @@ type CustomImage struct {
     // ImageSource 镜像的来源。
     ImageSource *string `json:"imageSource,omitempty"`
 
-    // ImageSize 镜像的大小。
+    // ImageSize 镜像的大小，单位GiB。
+    // 当镜像为自定义镜像时此字段可能为null，当镜像状态处于`AVAILABLE`后有值。
     ImageSize *string `json:"imageSize,omitempty"`
 
     // MinDiskSize 创建实例系统盘所需最小容量，单位GiB。
@@ -3299,6 +3320,7 @@ type CreateNetworkInterfaceRequest struct {
 
     // EipBindType 公网IP的绑定模式。
     // 当分配公网IP时需要指定。
+    // 绑定网段(Block)型EIP时只能使用`Passthrough`，必须显式指定（不能省略，省略等价于`FullNat`会被拒绝）。
     EipBindType *string `json:"eipBindType,omitempty"`
 
     // EipIds 分配已有的EIP到网卡上。
@@ -3557,10 +3579,12 @@ type BandwidthClusterInfo struct {
 // OperationInfo 操作详情。
 type OperationInfo struct {
 
-    // Operation 操作动作。取值范围：`ModifyBandwidth`（调整带宽）、`ModifyFlowPackage`（调整流量包）。
+    // Operation 操作动作。
+    // 取值范围：`ModifyBandwidth`（调整带宽）、`ModifyFlowPackage`（调整流量包）。
     Operation *string `json:"operation,omitempty"`
 
-    // Status 操作状态。取值范围：`OPERATING`（操作中）、`FAILED`（操作失败）。
+    // Status 操作状态。
+    // 取值范围：`OPERATING`（操作中）、`FAILED`（操作失败）。
     Status *string `json:"status,omitempty"`
 
 }
@@ -3673,6 +3697,7 @@ type AssignNetworkInterfaceIpv6Request struct {
     ClusterId *string `json:"clusterId,omitempty"`
 
     // RateLimitMode 限速模式。
+    // `STRICT`严格模式必须同时指定`bandwidth`。
     RateLimitMode *string `json:"rateLimitMode,omitempty"`
 
 }
@@ -4087,7 +4112,9 @@ type CidrInfo struct {
     // TotalCount CIDR中IP地址的总数量。
     TotalCount *int `json:"totalCount,omitempty"`
 
+    // Deprecated: UsedCount 已废弃，请不要使用。
     // UsedCount CIDR中已被使用的IP地址数量。
+    // 已废弃，请参考`availableCount`。
     UsedCount *int `json:"usedCount,omitempty"`
 
     // Source CIDR的来源。
@@ -4135,7 +4162,16 @@ type CidrInfo struct {
     Tags *Tags `json:"tags,omitempty"`
 
     // AsnObservation ASN 观测结果。
+    // 仅当CIDR来源为BYOIP时存在。
     AsnObservation *AsnObservationDetail `json:"asnObservation,omitempty"`
+
+    // AvailableCidr 该 CIDR 当前可创建的网段清单，按掩码长度分组统计数量。
+    // 用于创建网段 EIP 前确认某个掩码长度是否还有可用网段。
+    // 无可用网段时为空列表。
+    AvailableCidr []*AvailableCidrInfo `json:"availableCidr,omitempty"`
+
+    // AvailableCount CIDR中当前可用的IP地址数量（= totalCount − 实际已占用地址数，网段(Block)型EIP按其掩码长度占用的全部地址计算）。
+    AvailableCount *int `json:"availableCount,omitempty"`
 
 }
 
@@ -4157,14 +4193,25 @@ type AsnObservationDetail struct {
     // PrimaryAsns 主数据源观测到的 ASN 列表。
     PrimaryAsns []int `json:"primaryAsns,omitempty"`
 
-    // SecondarySource 二级数据源名称，如 BGP Tool。
+    // SecondarySource 该字段已下线，恒为 null。
     SecondarySource *string `json:"secondarySource,omitempty"`
 
-    // SecondaryStatus 二级数据源查询状态。
+    // SecondaryStatus 该字段已下线，恒为 null。
     SecondaryStatus *string `json:"secondaryStatus,omitempty"`
 
-    // SecondaryAsns 二级数据源观测到的 ASN 列表。
+    // SecondaryAsns 该字段已下线，恒为 null。
     SecondaryAsns []int `json:"secondaryAsns,omitempty"`
+
+}
+
+// AvailableCidrInfo 指定掩码长度下当前可创建的网段数量。
+type AvailableCidrInfo struct {
+
+    // PrefixLength 掩码长度。
+    PrefixLength *int `json:"prefixLength,omitempty"`
+
+    // Count 该掩码长度下当前可创建的网段数量。
+    Count *int `json:"count,omitempty"`
 
 }
 
@@ -4572,7 +4619,7 @@ type DescribeByoipRegionsResponseParams struct {
 
 }
 
-// Region 支持售卖 ByoIP CIDR 的区域。
+// Region 支持售卖 BYOIP 的区域。
 type Region struct {
 
     // Netmask 支持的网段。
@@ -4792,18 +4839,18 @@ type DescribeEipPriceRequest struct {
     // 单位：Mbps。
     Bandwidth *int `json:"bandwidth,omitempty"`
 
-    // FlowPackage 公网IPv6的流量包大小。
+    // FlowPackage 弹性公网IP的流量包大小。
     // 单位为TB。
     // 值要求为0或0.1的倍数。
-    // 当子网的堆栈类型包括V6且为公网时，且网络计费方式是流量计费(`ByTrafficPackage`)需要指定。
+    // 当网络计费方式为流量计费(`ByTrafficPackage`)时需要指定。
     FlowPackage *float64 `json:"flowPackage,omitempty"`
 
     // CidrId 指定CIDR ID，使用CIDR内分配弹性IP。
     // 该字段和`eipV4Type`不能同时指定。
     CidrId *string `json:"cidrId,omitempty"`
 
-    // ClusterId 公网IPv6所指定的共享带宽包ID。
-    // 当子网的堆栈类型包括V6且为公网时，且网络计费方式是共享带宽包计费(`BandwidthCluster`)需要指定。
+    // ClusterId 共享带宽包ID。
+    // 当指定`peerRegionId`且网络计费方式为共享带宽包计费(`BandwidthCluster`)时需要指定。
     ClusterId *string `json:"clusterId,omitempty"`
 
     // PeerRegionId 远端的节点ID。
@@ -4869,7 +4916,7 @@ type DescribeEipsRequest struct {
     // PrivateIpAddress 按照 EIP 绑定的内网 IP 过滤。
     PrivateIpAddress *string `json:"privateIpAddress,omitempty"`
 
-    // IpAddress 按照 IP地址过滤。
+    // IpAddress 按照 EIP 的 IP 过滤。
     IpAddress *string `json:"ipAddress,omitempty"`
 
     // IpAddresses 按照 EIP 的 IP列表过滤。
@@ -4898,6 +4945,10 @@ type DescribeEipsRequest struct {
 
     // InternetChargeType 按照 EIP 的网络计费方式过滤。
     InternetChargeType *string `json:"internetChargeType,omitempty"`
+
+    // PrefixLength 按照 EIP 的掩码长度过滤。
+    // 32 表示单 IP，24–31 表示网段。
+    PrefixLength *int `json:"prefixLength,omitempty"`
 
 }
 
@@ -5031,6 +5082,10 @@ type EipInfo struct {
     // OperationInfo EIP的带宽、流量包操作状态。
     OperationInfo *OperationInfo `json:"operationInfo,omitempty"`
 
+    // PrefixLength 掩码长度。
+    // 32 表示单 IP，25–31 表示 IP 块。
+    PrefixLength *int `json:"prefixLength,omitempty"`
+
 }
 
 // FlowPackageResponseItem 流量包明细。
@@ -5113,6 +5168,10 @@ type CreateEipsRequest struct {
     // Amount 需要创建EIP的数量。
     Amount *int `json:"amount,omitempty"`
 
+    // PrefixLength 掩码长度，取值范围24–32，默认32。
+    // 指定小于32时，创建EIP Block资源，必须同时指定`cidrId`，且不能小于所选CIDR自身的掩码长度。
+    PrefixLength *int `json:"prefixLength,omitempty"`
+
     // Deprecated: EipV4Type 已废弃，请不要使用。
     // EipV4Type 公网弹性IP的线路类型。
     // 已废弃，请使用`networkLineType`。
@@ -5123,7 +5182,6 @@ type CreateEipsRequest struct {
 
     // Deprecated: PrimaryIsp 已废弃，请不要使用。
     // PrimaryIsp 主公网IP的运营商。
-    // 该字段仅作用于三线IP(`ThreeLine`)。
     PrimaryIsp *string `json:"primaryIsp,omitempty"`
 
     // Bandwidth 公网弹性IP的带宽限速。
@@ -5134,20 +5192,22 @@ type CreateEipsRequest struct {
     // 该字段和`eipV4Type`不能同时指定。
     CidrId *string `json:"cidrId,omitempty"`
 
-    // PublicIp 指定公网起始IP地址开始创建弹性IP。
+    // PublicIp 指定公网起始地址开始创建弹性IP。
+    // 不指定`cidrId`时，从公网IP池按此地址开始顺序分配（仅支持`prefixLength`为32）；指定`cidrId`时，从该CIDR内按此地址开始分配。
+    // `prefixLength`为32时填纯IPv4地址；`prefixLength`小于32时必须同时指定`cidrId`，填带掩码的起始网段（掩码须与`prefixLength`一致，如`88.0.5.64/26`）。
     PublicIp *string `json:"publicIp,omitempty"`
 
     // ResourceGroupId 弹性公网IP所放的资源组ID，如不指定则放入默认资源组。
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 
-    // FlowPackage 公网IPv6的流量包大小。
+    // FlowPackage 弹性公网IP的流量包大小。
     // 单位为TB。
     // 值要求为0或0.1的倍数。
-    // 当子网的堆栈类型包括V6且为公网时，且网络计费方式是流量计费(`ByTrafficPackage`)需要指定。
+    // 当网络计费方式为流量计费(`ByTrafficPackage`)时需要指定。
     FlowPackage *float64 `json:"flowPackage,omitempty"`
 
-    // ClusterId 公网IPv6所指定的共享带宽包ID。
-    // 当子网的堆栈类型包括V6且为公网时，且网络计费方式是共享带宽包计费(`BandwidthCluster`)需要指定。
+    // ClusterId 共享带宽包ID。
+    // 当网络计费方式为共享带宽包计费(`BandwidthCluster`)时需要指定。
     ClusterId *string `json:"clusterId,omitempty"`
 
     // PeerRegionId 远端的节点ID。
@@ -5170,6 +5230,7 @@ type CreateEipsRequest struct {
     BindType *string `json:"bindType,omitempty"`
 
     // RateLimitMode 限速模式。
+    // `STRICT`严格模式必须同时指定`bandwidth`。
     RateLimitMode *string `json:"rateLimitMode,omitempty"`
 
 }
@@ -5299,8 +5360,8 @@ type AssociateEipAddressRequest struct {
     HaVipId *string `json:"haVipId,omitempty"`
 
     // BindType 绑定类型。
-    // 绑定网卡时生效，默认为普通NAT模式。
-    // 绑定高可用虚拟IP(haVip)时仅支持FullNat（普通NAT）模式，传其他值本次请求的EIP将全部绑定失败。
+    // 当绑定的是网卡时生效。
+    // 默认为普通NAT模式。
     BindType *string `json:"bindType,omitempty"`
 
 }
@@ -5367,12 +5428,13 @@ type ReplaceIp struct {
     // EipId 需要替换的弹性公网IP ID。
     EipId *string `json:"eipId,omitempty"`
 
-    // OwnIp 原IP。
-    // 当IP是三线IP(IP线路类型为`ThreeLine`)时需要指定。
+    // OwnIp 原IP地址。
+    // 当弹性公网IP包含多个地址时需要指定。
     OwnIp *string `json:"ownIp,omitempty"`
 
     // TargetIp 需要变更的目标IP。
     // 如果未指定，将由系统随机分配。
+    // 不能以`.0`或`.255`结尾（网络地址/广播地址不可用）。
     TargetIp *string `json:"targetIp,omitempty"`
 
 }
@@ -5420,7 +5482,7 @@ type ChangeEipInternetChargeTypeRequest struct {
     BandwidthCap *int `json:"bandwidthCap,omitempty"`
 
     // ClusterId 共享带宽包ID。
-    // 如果要变更为共享带宽包计费，则需要指定。
+    // 变更为共享带宽包计费时需指定。
     ClusterId *string `json:"clusterId,omitempty"`
 
 }
@@ -5791,7 +5853,7 @@ type EipMetricValue struct {
     // InValue 入方向值。
     InValue *float64 `json:"inValue,omitempty"`
 
-    // OutValue 出方向值。
+    // OutValue 入方向值。
     OutValue *float64 `json:"outValue,omitempty"`
 
     // LoseIn 丢失入方向值。
@@ -6940,6 +7002,7 @@ type CreateBorderGatewayRequest struct {
     AdvertisedSubnet *string `json:"advertisedSubnet,omitempty"`
 
     // AdvertisedSubnetIds 子网ID集合。
+    // 若要该字段生效,需将该字段(`advertisedSubnet`)值设置为PART。
     AdvertisedSubnetIds []string `json:"advertisedSubnetIds,omitempty"`
 
     // AdvertisedCidrs IPv4 Cidr集合。
@@ -7101,6 +7164,7 @@ type ModifyBorderGatewaysAttributeRequest struct {
     AdvertisedSubnet *string `json:"advertisedSubnet,omitempty"`
 
     // AdvertisedSubnetIds Subnet子网ID集合。
+    // 若要该字段生效,需将该字段(`advertisedSubnet`)值设置为PART。
     AdvertisedSubnetIds []string `json:"advertisedSubnetIds,omitempty"`
 
     // AdvertisedCidrs IPv4 Cidr集合。
@@ -7258,6 +7322,74 @@ type DeleteBorderGatewayResponse struct {
 
 }
 
+// DescribeInterconnectBorderGatewayRegionsRequest 
+type DescribeInterconnectBorderGatewayRegionsRequest struct {
+    *common.BaseRequest
+
+    // RegionId 节点ID，用于过滤指定节点。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // DcId 数据中心UUID，用于过滤指定数据中心。
+    DcId *string `json:"dcId,omitempty"`
+
+    // DcCode 数据中心代码，用于过滤指定数据中心。
+    DcCode *string `json:"dcCode,omitempty"`
+
+}
+
+type DescribeInterconnectBorderGatewayRegionsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeInterconnectBorderGatewayRegionsResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeInterconnectBorderGatewayRegionsResponseParams 
+type DescribeInterconnectBorderGatewayRegionsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // RegionSet 互联节点列表。
+    RegionSet []*InterconnectRegion `json:"regionSet,omitempty"`
+
+}
+
+// InterconnectRegion 边界网关互联节点信息。
+type InterconnectRegion struct {
+
+    // RegionId 节点ID。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // Name 节点名称。
+    Name *string `json:"name,omitempty"`
+
+    // DataCenter 关联的数据中心信息。
+    DataCenter *InterconnectDataCenter `json:"dataCenter,omitempty"`
+
+}
+
+// InterconnectDataCenter 边界网关互联节点关联的数据中心信息。
+type InterconnectDataCenter struct {
+
+    // DcId 数据中心UUID。
+    DcId *string `json:"dcId,omitempty"`
+
+    // DcCode 数据中心代码。
+    DcCode *string `json:"dcCode,omitempty"`
+
+    // Name 数据中心英文名称。
+    Name *string `json:"name,omitempty"`
+
+    // CityName 城市英文名称。
+    CityName *string `json:"cityName,omitempty"`
+
+    // CountryName 国家英文名称。
+    CountryName *string `json:"countryName,omitempty"`
+
+}
+
 type DescribeUnmanagedEgressIpsRequest struct {
     *common.BaseRequest
 
@@ -7324,7 +7456,8 @@ type UnmanagedEgressIpInfo struct {
     // InternetChargeType 网络计费方式。
     InternetChargeType *string `json:"internetChargeType,omitempty"`
 
-    // BandwidthCap 带宽上限，单位 Mbps。资源未单独配置带宽时返回团队默认带宽上限。
+    // BandwidthCap 带宽上限，单位 Mbps。
+    // 资源未单独配置带宽时返回团队默认带宽上限。
     BandwidthCap *int `json:"bandwidthCap,omitempty"`
 
     // RateLimitMode 限速模式。
@@ -7526,7 +7659,7 @@ type QosPolicyGroup struct {
 // QosPolicyGroupMember QoS策略组成员信息。
 type QosPolicyGroupMember struct {
 
-    // ResourceId IP 资源 的ID。
+    // ResourceId IP 资源的ID。
     ResourceId *string `json:"resourceId,omitempty"`
 
     // IpType IP类型。
@@ -7836,10 +7969,12 @@ type CreateVpcRequest struct {
     // 且必须以数字或字母开头和结尾。
     Name *string `json:"name,omitempty"`
 
-    // CidrBlock VPC的CIDR地址段。必须属于以下4种内网地址段之一：10.0.0.0/9、10.128.0.0/9、172.16.0.0/12 或 192.168.0.0/16。
+    // CidrBlock VPC的CIDR地址段。
+    // 必须属于以下4种内网地址段之一：10.0.0.0/9、10.128.0.0/9、172.16.0.0/12 或 192.168.0.0/16。
     CidrBlock *string `json:"cidrBlock,omitempty"`
 
-    // Mtu VPC的MTU（最大传输单元）。支持：1300、1500、9000。
+    // Mtu VPC的MTU（最大传输单元）。
+    // 支持：1300、1500、9000。
     Mtu *int `json:"mtu,omitempty"`
 
     // EnablePriIpv6 是否开启内网IPv6。
@@ -7851,7 +7986,8 @@ type CreateVpcRequest struct {
     // 如果不指定资源组，则会放到默认的资源组中。
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 
-    // Tags 创建VPC时关联的标签。同一资源中标签键不能重复。
+    // Tags 创建VPC时关联的标签。
+    // 同一资源中标签键不能重复。
     Tags *TagAssociation `json:"tags,omitempty"`
 
 }
@@ -8029,7 +8165,8 @@ type DescribeSubnetsRequest struct {
     // PageNum 返回的分页数。
     PageNum *int `json:"pageNum,omitempty"`
 
-    // VpcIds 根据所属VPC的ID进行筛选。最多支持100个VPC ID。
+    // VpcIds 根据所属VPC的ID进行筛选。
+    // 最多支持100个VPC ID。
     VpcIds []string `json:"vpcIds,omitempty"`
 
     // DhcpOptionsSetId 子网绑定的DHCP 选项集ID。
@@ -8077,7 +8214,8 @@ type SubnetInfo struct {
     // GatewayIpAddress 网关地址。
     GatewayIpAddress *string `json:"gatewayIpAddress,omitempty"`
 
-    // Ipv6CidrBlock 子网的IPv6 CIDR地址段。当IP堆栈类型不包含IPv6时为null。
+    // Ipv6CidrBlock 子网的IPv6 CIDR地址段。
+    // 当IP堆栈类型不包含IPv6时为null。
     Ipv6CidrBlock *string `json:"ipv6CidrBlock,omitempty"`
 
     // Ipv6GatewayIpAddress IPv6的网关地址。
@@ -8086,7 +8224,9 @@ type SubnetInfo struct {
     // StackType 子网的IP堆栈类型。
     StackType *string `json:"stackType,omitempty"`
 
-    // Ipv6Type 子网的IPv6类型。可选值：Private（内网）、Public（公网）。当IP堆栈类型不包含IPv6时为null。
+    // Ipv6Type 子网的IPv6类型。
+    // 可选值：Private（内网）、Public（公网）。
+    // 当IP堆栈类型不包含IPv6时为null。
     Ipv6Type *string `json:"ipv6Type,omitempty"`
 
     // VpcId 子网所属VPC的ID。
@@ -8110,7 +8250,8 @@ type SubnetInfo struct {
     // DhcpOptionsSetId DHCP选项集ID。
     DhcpOptionsSetId *string `json:"dhcpOptionsSetId,omitempty"`
 
-    // Ipv6MaskLength 分配给虚拟机的IPv6前缀长度。当IP堆栈类型不包含IPv6时为null。
+    // Ipv6MaskLength 分配给虚拟机的IPv6前缀长度。
+    // 当IP堆栈类型不包含IPv6时为null。
     Ipv6MaskLength *int `json:"ipv6MaskLength,omitempty"`
 
 }
@@ -8128,10 +8269,12 @@ type CreateSubnetRequest struct {
     // 且必须以数字或字母开头和结尾。
     Name *string `json:"name,omitempty"`
 
-    // RegionId 子网所在节点的ID。必须是VPC所在节点之一。
+    // RegionId 子网所在节点的ID。
+    // 必须是VPC所在节点之一。
     RegionId *string `json:"regionId,omitempty"`
 
-    // StackType 子网的IP堆栈类型。可选值：IPv4（仅IPv4）、IPv4_IPv6（IPv4和IPv6双栈）、IPv6（仅IPv6）。
+    // StackType 子网的IP堆栈类型。
+    // 可选值：IPv4（仅IPv4）、IPv4_IPv6（IPv4和IPv6双栈）、IPv6（仅IPv6）。
     StackType *string `json:"stackType,omitempty"`
 
     // CidrBlock 子网的IPv4 CIDR地址段。
@@ -8241,12 +8384,11 @@ type ModifySubnetStackTypeRequest struct {
     SubnetId *string `json:"subnetId,omitempty"`
 
     // StackType 子网堆栈类型。
-    // `IPv4_IPv6`：开启 IPv6，公网或内网由`ipv6Type`指定。
-    // `IPv4`：关闭 IPv6，公网和内网 IPv6 类型的子网均支持；关闭前须确保子网内所有网卡已通过 `UnassignNetworkInterfaceIpv6` 删除其 IPv6 地址。
+    // `IPv4_IPv6`：开启公网IPv6；`IPv4`：关闭公网IPv6（仅支持公网IPv6类型的子网，且子网内所有网卡须已通过UnassignNetworkInterfaceIpv6删除IPv6）。
     StackType *string `json:"stackType,omitempty"`
 
-    // Ipv6Type IPv6 的类型，当`stackType`为`IPv4_IPv6`时必填。
-    // `Public`：公网 IPv6；`Private`：内网 IPv6。
+    // Ipv6Type IPv6的类型。
+    // 当`stackType`为`IPv4_IPv6`时必填。
     Ipv6Type *string `json:"ipv6Type,omitempty"`
 
     // Ipv6CidrBlockId 公网IPv6 CIDR ID。
@@ -9909,6 +10051,7 @@ type CreatePlacementGroupRequest struct {
     Name *string `json:"name,omitempty"`
 
     // PartitionNum 置放组的分区数。
+    // 最小是2，默认为3。
     // 决定置放组最大可关联实例数。
     PartitionNum *int `json:"partitionNum,omitempty"`
 
@@ -10184,7 +10327,8 @@ type DescribeHaVipsRequest struct {
     // SubnetIds 所属子网ID列表。
     SubnetIds []string `json:"subnetIds,omitempty"`
 
-    // IpAddresses 私网IP地址列表。最多支持100个地址查询。
+    // IpAddresses 私网IP地址列表。
+    // 最多支持100个地址查询。
     IpAddresses []string `json:"ipAddresses,omitempty"`
 
     // InstanceIds 实例ID列表，返回绑定了指定实例的高可用虚拟IP。
@@ -10255,10 +10399,12 @@ type HaVipInfo struct {
     // AssociatedInstances 关联的实例ID列表。
     AssociatedInstances []string `json:"associatedInstances,omitempty"`
 
-    // MasterInstanceId 当前持有该VIP流量的主实例ID。未绑定实例或无主实例时为null。
+    // MasterInstanceId 当前持有该VIP流量的主实例ID。
+    // 未绑定实例或无主实例时为null。
     MasterInstanceId *string `json:"masterInstanceId,omitempty"`
 
-    // AssociatedEips 绑定的弹性公网IP列表。未绑定时返回空列表。
+    // AssociatedEips 绑定的弹性公网IP列表。
+    // 未绑定时返回空列表。
     AssociatedEips []*HaVipEipAttachment `json:"associatedEips,omitempty"`
 
     // CreateTime 创建时间。
@@ -10287,10 +10433,14 @@ type ModifyHaVipAttributeRequest struct {
     // HaVipId 高可用虚拟IP的ID。
     HaVipId *string `json:"haVipId,omitempty"`
 
-    // Name HaVip名称。长度1到64个字符。name 与 securityGroupId 至少提供一个。
+    // Name HaVip名称。
+    // 长度1到64个字符。
+    // name 与 securityGroupId 至少提供一个。
     Name *string `json:"name,omitempty"`
 
-    // SecurityGroupId 安全组ID。若设置，则将HaVip绑定的安全组修改为指定安全组。name 与 securityGroupId 至少提供一个。
+    // SecurityGroupId 安全组ID。
+    // 若设置，则将HaVip绑定的安全组修改为指定安全组。
+    // name 与 securityGroupId 至少提供一个。
     SecurityGroupId *string `json:"securityGroupId,omitempty"`
 
 }

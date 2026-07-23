@@ -35,6 +35,7 @@ func NewClient(config *common.Config, secretKeyId, secretKeyPassword string) (cl
 	}
 	return client, nil
 }
+
 func NewClientWithToken(token string) (client *Client, err error) {
 	return NewClientWithTokenAndConfig(common.NewConfig(), token)
 }
@@ -55,7 +56,6 @@ func NewClientWithTokenAndConfig(config *common.Config, token string) (client *C
 }
 
 
-
 func NewDescribeIPTransitDatacentersRequest() (request *DescribeIPTransitDatacentersRequest) {
 	request = &DescribeIPTransitDatacentersRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -72,9 +72,55 @@ func NewDescribeIPTransitDatacentersResponse() (response *DescribeIPTransitDatac
 	return
 }
 
-// DescribeIPTransitDatacenters 本接口用于连接IP Transit 服务支持的数据中心。
+// DescribeIPTransitDatacenters 查询IP Transit可连接数据中心
 func (c *Client) DescribeIPTransitDatacenters(request *DescribeIPTransitDatacentersRequest) (response *DescribeIPTransitDatacentersResponse, err error) {
 	response = NewDescribeIPTransitDatacentersResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeIPTransitAvailableAsnsRequest() (request *DescribeIPTransitAvailableAsnsRequest) {
+	request = &DescribeIPTransitAvailableAsnsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeIPTransitAvailableAsns")
+
+	return
+}
+
+func NewDescribeIPTransitAvailableAsnsResponse() (response *DescribeIPTransitAvailableAsnsResponse) {
+	response = &DescribeIPTransitAvailableAsnsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeIPTransitAvailableAsns 查询IP Transit可用 ASN
+func (c *Client) DescribeIPTransitAvailableAsns(request *DescribeIPTransitAvailableAsnsRequest) (response *DescribeIPTransitAvailableAsnsResponse, err error) {
+	response = NewDescribeIPTransitAvailableAsnsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeIPTransitAvailableCidrBlocksRequest() (request *DescribeIPTransitAvailableCidrBlocksRequest) {
+	request = &DescribeIPTransitAvailableCidrBlocksRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeIPTransitAvailableCidrBlocks")
+
+	return
+}
+
+func NewDescribeIPTransitAvailableCidrBlocksResponse() (response *DescribeIPTransitAvailableCidrBlocksResponse) {
+	response = &DescribeIPTransitAvailableCidrBlocksResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeIPTransitAvailableCidrBlocks 查询IP Transit可用公网地址段
+func (c *Client) DescribeIPTransitAvailableCidrBlocks(request *DescribeIPTransitAvailableCidrBlocksRequest) (response *DescribeIPTransitAvailableCidrBlocksResponse, err error) {
+	response = NewDescribeIPTransitAvailableCidrBlocksResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -95,7 +141,7 @@ func NewInquiryCreateIPTransitPriceResponse() (response *InquiryCreateIPTransitP
 	return
 }
 
-// InquiryCreateIPTransitPrice 创建一条IP Transit 的询价。
+// InquiryCreateIPTransitPrice iP Transit创建询价
 func (c *Client) InquiryCreateIPTransitPrice(request *InquiryCreateIPTransitPriceRequest) (response *InquiryCreateIPTransitPriceResponse, err error) {
 	response = NewInquiryCreateIPTransitPriceResponse()
 	err = c.ApiCall(request, response)
@@ -118,7 +164,7 @@ func NewCreateIPTransitResponse() (response *CreateIPTransitResponse) {
 	return
 }
 
-// CreateIPTransit 创建一条IP Transit。
+// CreateIPTransit 创建IP Transit
 func (c *Client) CreateIPTransit(request *CreateIPTransitRequest) (response *CreateIPTransitResponse, err error) {
 	response = NewCreateIPTransitResponse()
 	err = c.ApiCall(request, response)
@@ -141,7 +187,7 @@ func NewDescribeIPTransitsResponse() (response *DescribeIPTransitsResponse) {
 	return
 }
 
-// DescribeIPTransits 本接口用于查询IP Transit资源列表。
+// DescribeIPTransits 查询IP Transit列表
 func (c *Client) DescribeIPTransits(request *DescribeIPTransitsRequest) (response *DescribeIPTransitsResponse, err error) {
 	response = NewDescribeIPTransitsResponse()
 	err = c.ApiCall(request, response)
@@ -164,7 +210,7 @@ func NewModifyIPTransitBandwidthResponse() (response *ModifyIPTransitBandwidthRe
 	return
 }
 
-// ModifyIPTransitBandwidth 修改一条IP Transit的带宽限速。
+// ModifyIPTransitBandwidth 修改IP Transit带宽
 func (c *Client) ModifyIPTransitBandwidth(request *ModifyIPTransitBandwidthRequest) (response *ModifyIPTransitBandwidthResponse, err error) {
 	response = NewModifyIPTransitBandwidthResponse()
 	err = c.ApiCall(request, response)
@@ -187,7 +233,7 @@ func NewModifyIPTransitsAttributeResponse() (response *ModifyIPTransitsAttribute
 	return
 }
 
-// ModifyIPTransitsAttribute 修改IP Transit的基本信息，包括名称和备注。
+// ModifyIPTransitsAttribute 修改IP Transit属性
 func (c *Client) ModifyIPTransitsAttribute(request *ModifyIPTransitsAttributeRequest) (response *ModifyIPTransitsAttributeResponse, err error) {
 	response = NewModifyIPTransitsAttributeResponse()
 	err = c.ApiCall(request, response)
@@ -210,7 +256,7 @@ func NewDeleteIPTransitResponse() (response *DeleteIPTransitResponse) {
 	return
 }
 
-// DeleteIPTransit 删除一条IP Transit。
+// DeleteIPTransit 删除IP Transit
 func (c *Client) DeleteIPTransit(request *DeleteIPTransitRequest) (response *DeleteIPTransitResponse, err error) {
 	response = NewDeleteIPTransitResponse()
 	err = c.ApiCall(request, response)
@@ -233,9 +279,55 @@ func NewDescribeIPTransitTrafficResponse() (response *DescribeIPTransitTrafficRe
 	return
 }
 
-// DescribeIPTransitTraffic 查询IP Transit在指定时间段内的带宽数据。
+// DescribeIPTransitTraffic 查询IP Transit流量
 func (c *Client) DescribeIPTransitTraffic(request *DescribeIPTransitTrafficRequest) (response *DescribeIPTransitTrafficResponse, err error) {
 	response = NewDescribeIPTransitTrafficResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewInquiryModifyIPTransitPriceRequest() (request *InquiryModifyIPTransitPriceRequest) {
+	request = &InquiryModifyIPTransitPriceRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryModifyIPTransitPrice")
+
+	return
+}
+
+func NewInquiryModifyIPTransitPriceResponse() (response *InquiryModifyIPTransitPriceResponse) {
+	response = &InquiryModifyIPTransitPriceResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// InquiryModifyIPTransitPrice IP Transit变配询价
+func (c *Client) InquiryModifyIPTransitPrice(request *InquiryModifyIPTransitPriceRequest) (response *InquiryModifyIPTransitPriceResponse, err error) {
+	response = NewInquiryModifyIPTransitPriceResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyIPTransitConfigRequest() (request *ModifyIPTransitConfigRequest) {
+	request = &ModifyIPTransitConfigRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyIPTransitConfig")
+
+	return
+}
+
+func NewModifyIPTransitConfigResponse() (response *ModifyIPTransitConfigResponse) {
+	response = &ModifyIPTransitConfigResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyIPTransitConfig 修改IP Transit配置
+func (c *Client) ModifyIPTransitConfig(request *ModifyIPTransitConfigRequest) (response *ModifyIPTransitConfigResponse, err error) {
+	response = NewModifyIPTransitConfigResponse()
 	err = c.ApiCall(request, response)
 	return
 }
