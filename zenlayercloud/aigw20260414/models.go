@@ -130,6 +130,12 @@ type CreateAiGatewayRequest struct {
     // 且必须以数字或字母开头和结尾。
     GatewayName *string `json:"gatewayName,omitempty"`
 
+    // DailyLimit 日额度限制。
+    DailyLimit *int `json:"dailyLimit,omitempty"`
+
+    // MonthlyLimit 月额度限制。
+    MonthlyLimit *int `json:"monthlyLimit,omitempty"`
+
     // TokenLimit token配额。
     TokenLimit *int `json:"tokenLimit,omitempty"`
 
