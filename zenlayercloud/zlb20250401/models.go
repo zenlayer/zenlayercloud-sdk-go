@@ -29,7 +29,7 @@ type DescribeLoadBalancerRegionsResponseParams struct {
 // Region 描述节点的基本信息。包括节点ID、名称等。
 type Region struct {
 
-    // RegionId 节点ID。
+    // RegionId 支持售卖的区域。
     RegionId *string `json:"regionId,omitempty"`
 
     // CityName 节点所属的城市名称。
@@ -68,11 +68,11 @@ type DescribeLoadBalancersRequest struct {
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 
     // TagKeys 根据标签键进行搜索。
-    //  最长不得超过20个标签键。
+    // 最长不得超过20个标签键。
     TagKeys []string `json:"tagKeys,omitempty"`
 
     // Tags 根据标签进行搜索。
-    //  最长不得超过20个标签。
+    // 最长不得超过20个标签。
     Tags []*Tag `json:"tags,omitempty"`
 
     // SecurityGroupId 负载均衡实例绑定的安全组ID。
@@ -330,7 +330,20 @@ type CreateLoadBalancerRequest struct {
     RegionId *string `json:"regionId,omitempty"`
 
     // VpcId 负载均衡后端服务器所属的VPC网络 ID。
+    // `vpcId`和`subnetId`至少指定一个。
+    // 仅指定`subnetId`时，取该子网所属的VPC。
     VpcId *string `json:"vpcId,omitempty"`
+
+    // SubnetId 子网ID。
+    // 可以通过[DescribeSubnets](../../zec/vpc-network/describesubnets.md)接口获取。
+    // `vpcId`和`subnetId`至少指定一个。
+    // 该子网需与`regionId`同区域、支持IPv4，同时指定`vpcId`时还须属于该VPC。
+    SubnetId *string `json:"subnetId,omitempty"`
+
+    // HealthCheckPrivateIps 健康检查内网源IP地址，数量必须为2。
+    // 指定`subnetId`时，不填则从该子网中随机分配2个可用的内网IPv4地址作为健康检查源IP，每个负载均衡实例占用2个地址，该子网剩余可用内网IPv4地址不足时将返回`INVALID_SUBNET_IPV4_INSUFFICIENT`。
+    // 不指定`subnetId`时，此参数无效。
+    HealthCheckPrivateIps []string `json:"healthCheckPrivateIps,omitempty"`
 
     // LoadBalancerName 负载均衡实例名称。
     // 长度为1～64个字符。
@@ -372,16 +385,6 @@ type CreateLoadBalancerRequest struct {
     // 注意：·关联`标签键`不能重复。
     Tags *TagAssociation `json:"tags,omitempty"`
 
-    // SubnetId 健康检查内网源IP所属的subnetId。
-    // 可以通过[DescribeSubnets](../../zec/vpc-network/describesubnets.md)接口获取。
-    SubnetId *string `json:"subnetId,omitempty"`
-
-    // HealthCheckPrivateIps 健康检查内网IP地址。
-    // 指定`subnetId`时，此参数必填，且数量必须为2。
-    // 不指定`subnetId`时，此参数无效。
-    // 不填时系统将自动分配。
-    HealthCheckPrivateIps []string `json:"healthCheckPrivateIps,omitempty"`
-
     // SecurityGroupId 负载均衡实例绑定的安全组ID。
     // 可以通过[DescribeSecurityGroups](../../zec/security-group/describesecuritygroups.md)接口获取。
     SecurityGroupId *string `json:"securityGroupId,omitempty"`
@@ -396,7 +399,7 @@ type MarketingInfo struct {
     DiscountCode *string `json:"discountCode,omitempty"`
 
     // UsePocVoucher 是否使用POC代金券。
-    //  如果系统不存在POC代金券，相关创建流程会失败。
+    // 如果系统不存在POC代金券，相关创建流程会失败。
     UsePocVoucher *bool `json:"usePocVoucher,omitempty"`
 
 }
@@ -709,6 +712,7 @@ type Listener struct {
     // Port 监听器端口。
     // 多个端口使用,分隔。
     // 当端口是范围时用`-`连接，例如：10000-10005。
+    // 端口的取值范围为0～65535，0代表全范围端口。
     // 如果传多个单独的端口连续，将会被自动聚合为范围端口。
     Port *string `json:"port,omitempty"`
 
@@ -727,7 +731,13 @@ type Listener struct {
     CreateTime *string `json:"createTime,omitempty"`
 
     // Persistent 会话保持时间，单位秒。
+    // 与`algoOpts`（调度算法高级选项）互斥，该监听器开启`algoOpts`时该字段恒为空/0。
     Persistent *int `json:"persistent,omitempty"`
+
+    // AlgoOpts 调度算法高级选项。
+    // 仅当工作模式（`kind`）为`DR`且调度算法（`scheduler`）为`mh`时才可能有值；未开启时该字段为空，查询接口不会返回`None`。
+    // 开启后与会话保持（`persistent`）互斥。
+    AlgoOpts *string `json:"algoOpts,omitempty"`
 
     // IdleTimeout 空闲超时时间，单位秒。
     IdleTimeout *int `json:"idleTimeout,omitempty"`
@@ -745,8 +755,8 @@ type HealthCheck struct {
     CheckType *string `json:"checkType,omitempty"`
 
     // CheckPort 健康检查端口。
-    // 当监听器端口为全端口（0）且健康检查类型为TCP或HTTP时，必须指定该端口。
     // 默认为后端服务的端口，除非您希望指定特定端口，否则建议留空。
+    // 当监听器端口为全端口（0）或范围端口且健康检查类型为TCP或HTTP时，必须指定该端口。
     CheckPort *int `json:"checkPort,omitempty"`
 
     // CheckDelayLoop 健康检查的检查间隔时间。
@@ -803,18 +813,27 @@ type CreateListenerRequest struct {
     // 当端口是范围时用`-`连接，例如：10000-10005。
     // 端口的取值范围为0～65535，0代表全范围端口。
     // 请注意端口不能和该监听器的其他端口有重叠。
+    // 范围端口与全端口在配额计算中均按1个端口计。
+    // 连续的单端口会被自动合并为区间端口后再保存和返回，例如`1,2,3,4,5`会被保存为`1-5`。
     Port *string `json:"port,omitempty"`
 
     // Kind 工作模式。
-    // 如果不传则会根据负载均衡实例所在的区域设定默认值。
-    // 默认值可能为DNAT、FNAT。
+    // 若该负载均衡器已有监听器，默认沿用其工作模式；否则根据负载均衡实例所在的区域设定默认值（默认值可能为DNAT、FNAT）。
+    // 同一负载均衡器下所有监听器工作模式必须一致，DR模式下监听器不支持设置为全端口（0）。
     Kind *string `json:"kind,omitempty"`
 
     // Persistent 会话保持时间，单位秒。
+    // 与`algoOpts`（调度算法高级选项）互斥：该监听器设置了`algoOpts`时不可传非0值。
     Persistent *int `json:"persistent,omitempty"`
 
     // IdleTimeout 空闲超时时间，单位秒。
     IdleTimeout *int `json:"idleTimeout,omitempty"`
+
+    // AlgoOpts 调度算法高级选项。
+    // 仅当工作模式（`kind`）为`DR`且调度算法（`scheduler`）为`mh`时可设置，其它组合传入将报错。
+    // 创建时传`None`等价于不设置该字段。
+    // 开启后与会话保持（`persistent`）互斥，不可同时设置非0值。
+    AlgoOpts *string `json:"algoOpts,omitempty"`
 
 }
 
@@ -850,7 +869,7 @@ type ModifyListenerRequest struct {
     ListenerName *string `json:"listenerName,omitempty"`
 
     // HealthCheck 负载均衡器的监听器健康检查。
-    //  不传则不会进行修改，如果开启或关闭，请设置`HealthCheck.enabled`字段。
+    // 不传则不会进行修改，如果开启或关闭，请设置`HealthCheck.enabled`字段。
     HealthCheck *HealthCheck `json:"healthCheck,omitempty"`
 
     // Scheduler 负载均衡器的监听器调度方式。
@@ -862,17 +881,29 @@ type ModifyListenerRequest struct {
     // 当端口是范围时用`-`连接，例如：10000-10005。
     // 端口的取值范围为0～65535，0代表全范围端口。
     // 不指定将不会进行修改。
+    // 范围端口与全端口在配额计算中均按1个端口计。
+    // 连续的单端口会被自动合并为区间端口后再保存和返回，例如`1,2,3,4,5`会被保存为`1-5`。
     Port *string `json:"port,omitempty"`
 
     // Kind 工作模式。
     // 如果修改为`DR`模式，如果后端服务器指定了端口将失效，将跟随监听器的端口。
+    // 修改后必须与该负载均衡器下其他监听器的工作模式保持一致。
+    // DR模式下监听器不支持设置为全端口（0）。
     Kind *string `json:"kind,omitempty"`
 
     // Persistent 会话保持时间，单位秒。
+    // 与`algoOpts`（调度算法高级选项）互斥：若该监听器已开启`algoOpts`，不可修改为非0值，需一并传`algoOpts=None`将其清空。
     Persistent *int `json:"persistent,omitempty"`
 
     // IdleTimeout 空闲超时时间，单位秒。
     IdleTimeout *int `json:"idleTimeout,omitempty"`
+
+    // AlgoOpts 调度算法高级选项。
+    // 仅当工作模式（`kind`）为`DR`且调度算法（`scheduler`）为`mh`时可设置。
+    // 不传表示不修改该字段；传`None`表示显式清空已开启的选项。
+    // 校验按修改后生效的最终状态判定：若该监听器已开启此选项，把`kind`或`scheduler`改为其它组合时也需一并传`None`。
+    // 开启后与会话保持（`persistent`）互斥：若该监听器已开启此选项，把`persistent`改为非0值同样会报错，需一并传`None`将其清空。
+    AlgoOpts *string `json:"algoOpts,omitempty"`
 
 }
 

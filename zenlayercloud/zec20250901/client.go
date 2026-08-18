@@ -654,6 +654,29 @@ func (c *Client) DescribeZoneGpuInstanceConfigInfos(request *DescribeZoneGpuInst
 	return
 }
 
+func NewDescribeZoneAcceleratorConfigInfosRequest() (request *DescribeZoneAcceleratorConfigInfosRequest) {
+	request = &DescribeZoneAcceleratorConfigInfosRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeZoneAcceleratorConfigInfos")
+
+	return
+}
+
+func NewDescribeZoneAcceleratorConfigInfosResponse() (response *DescribeZoneAcceleratorConfigInfosResponse) {
+	response = &DescribeZoneAcceleratorConfigInfosResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeZoneAcceleratorConfigInfos 查询可用区售卖的加速卡规格信息。
+func (c *Client) DescribeZoneAcceleratorConfigInfos(request *DescribeZoneAcceleratorConfigInfosRequest) (response *DescribeZoneAcceleratorConfigInfosResponse, err error) {
+	response = NewDescribeZoneAcceleratorConfigInfosResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewDescribeImagesRequest() (request *DescribeImagesRequest) {
 	request = &DescribeImagesRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -1896,6 +1919,29 @@ func (c *Client) ModifyIpv6TrafficPackage(request *ModifyIpv6TrafficPackageReque
 	return
 }
 
+func NewReplaceNetworkInterfacePrimaryIpv4Request() (request *ReplaceNetworkInterfacePrimaryIpv4Request) {
+	request = &ReplaceNetworkInterfacePrimaryIpv4Request{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ReplaceNetworkInterfacePrimaryIpv4")
+
+	return
+}
+
+func NewReplaceNetworkInterfacePrimaryIpv4Response() (response *ReplaceNetworkInterfacePrimaryIpv4Response) {
+	response = &ReplaceNetworkInterfacePrimaryIpv4Response{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ReplaceNetworkInterfacePrimaryIpv4 变更网卡当前的主内网IPv4地址。
+func (c *Client) ReplaceNetworkInterfacePrimaryIpv4(request *ReplaceNetworkInterfacePrimaryIpv4Request) (response *ReplaceNetworkInterfacePrimaryIpv4Response, err error) {
+	response = NewReplaceNetworkInterfacePrimaryIpv4Response()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewDescribePoolsRequest() (request *DescribePoolsRequest) {
 	request = &DescribePoolsRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -2835,6 +2881,29 @@ func NewModifyEipTrafficPackageResponse() (response *ModifyEipTrafficPackageResp
 // ModifyEipTrafficPackage 调整弹性公网IP流量包。
 func (c *Client) ModifyEipTrafficPackage(request *ModifyEipTrafficPackageRequest) (response *ModifyEipTrafficPackageResponse, err error) {
 	response = NewModifyEipTrafficPackageResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyEipBlockThresholdRequest() (request *ModifyEipBlockThresholdRequest) {
+	request = &ModifyEipBlockThresholdRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyEipBlockThreshold")
+
+	return
+}
+
+func NewModifyEipBlockThresholdResponse() (response *ModifyEipBlockThresholdResponse) {
+	response = &ModifyEipBlockThresholdResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyEipBlockThreshold 修改弹性公网IP（EIP）的自定义封堵阈值。
+func (c *Client) ModifyEipBlockThreshold(request *ModifyEipBlockThresholdRequest) (response *ModifyEipBlockThresholdResponse, err error) {
+	response = NewModifyEipBlockThresholdResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -4077,6 +4146,52 @@ func NewDeleteSubnetResponse() (response *DeleteSubnetResponse) {
 // DeleteSubnet 删除一个子网。
 func (c *Client) DeleteSubnet(request *DeleteSubnetRequest) (response *DeleteSubnetResponse, err error) {
 	response = NewDeleteSubnetResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewCreateSubnetsRequest() (request *CreateSubnetsRequest) {
+	request = &CreateSubnetsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateSubnets")
+
+	return
+}
+
+func NewCreateSubnetsResponse() (response *CreateSubnetsResponse) {
+	response = &CreateSubnetsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CreateSubnets 在同一个VPC下批量创建多个子网。
+func (c *Client) CreateSubnets(request *CreateSubnetsRequest) (response *CreateSubnetsResponse, err error) {
+	response = NewCreateSubnetsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteSubnetsRequest() (request *DeleteSubnetsRequest) {
+	request = &DeleteSubnetsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteSubnets")
+
+	return
+}
+
+func NewDeleteSubnetsResponse() (response *DeleteSubnetsResponse) {
+	response = &DeleteSubnetsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeleteSubnets 删除一个或多个子网。
+func (c *Client) DeleteSubnets(request *DeleteSubnetsRequest) (response *DeleteSubnetsResponse, err error) {
+	response = NewDeleteSubnetsResponse()
 	err = c.ApiCall(request, response)
 	return
 }

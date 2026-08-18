@@ -347,6 +347,9 @@ type InquiryPriceCreateInstanceResponseParams struct {
     // GpuPrice GPU规格的价格。
     GpuPrice *PriceItem `json:"gpuPrice,omitempty"`
 
+    // AcceleratorPrice 加速卡规格的价格。
+    AcceleratorPrice *PriceItem `json:"acceleratorPrice,omitempty"`
+
     // Ipv4Price 公网IPv4的保留价格。仅当`internetChargeType`有值时返回。
     Ipv4Price *PriceItem `json:"ipv4Price,omitempty"`
 
@@ -1514,12 +1517,17 @@ type InquiryPriceModifyInstanceTypeResponseParams struct {
 
     RequestId *string `json:"requestId,omitempty"`
 
-    // SpecPrice 变更后规格的价格。VM 实例变配时返回，GPU 实例变配时为 null。
+    // SpecPrice 变更后规格的价格。
+    // VM 实例变配时返回，GPU/加速卡实例变配时为 null。
     SpecPrice *PriceItem `json:"specPrice,omitempty"`
 
     // GpuPrice 变更后 GPU 规格的价格。
-    // GPU 实例变配时返回，VM 实例变配时为 null。
+    // GPU 实例变配时返回，VM/加速卡实例变配时为 null。
     GpuPrice *PriceItem `json:"gpuPrice,omitempty"`
+
+    // AcceleratorPrice 变更后加速卡规格的价格。
+    // 加速卡实例变配时返回，VM/GPU 实例变配时为 null。
+    AcceleratorPrice *PriceItem `json:"acceleratorPrice,omitempty"`
 
     // SystemDiskPrice 系统盘的价格。
     SystemDiskPrice *PriceItem `json:"systemDiskPrice,omitempty"`
@@ -1596,6 +1604,87 @@ type GpuInstanceTypeQuotaItem struct {
 
     // InventoryCapacity GPU 系列库存档位。
     InventoryCapacity *string `json:"inventoryCapacity,omitempty"`
+
+}
+
+// DescribeZoneAcceleratorConfigInfosRequest 
+type DescribeZoneAcceleratorConfigInfosRequest struct {
+    *common.BaseRequest
+
+    // ZoneId 要查询的可用区 ID。
+    // 例如：na-us-la-2a。
+    // 不传时返回所有可用区的加速卡规格。
+    ZoneId *string `json:"zoneId,omitempty"`
+
+    // InstanceType 要查询的加速卡规格 ID。
+    // 例如：z2a.v.T1U.c16m64.1。
+    // 不传时返回所有规格。
+    InstanceType *string `json:"instanceType,omitempty"`
+
+}
+
+type DescribeZoneAcceleratorConfigInfosResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeZoneAcceleratorConfigInfosResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeZoneAcceleratorConfigInfosResponseParams 
+type DescribeZoneAcceleratorConfigInfosResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // InstanceTypeQuotaSet 加速卡规格售卖信息列表。
+    InstanceTypeQuotaSet []*AcceleratorTypeQuotaItem `json:"instanceTypeQuotaSet,omitempty"`
+
+}
+
+// AcceleratorTypeQuotaItem 描述加速卡规格在某可用区的售卖信息。
+type AcceleratorTypeQuotaItem struct {
+
+    // ZoneId 可用区 ID。
+    ZoneId *string `json:"zoneId,omitempty"`
+
+    // InstanceType 加速卡规格 ID。
+    // 例如：z2a.v.T1U.c16m64.1。
+    // 创建实例时将此值传入 CreateZecInstances 的 instanceType 参数。
+    InstanceType *string `json:"instanceType,omitempty"`
+
+    // AcceleratorType 加速卡类型。
+    // 取值范围：VPU。
+    // 未来可能扩展 TPU/NPU/LPU 等。
+    AcceleratorType *string `json:"acceleratorType,omitempty"`
+
+    // CpuCount CPU 核数。
+    // 单位：核。
+    CpuCount *int `json:"cpuCount,omitempty"`
+
+    // Memory 内存容量。
+    // 单位：GiB。
+    Memory *int `json:"memory,omitempty"`
+
+    // AcceleratorAmount 加速卡卡数。
+    AcceleratorAmount *int `json:"acceleratorAmount,omitempty"`
+
+    // InstanceTypeName 加速卡规格描述。
+    InstanceTypeName *string `json:"instanceTypeName,omitempty"`
+
+    // Bps 单张网卡的带宽上限。
+    // 单位：比特/秒。
+    Bps *int64 `json:"bps,omitempty"`
+
+    // Pps 单张网卡的收发包上限。
+    // 单位：个/秒。
+    Pps *int64 `json:"pps,omitempty"`
+
+    // InventoryCapacity 加速卡系列库存档位。
+    InventoryCapacity *string `json:"inventoryCapacity,omitempty"`
+
+    // Price 该规格的价格。
+    Price *PriceItem `json:"price,omitempty"`
 
 }
 
@@ -2276,14 +2365,22 @@ type DiskInfo struct {
 type CreateDisksRequest struct {
     *common.BaseRequest
 
+    // InstanceChargePostpaid 后付费云硬盘的承诺周期。
+    // 仅在需要指定承诺周期时传递。
+    InstanceChargePostpaid *ChargePostpaid `json:"instanceChargePostpaid,omitempty"`
+
     // ZoneId 云硬盘所属的可用区ID。
     ZoneId *string `json:"zoneId,omitempty"`
 
     // DiskName 云盘名称。
-    // 范围1到64个字符。
-    // 仅支持输入字母、数字、-/_和英文句点(.)。
-    // 且必须以数字或字母开头和结尾。
+    // 该参数需以数字或字母开头，最多支持64个字符。
+    // 仅支持字母、数字、连字符(-)和英文句点(.)。
     DiskName *string `json:"diskName,omitempty"`
+
+    // DiskNames 每块云硬盘各自的名称。
+    // 数量需要与`diskAmount`字段一致，命名规则同`diskName`。
+    // 不传则本批次云硬盘均使用`diskName`命名。
+    DiskNames []string `json:"diskNames,omitempty"`
 
     // DiskSize 云硬盘大小，单位GiB。
     DiskSize *int `json:"diskSize,omitempty"`
@@ -2294,14 +2391,19 @@ type CreateDisksRequest struct {
     // InstanceId 云硬盘挂载的实例ID。
     InstanceId *string `json:"instanceId,omitempty"`
 
+    // InstanceIds 要绑定的实例 ID。
+    // 数量需要与 `diskAmount` 字段一致。
+    InstanceIds []string `json:"instanceIds,omitempty"`
+
     // ResourceGroupId 云硬盘所在的资源组ID。
     // 如不指定则放入默认资源组。
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 
     // DiskCategory 云硬盘种类。
-    // Basic NVMe SSD: 经济型 NVMe SSD。
-    // Standard NVMe SSD: 标准型 NVMe SSD。
-    // 默认为Standard NVMe SSD。
+    // Basic NVMe SSD：经济型 NVMe SSD。
+    // Standard NVMe SSD：标准型 NVMe SSD。
+    // 默认值：Standard NVMe SSD。
+    // 调用 DescribeDiskCategory 获取云硬盘种类。
     DiskCategory *string `json:"diskCategory,omitempty"`
 
     // SnapshotId 使用快照ID进行创建。
@@ -2315,12 +2417,17 @@ type CreateDisksRequest struct {
     // 注意：·关联`标签键`不能重复。
     Tags *TagAssociation `json:"tags,omitempty"`
 
-    // InstanceIds 要绑定的实例ID。
-    // 数量需要与`diskAmount`字段一致。
-    InstanceIds []string `json:"instanceIds,omitempty"`
-
     // BurstingEnabled 是否开启性能突发。
     BurstingEnabled *bool `json:"burstingEnabled,omitempty"`
+
+}
+
+// ChargePostpaid 后付费模式，即按量付费相关参数设置。
+type ChargePostpaid struct {
+
+    // Period 后付费时长。
+    // 单位：月。
+    Period *int `json:"period,omitempty"`
 
 }
 
@@ -2363,9 +2470,17 @@ type AttachDisksResponse struct {
 
     RequestId *string `json:"requestId,omitempty"`
 
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
+    Response *AttachDisksResponseParams `json:"response,omitempty"`
+
+}
+
+// AttachDisksResponseParams 
+type AttachDisksResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // FailedDiskIds 挂载失败的云硬盘。
+    FailedDiskIds []string `json:"failedDiskIds,omitempty"`
 
 }
 
@@ -3871,6 +3986,47 @@ type ModifyIpv6TrafficPackageResponse struct {
 
 }
 
+// ReplaceNetworkInterfacePrimaryIpv4Request 
+type ReplaceNetworkInterfacePrimaryIpv4Request struct {
+    *common.BaseRequest
+
+    // NicId 需要变更的网卡ID。
+    NicId *string `json:"nicId,omitempty"`
+
+    // PrimaryIpAddress 变更的目标内网IPv4地址。
+    // 该地址必须属于子网的CIDR内，且未被使用。
+    // 如果未指定，将自动分配子网内当前可用的最小IP地址。
+    PrimaryIpAddress *string `json:"primaryIpAddress,omitempty"`
+
+    // RebootInstance 是否在变更成功后自动重启已绑定的运行中实例，使新的主内网IPv4地址在实例内立即生效。
+    // 默认为true。
+    // 如果网卡未绑定实例、绑定的实例未处于运行中、或本次未产生实际变更（如指定了与当前相同的IP），则不会触发重启。
+    RebootInstance *bool `json:"rebootInstance,omitempty"`
+
+}
+
+type ReplaceNetworkInterfacePrimaryIpv4Response struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *ReplaceNetworkInterfacePrimaryIpv4ResponseParams `json:"response,omitempty"`
+
+}
+
+// ReplaceNetworkInterfacePrimaryIpv4ResponseParams 
+type ReplaceNetworkInterfacePrimaryIpv4ResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // NicId 网卡ID。
+    NicId *string `json:"nicId,omitempty"`
+
+    // PrimaryIpAddress 变更后生效的主内网IPv4地址。
+    PrimaryIpAddress *string `json:"primaryIpAddress,omitempty"`
+
+}
+
 // DescribePoolsRequest 
 type DescribePoolsRequest struct {
     *common.BaseRequest
@@ -4927,7 +5083,7 @@ type DescribeEipsRequest struct {
     InternetChargeType *string `json:"internetChargeType,omitempty"`
 
     // PrefixLength 按照 EIP 的掩码长度过滤。
-    // 32 表示单 IP，24–31 表示网段。
+    // 32 表示单个 IP 地址，24–31 表示 CIDR 网段。
     PrefixLength *int `json:"prefixLength,omitempty"`
 
 }
@@ -5149,7 +5305,7 @@ type CreateEipsRequest struct {
     Amount *int `json:"amount,omitempty"`
 
     // PrefixLength 掩码长度，取值范围24–32，默认32。
-    // 指定小于32时，创建EIP Block资源，必须同时指定`cidrId`，且不能小于所选CIDR自身的掩码长度。
+    // 指定小于32时，将创建EIP Block资源，此时必须同时指定`cidrId`，且取值不能小于所选CIDR自身的掩码长度。
     PrefixLength *int `json:"prefixLength,omitempty"`
 
     // Deprecated: EipV4Type 已废弃，请不要使用。
@@ -6029,6 +6185,50 @@ type ModifyEipTrafficPackageRequest struct {
 }
 
 type ModifyEipTrafficPackageResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type ModifyEipBlockThresholdRequest struct {
+    *common.BaseRequest
+
+    // EipId 修改封堵阈值的EIP ID。
+    // 网段（IP块）类型的EIP不支持修改封堵阈值。
+    EipId *string `json:"eipId,omitempty"`
+
+    // Enable 是否启用自定义封堵阈值。
+    // 传`false`时删除已有的自定义阈值，恢复为系统默认阈值，此时无需传递四项阈值。
+    Enable *bool `json:"enable,omitempty"`
+
+    // Bps 带宽封堵阈值，单位Mbps。
+    // 上限由配额`ZEC_EIP_Block_threshold_bps_cap`控制。
+    // 启用自定义阈值时，四项阈值至少传一项；未传的项保持原值不变。
+    Bps *int64 `json:"bps,omitempty"`
+
+    // Pps 报文速率封堵阈值，单位kpps。
+    // 上限由配额`ZEC_EIP_Block_threshold_pps_cap`控制。
+    // 启用自定义阈值时，四项阈值至少传一项；未传的项保持原值不变。
+    Pps *int64 `json:"pps,omitempty"`
+
+    // InCps 入向连接速率封堵阈值，单位kcps。
+    // 上限由配额`ZEC_EIP_Block_threshold_cps_in_cap`控制。
+    // 启用自定义阈值时，四项阈值至少传一项；未传的项保持原值不变。
+    InCps *int64 `json:"inCps,omitempty"`
+
+    // OutCps 出向连接速率封堵阈值，单位kcps。
+    // 上限由配额`ZEC_EIP_Block_threshold_cps_out_cap`控制。
+    // 启用自定义阈值时，四项阈值至少传一项；未传的项保持原值不变。
+    OutCps *int64 `json:"outCps,omitempty"`
+
+}
+
+type ModifyEipBlockThresholdResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
@@ -8236,10 +8436,8 @@ type CreateSubnetRequest struct {
     // VpcId 需要添加子网的VPC ID。
     VpcId *string `json:"vpcId,omitempty"`
 
-    // Name 子网名称。
-    // 范围2到63个字符。
-    // 仅支持输入字母、数字、-和英文句点(.)。
-    // 且必须以数字或字母开头和结尾。
+    // Name 子网名称，用于展示。
+    // 该参数需以数字或字母开头和结尾，长度为2到63个字符，仅支持字母、数字、连字符(-)和英文句点(.)。
     Name *string `json:"name,omitempty"`
 
     // RegionId 子网所在节点的ID。必须是VPC所在节点之一。
@@ -8299,9 +8497,8 @@ type ModifySubnetAttributeRequest struct {
     // SubnetId 子网的ID。
     SubnetId *string `json:"subnetId,omitempty"`
 
-    // SubnetName 子网的名称。
-    // 仅支持输入字母、数字、-和英文句点(.)。
-    // 且必须以数字或字母开头和结尾。
+    // SubnetName 子网名称。
+    // 该参数必须以数字或字母开头和结尾，仅支持字母、数字、连字符(-)和英文句点(.)。
     SubnetName *string `json:"subnetName,omitempty"`
 
     // CidrBlock 需要修改的IPv4 CIDR Block。
@@ -8328,10 +8525,8 @@ type ModifySubnetsAttributeRequest struct {
     // SubnetIds 需要修改的子网ID列表。
     SubnetIds []string `json:"subnetIds,omitempty"`
 
-    // Name 修改的子网名称。
-    // 范围2到63个字符。
-    // 仅支持输入字母、数字、-/_和英文句点(.)。
-    // 且必须以数字或字母开头和结尾。
+    // Name 子网名称。
+    // 长度为2到63个字符，必须以数字或字母开头和结尾，仅支持字母、数字、连字符(-)和英文句点(.)。
     Name *string `json:"name,omitempty"`
 
 }
@@ -8412,6 +8607,125 @@ type DeleteSubnetResponse struct {
     Response struct {
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response,omitempty"`
+
+}
+
+// CreateSubnetsRequest 
+type CreateSubnetsRequest struct {
+    *common.BaseRequest
+
+    // VpcId 需要添加子网的VPC ID。
+    // 批量创建的子网均属于同一个VPC。
+    VpcId *string `json:"vpcId,omitempty"`
+
+    // Subnets 待创建的子网列表。
+    // 单次请求最多支持创建10个子网。
+    // 该批次内的子网要么全部创建成功，要么全部不创建。
+    Subnets []*SubnetCreateItem `json:"subnets,omitempty"`
+
+}
+
+// SubnetCreateItem 批量创建子网的单项参数。
+type SubnetCreateItem struct {
+
+    // Name 子网名称。
+    // 范围2到63个字符。
+    // 仅支持输入字母、数字、连字符(-)、下划线(_)、斜杠(/)、英文句点(.)和空格。
+    // 且必须以数字或字母开头和结尾。
+    Name *string `json:"name,omitempty"`
+
+    // RegionId 子网所在节点的ID。
+    // 必须是VPC所在节点之一。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // StackType 子网的IP堆栈类型。
+    // 可选值：IPv4（仅IPv4）、IPv4_IPv6（IPv4和IPv6双栈）、IPv6（仅IPv6）。
+    StackType *string `json:"stackType,omitempty"`
+
+    // CidrBlock 子网的IPv4 CIDR地址段。
+    // 如果指定堆栈类型`stackType` 包含 `IPv4`, 则该字段必填。
+    // 指定的CIDR地址段必须属于VPC的CIDR范围内，且不能与VPC下已有子网或本次批量请求中的其他子网CIDR重叠。
+    CidrBlock *string `json:"cidrBlock,omitempty"`
+
+    // Ipv6Type IPv6的类型。
+    // 如果指定堆栈类型`stackType` 包含 `IPv6`, 则该字段必填。
+    Ipv6Type *string `json:"ipv6Type,omitempty"`
+
+    // DhcpOptionsSetId 要绑定的DHCP 选项集ID。
+    DhcpOptionsSetId *string `json:"dhcpOptionsSetId,omitempty"`
+
+    // Ipv6CidrBlockId 公网IPv6 CIDR ID。
+    // 该字段仅当`ipv6Type`是公网(`Public`)时允许指定。
+    // 如果不指定，将从系统默认IP池里分配。
+    Ipv6CidrBlockId *string `json:"ipv6CidrBlockId,omitempty"`
+
+    // Ipv6MaskLength 分配给虚拟机（VM）的IPv6 CIDR前缀的大小。
+    // 该参数必须与`ipv6CidrBlockId`参数配合使用。
+    // 当未显式传递时，默认值为96。
+    // 最小必须大于或等于指定`ipv6CidrBlockId`的前缀，最大不能超过96。
+    Ipv6MaskLength *int `json:"ipv6MaskLength,omitempty"`
+
+}
+
+type CreateSubnetsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *CreateSubnetsResponseParams `json:"response,omitempty"`
+
+}
+
+// CreateSubnetsResponseParams 
+type CreateSubnetsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // SubnetIds 创建的子网ID列表，顺序与请求中的子网列表一致。
+    SubnetIds []string `json:"subnetIds,omitempty"`
+
+}
+
+// DeleteSubnetsRequest 
+type DeleteSubnetsRequest struct {
+    *common.BaseRequest
+
+    // SubnetIds 要删除的子网ID列表。
+    SubnetIds []string `json:"subnetIds,omitempty"`
+
+}
+
+type DeleteSubnetsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DeleteSubnetsResponseParams `json:"response,omitempty"`
+
+}
+
+// DeleteSubnetsResponseParams 
+type DeleteSubnetsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // FailedSubnets 删除失败的子网详情列表。
+    // 若全量成功则为空。
+    FailedSubnets []*DeleteSubnetsFailedItem `json:"failedSubnets,omitempty"`
+
+}
+
+// DeleteSubnetsFailedItem 批量删除子网中单个失败项的详情。
+type DeleteSubnetsFailedItem struct {
+
+    // SubnetId 删除失败的子网ID。
+    SubnetId *string `json:"subnetId,omitempty"`
+
+    // ErrorCode 错误码。
+    ErrorCode *string `json:"errorCode,omitempty"`
+
+    // ErrorMsg 错误消息。
+    ErrorMsg *string `json:"errorMsg,omitempty"`
 
 }
 

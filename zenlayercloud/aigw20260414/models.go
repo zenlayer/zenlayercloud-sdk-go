@@ -461,6 +461,12 @@ type DescribeAiGatewayTokenLimitResponseParams struct {
     // TokenLimit Token配额限制。
     TokenLimit *int `json:"tokenLimit,omitempty"`
 
+    // DailyLimit 日额度限制。
+    DailyLimit *int `json:"dailyLimit,omitempty"`
+
+    // MonthlyLimit 月额度限制。
+    MonthlyLimit *int `json:"monthlyLimit,omitempty"`
+
 }
 
 // ModifyAiGatewayTokenLimitRequest 
@@ -470,7 +476,13 @@ type ModifyAiGatewayTokenLimitRequest struct {
     // GatewayUuid 网关UUID。
     GatewayUuid *string `json:"gatewayUuid,omitempty"`
 
-    // TokenLimit Token限制（访问限制）。
+    // DailyLimit 日额度限制。
+    DailyLimit *int `json:"dailyLimit,omitempty"`
+
+    // MonthlyLimit 月额度限制。
+    MonthlyLimit *int `json:"monthlyLimit,omitempty"`
+
+    // TokenLimit token配额。
     TokenLimit *int `json:"tokenLimit,omitempty"`
 
 }
