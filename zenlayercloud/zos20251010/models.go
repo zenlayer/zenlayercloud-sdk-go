@@ -3,76 +3,16 @@ package zos
 import "github.com/zenlayer/zenlayercloud-sdk-go/zenlayercloud/common"
 
 
-// CreateCommandRequest 创建命令的请求参数。
-type CreateCommandRequest struct {
-    *common.BaseRequest
-
-    // Name 命令名称。长度不能超过64个字符。
-    Name *string `json:"name,omitempty"`
-
-    // Content 命令内容。长度不能超过4096个字符。
-    Content *string `json:"content,omitempty"`
-
-    // Type 命令类型。
-    Type *string `json:"type,omitempty"`
-
-    // Description 命令描述信息。最长不超过255个字符。
-    Description *string `json:"description,omitempty"`
-
-    // ResourceGroupId 命令关联的资源组ID。
-    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
-
-    // Tags 命令绑定的标签信息。
-    Tags *TagAssociation `json:"tags,omitempty"`
-
-}
-
-// TagAssociation 描述创建资源时同时绑定的标签对的信息。
-type TagAssociation struct {
-
-    // Tags 标签对列表。
-    Tags []*Tag `json:"tags,omitempty"`
-
-}
-
-// Tag 描述一个标签键值对的信息。
-type Tag struct {
-
-    // Key 标签键。长度限制：1～64个字符。
-    Key *string `json:"key,omitempty"`
-
-    // Value 标签值。长度限制：1～64个字符。
-    Value *string `json:"value,omitempty"`
-
-}
-
-// CreateCommandResponseParams 创建命令的响应结果。
-type CreateCommandResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // CommandId 创建的命令ID。
-    CommandId *string `json:"commandId,omitempty"`
-
-}
-
-type CreateCommandResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *CreateCommandResponseParams `json:"response,omitempty"`
-
-}
-
 // DescribeCommandsRequest 
 type DescribeCommandsRequest struct {
     *common.BaseRequest
 
-    // CommandIds 根据命令ID进行筛选。最长不超过100个。
+    // CommandIds 根据命令ID进行筛选。
+    // 最长不超过100个。
     CommandIds []string `json:"commandIds,omitempty"`
 
-    // Name 根据命令名称进行筛选。该字段支持模糊搜索。
+    // Name 根据命令名称进行筛选。
+    // 该字段支持模糊搜索。
     Name *string `json:"name,omitempty"`
 
     // Types 根据命令类型进行筛选。
@@ -84,11 +24,35 @@ type DescribeCommandsRequest struct {
     // PageNum 返回的分页数，默认为1。
     PageNum *int `json:"pageNum,omitempty"`
 
-    // TagKeys 根据标签键进行搜索。 最长不得超过20个标签键。
+    // TagKeys 根据标签键进行搜索。
+    // 最长不得超过20个标签键。
     TagKeys []string `json:"tagKeys,omitempty"`
 
-    // Tags 根据标签进行搜索。 最长不得超过20个标签。
+    // Tags 根据标签进行搜索。
+    // 最长不得超过20个标签。
     Tags []*Tag `json:"tags,omitempty"`
+
+}
+
+// Tag 描述一个标签键值对的信息。
+type Tag struct {
+
+    // Key 标签键。
+    // 长度限制：1～64个字符。
+    Key *string `json:"key,omitempty"`
+
+    // Value 标签值。
+    // 长度限制：1～64个字符。
+    Value *string `json:"value,omitempty"`
+
+}
+
+type DescribeCommandsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeCommandsResponseParams `json:"response,omitempty"`
 
 }
 
@@ -155,29 +119,113 @@ type ResourceGroupInfo struct {
 
 }
 
-type DescribeCommandsResponse struct {
+// CreateCommandRequest 
+type CreateCommandRequest struct {
+    *common.BaseRequest
+
+    // Name 命令名称。
+    // 长度不能超过64个字符。
+    Name *string `json:"name,omitempty"`
+
+    // Content 命令内容，需使用Base64编码后传入。
+    // 解码后长度不能超过16K(16384)个字符。
+    Content *string `json:"content,omitempty"`
+
+    // Type 命令类型。
+    Type *string `json:"type,omitempty"`
+
+    // Description 命令描述信息。
+    // 最长不超过255个字符。
+    Description *string `json:"description,omitempty"`
+
+    // ResourceGroupId 命令关联的资源组ID。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // Tags 命令绑定的标签信息。
+    Tags *TagAssociation `json:"tags,omitempty"`
+
+}
+
+// TagAssociation 描述创建资源时同时绑定的标签对的信息。
+type TagAssociation struct {
+
+    // Tags 标签对列表。
+    Tags []*Tag `json:"tags,omitempty"`
+
+}
+
+type CreateCommandResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
 
-    Response *DescribeCommandsResponseParams `json:"response,omitempty"`
+    Response *CreateCommandResponseParams `json:"response,omitempty"`
 
 }
 
-// ModifyCommandRequest 修改命令的请求参数。
+// CreateCommandResponseParams 
+type CreateCommandResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // CommandId 创建的命令ID。
+    CommandId *string `json:"commandId,omitempty"`
+
+}
+
+type InvokeCommandRequest struct {
+    *common.BaseRequest
+
+    // CommandId 需要执行的命令ID。
+    CommandId *string `json:"commandId,omitempty"`
+
+    // InstanceIds 执行的实例ID列表。
+    // 目前只支持ZEC实例。
+    // 最多不得超过200个实例。
+    InstanceIds []string `json:"instanceIds,omitempty"`
+
+    // Timeout 每台实例执行命令的超时时间。
+    // 单位秒。
+    Timeout *int `json:"timeout,omitempty"`
+
+}
+
+type InvokeCommandResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *InvokeCommandResponseParams `json:"response,omitempty"`
+
+}
+
+// InvokeCommandResponseParams 
+type InvokeCommandResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // InvocationId 命令执行记录编号。
+    InvocationId *string `json:"invocationId,omitempty"`
+
+}
+
+// ModifyCommandRequest 
 type ModifyCommandRequest struct {
     *common.BaseRequest
 
     // CommandId 需要修改的命令ID。
     CommandId *string `json:"commandId,omitempty"`
 
-    // Name 命令名称。长度不能超过64个字符。
+    // Name 命令名称。
+    // 长度不能超过64个字符。
     Name *string `json:"name,omitempty"`
 
-    // Content 命令内容。长度不能超过4096个字符。
+    // Content 命令内容，需使用Base64编码后传入。
+    // 解码后长度不能超过16K(16384)个字符。
     Content *string `json:"content,omitempty"`
 
-    // Description 命令的描述信息。长度不能超过255个字符。
+    // Description 命令的描述信息。
+    // 长度不能超过255个字符。
     Description *string `json:"description,omitempty"`
 
 }
@@ -193,7 +241,7 @@ type ModifyCommandResponse struct {
 
 }
 
-// DeleteCommandRequest 删除命令的请求。
+// DeleteCommandRequest 
 type DeleteCommandRequest struct {
     *common.BaseRequest
 
@@ -213,40 +261,7 @@ type DeleteCommandResponse struct {
 
 }
 
-type InvokeCommandRequest struct {
-    *common.BaseRequest
-
-    // CommandId 需要执行的命令ID。
-    CommandId *string `json:"commandId,omitempty"`
-
-    // InstanceIds 执行的实例ID列表。目前只支持ZEC实例。最多不得超过200个实例。
-    InstanceIds []string `json:"instanceIds,omitempty"`
-
-    // Timeout 每台实例执行命令的超时时间。单位秒。
-    Timeout *int `json:"timeout,omitempty"`
-
-}
-
-// InvokeCommandResponseParams 执行命令的响应信息。
-type InvokeCommandResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // InvocationId 命令执行记录编号。
-    InvocationId *string `json:"invocationId,omitempty"`
-
-}
-
-type InvokeCommandResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *InvokeCommandResponseParams `json:"response,omitempty"`
-
-}
-
-// DescribeCommandInvocationsRequest 查询执行记录列表的请求信息。
+// DescribeCommandInvocationsRequest 
 type DescribeCommandInvocationsRequest struct {
     *common.BaseRequest
 
@@ -267,6 +282,15 @@ type DescribeCommandInvocationsRequest struct {
 
     // PageNum 返回的分页数，默认为1。
     PageNum *int `json:"pageNum,omitempty"`
+
+}
+
+type DescribeCommandInvocationsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeCommandInvocationsResponseParams `json:"response,omitempty"`
 
 }
 
@@ -346,15 +370,6 @@ type InvocationInstance struct {
 
     // ExecEndTime 命令执行的结束时间。
     ExecEndTime *string `json:"execEndTime,omitempty"`
-
-}
-
-type DescribeCommandInvocationsResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeCommandInvocationsResponseParams `json:"response,omitempty"`
 
 }
 

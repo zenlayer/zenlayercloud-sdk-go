@@ -436,9 +436,10 @@ type CreateInstancesRequest struct {
     EnableIpv4 *bool `json:"enableIpv4,omitempty"`
 
     // CpuPassThrough 是否开启CPU穿透。
+    // 默认不开放该权限，如需开放请联系Zenlayer Support。
     CpuPassThrough *bool `json:"cpuPassThrough,omitempty"`
 
-    // InitScript 初始化脚本。
+    // InitScript 初始化脚本，需进行Base64编码后传入，脚本内容大小不超过32KB。
     InitScript *string `json:"initScript,omitempty"`
 
     // NetworkMode 网卡模式。
@@ -458,7 +459,8 @@ type CreateInstancesRequest struct {
     // ClusterId 带宽组ID。
     ClusterId *string `json:"clusterId,omitempty"`
 
-    // CidrBlockId CIDR 地址块ID。指定该字段将从CIDR 地址块里分配公网IP
+    // CidrBlockId CIDR 地址块ID。
+    // 指定该字段将从CIDR 地址块里分配公网IP。
     CidrBlockId *string `json:"cidrBlockId,omitempty"`
 
     // StartCidrIpv4 CIDR地址段内的起始IP地址。
@@ -603,7 +605,7 @@ type ResetInstanceRequest struct {
     // LanName 内网网卡名称。
     LanName *string `json:"lanName,omitempty"`
 
-    // InitScript 初始化脚本。
+    // InitScript 初始化脚本，需进行Base64编码后传入，脚本内容大小不超过32KB。
     InitScript *string `json:"initScript,omitempty"`
 
 }
@@ -959,7 +961,6 @@ type StopInstancesRequest struct {
     InstanceIds []string `json:"instanceIds,omitempty"`
 
     // ForceShutdown 是否强制关机。
-    // 如果不指定默认为是。
     ForceShutdown *bool `json:"forceShutdown,omitempty"`
 
 }

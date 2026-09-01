@@ -68,6 +68,49 @@ type ZoneInfo struct {
 
 }
 
+// DescribeRegionsRequest 
+type DescribeRegionsRequest struct {
+    *common.BaseRequest
+
+    // RegionIds 根据节点ID过滤。
+    RegionIds []string `json:"regionIds,omitempty"`
+
+}
+
+type DescribeRegionsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeRegionsResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeRegionsResponseParams 
+type DescribeRegionsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // RegionSet 节点列表。
+    RegionSet []*RegionItem `json:"regionSet,omitempty"`
+
+}
+
+// RegionItem 节点的基本信息。
+type RegionItem struct {
+
+    // RegionId 节点ID。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // RegionName 节点名称。
+    RegionName *string `json:"regionName,omitempty"`
+
+    // AdministrativeRegion 节点所属的行政区划。
+    // 区域配置缺失时为null。
+    AdministrativeRegion *string `json:"administrativeRegion,omitempty"`
+
+}
+
 // DescribeZoneInstanceConfigInfosRequest 
 type DescribeZoneInstanceConfigInfosRequest struct {
     *common.BaseRequest
@@ -598,7 +641,7 @@ type CreateZecInstancesRequest struct {
     // 注意：·关联`标签键`不能重复。
     Tags *TagAssociation `json:"tags,omitempty"`
 
-    // UserData 初始化命令。
+    // UserData 实例初始化自定义脚本，需使用Base64编码后传入，解码后大小不超过64KB。
     UserData *string `json:"userData,omitempty"`
 
     // InstanceOptions 实例选项配置。
@@ -1167,7 +1210,7 @@ type ResetInstanceRequest struct {
     // 仅支持输入字母、数字、-和英文句点(.)。
     InstanceName *string `json:"instanceName,omitempty"`
 
-    // UserData 初始化命令。
+    // UserData 实例初始化自定义脚本，需使用Base64编码后传入，解码后大小不超过64KB。
     UserData *string `json:"userData,omitempty"`
 
 }
@@ -1217,7 +1260,7 @@ type ResetInstancesRequest struct {
     // 仅支持输入字母、数字、-和英文句点(.)。
     InstanceName *string `json:"instanceName,omitempty"`
 
-    // UserData 初始化命令。
+    // UserData 实例初始化自定义脚本，需使用Base64编码后传入，解码后大小不超过64KB。
     UserData *string `json:"userData,omitempty"`
 
 }
@@ -1530,6 +1573,27 @@ type InquiryPriceModifyInstanceTypeResponseParams struct {
     AcceleratorPrice *PriceItem `json:"acceleratorPrice,omitempty"`
 
     // SystemDiskPrice 系统盘的价格。
+    SystemDiskPrice *PriceItem `json:"systemDiskPrice,omitempty"`
+
+    // PreviousPrices 变更前各计费项当前生效的价格，字段与上方一一对应，用于对比出哪些计费项发生了调价。
+    // 实例无订单时为 null。
+    PreviousPrices *InstanceTypePreviousPrices `json:"previousPrices,omitempty"`
+
+}
+
+// InstanceTypePreviousPrices 变更前各计费项当前生效的价格。
+type InstanceTypePreviousPrices struct {
+
+    // SpecPrice 变更前规格的价格。
+    SpecPrice *PriceItem `json:"specPrice,omitempty"`
+
+    // GpuPrice 变更前 GPU 规格的价格。
+    GpuPrice *PriceItem `json:"gpuPrice,omitempty"`
+
+    // AcceleratorPrice 变更前加速卡规格的价格。
+    AcceleratorPrice *PriceItem `json:"acceleratorPrice,omitempty"`
+
+    // SystemDiskPrice 变更前系统盘的价格。
     SystemDiskPrice *PriceItem `json:"systemDiskPrice,omitempty"`
 
 }
@@ -2373,8 +2437,10 @@ type CreateDisksRequest struct {
     ZoneId *string `json:"zoneId,omitempty"`
 
     // DiskName 云盘名称。
-    // 该参数需以数字或字母开头，最多支持64个字符。
-    // 仅支持字母、数字、连字符(-)和英文句点(.)。
+    // 范围1到64个字符。
+    // 仅支持输入字母、数字、-/_和英文句点(.)。
+    // 且必须以数字或字母开头和结尾。
+    // 当不传`diskNames`时必填。
     DiskName *string `json:"diskName,omitempty"`
 
     // DiskNames 每块云硬盘各自的名称。
@@ -2391,8 +2457,8 @@ type CreateDisksRequest struct {
     // InstanceId 云硬盘挂载的实例ID。
     InstanceId *string `json:"instanceId,omitempty"`
 
-    // InstanceIds 要绑定的实例 ID。
-    // 数量需要与 `diskAmount` 字段一致。
+    // InstanceIds 要绑定的实例ID。
+    // 数量需要与`diskAmount`字段一致，每个云硬盘各绑定一个不同实例；与`instanceId`同时传递时以`instanceId`为准。
     InstanceIds []string `json:"instanceIds,omitempty"`
 
     // ResourceGroupId 云硬盘所在的资源组ID。
@@ -2400,10 +2466,9 @@ type CreateDisksRequest struct {
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 
     // DiskCategory 云硬盘种类。
-    // Basic NVMe SSD：经济型 NVMe SSD。
-    // Standard NVMe SSD：标准型 NVMe SSD。
-    // 默认值：Standard NVMe SSD。
-    // 调用 DescribeDiskCategory 获取云硬盘种类。
+    // Basic NVMe SSD/BASIC_NVME_SSD: 经济型 NVMe SSD。
+    // Standard NVMe SSD/NVME_SSD: 标准型 NVMe SSD。
+    // 默认为Standard NVMe SSD。
     DiskCategory *string `json:"diskCategory,omitempty"`
 
     // SnapshotId 使用快照ID进行创建。
@@ -2723,8 +2788,16 @@ type InquiryPriceResizeDiskResponseParams struct {
     // 仅当云硬盘为系统盘且实例类型为 GPU 时返回。
     GpuPrice *PriceItem `json:"gpuPrice,omitempty"`
 
+    // AcceleratorPrice 系统盘扩容时，对应实例的加速卡价格。
+    // 仅当云硬盘为系统盘且实例类型为加速卡时返回。
+    AcceleratorPrice *PriceItem `json:"acceleratorPrice,omitempty"`
+
     // DiskPerf 扩容后云硬盘的性能配置信息。
     DiskPerf *DiskPerfItem `json:"diskPerf,omitempty"`
+
+    // PreviousPrices 扩容前各计费项当前生效的价格，字段与上方一一对应，用于对比出哪些计费项发生了调价。
+    // 无订单时为 null。
+    PreviousPrices *ResizeDiskPreviousPrices `json:"previousPrices,omitempty"`
 
 }
 
@@ -2742,6 +2815,26 @@ type DiskPerfItem struct {
 
     // BandwidthBurst 开启突发后的带宽，单位：MB/s。
     BandwidthBurst *int `json:"bandwidthBurst,omitempty"`
+
+}
+
+// ResizeDiskPreviousPrices 扩容前各计费项当前生效的价格。
+type ResizeDiskPreviousPrices struct {
+
+    // DiskPrice 扩容前云硬盘的价格。
+    DiskPrice *PriceItem `json:"diskPrice,omitempty"`
+
+    // SpecPrice 扩容前对应实例的规格价格。
+    // 仅系统盘扩容且实例类型为 VM 时返回。
+    SpecPrice *PriceItem `json:"specPrice,omitempty"`
+
+    // GpuPrice 扩容前对应实例的 GPU 价格。
+    // 仅系统盘扩容且实例类型为 GPU 时返回。
+    GpuPrice *PriceItem `json:"gpuPrice,omitempty"`
+
+    // AcceleratorPrice 扩容前对应实例的加速卡价格。
+    // 仅系统盘扩容且实例类型为加速卡时返回。
+    AcceleratorPrice *PriceItem `json:"acceleratorPrice,omitempty"`
 
 }
 
@@ -3764,6 +3857,21 @@ type InquiryPriceChangeIpv6InternetChargeTypeResponseParams struct {
     // BandwidthPrice 公网IPv6的带宽价格。
     BandwidthPrice *PriceItem `json:"bandwidthPrice,omitempty"`
 
+    // PreviousPrices 变更前各计费项当前生效的价格，字段与上方一一对应，用于对比出哪些计费项发生了调价。
+    // 无订单时为 null。
+    PreviousPrices *Ipv6PreviousPrices `json:"previousPrices,omitempty"`
+
+}
+
+// Ipv6PreviousPrices 变更前各计费项当前生效的价格。
+type Ipv6PreviousPrices struct {
+
+    // Ipv6Price 变更前公网IPv6的保留价格。
+    Ipv6Price *PriceItem `json:"ipv6Price,omitempty"`
+
+    // BandwidthPrice 变更前公网IPv6的带宽价格。
+    BandwidthPrice *PriceItem `json:"bandwidthPrice,omitempty"`
+
 }
 
 // AssignNetworkInterfaceIpv6Request 
@@ -3936,6 +4044,10 @@ type InquiryPriceModifyIpv6BandwidthResponseParams struct {
 
     // BandwidthPrice 公网IPv6的带宽价格。
     BandwidthPrice *PriceItem `json:"bandwidthPrice,omitempty"`
+
+    // PreviousPrices 变更前各计费项当前生效的价格，字段与上方一一对应，用于对比出哪些计费项发生了调价。
+    // 无订单时为 null。
+    PreviousPrices *Ipv6PreviousPrices `json:"previousPrices,omitempty"`
 
 }
 
@@ -4315,6 +4427,7 @@ type CidrInfo struct {
 type AsnObservationDetail struct {
 
     // VerificationStatus ASN 验证状态。
+    // RIPE 观测到的任一 ASN 与申报 ASN 一致即为 agreed。
     VerificationStatus *string `json:"verificationStatus,omitempty"`
 
     // ObservedPrefix 观测网段。
@@ -5083,7 +5196,7 @@ type DescribeEipsRequest struct {
     InternetChargeType *string `json:"internetChargeType,omitempty"`
 
     // PrefixLength 按照 EIP 的掩码长度过滤。
-    // 32 表示单个 IP 地址，24–31 表示 CIDR 网段。
+    // 32 表示单 IP，20–31 表示网段。
     PrefixLength *int `json:"prefixLength,omitempty"`
 
 }
@@ -5304,8 +5417,8 @@ type CreateEipsRequest struct {
     // Amount 需要创建EIP的数量。
     Amount *int `json:"amount,omitempty"`
 
-    // PrefixLength 掩码长度，取值范围24–32，默认32。
-    // 指定小于32时，将创建EIP Block资源，此时必须同时指定`cidrId`，且取值不能小于所选CIDR自身的掩码长度。
+    // PrefixLength 掩码长度，取值范围20–32，默认32。
+    // 指定小于32时，创建EIP Block资源，必须同时指定`cidrId`，且不能小于所选CIDR自身的掩码长度。
     PrefixLength *int `json:"prefixLength,omitempty"`
 
     // Deprecated: EipV4Type 已废弃，请不要使用。
@@ -5331,6 +5444,7 @@ type CreateEipsRequest struct {
     // PublicIp 指定公网起始地址开始创建弹性IP。
     // 不指定`cidrId`时，从公网IP池按此地址开始顺序分配（仅支持`prefixLength`为32）；指定`cidrId`时，从该CIDR内按此地址开始分配。
     // `prefixLength`为32时填纯IPv4地址；`prefixLength`小于32时必须同时指定`cidrId`，填带掩码的起始网段（掩码须与`prefixLength`一致，如`88.0.5.64/26`）。
+    // 指定`cidrId`时，该起始地址/网段必须是所选CIDR当前可分配的候选之一。
     PublicIp *string `json:"publicIp,omitempty"`
 
     // ResourceGroupId 弹性公网IP所放的资源组ID，如不指定则放入默认资源组。
@@ -5340,6 +5454,7 @@ type CreateEipsRequest struct {
     // 单位为TB。
     // 值要求为0或0.1的倍数。
     // 当网络计费方式为流量计费(`ByTrafficPackage`)时需要指定。
+    // 仅当计费周期为月时支持设置，小时计费不支持。
     FlowPackage *float64 `json:"flowPackage,omitempty"`
 
     // ClusterId 共享带宽包ID。
@@ -5356,13 +5471,18 @@ type CreateEipsRequest struct {
     // 注意：实例关联`标签键`不能重复。
     Tags *TagAssociation `json:"tags,omitempty"`
 
+    // InstanceId 要绑定的实例ID。
+    // 本批次创建的EIP全部绑定到该实例。
+    InstanceId *string `json:"instanceId,omitempty"`
+
     // InstanceIds 要绑定的实例ID集合。
-    // 数量需要与`amount`字段一致。
+    // 数量需要与`amount`字段一致，每个EIP各绑定一个不同实例；与`instanceId`同时传递时以`instanceId`为准。
     InstanceIds []string `json:"instanceIds,omitempty"`
 
     // BindType 绑定类型。
     // 当指定`instanceIds`时生效。
     // 默认为普通NAT模式。
+    // `prefixLength`小于32（EIP Block）时只能为`Passthrough`。
     BindType *string `json:"bindType,omitempty"`
 
     // RateLimitMode 限速模式。
@@ -6067,6 +6187,29 @@ type InquiryPriceModifyEipBandwidthResponseParams struct {
     // EIP未开启Remote IPT时为null。
     RemoteBandwidthPrice *PriceItem `json:"remoteBandwidthPrice,omitempty"`
 
+    // PreviousPrices 变更前各计费项当前生效的价格，字段与上方一一对应，用于对比出哪些计费项发生了调价。
+    // 无订单时为 null。
+    PreviousPrices *EipPreviousPrices `json:"previousPrices,omitempty"`
+
+}
+
+// EipPreviousPrices 变更前各计费项当前生效的价格。
+type EipPreviousPrices struct {
+
+    // EipPrice 变更前公网弹性IP的保留价格。
+    EipPrice *PriceItem `json:"eipPrice,omitempty"`
+
+    // BandwidthPrice 变更前公网弹性IP的带宽价格。
+    // 与顶层同义：PathBasedBandwidthIP线路时为null，明细见`previousPrices.bandwidthPrices`。
+    BandwidthPrice *PriceItem `json:"bandwidthPrice,omitempty"`
+
+    // BandwidthPrices 变更前各流量方向的带宽价格明细，与顶层`bandwidthPrices`按`trafficType`一一对应。
+    BandwidthPrices []*BandwidthPriceResponseItem `json:"bandwidthPrices,omitempty"`
+
+    // RemoteBandwidthPrice 变更前Remote IPT的带宽价格。
+    // EIP未开启Remote IPT时为null。
+    RemoteBandwidthPrice *PriceItem `json:"remoteBandwidthPrice,omitempty"`
+
 }
 
 // InquiryPriceModifyEipFlowPackageRequest 
@@ -6111,6 +6254,10 @@ type InquiryPriceModifyEipFlowPackageResponseParams struct {
     // RemoteBandwidthPrice Remote IPT的带宽价格。
     // EIP未开启Remote IPT时为null。
     RemoteBandwidthPrice *PriceItem `json:"remoteBandwidthPrice,omitempty"`
+
+    // PreviousPrices 变更前各计费项当前生效的价格，字段与上方一一对应，用于对比出哪些计费项发生了调价。
+    // 无订单时为 null。
+    PreviousPrices *EipPreviousPrices `json:"previousPrices,omitempty"`
 
 }
 
@@ -6169,6 +6316,10 @@ type InquiryPriceChangeEipInternetChargeTypeResponseParams struct {
     // RemoteBandwidthPrice Remote IPT的带宽价格。
     // EIP未开启Remote IPT时为null。
     RemoteBandwidthPrice *PriceItem `json:"remoteBandwidthPrice,omitempty"`
+
+    // PreviousPrices 变更前各计费项当前生效的价格，字段与上方一一对应，用于对比出哪些计费项发生了调价。
+    // 无订单时为 null。
+    PreviousPrices *EipPreviousPrices `json:"previousPrices,omitempty"`
 
 }
 
@@ -6709,6 +6860,18 @@ type InquiryPriceModifyCrossRegionBandwidthResponseParams struct {
     // CrossRegionBandwidthPrice 内网跨区域带宽的价格。
     CrossRegionBandwidthPrice *PriceItem `json:"crossRegionBandwidthPrice,omitempty"`
 
+    // PreviousPrices 变更前各计费项当前生效的价格，字段与上方一一对应，用于对比出哪些计费项发生了调价。
+    // 无订单时为 null。
+    PreviousPrices *CrossRegionBandwidthPreviousPrices `json:"previousPrices,omitempty"`
+
+}
+
+// CrossRegionBandwidthPreviousPrices 变更前各计费项当前生效的价格。
+type CrossRegionBandwidthPreviousPrices struct {
+
+    // CrossRegionBandwidthPrice 变更前内网跨区域带宽的价格。
+    CrossRegionBandwidthPrice *PriceItem `json:"crossRegionBandwidthPrice,omitempty"`
+
 }
 
 // ModifyCrossRegionBandwidthAttributeRequest 
@@ -6863,6 +7026,24 @@ type DescribeCrossRegionBandwidthMonitorDataResponseParams struct {
     // OutTotalValue 出方向总和值。
     OutTotalValue *float64 `json:"outTotalValue,omitempty"`
 
+    // LoseInMaxValue 入方向丢弃量最大值。
+    LoseInMaxValue *float64 `json:"loseInMaxValue,omitempty"`
+
+    // LoseInMinValue 入方向丢弃量最小值。
+    LoseInMinValue *float64 `json:"loseInMinValue,omitempty"`
+
+    // LoseInTotalValue 入方向丢弃量总和值。
+    LoseInTotalValue *float64 `json:"loseInTotalValue,omitempty"`
+
+    // LoseOutMaxValue 出方向丢弃量最大值。
+    LoseOutMaxValue *float64 `json:"loseOutMaxValue,omitempty"`
+
+    // LoseOutMinValue 出方向丢弃量最小值。
+    LoseOutMinValue *float64 `json:"loseOutMinValue,omitempty"`
+
+    // LoseOutTotalValue 出方向丢弃量总和值。
+    LoseOutTotalValue *float64 `json:"loseOutTotalValue,omitempty"`
+
     // DataList 监控数据集合。
     DataList []*CrossRegionBandwidthMetricValue `json:"dataList,omitempty"`
 
@@ -6877,8 +7058,14 @@ type CrossRegionBandwidthMetricValue struct {
     // InValue 入方向值。
     InValue *float64 `json:"inValue,omitempty"`
 
-    // OutValue 入方向值。
+    // LoseInValue 入方向丢弃值。
+    LoseInValue *float64 `json:"loseInValue,omitempty"`
+
+    // OutValue 出方向值。
     OutValue *float64 `json:"outValue,omitempty"`
+
+    // LoseOutValue 出方向丢弃值。
+    LoseOutValue *float64 `json:"loseOutValue,omitempty"`
 
 }
 
@@ -7702,6 +7889,18 @@ type InquiryPriceModifyUnmanagedEgressIpBandwidthResponseParams struct {
     // 变更为共享带宽包计费（BandwidthCluster）时为null（免费）。
     BandwidthPrice *PriceItem `json:"bandwidthPrice,omitempty"`
 
+    // PreviousPrices 变更前各计费项当前生效的价格，字段与上方一一对应，用于对比出哪些计费项发生了调价。
+    // 无订单时为 null。
+    PreviousPrices *UnmanagedEgressIpPreviousPrices `json:"previousPrices,omitempty"`
+
+}
+
+// UnmanagedEgressIpPreviousPrices 变更前各计费项当前生效的价格。
+type UnmanagedEgressIpPreviousPrices struct {
+
+    // BandwidthPrice 变更前非托管出口IP的带宽价格。
+    BandwidthPrice *PriceItem `json:"bandwidthPrice,omitempty"`
+
 }
 
 // InquiryPriceChangeUnmanagedEgressIpInternetChargeTypeRequest 
@@ -7743,6 +7942,10 @@ type InquiryPriceChangeUnmanagedEgressIpInternetChargeTypeResponseParams struct 
     // BandwidthPrice 非托管出口IP的带宽价格。
     // 变更为共享带宽包计费（BandwidthCluster）时为null（免费）。
     BandwidthPrice *PriceItem `json:"bandwidthPrice,omitempty"`
+
+    // PreviousPrices 变更前各计费项当前生效的价格，字段与上方一一对应，用于对比出哪些计费项发生了调价。
+    // 无订单时为 null。
+    PreviousPrices *UnmanagedEgressIpPreviousPrices `json:"previousPrices,omitempty"`
 
 }
 
@@ -8105,6 +8308,7 @@ type VpcInfo struct {
     Name *string `json:"name,omitempty"`
 
     // CidrBlock VPC的IPv4 CIDR。
+    // 如果VPC存在多个网段，则多个网段以英文逗号分隔，例如：`21.0.0.0/8,22.0.0.0/8`。
     CidrBlock *string `json:"cidrBlock,omitempty"`
 
     // Ipv6CidrBlock VPC的内网IPv6 CIDR。
@@ -8150,7 +8354,16 @@ type CreateVpcRequest struct {
     // 且必须以数字或字母开头和结尾。
     Name *string `json:"name,omitempty"`
 
-    // CidrBlock VPC的CIDR地址段。必须属于以下4种内网地址段之一：10.0.0.0/9、10.128.0.0/9、172.16.0.0/12 或 192.168.0.0/16。
+    // CidrBlock VPC的CIDR地址段。
+    // 该VPC下所有子网必须落在此网段内，请预留足够的地址空间。
+    // 掩码范围为9到29。
+    // 支持配置多个网段，多个网段之间以英文逗号分隔，例如：`21.0.0.0/9,22.0.0.0/9`，各网段之间不能重叠，最多支持5个网段。
+    // **强烈建议使用 RFC 1918 定义的私有地址空间内的网段**：`10.0.0.0/8`、`172.16.0.0/12` 或 `192.168.0.0/16`。
+    // 请注意 `10.0.0.0/8` 本身超出了VPC支持的最大网段规模，如需使用 10.x 地址空间，请指定其子网段，例如 `10.0.0.0/16`；另外两个 RFC 1918 网段可以整段使用。
+    // 非 RFC 1918 网段可以被接受，但存在显著风险：将公网可路由的网段设为VPC网段后，所有发往这些地址的流量都会在VPC内被路由、不会离开VPC，该VPC下的每一台实例都将失去访问该网段上真实互联网服务的能力（包括公网端点、软件源和API）。
+    // 该故障具有隐蔽性——路由表看起来完全正常，但目标地址就是不可达。
+    // 此外，若该VPC后续需要与本地网络或其他网络互联，地址重叠的风险也会显著提高。
+    // 与以下保留网段重叠的网段不可使用，将被拒绝：`0.0.0.0/8`（本网络）、`100.64.0.0/10`（运营商级NAT共享地址）、`127.0.0.0/8`（环回地址）、`169.254.0.0/16`（链路本地地址）、`224.0.0.0/4`（组播地址）。
     CidrBlock *string `json:"cidrBlock,omitempty"`
 
     // Mtu VPC的MTU（最大传输单元）。支持：1300、1500、9000。
@@ -8203,8 +8416,13 @@ type ModifyVpcAttributeRequest struct {
     VpcName *string `json:"vpcName,omitempty"`
 
     // CidrBlock 需要修改的IPv4 CIDR。
-    // 需要满足以下4种内网段内(10.0.0.0/9, 10.128.0.0/9, 172.16.0.0/12以及192.168.0.0/16)。
-    // 如果VPC存在子网，则修改的CIDR范围必须包含原VPC CIDR。
+    // 掩码范围为9到29。
+    // 支持配置多个网段，多个网段之间以英文逗号分隔，例如：`21.0.0.0/9,22.0.0.0/9`，各网段之间不能重叠，最多支持5个网段。
+    // **强烈建议使用 RFC 1918 定义的私有地址空间内的网段**：`10.0.0.0/8`、`172.16.0.0/12` 或 `192.168.0.0/16`。
+    // 请注意 `10.0.0.0/8` 本身超出了VPC支持的最大网段规模，如需使用 10.x 地址空间，请指定其子网段，例如 `10.0.0.0/16`。
+    // 非 RFC 1918 网段可以被接受，但存在显著风险：所有发往这些地址的流量都会在VPC内被路由、不会离开VPC，该VPC下的实例将失去访问该网段上真实互联网服务的能力，且故障隐蔽（路由表正常但目标不可达）。
+    // 与以下保留网段重叠的网段不可使用，将被拒绝：`0.0.0.0/8`、`100.64.0.0/10`、`127.0.0.0/8`、`169.254.0.0/16`、`224.0.0.0/4`。
+    // 如果VPC存在子网，则修改后的CIDR范围必须覆盖原VPC CIDR的每一个网段。
     // 默认VPC不支持修改。
     CidrBlock *string `json:"cidrBlock,omitempty"`
 
@@ -8436,8 +8654,10 @@ type CreateSubnetRequest struct {
     // VpcId 需要添加子网的VPC ID。
     VpcId *string `json:"vpcId,omitempty"`
 
-    // Name 子网名称，用于展示。
-    // 该参数需以数字或字母开头和结尾，长度为2到63个字符，仅支持字母、数字、连字符(-)和英文句点(.)。
+    // Name 子网名称。
+    // 范围2到63个字符。
+    // 仅支持输入字母、数字、连字符(-)、下划线(_)、斜杠(/)、英文句点(.)和空格。
+    // 且必须以数字或字母开头和结尾。
     Name *string `json:"name,omitempty"`
 
     // RegionId 子网所在节点的ID。必须是VPC所在节点之一。
@@ -8497,8 +8717,9 @@ type ModifySubnetAttributeRequest struct {
     // SubnetId 子网的ID。
     SubnetId *string `json:"subnetId,omitempty"`
 
-    // SubnetName 子网名称。
-    // 该参数必须以数字或字母开头和结尾，仅支持字母、数字、连字符(-)和英文句点(.)。
+    // SubnetName 子网的名称。
+    // 仅支持输入字母、数字、连字符(-)、下划线(_)、斜杠(/)、英文句点(.)和空格。
+    // 且必须以数字或字母开头和结尾。
     SubnetName *string `json:"subnetName,omitempty"`
 
     // CidrBlock 需要修改的IPv4 CIDR Block。
@@ -8525,8 +8746,10 @@ type ModifySubnetsAttributeRequest struct {
     // SubnetIds 需要修改的子网ID列表。
     SubnetIds []string `json:"subnetIds,omitempty"`
 
-    // Name 子网名称。
-    // 长度为2到63个字符，必须以数字或字母开头和结尾，仅支持字母、数字、连字符(-)和英文句点(.)。
+    // Name 修改的子网名称。
+    // 范围2到63个字符。
+    // 仅支持输入字母、数字、连字符(-)、下划线(_)、斜杠(/)、英文句点(.)和空格。
+    // 且必须以数字或字母开头和结尾。
     Name *string `json:"name,omitempty"`
 
 }

@@ -35,6 +35,7 @@ func NewClient(config *common.Config, secretKeyId, secretKeyPassword string) (cl
 	}
 	return client, nil
 }
+
 func NewClientWithToken(token string) (client *Client, err error) {
 	return NewClientWithTokenAndConfig(common.NewConfig(), token)
 }
@@ -55,6 +56,28 @@ func NewClientWithTokenAndConfig(config *common.Config, token string) (client *C
 }
 
 
+func NewDescribeCommandsRequest() (request *DescribeCommandsRequest) {
+	request = &DescribeCommandsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeCommands")
+
+	return
+}
+
+func NewDescribeCommandsResponse() (response *DescribeCommandsResponse) {
+	response = &DescribeCommandsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeCommands 查询命令列表。
+func (c *Client) DescribeCommands(request *DescribeCommandsRequest) (response *DescribeCommandsResponse, err error) {
+	response = NewDescribeCommandsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
 
 func NewCreateCommandRequest() (request *CreateCommandRequest) {
 	request = &CreateCommandRequest{
@@ -79,25 +102,25 @@ func (c *Client) CreateCommand(request *CreateCommandRequest) (response *CreateC
 	return
 }
 
-func NewDescribeCommandsRequest() (request *DescribeCommandsRequest) {
-	request = &DescribeCommandsRequest{
+func NewInvokeCommandRequest() (request *InvokeCommandRequest) {
+	request = &InvokeCommandRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeCommands")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InvokeCommand")
 
 	return
 }
 
-func NewDescribeCommandsResponse() (response *DescribeCommandsResponse) {
-	response = &DescribeCommandsResponse{
+func NewInvokeCommandResponse() (response *InvokeCommandResponse) {
+	response = &InvokeCommandResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-// DescribeCommands 查询命令列表。
-func (c *Client) DescribeCommands(request *DescribeCommandsRequest) (response *DescribeCommandsResponse, err error) {
-	response = NewDescribeCommandsResponse()
+// InvokeCommand 执行一个已经创建并保存的命令。
+func (c *Client) InvokeCommand(request *InvokeCommandRequest) (response *InvokeCommandResponse, err error) {
+	response = NewInvokeCommandResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -148,29 +171,6 @@ func (c *Client) DeleteCommand(request *DeleteCommandRequest) (response *DeleteC
 	return
 }
 
-func NewInvokeCommandRequest() (request *InvokeCommandRequest) {
-	request = &InvokeCommandRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InvokeCommand")
-
-	return
-}
-
-func NewInvokeCommandResponse() (response *InvokeCommandResponse) {
-	response = &InvokeCommandResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// InvokeCommand 执行一个已经创建并保存的命令。
-func (c *Client) InvokeCommand(request *InvokeCommandRequest) (response *InvokeCommandResponse, err error) {
-	response = NewInvokeCommandResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
 func NewDescribeCommandInvocationsRequest() (request *DescribeCommandInvocationsRequest) {
 	request = &DescribeCommandInvocationsRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -187,7 +187,7 @@ func NewDescribeCommandInvocationsResponse() (response *DescribeCommandInvocatio
 	return
 }
 
-// DescribeCommandInvocations 查询执行记录列表
+// DescribeCommandInvocations 查询执行记录列表。
 func (c *Client) DescribeCommandInvocations(request *DescribeCommandInvocationsRequest) (response *DescribeCommandInvocationsResponse, err error) {
 	response = NewDescribeCommandInvocationsResponse()
 	err = c.ApiCall(request, response)

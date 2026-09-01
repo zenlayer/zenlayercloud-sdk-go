@@ -35,6 +35,7 @@ func NewClient(config *common.Config, secretKeyId, secretKeyPassword string) (cl
 	}
 	return client, nil
 }
+
 func NewClientWithToken(token string) (client *Client, err error) {
 	return NewClientWithTokenAndConfig(common.NewConfig(), token)
 }
@@ -55,7 +56,6 @@ func NewClientWithTokenAndConfig(config *common.Config, token string) (client *C
 }
 
 
-
 func NewDescribeTagsRequest() (request *DescribeTagsRequest) {
 	request = &DescribeTagsRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -72,7 +72,7 @@ func NewDescribeTagsResponse() (response *DescribeTagsResponse) {
 	return
 }
 
-// DescribeTags 获取某个资源下绑定的所有标签列表。
+// DescribeTags 标签分页列表。
 func (c *Client) DescribeTags(request *DescribeTagsRequest) (response *DescribeTagsResponse, err error) {
 	response = NewDescribeTagsResponse()
 	err = c.ApiCall(request, response)
@@ -236,6 +236,52 @@ func NewDescribeResourceByTagsResponse() (response *DescribeResourceByTagsRespon
 // DescribeResourceByTags 获取标签下绑定的所有资源列表。
 func (c *Client) DescribeResourceByTags(request *DescribeResourceByTagsRequest) (response *DescribeResourceByTagsResponse, err error) {
 	response = NewDescribeResourceByTagsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeResourceTypesRequest() (request *DescribeResourceTypesRequest) {
+	request = &DescribeResourceTypesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeResourceTypes")
+
+	return
+}
+
+func NewDescribeResourceTypesResponse() (response *DescribeResourceTypesResponse) {
+	response = &DescribeResourceTypesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeResourceTypes 查询当前支持的资源类型，支持按所属服务与资源类型筛选。
+func (c *Client) DescribeResourceTypes(request *DescribeResourceTypesRequest) (response *DescribeResourceTypesResponse, err error) {
+	response = NewDescribeResourceTypesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeResourcesRequest() (request *DescribeResourcesRequest) {
+	request = &DescribeResourcesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeResources")
+
+	return
+}
+
+func NewDescribeResourcesResponse() (response *DescribeResourcesResponse) {
+	response = &DescribeResourcesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeResources 按资源唯一标识或资源名称搜索当前Team下的所有资源。
+func (c *Client) DescribeResources(request *DescribeResourcesRequest) (response *DescribeResourcesResponse, err error) {
+	response = NewDescribeResourcesResponse()
 	err = c.ApiCall(request, response)
 	return
 }

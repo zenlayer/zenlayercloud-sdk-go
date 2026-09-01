@@ -79,6 +79,29 @@ func (c *Client) DescribeZones(request *DescribeZonesRequest) (response *Describ
 	return
 }
 
+func NewDescribeRegionsRequest() (request *DescribeRegionsRequest) {
+	request = &DescribeRegionsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeRegions")
+
+	return
+}
+
+func NewDescribeRegionsResponse() (response *DescribeRegionsResponse) {
+	response = &DescribeRegionsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeRegions 查询节点信息。包括名称、所属的行政区划等。
+func (c *Client) DescribeRegions(request *DescribeRegionsRequest) (response *DescribeRegionsResponse, err error) {
+	response = NewDescribeRegionsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewDescribeZoneInstanceConfigInfosRequest() (request *DescribeZoneInstanceConfigInfosRequest) {
 	request = &DescribeZoneInstanceConfigInfosRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -624,7 +647,7 @@ func NewInquiryPriceModifyInstanceTypeResponse() (response *InquiryPriceModifyIn
 	return
 }
 
-// InquiryPriceModifyInstanceType 查询变更实例规格后的价格。
+// InquiryPriceModifyInstanceType 查询变更实例规格后的价格，同时通过 previousPrices 返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
 func (c *Client) InquiryPriceModifyInstanceType(request *InquiryPriceModifyInstanceTypeRequest) (response *InquiryPriceModifyInstanceTypeResponse, err error) {
 	response = NewInquiryPriceModifyInstanceTypeResponse()
 	err = c.ApiCall(request, response)
@@ -1176,7 +1199,7 @@ func NewInquiryPriceResizeDiskResponse() (response *InquiryPriceResizeDiskRespon
 	return
 }
 
-// InquiryPriceResizeDisk 查询云硬盘扩容后的新价格。
+// InquiryPriceResizeDisk 查询云硬盘扩容后的新价格。同时通过 previousPrices 返回扩容前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
 func (c *Client) InquiryPriceResizeDisk(request *InquiryPriceResizeDiskRequest) (response *InquiryPriceResizeDiskResponse, err error) {
 	response = NewInquiryPriceResizeDiskResponse()
 	err = c.ApiCall(request, response)
@@ -1751,7 +1774,7 @@ func NewInquiryPriceChangeIpv6InternetChargeTypeResponse() (response *InquiryPri
 	return
 }
 
-// InquiryPriceChangeIpv6InternetChargeType 查询变更IPv6网络计费模式后的价格。
+// InquiryPriceChangeIpv6InternetChargeType 查询变更IPv6网络计费模式后的价格。同时通过 previousPrices 返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
 func (c *Client) InquiryPriceChangeIpv6InternetChargeType(request *InquiryPriceChangeIpv6InternetChargeTypeRequest) (response *InquiryPriceChangeIpv6InternetChargeTypeResponse, err error) {
 	response = NewInquiryPriceChangeIpv6InternetChargeTypeResponse()
 	err = c.ApiCall(request, response)
@@ -1866,7 +1889,7 @@ func NewInquiryPriceModifyIpv6BandwidthResponse() (response *InquiryPriceModifyI
 	return
 }
 
-// InquiryPriceModifyIpv6Bandwidth 查询调整IPv6带宽后的价格。
+// InquiryPriceModifyIpv6Bandwidth 查询调整IPv6带宽后的价格。同时通过 previousPrices 返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
 func (c *Client) InquiryPriceModifyIpv6Bandwidth(request *InquiryPriceModifyIpv6BandwidthRequest) (response *InquiryPriceModifyIpv6BandwidthResponse, err error) {
 	response = NewInquiryPriceModifyIpv6BandwidthResponse()
 	err = c.ApiCall(request, response)
@@ -2809,7 +2832,7 @@ func NewInquiryPriceModifyEipBandwidthResponse() (response *InquiryPriceModifyEi
 	return
 }
 
-// InquiryPriceModifyEipBandwidth 查询调整EIP带宽后的价格。
+// InquiryPriceModifyEipBandwidth 查询调整EIP带宽后的价格。同时通过 previousPrices 返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
 func (c *Client) InquiryPriceModifyEipBandwidth(request *InquiryPriceModifyEipBandwidthRequest) (response *InquiryPriceModifyEipBandwidthResponse, err error) {
 	response = NewInquiryPriceModifyEipBandwidthResponse()
 	err = c.ApiCall(request, response)
@@ -2832,7 +2855,7 @@ func NewInquiryPriceModifyEipFlowPackageResponse() (response *InquiryPriceModify
 	return
 }
 
-// InquiryPriceModifyEipFlowPackage 查询调整EIP流量包后的价格。
+// InquiryPriceModifyEipFlowPackage 查询调整EIP流量包后的价格。同时通过 previousPrices 返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
 func (c *Client) InquiryPriceModifyEipFlowPackage(request *InquiryPriceModifyEipFlowPackageRequest) (response *InquiryPriceModifyEipFlowPackageResponse, err error) {
 	response = NewInquiryPriceModifyEipFlowPackageResponse()
 	err = c.ApiCall(request, response)
@@ -2855,7 +2878,7 @@ func NewInquiryPriceChangeEipInternetChargeTypeResponse() (response *InquiryPric
 	return
 }
 
-// InquiryPriceChangeEipInternetChargeType 查询变更EIP网络计费模式后的价格。
+// InquiryPriceChangeEipInternetChargeType 查询变更EIP网络计费模式后的价格。同时通过 previousPrices 返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
 func (c *Client) InquiryPriceChangeEipInternetChargeType(request *InquiryPriceChangeEipInternetChargeTypeRequest) (response *InquiryPriceChangeEipInternetChargeTypeResponse, err error) {
 	response = NewInquiryPriceChangeEipInternetChargeTypeResponse()
 	err = c.ApiCall(request, response)
@@ -3108,7 +3131,7 @@ func NewInquiryPriceModifyCrossRegionBandwidthResponse() (response *InquiryPrice
 	return
 }
 
-// InquiryPriceModifyCrossRegionBandwidth 调整内网跨区域带宽询价。
+// InquiryPriceModifyCrossRegionBandwidth 调整内网跨区域带宽询价。同时通过 previousPrices 返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
 func (c *Client) InquiryPriceModifyCrossRegionBandwidth(request *InquiryPriceModifyCrossRegionBandwidthRequest) (response *InquiryPriceModifyCrossRegionBandwidthResponse, err error) {
 	response = NewInquiryPriceModifyCrossRegionBandwidthResponse()
 	err = c.ApiCall(request, response)
@@ -3683,7 +3706,7 @@ func NewInquiryPriceModifyUnmanagedEgressIpBandwidthResponse() (response *Inquir
 	return
 }
 
-// InquiryPriceModifyUnmanagedEgressIpBandwidth 查询调整非托管出口IP带宽后的价格。
+// InquiryPriceModifyUnmanagedEgressIpBandwidth 查询调整非托管出口IP带宽后的价格。同时通过 previousPrices 返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
 func (c *Client) InquiryPriceModifyUnmanagedEgressIpBandwidth(request *InquiryPriceModifyUnmanagedEgressIpBandwidthRequest) (response *InquiryPriceModifyUnmanagedEgressIpBandwidthResponse, err error) {
 	response = NewInquiryPriceModifyUnmanagedEgressIpBandwidthResponse()
 	err = c.ApiCall(request, response)
@@ -3706,7 +3729,7 @@ func NewInquiryPriceChangeUnmanagedEgressIpInternetChargeTypeResponse() (respons
 	return
 }
 
-// InquiryPriceChangeUnmanagedEgressIpInternetChargeType 查询变更非托管出口IP网络计费模式后的价格。
+// InquiryPriceChangeUnmanagedEgressIpInternetChargeType 查询变更非托管出口IP网络计费模式后的价格。同时通过 previousPrices 返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
 func (c *Client) InquiryPriceChangeUnmanagedEgressIpInternetChargeType(request *InquiryPriceChangeUnmanagedEgressIpInternetChargeTypeRequest) (response *InquiryPriceChangeUnmanagedEgressIpInternetChargeTypeResponse, err error) {
 	response = NewInquiryPriceChangeUnmanagedEgressIpInternetChargeTypeResponse()
 	err = c.ApiCall(request, response)
