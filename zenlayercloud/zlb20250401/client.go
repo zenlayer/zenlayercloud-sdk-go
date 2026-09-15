@@ -164,7 +164,7 @@ func NewModifyLoadBalancersAttributeResponse() (response *ModifyLoadBalancersAtt
 	return
 }
 
-// ModifyLoadBalancersAttribute 修改负载均衡实例的属性。目前仅支持修改负载均衡实例的名称。
+// ModifyLoadBalancersAttribute 修改负载均衡实例的属性。
 func (c *Client) ModifyLoadBalancersAttribute(request *ModifyLoadBalancersAttributeRequest) (response *ModifyLoadBalancersAttributeResponse, err error) {
 	response = NewModifyLoadBalancersAttributeResponse()
 	err = c.ApiCall(request, response)
@@ -332,6 +332,29 @@ func (c *Client) UnbindSecurityGroupFromLoadBalancers(request *UnbindSecurityGro
 	return
 }
 
+func NewAssignLoadBalancerIpv6Request() (request *AssignLoadBalancerIpv6Request) {
+	request = &AssignLoadBalancerIpv6Request{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "AssignLoadBalancerIpv6")
+
+	return
+}
+
+func NewAssignLoadBalancerIpv6Response() (response *AssignLoadBalancerIpv6Response) {
+	response = &AssignLoadBalancerIpv6Response{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// AssignLoadBalancerIpv6 为负载均衡实例分配公网IPv6。
+func (c *Client) AssignLoadBalancerIpv6(request *AssignLoadBalancerIpv6Request) (response *AssignLoadBalancerIpv6Response, err error) {
+	response = NewAssignLoadBalancerIpv6Response()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewDescribeListenersRequest() (request *DescribeListenersRequest) {
 	request = &DescribeListenersRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -394,7 +417,7 @@ func NewModifyListenerResponse() (response *ModifyListenerResponse) {
 	return
 }
 
-// ModifyListener 修改负载均衡监听器的属性，包括监听器的名称、健康检查参数、转发方式等。不支持修改监听器的监听协议。
+// ModifyListener 修改负载均衡监听器的属性，包括监听器的名称、健康检查参数、转发方式等。
 func (c *Client) ModifyListener(request *ModifyListenerRequest) (response *ModifyListenerResponse, err error) {
 	response = NewModifyListenerResponse()
 	err = c.ApiCall(request, response)

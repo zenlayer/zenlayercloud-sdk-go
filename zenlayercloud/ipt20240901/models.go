@@ -89,12 +89,31 @@ type RemoteIptAvailableRoutingType struct {
     // 仅 `routingType` 为 BGP 时有值。
     AvailableBgpRouteTypes []string `json:"availableBgpRouteTypes,omitempty"`
 
+    // AvailableBgpTiers 可选的 BGP 档位列表。
+    // 仅 `routingType` 为 BGP 时有值。
+    AvailableBgpTiers []string `json:"availableBgpTiers,omitempty"`
+
+    // PeerAsns 各 BGP 档位对应的 Zenlayer 侧（对端）AS 号，供客户本地路由器 BGP 邻居配置。
+    // 仅 `routingType` 为 BGP 时有值。
+    PeerAsns []*RiptPeerAsn `json:"peerAsns,omitempty"`
+
     // DeliveryType 开通方式。
     DeliveryType *string `json:"deliveryType,omitempty"`
 
     // PublicInterconnectNetmasks IPv4 公网互联可选掩码列表。
     // 目前仅 30 / 31。
     PublicInterconnectNetmasks []int `json:"publicInterconnectNetmasks,omitempty"`
+
+}
+
+// RiptPeerAsn BGP 档位与 Zenlayer 侧（对端）AS 号的对应关系。
+type RiptPeerAsn struct {
+
+    // Tier BGP 档位。
+    Tier *string `json:"tier,omitempty"`
+
+    // Asn 该档位对应的 Zenlayer 侧（对端）AS 号。
+    Asn *int64 `json:"asn,omitempty"`
 
 }
 
@@ -224,6 +243,11 @@ type InquiryCreateIPTransitPriceRequest struct {
 
     // BgpRouteType BGP入站路由类型。
     BgpRouteType *string `json:"bgpRouteType,omitempty"`
+
+    // BgpTier BGP 档位。
+    // 不传默认 PREMIUM（优质档）。
+    // `zbgRegionId` 非空（基于 router 的 IP Transit）时不支持 STANDARD。
+    BgpTier *string `json:"bgpTier,omitempty"`
 
     // IpType IP 类型（IPV4 / IPV6）。
     // 默认 IPV4。
@@ -501,6 +525,11 @@ type RiptBgpConfig struct {
 
     // RouteType 入站路由类型。
     RouteType *string `json:"routeType,omitempty"`
+
+    // Tier BGP 档位。
+    // STANDARD-普通 BGP，PREMIUM-优质 BGP。
+    // 不传默认优质档（与拆分前行为一致）。
+    Tier *string `json:"tier,omitempty"`
 
     // Asn 宣告出站路由的ASN号。
     Asn *int64 `json:"asn,omitempty"`

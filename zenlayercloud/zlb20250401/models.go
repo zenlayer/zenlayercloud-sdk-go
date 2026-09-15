@@ -49,6 +49,10 @@ type DescribeLoadBalancersRequest struct {
     // VpcId 根据负载均衡后端服务器所属的VPC网络 ID过滤。
     VpcId *string `json:"vpcId,omitempty"`
 
+    // IpStackType 根据IP堆栈类型过滤。
+    // 负载均衡实例只支持单栈，即`IPv4`或`IPv6`。
+    IpStackType *string `json:"ipStackType,omitempty"`
+
     // LoadBalancerIds 负载均衡实例ID集合。
     // 实例ID数量上限为100个。
     LoadBalancerIds []string `json:"loadBalancerIds,omitempty"`
@@ -129,10 +133,20 @@ type LoadBalancer struct {
     // VpcId 负载均衡后端服务器所属的VPC网络 ID。
     VpcId *string `json:"vpcId,omitempty"`
 
+    // SubnetId 负载均衡实例所属的子网 ID。
+    // 健康检查内网 IP 分配在该子网；`ipStackType`为`IPv6`时，公网 IPv6 网段也分配在该子网。
+    // 创建时未指定子网的实例该字段为空。
+    SubnetId *string `json:"subnetId,omitempty"`
+
+    // IpStackType IP堆栈类型。
+    // 负载均衡实例只支持单栈，即`IPv4`或`IPv6`。
+    IpStackType *string `json:"ipStackType,omitempty"`
+
     // Status 负载均衡实例的状态。
     Status *string `json:"status,omitempty"`
 
     // PublicIpAddress 负载均衡实例的公网 VIP 列表。
+    // `IPv4`类型返回单个地址（如`128.0.0.1`）；`IPv6`类型返回带掩码的网段（如`2001:db8::/96`），而非网段内的单个地址。
     PublicIpAddress []string `json:"publicIpAddress,omitempty"`
 
     // PrivateIpAddress 负载均衡实例的内网 VIP 列表。
@@ -187,6 +201,11 @@ type InquiryPriceCreateLoadBalancerRequest struct {
 
     // RegionId 区域节点ID。
     RegionId *string `json:"regionId,omitempty"`
+
+    // IpStackType IP堆栈类型。
+    // 负载均衡实例只支持单栈，即`IPv4`或`IPv6`，不支持双栈。
+    // 指定为`IPv6`时不支持配置公网网络参数（`internetChargeType`、`networkLineType`、`bandwidthMbps`、`trafficPackageSize`、`bandwidthClusterId`）——IPv6负载均衡的公网地址通过`AssignLoadBalancerIpv6`接口单独分配。
+    IpStackType *string `json:"ipStackType,omitempty"`
 
     // InternetChargeType IP网络计费模式。
     // **使用已有EIP创建负载均衡时请勿传本参数**——不传表示本次不新建EIP，询价结果中不含EIP相关费用；传了则按新建EIP计价，会多算一份EIP费用。
@@ -343,22 +362,30 @@ type CreateLoadBalancerRequest struct {
     // SubnetId 子网ID。
     // 可以通过调用 ~~DescribeSubnets~~ 获取。
     // `vpcId`和`subnetId`至少指定一个。
-    // 该子网需与`regionId`同区域、支持IPv4，同时指定`vpcId`时还须属于该VPC。
+    // 该子网需与`regionId`同区域，同时指定`vpcId`时还须属于该VPC。
+    // `ipStackType`为`IPv4`时该子网需支持IPv4，此参数可不指定（由系统在该VPC内选择）；为`IPv6`时该子网需含公网IPv6网段（内网IPv6不满足），且**此参数必填**——公网IPv6 VIP与健康检查段都从该子网分配，不指定将返回`MISSING_PARAMETER`。
     SubnetId *string `json:"subnetId,omitempty"`
 
     // HealthCheckPrivateIps 健康检查内网源IP地址，数量必须为2。
     // 指定`subnetId`时，不填则从该子网中随机分配2个可用的内网IPv4地址作为健康检查源IP，每个负载均衡实例占用2个地址，该子网剩余可用内网IPv4地址不足时将返回`INVALID_SUBNET_IPV4_INSUFFICIENT`，分配结果可调用 ~~DescribeLoadBalancers~~ 查询。
     // 不指定`subnetId`时，此参数无效。
+    // 仅`ipStackType`为`IPv4`时可指定：为`IPv6`时健康检查段由系统从该子网的公网IPv6网段自动分配，指定本参数将返回`INVALID_PARAMETER_CONFLICT`。
     HealthCheckPrivateIps []string `json:"healthCheckPrivateIps,omitempty"`
 
     // LoadBalancerName 负载均衡实例名称。
     // 长度为1～64个字符。
     LoadBalancerName *string `json:"loadBalancerName,omitempty"`
 
+    // IpStackType IP堆栈类型。
+    // 负载均衡实例只支持单栈，即`IPv4`或`IPv6`，不支持双栈。
+    // 指定为`IPv6`时不支持配置公网网络参数（`internetChargeType`、`networkLineType`、`bandwidthMbps`、`trafficPackageSize`、`bandwidthClusterId`），也不能指定`eipIds`——EIP均为IPv4，IPv6负载均衡的公网地址通过`AssignLoadBalancerIpv6`接口单独分配。
+    IpStackType *string `json:"ipStackType,omitempty"`
+
     // EipIds 指定绑定到新建负载均衡实例的已有弹性公网IP的ID列表。
     // 支持单IP（掩码`/32`）与网段类型的EIP，可调用 ~~zec:DescribeEips~~ 查询。
     // 所有EIP需与`regionId`同区域且处于未绑定状态。
     // 指定此参数时，`internetChargeType`、`networkLineType`、`bandwidthMbps`、`trafficPackageSize`、`bandwidthClusterId`均不生效，系统不再为该实例新建EIP，且`number`只能为1。
+    // 仅`ipStackType`为`IPv4`时可指定。
     EipIds []string `json:"eipIds,omitempty"`
 
     // InternetChargeType IP网络计费模式。
@@ -680,6 +707,53 @@ type UnbindSecurityGroupFromLoadBalancersResponseParams struct {
 
 }
 
+// AssignLoadBalancerIpv6Request 
+type AssignLoadBalancerIpv6Request struct {
+    *common.BaseRequest
+
+    // LoadBalancerId 要分配公网IPv6的负载均衡实例ID。
+    // 仅`ipStackType`为`IPv6`的负载均衡实例可用。
+    LoadBalancerId *string `json:"loadBalancerId,omitempty"`
+
+    // VipCount 本次分配的公网IPv6数量。
+    // 子网剩余可用公网IPv6不足时将返回`INVALID_SUBNET_IPV6_INSUFFICIENT`。
+    VipCount *int `json:"vipCount,omitempty"`
+
+    // InternetChargeType 公网IPv6的网络计费方式。
+    InternetChargeType *string `json:"internetChargeType,omitempty"`
+
+    // Bandwidth 公网IPv6的带宽限速。
+    // 单位Mbps。
+    // 网络计费方式为固定带宽(`ByBandwidth`)时必填。
+    Bandwidth *int `json:"bandwidth,omitempty"`
+
+    // PackageSize 公网IPv6的流量包大小。
+    // 单位为TB。
+    // 值要求为0或0.1的倍数。
+    // 网络计费方式为流量计费(`ByTrafficPackage`)时必填，且仅计费周期为月时支持设置。
+    PackageSize *float64 `json:"packageSize,omitempty"`
+
+    // ClusterId 公网IPv6所指定的共享带宽包ID。
+    // 网络计费方式为共享带宽包计费(`BandwidthCluster`)时必填。
+    ClusterId *string `json:"clusterId,omitempty"`
+
+    // RateLimitMode 限速模式。
+    // 严格模式(`STRICT`)必须同时指定`bandwidth`，否则返回`INVALID_RATE_LIMIT_MODE_REQUIRES_BANDWIDTH`。
+    RateLimitMode *string `json:"rateLimitMode,omitempty"`
+
+}
+
+type AssignLoadBalancerIpv6Response struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
 type DescribeListenersRequest struct {
     *common.BaseRequest
 
@@ -721,6 +795,10 @@ type Listener struct {
 
     // ListenerName 监听器的名称。
     ListenerName *string `json:"listenerName,omitempty"`
+
+    // IpStackType 所属负载均衡实例的IP堆栈类型。
+    // 监听器本身没有堆栈类型，该值取自其所属的负载均衡实例。
+    IpStackType *string `json:"ipStackType,omitempty"`
 
     // Protocol 监听器协议。
     Protocol *string `json:"protocol,omitempty"`
@@ -836,6 +914,7 @@ type CreateListenerRequest struct {
     // Kind 工作模式。
     // 若该负载均衡器已有监听器，默认沿用其工作模式；否则根据负载均衡实例所在的区域设定默认值（默认值可能为DNAT、FNAT）。
     // 同一负载均衡器下所有监听器工作模式必须一致，DR模式下监听器不支持设置为全端口（0）。
+    // 负载均衡实例的`ipStackType`为`IPv6`时只支持`DR`，不指定时默认为`DR`。
     Kind *string `json:"kind,omitempty"`
 
     // Persistent 会话保持时间，单位秒。
@@ -905,6 +984,7 @@ type ModifyListenerRequest struct {
     // 如果修改为`DR`模式，如果后端服务器指定了端口将失效，将跟随监听器的端口。
     // 修改后必须与该负载均衡器下其他监听器的工作模式保持一致。
     // DR模式下监听器不支持设置为全端口（0）；监听器当前端口已是全端口（0）时，也不允许修改为`DR`。
+    // 负载均衡实例的`ipStackType`为`IPv6`时只支持`DR`。
     Kind *string `json:"kind,omitempty"`
 
     // Persistent 会话保持时间，单位秒。
@@ -994,6 +1074,7 @@ type ListenerBackend struct {
     InstanceId *string `json:"instanceId,omitempty"`
 
     // PrivateIpAddress 实例上绑定网卡的私网IP地址。
+    // 负载均衡实例的`ipStackType`为`IPv6`时，返回的是该实例网卡上的IPv6地址。
     PrivateIpAddress *string `json:"privateIpAddress,omitempty"`
 
     // Weight 后端服务修改后的转发权重。
@@ -1046,6 +1127,7 @@ type BackendServer struct {
     InstanceId *string `json:"instanceId,omitempty"`
 
     // PrivateIpAddress 实例上绑定网卡的私网IP地址。
+    // 负载均衡实例的`ipStackType`为`IPv6`时，此处填该实例网卡上的IPv6地址（公网或内网均可），且必须同时指定`instanceId`，不支持只填IP地址。
     PrivateIpAddress *string `json:"privateIpAddress,omitempty"`
 
     // Weight 后端服务修改后的转发权重。
@@ -1167,6 +1249,7 @@ type ListenerBackendHealth struct {
     InstanceId *string `json:"instanceId,omitempty"`
 
     // PrivateIpAddress 实例上绑定网卡的私网IP地址。
+    // 负载均衡实例的`ipStackType`为`IPv6`时，返回的是该实例网卡上的IPv6地址。
     PrivateIpAddress *string `json:"privateIpAddress,omitempty"`
 
     // Weight 后端服务修改后的转发权重。

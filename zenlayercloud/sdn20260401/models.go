@@ -3,6 +3,645 @@ package sdn
 import "github.com/zenlayer/zenlayercloud-sdk-go/zenlayercloud/common"
 
 
+// DescribeDatacentersRequest 
+type DescribeDatacentersRequest struct {
+    *common.BaseRequest
+
+    // DcIds 数据中心ID列表。
+    DcIds []string `json:"dcIds,omitempty"`
+
+    // IsPortAvailable 筛选是否支持新建数据中心端口的 DC（true：支持，false：不支持）。
+    IsPortAvailable *bool `json:"isPortAvailable,omitempty"`
+
+}
+
+type DescribeDatacentersResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeDatacentersResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeDatacentersResponseParams 
+type DescribeDatacentersResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // DcSet 结果集。
+    DcSet []*DataCenterAssemble `json:"dcSet,omitempty"`
+
+}
+
+// DataCenterAssemble 描述数据中心的基本信息，包括位置、坐标及数据中心端口可用带宽等。
+type DataCenterAssemble struct {
+
+    // DcId 数据中心 ID。
+    DcId *string `json:"dcId,omitempty"`
+
+    // DcName 数据中心名称。
+    DcName *string `json:"dcName,omitempty"`
+
+    // DcAddress 数据中心地址。
+    DcAddress *string `json:"dcAddress,omitempty"`
+
+    // CityName 所在城市名称。
+    CityName *string `json:"cityName,omitempty"`
+
+    // CountryName 所在国家名称。
+    CountryName *string `json:"countryName,omitempty"`
+
+    // AreaName 所在大区名称。
+    AreaName *string `json:"areaName,omitempty"`
+
+    // Latitude 纬度。
+    Latitude *float64 `json:"latitude,omitempty"`
+
+    // Longitude 经度。
+    Longitude *float64 `json:"longitude,omitempty"`
+
+    // IsPortAvailable 是否支持新建数据中心端口。
+    IsPortAvailable *bool `json:"isPortAvailable,omitempty"`
+
+    // AvailableBandwidth 可用带宽（Mbps）。
+    AvailableBandwidth *int `json:"availableBandwidth,omitempty"`
+
+    // RegionId 节点 ID。
+    RegionId *string `json:"regionId,omitempty"`
+
+}
+
+// DescribeVirtualEdgeDatacentersRequest 
+type DescribeVirtualEdgeDatacentersRequest struct {
+    *common.BaseRequest
+
+    // PrimaryDcId 主数据中心 ID。
+    // IPSec 接入类型且需要高可用时，用于过滤可用备机房。
+    PrimaryDcId *string `json:"primaryDcId,omitempty"`
+
+}
+
+type DescribeVirtualEdgeDatacentersResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeVirtualEdgeDatacentersResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeVirtualEdgeDatacentersResponseParams 
+type DescribeVirtualEdgeDatacentersResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // DcSet 结果集。
+    DcSet []*DataCenterAssemble `json:"dcSet,omitempty"`
+
+}
+
+// DescribeBorderGatewayDatacentersRequest 
+type DescribeBorderGatewayDatacentersRequest struct {
+    *common.BaseRequest
+
+    // DcId 数据中心 ID。
+    DcId *string `json:"dcId,omitempty"`
+
+    // RegionId 节点 ID。
+    RegionId *string `json:"regionId,omitempty"`
+
+}
+
+type DescribeBorderGatewayDatacentersResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeBorderGatewayDatacentersResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeBorderGatewayDatacentersResponseParams 
+type DescribeBorderGatewayDatacentersResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // DcSet 结果集。
+    DcSet []*DataCenterAssemble `json:"dcSet,omitempty"`
+
+}
+
+// DescribeVPCDatacentersRequest 
+type DescribeVPCDatacentersRequest struct {
+    *common.BaseRequest
+
+    // DcId 数据中心 ID。
+    DcId *string `json:"dcId,omitempty"`
+
+    // RegionId VPC 的节点 ID。
+    RegionId *string `json:"regionId,omitempty"`
+
+}
+
+type DescribeVPCDatacentersResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeVPCDatacentersResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeVPCDatacentersResponseParams 
+type DescribeVPCDatacentersResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // DcSet 结果集。
+    DcSet []*DataCenterAssemble `json:"dcSet,omitempty"`
+
+}
+
+// DescribeDatacentersWithServiceRequest 
+type DescribeDatacentersWithServiceRequest struct {
+    *common.BaseRequest
+
+    // CloudRegionId 公有云区域 ID。
+    CloudRegionId *string `json:"cloudRegionId,omitempty"`
+
+    // DcId 数据中心 ID。
+    DcId *string `json:"dcId,omitempty"`
+
+    // ServiceType 服务类型。
+    ServiceType *string `json:"serviceType,omitempty"`
+
+}
+
+type DescribeDatacentersWithServiceResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeDatacentersWithServiceResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeDatacentersWithServiceResponseParams 
+type DescribeDatacentersWithServiceResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // DcSet 结果集。
+    DcSet []*DataCenterWithServiceResponse `json:"dcSet,omitempty"`
+
+}
+
+// DataCenterWithServiceResponse 带服务类型信息的数据中心详情。
+type DataCenterWithServiceResponse struct {
+
+    // DcId 数据中心 ID。
+    DcId *string `json:"dcId,omitempty"`
+
+    // DcName 数据中心名称。
+    DcName *string `json:"dcName,omitempty"`
+
+    // DcAddress 数据中心地址。
+    DcAddress *string `json:"dcAddress,omitempty"`
+
+    // CityName 所在城市名称。
+    CityName *string `json:"cityName,omitempty"`
+
+    // CountryName 所在国家名称。
+    CountryName *string `json:"countryName,omitempty"`
+
+    // AreaName 所在大区名称。
+    AreaName *string `json:"areaName,omitempty"`
+
+    // Latitude 纬度。
+    Latitude *float64 `json:"latitude,omitempty"`
+
+    // Longitude 经度。
+    Longitude *float64 `json:"longitude,omitempty"`
+
+    // CloudRegionId 公有云区域 ID。
+    CloudRegionId *string `json:"cloudRegionId,omitempty"`
+
+    // ServiceTypes 支持的服务类型集合。
+    ServiceTypes []string `json:"serviceTypes,omitempty"`
+
+}
+
+// QueryCloudOnrampPriceRequest 
+type QueryCloudOnrampPriceRequest struct {
+    *common.BaseRequest
+
+    // CloudType 云连接类型。
+    // 可选值：AWS | TENCENT | GOOGLE | ALI_CLOUD | AZURE | HUAWEI_CLOUD。
+    CloudType *string `json:"cloudType,omitempty"`
+
+    // DcId 云连接的数据中心ID。
+    DcId *string `json:"dcId,omitempty"`
+
+    // BandwidthMbps 云连接的最大带宽限制。
+    // 默认值是10，单位：Mbps。
+    BandwidthMbps *int `json:"bandwidthMbps,omitempty"`
+
+    // VlanId VLAN ID。
+    VlanId *int `json:"vlanId,omitempty"`
+
+    // CloudRegionId 公有云区域ID。
+    // Google云无需传参。
+    CloudRegionId *string `json:"cloudRegionId,omitempty"`
+
+}
+
+type QueryCloudOnrampPriceResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *QueryCloudOnrampPriceResponseParams `json:"response,omitempty"`
+
+}
+
+// QueryCloudOnrampPriceResponseParams 
+type QueryCloudOnrampPriceResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // Price 价格信息。
+    Price *PriceItem `json:"price,omitempty"`
+
+    // Stock 可用库存数量。
+    Stock *int `json:"stock,omitempty"`
+
+}
+
+// PriceItem 描述价格的信息。
+type PriceItem struct {
+
+    // Discount 折扣大小。
+    // 如80.0代表8折。
+    Discount *float64 `json:"discount,omitempty"`
+
+    // DiscountPrice 后付费的单元折后价格。
+    // 后付费模式使用，如果价格为阶梯价格，该项为null。
+    DiscountPrice *float64 `json:"discountPrice,omitempty"`
+
+    // OriginalPrice 预付费的原价。
+    // 预付费模式使用，后付费该值为 null。
+    OriginalPrice *float64 `json:"originalPrice,omitempty"`
+
+    // UnitPrice 后付费的单元原始价格。
+    // 后付费模式使用，如果价格为阶梯价格，该项为null。
+    UnitPrice *float64 `json:"unitPrice,omitempty"`
+
+    // DiscountUnitPrice 后付费的单元折后价格。
+    // 后付费模式使用，如果价格为阶梯价格，该项为null。
+    DiscountUnitPrice *float64 `json:"discountUnitPrice,omitempty"`
+
+    // ChargeUnit 后付费计价单元。
+    // 后付费模式使用，可取值范围：<br/>HOUR: 表示计价单元是按每小时来计算。
+    // DAY: 表示计价单元是按天来计算。
+    // MONTH: 表示计价单元是按月来计算，95计费则是这种。
+    ChargeUnit *string `json:"chargeUnit,omitempty"`
+
+    // StepPrices 后付费阶梯价格。
+    // 后付费模式使用，如果非阶梯价格，该项为null。
+    StepPrices []*StepPrice `json:"stepPrices,omitempty"`
+
+    // AmountUnit 用量单位。
+    // 比如Mbps, LCU等。
+    // 如果为null, 代表取不到值。
+    AmountUnit *string `json:"amountUnit,omitempty"`
+
+    // ExcessUnitPrice 超量原始价格。
+    ExcessUnitPrice *float64 `json:"excessUnitPrice,omitempty"`
+
+    // ExcessDiscountUnitPrice 超量折扣后价格。
+    ExcessDiscountUnitPrice *float64 `json:"excessDiscountUnitPrice,omitempty"`
+
+    // ExcessAmountUnit 超量用量单位。
+    // 如果为null, 代表取不到值。
+    ExcessAmountUnit *string `json:"excessAmountUnit,omitempty"`
+
+    // Category 价格所属类别。
+    Category *string `json:"category,omitempty"`
+
+}
+
+// StepPrice 描述阶梯价格的信息。
+type StepPrice struct {
+
+    // StepStart 阶梯的起始值。
+    StepStart *float64 `json:"stepStart,omitempty"`
+
+    // StepEnd 阶梯的到达值。
+    // 为null代表最后一级阶梯。
+    StepEnd *float64 `json:"stepEnd,omitempty"`
+
+    // UnitPrice 阶梯单价。
+    UnitPrice *float64 `json:"unitPrice,omitempty"`
+
+    // DiscountUnitPrice 阶梯折后价。
+    DiscountUnitPrice *float64 `json:"discountUnitPrice,omitempty"`
+
+}
+
+// QueryDataCenterPortPriceRequest 
+type QueryDataCenterPortPriceRequest struct {
+    *common.BaseRequest
+
+    // DcId 数据中心ID。
+    // 具体取值可通过调用接口~~DescribeDataCenters~~来获得最新的数据中心列表。
+    DcId *string `json:"dcId,omitempty"`
+
+    // PortType 数据中心端口规格。
+    // 具体取值可通过调用接口~~DescribeDataCenterPortPrice~~来获得最新的数据中心端口规格表。
+    PortType *string `json:"portType,omitempty"`
+
+    // BuildCrossConnectWithAssisted 是否需要Zenlayer协助建设交叉连接。
+    // 如果选择true，则价格将包含交叉连接的跳线费用，以及一次性建设费。
+    // 默认值为false，即用户需要自行建设交叉连接。
+    BuildCrossConnectWithAssisted *bool `json:"buildCrossConnectWithAssisted,omitempty"`
+
+}
+
+type QueryDataCenterPortPriceResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *QueryDataCenterPortPriceResponseParams `json:"response,omitempty"`
+
+}
+
+// QueryDataCenterPortPriceResponseParams 
+type QueryDataCenterPortPriceResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // CrossConnectPrice 交叉连接价格。
+    // 如果当前数据中心不支持Zenlayer协助建设交叉连接，则该值为null。
+    CrossConnectPrice *PriceItem `json:"crossConnectPrice,omitempty"`
+
+    // CrossConnectOneTimeConstructionPrice 交叉连接一次性建设费。
+    // 如果当前数据中心不支持Zenlayer协助建设交叉连接，则该值为null。
+    CrossConnectOneTimeConstructionPrice *PriceItem `json:"crossConnectOneTimeConstructionPrice,omitempty"`
+
+    // DcId 数据中心ID。
+    DcId *string `json:"dcId,omitempty"`
+
+    // Price 价格信息。
+    Price *PriceItem `json:"price,omitempty"`
+
+    // Stock 可用库存数量。
+    Stock *int `json:"stock,omitempty"`
+
+}
+
+// QueryDataCenterPortPricesRequest 
+type QueryDataCenterPortPricesRequest struct {
+    *common.BaseRequest
+
+    // DcIds 数据中心ID列表。
+    // 具体取值可通过调用接口~~DescribeDataCenters~~来获得最新的数据中心列表。
+    // 最多支持100个ID查询。
+    DcIds []string `json:"dcIds,omitempty"`
+
+    // PortType 数据中心端口规格。
+    // 具体取值可通过调用接口~~DescribeDataCenterPortPrice~~来获得最新的数据中心端口规格表。
+    PortType *string `json:"portType,omitempty"`
+
+    // BuildCrossConnectWithAssisted 是否需要Zenlayer协助建设交叉连接。
+    // 如果选择true，则价格将包含交叉连接的跳线费用，以及一次性建设费。
+    // 默认值为false，即用户需要自行建设交叉连接。
+    BuildCrossConnectWithAssisted *bool `json:"buildCrossConnectWithAssisted,omitempty"`
+
+}
+
+type QueryDataCenterPortPricesResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *QueryDataCenterPortPricesResponseParams `json:"response,omitempty"`
+
+}
+
+// QueryDataCenterPortPricesResponseParams 
+type QueryDataCenterPortPricesResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // Prices 数据中心端口价格列表。
+    Prices []*DatacenterPortPrice `json:"prices,omitempty"`
+
+}
+
+// DatacenterPortPrice 描述数据中心端口的价格信息。
+type DatacenterPortPrice struct {
+
+    // CrossConnectPrice 交叉连接价格。
+    // 如果当前数据中心不支持Zenlayer协助建设交叉连接，则该值为null。
+    CrossConnectPrice *PriceItem `json:"crossConnectPrice,omitempty"`
+
+    // CrossConnectOneTimeConstructionPrice 交叉连接一次性建设费。
+    // 如果当前数据中心不支持Zenlayer协助建设交叉连接，则该值为null。
+    CrossConnectOneTimeConstructionPrice *PriceItem `json:"crossConnectOneTimeConstructionPrice,omitempty"`
+
+    // DcId 数据中心ID。
+    DcId *string `json:"dcId,omitempty"`
+
+    // Price 价格信息。
+    Price *PriceItem `json:"price,omitempty"`
+
+    // Stock 可用库存数量。
+    Stock *int `json:"stock,omitempty"`
+
+}
+
+// QueryPrivateConnectPriceRequest 
+type QueryPrivateConnectPriceRequest struct {
+    *common.BaseRequest
+
+    // InternetType 网络计费类型。
+    // 默认值为ByBandwidth。
+    InternetType *string `json:"internetType,omitempty"`
+
+    // BandwidthMbps 二层网络专线的最大带宽限制。
+    // 默认值是10，单位：Mbps。
+    BandwidthMbps *int `json:"bandwidthMbps,omitempty"`
+
+    // EndpointA 二层网络专线A端连接点信息。
+    EndpointA *PrivateConnectEndpointInfo `json:"endpointA,omitempty"`
+
+    // EndpointZ 二层网络专线Z端连接点信息。
+    EndpointZ *PrivateConnectEndpointInfo `json:"endpointZ,omitempty"`
+
+}
+
+// PrivateConnectEndpointInfo 二层网络专线的连接点信息。根据连接点的类型不同，连接点的参数也是不同的。
+type PrivateConnectEndpointInfo struct {
+
+    // DcId 数据中心ID。
+    // 具体取值可通过调用接口~~DescribeDataCenters~~来获得最新的数据中心列表。
+    DcId *string `json:"dcId,omitempty"`
+
+    // CloudType 云连接类型。
+    CloudType *string `json:"cloudType,omitempty"`
+
+    // BandwidthMbps 云连接的最大带宽限制。
+    // 默认值是10，单位：Mbps。
+    BandwidthMbps *int `json:"bandwidthMbps,omitempty"`
+
+    // VlanId VLAN ID。
+    VlanId *int `json:"vlanId,omitempty"`
+
+    // CloudRegionId 公有云区域ID。
+    // Google云无需传参。
+    CloudRegionId *string `json:"cloudRegionId,omitempty"`
+
+    // PortType 数据中心端口规格。
+    // 具体取值可通过调用接口~~DescribeDataCenterPortPrice~~来获得最新的数据中心端口规格表。
+    PortType *string `json:"portType,omitempty"`
+
+    // BuildCrossConnectWithAssisted 是否需要Zenlayer协助建设交叉连接。
+    // 如果选择true，则价格将包含交叉连接的跳线费用，以及一次性建设费。
+    // 默认值为false，即用户需要自行建设交叉连接。
+    BuildCrossConnectWithAssisted *bool `json:"buildCrossConnectWithAssisted,omitempty"`
+
+}
+
+type QueryPrivateConnectPriceResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *QueryPrivateConnectPriceResponseParams `json:"response,omitempty"`
+
+}
+
+// QueryPrivateConnectPriceResponseParams 
+type QueryPrivateConnectPriceResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // EndpointAPrice 二层网络专线A端连接点价格信息。
+    EndpointAPrice *PrivateConnectEndpointPrice `json:"endpointAPrice,omitempty"`
+
+    // EndpointZPrice 二层网络专线Z端连接点价格信息。
+    EndpointZPrice *PrivateConnectEndpointPrice `json:"endpointZPrice,omitempty"`
+
+    // Price 价格信息。
+    Price *PriceItem `json:"price,omitempty"`
+
+    // Stock 可用库存数量。
+    Stock *int `json:"stock,omitempty"`
+
+}
+
+// PrivateConnectEndpointPrice 描述二层网络专线连接点的价格信息。
+type PrivateConnectEndpointPrice struct {
+
+    // CrossConnectPrice 交叉连接价格。
+    // 连接点类型为数据中心端口并且该数据中心支持Zenlayer协助建设交叉连接时有值。
+    CrossConnectPrice *PriceItem `json:"crossConnectPrice,omitempty"`
+
+    // CrossConnectOneTimeConstructionPrice 交叉连接一次性建设费。
+    // 连接点类型为数据中心端口并且该数据中心支持Zenlayer协助建设交叉连接时有值。
+    CrossConnectOneTimeConstructionPrice *PriceItem `json:"crossConnectOneTimeConstructionPrice,omitempty"`
+
+    // Price 价格信息。
+    Price *PriceItem `json:"price,omitempty"`
+
+    // Stock 可用库存数量。
+    Stock *int `json:"stock,omitempty"`
+
+}
+
+// QueryPrivateConnectBandwidthPriceRequest 
+type QueryPrivateConnectBandwidthPriceRequest struct {
+    *common.BaseRequest
+
+    // SourceDcId 二层网络其中一端接入点的数据中心ID。
+    SourceDcId *string `json:"sourceDcId,omitempty"`
+
+    // DestinationDcId 二层网络另外一端接入点的数据中心ID。
+    DestinationDcId *string `json:"destinationDcId,omitempty"`
+
+    // InternetType 网络计费类型。
+    // 默认值为ByBandwidth。
+    InternetType *string `json:"internetType,omitempty"`
+
+    // BandwidthMbps 二层网络专线的最大带宽限制。
+    // 默认值是10，单位：Mbps。
+    BandwidthMbps *int `json:"bandwidthMbps,omitempty"`
+
+    // ServiceLevel 二层网络专线服务等级。
+    // 默认值为SINGLE_PROTECTED。
+    ServiceLevel *string `json:"serviceLevel,omitempty"`
+
+}
+
+type QueryPrivateConnectBandwidthPriceResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *QueryPrivateConnectBandwidthPriceResponseParams `json:"response,omitempty"`
+
+}
+
+// QueryPrivateConnectBandwidthPriceResponseParams 
+type QueryPrivateConnectBandwidthPriceResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // Price 价格信息。
+    Price *PriceItem `json:"price,omitempty"`
+
+    // Stock 可用库存数量。
+    Stock *int `json:"stock,omitempty"`
+
+}
+
+// QueryCloudRouterBandwidthPriceRequest 
+type QueryCloudRouterBandwidthPriceRequest struct {
+    *common.BaseRequest
+
+    // DcId 三层网络骨干网的数据中心ID。
+    DcId *string `json:"dcId,omitempty"`
+
+    // BandwidthMbps 三层网络的最大带宽限制。
+    // 默认值是10，单位：Mbps。
+    BandwidthMbps *int `json:"bandwidthMbps,omitempty"`
+
+}
+
+type QueryCloudRouterBandwidthPriceResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *QueryCloudRouterBandwidthPriceResponseParams `json:"response,omitempty"`
+
+}
+
+// QueryCloudRouterBandwidthPriceResponseParams 
+type QueryCloudRouterBandwidthPriceResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // Price 价格信息。
+    Price *PriceItem `json:"price,omitempty"`
+
+    // Stock 可用库存数量。
+    Stock *int `json:"stock,omitempty"`
+
+}
+
 // CreatePortRequest 
 type CreatePortRequest struct {
     *common.BaseRequest
@@ -368,77 +1007,6 @@ type PortPrice struct {
 
 }
 
-// PriceItem 描述价格的信息。
-type PriceItem struct {
-
-    // Discount 折扣大小。
-    // 如80.0代表8折。
-    Discount *float64 `json:"discount,omitempty"`
-
-    // DiscountPrice 后付费的单元折后价格。
-    // 后付费模式使用，如果价格为阶梯价格，该项为null。
-    DiscountPrice *float64 `json:"discountPrice,omitempty"`
-
-    // OriginalPrice 预付费的原价。
-    // 预付费模式使用，后付费该值为 null。
-    OriginalPrice *float64 `json:"originalPrice,omitempty"`
-
-    // UnitPrice 后付费的单元原始价格。
-    // 后付费模式使用，如果价格为阶梯价格，该项为null。
-    UnitPrice *float64 `json:"unitPrice,omitempty"`
-
-    // DiscountUnitPrice 后付费的单元折后价格。
-    // 后付费模式使用，如果价格为阶梯价格，该项为null。
-    DiscountUnitPrice *float64 `json:"discountUnitPrice,omitempty"`
-
-    // ChargeUnit 后付费计价单元。
-    // 后付费模式使用，可取值范围：<br/>HOUR: 表示计价单元是按每小时来计算。
-    // DAY: 表示计价单元是按天来计算。
-    // MONTH: 表示计价单元是按月来计算，95计费则是这种。
-    ChargeUnit *string `json:"chargeUnit,omitempty"`
-
-    // StepPrices 后付费阶梯价格。
-    // 后付费模式使用，如果非阶梯价格，该项为null。
-    StepPrices []*StepPrice `json:"stepPrices,omitempty"`
-
-    // AmountUnit 用量单位。
-    // 比如Mbps, LCU等。
-    // 如果为null, 代表取不到值。
-    AmountUnit *string `json:"amountUnit,omitempty"`
-
-    // ExcessUnitPrice 超量原始价格。
-    ExcessUnitPrice *float64 `json:"excessUnitPrice,omitempty"`
-
-    // ExcessDiscountUnitPrice 超量折扣后价格。
-    ExcessDiscountUnitPrice *float64 `json:"excessDiscountUnitPrice,omitempty"`
-
-    // ExcessAmountUnit 超量用量单位。
-    // 如果为null, 代表取不到值。
-    ExcessAmountUnit *string `json:"excessAmountUnit,omitempty"`
-
-    // Category 价格所属类别。
-    Category *string `json:"category,omitempty"`
-
-}
-
-// StepPrice 描述阶梯价格的信息。
-type StepPrice struct {
-
-    // StepStart 阶梯的起始值。
-    StepStart *float64 `json:"stepStart,omitempty"`
-
-    // StepEnd 阶梯的到达值。
-    // 为null代表最后一级阶梯。
-    StepEnd *float64 `json:"stepEnd,omitempty"`
-
-    // UnitPrice 阶梯单价。
-    UnitPrice *float64 `json:"unitPrice,omitempty"`
-
-    // DiscountUnitPrice 阶梯折后价。
-    DiscountUnitPrice *float64 `json:"discountUnitPrice,omitempty"`
-
-}
-
 // DescribePortTrafficRequest 
 type DescribePortTrafficRequest struct {
     *common.BaseRequest
@@ -558,345 +1126,6 @@ type DescribePortUsableVlanResponseParams struct {
 
     // InuseVlanList 占用中的 VLAN 列表。
     InuseVlanList []int `json:"inuseVlanList,omitempty"`
-
-}
-
-// QueryCloudOnrampPriceRequest 
-type QueryCloudOnrampPriceRequest struct {
-    *common.BaseRequest
-
-    // CloudType 云连接类型。
-    // 可选值：AWS | TENCENT | GOOGLE | ALI_CLOUD | AZURE | HUAWEI_CLOUD。
-    CloudType *string `json:"cloudType,omitempty"`
-
-    // DcId 云连接的数据中心ID。
-    DcId *string `json:"dcId,omitempty"`
-
-    // BandwidthMbps 云连接的最大带宽限制。
-    // 默认值是10，单位：Mbps。
-    BandwidthMbps *int `json:"bandwidthMbps,omitempty"`
-
-    // VlanId VLAN ID。
-    VlanId *int `json:"vlanId,omitempty"`
-
-    // CloudRegionId 公有云区域ID。
-    // Google云无需传参。
-    CloudRegionId *string `json:"cloudRegionId,omitempty"`
-
-}
-
-type QueryCloudOnrampPriceResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *QueryCloudOnrampPriceResponseParams `json:"response,omitempty"`
-
-}
-
-// QueryCloudOnrampPriceResponseParams 
-type QueryCloudOnrampPriceResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // Price 价格信息。
-    Price *PriceItem `json:"price,omitempty"`
-
-    // Stock 可用库存数量。
-    Stock *int `json:"stock,omitempty"`
-
-}
-
-// QueryDataCenterPortPriceRequest 
-type QueryDataCenterPortPriceRequest struct {
-    *common.BaseRequest
-
-    // DcId 数据中心ID。
-    // 具体取值可通过调用接口~~DescribeDataCenters~~来获得最新的数据中心列表。
-    DcId *string `json:"dcId,omitempty"`
-
-    // PortType 数据中心端口规格。
-    // 具体取值可通过调用接口~~DescribeDataCenterPortType~~来获得最新的数据中心端口规格表。
-    PortType *string `json:"portType,omitempty"`
-
-    // BuildCrossConnectWithAssisted 是否需要Zenlayer协助建设交叉连接。
-    // 如果选择true，则价格将包含交叉连接的跳线费用，以及一次性建设费。
-    // 默认值为false，即用户需要自行建设交叉连接。
-    BuildCrossConnectWithAssisted *bool `json:"buildCrossConnectWithAssisted,omitempty"`
-
-}
-
-type QueryDataCenterPortPriceResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *QueryDataCenterPortPriceResponseParams `json:"response,omitempty"`
-
-}
-
-// QueryDataCenterPortPriceResponseParams 
-type QueryDataCenterPortPriceResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // CrossConnectPrice 交叉连接价格。
-    // 如果当前数据中心不支持Zenlayer协助建设交叉连接，则该值为null。
-    CrossConnectPrice *PriceItem `json:"crossConnectPrice,omitempty"`
-
-    // CrossConnectOneTimeConstructionPrice 交叉连接一次性建设费。
-    // 如果当前数据中心不支持Zenlayer协助建设交叉连接，则该值为null。
-    CrossConnectOneTimeConstructionPrice *PriceItem `json:"crossConnectOneTimeConstructionPrice,omitempty"`
-
-    // DcId 数据中心ID。
-    DcId *string `json:"dcId,omitempty"`
-
-    // Price 价格信息。
-    Price *PriceItem `json:"price,omitempty"`
-
-    // Stock 可用库存数量。
-    Stock *int `json:"stock,omitempty"`
-
-}
-
-// QueryDataCenterPortPricesRequest 
-type QueryDataCenterPortPricesRequest struct {
-    *common.BaseRequest
-
-    // DcIds 数据中心ID列表。
-    // 具体取值可通过调用接口~~DescribeDataCenters~~来获得最新的数据中心列表。
-    // 最多支持100个ID查询。
-    DcIds []string `json:"dcIds,omitempty"`
-
-    // PortType 数据中心端口规格。
-    // 具体取值可通过调用接口~~DescribeDataCenterPortType~~来获得最新的数据中心端口规格表。
-    PortType *string `json:"portType,omitempty"`
-
-    // BuildCrossConnectWithAssisted 是否需要Zenlayer协助建设交叉连接。
-    // 如果选择true，则价格将包含交叉连接的跳线费用，以及一次性建设费。
-    // 默认值为false，即用户需要自行建设交叉连接。
-    BuildCrossConnectWithAssisted *bool `json:"buildCrossConnectWithAssisted,omitempty"`
-
-}
-
-type QueryDataCenterPortPricesResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *QueryDataCenterPortPricesResponseParams `json:"response,omitempty"`
-
-}
-
-// QueryDataCenterPortPricesResponseParams 
-type QueryDataCenterPortPricesResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // Prices 数据中心端口价格列表。
-    Prices []*DatacenterPortPrice `json:"prices,omitempty"`
-
-}
-
-// DatacenterPortPrice 描述数据中心端口的价格信息。
-type DatacenterPortPrice struct {
-
-    // CrossConnectPrice 交叉连接价格。
-    // 如果当前数据中心不支持Zenlayer协助建设交叉连接，则该值为null。
-    CrossConnectPrice *PriceItem `json:"crossConnectPrice,omitempty"`
-
-    // CrossConnectOneTimeConstructionPrice 交叉连接一次性建设费。
-    // 如果当前数据中心不支持Zenlayer协助建设交叉连接，则该值为null。
-    CrossConnectOneTimeConstructionPrice *PriceItem `json:"crossConnectOneTimeConstructionPrice,omitempty"`
-
-    // DcId 数据中心ID。
-    DcId *string `json:"dcId,omitempty"`
-
-    // Price 价格信息。
-    Price *PriceItem `json:"price,omitempty"`
-
-    // Stock 可用库存数量。
-    Stock *int `json:"stock,omitempty"`
-
-}
-
-// QueryPrivateConnectPriceRequest 
-type QueryPrivateConnectPriceRequest struct {
-    *common.BaseRequest
-
-    // InternetType 网络计费类型。
-    // 默认值为ByBandwidth。
-    InternetType *string `json:"internetType,omitempty"`
-
-    // BandwidthMbps 二层网络专线的最大带宽限制。
-    // 默认值是10，单位：Mbps。
-    BandwidthMbps *int `json:"bandwidthMbps,omitempty"`
-
-    // EndpointA 二层网络专线A端连接点信息。
-    EndpointA *PrivateConnectEndpointInfo `json:"endpointA,omitempty"`
-
-    // EndpointZ 二层网络专线Z端连接点信息。
-    EndpointZ *PrivateConnectEndpointInfo `json:"endpointZ,omitempty"`
-
-}
-
-// PrivateConnectEndpointInfo 二层网络专线的连接点信息。根据连接点的类型不同，连接点的参数也是不同的。
-type PrivateConnectEndpointInfo struct {
-
-    // DcId 数据中心ID。
-    // 具体取值可通过调用接口~~DescribeDataCenters~~来获得最新的数据中心列表。
-    DcId *string `json:"dcId,omitempty"`
-
-    // CloudType 云连接类型。
-    CloudType *string `json:"cloudType,omitempty"`
-
-    // BandwidthMbps 云连接的最大带宽限制。
-    // 默认值是10，单位：Mbps。
-    BandwidthMbps *int `json:"bandwidthMbps,omitempty"`
-
-    // VlanId VLAN ID。
-    VlanId *int `json:"vlanId,omitempty"`
-
-    // CloudRegionId 公有云区域ID。
-    // Google云无需传参。
-    CloudRegionId *string `json:"cloudRegionId,omitempty"`
-
-    // PortType 数据中心端口规格。
-    // 具体取值可通过调用接口~~DescribeDataCenterPortType~~来获得最新的数据中心端口规格表。
-    PortType *string `json:"portType,omitempty"`
-
-    // BuildCrossConnectWithAssisted 是否需要Zenlayer协助建设交叉连接。
-    // 如果选择true，则价格将包含交叉连接的跳线费用，以及一次性建设费。
-    // 默认值为false，即用户需要自行建设交叉连接。
-    BuildCrossConnectWithAssisted *bool `json:"buildCrossConnectWithAssisted,omitempty"`
-
-}
-
-type QueryPrivateConnectPriceResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *QueryPrivateConnectPriceResponseParams `json:"response,omitempty"`
-
-}
-
-// QueryPrivateConnectPriceResponseParams 
-type QueryPrivateConnectPriceResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // EndpointAPrice 二层网络专线A端连接点价格信息。
-    EndpointAPrice *PrivateConnectEndpointPrice `json:"endpointAPrice,omitempty"`
-
-    // EndpointZPrice 二层网络专线Z端连接点价格信息。
-    EndpointZPrice *PrivateConnectEndpointPrice `json:"endpointZPrice,omitempty"`
-
-    // Price 价格信息。
-    Price *PriceItem `json:"price,omitempty"`
-
-    // Stock 可用库存数量。
-    Stock *int `json:"stock,omitempty"`
-
-}
-
-// PrivateConnectEndpointPrice 描述二层网络专线连接点的价格信息。
-type PrivateConnectEndpointPrice struct {
-
-    // CrossConnectPrice 交叉连接价格。
-    // 连接点类型为数据中心端口并且该数据中心支持Zenlayer协助建设交叉连接时有值。
-    CrossConnectPrice *PriceItem `json:"crossConnectPrice,omitempty"`
-
-    // CrossConnectOneTimeConstructionPrice 交叉连接一次性建设费。
-    // 连接点类型为数据中心端口并且该数据中心支持Zenlayer协助建设交叉连接时有值。
-    CrossConnectOneTimeConstructionPrice *PriceItem `json:"crossConnectOneTimeConstructionPrice,omitempty"`
-
-    // Price 价格信息。
-    Price *PriceItem `json:"price,omitempty"`
-
-    // Stock 可用库存数量。
-    Stock *int `json:"stock,omitempty"`
-
-}
-
-// QueryPrivateConnectBandwidthPriceRequest 
-type QueryPrivateConnectBandwidthPriceRequest struct {
-    *common.BaseRequest
-
-    // SourceDcId 二层网络其中一端接入点的数据中心ID。
-    SourceDcId *string `json:"sourceDcId,omitempty"`
-
-    // DestinationDcId 二层网络另外一端接入点的数据中心ID。
-    DestinationDcId *string `json:"destinationDcId,omitempty"`
-
-    // InternetType 网络计费类型。
-    // 默认值为ByBandwidth。
-    InternetType *string `json:"internetType,omitempty"`
-
-    // BandwidthMbps 二层网络专线的最大带宽限制。
-    // 默认值是10，单位：Mbps。
-    BandwidthMbps *int `json:"bandwidthMbps,omitempty"`
-
-    // ServiceLevel 二层网络专线服务等级。
-    // 默认值为SINGLE_PROTECTED。
-    ServiceLevel *string `json:"serviceLevel,omitempty"`
-
-}
-
-type QueryPrivateConnectBandwidthPriceResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *QueryPrivateConnectBandwidthPriceResponseParams `json:"response,omitempty"`
-
-}
-
-// QueryPrivateConnectBandwidthPriceResponseParams 
-type QueryPrivateConnectBandwidthPriceResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // Price 价格信息。
-    Price *PriceItem `json:"price,omitempty"`
-
-    // Stock 可用库存数量。
-    Stock *int `json:"stock,omitempty"`
-
-}
-
-// QueryCloudRouterBandwidthPriceRequest 
-type QueryCloudRouterBandwidthPriceRequest struct {
-    *common.BaseRequest
-
-    // DcId 三层网络骨干网的数据中心ID。
-    DcId *string `json:"dcId,omitempty"`
-
-    // BandwidthMbps 三层网络的最大带宽限制。
-    // 默认值是10，单位：Mbps。
-    BandwidthMbps *int `json:"bandwidthMbps,omitempty"`
-
-}
-
-type QueryCloudRouterBandwidthPriceResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *QueryCloudRouterBandwidthPriceResponseParams `json:"response,omitempty"`
-
-}
-
-// QueryCloudRouterBandwidthPriceResponseParams 
-type QueryCloudRouterBandwidthPriceResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // Price 价格信息。
-    Price *PriceItem `json:"price,omitempty"`
-
-    // Stock 可用库存数量。
-    Stock *int `json:"stock,omitempty"`
 
 }
 
@@ -1573,6 +1802,685 @@ type DescribeAWSVlanUsageResponseParams struct {
 
 }
 
+// DescribeVolcengineVlanUsageRequest 
+type DescribeVolcengineVlanUsageRequest struct {
+    *common.BaseRequest
+
+    // DcId 接入点的数据中心 ID。
+    DcId *string `json:"dcId,omitempty"`
+
+    // PairingKey 云平台配对密钥。
+    // 用于按密钥查询对应接入点的 VLAN 使用情况。
+    PairingKey *string `json:"pairingKey,omitempty"`
+
+}
+
+type DescribeVolcengineVlanUsageResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeVolcengineVlanUsageResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeVolcengineVlanUsageResponseParams 
+type DescribeVolcengineVlanUsageResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // Start 可用的 VLAN 范围起始值。
+    Start *int `json:"start,omitempty"`
+
+    // End 可用的 VLAN 范围结束值。
+    End *int `json:"end,omitempty"`
+
+    // UsedVlans 已使用的 VLAN 列表。
+    UsedVlans []int `json:"usedVlans,omitempty"`
+
+}
+
+// DescribeVolcengineRegionsRequest 
+type DescribeVolcengineRegionsRequest struct {
+    *common.BaseRequest
+
+    // Product 筛选云节点支持的产品。
+    // 可用值：PrivateConnect(二层网络)、CloudRouter(三层网络)。
+    Product *string `json:"product,omitempty"`
+
+}
+
+type DescribeVolcengineRegionsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeVolcengineRegionsResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeVolcengineRegionsResponseParams 
+type DescribeVolcengineRegionsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // CloudRegions 接入点相关的区域信息列表。
+    CloudRegions []*CloudRegion `json:"cloudRegions,omitempty"`
+
+}
+
+// DescribePrivateConnectAvailablePortsRequest 
+type DescribePrivateConnectAvailablePortsRequest struct {
+    *common.BaseRequest
+
+    // PortIds 数据中心端口 ID 列表。
+    // 用于按数据中心端口过滤。
+    PortIds []string `json:"portIds,omitempty"`
+
+    // DcId 数据中心 ID。
+    // 用于按数据中心过滤。
+    DcId *string `json:"dcId,omitempty"`
+
+    // PageSize 返回的分页大小。
+    // 默认为 20，最大为 100。
+    PageSize *int `json:"pageSize,omitempty"`
+
+    // PageNum 返回的分页页码。
+    // 默认为 1。
+    PageNum *int `json:"pageNum,omitempty"`
+
+}
+
+type DescribePrivateConnectAvailablePortsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribePrivateConnectAvailablePortsResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribePrivateConnectAvailablePortsResponseParams 
+type DescribePrivateConnectAvailablePortsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // TotalCount 符合条件的数据中心端口总数量。
+    TotalCount *int `json:"totalCount,omitempty"`
+
+    // DataSet 可加入网络的数据中心端口列表。
+    DataSet []*PortInfo `json:"dataSet,omitempty"`
+
+}
+
+// DescribePrivateConnectsRequest 
+type DescribePrivateConnectsRequest struct {
+    *common.BaseRequest
+
+    // PrivateConnectIds 二层网络专线 ID 列表。
+    // 最多支持 100 个 ID 查询。
+    PrivateConnectIds []string `json:"privateConnectIds,omitempty"`
+
+    // PrivateConnectName 二层网络专线名称。
+    // 模糊匹配。
+    PrivateConnectName *string `json:"privateConnectName,omitempty"`
+
+    // ConnectivityStatus 连通性状态过滤。
+    ConnectivityStatus *string `json:"connectivityStatus,omitempty"`
+
+    // PrivateConnectStatus 二层网络专线业务状态过滤。
+    PrivateConnectStatus *string `json:"privateConnectStatus,omitempty"`
+
+    // EndpointTypes 连接点类型过滤。
+    EndpointTypes []string `json:"endpointTypes,omitempty"`
+
+    // ResourceGroupId 资源组 ID。
+    // 不传则返回该用户可见的所有资源组内的二层网络专线。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // PageSize 返回的分页大小。
+    // 默认为 20，最大为 1000。
+    PageSize *int `json:"pageSize,omitempty"`
+
+    // PageNum 返回的分页数。
+    // 默认为 1。
+    PageNum *int `json:"pageNum,omitempty"`
+
+    // TagKeys 根据标签键进行搜索。
+    // 最长不得超过20个标签键。
+    TagKeys []string `json:"tagKeys,omitempty"`
+
+    // Tags 根据标签进行搜索。
+    // 最长不得超过20个标签。
+    Tags []*Tag `json:"tags,omitempty"`
+
+}
+
+type DescribePrivateConnectsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribePrivateConnectsResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribePrivateConnectsResponseParams 
+type DescribePrivateConnectsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // TotalCount 符合条件的二层网络专线总数量。
+    TotalCount *int `json:"totalCount,omitempty"`
+
+    // DataSet 二层网络专线列表。
+    DataSet []*PrivateConnect `json:"dataSet,omitempty"`
+
+}
+
+// PrivateConnect 二层网络专线的详细信息。
+type PrivateConnect struct {
+
+    // PrivateConnectId 二层网络专线 ID。
+    PrivateConnectId *string `json:"privateConnectId,omitempty"`
+
+    // PrivateConnectName 二层网络专线名称。
+    PrivateConnectName *string `json:"privateConnectName,omitempty"`
+
+    // ConnectivityStatus 连通性状态。
+    ConnectivityStatus *string `json:"connectivityStatus,omitempty"`
+
+    // PrivateConnectStatus 二层网络专线业务状态。
+    PrivateConnectStatus *string `json:"privateConnectStatus,omitempty"`
+
+    // BandwidthMbps 最大带宽限制。
+    // 单位：Mbps。
+    BandwidthMbps *int64 `json:"bandwidthMbps,omitempty"`
+
+    // ResourceGroupId 资源组 ID。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // ResourceGroupName 资源组名称。
+    ResourceGroupName *string `json:"resourceGroupName,omitempty"`
+
+    // CreateTime 创建时间。
+    CreateTime *string `json:"createTime,omitempty"`
+
+    // ExpiredTime 到期时间。
+    ExpiredTime *string `json:"expiredTime,omitempty"`
+
+    // RecycledTime 回收时间。
+    RecycledTime *string `json:"recycledTime,omitempty"`
+
+    // EndpointA 二层网络专线一端的连接点（A）。
+    EndpointA *PrivateConnectEndpoint `json:"endpointA,omitempty"`
+
+    // EndpointZ 二层网络专线另一端的连接点（Z）。
+    EndpointZ *PrivateConnectEndpoint `json:"endpointZ,omitempty"`
+
+    // Source 业务来源。
+    Source *string `json:"source,omitempty"`
+
+    // Tags 关联的标签。
+    Tags *Tags `json:"tags,omitempty"`
+
+}
+
+// PrivateConnectEndpoint 二层网络专线连接点的详细信息。
+type PrivateConnectEndpoint struct {
+
+    // EndpointId 连接点 ID。
+    EndpointId *string `json:"endpointId,omitempty"`
+
+    // EndpointName 连接点名称。
+    EndpointName *string `json:"endpointName,omitempty"`
+
+    // EndpointType 连接点类型。
+    EndpointType *string `json:"endpointType,omitempty"`
+
+    // ConnectivityStatus 连通性状态。
+    ConnectivityStatus *string `json:"connectivityStatus,omitempty"`
+
+    // VlanId VLAN ID。
+    VlanId *int `json:"vlanId,omitempty"`
+
+    // DataCenter 数据中心信息。
+    DataCenter *DatacenterInfo `json:"dataCenter,omitempty"`
+
+    // CloudRegionId 云地域 ID。
+    // 连接点为云连接时返回。
+    CloudRegionId *string `json:"cloudRegionId,omitempty"`
+
+    // CloudAccountId 云账号 ID。
+    // 连接点为云连接时返回。
+    CloudAccountId *string `json:"cloudAccountId,omitempty"`
+
+    // SharedChannelId 共享通道ID。
+    // 公有云接入点对应的云侧连接标识，仅公有云类型接入点时有值。
+    SharedChannelId *string `json:"sharedChannelId,omitempty"`
+
+}
+
+// InquiryCreatePrivateConnectPriceRequest 
+type InquiryCreatePrivateConnectPriceRequest struct {
+    *common.BaseRequest
+
+    // BandwidthMbps 二层网络专线最大带宽限制。
+    // 默认为 1，单位：Mbps。
+    BandwidthMbps *int `json:"bandwidthMbps,omitempty"`
+
+    // InternetType 网络计费方式。
+    InternetType *string `json:"internetType,omitempty"`
+
+    // CommitBandwidth 保底带宽。
+    // 单位：Mbps。
+    CommitBandwidth *int `json:"commitBandwidth,omitempty"`
+
+    // EndpointA 二层网络专线一端的连接点（A）。
+    EndpointA *CreateEndpointParam `json:"endpointA,omitempty"`
+
+    // EndpointZ 二层网络专线另一端的连接点（Z）。
+    EndpointZ *CreateEndpointParam `json:"endpointZ,omitempty"`
+
+}
+
+// CreateEndpointParam 创建二层网络专线时连接点的参数。
+type CreateEndpointParam struct {
+
+    // PortId 数据中心端口 ID。
+    // 连接点为数据中心端口时使用。
+    PortId *string `json:"portId,omitempty"`
+
+    // VlanId VLAN ID。
+    VlanId *int `json:"vlanId,omitempty"`
+
+    // CloudRegionId 云地域 ID。
+    // 连接点为云连接时使用。
+    CloudRegionId *string `json:"cloudRegionId,omitempty"`
+
+    // CloudAccountId 云账号 ID。
+    // 连接点为云连接时使用。
+    CloudAccountId *string `json:"cloudAccountId,omitempty"`
+
+    // HaType 云连接高可用类型。
+    HaType *string `json:"haType,omitempty"`
+
+    // CloudBandwidthMbps 云连接带宽限制。
+    // 单位：Mbps。
+    CloudBandwidthMbps *int `json:"cloudBandwidthMbps,omitempty"`
+
+    // DcId 数据中心 ID。
+    DcId *string `json:"dcId,omitempty"`
+
+    // CloudType 云厂商类型。
+    CloudType *string `json:"cloudType,omitempty"`
+
+    // EndpointName 连接点名称。
+    // 仅允许字母、数字和连字符。
+    EndpointName *string `json:"endpointName,omitempty"`
+
+}
+
+type InquiryCreatePrivateConnectPriceResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *InquiryCreatePrivateConnectPriceResponseParams `json:"response,omitempty"`
+
+}
+
+// InquiryCreatePrivateConnectPriceResponseParams 
+type InquiryCreatePrivateConnectPriceResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // PrivateConnectPrice 二层网络专线带宽价格。
+    PrivateConnectPrice *PriceItem `json:"privateConnectPrice,omitempty"`
+
+    // PrivateConnectBandwidth 二层网络专线带宽。
+    PrivateConnectBandwidth *int `json:"privateConnectBandwidth,omitempty"`
+
+    // EndpointAPrice A 端连接点的建设价格。
+    EndpointAPrice *PriceItem `json:"endpointAPrice,omitempty"`
+
+    // EndpointABandwidth A 端连接点带宽。
+    EndpointABandwidth *int `json:"endpointABandwidth,omitempty"`
+
+    // EndpointZPrice Z 端连接点的建设价格。
+    EndpointZPrice *PriceItem `json:"endpointZPrice,omitempty"`
+
+    // EndpointZBandwidth Z 端连接点带宽。
+    EndpointZBandwidth *int `json:"endpointZBandwidth,omitempty"`
+
+}
+
+// CreatePrivateConnectRequest 
+type CreatePrivateConnectRequest struct {
+    *common.BaseRequest
+
+    // PrivateConnectName 二层网络专线名称。
+    // 长度不超过 255，默认为 private-connect-{当前时间戳}。
+    PrivateConnectName *string `json:"privateConnectName,omitempty"`
+
+    // BandwidthMbps 二层网络专线最大带宽限制。
+    // 单位：Mbps。
+    BandwidthMbps *int `json:"bandwidthMbps,omitempty"`
+
+    // ResourceGroupId 资源组 ID。
+    // 不传则放入默认资源组。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // EndpointA 二层网络专线一端的连接点（A）。
+    EndpointA *CreateEndpointParam `json:"endpointA,omitempty"`
+
+    // EndpointZ 二层网络专线另一端的连接点（Z）。
+    EndpointZ *CreateEndpointParam `json:"endpointZ,omitempty"`
+
+    // Tags 创建二层网络专线时关联的标签。
+    // 注意：关联`标签键`不能重复。
+    Tags *TagAssociation `json:"tags,omitempty"`
+
+    // MarketingOptions 市场营销活动相关信息。
+    MarketingOptions *MarketingInfo `json:"marketingOptions,omitempty"`
+
+}
+
+type CreatePrivateConnectResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *CreatePrivateConnectResponseParams `json:"response,omitempty"`
+
+}
+
+// CreatePrivateConnectResponseParams 
+type CreatePrivateConnectResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // OrderNumber 订单号。
+    OrderNumber *string `json:"orderNumber,omitempty"`
+
+    // PrivateConnectId 二层网络专线 ID。
+    PrivateConnectId *string `json:"privateConnectId,omitempty"`
+
+}
+
+// ModifyPrivateConnectsAttributeRequest 
+type ModifyPrivateConnectsAttributeRequest struct {
+    *common.BaseRequest
+
+    // PrivateConnectIds 二层网络专线 ID 列表。
+    // 数量不得超过 100。
+    PrivateConnectIds []string `json:"privateConnectIds,omitempty"`
+
+    // PrivateConnectName 二层网络专线名称。
+    // 长度不得超过 255。
+    PrivateConnectName *string `json:"privateConnectName,omitempty"`
+
+}
+
+type ModifyPrivateConnectsAttributeResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// ModifyPrivateConnectBandwidthRequest 
+type ModifyPrivateConnectBandwidthRequest struct {
+    *common.BaseRequest
+
+    // PrivateConnectId 二层网络专线 ID。
+    PrivateConnectId *string `json:"privateConnectId,omitempty"`
+
+    // BandwidthMbps 需要修改的带宽限速。
+    // 单位：Mbps。
+    BandwidthMbps *int `json:"bandwidthMbps,omitempty"`
+
+}
+
+type ModifyPrivateConnectBandwidthResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// RenewPrivateConnectRequest 
+type RenewPrivateConnectRequest struct {
+    *common.BaseRequest
+
+    // PrivateConnectId 二层网络专线 ID。
+    PrivateConnectId *string `json:"privateConnectId,omitempty"`
+
+}
+
+type RenewPrivateConnectResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// DeletePrivateConnectRequest 
+type DeletePrivateConnectRequest struct {
+    *common.BaseRequest
+
+    // PrivateConnectId 二层网络专线 ID。
+    PrivateConnectId *string `json:"privateConnectId,omitempty"`
+
+}
+
+type DeletePrivateConnectResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// DestroyPrivateConnectRequest 
+type DestroyPrivateConnectRequest struct {
+    *common.BaseRequest
+
+    // PrivateConnectId 二层网络专线 ID。
+    PrivateConnectId *string `json:"privateConnectId,omitempty"`
+
+}
+
+type DestroyPrivateConnectResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// DescribePrivateConnectTrafficRequest 
+type DescribePrivateConnectTrafficRequest struct {
+    *common.BaseRequest
+
+    // PrivateConnectId 二层网络专线 ID。
+    PrivateConnectId *string `json:"privateConnectId,omitempty"`
+
+    // StartTime 查询开始时间。
+    // ISO8601 UTC 格式：YYYY-MM-DDThh:mm:ssZ。
+    StartTime *string `json:"startTime,omitempty"`
+
+    // EndTime 查询结束时间。
+    // ISO8601 UTC 格式：YYYY-MM-DDThh:mm:ssZ，默认为当前时间。
+    EndTime *string `json:"endTime,omitempty"`
+
+}
+
+type DescribePrivateConnectTrafficResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribePrivateConnectTrafficResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribePrivateConnectTrafficResponseParams 
+type DescribePrivateConnectTrafficResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // DataList 流量明细数据列表。
+    DataList []*TrafficData `json:"dataList,omitempty"`
+
+    // In95 入方向 95 峰值流量。
+    In95 *int64 `json:"in95,omitempty"`
+
+    // InAvg 入方向平均流量。
+    InAvg *int64 `json:"inAvg,omitempty"`
+
+    // InMax 入方向最大流量。
+    InMax *int64 `json:"inMax,omitempty"`
+
+    // InMin 入方向最小流量。
+    InMin *int64 `json:"inMin,omitempty"`
+
+    // Out95 出方向 95 峰值流量。
+    Out95 *int64 `json:"out95,omitempty"`
+
+    // OutAvg 出方向平均流量。
+    OutAvg *int64 `json:"outAvg,omitempty"`
+
+    // OutMax 出方向最大流量。
+    OutMax *int64 `json:"outMax,omitempty"`
+
+    // OutMin 出方向最小流量。
+    OutMin *int64 `json:"outMin,omitempty"`
+
+    // Unit 流量单位。
+    // 如 bps。
+    Unit *string `json:"unit,omitempty"`
+
+}
+
+// DescribeCloudRouterAvailablePortsRequest 
+type DescribeCloudRouterAvailablePortsRequest struct {
+    *common.BaseRequest
+
+    // PortIds 数据中心端口 ID 列表。
+    // 用于按数据中心端口过滤。
+    PortIds []string `json:"portIds,omitempty"`
+
+    // DcId 数据中心 ID。
+    // 用于按数据中心过滤。
+    DcId *string `json:"dcId,omitempty"`
+
+    // PageSize 返回的分页大小。
+    // 默认为 20，最大为 100。
+    PageSize *int `json:"pageSize,omitempty"`
+
+    // PageNum 返回的分页页码。
+    // 默认为 1。
+    PageNum *int `json:"pageNum,omitempty"`
+
+}
+
+type DescribeCloudRouterAvailablePortsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeCloudRouterAvailablePortsResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeCloudRouterAvailablePortsResponseParams 
+type DescribeCloudRouterAvailablePortsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // TotalCount 符合条件的数据中心端口总数量。
+    TotalCount *int `json:"totalCount,omitempty"`
+
+    // DataSet 可加入网络的数据中心端口列表。
+    DataSet []*PortInfo `json:"dataSet,omitempty"`
+
+}
+
+// DescribeCloudRouterAvailableVpcsRequest 
+type DescribeCloudRouterAvailableVpcsRequest struct {
+    *common.BaseRequest
+
+    // VpcId VPC ID。
+    VpcId *string `json:"vpcId,omitempty"`
+
+    // PageSize 返回的分页大小。
+    // 默认为 20，最大为 100。
+    PageSize *int `json:"pageSize,omitempty"`
+
+    // PageNum 返回的分页页码。
+    // 默认为 1。
+    PageNum *int `json:"pageNum,omitempty"`
+
+}
+
+type DescribeCloudRouterAvailableVpcsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeCloudRouterAvailableVpcsResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeCloudRouterAvailableVpcsResponseParams 
+type DescribeCloudRouterAvailableVpcsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // TotalCount 符合条件的 VPC 总数量。
+    TotalCount *int `json:"totalCount,omitempty"`
+
+    // DataSet 可加入三层网络的 VPC 列表。
+    DataSet []*CloudRouterAvailableVpc `json:"dataSet,omitempty"`
+
+}
+
+// CloudRouterAvailableVpc 可加入三层网络的 VPC 信息。
+type CloudRouterAvailableVpc struct {
+
+    // VpcId VPC 的 ID。
+    VpcId *string `json:"vpcId,omitempty"`
+
+    // VpcName VPC 的名称。
+    VpcName *string `json:"vpcName,omitempty"`
+
+    // DataCenter VPC 所在的数据中心信息。
+    DataCenter *DatacenterInfo `json:"dataCenter,omitempty"`
+
+    // CidrBlock VPC 的 CIDR 网段。
+    CidrBlock *string `json:"cidrBlock,omitempty"`
+
+}
+
 // CreateCloudRouterRequest 
 type CreateCloudRouterRequest struct {
     *common.BaseRequest
@@ -1782,449 +2690,6 @@ type CreateCloudRouterResponseParams struct {
 
 }
 
-// DeleteCloudRouterEdgePointRequest 
-type DeleteCloudRouterEdgePointRequest struct {
-    *common.BaseRequest
-
-    // CloudRouterId 连接点所在的三层网络 ID。
-    CloudRouterId *string `json:"cloudRouterId,omitempty"`
-
-    // EdgePointId 要移除的连接点 ID。
-    EdgePointId *string `json:"edgePointId,omitempty"`
-
-}
-
-type DeleteCloudRouterEdgePointResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// AddCloudRouterEdgePointsRequest 
-type AddCloudRouterEdgePointsRequest struct {
-    *common.BaseRequest
-
-    // CloudRouterId 三层网络的 ID。
-    CloudRouterId *string `json:"cloudRouterId,omitempty"`
-
-    // EdgePoints 新增的边缘连接点信息。
-    EdgePoints []*CreateCloudRouterEdgePoint `json:"edgePoints,omitempty"`
-
-}
-
-type AddCloudRouterEdgePointsResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *AddCloudRouterEdgePointsResponseParams `json:"response,omitempty"`
-
-}
-
-// AddCloudRouterEdgePointsResponseParams 
-type AddCloudRouterEdgePointsResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // EdgePointIds 新增的连接点 ID 列表。
-    // 顺序与请求中的连接点保持一致。
-    EdgePointIds []string `json:"edgePointIds,omitempty"`
-
-}
-
-// ModifyCloudRoutersAttributeRequest 
-type ModifyCloudRoutersAttributeRequest struct {
-    *common.BaseRequest
-
-    // CloudRouterIds 三层网络的 ID 列表。
-    // 数量不超过 100。
-    CloudRouterIds []string `json:"cloudRouterIds,omitempty"`
-
-    // CloudRouterName 三层网络名称。
-    // 长度不超过 255，名称和描述至少指定其一。
-    CloudRouterName *string `json:"cloudRouterName,omitempty"`
-
-    // CloudRouterDescription 三层网络描述信息。
-    // 长度不超过 255，名称和描述至少指定其一。
-    CloudRouterDescription *string `json:"cloudRouterDescription,omitempty"`
-
-}
-
-type ModifyCloudRoutersAttributeResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// DescribeCloudRouterAvailableVpcsRequest 
-type DescribeCloudRouterAvailableVpcsRequest struct {
-    *common.BaseRequest
-
-    // VpcId VPC ID。
-    VpcId *string `json:"vpcId,omitempty"`
-
-    // PageSize 返回的分页大小。
-    // 默认为 20，最大为 100。
-    PageSize *int `json:"pageSize,omitempty"`
-
-    // PageNum 返回的分页页码。
-    // 默认为 1。
-    PageNum *int `json:"pageNum,omitempty"`
-
-}
-
-type DescribeCloudRouterAvailableVpcsResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeCloudRouterAvailableVpcsResponseParams `json:"response,omitempty"`
-
-}
-
-// DescribeCloudRouterAvailableVpcsResponseParams 
-type DescribeCloudRouterAvailableVpcsResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // TotalCount 符合条件的 VPC 总数量。
-    TotalCount *int `json:"totalCount,omitempty"`
-
-    // DataSet 可加入三层网络的 VPC 列表。
-    DataSet []*CloudRouterAvailableVpc `json:"dataSet,omitempty"`
-
-}
-
-// CloudRouterAvailableVpc 可加入三层网络的 VPC 信息。
-type CloudRouterAvailableVpc struct {
-
-    // VpcId VPC 的 ID。
-    VpcId *string `json:"vpcId,omitempty"`
-
-    // VpcName VPC 的名称。
-    VpcName *string `json:"vpcName,omitempty"`
-
-    // DataCenter VPC 所在的数据中心信息。
-    DataCenter *DatacenterInfo `json:"dataCenter,omitempty"`
-
-    // CidrBlock VPC 的 CIDR 网段。
-    CidrBlock *string `json:"cidrBlock,omitempty"`
-
-}
-
-// DescribeCloudRouterEdgePointTrafficRequest 
-type DescribeCloudRouterEdgePointTrafficRequest struct {
-    *common.BaseRequest
-
-    // EdgePointId 三层网络连接点的 ID。
-    EdgePointId *string `json:"edgePointId,omitempty"`
-
-    // StartTime 查询开始时间。
-    // ISO8601 格式，UTC 时区。
-    StartTime *string `json:"startTime,omitempty"`
-
-    // EndTime 查询结束时间。
-    // ISO8601 格式，UTC 时区，默认为当前时间。
-    EndTime *string `json:"endTime,omitempty"`
-
-}
-
-type DescribeCloudRouterEdgePointTrafficResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeCloudRouterEdgePointTrafficResponseParams `json:"response,omitempty"`
-
-}
-
-// DescribeCloudRouterEdgePointTrafficResponseParams 
-type DescribeCloudRouterEdgePointTrafficResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // DataList 流量明细数据列表。
-    DataList []*TrafficData `json:"dataList,omitempty"`
-
-    // In95 入方向 95 峰值流量。
-    In95 *int64 `json:"in95,omitempty"`
-
-    // InAvg 入方向平均流量。
-    InAvg *int64 `json:"inAvg,omitempty"`
-
-    // InMax 入方向最大流量。
-    InMax *int64 `json:"inMax,omitempty"`
-
-    // InMin 入方向最小流量。
-    InMin *int64 `json:"inMin,omitempty"`
-
-    // Out95 出方向 95 峰值流量。
-    Out95 *int64 `json:"out95,omitempty"`
-
-    // OutAvg 出方向平均流量。
-    OutAvg *int64 `json:"outAvg,omitempty"`
-
-    // OutMax 出方向最大流量。
-    OutMax *int64 `json:"outMax,omitempty"`
-
-    // OutMin 出方向最小流量。
-    OutMin *int64 `json:"outMin,omitempty"`
-
-    // Unit 流量单位。
-    // 如 bps。
-    Unit *string `json:"unit,omitempty"`
-
-}
-
-// DescribeCloudRouterDCToDCTrafficRequest 
-type DescribeCloudRouterDCToDCTrafficRequest struct {
-    *common.BaseRequest
-
-    // CloudRouterId 三层网络的 ID。
-    CloudRouterId *string `json:"cloudRouterId,omitempty"`
-
-    // SourceDcId 源数据中心 ID。
-    SourceDcId *string `json:"sourceDcId,omitempty"`
-
-    // DestinationDcId 目的数据中心 ID。
-    DestinationDcId *string `json:"destinationDcId,omitempty"`
-
-    // StartTime 查询开始时间。
-    // ISO8601 格式，UTC 时区。
-    StartTime *string `json:"startTime,omitempty"`
-
-    // EndTime 查询结束时间。
-    // ISO8601 格式，UTC 时区，默认为当前时间。
-    EndTime *string `json:"endTime,omitempty"`
-
-}
-
-type DescribeCloudRouterDCToDCTrafficResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeCloudRouterDCToDCTrafficResponseParams `json:"response,omitempty"`
-
-}
-
-// DescribeCloudRouterDCToDCTrafficResponseParams 
-type DescribeCloudRouterDCToDCTrafficResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // DataList 流量明细数据列表。
-    DataList []*TrafficData `json:"dataList,omitempty"`
-
-    // In95 入方向 95 峰值流量。
-    In95 *int64 `json:"in95,omitempty"`
-
-    // InAvg 入方向平均流量。
-    InAvg *int64 `json:"inAvg,omitempty"`
-
-    // InMax 入方向最大流量。
-    InMax *int64 `json:"inMax,omitempty"`
-
-    // InMin 入方向最小流量。
-    InMin *int64 `json:"inMin,omitempty"`
-
-    // Out95 出方向 95 峰值流量。
-    Out95 *int64 `json:"out95,omitempty"`
-
-    // OutAvg 出方向平均流量。
-    OutAvg *int64 `json:"outAvg,omitempty"`
-
-    // OutMax 出方向最大流量。
-    OutMax *int64 `json:"outMax,omitempty"`
-
-    // OutMin 出方向最小流量。
-    OutMin *int64 `json:"outMin,omitempty"`
-
-    // Unit 流量单位。
-    // 如 bps。
-    Unit *string `json:"unit,omitempty"`
-
-}
-
-// ModifyCloudRouterEdgePointBandwidthRequest 
-type ModifyCloudRouterEdgePointBandwidthRequest struct {
-    *common.BaseRequest
-
-    // CloudRouterId 连接点关联的三层网络 ID。
-    CloudRouterId *string `json:"cloudRouterId,omitempty"`
-
-    // EdgePointId 三层网络连接点的 ID。
-    EdgePointId *string `json:"edgePointId,omitempty"`
-
-    // BandwidthMbps 需要修改的带宽限速。
-    // 单位 Mbps，取值范围 1-500。
-    BandwidthMbps *int `json:"bandwidthMbps,omitempty"`
-
-}
-
-type ModifyCloudRouterEdgePointBandwidthResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// ModifyCloudRouterEdgePointRequest 
-type ModifyCloudRouterEdgePointRequest struct {
-    *common.BaseRequest
-
-    // CloudRouterId 连接点关联的三层网络 ID。
-    CloudRouterId *string `json:"cloudRouterId,omitempty"`
-
-    // EdgePointId 三层网络连接点的 ID。
-    EdgePointId *string `json:"edgePointId,omitempty"`
-
-    // BandwidthMbps 需要修改的带宽限速。
-    // 单位 Mbps，取值范围 1-500。
-    BandwidthMbps *int `json:"bandwidthMbps,omitempty"`
-
-    // IpAddress 连接点的互联 IP 地址。
-    IpAddress *string `json:"ipAddress,omitempty"`
-
-    // BgpConnection BGP 连接配置。
-    // 与静态路由二选一。
-    BgpConnection *BGPConnection `json:"bgpConnection,omitempty"`
-
-    // StaticRoutes 静态路由配置。
-    // 与 BGP 连接二选一。
-    StaticRoutes []*IPRoute `json:"staticRoutes,omitempty"`
-
-}
-
-type ModifyCloudRouterEdgePointResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// DeleteCloudRouterRequest 
-type DeleteCloudRouterRequest struct {
-    *common.BaseRequest
-
-    // CloudRouterId 三层网络的 ID。
-    CloudRouterId *string `json:"cloudRouterId,omitempty"`
-
-}
-
-type DeleteCloudRouterResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// DestroyCloudRouterRequest 
-type DestroyCloudRouterRequest struct {
-    *common.BaseRequest
-
-    // CloudRouterId 三层网络的 ID。
-    CloudRouterId *string `json:"cloudRouterId,omitempty"`
-
-}
-
-type DestroyCloudRouterResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// RenewCloudRouterRequest 
-type RenewCloudRouterRequest struct {
-    *common.BaseRequest
-
-    // CloudRouterId 三层网络的 ID。
-    CloudRouterId *string `json:"cloudRouterId,omitempty"`
-
-}
-
-type RenewCloudRouterResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// DescribeCloudRouterAvailablePortsRequest 
-type DescribeCloudRouterAvailablePortsRequest struct {
-    *common.BaseRequest
-
-    // PortIds 数据中心端口 ID 列表。
-    // 用于按数据中心端口过滤。
-    PortIds []string `json:"portIds,omitempty"`
-
-    // DcId 数据中心 ID。
-    // 用于按数据中心过滤。
-    DcId *string `json:"dcId,omitempty"`
-
-    // PageSize 返回的分页大小。
-    // 默认为 20，最大为 100。
-    PageSize *int `json:"pageSize,omitempty"`
-
-    // PageNum 返回的分页页码。
-    // 默认为 1。
-    PageNum *int `json:"pageNum,omitempty"`
-
-}
-
-type DescribeCloudRouterAvailablePortsResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeCloudRouterAvailablePortsResponseParams `json:"response,omitempty"`
-
-}
-
-// DescribeCloudRouterAvailablePortsResponseParams 
-type DescribeCloudRouterAvailablePortsResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // TotalCount 符合条件的数据中心端口总数量。
-    TotalCount *int `json:"totalCount,omitempty"`
-
-    // DataSet 可加入网络的数据中心端口列表。
-    DataSet []*PortInfo `json:"dataSet,omitempty"`
-
-}
-
 // DescribeCloudRoutersRequest 
 type DescribeCloudRoutersRequest struct {
     *common.BaseRequest
@@ -2399,487 +2864,57 @@ type CloudRouterEdgePoint struct {
 
 }
 
-// DescribeDatacentersRequest 
-type DescribeDatacentersRequest struct {
+// AddCloudRouterEdgePointsRequest 
+type AddCloudRouterEdgePointsRequest struct {
     *common.BaseRequest
 
-    // DcIds 数据中心ID列表。
-    DcIds []string `json:"dcIds,omitempty"`
+    // CloudRouterId 三层网络的 ID。
+    CloudRouterId *string `json:"cloudRouterId,omitempty"`
 
-    // IsPortAvailable 筛选是否支持新建数据中心端口的 DC（true：支持，false：不支持）。
-    IsPortAvailable *bool `json:"isPortAvailable,omitempty"`
+    // EdgePoints 新增的边缘连接点信息。
+    EdgePoints []*CreateCloudRouterEdgePoint `json:"edgePoints,omitempty"`
 
 }
 
-type DescribeDatacentersResponse struct {
+type AddCloudRouterEdgePointsResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
 
-    Response *DescribeDatacentersResponseParams `json:"response,omitempty"`
+    Response *AddCloudRouterEdgePointsResponseParams `json:"response,omitempty"`
 
 }
 
-// DescribeDatacentersResponseParams 
-type DescribeDatacentersResponseParams struct {
+// AddCloudRouterEdgePointsResponseParams 
+type AddCloudRouterEdgePointsResponseParams struct {
 
     RequestId *string `json:"requestId,omitempty"`
 
-    // DcSet 结果集。
-    DcSet []*DataCenterAssemble `json:"dcSet,omitempty"`
+    // EdgePointIds 新增的连接点 ID 列表。
+    // 顺序与请求中的连接点保持一致。
+    EdgePointIds []string `json:"edgePointIds,omitempty"`
 
 }
 
-// DataCenterAssemble 描述数据中心的基本信息，包括位置、坐标及数据中心端口可用带宽等。
-type DataCenterAssemble struct {
-
-    // DcId 数据中心 ID。
-    DcId *string `json:"dcId,omitempty"`
-
-    // DcName 数据中心名称。
-    DcName *string `json:"dcName,omitempty"`
-
-    // DcAddress 数据中心地址。
-    DcAddress *string `json:"dcAddress,omitempty"`
-
-    // CityName 所在城市名称。
-    CityName *string `json:"cityName,omitempty"`
-
-    // CountryName 所在国家名称。
-    CountryName *string `json:"countryName,omitempty"`
-
-    // AreaName 所在大区名称。
-    AreaName *string `json:"areaName,omitempty"`
-
-    // Latitude 纬度。
-    Latitude *float64 `json:"latitude,omitempty"`
-
-    // Longitude 经度。
-    Longitude *float64 `json:"longitude,omitempty"`
-
-    // IsPortAvailable 是否支持新建数据中心端口。
-    IsPortAvailable *bool `json:"isPortAvailable,omitempty"`
-
-    // AvailableBandwidth 可用带宽（Mbps）。
-    AvailableBandwidth *int `json:"availableBandwidth,omitempty"`
-
-    // RegionId 节点 ID。
-    RegionId *string `json:"regionId,omitempty"`
-
-}
-
-// DescribeVirtualEdgeDatacentersRequest 
-type DescribeVirtualEdgeDatacentersRequest struct {
+// ModifyCloudRoutersAttributeRequest 
+type ModifyCloudRoutersAttributeRequest struct {
     *common.BaseRequest
 
-    // PrimaryDcId 主数据中心 ID。
-    // IPSec 接入类型且需要高可用时，用于过滤可用备机房。
-    PrimaryDcId *string `json:"primaryDcId,omitempty"`
+    // CloudRouterIds 三层网络的 ID 列表。
+    // 数量不超过 100。
+    CloudRouterIds []string `json:"cloudRouterIds,omitempty"`
+
+    // CloudRouterName 三层网络名称。
+    // 长度不超过 255，名称和描述至少指定其一。
+    CloudRouterName *string `json:"cloudRouterName,omitempty"`
+
+    // CloudRouterDescription 三层网络描述信息。
+    // 长度不超过 255，名称和描述至少指定其一。
+    CloudRouterDescription *string `json:"cloudRouterDescription,omitempty"`
 
 }
 
-type DescribeVirtualEdgeDatacentersResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeVirtualEdgeDatacentersResponseParams `json:"response,omitempty"`
-
-}
-
-// DescribeVirtualEdgeDatacentersResponseParams 
-type DescribeVirtualEdgeDatacentersResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // DcSet 结果集。
-    DcSet []*DataCenterAssemble `json:"dcSet,omitempty"`
-
-}
-
-// DescribeBorderGatewayDatacentersRequest 
-type DescribeBorderGatewayDatacentersRequest struct {
-    *common.BaseRequest
-
-    // DcId 数据中心 ID。
-    DcId *string `json:"dcId,omitempty"`
-
-    // RegionId 节点 ID。
-    RegionId *string `json:"regionId,omitempty"`
-
-}
-
-type DescribeBorderGatewayDatacentersResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeBorderGatewayDatacentersResponseParams `json:"response,omitempty"`
-
-}
-
-// DescribeBorderGatewayDatacentersResponseParams 
-type DescribeBorderGatewayDatacentersResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // DcSet 结果集。
-    DcSet []*DataCenterAssemble `json:"dcSet,omitempty"`
-
-}
-
-// DescribeVPCDatacentersRequest 
-type DescribeVPCDatacentersRequest struct {
-    *common.BaseRequest
-
-    // DcId 数据中心 ID。
-    DcId *string `json:"dcId,omitempty"`
-
-    // RegionId VPC 的节点 ID。
-    RegionId *string `json:"regionId,omitempty"`
-
-}
-
-type DescribeVPCDatacentersResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeVPCDatacentersResponseParams `json:"response,omitempty"`
-
-}
-
-// DescribeVPCDatacentersResponseParams 
-type DescribeVPCDatacentersResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // DcSet 结果集。
-    DcSet []*DataCenterAssemble `json:"dcSet,omitempty"`
-
-}
-
-// DescribeDatacentersWithServiceRequest 
-type DescribeDatacentersWithServiceRequest struct {
-    *common.BaseRequest
-
-    // CloudRegionId 公有云区域 ID。
-    CloudRegionId *string `json:"cloudRegionId,omitempty"`
-
-    // DcId 数据中心 ID。
-    DcId *string `json:"dcId,omitempty"`
-
-    // ServiceType 服务类型。
-    ServiceType *string `json:"serviceType,omitempty"`
-
-}
-
-type DescribeDatacentersWithServiceResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeDatacentersWithServiceResponseParams `json:"response,omitempty"`
-
-}
-
-// DescribeDatacentersWithServiceResponseParams 
-type DescribeDatacentersWithServiceResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // DcSet 结果集。
-    DcSet []*DataCenterWithServiceResponse `json:"dcSet,omitempty"`
-
-}
-
-// DataCenterWithServiceResponse 带服务类型信息的数据中心详情。
-type DataCenterWithServiceResponse struct {
-
-    // DcId 数据中心 ID。
-    DcId *string `json:"dcId,omitempty"`
-
-    // DcName 数据中心名称。
-    DcName *string `json:"dcName,omitempty"`
-
-    // DcAddress 数据中心地址。
-    DcAddress *string `json:"dcAddress,omitempty"`
-
-    // CityName 所在城市名称。
-    CityName *string `json:"cityName,omitempty"`
-
-    // CountryName 所在国家名称。
-    CountryName *string `json:"countryName,omitempty"`
-
-    // AreaName 所在大区名称。
-    AreaName *string `json:"areaName,omitempty"`
-
-    // Latitude 纬度。
-    Latitude *float64 `json:"latitude,omitempty"`
-
-    // Longitude 经度。
-    Longitude *float64 `json:"longitude,omitempty"`
-
-    // CloudRegionId 公有云区域 ID。
-    CloudRegionId *string `json:"cloudRegionId,omitempty"`
-
-    // ServiceTypes 支持的服务类型集合。
-    ServiceTypes []string `json:"serviceTypes,omitempty"`
-
-}
-
-// DescribePrivateConnectsRequest 
-type DescribePrivateConnectsRequest struct {
-    *common.BaseRequest
-
-    // PrivateConnectIds 二层网络专线 ID 列表。
-    // 最多支持 100 个 ID 查询。
-    PrivateConnectIds []string `json:"privateConnectIds,omitempty"`
-
-    // PrivateConnectName 二层网络专线名称。
-    // 模糊匹配。
-    PrivateConnectName *string `json:"privateConnectName,omitempty"`
-
-    // ConnectivityStatus 连通性状态过滤。
-    ConnectivityStatus *string `json:"connectivityStatus,omitempty"`
-
-    // PrivateConnectStatus 二层网络专线业务状态过滤。
-    PrivateConnectStatus *string `json:"privateConnectStatus,omitempty"`
-
-    // EndpointTypes 连接点类型过滤。
-    EndpointTypes []string `json:"endpointTypes,omitempty"`
-
-    // ResourceGroupId 资源组 ID。
-    // 不传则返回该用户可见的所有资源组内的二层网络专线。
-    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
-
-    // PageSize 返回的分页大小。
-    // 默认为 20，最大为 1000。
-    PageSize *int `json:"pageSize,omitempty"`
-
-    // PageNum 返回的分页数。
-    // 默认为 1。
-    PageNum *int `json:"pageNum,omitempty"`
-
-    // TagKeys 根据标签键进行搜索。
-    // 最长不得超过20个标签键。
-    TagKeys []string `json:"tagKeys,omitempty"`
-
-    // Tags 根据标签进行搜索。
-    // 最长不得超过20个标签。
-    Tags []*Tag `json:"tags,omitempty"`
-
-}
-
-type DescribePrivateConnectsResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribePrivateConnectsResponseParams `json:"response,omitempty"`
-
-}
-
-// DescribePrivateConnectsResponseParams 
-type DescribePrivateConnectsResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // TotalCount 符合条件的二层网络专线总数量。
-    TotalCount *int `json:"totalCount,omitempty"`
-
-    // DataSet 二层网络专线列表。
-    DataSet []*PrivateConnect `json:"dataSet,omitempty"`
-
-}
-
-// PrivateConnect 二层网络专线的详细信息。
-type PrivateConnect struct {
-
-    // PrivateConnectId 二层网络专线 ID。
-    PrivateConnectId *string `json:"privateConnectId,omitempty"`
-
-    // PrivateConnectName 二层网络专线名称。
-    PrivateConnectName *string `json:"privateConnectName,omitempty"`
-
-    // ConnectivityStatus 连通性状态。
-    ConnectivityStatus *string `json:"connectivityStatus,omitempty"`
-
-    // PrivateConnectStatus 二层网络专线业务状态。
-    PrivateConnectStatus *string `json:"privateConnectStatus,omitempty"`
-
-    // BandwidthMbps 最大带宽限制。
-    // 单位：Mbps。
-    BandwidthMbps *int64 `json:"bandwidthMbps,omitempty"`
-
-    // ResourceGroupId 资源组 ID。
-    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
-
-    // ResourceGroupName 资源组名称。
-    ResourceGroupName *string `json:"resourceGroupName,omitempty"`
-
-    // CreateTime 创建时间。
-    CreateTime *string `json:"createTime,omitempty"`
-
-    // ExpiredTime 到期时间。
-    ExpiredTime *string `json:"expiredTime,omitempty"`
-
-    // RecycledTime 回收时间。
-    RecycledTime *string `json:"recycledTime,omitempty"`
-
-    // EndpointA 二层网络专线一端的连接点（A）。
-    EndpointA *PrivateConnectEndpoint `json:"endpointA,omitempty"`
-
-    // EndpointZ 二层网络专线另一端的连接点（Z）。
-    EndpointZ *PrivateConnectEndpoint `json:"endpointZ,omitempty"`
-
-    // Source 业务来源。
-    Source *string `json:"source,omitempty"`
-
-    // Tags 关联的标签。
-    Tags *Tags `json:"tags,omitempty"`
-
-}
-
-// PrivateConnectEndpoint 二层网络专线连接点的详细信息。
-type PrivateConnectEndpoint struct {
-
-    // EndpointId 连接点 ID。
-    EndpointId *string `json:"endpointId,omitempty"`
-
-    // EndpointName 连接点名称。
-    EndpointName *string `json:"endpointName,omitempty"`
-
-    // EndpointType 连接点类型。
-    EndpointType *string `json:"endpointType,omitempty"`
-
-    // ConnectivityStatus 连通性状态。
-    ConnectivityStatus *string `json:"connectivityStatus,omitempty"`
-
-    // VlanId VLAN ID。
-    VlanId *int `json:"vlanId,omitempty"`
-
-    // DataCenter 数据中心信息。
-    DataCenter *DatacenterInfo `json:"dataCenter,omitempty"`
-
-    // CloudRegionId 云地域 ID。
-    // 连接点为云连接时返回。
-    CloudRegionId *string `json:"cloudRegionId,omitempty"`
-
-    // CloudAccountId 云账号 ID。
-    // 连接点为云连接时返回。
-    CloudAccountId *string `json:"cloudAccountId,omitempty"`
-
-    // SharedChannelId 共享通道ID。
-    // 公有云接入点对应的云侧连接标识，仅公有云类型接入点时有值。
-    SharedChannelId *string `json:"sharedChannelId,omitempty"`
-
-}
-
-// CreatePrivateConnectRequest 
-type CreatePrivateConnectRequest struct {
-    *common.BaseRequest
-
-    // PrivateConnectName 二层网络专线名称。
-    // 长度不超过 255，默认为 private-connect-{当前时间戳}。
-    PrivateConnectName *string `json:"privateConnectName,omitempty"`
-
-    // BandwidthMbps 二层网络专线最大带宽限制。
-    // 单位：Mbps。
-    BandwidthMbps *int `json:"bandwidthMbps,omitempty"`
-
-    // ResourceGroupId 资源组 ID。
-    // 不传则放入默认资源组。
-    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
-
-    // EndpointA 二层网络专线一端的连接点（A）。
-    EndpointA *CreateEndpointParam `json:"endpointA,omitempty"`
-
-    // EndpointZ 二层网络专线另一端的连接点（Z）。
-    EndpointZ *CreateEndpointParam `json:"endpointZ,omitempty"`
-
-    // Tags 创建二层网络专线时关联的标签。
-    // 注意：关联`标签键`不能重复。
-    Tags *TagAssociation `json:"tags,omitempty"`
-
-    // MarketingOptions 市场营销活动相关信息。
-    MarketingOptions *MarketingInfo `json:"marketingOptions,omitempty"`
-
-}
-
-// CreateEndpointParam 创建二层网络专线时连接点的参数。
-type CreateEndpointParam struct {
-
-    // PortId 数据中心端口 ID。
-    // 连接点为数据中心端口时使用。
-    PortId *string `json:"portId,omitempty"`
-
-    // VlanId VLAN ID。
-    VlanId *int `json:"vlanId,omitempty"`
-
-    // CloudRegionId 云地域 ID。
-    // 连接点为云连接时使用。
-    CloudRegionId *string `json:"cloudRegionId,omitempty"`
-
-    // CloudAccountId 云账号 ID。
-    // 连接点为云连接时使用。
-    CloudAccountId *string `json:"cloudAccountId,omitempty"`
-
-    // HaType 云连接高可用类型。
-    HaType *string `json:"haType,omitempty"`
-
-    // CloudBandwidthMbps 云连接带宽限制。
-    // 单位：Mbps。
-    CloudBandwidthMbps *int `json:"cloudBandwidthMbps,omitempty"`
-
-    // DcId 数据中心 ID。
-    DcId *string `json:"dcId,omitempty"`
-
-    // CloudType 云厂商类型。
-    CloudType *string `json:"cloudType,omitempty"`
-
-    // EndpointName 连接点名称。
-    // 仅允许字母、数字和连字符。
-    EndpointName *string `json:"endpointName,omitempty"`
-
-}
-
-type CreatePrivateConnectResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *CreatePrivateConnectResponseParams `json:"response,omitempty"`
-
-}
-
-// CreatePrivateConnectResponseParams 
-type CreatePrivateConnectResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // OrderNumber 订单号。
-    OrderNumber *string `json:"orderNumber,omitempty"`
-
-    // PrivateConnectId 二层网络专线 ID。
-    PrivateConnectId *string `json:"privateConnectId,omitempty"`
-
-}
-
-// ModifyPrivateConnectBandwidthRequest 
-type ModifyPrivateConnectBandwidthRequest struct {
-    *common.BaseRequest
-
-    // PrivateConnectId 二层网络专线 ID。
-    PrivateConnectId *string `json:"privateConnectId,omitempty"`
-
-    // BandwidthMbps 需要修改的带宽限速。
-    // 单位：Mbps。
-    BandwidthMbps *int `json:"bandwidthMbps,omitempty"`
-
-}
-
-type ModifyPrivateConnectBandwidthResponse struct {
+type ModifyCloudRoutersAttributeResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
@@ -2890,34 +2925,162 @@ type ModifyPrivateConnectBandwidthResponse struct {
 
 }
 
-// DescribePrivateConnectTrafficRequest 
-type DescribePrivateConnectTrafficRequest struct {
+// DeleteCloudRouterEdgePointRequest 
+type DeleteCloudRouterEdgePointRequest struct {
     *common.BaseRequest
 
-    // PrivateConnectId 二层网络专线 ID。
-    PrivateConnectId *string `json:"privateConnectId,omitempty"`
+    // CloudRouterId 连接点所在的三层网络 ID。
+    CloudRouterId *string `json:"cloudRouterId,omitempty"`
 
-    // StartTime 查询开始时间。
-    // ISO8601 UTC 格式：YYYY-MM-DDThh:mm:ssZ。
-    StartTime *string `json:"startTime,omitempty"`
-
-    // EndTime 查询结束时间。
-    // ISO8601 UTC 格式：YYYY-MM-DDThh:mm:ssZ，默认为当前时间。
-    EndTime *string `json:"endTime,omitempty"`
+    // EdgePointId 要移除的连接点 ID。
+    EdgePointId *string `json:"edgePointId,omitempty"`
 
 }
 
-type DescribePrivateConnectTrafficResponse struct {
+type DeleteCloudRouterEdgePointResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
 
-    Response *DescribePrivateConnectTrafficResponseParams `json:"response,omitempty"`
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
 
 }
 
-// DescribePrivateConnectTrafficResponseParams 
-type DescribePrivateConnectTrafficResponseParams struct {
+// ModifyCloudRouterEdgePointBandwidthRequest 
+type ModifyCloudRouterEdgePointBandwidthRequest struct {
+    *common.BaseRequest
+
+    // CloudRouterId 连接点关联的三层网络 ID。
+    CloudRouterId *string `json:"cloudRouterId,omitempty"`
+
+    // EdgePointId 三层网络连接点的 ID。
+    EdgePointId *string `json:"edgePointId,omitempty"`
+
+    // BandwidthMbps 需要修改的带宽限速。
+    // 单位 Mbps，取值范围 1-500。
+    BandwidthMbps *int `json:"bandwidthMbps,omitempty"`
+
+}
+
+type ModifyCloudRouterEdgePointBandwidthResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// ModifyCloudRouterEdgePointRequest 
+type ModifyCloudRouterEdgePointRequest struct {
+    *common.BaseRequest
+
+    // CloudRouterId 连接点关联的三层网络 ID。
+    CloudRouterId *string `json:"cloudRouterId,omitempty"`
+
+    // EdgePointId 三层网络连接点的 ID。
+    EdgePointId *string `json:"edgePointId,omitempty"`
+
+    // BandwidthMbps 需要修改的带宽限速。
+    // 单位 Mbps，取值范围 1-500。
+    BandwidthMbps *int `json:"bandwidthMbps,omitempty"`
+
+    // IpAddress 连接点的互联 IP 地址。
+    IpAddress *string `json:"ipAddress,omitempty"`
+
+    // BgpConnection BGP 连接配置。
+    // 与静态路由二选一。
+    BgpConnection *BGPConnection `json:"bgpConnection,omitempty"`
+
+    // StaticRoutes 静态路由配置。
+    // 与 BGP 连接二选一。
+    StaticRoutes []*IPRoute `json:"staticRoutes,omitempty"`
+
+}
+
+type ModifyCloudRouterEdgePointResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// DeleteCloudRouterRequest 
+type DeleteCloudRouterRequest struct {
+    *common.BaseRequest
+
+    // CloudRouterId 三层网络的 ID。
+    CloudRouterId *string `json:"cloudRouterId,omitempty"`
+
+}
+
+type DeleteCloudRouterResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// DestroyCloudRouterRequest 
+type DestroyCloudRouterRequest struct {
+    *common.BaseRequest
+
+    // CloudRouterId 三层网络的 ID。
+    CloudRouterId *string `json:"cloudRouterId,omitempty"`
+
+}
+
+type DestroyCloudRouterResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// DescribeCloudRouterEdgePointTrafficRequest 
+type DescribeCloudRouterEdgePointTrafficRequest struct {
+    *common.BaseRequest
+
+    // EdgePointId 三层网络连接点的 ID。
+    EdgePointId *string `json:"edgePointId,omitempty"`
+
+    // StartTime 查询开始时间。
+    // ISO8601 格式，UTC 时区。
+    StartTime *string `json:"startTime,omitempty"`
+
+    // EndTime 查询结束时间。
+    // ISO8601 格式，UTC 时区，默认为当前时间。
+    EndTime *string `json:"endTime,omitempty"`
+
+}
+
+type DescribeCloudRouterEdgePointTrafficResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeCloudRouterEdgePointTrafficResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeCloudRouterEdgePointTrafficResponseParams 
+type DescribeCloudRouterEdgePointTrafficResponseParams struct {
 
     RequestId *string `json:"requestId,omitempty"`
 
@@ -2954,189 +3117,73 @@ type DescribePrivateConnectTrafficResponseParams struct {
 
 }
 
-// DeletePrivateConnectRequest 
-type DeletePrivateConnectRequest struct {
+// DescribeCloudRouterDCToDCTrafficRequest 
+type DescribeCloudRouterDCToDCTrafficRequest struct {
     *common.BaseRequest
 
-    // PrivateConnectId 二层网络专线 ID。
-    PrivateConnectId *string `json:"privateConnectId,omitempty"`
+    // CloudRouterId 三层网络的 ID。
+    CloudRouterId *string `json:"cloudRouterId,omitempty"`
+
+    // SourceDcId 源数据中心 ID。
+    SourceDcId *string `json:"sourceDcId,omitempty"`
+
+    // DestinationDcId 目的数据中心 ID。
+    DestinationDcId *string `json:"destinationDcId,omitempty"`
+
+    // StartTime 查询开始时间。
+    // ISO8601 格式，UTC 时区。
+    StartTime *string `json:"startTime,omitempty"`
+
+    // EndTime 查询结束时间。
+    // ISO8601 格式，UTC 时区，默认为当前时间。
+    EndTime *string `json:"endTime,omitempty"`
 
 }
 
-type DeletePrivateConnectResponse struct {
+type DescribeCloudRouterDCToDCTrafficResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
 
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
+    Response *DescribeCloudRouterDCToDCTrafficResponseParams `json:"response,omitempty"`
 
 }
 
-// DestroyPrivateConnectRequest 
-type DestroyPrivateConnectRequest struct {
-    *common.BaseRequest
-
-    // PrivateConnectId 二层网络专线 ID。
-    PrivateConnectId *string `json:"privateConnectId,omitempty"`
-
-}
-
-type DestroyPrivateConnectResponse struct {
-    *common.BaseResponse
+// DescribeCloudRouterDCToDCTrafficResponseParams 
+type DescribeCloudRouterDCToDCTrafficResponseParams struct {
 
     RequestId *string `json:"requestId,omitempty"`
 
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
+    // DataList 流量明细数据列表。
+    DataList []*TrafficData `json:"dataList,omitempty"`
 
-}
+    // In95 入方向 95 峰值流量。
+    In95 *int64 `json:"in95,omitempty"`
 
-// DescribePrivateConnectAvailablePortsRequest 
-type DescribePrivateConnectAvailablePortsRequest struct {
-    *common.BaseRequest
+    // InAvg 入方向平均流量。
+    InAvg *int64 `json:"inAvg,omitempty"`
 
-    // PortIds 数据中心端口 ID 列表。
-    // 用于按数据中心端口过滤。
-    PortIds []string `json:"portIds,omitempty"`
+    // InMax 入方向最大流量。
+    InMax *int64 `json:"inMax,omitempty"`
 
-    // DcId 数据中心 ID。
-    // 用于按数据中心过滤。
-    DcId *string `json:"dcId,omitempty"`
+    // InMin 入方向最小流量。
+    InMin *int64 `json:"inMin,omitempty"`
 
-    // PageSize 返回的分页大小。
-    // 默认为 20，最大为 100。
-    PageSize *int `json:"pageSize,omitempty"`
+    // Out95 出方向 95 峰值流量。
+    Out95 *int64 `json:"out95,omitempty"`
 
-    // PageNum 返回的分页页码。
-    // 默认为 1。
-    PageNum *int `json:"pageNum,omitempty"`
+    // OutAvg 出方向平均流量。
+    OutAvg *int64 `json:"outAvg,omitempty"`
 
-}
+    // OutMax 出方向最大流量。
+    OutMax *int64 `json:"outMax,omitempty"`
 
-type DescribePrivateConnectAvailablePortsResponse struct {
-    *common.BaseResponse
+    // OutMin 出方向最小流量。
+    OutMin *int64 `json:"outMin,omitempty"`
 
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribePrivateConnectAvailablePortsResponseParams `json:"response,omitempty"`
-
-}
-
-// DescribePrivateConnectAvailablePortsResponseParams 
-type DescribePrivateConnectAvailablePortsResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // TotalCount 符合条件的数据中心端口总数量。
-    TotalCount *int `json:"totalCount,omitempty"`
-
-    // DataSet 可加入网络的数据中心端口列表。
-    DataSet []*PortInfo `json:"dataSet,omitempty"`
-
-}
-
-// ModifyPrivateConnectsAttributeRequest 
-type ModifyPrivateConnectsAttributeRequest struct {
-    *common.BaseRequest
-
-    // PrivateConnectIds 二层网络专线 ID 列表。
-    // 数量不得超过 100。
-    PrivateConnectIds []string `json:"privateConnectIds,omitempty"`
-
-    // PrivateConnectName 二层网络专线名称。
-    // 长度不得超过 255。
-    PrivateConnectName *string `json:"privateConnectName,omitempty"`
-
-}
-
-type ModifyPrivateConnectsAttributeResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// RenewPrivateConnectRequest 
-type RenewPrivateConnectRequest struct {
-    *common.BaseRequest
-
-    // PrivateConnectId 二层网络专线 ID。
-    PrivateConnectId *string `json:"privateConnectId,omitempty"`
-
-}
-
-type RenewPrivateConnectResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// InquiryCreatePrivateConnectPriceRequest 
-type InquiryCreatePrivateConnectPriceRequest struct {
-    *common.BaseRequest
-
-    // BandwidthMbps 二层网络专线最大带宽限制。
-    // 默认为 1，单位：Mbps。
-    BandwidthMbps *int `json:"bandwidthMbps,omitempty"`
-
-    // InternetType 网络计费方式。
-    InternetType *string `json:"internetType,omitempty"`
-
-    // CommitBandwidth 保底带宽。
-    // 单位：Mbps。
-    CommitBandwidth *int `json:"commitBandwidth,omitempty"`
-
-    // EndpointA 二层网络专线一端的连接点（A）。
-    EndpointA *CreateEndpointParam `json:"endpointA,omitempty"`
-
-    // EndpointZ 二层网络专线另一端的连接点（Z）。
-    EndpointZ *CreateEndpointParam `json:"endpointZ,omitempty"`
-
-}
-
-type InquiryCreatePrivateConnectPriceResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *InquiryCreatePrivateConnectPriceResponseParams `json:"response,omitempty"`
-
-}
-
-// InquiryCreatePrivateConnectPriceResponseParams 
-type InquiryCreatePrivateConnectPriceResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // PrivateConnectPrice 二层网络专线带宽价格。
-    PrivateConnectPrice *PriceItem `json:"privateConnectPrice,omitempty"`
-
-    // PrivateConnectBandwidth 二层网络专线带宽。
-    PrivateConnectBandwidth *int `json:"privateConnectBandwidth,omitempty"`
-
-    // EndpointAPrice A 端连接点的建设价格。
-    EndpointAPrice *PriceItem `json:"endpointAPrice,omitempty"`
-
-    // EndpointABandwidth A 端连接点带宽。
-    EndpointABandwidth *int `json:"endpointABandwidth,omitempty"`
-
-    // EndpointZPrice Z 端连接点的建设价格。
-    EndpointZPrice *PriceItem `json:"endpointZPrice,omitempty"`
-
-    // EndpointZBandwidth Z 端连接点带宽。
-    EndpointZBandwidth *int `json:"endpointZBandwidth,omitempty"`
+    // Unit 流量单位。
+    // 如 bps。
+    Unit *string `json:"unit,omitempty"`
 
 }
 

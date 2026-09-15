@@ -1712,121 +1712,6 @@ func (c *Client) UnassignNetworkInterfaceIpv4(request *UnassignNetworkInterfaceI
 	return
 }
 
-func NewDescribeNetworkInterfacePublicIPv6Request() (request *DescribeNetworkInterfacePublicIPv6Request) {
-	request = &DescribeNetworkInterfacePublicIPv6Request{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeNetworkInterfacePublicIPv6")
-
-	return
-}
-
-func NewDescribeNetworkInterfacePublicIPv6Response() (response *DescribeNetworkInterfacePublicIPv6Response) {
-	response = &DescribeNetworkInterfacePublicIPv6Response{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeNetworkInterfacePublicIPv6 查询指定弹性网卡（vNIC）上已分配的公网 IPv6 地址及其计费、带宽配置信息。
-func (c *Client) DescribeNetworkInterfacePublicIPv6(request *DescribeNetworkInterfacePublicIPv6Request) (response *DescribeNetworkInterfacePublicIPv6Response, err error) {
-	response = NewDescribeNetworkInterfacePublicIPv6Response()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewInquiryPricePublicIpv6Request() (request *InquiryPricePublicIpv6Request) {
-	request = &InquiryPricePublicIpv6Request{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryPricePublicIpv6")
-
-	return
-}
-
-func NewInquiryPricePublicIpv6Response() (response *InquiryPricePublicIpv6Response) {
-	response = &InquiryPricePublicIpv6Response{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// InquiryPricePublicIpv6 公网Ipv6流量包或固定带宽询价。
-func (c *Client) InquiryPricePublicIpv6(request *InquiryPricePublicIpv6Request) (response *InquiryPricePublicIpv6Response, err error) {
-	response = NewInquiryPricePublicIpv6Response()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewInquiryPriceChangeIpv6InternetChargeTypeRequest() (request *InquiryPriceChangeIpv6InternetChargeTypeRequest) {
-	request = &InquiryPriceChangeIpv6InternetChargeTypeRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryPriceChangeIpv6InternetChargeType")
-
-	return
-}
-
-func NewInquiryPriceChangeIpv6InternetChargeTypeResponse() (response *InquiryPriceChangeIpv6InternetChargeTypeResponse) {
-	response = &InquiryPriceChangeIpv6InternetChargeTypeResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// InquiryPriceChangeIpv6InternetChargeType 查询变更IPv6网络计费模式后的价格。同时通过 previousPrices 返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
-func (c *Client) InquiryPriceChangeIpv6InternetChargeType(request *InquiryPriceChangeIpv6InternetChargeTypeRequest) (response *InquiryPriceChangeIpv6InternetChargeTypeResponse, err error) {
-	response = NewInquiryPriceChangeIpv6InternetChargeTypeResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewAssignNetworkInterfaceIpv6Request() (request *AssignNetworkInterfaceIpv6Request) {
-	request = &AssignNetworkInterfaceIpv6Request{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "AssignNetworkInterfaceIpv6")
-
-	return
-}
-
-func NewAssignNetworkInterfaceIpv6Response() (response *AssignNetworkInterfaceIpv6Response) {
-	response = &AssignNetworkInterfaceIpv6Response{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// AssignNetworkInterfaceIpv6 给网卡添加IPv6。
-func (c *Client) AssignNetworkInterfaceIpv6(request *AssignNetworkInterfaceIpv6Request) (response *AssignNetworkInterfaceIpv6Response, err error) {
-	response = NewAssignNetworkInterfaceIpv6Response()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewUnassignNetworkInterfaceIpv6Request() (request *UnassignNetworkInterfaceIpv6Request) {
-	request = &UnassignNetworkInterfaceIpv6Request{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "UnassignNetworkInterfaceIpv6")
-
-	return
-}
-
-func NewUnassignNetworkInterfaceIpv6Response() (response *UnassignNetworkInterfaceIpv6Response) {
-	response = &UnassignNetworkInterfaceIpv6Response{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// UnassignNetworkInterfaceIpv6 删除网卡IPv6。
-func (c *Client) UnassignNetworkInterfaceIpv6(request *UnassignNetworkInterfaceIpv6Request) (response *UnassignNetworkInterfaceIpv6Response, err error) {
-	response = NewUnassignNetworkInterfaceIpv6Response()
-	err = c.ApiCall(request, response)
-	return
-}
-
 func NewDescribeNetworkInterfaceMonitorDataRequest() (request *DescribeNetworkInterfaceMonitorDataRequest) {
 	request = &DescribeNetworkInterfaceMonitorDataRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -1846,98 +1731,6 @@ func NewDescribeNetworkInterfaceMonitorDataResponse() (response *DescribeNetwork
 // DescribeNetworkInterfaceMonitorData 查询一段时间内的网卡监控指标数据。包含带宽、包量、丢包、错误包等指标。
 func (c *Client) DescribeNetworkInterfaceMonitorData(request *DescribeNetworkInterfaceMonitorDataRequest) (response *DescribeNetworkInterfaceMonitorDataResponse, err error) {
 	response = NewDescribeNetworkInterfaceMonitorDataResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewModifyNetworkInterfacePublicIPv6BandwidthLimitModeRequest() (request *ModifyNetworkInterfacePublicIPv6BandwidthLimitModeRequest) {
-	request = &ModifyNetworkInterfacePublicIPv6BandwidthLimitModeRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyNetworkInterfacePublicIPv6BandwidthLimitMode")
-
-	return
-}
-
-func NewModifyNetworkInterfacePublicIPv6BandwidthLimitModeResponse() (response *ModifyNetworkInterfacePublicIPv6BandwidthLimitModeResponse) {
-	response = &ModifyNetworkInterfacePublicIPv6BandwidthLimitModeResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// ModifyNetworkInterfacePublicIPv6BandwidthLimitMode 修改指定公网IPv6的带宽限速模式。
-func (c *Client) ModifyNetworkInterfacePublicIPv6BandwidthLimitMode(request *ModifyNetworkInterfacePublicIPv6BandwidthLimitModeRequest) (response *ModifyNetworkInterfacePublicIPv6BandwidthLimitModeResponse, err error) {
-	response = NewModifyNetworkInterfacePublicIPv6BandwidthLimitModeResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewInquiryPriceModifyIpv6BandwidthRequest() (request *InquiryPriceModifyIpv6BandwidthRequest) {
-	request = &InquiryPriceModifyIpv6BandwidthRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryPriceModifyIpv6Bandwidth")
-
-	return
-}
-
-func NewInquiryPriceModifyIpv6BandwidthResponse() (response *InquiryPriceModifyIpv6BandwidthResponse) {
-	response = &InquiryPriceModifyIpv6BandwidthResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// InquiryPriceModifyIpv6Bandwidth 查询调整IPv6带宽后的价格。同时通过 previousPrices 返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
-func (c *Client) InquiryPriceModifyIpv6Bandwidth(request *InquiryPriceModifyIpv6BandwidthRequest) (response *InquiryPriceModifyIpv6BandwidthResponse, err error) {
-	response = NewInquiryPriceModifyIpv6BandwidthResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewModifyIpv6BandwidthRequest() (request *ModifyIpv6BandwidthRequest) {
-	request = &ModifyIpv6BandwidthRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyIpv6Bandwidth")
-
-	return
-}
-
-func NewModifyIpv6BandwidthResponse() (response *ModifyIpv6BandwidthResponse) {
-	response = &ModifyIpv6BandwidthResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// ModifyIpv6Bandwidth 调整公网IPv6的带宽限速。
-func (c *Client) ModifyIpv6Bandwidth(request *ModifyIpv6BandwidthRequest) (response *ModifyIpv6BandwidthResponse, err error) {
-	response = NewModifyIpv6BandwidthResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewModifyIpv6TrafficPackageRequest() (request *ModifyIpv6TrafficPackageRequest) {
-	request = &ModifyIpv6TrafficPackageRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyIpv6TrafficPackage")
-
-	return
-}
-
-func NewModifyIpv6TrafficPackageResponse() (response *ModifyIpv6TrafficPackageResponse) {
-	response = &ModifyIpv6TrafficPackageResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// ModifyIpv6TrafficPackage 调整公网IPv6流量包。
-func (c *Client) ModifyIpv6TrafficPackage(request *ModifyIpv6TrafficPackageRequest) (response *ModifyIpv6TrafficPackageResponse, err error) {
-	response = NewModifyIpv6TrafficPackageResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -5250,6 +5043,397 @@ func NewUnassociateHaVipResponse() (response *UnassociateHaVipResponse) {
 // UnassociateHaVip 将高可用虚拟IP从实例解绑。
 func (c *Client) UnassociateHaVip(request *UnassociateHaVipRequest) (response *UnassociateHaVipResponse, err error) {
 	response = NewUnassociateHaVipResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewAssignNetworkInterfaceIpv6Request() (request *AssignNetworkInterfaceIpv6Request) {
+	request = &AssignNetworkInterfaceIpv6Request{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "AssignNetworkInterfaceIpv6")
+
+	return
+}
+
+func NewAssignNetworkInterfaceIpv6Response() (response *AssignNetworkInterfaceIpv6Response) {
+	response = &AssignNetworkInterfaceIpv6Response{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// AssignNetworkInterfaceIpv6 给网卡添加IPv6。
+func (c *Client) AssignNetworkInterfaceIpv6(request *AssignNetworkInterfaceIpv6Request) (response *AssignNetworkInterfaceIpv6Response, err error) {
+	response = NewAssignNetworkInterfaceIpv6Response()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewUnassignNetworkInterfaceIpv6Request() (request *UnassignNetworkInterfaceIpv6Request) {
+	request = &UnassignNetworkInterfaceIpv6Request{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "UnassignNetworkInterfaceIpv6")
+
+	return
+}
+
+func NewUnassignNetworkInterfaceIpv6Response() (response *UnassignNetworkInterfaceIpv6Response) {
+	response = &UnassignNetworkInterfaceIpv6Response{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// UnassignNetworkInterfaceIpv6 删除网卡IPv6。
+func (c *Client) UnassignNetworkInterfaceIpv6(request *UnassignNetworkInterfaceIpv6Request) (response *UnassignNetworkInterfaceIpv6Response, err error) {
+	response = NewUnassignNetworkInterfaceIpv6Response()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyIpv6BandwidthRequest() (request *ModifyIpv6BandwidthRequest) {
+	request = &ModifyIpv6BandwidthRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyIpv6Bandwidth")
+
+	return
+}
+
+func NewModifyIpv6BandwidthResponse() (response *ModifyIpv6BandwidthResponse) {
+	response = &ModifyIpv6BandwidthResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyIpv6Bandwidth 调整公网IPv6的带宽限速。
+func (c *Client) ModifyIpv6Bandwidth(request *ModifyIpv6BandwidthRequest) (response *ModifyIpv6BandwidthResponse, err error) {
+	response = NewModifyIpv6BandwidthResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyIpv6TrafficPackageRequest() (request *ModifyIpv6TrafficPackageRequest) {
+	request = &ModifyIpv6TrafficPackageRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyIpv6TrafficPackage")
+
+	return
+}
+
+func NewModifyIpv6TrafficPackageResponse() (response *ModifyIpv6TrafficPackageResponse) {
+	response = &ModifyIpv6TrafficPackageResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyIpv6TrafficPackage 调整公网IPv6流量包。
+func (c *Client) ModifyIpv6TrafficPackage(request *ModifyIpv6TrafficPackageRequest) (response *ModifyIpv6TrafficPackageResponse, err error) {
+	response = NewModifyIpv6TrafficPackageResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteIpv6AddressesRequest() (request *DeleteIpv6AddressesRequest) {
+	request = &DeleteIpv6AddressesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteIpv6Addresses")
+
+	return
+}
+
+func NewDeleteIpv6AddressesResponse() (response *DeleteIpv6AddressesResponse) {
+	response = &DeleteIpv6AddressesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeleteIpv6Addresses 批量删除公网 IPv6。逐个独立处理，部分失败不影响其余项，失败项通过 failedIpv6Addresses 返回其错误码与错误信息。
+func (c *Client) DeleteIpv6Addresses(request *DeleteIpv6AddressesRequest) (response *DeleteIpv6AddressesResponse, err error) {
+	response = NewDeleteIpv6AddressesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewInquiryPricePublicIpv6Request() (request *InquiryPricePublicIpv6Request) {
+	request = &InquiryPricePublicIpv6Request{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryPricePublicIpv6")
+
+	return
+}
+
+func NewInquiryPricePublicIpv6Response() (response *InquiryPricePublicIpv6Response) {
+	response = &InquiryPricePublicIpv6Response{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// InquiryPricePublicIpv6 公网Ipv6流量包或固定带宽询价。
+func (c *Client) InquiryPricePublicIpv6(request *InquiryPricePublicIpv6Request) (response *InquiryPricePublicIpv6Response, err error) {
+	response = NewInquiryPricePublicIpv6Response()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewInquiryPriceModifyIpv6BandwidthRequest() (request *InquiryPriceModifyIpv6BandwidthRequest) {
+	request = &InquiryPriceModifyIpv6BandwidthRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryPriceModifyIpv6Bandwidth")
+
+	return
+}
+
+func NewInquiryPriceModifyIpv6BandwidthResponse() (response *InquiryPriceModifyIpv6BandwidthResponse) {
+	response = &InquiryPriceModifyIpv6BandwidthResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// InquiryPriceModifyIpv6Bandwidth 查询调整IPv6带宽后的价格。同时通过 previousPrices 返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
+func (c *Client) InquiryPriceModifyIpv6Bandwidth(request *InquiryPriceModifyIpv6BandwidthRequest) (response *InquiryPriceModifyIpv6BandwidthResponse, err error) {
+	response = NewInquiryPriceModifyIpv6BandwidthResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewInquiryPriceChangeIpv6InternetChargeTypeRequest() (request *InquiryPriceChangeIpv6InternetChargeTypeRequest) {
+	request = &InquiryPriceChangeIpv6InternetChargeTypeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryPriceChangeIpv6InternetChargeType")
+
+	return
+}
+
+func NewInquiryPriceChangeIpv6InternetChargeTypeResponse() (response *InquiryPriceChangeIpv6InternetChargeTypeResponse) {
+	response = &InquiryPriceChangeIpv6InternetChargeTypeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// InquiryPriceChangeIpv6InternetChargeType 查询变更IPv6网络计费模式后的价格。同时通过 previousPrices 返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
+func (c *Client) InquiryPriceChangeIpv6InternetChargeType(request *InquiryPriceChangeIpv6InternetChargeTypeRequest) (response *InquiryPriceChangeIpv6InternetChargeTypeResponse, err error) {
+	response = NewInquiryPriceChangeIpv6InternetChargeTypeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyNetworkInterfacePublicIPv6BandwidthLimitModeRequest() (request *ModifyNetworkInterfacePublicIPv6BandwidthLimitModeRequest) {
+	request = &ModifyNetworkInterfacePublicIPv6BandwidthLimitModeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyNetworkInterfacePublicIPv6BandwidthLimitMode")
+
+	return
+}
+
+func NewModifyNetworkInterfacePublicIPv6BandwidthLimitModeResponse() (response *ModifyNetworkInterfacePublicIPv6BandwidthLimitModeResponse) {
+	response = &ModifyNetworkInterfacePublicIPv6BandwidthLimitModeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyNetworkInterfacePublicIPv6BandwidthLimitMode 修改指定公网IPv6的带宽限速模式。
+func (c *Client) ModifyNetworkInterfacePublicIPv6BandwidthLimitMode(request *ModifyNetworkInterfacePublicIPv6BandwidthLimitModeRequest) (response *ModifyNetworkInterfacePublicIPv6BandwidthLimitModeResponse, err error) {
+	response = NewModifyNetworkInterfacePublicIPv6BandwidthLimitModeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeIpv6AddressesRequest() (request *DescribeIpv6AddressesRequest) {
+	request = &DescribeIpv6AddressesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeIpv6Addresses")
+
+	return
+}
+
+func NewDescribeIpv6AddressesResponse() (response *DescribeIpv6AddressesResponse) {
+	response = &DescribeIpv6AddressesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeIpv6Addresses 指定条件查询已分配的公网 IPv6 信息。用户可以根据 ID、名称、绑定的资源等信息来搜索。
+func (c *Client) DescribeIpv6Addresses(request *DescribeIpv6AddressesRequest) (response *DescribeIpv6AddressesResponse, err error) {
+	response = NewDescribeIpv6AddressesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeNetworkInterfacePublicIPv6Request() (request *DescribeNetworkInterfacePublicIPv6Request) {
+	request = &DescribeNetworkInterfacePublicIPv6Request{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeNetworkInterfacePublicIPv6")
+
+	return
+}
+
+func NewDescribeNetworkInterfacePublicIPv6Response() (response *DescribeNetworkInterfacePublicIPv6Response) {
+	response = &DescribeNetworkInterfacePublicIPv6Response{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeNetworkInterfacePublicIPv6 查询指定弹性网卡（vNIC）上已分配的公网 IPv6 地址及其计费、带宽配置信息。
+func (c *Client) DescribeNetworkInterfacePublicIPv6(request *DescribeNetworkInterfacePublicIPv6Request) (response *DescribeNetworkInterfacePublicIPv6Response, err error) {
+	response = NewDescribeNetworkInterfacePublicIPv6Response()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeUsableByoAsnsRequest() (request *DescribeUsableByoAsnsRequest) {
+	request = &DescribeUsableByoAsnsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeUsableByoAsns")
+
+	return
+}
+
+func NewDescribeUsableByoAsnsResponse() (response *DescribeUsableByoAsnsResponse) {
+	response = &DescribeUsableByoAsnsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeUsableByoAsns 返回可作为 BYOIP 起源ASN使用的ASN号列表。
+func (c *Client) DescribeUsableByoAsns(request *DescribeUsableByoAsnsRequest) (response *DescribeUsableByoAsnsResponse, err error) {
+	response = NewDescribeUsableByoAsnsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewVerifyByoAsnRequest() (request *VerifyByoAsnRequest) {
+	request = &VerifyByoAsnRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "VerifyByoAsn")
+
+	return
+}
+
+func NewVerifyByoAsnResponse() (response *VerifyByoAsnResponse) {
+	response = &VerifyByoAsnResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// VerifyByoAsn 确认指定自带ASN在 RIR 上的 export 声明是否已生效。
+func (c *Client) VerifyByoAsn(request *VerifyByoAsnRequest) (response *VerifyByoAsnResponse, err error) {
+	response = NewVerifyByoAsnResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewRegenerateByoAsnVerifyCodeRequest() (request *RegenerateByoAsnVerifyCodeRequest) {
+	request = &RegenerateByoAsnVerifyCodeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "RegenerateByoAsnVerifyCode")
+
+	return
+}
+
+func NewRegenerateByoAsnVerifyCodeResponse() (response *RegenerateByoAsnVerifyCodeResponse) {
+	response = &RegenerateByoAsnVerifyCodeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// RegenerateByoAsnVerifyCode 为指定自带ASN重新签发校验码，旧校验码同时失效。
+func (c *Client) RegenerateByoAsnVerifyCode(request *RegenerateByoAsnVerifyCodeRequest) (response *RegenerateByoAsnVerifyCodeResponse, err error) {
+	response = NewRegenerateByoAsnVerifyCodeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewCreateByoAsnRequest() (request *CreateByoAsnRequest) {
+	request = &CreateByoAsnRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateByoAsn")
+
+	return
+}
+
+func NewCreateByoAsnResponse() (response *CreateByoAsnResponse) {
+	response = &CreateByoAsnResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CreateByoAsn 提交自带ASN并获取用于归属校验的校验码。
+func (c *Client) CreateByoAsn(request *CreateByoAsnRequest) (response *CreateByoAsnResponse, err error) {
+	response = NewCreateByoAsnResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteByoAsnRequest() (request *DeleteByoAsnRequest) {
+	request = &DeleteByoAsnRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteByoAsn")
+
+	return
+}
+
+func NewDeleteByoAsnResponse() (response *DeleteByoAsnResponse) {
+	response = &DeleteByoAsnResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeleteByoAsn 删除指定自带ASN。删除前需确保该ASN下没有已宣告的 BYOIP 段。
+func (c *Client) DeleteByoAsn(request *DeleteByoAsnRequest) (response *DeleteByoAsnResponse, err error) {
+	response = NewDeleteByoAsnResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeByoAsnsRequest() (request *DescribeByoAsnsRequest) {
+	request = &DescribeByoAsnsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeByoAsns")
+
+	return
+}
+
+func NewDescribeByoAsnsResponse() (response *DescribeByoAsnsResponse) {
+	response = &DescribeByoAsnsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeByoAsns 查询一个或多个自带ASN的详细信息。
+func (c *Client) DescribeByoAsns(request *DescribeByoAsnsRequest) (response *DescribeByoAsnsResponse, err error) {
+	response = NewDescribeByoAsnsResponse()
 	err = c.ApiCall(request, response)
 	return
 }

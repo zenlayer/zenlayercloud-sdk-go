@@ -56,6 +56,259 @@ func NewClientWithTokenAndConfig(config *common.Config, token string) (client *C
 }
 
 
+func NewDescribeDatacentersRequest() (request *DescribeDatacentersRequest) {
+	request = &DescribeDatacentersRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeDatacenters")
+
+	return
+}
+
+func NewDescribeDatacentersResponse() (response *DescribeDatacentersResponse) {
+	response = &DescribeDatacentersResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeDatacenters 查询数据中心列表
+func (c *Client) DescribeDatacenters(request *DescribeDatacentersRequest) (response *DescribeDatacentersResponse, err error) {
+	response = NewDescribeDatacentersResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeVirtualEdgeDatacentersRequest() (request *DescribeVirtualEdgeDatacentersRequest) {
+	request = &DescribeVirtualEdgeDatacentersRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeVirtualEdgeDatacenters")
+
+	return
+}
+
+func NewDescribeVirtualEdgeDatacentersResponse() (response *DescribeVirtualEdgeDatacentersResponse) {
+	response = &DescribeVirtualEdgeDatacentersResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeVirtualEdgeDatacenters 查询边缘网关数据中心列表
+func (c *Client) DescribeVirtualEdgeDatacenters(request *DescribeVirtualEdgeDatacentersRequest) (response *DescribeVirtualEdgeDatacentersResponse, err error) {
+	response = NewDescribeVirtualEdgeDatacentersResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeBorderGatewayDatacentersRequest() (request *DescribeBorderGatewayDatacentersRequest) {
+	request = &DescribeBorderGatewayDatacentersRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeBorderGatewayDatacenters")
+
+	return
+}
+
+func NewDescribeBorderGatewayDatacentersResponse() (response *DescribeBorderGatewayDatacentersResponse) {
+	response = &DescribeBorderGatewayDatacentersResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeBorderGatewayDatacenters 查询边界网关数据中心列表
+func (c *Client) DescribeBorderGatewayDatacenters(request *DescribeBorderGatewayDatacentersRequest) (response *DescribeBorderGatewayDatacentersResponse, err error) {
+	response = NewDescribeBorderGatewayDatacentersResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeVPCDatacentersRequest() (request *DescribeVPCDatacentersRequest) {
+	request = &DescribeVPCDatacentersRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeVPCDatacenters")
+
+	return
+}
+
+func NewDescribeVPCDatacentersResponse() (response *DescribeVPCDatacentersResponse) {
+	response = &DescribeVPCDatacentersResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeVPCDatacenters 查询 VPC 数据中心列表
+func (c *Client) DescribeVPCDatacenters(request *DescribeVPCDatacentersRequest) (response *DescribeVPCDatacentersResponse, err error) {
+	response = NewDescribeVPCDatacentersResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeDatacentersWithServiceRequest() (request *DescribeDatacentersWithServiceRequest) {
+	request = &DescribeDatacentersWithServiceRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeDatacentersWithService")
+
+	return
+}
+
+func NewDescribeDatacentersWithServiceResponse() (response *DescribeDatacentersWithServiceResponse) {
+	response = &DescribeDatacentersWithServiceResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeDatacentersWithService 查询含服务的数据中心列表
+func (c *Client) DescribeDatacentersWithService(request *DescribeDatacentersWithServiceRequest) (response *DescribeDatacentersWithServiceResponse, err error) {
+	response = NewDescribeDatacentersWithServiceResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewQueryCloudOnrampPriceRequest() (request *QueryCloudOnrampPriceRequest) {
+	request = &QueryCloudOnrampPriceRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "QueryCloudOnrampPrice")
+
+	return
+}
+
+func NewQueryCloudOnrampPriceResponse() (response *QueryCloudOnrampPriceResponse) {
+	response = &QueryCloudOnrampPriceResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// QueryCloudOnrampPrice 云连接带宽询价
+func (c *Client) QueryCloudOnrampPrice(request *QueryCloudOnrampPriceRequest) (response *QueryCloudOnrampPriceResponse, err error) {
+	response = NewQueryCloudOnrampPriceResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewQueryDataCenterPortPriceRequest() (request *QueryDataCenterPortPriceRequest) {
+	request = &QueryDataCenterPortPriceRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "QueryDataCenterPortPrice")
+
+	return
+}
+
+func NewQueryDataCenterPortPriceResponse() (response *QueryDataCenterPortPriceResponse) {
+	response = &QueryDataCenterPortPriceResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// QueryDataCenterPortPrice 数据中心端口询价
+func (c *Client) QueryDataCenterPortPrice(request *QueryDataCenterPortPriceRequest) (response *QueryDataCenterPortPriceResponse, err error) {
+	response = NewQueryDataCenterPortPriceResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewQueryDataCenterPortPricesRequest() (request *QueryDataCenterPortPricesRequest) {
+	request = &QueryDataCenterPortPricesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "QueryDataCenterPortPrices")
+
+	return
+}
+
+func NewQueryDataCenterPortPricesResponse() (response *QueryDataCenterPortPricesResponse) {
+	response = &QueryDataCenterPortPricesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// QueryDataCenterPortPrices 数据中心端口批量询价
+func (c *Client) QueryDataCenterPortPrices(request *QueryDataCenterPortPricesRequest) (response *QueryDataCenterPortPricesResponse, err error) {
+	response = NewQueryDataCenterPortPricesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewQueryPrivateConnectPriceRequest() (request *QueryPrivateConnectPriceRequest) {
+	request = &QueryPrivateConnectPriceRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "QueryPrivateConnectPrice")
+
+	return
+}
+
+func NewQueryPrivateConnectPriceResponse() (response *QueryPrivateConnectPriceResponse) {
+	response = &QueryPrivateConnectPriceResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// QueryPrivateConnectPrice 二层网络专线询价
+func (c *Client) QueryPrivateConnectPrice(request *QueryPrivateConnectPriceRequest) (response *QueryPrivateConnectPriceResponse, err error) {
+	response = NewQueryPrivateConnectPriceResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewQueryPrivateConnectBandwidthPriceRequest() (request *QueryPrivateConnectBandwidthPriceRequest) {
+	request = &QueryPrivateConnectBandwidthPriceRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "QueryPrivateConnectBandwidthPrice")
+
+	return
+}
+
+func NewQueryPrivateConnectBandwidthPriceResponse() (response *QueryPrivateConnectBandwidthPriceResponse) {
+	response = &QueryPrivateConnectBandwidthPriceResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// QueryPrivateConnectBandwidthPrice 二层专线带宽询价
+func (c *Client) QueryPrivateConnectBandwidthPrice(request *QueryPrivateConnectBandwidthPriceRequest) (response *QueryPrivateConnectBandwidthPriceResponse, err error) {
+	response = NewQueryPrivateConnectBandwidthPriceResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewQueryCloudRouterBandwidthPriceRequest() (request *QueryCloudRouterBandwidthPriceRequest) {
+	request = &QueryCloudRouterBandwidthPriceRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "QueryCloudRouterBandwidthPrice")
+
+	return
+}
+
+func NewQueryCloudRouterBandwidthPriceResponse() (response *QueryCloudRouterBandwidthPriceResponse) {
+	response = &QueryCloudRouterBandwidthPriceResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// QueryCloudRouterBandwidthPrice 三层骨干带宽询价
+func (c *Client) QueryCloudRouterBandwidthPrice(request *QueryCloudRouterBandwidthPriceRequest) (response *QueryCloudRouterBandwidthPriceResponse, err error) {
+	response = NewQueryCloudRouterBandwidthPriceResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewCreatePortRequest() (request *CreatePortRequest) {
 	request = &CreatePortRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -259,144 +512,6 @@ func NewDescribePortUsableVlanResponse() (response *DescribePortUsableVlanRespon
 // DescribePortUsableVlan 查询端口可用vlan
 func (c *Client) DescribePortUsableVlan(request *DescribePortUsableVlanRequest) (response *DescribePortUsableVlanResponse, err error) {
 	response = NewDescribePortUsableVlanResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewQueryCloudOnrampPriceRequest() (request *QueryCloudOnrampPriceRequest) {
-	request = &QueryCloudOnrampPriceRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "QueryCloudOnrampPrice")
-
-	return
-}
-
-func NewQueryCloudOnrampPriceResponse() (response *QueryCloudOnrampPriceResponse) {
-	response = &QueryCloudOnrampPriceResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// QueryCloudOnrampPrice 云连接带宽询价
-func (c *Client) QueryCloudOnrampPrice(request *QueryCloudOnrampPriceRequest) (response *QueryCloudOnrampPriceResponse, err error) {
-	response = NewQueryCloudOnrampPriceResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewQueryDataCenterPortPriceRequest() (request *QueryDataCenterPortPriceRequest) {
-	request = &QueryDataCenterPortPriceRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "QueryDataCenterPortPrice")
-
-	return
-}
-
-func NewQueryDataCenterPortPriceResponse() (response *QueryDataCenterPortPriceResponse) {
-	response = &QueryDataCenterPortPriceResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// QueryDataCenterPortPrice 数据中心端口询价
-func (c *Client) QueryDataCenterPortPrice(request *QueryDataCenterPortPriceRequest) (response *QueryDataCenterPortPriceResponse, err error) {
-	response = NewQueryDataCenterPortPriceResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewQueryDataCenterPortPricesRequest() (request *QueryDataCenterPortPricesRequest) {
-	request = &QueryDataCenterPortPricesRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "QueryDataCenterPortPrices")
-
-	return
-}
-
-func NewQueryDataCenterPortPricesResponse() (response *QueryDataCenterPortPricesResponse) {
-	response = &QueryDataCenterPortPricesResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// QueryDataCenterPortPrices 数据中心端口批量询价
-func (c *Client) QueryDataCenterPortPrices(request *QueryDataCenterPortPricesRequest) (response *QueryDataCenterPortPricesResponse, err error) {
-	response = NewQueryDataCenterPortPricesResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewQueryPrivateConnectPriceRequest() (request *QueryPrivateConnectPriceRequest) {
-	request = &QueryPrivateConnectPriceRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "QueryPrivateConnectPrice")
-
-	return
-}
-
-func NewQueryPrivateConnectPriceResponse() (response *QueryPrivateConnectPriceResponse) {
-	response = &QueryPrivateConnectPriceResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// QueryPrivateConnectPrice 二层网络专线询价
-func (c *Client) QueryPrivateConnectPrice(request *QueryPrivateConnectPriceRequest) (response *QueryPrivateConnectPriceResponse, err error) {
-	response = NewQueryPrivateConnectPriceResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewQueryPrivateConnectBandwidthPriceRequest() (request *QueryPrivateConnectBandwidthPriceRequest) {
-	request = &QueryPrivateConnectBandwidthPriceRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "QueryPrivateConnectBandwidthPrice")
-
-	return
-}
-
-func NewQueryPrivateConnectBandwidthPriceResponse() (response *QueryPrivateConnectBandwidthPriceResponse) {
-	response = &QueryPrivateConnectBandwidthPriceResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// QueryPrivateConnectBandwidthPrice 二层专线带宽询价
-func (c *Client) QueryPrivateConnectBandwidthPrice(request *QueryPrivateConnectBandwidthPriceRequest) (response *QueryPrivateConnectBandwidthPriceResponse, err error) {
-	response = NewQueryPrivateConnectBandwidthPriceResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewQueryCloudRouterBandwidthPriceRequest() (request *QueryCloudRouterBandwidthPriceRequest) {
-	request = &QueryCloudRouterBandwidthPriceRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "QueryCloudRouterBandwidthPrice")
-
-	return
-}
-
-func NewQueryCloudRouterBandwidthPriceResponse() (response *QueryCloudRouterBandwidthPriceResponse) {
-	response = &QueryCloudRouterBandwidthPriceResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// QueryCloudRouterBandwidthPrice 三层骨干带宽询价
-func (c *Client) QueryCloudRouterBandwidthPrice(request *QueryCloudRouterBandwidthPriceRequest) (response *QueryCloudRouterBandwidthPriceResponse, err error) {
-	response = NewQueryCloudRouterBandwidthPriceResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -815,6 +930,328 @@ func (c *Client) DescribeAWSVlanUsage(request *DescribeAWSVlanUsageRequest) (res
 	return
 }
 
+func NewDescribeVolcengineVlanUsageRequest() (request *DescribeVolcengineVlanUsageRequest) {
+	request = &DescribeVolcengineVlanUsageRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeVolcengineVlanUsage")
+
+	return
+}
+
+func NewDescribeVolcengineVlanUsageResponse() (response *DescribeVolcengineVlanUsageResponse) {
+	response = &DescribeVolcengineVlanUsageResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeVolcengineVlanUsage 查询火山引擎接入点VLAN使用情况。
+func (c *Client) DescribeVolcengineVlanUsage(request *DescribeVolcengineVlanUsageRequest) (response *DescribeVolcengineVlanUsageResponse, err error) {
+	response = NewDescribeVolcengineVlanUsageResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeVolcengineRegionsRequest() (request *DescribeVolcengineRegionsRequest) {
+	request = &DescribeVolcengineRegionsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeVolcengineRegions")
+
+	return
+}
+
+func NewDescribeVolcengineRegionsResponse() (response *DescribeVolcengineRegionsResponse) {
+	response = &DescribeVolcengineRegionsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeVolcengineRegions 查询火山引擎接入点区域。
+func (c *Client) DescribeVolcengineRegions(request *DescribeVolcengineRegionsRequest) (response *DescribeVolcengineRegionsResponse, err error) {
+	response = NewDescribeVolcengineRegionsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribePrivateConnectAvailablePortsRequest() (request *DescribePrivateConnectAvailablePortsRequest) {
+	request = &DescribePrivateConnectAvailablePortsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribePrivateConnectAvailablePorts")
+
+	return
+}
+
+func NewDescribePrivateConnectAvailablePortsResponse() (response *DescribePrivateConnectAvailablePortsResponse) {
+	response = &DescribePrivateConnectAvailablePortsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribePrivateConnectAvailablePorts 查询可加入的数据中心端口
+func (c *Client) DescribePrivateConnectAvailablePorts(request *DescribePrivateConnectAvailablePortsRequest) (response *DescribePrivateConnectAvailablePortsResponse, err error) {
+	response = NewDescribePrivateConnectAvailablePortsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribePrivateConnectsRequest() (request *DescribePrivateConnectsRequest) {
+	request = &DescribePrivateConnectsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribePrivateConnects")
+
+	return
+}
+
+func NewDescribePrivateConnectsResponse() (response *DescribePrivateConnectsResponse) {
+	response = &DescribePrivateConnectsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribePrivateConnects 获取二层网络专线列表
+func (c *Client) DescribePrivateConnects(request *DescribePrivateConnectsRequest) (response *DescribePrivateConnectsResponse, err error) {
+	response = NewDescribePrivateConnectsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewInquiryCreatePrivateConnectPriceRequest() (request *InquiryCreatePrivateConnectPriceRequest) {
+	request = &InquiryCreatePrivateConnectPriceRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryCreatePrivateConnectPrice")
+
+	return
+}
+
+func NewInquiryCreatePrivateConnectPriceResponse() (response *InquiryCreatePrivateConnectPriceResponse) {
+	response = &InquiryCreatePrivateConnectPriceResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// InquiryCreatePrivateConnectPrice 二层网络专线询价
+func (c *Client) InquiryCreatePrivateConnectPrice(request *InquiryCreatePrivateConnectPriceRequest) (response *InquiryCreatePrivateConnectPriceResponse, err error) {
+	response = NewInquiryCreatePrivateConnectPriceResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewCreatePrivateConnectRequest() (request *CreatePrivateConnectRequest) {
+	request = &CreatePrivateConnectRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreatePrivateConnect")
+
+	return
+}
+
+func NewCreatePrivateConnectResponse() (response *CreatePrivateConnectResponse) {
+	response = &CreatePrivateConnectResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CreatePrivateConnect 创建二层网络专线
+func (c *Client) CreatePrivateConnect(request *CreatePrivateConnectRequest) (response *CreatePrivateConnectResponse, err error) {
+	response = NewCreatePrivateConnectResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyPrivateConnectsAttributeRequest() (request *ModifyPrivateConnectsAttributeRequest) {
+	request = &ModifyPrivateConnectsAttributeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyPrivateConnectsAttribute")
+
+	return
+}
+
+func NewModifyPrivateConnectsAttributeResponse() (response *ModifyPrivateConnectsAttributeResponse) {
+	response = &ModifyPrivateConnectsAttributeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyPrivateConnectsAttribute 修改二层网络专线属性
+func (c *Client) ModifyPrivateConnectsAttribute(request *ModifyPrivateConnectsAttributeRequest) (response *ModifyPrivateConnectsAttributeResponse, err error) {
+	response = NewModifyPrivateConnectsAttributeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyPrivateConnectBandwidthRequest() (request *ModifyPrivateConnectBandwidthRequest) {
+	request = &ModifyPrivateConnectBandwidthRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyPrivateConnectBandwidth")
+
+	return
+}
+
+func NewModifyPrivateConnectBandwidthResponse() (response *ModifyPrivateConnectBandwidthResponse) {
+	response = &ModifyPrivateConnectBandwidthResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyPrivateConnectBandwidth 修改二层网络专线带宽
+func (c *Client) ModifyPrivateConnectBandwidth(request *ModifyPrivateConnectBandwidthRequest) (response *ModifyPrivateConnectBandwidthResponse, err error) {
+	response = NewModifyPrivateConnectBandwidthResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewRenewPrivateConnectRequest() (request *RenewPrivateConnectRequest) {
+	request = &RenewPrivateConnectRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "RenewPrivateConnect")
+
+	return
+}
+
+func NewRenewPrivateConnectResponse() (response *RenewPrivateConnectResponse) {
+	response = &RenewPrivateConnectResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// RenewPrivateConnect 恢复二层网络专线
+func (c *Client) RenewPrivateConnect(request *RenewPrivateConnectRequest) (response *RenewPrivateConnectResponse, err error) {
+	response = NewRenewPrivateConnectResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeletePrivateConnectRequest() (request *DeletePrivateConnectRequest) {
+	request = &DeletePrivateConnectRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeletePrivateConnect")
+
+	return
+}
+
+func NewDeletePrivateConnectResponse() (response *DeletePrivateConnectResponse) {
+	response = &DeletePrivateConnectResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeletePrivateConnect 删除二层网络专线
+func (c *Client) DeletePrivateConnect(request *DeletePrivateConnectRequest) (response *DeletePrivateConnectResponse, err error) {
+	response = NewDeletePrivateConnectResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDestroyPrivateConnectRequest() (request *DestroyPrivateConnectRequest) {
+	request = &DestroyPrivateConnectRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DestroyPrivateConnect")
+
+	return
+}
+
+func NewDestroyPrivateConnectResponse() (response *DestroyPrivateConnectResponse) {
+	response = &DestroyPrivateConnectResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DestroyPrivateConnect 销毁二层网络专线
+func (c *Client) DestroyPrivateConnect(request *DestroyPrivateConnectRequest) (response *DestroyPrivateConnectResponse, err error) {
+	response = NewDestroyPrivateConnectResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribePrivateConnectTrafficRequest() (request *DescribePrivateConnectTrafficRequest) {
+	request = &DescribePrivateConnectTrafficRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribePrivateConnectTraffic")
+
+	return
+}
+
+func NewDescribePrivateConnectTrafficResponse() (response *DescribePrivateConnectTrafficResponse) {
+	response = &DescribePrivateConnectTrafficResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribePrivateConnectTraffic 查询二层网络专线流量
+func (c *Client) DescribePrivateConnectTraffic(request *DescribePrivateConnectTrafficRequest) (response *DescribePrivateConnectTrafficResponse, err error) {
+	response = NewDescribePrivateConnectTrafficResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeCloudRouterAvailablePortsRequest() (request *DescribeCloudRouterAvailablePortsRequest) {
+	request = &DescribeCloudRouterAvailablePortsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeCloudRouterAvailablePorts")
+
+	return
+}
+
+func NewDescribeCloudRouterAvailablePortsResponse() (response *DescribeCloudRouterAvailablePortsResponse) {
+	response = &DescribeCloudRouterAvailablePortsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeCloudRouterAvailablePorts 查询可用端口
+func (c *Client) DescribeCloudRouterAvailablePorts(request *DescribeCloudRouterAvailablePortsRequest) (response *DescribeCloudRouterAvailablePortsResponse, err error) {
+	response = NewDescribeCloudRouterAvailablePortsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeCloudRouterAvailableVpcsRequest() (request *DescribeCloudRouterAvailableVpcsRequest) {
+	request = &DescribeCloudRouterAvailableVpcsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeCloudRouterAvailableVpcs")
+
+	return
+}
+
+func NewDescribeCloudRouterAvailableVpcsResponse() (response *DescribeCloudRouterAvailableVpcsResponse) {
+	response = &DescribeCloudRouterAvailableVpcsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeCloudRouterAvailableVpcs 查询可用VPC
+func (c *Client) DescribeCloudRouterAvailableVpcs(request *DescribeCloudRouterAvailableVpcsRequest) (response *DescribeCloudRouterAvailableVpcsResponse, err error) {
+	response = NewDescribeCloudRouterAvailableVpcsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewCreateCloudRouterRequest() (request *CreateCloudRouterRequest) {
 	request = &CreateCloudRouterRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -838,25 +1275,25 @@ func (c *Client) CreateCloudRouter(request *CreateCloudRouterRequest) (response 
 	return
 }
 
-func NewDeleteCloudRouterEdgePointRequest() (request *DeleteCloudRouterEdgePointRequest) {
-	request = &DeleteCloudRouterEdgePointRequest{
+func NewDescribeCloudRoutersRequest() (request *DescribeCloudRoutersRequest) {
+	request = &DescribeCloudRoutersRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteCloudRouterEdgePoint")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeCloudRouters")
 
 	return
 }
 
-func NewDeleteCloudRouterEdgePointResponse() (response *DeleteCloudRouterEdgePointResponse) {
-	response = &DeleteCloudRouterEdgePointResponse{
+func NewDescribeCloudRoutersResponse() (response *DescribeCloudRoutersResponse) {
+	response = &DescribeCloudRoutersResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-// DeleteCloudRouterEdgePoint 删除连接点
-func (c *Client) DeleteCloudRouterEdgePoint(request *DeleteCloudRouterEdgePointRequest) (response *DeleteCloudRouterEdgePointResponse, err error) {
-	response = NewDeleteCloudRouterEdgePointResponse()
+// DescribeCloudRouters 查询三层网络列表
+func (c *Client) DescribeCloudRouters(request *DescribeCloudRoutersRequest) (response *DescribeCloudRoutersResponse, err error) {
+	response = NewDescribeCloudRoutersResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -907,71 +1344,25 @@ func (c *Client) ModifyCloudRoutersAttribute(request *ModifyCloudRoutersAttribut
 	return
 }
 
-func NewDescribeCloudRouterAvailableVpcsRequest() (request *DescribeCloudRouterAvailableVpcsRequest) {
-	request = &DescribeCloudRouterAvailableVpcsRequest{
+func NewDeleteCloudRouterEdgePointRequest() (request *DeleteCloudRouterEdgePointRequest) {
+	request = &DeleteCloudRouterEdgePointRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeCloudRouterAvailableVpcs")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteCloudRouterEdgePoint")
 
 	return
 }
 
-func NewDescribeCloudRouterAvailableVpcsResponse() (response *DescribeCloudRouterAvailableVpcsResponse) {
-	response = &DescribeCloudRouterAvailableVpcsResponse{
+func NewDeleteCloudRouterEdgePointResponse() (response *DeleteCloudRouterEdgePointResponse) {
+	response = &DeleteCloudRouterEdgePointResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-// DescribeCloudRouterAvailableVpcs 查询可用VPC
-func (c *Client) DescribeCloudRouterAvailableVpcs(request *DescribeCloudRouterAvailableVpcsRequest) (response *DescribeCloudRouterAvailableVpcsResponse, err error) {
-	response = NewDescribeCloudRouterAvailableVpcsResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeCloudRouterEdgePointTrafficRequest() (request *DescribeCloudRouterEdgePointTrafficRequest) {
-	request = &DescribeCloudRouterEdgePointTrafficRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeCloudRouterEdgePointTraffic")
-
-	return
-}
-
-func NewDescribeCloudRouterEdgePointTrafficResponse() (response *DescribeCloudRouterEdgePointTrafficResponse) {
-	response = &DescribeCloudRouterEdgePointTrafficResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeCloudRouterEdgePointTraffic 查询连接点流量
-func (c *Client) DescribeCloudRouterEdgePointTraffic(request *DescribeCloudRouterEdgePointTrafficRequest) (response *DescribeCloudRouterEdgePointTrafficResponse, err error) {
-	response = NewDescribeCloudRouterEdgePointTrafficResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeCloudRouterDCToDCTrafficRequest() (request *DescribeCloudRouterDCToDCTrafficRequest) {
-	request = &DescribeCloudRouterDCToDCTrafficRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeCloudRouterDCToDCTraffic")
-
-	return
-}
-
-func NewDescribeCloudRouterDCToDCTrafficResponse() (response *DescribeCloudRouterDCToDCTrafficResponse) {
-	response = &DescribeCloudRouterDCToDCTrafficResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeCloudRouterDCToDCTraffic 查询数据中心间流量
-func (c *Client) DescribeCloudRouterDCToDCTraffic(request *DescribeCloudRouterDCToDCTrafficRequest) (response *DescribeCloudRouterDCToDCTrafficResponse, err error) {
-	response = NewDescribeCloudRouterDCToDCTrafficResponse()
+// DeleteCloudRouterEdgePoint 删除连接点
+func (c *Client) DeleteCloudRouterEdgePoint(request *DeleteCloudRouterEdgePointRequest) (response *DeleteCloudRouterEdgePointResponse, err error) {
+	response = NewDeleteCloudRouterEdgePointResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -1068,416 +1459,48 @@ func (c *Client) DestroyCloudRouter(request *DestroyCloudRouterRequest) (respons
 	return
 }
 
-func NewRenewCloudRouterRequest() (request *RenewCloudRouterRequest) {
-	request = &RenewCloudRouterRequest{
+func NewDescribeCloudRouterEdgePointTrafficRequest() (request *DescribeCloudRouterEdgePointTrafficRequest) {
+	request = &DescribeCloudRouterEdgePointTrafficRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "RenewCloudRouter")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeCloudRouterEdgePointTraffic")
 
 	return
 }
 
-func NewRenewCloudRouterResponse() (response *RenewCloudRouterResponse) {
-	response = &RenewCloudRouterResponse{
+func NewDescribeCloudRouterEdgePointTrafficResponse() (response *DescribeCloudRouterEdgePointTrafficResponse) {
+	response = &DescribeCloudRouterEdgePointTrafficResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-// RenewCloudRouter 恢复三层网络
-func (c *Client) RenewCloudRouter(request *RenewCloudRouterRequest) (response *RenewCloudRouterResponse, err error) {
-	response = NewRenewCloudRouterResponse()
+// DescribeCloudRouterEdgePointTraffic 查询连接点流量
+func (c *Client) DescribeCloudRouterEdgePointTraffic(request *DescribeCloudRouterEdgePointTrafficRequest) (response *DescribeCloudRouterEdgePointTrafficResponse, err error) {
+	response = NewDescribeCloudRouterEdgePointTrafficResponse()
 	err = c.ApiCall(request, response)
 	return
 }
 
-func NewDescribeCloudRouterAvailablePortsRequest() (request *DescribeCloudRouterAvailablePortsRequest) {
-	request = &DescribeCloudRouterAvailablePortsRequest{
+func NewDescribeCloudRouterDCToDCTrafficRequest() (request *DescribeCloudRouterDCToDCTrafficRequest) {
+	request = &DescribeCloudRouterDCToDCTrafficRequest{
 		BaseRequest: &common.BaseRequest{},
 	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeCloudRouterAvailablePorts")
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeCloudRouterDCToDCTraffic")
 
 	return
 }
 
-func NewDescribeCloudRouterAvailablePortsResponse() (response *DescribeCloudRouterAvailablePortsResponse) {
-	response = &DescribeCloudRouterAvailablePortsResponse{
+func NewDescribeCloudRouterDCToDCTrafficResponse() (response *DescribeCloudRouterDCToDCTrafficResponse) {
+	response = &DescribeCloudRouterDCToDCTrafficResponse{
 		BaseResponse: &common.BaseResponse{},
 	}
 	return
 }
 
-// DescribeCloudRouterAvailablePorts 查询可用端口
-func (c *Client) DescribeCloudRouterAvailablePorts(request *DescribeCloudRouterAvailablePortsRequest) (response *DescribeCloudRouterAvailablePortsResponse, err error) {
-	response = NewDescribeCloudRouterAvailablePortsResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeCloudRoutersRequest() (request *DescribeCloudRoutersRequest) {
-	request = &DescribeCloudRoutersRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeCloudRouters")
-
-	return
-}
-
-func NewDescribeCloudRoutersResponse() (response *DescribeCloudRoutersResponse) {
-	response = &DescribeCloudRoutersResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeCloudRouters 查询三层网络列表
-func (c *Client) DescribeCloudRouters(request *DescribeCloudRoutersRequest) (response *DescribeCloudRoutersResponse, err error) {
-	response = NewDescribeCloudRoutersResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeDatacentersRequest() (request *DescribeDatacentersRequest) {
-	request = &DescribeDatacentersRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeDatacenters")
-
-	return
-}
-
-func NewDescribeDatacentersResponse() (response *DescribeDatacentersResponse) {
-	response = &DescribeDatacentersResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeDatacenters 查询数据中心列表
-func (c *Client) DescribeDatacenters(request *DescribeDatacentersRequest) (response *DescribeDatacentersResponse, err error) {
-	response = NewDescribeDatacentersResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeVirtualEdgeDatacentersRequest() (request *DescribeVirtualEdgeDatacentersRequest) {
-	request = &DescribeVirtualEdgeDatacentersRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeVirtualEdgeDatacenters")
-
-	return
-}
-
-func NewDescribeVirtualEdgeDatacentersResponse() (response *DescribeVirtualEdgeDatacentersResponse) {
-	response = &DescribeVirtualEdgeDatacentersResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeVirtualEdgeDatacenters 查询边缘网关数据中心列表
-func (c *Client) DescribeVirtualEdgeDatacenters(request *DescribeVirtualEdgeDatacentersRequest) (response *DescribeVirtualEdgeDatacentersResponse, err error) {
-	response = NewDescribeVirtualEdgeDatacentersResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeBorderGatewayDatacentersRequest() (request *DescribeBorderGatewayDatacentersRequest) {
-	request = &DescribeBorderGatewayDatacentersRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeBorderGatewayDatacenters")
-
-	return
-}
-
-func NewDescribeBorderGatewayDatacentersResponse() (response *DescribeBorderGatewayDatacentersResponse) {
-	response = &DescribeBorderGatewayDatacentersResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeBorderGatewayDatacenters 查询边界网关数据中心列表
-func (c *Client) DescribeBorderGatewayDatacenters(request *DescribeBorderGatewayDatacentersRequest) (response *DescribeBorderGatewayDatacentersResponse, err error) {
-	response = NewDescribeBorderGatewayDatacentersResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeVPCDatacentersRequest() (request *DescribeVPCDatacentersRequest) {
-	request = &DescribeVPCDatacentersRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeVPCDatacenters")
-
-	return
-}
-
-func NewDescribeVPCDatacentersResponse() (response *DescribeVPCDatacentersResponse) {
-	response = &DescribeVPCDatacentersResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeVPCDatacenters 查询 VPC 数据中心列表
-func (c *Client) DescribeVPCDatacenters(request *DescribeVPCDatacentersRequest) (response *DescribeVPCDatacentersResponse, err error) {
-	response = NewDescribeVPCDatacentersResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribeDatacentersWithServiceRequest() (request *DescribeDatacentersWithServiceRequest) {
-	request = &DescribeDatacentersWithServiceRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeDatacentersWithService")
-
-	return
-}
-
-func NewDescribeDatacentersWithServiceResponse() (response *DescribeDatacentersWithServiceResponse) {
-	response = &DescribeDatacentersWithServiceResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribeDatacentersWithService 查询含服务的数据中心列表
-func (c *Client) DescribeDatacentersWithService(request *DescribeDatacentersWithServiceRequest) (response *DescribeDatacentersWithServiceResponse, err error) {
-	response = NewDescribeDatacentersWithServiceResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribePrivateConnectsRequest() (request *DescribePrivateConnectsRequest) {
-	request = &DescribePrivateConnectsRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribePrivateConnects")
-
-	return
-}
-
-func NewDescribePrivateConnectsResponse() (response *DescribePrivateConnectsResponse) {
-	response = &DescribePrivateConnectsResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribePrivateConnects 获取二层网络专线列表
-func (c *Client) DescribePrivateConnects(request *DescribePrivateConnectsRequest) (response *DescribePrivateConnectsResponse, err error) {
-	response = NewDescribePrivateConnectsResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewCreatePrivateConnectRequest() (request *CreatePrivateConnectRequest) {
-	request = &CreatePrivateConnectRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreatePrivateConnect")
-
-	return
-}
-
-func NewCreatePrivateConnectResponse() (response *CreatePrivateConnectResponse) {
-	response = &CreatePrivateConnectResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// CreatePrivateConnect 创建二层网络专线
-func (c *Client) CreatePrivateConnect(request *CreatePrivateConnectRequest) (response *CreatePrivateConnectResponse, err error) {
-	response = NewCreatePrivateConnectResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewModifyPrivateConnectBandwidthRequest() (request *ModifyPrivateConnectBandwidthRequest) {
-	request = &ModifyPrivateConnectBandwidthRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyPrivateConnectBandwidth")
-
-	return
-}
-
-func NewModifyPrivateConnectBandwidthResponse() (response *ModifyPrivateConnectBandwidthResponse) {
-	response = &ModifyPrivateConnectBandwidthResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// ModifyPrivateConnectBandwidth 修改二层网络专线带宽
-func (c *Client) ModifyPrivateConnectBandwidth(request *ModifyPrivateConnectBandwidthRequest) (response *ModifyPrivateConnectBandwidthResponse, err error) {
-	response = NewModifyPrivateConnectBandwidthResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribePrivateConnectTrafficRequest() (request *DescribePrivateConnectTrafficRequest) {
-	request = &DescribePrivateConnectTrafficRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribePrivateConnectTraffic")
-
-	return
-}
-
-func NewDescribePrivateConnectTrafficResponse() (response *DescribePrivateConnectTrafficResponse) {
-	response = &DescribePrivateConnectTrafficResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribePrivateConnectTraffic 查询二层网络专线流量
-func (c *Client) DescribePrivateConnectTraffic(request *DescribePrivateConnectTrafficRequest) (response *DescribePrivateConnectTrafficResponse, err error) {
-	response = NewDescribePrivateConnectTrafficResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDeletePrivateConnectRequest() (request *DeletePrivateConnectRequest) {
-	request = &DeletePrivateConnectRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeletePrivateConnect")
-
-	return
-}
-
-func NewDeletePrivateConnectResponse() (response *DeletePrivateConnectResponse) {
-	response = &DeletePrivateConnectResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DeletePrivateConnect 删除二层网络专线
-func (c *Client) DeletePrivateConnect(request *DeletePrivateConnectRequest) (response *DeletePrivateConnectResponse, err error) {
-	response = NewDeletePrivateConnectResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDestroyPrivateConnectRequest() (request *DestroyPrivateConnectRequest) {
-	request = &DestroyPrivateConnectRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DestroyPrivateConnect")
-
-	return
-}
-
-func NewDestroyPrivateConnectResponse() (response *DestroyPrivateConnectResponse) {
-	response = &DestroyPrivateConnectResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DestroyPrivateConnect 销毁二层网络专线
-func (c *Client) DestroyPrivateConnect(request *DestroyPrivateConnectRequest) (response *DestroyPrivateConnectResponse, err error) {
-	response = NewDestroyPrivateConnectResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDescribePrivateConnectAvailablePortsRequest() (request *DescribePrivateConnectAvailablePortsRequest) {
-	request = &DescribePrivateConnectAvailablePortsRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribePrivateConnectAvailablePorts")
-
-	return
-}
-
-func NewDescribePrivateConnectAvailablePortsResponse() (response *DescribePrivateConnectAvailablePortsResponse) {
-	response = &DescribePrivateConnectAvailablePortsResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DescribePrivateConnectAvailablePorts 查询可加入的数据中心端口
-func (c *Client) DescribePrivateConnectAvailablePorts(request *DescribePrivateConnectAvailablePortsRequest) (response *DescribePrivateConnectAvailablePortsResponse, err error) {
-	response = NewDescribePrivateConnectAvailablePortsResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewModifyPrivateConnectsAttributeRequest() (request *ModifyPrivateConnectsAttributeRequest) {
-	request = &ModifyPrivateConnectsAttributeRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyPrivateConnectsAttribute")
-
-	return
-}
-
-func NewModifyPrivateConnectsAttributeResponse() (response *ModifyPrivateConnectsAttributeResponse) {
-	response = &ModifyPrivateConnectsAttributeResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// ModifyPrivateConnectsAttribute 修改二层网络专线属性
-func (c *Client) ModifyPrivateConnectsAttribute(request *ModifyPrivateConnectsAttributeRequest) (response *ModifyPrivateConnectsAttributeResponse, err error) {
-	response = NewModifyPrivateConnectsAttributeResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewRenewPrivateConnectRequest() (request *RenewPrivateConnectRequest) {
-	request = &RenewPrivateConnectRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "RenewPrivateConnect")
-
-	return
-}
-
-func NewRenewPrivateConnectResponse() (response *RenewPrivateConnectResponse) {
-	response = &RenewPrivateConnectResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// RenewPrivateConnect 恢复二层网络专线
-func (c *Client) RenewPrivateConnect(request *RenewPrivateConnectRequest) (response *RenewPrivateConnectResponse, err error) {
-	response = NewRenewPrivateConnectResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewInquiryCreatePrivateConnectPriceRequest() (request *InquiryCreatePrivateConnectPriceRequest) {
-	request = &InquiryCreatePrivateConnectPriceRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryCreatePrivateConnectPrice")
-
-	return
-}
-
-func NewInquiryCreatePrivateConnectPriceResponse() (response *InquiryCreatePrivateConnectPriceResponse) {
-	response = &InquiryCreatePrivateConnectPriceResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// InquiryCreatePrivateConnectPrice 二层网络专线询价
-func (c *Client) InquiryCreatePrivateConnectPrice(request *InquiryCreatePrivateConnectPriceRequest) (response *InquiryCreatePrivateConnectPriceResponse, err error) {
-	response = NewInquiryCreatePrivateConnectPriceResponse()
+// DescribeCloudRouterDCToDCTraffic 查询数据中心间流量
+func (c *Client) DescribeCloudRouterDCToDCTraffic(request *DescribeCloudRouterDCToDCTrafficRequest) (response *DescribeCloudRouterDCToDCTrafficResponse, err error) {
+	response = NewDescribeCloudRouterDCToDCTrafficResponse()
 	err = c.ApiCall(request, response)
 	return
 }

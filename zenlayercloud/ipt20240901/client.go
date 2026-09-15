@@ -72,7 +72,7 @@ func NewDescribeIPTransitDatacentersResponse() (response *DescribeIPTransitDatac
 	return
 }
 
-// DescribeIPTransitDatacenters 查询IP Transit可连接数据中心
+// DescribeIPTransitDatacenters 查询IP Transit可连接数据中心。
 func (c *Client) DescribeIPTransitDatacenters(request *DescribeIPTransitDatacentersRequest) (response *DescribeIPTransitDatacentersResponse, err error) {
 	response = NewDescribeIPTransitDatacentersResponse()
 	err = c.ApiCall(request, response)
@@ -95,7 +95,7 @@ func NewDescribeIPTransitAvailableAsnsResponse() (response *DescribeIPTransitAva
 	return
 }
 
-// DescribeIPTransitAvailableAsns 查询IP Transit可用 ASN
+// DescribeIPTransitAvailableAsns 查询IP Transit可用 ASN。
 func (c *Client) DescribeIPTransitAvailableAsns(request *DescribeIPTransitAvailableAsnsRequest) (response *DescribeIPTransitAvailableAsnsResponse, err error) {
 	response = NewDescribeIPTransitAvailableAsnsResponse()
 	err = c.ApiCall(request, response)
@@ -118,7 +118,7 @@ func NewDescribeIPTransitAvailableCidrBlocksResponse() (response *DescribeIPTran
 	return
 }
 
-// DescribeIPTransitAvailableCidrBlocks 查询IP Transit可用公网地址段
+// DescribeIPTransitAvailableCidrBlocks 查询IP Transit可用公网地址段。
 func (c *Client) DescribeIPTransitAvailableCidrBlocks(request *DescribeIPTransitAvailableCidrBlocksRequest) (response *DescribeIPTransitAvailableCidrBlocksResponse, err error) {
 	response = NewDescribeIPTransitAvailableCidrBlocksResponse()
 	err = c.ApiCall(request, response)
@@ -141,7 +141,7 @@ func NewInquiryCreateIPTransitPriceResponse() (response *InquiryCreateIPTransitP
 	return
 }
 
-// InquiryCreateIPTransitPrice iP Transit创建询价
+// InquiryCreateIPTransitPrice IP Transit创建询价。
 func (c *Client) InquiryCreateIPTransitPrice(request *InquiryCreateIPTransitPriceRequest) (response *InquiryCreateIPTransitPriceResponse, err error) {
 	response = NewInquiryCreateIPTransitPriceResponse()
 	err = c.ApiCall(request, response)
@@ -164,7 +164,7 @@ func NewCreateIPTransitResponse() (response *CreateIPTransitResponse) {
 	return
 }
 
-// CreateIPTransit 创建IP Transit
+// CreateIPTransit 创建IP Transit。
 func (c *Client) CreateIPTransit(request *CreateIPTransitRequest) (response *CreateIPTransitResponse, err error) {
 	response = NewCreateIPTransitResponse()
 	err = c.ApiCall(request, response)
@@ -187,7 +187,7 @@ func NewDescribeIPTransitsResponse() (response *DescribeIPTransitsResponse) {
 	return
 }
 
-// DescribeIPTransits 查询IP Transit列表
+// DescribeIPTransits 查询IP Transit列表。
 func (c *Client) DescribeIPTransits(request *DescribeIPTransitsRequest) (response *DescribeIPTransitsResponse, err error) {
 	response = NewDescribeIPTransitsResponse()
 	err = c.ApiCall(request, response)
@@ -210,7 +210,7 @@ func NewModifyIPTransitBandwidthResponse() (response *ModifyIPTransitBandwidthRe
 	return
 }
 
-// ModifyIPTransitBandwidth 修改IP Transit带宽
+// ModifyIPTransitBandwidth 修改IP Transit带宽。
 func (c *Client) ModifyIPTransitBandwidth(request *ModifyIPTransitBandwidthRequest) (response *ModifyIPTransitBandwidthResponse, err error) {
 	response = NewModifyIPTransitBandwidthResponse()
 	err = c.ApiCall(request, response)
@@ -233,7 +233,7 @@ func NewModifyIPTransitsAttributeResponse() (response *ModifyIPTransitsAttribute
 	return
 }
 
-// ModifyIPTransitsAttribute 修改IP Transit属性
+// ModifyIPTransitsAttribute 修改IP Transit属性。
 func (c *Client) ModifyIPTransitsAttribute(request *ModifyIPTransitsAttributeRequest) (response *ModifyIPTransitsAttributeResponse, err error) {
 	response = NewModifyIPTransitsAttributeResponse()
 	err = c.ApiCall(request, response)
@@ -256,7 +256,7 @@ func NewDeleteIPTransitResponse() (response *DeleteIPTransitResponse) {
 	return
 }
 
-// DeleteIPTransit 删除IP Transit
+// DeleteIPTransit 删除IP Transit。
 func (c *Client) DeleteIPTransit(request *DeleteIPTransitRequest) (response *DeleteIPTransitResponse, err error) {
 	response = NewDeleteIPTransitResponse()
 	err = c.ApiCall(request, response)
@@ -279,7 +279,7 @@ func NewDescribeIPTransitTrafficResponse() (response *DescribeIPTransitTrafficRe
 	return
 }
 
-// DescribeIPTransitTraffic 查询IP Transit流量
+// DescribeIPTransitTraffic 查询IP Transit流量。
 func (c *Client) DescribeIPTransitTraffic(request *DescribeIPTransitTrafficRequest) (response *DescribeIPTransitTrafficResponse, err error) {
 	response = NewDescribeIPTransitTrafficResponse()
 	err = c.ApiCall(request, response)
@@ -302,7 +302,7 @@ func NewInquiryModifyIPTransitPriceResponse() (response *InquiryModifyIPTransitP
 	return
 }
 
-// InquiryModifyIPTransitPrice IP Transit变配询价
+// InquiryModifyIPTransitPrice IP Transit变配询价。
 func (c *Client) InquiryModifyIPTransitPrice(request *InquiryModifyIPTransitPriceRequest) (response *InquiryModifyIPTransitPriceResponse, err error) {
 	response = NewInquiryModifyIPTransitPriceResponse()
 	err = c.ApiCall(request, response)
@@ -325,7 +325,7 @@ func NewModifyIPTransitConfigResponse() (response *ModifyIPTransitConfigResponse
 	return
 }
 
-// ModifyIPTransitConfig 修改IP Transit配置
+// ModifyIPTransitConfig 修改IP Transit配置。
 func (c *Client) ModifyIPTransitConfig(request *ModifyIPTransitConfigRequest) (response *ModifyIPTransitConfigResponse, err error) {
 	response = NewModifyIPTransitConfigResponse()
 	err = c.ApiCall(request, response)

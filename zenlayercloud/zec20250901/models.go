@@ -524,13 +524,13 @@ type CreateZecInstancesRequest struct {
 
     // InstanceName 实例显示名称。
     // 范围2到63个字符。
-    // 仅支持输入字母、数字、-和英文句点(.)。
+    // 仅支持输入字母、数字、英文句点(.)、下划线(_)、斜杠(/)和连字符(-)。
     // 且必须以数字或字母开头和结尾。
     // 购买多台实例，可以指定模式串[begin_number,bits]。
     // begin_number：有序数值的起始值，取值支持[0,99999]，默认值为0。
     // bits：有序数值所占的位数，取值支持[1,6]，默认值为6。
     // 注意模式串中不得有空格。
-    // 购买1台时，例如server-[3,3]实例显示为server003；购买2台时，实例显示名分别为server003，server004。
+    // 购买1台时，例如server-[3,3]实例显示为server-003；购买2台时，实例显示名分别为server-003，server-004。
     // 支持指定多个模式串，如server-[3,3]-[1,1]。
     // 默认值为 instance。
     InstanceName *string `json:"instanceName,omitempty"`
@@ -641,7 +641,8 @@ type CreateZecInstancesRequest struct {
     // 注意：·关联`标签键`不能重复。
     Tags *TagAssociation `json:"tags,omitempty"`
 
-    // UserData 实例初始化自定义脚本，需使用Base64编码后传入，解码后大小不超过64KB。
+    // UserData 实例初始化自定义脚本。
+    // 需使用Base64编码后传入，解码后大小需小于64KiB。
     UserData *string `json:"userData,omitempty"`
 
     // InstanceOptions 实例选项配置。
@@ -742,6 +743,14 @@ type DescribeInstancesRequest struct {
 
     // ImageId 镜像ID。
     ImageId *string `json:"imageId,omitempty"`
+
+    // InstanceType 根据实例规格ID精确过滤，如`z2a.cpu.1`。
+    // 取值与返回结果中的`instanceType`一致，可直接回传。
+    InstanceType *string `json:"instanceType,omitempty"`
+
+    // InstanceTypeSeries 根据实例的机型系列精确过滤，如`z2a`。
+    // 一个机型系列下包含多种规格，指定后返回该系列下的全部实例。
+    InstanceTypeSeries *string `json:"instanceTypeSeries,omitempty"`
 
     // Ipv4Address 根据实例关联的IPv4过滤。
     // 若指定为网段(CIDR)形式，掩码长度必须在20–31之间。
@@ -1043,8 +1052,15 @@ type ModifyInstancesAttributeRequest struct {
     InstanceIds []string `json:"instanceIds,omitempty"`
 
     // InstanceName 实例名称。
-    // 2～63个字符。
-    // 仅支持输入字母、数字、-和英文句点(.)。
+    // 范围2到63个字符。
+    // 仅支持输入字母、数字、英文句点(.)、下划线(_)、斜杠(/)和连字符(-)，且必须以字母或数字开头和结尾。
+    // 批量修改多台实例时，可以指定模式串[begin_number,bits]，按instanceIds列表的顺序依次编号。
+    // begin_number：有序数值的起始值，取值支持[0,99999]。
+    // bits：有序数值所占的位数，取值支持[1,6]，位数不足时前面补0，数值超出该位数时不截断。
+    // 注意模式串中不得有空格。
+    // 例如修改2台实例时，指定server-[3,3]，实例名称分别为server-003、server-004。
+    // 支持指定多个模式串，如server-[3,3]-[1,1]。
+    // 不指定模式串时，所有实例修改为同一名称。
     InstanceName *string `json:"instanceName,omitempty"`
 
 }
@@ -1207,10 +1223,10 @@ type ResetInstanceRequest struct {
 
     // InstanceName 修改的实例名称。
     // 2～63个字符。
-    // 仅支持输入字母、数字、-和英文句点(.)。
+    // 仅支持输入字母、数字、英文句点(.)、下划线(_)、斜杠(/)和连字符(-)，且必须以字母或数字开头和结尾。
     InstanceName *string `json:"instanceName,omitempty"`
 
-    // UserData 实例初始化自定义脚本，需使用Base64编码后传入，解码后大小不超过64KB。
+    // UserData 实例初始化自定义脚本，需使用Base64编码后传入，解码后大小需小于64KiB。
     UserData *string `json:"userData,omitempty"`
 
 }
@@ -1257,10 +1273,10 @@ type ResetInstancesRequest struct {
 
     // InstanceName 修改的实例名称。
     // 2～63个字符。
-    // 仅支持输入字母、数字、-和英文句点(.)。
+    // 仅支持输入字母、数字、英文句点(.)、下划线(_)、斜杠(/)和连字符(-)，且必须以字母或数字开头和结尾。
     InstanceName *string `json:"instanceName,omitempty"`
 
-    // UserData 实例初始化自定义脚本，需使用Base64编码后传入，解码后大小不超过64KB。
+    // UserData 实例初始化自定义脚本，需使用Base64编码后传入，解码后大小需小于64KiB。
     UserData *string `json:"userData,omitempty"`
 
 }
@@ -3695,248 +3711,6 @@ type UnassignNetworkInterfaceIpv4Response struct {
 
 }
 
-type DescribeNetworkInterfacePublicIPv6Request struct {
-    *common.BaseRequest
-
-    // NicId 网卡ID。
-    NicId *string `json:"nicId,omitempty"`
-
-}
-
-type DescribeNetworkInterfacePublicIPv6Response struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *DescribeNetworkInterfacePublicIPv6ResponseParams `json:"response,omitempty"`
-
-}
-
-type DescribeNetworkInterfacePublicIPv6ResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // Address 公网IPv6信息。
-    // 网卡如果没有公网IPv6,则取值为空。
-    Address *PublicIpv6CidrAddress `json:"address,omitempty"`
-
-}
-
-// PublicIpv6CidrAddress 公网IPv6的基本信息。
-type PublicIpv6CidrAddress struct {
-
-    // Ipv6CidrId IPv6 CIDR的ID。
-    Ipv6CidrId *string `json:"ipv6CidrId,omitempty"`
-
-    // Ipv6Cidr IPv6 CIDR的地址。
-    Ipv6Cidr *string `json:"ipv6Cidr,omitempty"`
-
-    // PrimaryIpv6Address 网卡的主IPv6地址。
-    PrimaryIpv6Address *string `json:"primaryIpv6Address,omitempty"`
-
-    // InternetChargeType IPv6的网络计费类型。
-    InternetChargeType *string `json:"internetChargeType,omitempty"`
-
-    // Bandwidth IPv6的公网带宽限速。
-    // 单位：Mbps。
-    Bandwidth *int `json:"bandwidth,omitempty"`
-
-    // RateLimitMode 限速模式。
-    RateLimitMode *string `json:"rateLimitMode,omitempty"`
-
-    // TrafficPackageSize IPv6的流量包大小。
-    // 单位：TB。
-    TrafficPackageSize *float64 `json:"trafficPackageSize,omitempty"`
-
-    // BandwidthCluster 关联的带宽组信息。
-    BandwidthCluster *BandwidthClusterInfo `json:"bandwidthCluster,omitempty"`
-
-    // OperationInfo IPv6的带宽、流量包操作状态。
-    OperationInfo *OperationInfo `json:"operationInfo,omitempty"`
-
-}
-
-// BandwidthClusterInfo 描述带宽组的基本信息。
-type BandwidthClusterInfo struct {
-
-    // BandwidthClusterId 共享带宽包ID。
-    BandwidthClusterId *string `json:"bandwidthClusterId,omitempty"`
-
-    // BandwidthClusterName 共享带宽包名称。
-    BandwidthClusterName *string `json:"bandwidthClusterName,omitempty"`
-
-}
-
-// OperationInfo 操作详情。
-type OperationInfo struct {
-
-    // Operation 操作动作。取值范围：`ModifyBandwidth`（调整带宽）、`ModifyFlowPackage`（调整流量包）。
-    Operation *string `json:"operation,omitempty"`
-
-    // Status 操作状态。取值范围：`OPERATING`（操作中）、`FAILED`（操作失败）。
-    Status *string `json:"status,omitempty"`
-
-}
-
-// InquiryPricePublicIpv6Request 
-type InquiryPricePublicIpv6Request struct {
-    *common.BaseRequest
-
-    // RegionId 节点ID。
-    RegionId *string `json:"regionId,omitempty"`
-
-    // PackageSize 流量包订购大小。
-    // 单位为TB。
-    PackageSize *float64 `json:"packageSize,omitempty"`
-
-    // Bandwidth 公网出带宽上限。
-    // 单位：Mbps。
-    // 不同机型带宽上限范围不一致，具体限制详见购买网络带宽。
-    Bandwidth *int `json:"bandwidth,omitempty"`
-
-}
-
-type InquiryPricePublicIpv6Response struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *InquiryPricePublicIpv6ResponseParams `json:"response,omitempty"`
-
-}
-
-// InquiryPricePublicIpv6ResponseParams 
-type InquiryPricePublicIpv6ResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // BandwidthPrice 带宽的价格。
-    BandwidthPrice *PriceItem `json:"bandwidthPrice,omitempty"`
-
-}
-
-// InquiryPriceChangeIpv6InternetChargeTypeRequest 
-type InquiryPriceChangeIpv6InternetChargeTypeRequest struct {
-    *common.BaseRequest
-
-    // Ipv6Id 要操作的公网IPv6。
-    Ipv6Id *string `json:"ipv6Id,omitempty"`
-
-    // InternetChargeType 要变更的目标网络计费类型。
-    InternetChargeType *string `json:"internetChargeType,omitempty"`
-
-    // Bandwidth 带宽限速。
-    // 单位：Mbps。
-    // 网络计费方式为按带宽计费（`ByBandwidth`）时需指定。
-    Bandwidth *int `json:"bandwidth,omitempty"`
-
-    // FlowPackage 流量包大小。
-    // 单位：TB。
-    // 网络计费方式为流量包计费（`ByTrafficPackage`）时需指定。
-    FlowPackage *float64 `json:"flowPackage,omitempty"`
-
-}
-
-type InquiryPriceChangeIpv6InternetChargeTypeResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *InquiryPriceChangeIpv6InternetChargeTypeResponseParams `json:"response,omitempty"`
-
-}
-
-// InquiryPriceChangeIpv6InternetChargeTypeResponseParams 
-type InquiryPriceChangeIpv6InternetChargeTypeResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // Ipv6Price 公网IPv6的保留价格。
-    Ipv6Price *PriceItem `json:"ipv6Price,omitempty"`
-
-    // BandwidthPrice 公网IPv6的带宽价格。
-    BandwidthPrice *PriceItem `json:"bandwidthPrice,omitempty"`
-
-    // PreviousPrices 变更前各计费项当前生效的价格，字段与上方一一对应，用于对比出哪些计费项发生了调价。
-    // 无订单时为 null。
-    PreviousPrices *Ipv6PreviousPrices `json:"previousPrices,omitempty"`
-
-}
-
-// Ipv6PreviousPrices 变更前各计费项当前生效的价格。
-type Ipv6PreviousPrices struct {
-
-    // Ipv6Price 变更前公网IPv6的保留价格。
-    Ipv6Price *PriceItem `json:"ipv6Price,omitempty"`
-
-    // BandwidthPrice 变更前公网IPv6的带宽价格。
-    BandwidthPrice *PriceItem `json:"bandwidthPrice,omitempty"`
-
-}
-
-// AssignNetworkInterfaceIpv6Request 
-type AssignNetworkInterfaceIpv6Request struct {
-    *common.BaseRequest
-
-    // NicId 要添加IPv6的网卡ID。
-    NicId *string `json:"nicId,omitempty"`
-
-    // InternetChargeType 公网IPv6的网络计费方式。
-    // 当子网的堆栈类型包括V6且为公网时，需要指定。
-    InternetChargeType *string `json:"internetChargeType,omitempty"`
-
-    // Bandwidth 公网IPv6的带宽限速。
-    // 单位Mbps。
-    // 当子网的堆栈类型包括V6且为公网时，需要指定。
-    Bandwidth *int `json:"bandwidth,omitempty"`
-
-    // PackageSize 公网IPv6的流量包大小。
-    // 单位为TB。
-    // 值要求为0或0.1的倍数。
-    // 当子网的堆栈类型包括V6且为公网时，且网络计费方式是流量计费(`ByTrafficPackage`)需要指定。
-    PackageSize *float64 `json:"packageSize,omitempty"`
-
-    // ClusterId 公网IPv6所指定的共享带宽包ID。
-    // 当子网的堆栈类型包括V6且为公网时，且网络计费方式是共享带宽包计费(`BandwidthCluster`)需要指定。
-    ClusterId *string `json:"clusterId,omitempty"`
-
-    // RateLimitMode 限速模式。
-    // 严格模式(`STRICT`) 必须同时指定 `bandwidth`。
-    RateLimitMode *string `json:"rateLimitMode,omitempty"`
-
-}
-
-type AssignNetworkInterfaceIpv6Response struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// UnassignNetworkInterfaceIpv6Request 
-type UnassignNetworkInterfaceIpv6Request struct {
-    *common.BaseRequest
-
-    // NicId 要删除IPv6的网卡ID。
-    NicId *string `json:"nicId,omitempty"`
-
-}
-
-type UnassignNetworkInterfaceIpv6Response struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
 // DescribeNetworkInterfaceMonitorDataRequest 
 type DescribeNetworkInterfaceMonitorDataRequest struct {
     *common.BaseRequest
@@ -3987,114 +3761,6 @@ type DescribeNetworkInterfaceMonitorDataResponseParams struct {
 
     // Metrics 监控数据集合。
     Metrics []*MetricValue `json:"metrics,omitempty"`
-
-}
-
-type ModifyNetworkInterfacePublicIPv6BandwidthLimitModeRequest struct {
-    *common.BaseRequest
-
-    // Ipv6CidrId IPv6 CIDR的ID。
-    Ipv6CidrId *string `json:"ipv6CidrId,omitempty"`
-
-    // RateLimitMode 新的限速模式。
-    RateLimitMode *string `json:"rateLimitMode,omitempty"`
-
-}
-
-type ModifyNetworkInterfacePublicIPv6BandwidthLimitModeResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// InquiryPriceModifyIpv6BandwidthRequest 
-type InquiryPriceModifyIpv6BandwidthRequest struct {
-    *common.BaseRequest
-
-    // Ipv6Id 要操作的公网IPv6。
-    Ipv6Id *string `json:"ipv6Id,omitempty"`
-
-    // Bandwidth 调整后的带宽上限。
-    // 单位：Mbps。
-    Bandwidth *int `json:"bandwidth,omitempty"`
-
-}
-
-type InquiryPriceModifyIpv6BandwidthResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response *InquiryPriceModifyIpv6BandwidthResponseParams `json:"response,omitempty"`
-
-}
-
-// InquiryPriceModifyIpv6BandwidthResponseParams 
-type InquiryPriceModifyIpv6BandwidthResponseParams struct {
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    // Ipv6Price 公网IPv6的保留价格。
-    Ipv6Price *PriceItem `json:"ipv6Price,omitempty"`
-
-    // BandwidthPrice 公网IPv6的带宽价格。
-    BandwidthPrice *PriceItem `json:"bandwidthPrice,omitempty"`
-
-    // PreviousPrices 变更前各计费项当前生效的价格，字段与上方一一对应，用于对比出哪些计费项发生了调价。
-    // 无订单时为 null。
-    PreviousPrices *Ipv6PreviousPrices `json:"previousPrices,omitempty"`
-
-}
-
-// ModifyIpv6BandwidthRequest 
-type ModifyIpv6BandwidthRequest struct {
-    *common.BaseRequest
-
-    // Ipv6Id IPv6唯一标识ID。
-    Ipv6Id *string `json:"ipv6Id,omitempty"`
-
-    // Bandwidth 调整带宽限速的目标值。
-    // 单位Mbps。
-    Bandwidth *int `json:"bandwidth,omitempty"`
-
-}
-
-type ModifyIpv6BandwidthResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// ModifyIpv6TrafficPackageRequest 
-type ModifyIpv6TrafficPackageRequest struct {
-    *common.BaseRequest
-
-    // Ipv6Id IPv6唯一标识ID。
-    Ipv6Id *string `json:"ipv6Id,omitempty"`
-
-    // TrafficPackageSize 流量包大小，单位TB。
-    TrafficPackageSize *float64 `json:"trafficPackageSize,omitempty"`
-
-}
-
-type ModifyIpv6TrafficPackageResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
 
 }
 
@@ -5398,6 +5064,28 @@ type BlockInfo struct {
 
 }
 
+// BandwidthClusterInfo 描述带宽组的基本信息。
+type BandwidthClusterInfo struct {
+
+    // BandwidthClusterId 共享带宽包ID。
+    BandwidthClusterId *string `json:"bandwidthClusterId,omitempty"`
+
+    // BandwidthClusterName 共享带宽包名称。
+    BandwidthClusterName *string `json:"bandwidthClusterName,omitempty"`
+
+}
+
+// OperationInfo 操作详情。
+type OperationInfo struct {
+
+    // Operation 操作动作。取值范围：`ModifyBandwidth`（调整带宽）、`ModifyFlowPackage`（调整流量包）。
+    Operation *string `json:"operation,omitempty"`
+
+    // Status 操作状态。取值范围：`OPERATING`（操作中）、`FAILED`（操作失败）。
+    Status *string `json:"status,omitempty"`
+
+}
+
 // CreateEipsRequest 
 type CreateEipsRequest struct {
     *common.BaseRequest
@@ -5596,6 +5284,7 @@ type AssociateEipAddressRequest struct {
     *common.BaseRequest
 
     // LoadBalancerId 负载均衡实例的ID。
+    // 仅`ipStackType`为`IPv4`的负载均衡可绑定弹性IP——负载均衡只支持单栈，`IPv6`的公网地址通过`AssignLoadBalancerIpv6`接口分配。
     LoadBalancerId *string `json:"loadBalancerId,omitempty"`
 
     // NicId 虚拟网卡的ID。
@@ -8354,16 +8043,11 @@ type CreateVpcRequest struct {
     // 且必须以数字或字母开头和结尾。
     Name *string `json:"name,omitempty"`
 
-    // CidrBlock VPC的CIDR地址段。
-    // 该VPC下所有子网必须落在此网段内，请预留足够的地址空间。
-    // 掩码范围为9到29。
-    // 支持配置多个网段，多个网段之间以英文逗号分隔，例如：`21.0.0.0/9,22.0.0.0/9`，各网段之间不能重叠，最多支持5个网段。
-    // **强烈建议使用 RFC 1918 定义的私有地址空间内的网段**：`10.0.0.0/8`、`172.16.0.0/12` 或 `192.168.0.0/16`。
-    // 请注意 `10.0.0.0/8` 本身超出了VPC支持的最大网段规模，如需使用 10.x 地址空间，请指定其子网段，例如 `10.0.0.0/16`；另外两个 RFC 1918 网段可以整段使用。
-    // 非 RFC 1918 网段可以被接受，但存在显著风险：将公网可路由的网段设为VPC网段后，所有发往这些地址的流量都会在VPC内被路由、不会离开VPC，该VPC下的每一台实例都将失去访问该网段上真实互联网服务的能力（包括公网端点、软件源和API）。
-    // 该故障具有隐蔽性——路由表看起来完全正常，但目标地址就是不可达。
-    // 此外，若该VPC后续需要与本地网络或其他网络互联，地址重叠的风险也会显著提高。
-    // 与以下保留网段重叠的网段不可使用，将被拒绝：`0.0.0.0/8`（本网络）、`100.64.0.0/10`（运营商级NAT共享地址）、`127.0.0.0/8`（环回地址）、`169.254.0.0/16`（链路本地地址）、`224.0.0.0/4`（组播地址）。
+    // CidrBlock VPC的CIDR地址段，该VPC下所有子网必须落在此网段内。
+    // 掩码范围为9到29，且必须填写网段的起始地址，例如 `10.0.0.0/16`。
+    // 支持配置多个网段，多个网段之间以英文逗号分隔，例如：`21.0.0.0/9,22.0.0.0/9`，各网段之间不能重叠。
+    // 单个VPC的网段数量上限由配额 `ZEC_CIDR_IPv4_Blocks_per_VPC` 控制，默认为5个，可申请提升。
+    // 不能与以下保留网段重叠：`0.0.0.0/8`、`100.64.0.0/10`、`127.0.0.0/8`、`169.254.0.0/16`、`224.0.0.0/4`。
     CidrBlock *string `json:"cidrBlock,omitempty"`
 
     // Mtu VPC的MTU（最大传输单元）。支持：1300、1500、9000。
@@ -8416,14 +8100,13 @@ type ModifyVpcAttributeRequest struct {
     VpcName *string `json:"vpcName,omitempty"`
 
     // CidrBlock 需要修改的IPv4 CIDR。
-    // 掩码范围为9到29。
-    // 支持配置多个网段，多个网段之间以英文逗号分隔，例如：`21.0.0.0/9,22.0.0.0/9`，各网段之间不能重叠，最多支持5个网段。
-    // **强烈建议使用 RFC 1918 定义的私有地址空间内的网段**：`10.0.0.0/8`、`172.16.0.0/12` 或 `192.168.0.0/16`。
-    // 请注意 `10.0.0.0/8` 本身超出了VPC支持的最大网段规模，如需使用 10.x 地址空间，请指定其子网段，例如 `10.0.0.0/16`。
-    // 非 RFC 1918 网段可以被接受，但存在显著风险：所有发往这些地址的流量都会在VPC内被路由、不会离开VPC，该VPC下的实例将失去访问该网段上真实互联网服务的能力，且故障隐蔽（路由表正常但目标不可达）。
-    // 与以下保留网段重叠的网段不可使用，将被拒绝：`0.0.0.0/8`、`100.64.0.0/10`、`127.0.0.0/8`、`169.254.0.0/16`、`224.0.0.0/4`。
-    // 如果VPC存在子网，则修改后的CIDR范围必须覆盖原VPC CIDR的每一个网段。
-    // 默认VPC不支持修改。
+    // 掩码范围为9到29，且必须填写网段的起始地址，例如 `10.0.0.0/16`。
+    // 支持配置多个网段，多个网段之间以英文逗号分隔，例如：`21.0.0.0/9,22.0.0.0/9`，各网段之间不能重叠。
+    // 单个VPC的网段数量上限由配额 `ZEC_CIDR_IPv4_Blocks_per_VPC` 控制，默认为5个，可申请提升。
+    // 不能与以下保留网段重叠：`0.0.0.0/8`、`100.64.0.0/10`、`127.0.0.0/8`、`169.254.0.0/16`、`224.0.0.0/4`。
+    // 该字段为全量覆盖：需要保留的网段也要一并传入，未传入的网段视为移除。
+    // 修改后VPC下每一个子网都必须仍落在新的CIDR范围内，否则请求会被拒绝；因此没有子网的网段可以自由缩小或移除。
+    // 默认VPC不支持修改CIDR。
     CidrBlock *string `json:"cidrBlock,omitempty"`
 
     // EnableIPv6 是否开启IPv6内网CIDR。
@@ -8774,7 +8457,7 @@ type ModifySubnetStackTypeRequest struct {
 
     // StackType 子网堆栈类型。
     // `IPv4_IPv6`: 开启公网IPv6; 公网或内网由`ipv6Type`指定。
-    // `IPv4`: 将关闭IPv6，关闭前须确保子网内所有网卡已通过 `UnassignNetworkInterfaceIpv6` 删除其 IPv6 地址。
+    // `IPv4`: 将关闭IPv6，关闭前须确保子网内已无 IPv6 地址被占用：网卡的 IPv6 通过 `UnassignNetworkInterfaceIpv6` 删除，负载均衡的 IPv6 VIP 通过 `DeleteIpv6Addresses` 删除。
     StackType *string `json:"stackType,omitempty"`
 
     // Ipv6Type IPv6 的类型。
@@ -11022,6 +10705,790 @@ type UnassociateHaVipResponse struct {
     Response struct {
 		RequestId string `json:"requestId,omitempty"`
 	} `json:"response,omitempty"`
+
+}
+
+// AssignNetworkInterfaceIpv6Request 
+type AssignNetworkInterfaceIpv6Request struct {
+    *common.BaseRequest
+
+    // NicId 要添加IPv6的网卡ID。
+    NicId *string `json:"nicId,omitempty"`
+
+    // InternetChargeType 公网IPv6的网络计费方式。
+    // 当子网的堆栈类型包括V6且为公网时，需要指定。
+    InternetChargeType *string `json:"internetChargeType,omitempty"`
+
+    // Bandwidth 公网IPv6的带宽限速。
+    // 单位Mbps。
+    // 当子网的堆栈类型包括V6且为公网时，需要指定。
+    Bandwidth *int `json:"bandwidth,omitempty"`
+
+    // PackageSize 公网IPv6的流量包大小。
+    // 单位为TB。
+    // 值要求为0或0.1的倍数。
+    // 当子网的堆栈类型包括V6且为公网时，且网络计费方式是流量计费(`ByTrafficPackage`)需要指定。
+    PackageSize *float64 `json:"packageSize,omitempty"`
+
+    // ClusterId 公网IPv6所指定的共享带宽包ID。
+    // 当子网的堆栈类型包括V6且为公网时，且网络计费方式是共享带宽包计费(`BandwidthCluster`)需要指定。
+    ClusterId *string `json:"clusterId,omitempty"`
+
+    // RateLimitMode 限速模式。
+    // 严格模式(`STRICT`) 必须同时指定 `bandwidth`。
+    RateLimitMode *string `json:"rateLimitMode,omitempty"`
+
+}
+
+type AssignNetworkInterfaceIpv6Response struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// UnassignNetworkInterfaceIpv6Request 
+type UnassignNetworkInterfaceIpv6Request struct {
+    *common.BaseRequest
+
+    // NicId 要删除IPv6的网卡ID。
+    NicId *string `json:"nicId,omitempty"`
+
+}
+
+type UnassignNetworkInterfaceIpv6Response struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// ModifyIpv6BandwidthRequest 
+type ModifyIpv6BandwidthRequest struct {
+    *common.BaseRequest
+
+    // Ipv6Id IPv6唯一标识ID。
+    Ipv6Id *string `json:"ipv6Id,omitempty"`
+
+    // Bandwidth 调整带宽限速的目标值。
+    // 单位Mbps。
+    Bandwidth *int `json:"bandwidth,omitempty"`
+
+}
+
+type ModifyIpv6BandwidthResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// ModifyIpv6TrafficPackageRequest 
+type ModifyIpv6TrafficPackageRequest struct {
+    *common.BaseRequest
+
+    // Ipv6Id IPv6唯一标识ID。
+    Ipv6Id *string `json:"ipv6Id,omitempty"`
+
+    // TrafficPackageSize 流量包大小，单位TB。
+    TrafficPackageSize *float64 `json:"trafficPackageSize,omitempty"`
+
+}
+
+type ModifyIpv6TrafficPackageResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type DeleteIpv6AddressesRequest struct {
+    *common.BaseRequest
+
+    // Ipv6Ids 要删除的公网 IPv6 的 ID 列表。
+    Ipv6Ids []string `json:"ipv6Ids,omitempty"`
+
+}
+
+type DeleteIpv6AddressesResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DeleteIpv6AddressesResponseParams `json:"response,omitempty"`
+
+}
+
+// DeleteIpv6AddressesResponseParams 
+type DeleteIpv6AddressesResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // FailedIpv6Addresses 删除失败的公网IPv6详情列表。
+    // 若全量成功则为空。
+    FailedIpv6Addresses []*DeleteIpv6AddressesFailedItem `json:"failedIpv6Addresses,omitempty"`
+
+}
+
+// DeleteIpv6AddressesFailedItem 批量删除公网IPv6中单个失败项的详情。
+type DeleteIpv6AddressesFailedItem struct {
+
+    // Ipv6Id 删除失败的公网IPv6的ID。
+    Ipv6Id *string `json:"ipv6Id,omitempty"`
+
+    // ErrorCode 错误码。
+    ErrorCode *string `json:"errorCode,omitempty"`
+
+    // ErrorMsg 错误消息。
+    ErrorMsg *string `json:"errorMsg,omitempty"`
+
+}
+
+// InquiryPricePublicIpv6Request 
+type InquiryPricePublicIpv6Request struct {
+    *common.BaseRequest
+
+    // RegionId 节点ID。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // PackageSize 流量包订购大小。
+    // 单位为TB。
+    PackageSize *float64 `json:"packageSize,omitempty"`
+
+    // Bandwidth 公网出带宽上限。
+    // 单位：Mbps。
+    // 不同机型带宽上限范围不一致，具体限制详见购买网络带宽。
+    Bandwidth *int `json:"bandwidth,omitempty"`
+
+    // Amount 询价的公网IPv6数量。
+    // 价格按数量累计。
+    Amount *int `json:"amount,omitempty"`
+
+}
+
+type InquiryPricePublicIpv6Response struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *InquiryPricePublicIpv6ResponseParams `json:"response,omitempty"`
+
+}
+
+// InquiryPricePublicIpv6ResponseParams 
+type InquiryPricePublicIpv6ResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // BandwidthPrice 带宽的价格。
+    BandwidthPrice *PriceItem `json:"bandwidthPrice,omitempty"`
+
+}
+
+// InquiryPriceModifyIpv6BandwidthRequest 
+type InquiryPriceModifyIpv6BandwidthRequest struct {
+    *common.BaseRequest
+
+    // Ipv6Id 要操作的公网IPv6。
+    Ipv6Id *string `json:"ipv6Id,omitempty"`
+
+    // Bandwidth 调整后的带宽上限。
+    // 单位：Mbps。
+    Bandwidth *int `json:"bandwidth,omitempty"`
+
+}
+
+type InquiryPriceModifyIpv6BandwidthResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *InquiryPriceModifyIpv6BandwidthResponseParams `json:"response,omitempty"`
+
+}
+
+// InquiryPriceModifyIpv6BandwidthResponseParams 
+type InquiryPriceModifyIpv6BandwidthResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // Ipv6Price 公网IPv6的保留价格。
+    Ipv6Price *PriceItem `json:"ipv6Price,omitempty"`
+
+    // BandwidthPrice 公网IPv6的带宽价格。
+    BandwidthPrice *PriceItem `json:"bandwidthPrice,omitempty"`
+
+    // PreviousPrices 变更前各计费项当前生效的价格，字段与上方一一对应，用于对比出哪些计费项发生了调价。
+    // 无订单时为 null。
+    PreviousPrices *Ipv6PreviousPrices `json:"previousPrices,omitempty"`
+
+}
+
+// Ipv6PreviousPrices 变更前各计费项当前生效的价格。
+type Ipv6PreviousPrices struct {
+
+    // Ipv6Price 变更前公网IPv6的保留价格。
+    Ipv6Price *PriceItem `json:"ipv6Price,omitempty"`
+
+    // BandwidthPrice 变更前公网IPv6的带宽价格。
+    BandwidthPrice *PriceItem `json:"bandwidthPrice,omitempty"`
+
+}
+
+// InquiryPriceChangeIpv6InternetChargeTypeRequest 
+type InquiryPriceChangeIpv6InternetChargeTypeRequest struct {
+    *common.BaseRequest
+
+    // Ipv6Id 要操作的公网IPv6。
+    Ipv6Id *string `json:"ipv6Id,omitempty"`
+
+    // InternetChargeType 要变更的目标网络计费类型。
+    InternetChargeType *string `json:"internetChargeType,omitempty"`
+
+    // Bandwidth 带宽限速。
+    // 单位：Mbps。
+    // 网络计费方式为按带宽计费（`ByBandwidth`）时需指定。
+    Bandwidth *int `json:"bandwidth,omitempty"`
+
+    // FlowPackage 流量包大小。
+    // 单位：TB。
+    // 网络计费方式为流量包计费（`ByTrafficPackage`）时需指定。
+    FlowPackage *float64 `json:"flowPackage,omitempty"`
+
+}
+
+type InquiryPriceChangeIpv6InternetChargeTypeResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *InquiryPriceChangeIpv6InternetChargeTypeResponseParams `json:"response,omitempty"`
+
+}
+
+// InquiryPriceChangeIpv6InternetChargeTypeResponseParams 
+type InquiryPriceChangeIpv6InternetChargeTypeResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // Ipv6Price 公网IPv6的保留价格。
+    Ipv6Price *PriceItem `json:"ipv6Price,omitempty"`
+
+    // BandwidthPrice 公网IPv6的带宽价格。
+    BandwidthPrice *PriceItem `json:"bandwidthPrice,omitempty"`
+
+    // PreviousPrices 变更前各计费项当前生效的价格，字段与上方一一对应，用于对比出哪些计费项发生了调价。
+    // 无订单时为 null。
+    PreviousPrices *Ipv6PreviousPrices `json:"previousPrices,omitempty"`
+
+}
+
+type ModifyNetworkInterfacePublicIPv6BandwidthLimitModeRequest struct {
+    *common.BaseRequest
+
+    // Ipv6CidrId IPv6 CIDR的ID。
+    Ipv6CidrId *string `json:"ipv6CidrId,omitempty"`
+
+    // RateLimitMode 新的限速模式。
+    RateLimitMode *string `json:"rateLimitMode,omitempty"`
+
+}
+
+type ModifyNetworkInterfacePublicIPv6BandwidthLimitModeResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type DescribeIpv6AddressesRequest struct {
+    *common.BaseRequest
+
+    // Ipv6Ids 按照公网 IPv6 的唯一 ID 过滤。
+    // 最大不能超过100个。
+    Ipv6Ids []string `json:"ipv6Ids,omitempty"`
+
+    // RegionId 按照公网 IPv6 所属节点ID过滤。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // Ipv6Cidr 按照公网 IPv6 的 CIDR 地址段过滤，该字段支持模糊匹配。
+    Ipv6Cidr *string `json:"ipv6Cidr,omitempty"`
+
+    // Status 按照公网 IPv6 的状态过滤。
+    Status *string `json:"status,omitempty"`
+
+    // AssociatedIds 按照公网 IPv6 绑定的资源 ID 过滤。
+    // 取值可以是网卡ID或负载均衡ID。
+    AssociatedIds []string `json:"associatedIds,omitempty"`
+
+    // ResourceGroupId 按照公网 IPv6 所属的资源组ID过滤。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // PageSize 返回的分页大小。
+    // 当未传递时，默认值为20。
+    PageSize *int `json:"pageSize,omitempty"`
+
+    // PageNum 返回的分页数。
+    // 当未传递时，默认值为1。
+    PageNum *int `json:"pageNum,omitempty"`
+
+}
+
+type DescribeIpv6AddressesResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeIpv6AddressesResponseParams `json:"response,omitempty"`
+
+}
+
+type DescribeIpv6AddressesResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // TotalCount 满足过滤条件的公网 IPv6 总数。
+    TotalCount *int `json:"totalCount,omitempty"`
+
+    // DataSet 返回的公网 IPv6 列表。
+    DataSet []*Ipv6AddressInfo `json:"dataSet,omitempty"`
+
+}
+
+// Ipv6AddressInfo 公网IPv6的基本信息，包括IPv6地址段、计费配置与归属关系。
+type Ipv6AddressInfo struct {
+
+    // Ipv6Id 公网 IPv6 的唯一 ID。
+    Ipv6Id *string `json:"ipv6Id,omitempty"`
+
+    // RegionId 节点ID。
+    RegionId *string `json:"regionId,omitempty"`
+
+    // Status 公网 IPv6 的状态。
+    Status *string `json:"status,omitempty"`
+
+    // Ipv6Cidr 公网 IPv6 的地址段。
+    Ipv6Cidr *string `json:"ipv6Cidr,omitempty"`
+
+    // PrimaryIpv6Address 主 IPv6 地址。
+    PrimaryIpv6Address *string `json:"primaryIpv6Address,omitempty"`
+
+    // AssociatedId 公网 IPv6 绑定的资源ID。
+    // 可能为网卡ID或负载均衡ID。
+    AssociatedId *string `json:"associatedId,omitempty"`
+
+    // AssociatedType 公网 IPv6 绑定的资源类型。
+    AssociatedType *string `json:"associatedType,omitempty"`
+
+    // NicId 公网 IPv6 绑定的网卡ID。
+    // 当且仅当`associatedType`字段为`NIC`时有值。
+    NicId *string `json:"nicId,omitempty"`
+
+    // InstanceId 公网 IPv6 绑定的实例ID。
+    // 当且仅当`associatedType`字段为`NIC`且该网卡已绑定实例时有值。
+    InstanceId *string `json:"instanceId,omitempty"`
+
+    // InternetChargeType 公网 IPv6 的网络计费方式。
+    InternetChargeType *string `json:"internetChargeType,omitempty"`
+
+    // Bandwidth 公网 IPv6 的带宽限速。
+    // 单位：Mbps。
+    Bandwidth *int `json:"bandwidth,omitempty"`
+
+    // RateLimitMode 限速模式。
+    RateLimitMode *string `json:"rateLimitMode,omitempty"`
+
+    // TrafficPackageSize 公网 IPv6 的流量包大小。
+    // 单位：TB。
+    // 仅当网络计费方式为流量包计费时可取到值。
+    TrafficPackageSize *float64 `json:"trafficPackageSize,omitempty"`
+
+    // BandwidthCluster 关联的带宽组信息。
+    // 仅当网络计费方式为共享带宽包计费时可取到值。
+    BandwidthCluster *BandwidthClusterInfo `json:"bandwidthCluster,omitempty"`
+
+    // ResourceGroupId 公网 IPv6 所属的资源组ID。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // ResourceGroupName 公网 IPv6 所属的资源组名称。
+    ResourceGroupName *string `json:"resourceGroupName,omitempty"`
+
+    // CreateTime 公网 IPv6 的创建时间。
+    CreateTime *string `json:"createTime,omitempty"`
+
+    // OperationInfo 公网 IPv6 的带宽、流量包操作状态。
+    // 操作已完成时该字段为空。
+    OperationInfo *OperationInfo `json:"operationInfo,omitempty"`
+
+}
+
+type DescribeNetworkInterfacePublicIPv6Request struct {
+    *common.BaseRequest
+
+    // NicId 网卡ID。
+    NicId *string `json:"nicId,omitempty"`
+
+}
+
+type DescribeNetworkInterfacePublicIPv6Response struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeNetworkInterfacePublicIPv6ResponseParams `json:"response,omitempty"`
+
+}
+
+type DescribeNetworkInterfacePublicIPv6ResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // Address 公网IPv6信息。
+    // 网卡如果没有公网IPv6,则取值为空。
+    Address *PublicIpv6CidrAddress `json:"address,omitempty"`
+
+}
+
+// PublicIpv6CidrAddress 公网IPv6的基本信息。
+type PublicIpv6CidrAddress struct {
+
+    // Ipv6CidrId IPv6 CIDR的ID。
+    Ipv6CidrId *string `json:"ipv6CidrId,omitempty"`
+
+    // Ipv6Cidr IPv6 CIDR的地址。
+    Ipv6Cidr *string `json:"ipv6Cidr,omitempty"`
+
+    // PrimaryIpv6Address 网卡的主IPv6地址。
+    PrimaryIpv6Address *string `json:"primaryIpv6Address,omitempty"`
+
+    // InternetChargeType IPv6的网络计费类型。
+    InternetChargeType *string `json:"internetChargeType,omitempty"`
+
+    // Bandwidth IPv6的公网带宽限速。
+    // 单位：Mbps。
+    Bandwidth *int `json:"bandwidth,omitempty"`
+
+    // RateLimitMode 限速模式。
+    RateLimitMode *string `json:"rateLimitMode,omitempty"`
+
+    // TrafficPackageSize IPv6的流量包大小。
+    // 单位：TB。
+    TrafficPackageSize *float64 `json:"trafficPackageSize,omitempty"`
+
+    // BandwidthCluster 关联的带宽组信息。
+    BandwidthCluster *BandwidthClusterInfo `json:"bandwidthCluster,omitempty"`
+
+    // OperationInfo IPv6的带宽、流量包操作状态。
+    OperationInfo *OperationInfo `json:"operationInfo,omitempty"`
+
+}
+
+type DescribeUsableByoAsnsRequest struct {
+    *common.BaseRequest
+
+}
+
+type DescribeUsableByoAsnsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeUsableByoAsnsResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeUsableByoAsnsResponseParams 
+type DescribeUsableByoAsnsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // Asns 可作为 BYOIP 起源ASN使用的ASN号列表。
+    // 包含已通过归属验证的自带ASN，以及线下已授权给该账号的ASN。
+    Asns []int64 `json:"asns,omitempty"`
+
+}
+
+// VerifyByoAsnRequest 
+type VerifyByoAsnRequest struct {
+    *common.BaseRequest
+
+    // ByoAsnId 待校验的 BYO ASN 的ID。
+    ByoAsnId *string `json:"byoAsnId,omitempty"`
+
+}
+
+type VerifyByoAsnResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *VerifyByoAsnResponseParams `json:"response,omitempty"`
+
+}
+
+// VerifyByoAsnResponseParams 
+type VerifyByoAsnResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // ByoAsnId BYO ASN 的ID。
+    ByoAsnId *string `json:"byoAsnId,omitempty"`
+
+    // Asn ASN号。
+    Asn *int64 `json:"asn,omitempty"`
+
+    // Status 校验后的状态。
+    // `AVAILABLE`表示归属确认通过，该ASN已可用于创建 BYOIP；仍为`VERIFYING`表示尚未检测到 export 声明，可稍后重试。
+    Status *string `json:"status,omitempty"`
+
+    // VerifyCode 校验码。
+    // 需要客户将其写入 RIR 上该ASN的 aut-num 对象。
+    VerifyCode *string `json:"verifyCode,omitempty"`
+
+    // ExportDeclaration 完整的 export 声明语句。
+    // 客户直接复制该语句写入 RIR 上该ASN的 aut-num 对象即可。
+    ExportDeclaration *string `json:"exportDeclaration,omitempty"`
+
+}
+
+// RegenerateByoAsnVerifyCodeRequest 
+type RegenerateByoAsnVerifyCodeRequest struct {
+    *common.BaseRequest
+
+    // ByoAsnId 待重新生成校验码的 BYO ASN 的ID。
+    ByoAsnId *string `json:"byoAsnId,omitempty"`
+
+}
+
+type RegenerateByoAsnVerifyCodeResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *RegenerateByoAsnVerifyCodeResponseParams `json:"response,omitempty"`
+
+}
+
+// RegenerateByoAsnVerifyCodeResponseParams 
+type RegenerateByoAsnVerifyCodeResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // ByoAsnId BYO ASN 的ID。
+    ByoAsnId *string `json:"byoAsnId,omitempty"`
+
+    // Asn ASN号。
+    Asn *int64 `json:"asn,omitempty"`
+
+    // Status 重新生成校验码后的状态，回到`VERIFYING`。
+    Status *string `json:"status,omitempty"`
+
+    // VerifyCode 新的校验码。
+    // 旧校验码立即失效，需要客户将新校验码写入 RIR 上该ASN的 aut-num 对象。
+    VerifyCode *string `json:"verifyCode,omitempty"`
+
+    // ExportDeclaration 完整的 export 声明语句。
+    // 客户直接复制该语句更新 RIR 上该ASN的 aut-num 对象即可。
+    ExportDeclaration *string `json:"exportDeclaration,omitempty"`
+
+}
+
+// CreateByoAsnRequest 
+type CreateByoAsnRequest struct {
+    *common.BaseRequest
+
+    // Asn 待接入的公网ASN号。
+    // 支持 2 字节与 4 字节 ASN，最大值 4294967295。
+    Asn *int64 `json:"asn,omitempty"`
+
+    // ResourceGroupId 创建后 BYO ASN 所在的资源组ID。
+    // 如不指定则放入默认资源组。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // Tags 创建 BYO ASN 时关联的标签。
+    // 注意：关联「标签键」不能重复。
+    Tags *TagAssociation `json:"tags,omitempty"`
+
+}
+
+type CreateByoAsnResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *CreateByoAsnResponseParams `json:"response,omitempty"`
+
+}
+
+// CreateByoAsnResponseParams 
+type CreateByoAsnResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // ByoAsnId 新建 BYO ASN 的ID。
+    ByoAsnId *string `json:"byoAsnId,omitempty"`
+
+    // Asn ASN号。
+    Asn *int64 `json:"asn,omitempty"`
+
+    // Status 当前状态。
+    Status *string `json:"status,omitempty"`
+
+    // VerifyCode 校验码。
+    // 需要客户将其写入 RIR 上该ASN的 aut-num 对象。
+    VerifyCode *string `json:"verifyCode,omitempty"`
+
+    // ExportDeclaration 完整的 export 声明语句。
+    // 客户直接复制该语句写入 RIR 上该ASN的 aut-num 对象即可。
+    ExportDeclaration *string `json:"exportDeclaration,omitempty"`
+
+    // CreateTime 创建时间。
+    CreateTime *string `json:"createTime,omitempty"`
+
+}
+
+// DeleteByoAsnRequest 
+type DeleteByoAsnRequest struct {
+    *common.BaseRequest
+
+    // ByoAsnId 待删除的 BYO ASN 的ID。
+    ByoAsnId *string `json:"byoAsnId,omitempty"`
+
+}
+
+type DeleteByoAsnResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// DescribeByoAsnsRequest 
+type DescribeByoAsnsRequest struct {
+    *common.BaseRequest
+
+    // ByoAsnIds BYO ASN 的ID列表。
+    // 最多支持100个ID查询。
+    ByoAsnIds []string `json:"byoAsnIds,omitempty"`
+
+    // Asn 根据ASN号进行精确过滤。
+    Asn *int64 `json:"asn,omitempty"`
+
+    // Status 根据状态进行过滤。
+    Status *string `json:"status,omitempty"`
+
+    // ResourceGroupId 根据资源组ID进行过滤。
+    ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+
+    // OrderBy 排序字段。
+    // 未指定时按创建时间排序。
+    OrderBy *string `json:"orderBy,omitempty"`
+
+    // Direction 排序方向。
+    // 未指定时为降序。
+    Direction *string `json:"direction,omitempty"`
+
+    // PageSize 返回的分页大小。
+    // 默认为20，最大为1000。
+    PageSize *int `json:"pageSize,omitempty"`
+
+    // PageNum 返回的分页数。
+    // 默认为1。
+    PageNum *int `json:"pageNum,omitempty"`
+
+    // TagKeys 根据标签键进行搜索。
+    // 最长不得超过20个标签键。
+    TagKeys []string `json:"tagKeys,omitempty"`
+
+    // Tags 根据标签进行搜索。
+    // 最长不得超过20个标签。
+    Tags []*Tag `json:"tags,omitempty"`
+
+}
+
+type DescribeByoAsnsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeByoAsnsResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeByoAsnsResponseParams 
+type DescribeByoAsnsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // TotalCount 符合条件的数据总数。
+    TotalCount *int `json:"totalCount,omitempty"`
+
+    // DataSet BYO ASN 结果集。
+    DataSet []*ByoAsnInfo `json:"dataSet,omitempty"`
+
+}
+
+// ByoAsnInfo BYO ASN 信息。
+type ByoAsnInfo struct {
+
+    // ByoAsnId BYO ASN 的ID。
+    ByoAsnId *string `json:"byoAsnId,omitempty"`
+
+    // Asn ASN号。
+    Asn *int64 `json:"asn,omitempty"`
+
+    // Status 当前状态。
+    Status *string `json:"status,omitempty"`
+
+    // Type 来源类型。
+    Type *string `json:"type,omitempty"`
+
+    // VerifyCode 校验码。
+    // 需要客户将其写入 RIR 上该ASN的 aut-num 对象。
+    VerifyCode *string `json:"verifyCode,omitempty"`
+
+    // ExportDeclaration 完整的 export 声明语句。
+    // 客户直接复制该语句写入 RIR 上该ASN的 aut-num 对象即可。
+    ExportDeclaration *string `json:"exportDeclaration,omitempty"`
+
+    // Ipv4CidrCount 该ASN下已宣告的IPv4 CIDR数量。
+    Ipv4CidrCount *int `json:"ipv4CidrCount,omitempty"`
+
+    // Ipv6CidrCount 该ASN下已宣告的IPv6 CIDR数量。
+    Ipv6CidrCount *int `json:"ipv6CidrCount,omitempty"`
+
+    // CreateTime 创建时间。
+    CreateTime *string `json:"createTime,omitempty"`
+
+    // ResourceGroup 所属资源组信息。
+    ResourceGroup *ResourceGroupInfo `json:"resourceGroup,omitempty"`
+
+    // Tags 标签列表。
+    Tags *Tags `json:"tags,omitempty"`
 
 }
 
