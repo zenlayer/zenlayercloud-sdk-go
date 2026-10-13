@@ -948,6 +948,11 @@ type PortInfo struct {
     // Tags 数据中心端口关联的标签。
     Tags *Tags `json:"tags,omitempty"`
 
+    // Lag 数据中心端口归属的 LAG。
+    // 端口未加入 LAG 时为空。
+    // 端口加入 LAG 后只能使用该 LAG 创建业务，不能再单独使用 LAG 的成员口创建业务。
+    Lag *LagInfo `json:"lag,omitempty"`
+
 }
 
 // Tags 描述资源关联的标签信息。
@@ -955,6 +960,17 @@ type Tags struct {
 
     // Tags 标签对列表。
     Tags []*Tag `json:"tags,omitempty"`
+
+}
+
+// LagInfo 数据中心端口归属的 LAG 信息。
+type LagInfo struct {
+
+    // LagId LAG ID。
+    LagId *string `json:"lagId,omitempty"`
+
+    // LagName LAG 名称。
+    LagName *string `json:"lagName,omitempty"`
 
 }
 
@@ -1021,6 +1037,13 @@ type DescribePortTrafficRequest struct {
     // EndTime 查询结束时间。
     // ISO8601 标准 UTC 格式：YYYY-MM-DDThh:mm:ssZ。
     EndTime *string `json:"endTime,omitempty"`
+
+    // Period 数据采样周期。
+    // 单位为秒，可选值：20、40、60、120、300、900。
+    Period *int `json:"period,omitempty"`
+
+    // Statistic 采样周期内流量数据的统计方式。
+    Statistic *string `json:"statistic,omitempty"`
 
 }
 
@@ -2103,6 +2126,7 @@ type CreateEndpointParam struct {
     CloudAccountId *string `json:"cloudAccountId,omitempty"`
 
     // HaType 云连接高可用类型。
+    // 连接点为 Azure 云连接时必传，取值需为该数据中心实际支持的类型，可通过 `DescribeAzureRegions` 返回的 `haTypes` 获取。
     HaType *string `json:"haType,omitempty"`
 
     // CloudBandwidthMbps 云连接带宽限制。
@@ -2331,6 +2355,13 @@ type DescribePrivateConnectTrafficRequest struct {
     // EndTime 查询结束时间。
     // ISO8601 UTC 格式：YYYY-MM-DDThh:mm:ssZ，默认为当前时间。
     EndTime *string `json:"endTime,omitempty"`
+
+    // Period 数据采样周期。
+    // 单位为秒，可选值：20、40、60、120、300、900。
+    Period *int `json:"period,omitempty"`
+
+    // Statistic 采样周期内流量数据的统计方式。
+    Statistic *string `json:"statistic,omitempty"`
 
 }
 
@@ -2594,6 +2625,9 @@ type CreateCloudRouterEdgePoint struct {
     // IpSecStaticRoutes IPSec 的静态路由配置。
     // 与 IPSec BGP 连接二选一。
     IpSecStaticRoutes []*IPSecStaticRoute `json:"ipSecStaticRoutes,omitempty"`
+
+    // MarketingInfo 市场活动相关信息，含是否使用 POC 代金券。
+    MarketingInfo *MarketingInfo `json:"marketingInfo,omitempty"`
 
 }
 
@@ -3068,6 +3102,13 @@ type DescribeCloudRouterEdgePointTrafficRequest struct {
     // ISO8601 格式，UTC 时区，默认为当前时间。
     EndTime *string `json:"endTime,omitempty"`
 
+    // Period 数据采样周期。
+    // 单位为秒，可选值：20、40、60、120、300、900。
+    Period *int `json:"period,omitempty"`
+
+    // Statistic 采样周期内流量数据的统计方式。
+    Statistic *string `json:"statistic,omitempty"`
+
 }
 
 type DescribeCloudRouterEdgePointTrafficResponse struct {
@@ -3137,6 +3178,13 @@ type DescribeCloudRouterDCToDCTrafficRequest struct {
     // EndTime 查询结束时间。
     // ISO8601 格式，UTC 时区，默认为当前时间。
     EndTime *string `json:"endTime,omitempty"`
+
+    // Period 数据采样周期。
+    // 单位为秒，可选值：20、40、60、120、300、900。
+    Period *int `json:"period,omitempty"`
+
+    // Statistic 采样周期内流量数据的统计方式。
+    Statistic *string `json:"statistic,omitempty"`
 
 }
 

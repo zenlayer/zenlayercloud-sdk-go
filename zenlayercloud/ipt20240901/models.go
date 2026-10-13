@@ -46,7 +46,7 @@ type IPTransitDatacenter struct {
     DataCenter *DatacenterInfo `json:"dataCenter,omitempty"`
 
     // AvailableRoutingTypes 该数据中心可用的路由模式列表。
-    AvailableRoutingTypes []*RemoteIptAvailableRoutingType `json:"availableRoutingTypes,omitempty"`
+    AvailableRoutingTypes []*IPTransitAvailableRoutingType `json:"availableRoutingTypes,omitempty"`
 
 }
 
@@ -79,8 +79,8 @@ type DatacenterInfo struct {
 
 }
 
-// RemoteIptAvailableRoutingType IP Transit可用路由模式信息。
-type RemoteIptAvailableRoutingType struct {
+// IPTransitAvailableRoutingType IP Transit可用路由模式信息。
+type IPTransitAvailableRoutingType struct {
 
     // RoutingType 路由模式。
     RoutingType *string `json:"routingType,omitempty"`
@@ -932,6 +932,13 @@ type DescribeIPTransitTrafficRequest struct {
     // ISO8601 UTC 格式：YYYY-MM-DDThh:mm:ssZ，默认为当前时间。
     EndTime *string `json:"endTime,omitempty"`
 
+    // Period 数据采样周期。
+    // 单位为秒，可选值：20、40、60、120、300、900。
+    Period *int `json:"period,omitempty"`
+
+    // Statistic 采样周期内流量数据的统计方式。
+    Statistic *string `json:"statistic,omitempty"`
+
 }
 
 type DescribeIPTransitTrafficResponse struct {
@@ -1029,6 +1036,23 @@ type InquiryModifyIPTransitPriceRequest struct {
     // type=ADD_CIDR_BLOCK 时有效，默认 BGP_IP。
     IpNetworkType *string `json:"ipNetworkType,omitempty"`
 
+    // MarketingInfo 市场活动相关信息，含是否使用 POC 代金券。
+    // type=ADD_CIDR_BLOCK 时有效；询价口径需与实际下单一致。
+    MarketingInfo *MarketingInfo `json:"marketingInfo,omitempty"`
+
+}
+
+// MarketingInfo 描述市场活动的相关信息。
+type MarketingInfo struct {
+
+    // DiscountCode 使用市场发放的折扣码。
+    // 如果折扣码不存在，最终折扣将不会生效。
+    DiscountCode *string `json:"discountCode,omitempty"`
+
+    // UsePocVoucher 是否使用POC代金券。
+    // 如果系统不存在POC代金券，相关创建流程会失败。
+    UsePocVoucher *bool `json:"usePocVoucher,omitempty"`
+
 }
 
 type InquiryModifyIPTransitPriceResponse struct {
@@ -1122,6 +1146,10 @@ type ModifyIPTransitConfigRequest struct {
     // IpNetworkType IP 网络类型。
     // type=ADD_CIDR_BLOCK 时有效，默认 BGP_IP。
     IpNetworkType *string `json:"ipNetworkType,omitempty"`
+
+    // MarketingInfo 市场活动相关信息，含是否使用 POC 代金券。
+    // type=ADD_CIDR_BLOCK 时有效；系统不存在可用 POC 代金券时，本次追加 IP 的下单会失败。
+    MarketingInfo *MarketingInfo `json:"marketingInfo,omitempty"`
 
 }
 

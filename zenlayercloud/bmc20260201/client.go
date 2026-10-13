@@ -35,6 +35,7 @@ func NewClient(config *common.Config, secretKeyId, secretKeyPassword string) (cl
 	}
 	return client, nil
 }
+
 func NewClientWithToken(token string) (client *Client, err error) {
 	return NewClientWithTokenAndConfig(common.NewConfig(), token)
 }
@@ -53,7 +54,6 @@ func NewClientWithTokenAndConfig(config *common.Config, token string) (client *C
 	}
 	return client, nil
 }
-
 
 
 func NewDescribeSubnetAvailableResourcesRequest() (request *DescribeSubnetAvailableResourcesRequest) {
@@ -811,6 +811,52 @@ func NewDescribeInstancesMonitorHealthResponse() (response *DescribeInstancesMon
 // DescribeInstancesMonitorHealth 查询实例的硬件状态信息。
 func (c *Client) DescribeInstancesMonitorHealth(request *DescribeInstancesMonitorHealthRequest) (response *DescribeInstancesMonitorHealthResponse, err error) {
 	response = NewDescribeInstancesMonitorHealthResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewResetInstanceIpmiPasswordRequest() (request *ResetInstanceIpmiPasswordRequest) {
+	request = &ResetInstanceIpmiPasswordRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ResetInstanceIpmiPassword")
+
+	return
+}
+
+func NewResetInstanceIpmiPasswordResponse() (response *ResetInstanceIpmiPasswordResponse) {
+	response = &ResetInstanceIpmiPasswordResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ResetInstanceIpmiPassword 设置裸金属实例的IPMI控制台登录密码。
+func (c *Client) ResetInstanceIpmiPassword(request *ResetInstanceIpmiPasswordRequest) (response *ResetInstanceIpmiPasswordResponse, err error) {
+	response = NewResetInstanceIpmiPasswordResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeInstanceIpmiUrlRequest() (request *DescribeInstanceIpmiUrlRequest) {
+	request = &DescribeInstanceIpmiUrlRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeInstanceIpmiUrl")
+
+	return
+}
+
+func NewDescribeInstanceIpmiUrlResponse() (response *DescribeInstanceIpmiUrlResponse) {
+	response = &DescribeInstanceIpmiUrlResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeInstanceIpmiUrl 查询裸金属实例的IPMI控制台访问地址。
+func (c *Client) DescribeInstanceIpmiUrl(request *DescribeInstanceIpmiUrlRequest) (response *DescribeInstanceIpmiUrlResponse, err error) {
+	response = NewDescribeInstanceIpmiUrlResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -1889,7 +1935,7 @@ func NewRegisterBackendResponse() (response *RegisterBackendResponse) {
 	return
 }
 
-// RegisterBackend 创建将一台后端服务绑定到负载均衡的监听器。
+// RegisterBackend 创建将一台后端服务器(vm或bmc实例)绑定到负载均衡的监听器。
 func (c *Client) RegisterBackend(request *RegisterBackendRequest) (response *RegisterBackendResponse, err error) {
 	response = NewRegisterBackendResponse()
 	err = c.ApiCall(request, response)

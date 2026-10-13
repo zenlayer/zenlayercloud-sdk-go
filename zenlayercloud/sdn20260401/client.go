@@ -72,7 +72,7 @@ func NewDescribeDatacentersResponse() (response *DescribeDatacentersResponse) {
 	return
 }
 
-// DescribeDatacenters 查询数据中心列表
+// DescribeDatacenters 查询数据中心列表。
 func (c *Client) DescribeDatacenters(request *DescribeDatacentersRequest) (response *DescribeDatacentersResponse, err error) {
 	response = NewDescribeDatacentersResponse()
 	err = c.ApiCall(request, response)
@@ -95,7 +95,7 @@ func NewDescribeVirtualEdgeDatacentersResponse() (response *DescribeVirtualEdgeD
 	return
 }
 
-// DescribeVirtualEdgeDatacenters 查询边缘网关数据中心列表
+// DescribeVirtualEdgeDatacenters 查询边缘网关数据中心列表。
 func (c *Client) DescribeVirtualEdgeDatacenters(request *DescribeVirtualEdgeDatacentersRequest) (response *DescribeVirtualEdgeDatacentersResponse, err error) {
 	response = NewDescribeVirtualEdgeDatacentersResponse()
 	err = c.ApiCall(request, response)
@@ -118,7 +118,7 @@ func NewDescribeBorderGatewayDatacentersResponse() (response *DescribeBorderGate
 	return
 }
 
-// DescribeBorderGatewayDatacenters 查询边界网关数据中心列表
+// DescribeBorderGatewayDatacenters 查询边界网关数据中心列表。
 func (c *Client) DescribeBorderGatewayDatacenters(request *DescribeBorderGatewayDatacentersRequest) (response *DescribeBorderGatewayDatacentersResponse, err error) {
 	response = NewDescribeBorderGatewayDatacentersResponse()
 	err = c.ApiCall(request, response)
@@ -141,7 +141,7 @@ func NewDescribeVPCDatacentersResponse() (response *DescribeVPCDatacentersRespon
 	return
 }
 
-// DescribeVPCDatacenters 查询 VPC 数据中心列表
+// DescribeVPCDatacenters 查询 VPC 数据中心列表。
 func (c *Client) DescribeVPCDatacenters(request *DescribeVPCDatacentersRequest) (response *DescribeVPCDatacentersResponse, err error) {
 	response = NewDescribeVPCDatacentersResponse()
 	err = c.ApiCall(request, response)
@@ -164,7 +164,7 @@ func NewDescribeDatacentersWithServiceResponse() (response *DescribeDatacentersW
 	return
 }
 
-// DescribeDatacentersWithService 查询含服务的数据中心列表
+// DescribeDatacentersWithService 查询含服务的数据中心列表。
 func (c *Client) DescribeDatacentersWithService(request *DescribeDatacentersWithServiceRequest) (response *DescribeDatacentersWithServiceResponse, err error) {
 	response = NewDescribeDatacentersWithServiceResponse()
 	err = c.ApiCall(request, response)
@@ -187,7 +187,7 @@ func NewQueryCloudOnrampPriceResponse() (response *QueryCloudOnrampPriceResponse
 	return
 }
 
-// QueryCloudOnrampPrice 云连接带宽询价
+// QueryCloudOnrampPrice 云连接带宽询价。
 func (c *Client) QueryCloudOnrampPrice(request *QueryCloudOnrampPriceRequest) (response *QueryCloudOnrampPriceResponse, err error) {
 	response = NewQueryCloudOnrampPriceResponse()
 	err = c.ApiCall(request, response)
@@ -210,7 +210,7 @@ func NewQueryDataCenterPortPriceResponse() (response *QueryDataCenterPortPriceRe
 	return
 }
 
-// QueryDataCenterPortPrice 数据中心端口询价
+// QueryDataCenterPortPrice 数据中心端口询价。
 func (c *Client) QueryDataCenterPortPrice(request *QueryDataCenterPortPriceRequest) (response *QueryDataCenterPortPriceResponse, err error) {
 	response = NewQueryDataCenterPortPriceResponse()
 	err = c.ApiCall(request, response)
@@ -233,7 +233,7 @@ func NewQueryDataCenterPortPricesResponse() (response *QueryDataCenterPortPrices
 	return
 }
 
-// QueryDataCenterPortPrices 数据中心端口批量询价
+// QueryDataCenterPortPrices 数据中心端口批量询价。
 func (c *Client) QueryDataCenterPortPrices(request *QueryDataCenterPortPricesRequest) (response *QueryDataCenterPortPricesResponse, err error) {
 	response = NewQueryDataCenterPortPricesResponse()
 	err = c.ApiCall(request, response)
@@ -256,7 +256,7 @@ func NewQueryPrivateConnectPriceResponse() (response *QueryPrivateConnectPriceRe
 	return
 }
 
-// QueryPrivateConnectPrice 二层网络专线询价
+// QueryPrivateConnectPrice 二层网络专线询价。
 func (c *Client) QueryPrivateConnectPrice(request *QueryPrivateConnectPriceRequest) (response *QueryPrivateConnectPriceResponse, err error) {
 	response = NewQueryPrivateConnectPriceResponse()
 	err = c.ApiCall(request, response)
@@ -279,7 +279,7 @@ func NewQueryPrivateConnectBandwidthPriceResponse() (response *QueryPrivateConne
 	return
 }
 
-// QueryPrivateConnectBandwidthPrice 二层专线带宽询价
+// QueryPrivateConnectBandwidthPrice 二层专线带宽询价。
 func (c *Client) QueryPrivateConnectBandwidthPrice(request *QueryPrivateConnectBandwidthPriceRequest) (response *QueryPrivateConnectBandwidthPriceResponse, err error) {
 	response = NewQueryPrivateConnectBandwidthPriceResponse()
 	err = c.ApiCall(request, response)
@@ -302,7 +302,7 @@ func NewQueryCloudRouterBandwidthPriceResponse() (response *QueryCloudRouterBand
 	return
 }
 
-// QueryCloudRouterBandwidthPrice 三层骨干带宽询价
+// QueryCloudRouterBandwidthPrice 三层骨干带宽询价。
 func (c *Client) QueryCloudRouterBandwidthPrice(request *QueryCloudRouterBandwidthPriceRequest) (response *QueryCloudRouterBandwidthPriceResponse, err error) {
 	response = NewQueryCloudRouterBandwidthPriceResponse()
 	err = c.ApiCall(request, response)
@@ -325,7 +325,7 @@ func NewCreatePortResponse() (response *CreatePortResponse) {
 	return
 }
 
-// CreatePort 创建端口
+// CreatePort 创建端口。
 func (c *Client) CreatePort(request *CreatePortRequest) (response *CreatePortResponse, err error) {
 	response = NewCreatePortResponse()
 	err = c.ApiCall(request, response)
@@ -348,7 +348,7 @@ func NewDestroyPortResponse() (response *DestroyPortResponse) {
 	return
 }
 
-// DestroyPort 销毁端口
+// DestroyPort 销毁端口。
 func (c *Client) DestroyPort(request *DestroyPortRequest) (response *DestroyPortResponse, err error) {
 	response = NewDestroyPortResponse()
 	err = c.ApiCall(request, response)
@@ -371,7 +371,7 @@ func NewTerminatePortResponse() (response *TerminatePortResponse) {
 	return
 }
 
-// TerminatePort 终止端口
+// TerminatePort 终止端口。
 func (c *Client) TerminatePort(request *TerminatePortRequest) (response *TerminatePortResponse, err error) {
 	response = NewTerminatePortResponse()
 	err = c.ApiCall(request, response)
@@ -394,7 +394,7 @@ func NewRenewPortResponse() (response *RenewPortResponse) {
 	return
 }
 
-// RenewPort 恢复端口
+// RenewPort 恢复端口。
 func (c *Client) RenewPort(request *RenewPortRequest) (response *RenewPortResponse, err error) {
 	response = NewRenewPortResponse()
 	err = c.ApiCall(request, response)
@@ -417,7 +417,7 @@ func NewModifyPortAttributeResponse() (response *ModifyPortAttributeResponse) {
 	return
 }
 
-// ModifyPortAttribute 修改端口属性
+// ModifyPortAttribute 修改端口属性。
 func (c *Client) ModifyPortAttribute(request *ModifyPortAttributeRequest) (response *ModifyPortAttributeResponse, err error) {
 	response = NewModifyPortAttributeResponse()
 	err = c.ApiCall(request, response)
@@ -440,7 +440,7 @@ func NewDescribePortsResponse() (response *DescribePortsResponse) {
 	return
 }
 
-// DescribePorts 获取端口列表
+// DescribePorts 获取端口列表。
 func (c *Client) DescribePorts(request *DescribePortsRequest) (response *DescribePortsResponse, err error) {
 	response = NewDescribePortsResponse()
 	err = c.ApiCall(request, response)
@@ -463,7 +463,7 @@ func NewDescribeDataCenterPortPriceResponse() (response *DescribeDataCenterPortP
 	return
 }
 
-// DescribeDataCenterPortPrice 获取数据中心在售端口类型及价格
+// DescribeDataCenterPortPrice 获取数据中心在售端口类型及价格。
 func (c *Client) DescribeDataCenterPortPrice(request *DescribeDataCenterPortPriceRequest) (response *DescribeDataCenterPortPriceResponse, err error) {
 	response = NewDescribeDataCenterPortPriceResponse()
 	err = c.ApiCall(request, response)
@@ -486,7 +486,7 @@ func NewDescribePortTrafficResponse() (response *DescribePortTrafficResponse) {
 	return
 }
 
-// DescribePortTraffic 查询端口流量
+// DescribePortTraffic 查询端口流量。
 func (c *Client) DescribePortTraffic(request *DescribePortTrafficRequest) (response *DescribePortTrafficResponse, err error) {
 	response = NewDescribePortTrafficResponse()
 	err = c.ApiCall(request, response)
@@ -509,7 +509,7 @@ func NewDescribePortUsableVlanResponse() (response *DescribePortUsableVlanRespon
 	return
 }
 
-// DescribePortUsableVlan 查询端口可用vlan
+// DescribePortUsableVlan 查询端口可用vlan。
 func (c *Client) DescribePortUsableVlan(request *DescribePortUsableVlanRequest) (response *DescribePortUsableVlanResponse, err error) {
 	response = NewDescribePortUsableVlanResponse()
 	err = c.ApiCall(request, response)
@@ -532,7 +532,7 @@ func NewDescribeGoogleVlanUsageResponse() (response *DescribeGoogleVlanUsageResp
 	return
 }
 
-// DescribeGoogleVlanUsage 查询Google接入点VLAN使用情况
+// DescribeGoogleVlanUsage 查询Google接入点VLAN使用情况。
 func (c *Client) DescribeGoogleVlanUsage(request *DescribeGoogleVlanUsageRequest) (response *DescribeGoogleVlanUsageResponse, err error) {
 	response = NewDescribeGoogleVlanUsageResponse()
 	err = c.ApiCall(request, response)
@@ -555,7 +555,7 @@ func NewDescribeTencentVlanUsageResponse() (response *DescribeTencentVlanUsageRe
 	return
 }
 
-// DescribeTencentVlanUsage 查询腾讯云接入点VLAN使用情况
+// DescribeTencentVlanUsage 查询腾讯云接入点VLAN使用情况。
 func (c *Client) DescribeTencentVlanUsage(request *DescribeTencentVlanUsageRequest) (response *DescribeTencentVlanUsageResponse, err error) {
 	response = NewDescribeTencentVlanUsageResponse()
 	err = c.ApiCall(request, response)
@@ -578,7 +578,7 @@ func NewDescribeAliCloudVlanUsageResponse() (response *DescribeAliCloudVlanUsage
 	return
 }
 
-// DescribeAliCloudVlanUsage 查询阿里云接入点VLAN使用情况
+// DescribeAliCloudVlanUsage 查询阿里云接入点VLAN使用情况。
 func (c *Client) DescribeAliCloudVlanUsage(request *DescribeAliCloudVlanUsageRequest) (response *DescribeAliCloudVlanUsageResponse, err error) {
 	response = NewDescribeAliCloudVlanUsageResponse()
 	err = c.ApiCall(request, response)
@@ -601,7 +601,7 @@ func NewDescribeHuaweiCloudVlanUsageResponse() (response *DescribeHuaweiCloudVla
 	return
 }
 
-// DescribeHuaweiCloudVlanUsage 查询华为云接入点VLAN使用情况
+// DescribeHuaweiCloudVlanUsage 查询华为云接入点VLAN使用情况。
 func (c *Client) DescribeHuaweiCloudVlanUsage(request *DescribeHuaweiCloudVlanUsageRequest) (response *DescribeHuaweiCloudVlanUsageResponse, err error) {
 	response = NewDescribeHuaweiCloudVlanUsageResponse()
 	err = c.ApiCall(request, response)
@@ -624,7 +624,7 @@ func NewDescribeAzureVlanUsageResponse() (response *DescribeAzureVlanUsageRespon
 	return
 }
 
-// DescribeAzureVlanUsage 查询Azure接入点VLAN使用情况
+// DescribeAzureVlanUsage 查询Azure接入点VLAN使用情况。
 func (c *Client) DescribeAzureVlanUsage(request *DescribeAzureVlanUsageRequest) (response *DescribeAzureVlanUsageResponse, err error) {
 	response = NewDescribeAzureVlanUsageResponse()
 	err = c.ApiCall(request, response)
@@ -647,7 +647,7 @@ func NewDescribeOracleVlanUsageResponse() (response *DescribeOracleVlanUsageResp
 	return
 }
 
-// DescribeOracleVlanUsage 查询Oracle接入点VLAN使用情况
+// DescribeOracleVlanUsage 查询Oracle接入点VLAN使用情况。
 func (c *Client) DescribeOracleVlanUsage(request *DescribeOracleVlanUsageRequest) (response *DescribeOracleVlanUsageResponse, err error) {
 	response = NewDescribeOracleVlanUsageResponse()
 	err = c.ApiCall(request, response)
@@ -670,7 +670,7 @@ func NewDescribeBytePlusVlanUsageResponse() (response *DescribeBytePlusVlanUsage
 	return
 }
 
-// DescribeBytePlusVlanUsage 查询BytePlus接入点VLAN使用情况
+// DescribeBytePlusVlanUsage 查询BytePlus接入点VLAN使用情况。
 func (c *Client) DescribeBytePlusVlanUsage(request *DescribeBytePlusVlanUsageRequest) (response *DescribeBytePlusVlanUsageResponse, err error) {
 	response = NewDescribeBytePlusVlanUsageResponse()
 	err = c.ApiCall(request, response)
@@ -693,7 +693,7 @@ func NewModifyCloudBandwidthResponse() (response *ModifyCloudBandwidthResponse) 
 	return
 }
 
-// ModifyCloudBandwidth 修改云连接带宽
+// ModifyCloudBandwidth 修改云连接带宽。
 func (c *Client) ModifyCloudBandwidth(request *ModifyCloudBandwidthRequest) (response *ModifyCloudBandwidthResponse, err error) {
 	response = NewModifyCloudBandwidthResponse()
 	err = c.ApiCall(request, response)
@@ -716,7 +716,7 @@ func NewDescribeCloudAvailableBandwidthTiersResponse() (response *DescribeCloudA
 	return
 }
 
-// DescribeCloudAvailableBandwidthTiers 查询云连接可用带宽阶梯
+// DescribeCloudAvailableBandwidthTiers 查询云连接可用带宽阶梯。
 func (c *Client) DescribeCloudAvailableBandwidthTiers(request *DescribeCloudAvailableBandwidthTiersRequest) (response *DescribeCloudAvailableBandwidthTiersResponse, err error) {
 	response = NewDescribeCloudAvailableBandwidthTiersResponse()
 	err = c.ApiCall(request, response)
@@ -739,7 +739,7 @@ func NewDescribeAWSRegionsResponse() (response *DescribeAWSRegionsResponse) {
 	return
 }
 
-// DescribeAWSRegions 查询AWS接入点区域
+// DescribeAWSRegions 查询AWS接入点区域。
 func (c *Client) DescribeAWSRegions(request *DescribeAWSRegionsRequest) (response *DescribeAWSRegionsResponse, err error) {
 	response = NewDescribeAWSRegionsResponse()
 	err = c.ApiCall(request, response)
@@ -762,7 +762,7 @@ func NewDescribeTencentRegionsResponse() (response *DescribeTencentRegionsRespon
 	return
 }
 
-// DescribeTencentRegions 查询腾讯云接入点区域
+// DescribeTencentRegions 查询腾讯云接入点区域。
 func (c *Client) DescribeTencentRegions(request *DescribeTencentRegionsRequest) (response *DescribeTencentRegionsResponse, err error) {
 	response = NewDescribeTencentRegionsResponse()
 	err = c.ApiCall(request, response)
@@ -785,7 +785,7 @@ func NewDescribeGoogleRegionsResponse() (response *DescribeGoogleRegionsResponse
 	return
 }
 
-// DescribeGoogleRegions 查询Google接入点区域
+// DescribeGoogleRegions 查询Google接入点区域。
 func (c *Client) DescribeGoogleRegions(request *DescribeGoogleRegionsRequest) (response *DescribeGoogleRegionsResponse, err error) {
 	response = NewDescribeGoogleRegionsResponse()
 	err = c.ApiCall(request, response)
@@ -808,7 +808,7 @@ func NewDescribeAzureRegionsResponse() (response *DescribeAzureRegionsResponse) 
 	return
 }
 
-// DescribeAzureRegions 查询Azure接入点区域
+// DescribeAzureRegions 查询Azure接入点区域。
 func (c *Client) DescribeAzureRegions(request *DescribeAzureRegionsRequest) (response *DescribeAzureRegionsResponse, err error) {
 	response = NewDescribeAzureRegionsResponse()
 	err = c.ApiCall(request, response)
@@ -831,7 +831,7 @@ func NewDescribeOracleRegionsResponse() (response *DescribeOracleRegionsResponse
 	return
 }
 
-// DescribeOracleRegions 查询Oracle接入点区域
+// DescribeOracleRegions 查询Oracle接入点区域。
 func (c *Client) DescribeOracleRegions(request *DescribeOracleRegionsRequest) (response *DescribeOracleRegionsResponse, err error) {
 	response = NewDescribeOracleRegionsResponse()
 	err = c.ApiCall(request, response)
@@ -854,7 +854,7 @@ func NewDescribeAliCloudRegionsResponse() (response *DescribeAliCloudRegionsResp
 	return
 }
 
-// DescribeAliCloudRegions 查询阿里云接入点区域
+// DescribeAliCloudRegions 查询阿里云接入点区域。
 func (c *Client) DescribeAliCloudRegions(request *DescribeAliCloudRegionsRequest) (response *DescribeAliCloudRegionsResponse, err error) {
 	response = NewDescribeAliCloudRegionsResponse()
 	err = c.ApiCall(request, response)
@@ -877,7 +877,7 @@ func NewDescribeHuaweiCloudRegionsResponse() (response *DescribeHuaweiCloudRegio
 	return
 }
 
-// DescribeHuaweiCloudRegions 查询华为云接入点区域
+// DescribeHuaweiCloudRegions 查询华为云接入点区域。
 func (c *Client) DescribeHuaweiCloudRegions(request *DescribeHuaweiCloudRegionsRequest) (response *DescribeHuaweiCloudRegionsResponse, err error) {
 	response = NewDescribeHuaweiCloudRegionsResponse()
 	err = c.ApiCall(request, response)
@@ -900,7 +900,7 @@ func NewDescribeBytePlusRegionsResponse() (response *DescribeBytePlusRegionsResp
 	return
 }
 
-// DescribeBytePlusRegions 查询BytePlus接入点区域
+// DescribeBytePlusRegions 查询BytePlus接入点区域。
 func (c *Client) DescribeBytePlusRegions(request *DescribeBytePlusRegionsRequest) (response *DescribeBytePlusRegionsResponse, err error) {
 	response = NewDescribeBytePlusRegionsResponse()
 	err = c.ApiCall(request, response)
@@ -923,7 +923,7 @@ func NewDescribeAWSVlanUsageResponse() (response *DescribeAWSVlanUsageResponse) 
 	return
 }
 
-// DescribeAWSVlanUsage 查询AWS接入点VLAN使用情况
+// DescribeAWSVlanUsage 查询AWS接入点VLAN使用情况。
 func (c *Client) DescribeAWSVlanUsage(request *DescribeAWSVlanUsageRequest) (response *DescribeAWSVlanUsageResponse, err error) {
 	response = NewDescribeAWSVlanUsageResponse()
 	err = c.ApiCall(request, response)
@@ -992,7 +992,7 @@ func NewDescribePrivateConnectAvailablePortsResponse() (response *DescribePrivat
 	return
 }
 
-// DescribePrivateConnectAvailablePorts 查询可加入的数据中心端口
+// DescribePrivateConnectAvailablePorts 查询可加入的数据中心端口。
 func (c *Client) DescribePrivateConnectAvailablePorts(request *DescribePrivateConnectAvailablePortsRequest) (response *DescribePrivateConnectAvailablePortsResponse, err error) {
 	response = NewDescribePrivateConnectAvailablePortsResponse()
 	err = c.ApiCall(request, response)
@@ -1015,7 +1015,7 @@ func NewDescribePrivateConnectsResponse() (response *DescribePrivateConnectsResp
 	return
 }
 
-// DescribePrivateConnects 获取二层网络专线列表
+// DescribePrivateConnects 获取二层网络专线列表。
 func (c *Client) DescribePrivateConnects(request *DescribePrivateConnectsRequest) (response *DescribePrivateConnectsResponse, err error) {
 	response = NewDescribePrivateConnectsResponse()
 	err = c.ApiCall(request, response)
@@ -1038,7 +1038,7 @@ func NewInquiryCreatePrivateConnectPriceResponse() (response *InquiryCreatePriva
 	return
 }
 
-// InquiryCreatePrivateConnectPrice 二层网络专线询价
+// InquiryCreatePrivateConnectPrice 二层网络专线询价。
 func (c *Client) InquiryCreatePrivateConnectPrice(request *InquiryCreatePrivateConnectPriceRequest) (response *InquiryCreatePrivateConnectPriceResponse, err error) {
 	response = NewInquiryCreatePrivateConnectPriceResponse()
 	err = c.ApiCall(request, response)
@@ -1061,7 +1061,7 @@ func NewCreatePrivateConnectResponse() (response *CreatePrivateConnectResponse) 
 	return
 }
 
-// CreatePrivateConnect 创建二层网络专线
+// CreatePrivateConnect 创建二层网络专线。
 func (c *Client) CreatePrivateConnect(request *CreatePrivateConnectRequest) (response *CreatePrivateConnectResponse, err error) {
 	response = NewCreatePrivateConnectResponse()
 	err = c.ApiCall(request, response)
@@ -1084,7 +1084,7 @@ func NewModifyPrivateConnectsAttributeResponse() (response *ModifyPrivateConnect
 	return
 }
 
-// ModifyPrivateConnectsAttribute 修改二层网络专线属性
+// ModifyPrivateConnectsAttribute 修改二层网络专线属性。
 func (c *Client) ModifyPrivateConnectsAttribute(request *ModifyPrivateConnectsAttributeRequest) (response *ModifyPrivateConnectsAttributeResponse, err error) {
 	response = NewModifyPrivateConnectsAttributeResponse()
 	err = c.ApiCall(request, response)
@@ -1107,7 +1107,7 @@ func NewModifyPrivateConnectBandwidthResponse() (response *ModifyPrivateConnectB
 	return
 }
 
-// ModifyPrivateConnectBandwidth 修改二层网络专线带宽
+// ModifyPrivateConnectBandwidth 修改二层网络专线带宽。
 func (c *Client) ModifyPrivateConnectBandwidth(request *ModifyPrivateConnectBandwidthRequest) (response *ModifyPrivateConnectBandwidthResponse, err error) {
 	response = NewModifyPrivateConnectBandwidthResponse()
 	err = c.ApiCall(request, response)
@@ -1130,7 +1130,7 @@ func NewRenewPrivateConnectResponse() (response *RenewPrivateConnectResponse) {
 	return
 }
 
-// RenewPrivateConnect 恢复二层网络专线
+// RenewPrivateConnect 恢复二层网络专线。
 func (c *Client) RenewPrivateConnect(request *RenewPrivateConnectRequest) (response *RenewPrivateConnectResponse, err error) {
 	response = NewRenewPrivateConnectResponse()
 	err = c.ApiCall(request, response)
@@ -1153,7 +1153,7 @@ func NewDeletePrivateConnectResponse() (response *DeletePrivateConnectResponse) 
 	return
 }
 
-// DeletePrivateConnect 删除二层网络专线
+// DeletePrivateConnect 删除二层网络专线。
 func (c *Client) DeletePrivateConnect(request *DeletePrivateConnectRequest) (response *DeletePrivateConnectResponse, err error) {
 	response = NewDeletePrivateConnectResponse()
 	err = c.ApiCall(request, response)
@@ -1176,7 +1176,7 @@ func NewDestroyPrivateConnectResponse() (response *DestroyPrivateConnectResponse
 	return
 }
 
-// DestroyPrivateConnect 销毁二层网络专线
+// DestroyPrivateConnect 销毁二层网络专线。
 func (c *Client) DestroyPrivateConnect(request *DestroyPrivateConnectRequest) (response *DestroyPrivateConnectResponse, err error) {
 	response = NewDestroyPrivateConnectResponse()
 	err = c.ApiCall(request, response)
@@ -1199,7 +1199,7 @@ func NewDescribePrivateConnectTrafficResponse() (response *DescribePrivateConnec
 	return
 }
 
-// DescribePrivateConnectTraffic 查询二层网络专线流量
+// DescribePrivateConnectTraffic 查询二层网络专线流量。
 func (c *Client) DescribePrivateConnectTraffic(request *DescribePrivateConnectTrafficRequest) (response *DescribePrivateConnectTrafficResponse, err error) {
 	response = NewDescribePrivateConnectTrafficResponse()
 	err = c.ApiCall(request, response)
@@ -1222,7 +1222,7 @@ func NewDescribeCloudRouterAvailablePortsResponse() (response *DescribeCloudRout
 	return
 }
 
-// DescribeCloudRouterAvailablePorts 查询可用端口
+// DescribeCloudRouterAvailablePorts 查询可用端口。
 func (c *Client) DescribeCloudRouterAvailablePorts(request *DescribeCloudRouterAvailablePortsRequest) (response *DescribeCloudRouterAvailablePortsResponse, err error) {
 	response = NewDescribeCloudRouterAvailablePortsResponse()
 	err = c.ApiCall(request, response)
@@ -1245,7 +1245,7 @@ func NewDescribeCloudRouterAvailableVpcsResponse() (response *DescribeCloudRoute
 	return
 }
 
-// DescribeCloudRouterAvailableVpcs 查询可用VPC
+// DescribeCloudRouterAvailableVpcs 查询可用VPC。
 func (c *Client) DescribeCloudRouterAvailableVpcs(request *DescribeCloudRouterAvailableVpcsRequest) (response *DescribeCloudRouterAvailableVpcsResponse, err error) {
 	response = NewDescribeCloudRouterAvailableVpcsResponse()
 	err = c.ApiCall(request, response)
@@ -1268,7 +1268,7 @@ func NewCreateCloudRouterResponse() (response *CreateCloudRouterResponse) {
 	return
 }
 
-// CreateCloudRouter 创建三层网络
+// CreateCloudRouter 创建三层网络。
 func (c *Client) CreateCloudRouter(request *CreateCloudRouterRequest) (response *CreateCloudRouterResponse, err error) {
 	response = NewCreateCloudRouterResponse()
 	err = c.ApiCall(request, response)
@@ -1291,7 +1291,7 @@ func NewDescribeCloudRoutersResponse() (response *DescribeCloudRoutersResponse) 
 	return
 }
 
-// DescribeCloudRouters 查询三层网络列表
+// DescribeCloudRouters 查询三层网络列表。
 func (c *Client) DescribeCloudRouters(request *DescribeCloudRoutersRequest) (response *DescribeCloudRoutersResponse, err error) {
 	response = NewDescribeCloudRoutersResponse()
 	err = c.ApiCall(request, response)
@@ -1314,7 +1314,7 @@ func NewAddCloudRouterEdgePointsResponse() (response *AddCloudRouterEdgePointsRe
 	return
 }
 
-// AddCloudRouterEdgePoints 新增连接点
+// AddCloudRouterEdgePoints 新增连接点。
 func (c *Client) AddCloudRouterEdgePoints(request *AddCloudRouterEdgePointsRequest) (response *AddCloudRouterEdgePointsResponse, err error) {
 	response = NewAddCloudRouterEdgePointsResponse()
 	err = c.ApiCall(request, response)
@@ -1337,7 +1337,7 @@ func NewModifyCloudRoutersAttributeResponse() (response *ModifyCloudRoutersAttri
 	return
 }
 
-// ModifyCloudRoutersAttribute 修改三层网络属性
+// ModifyCloudRoutersAttribute 修改三层网络属性。
 func (c *Client) ModifyCloudRoutersAttribute(request *ModifyCloudRoutersAttributeRequest) (response *ModifyCloudRoutersAttributeResponse, err error) {
 	response = NewModifyCloudRoutersAttributeResponse()
 	err = c.ApiCall(request, response)
@@ -1360,7 +1360,7 @@ func NewDeleteCloudRouterEdgePointResponse() (response *DeleteCloudRouterEdgePoi
 	return
 }
 
-// DeleteCloudRouterEdgePoint 删除连接点
+// DeleteCloudRouterEdgePoint 删除连接点。
 func (c *Client) DeleteCloudRouterEdgePoint(request *DeleteCloudRouterEdgePointRequest) (response *DeleteCloudRouterEdgePointResponse, err error) {
 	response = NewDeleteCloudRouterEdgePointResponse()
 	err = c.ApiCall(request, response)
@@ -1383,7 +1383,7 @@ func NewModifyCloudRouterEdgePointBandwidthResponse() (response *ModifyCloudRout
 	return
 }
 
-// ModifyCloudRouterEdgePointBandwidth 修改连接点带宽
+// ModifyCloudRouterEdgePointBandwidth 修改连接点带宽。
 func (c *Client) ModifyCloudRouterEdgePointBandwidth(request *ModifyCloudRouterEdgePointBandwidthRequest) (response *ModifyCloudRouterEdgePointBandwidthResponse, err error) {
 	response = NewModifyCloudRouterEdgePointBandwidthResponse()
 	err = c.ApiCall(request, response)
@@ -1406,7 +1406,7 @@ func NewModifyCloudRouterEdgePointResponse() (response *ModifyCloudRouterEdgePoi
 	return
 }
 
-// ModifyCloudRouterEdgePoint 修改连接点配置
+// ModifyCloudRouterEdgePoint 修改连接点配置。
 func (c *Client) ModifyCloudRouterEdgePoint(request *ModifyCloudRouterEdgePointRequest) (response *ModifyCloudRouterEdgePointResponse, err error) {
 	response = NewModifyCloudRouterEdgePointResponse()
 	err = c.ApiCall(request, response)
@@ -1429,7 +1429,7 @@ func NewDeleteCloudRouterResponse() (response *DeleteCloudRouterResponse) {
 	return
 }
 
-// DeleteCloudRouter 删除三层网络
+// DeleteCloudRouter 删除三层网络。
 func (c *Client) DeleteCloudRouter(request *DeleteCloudRouterRequest) (response *DeleteCloudRouterResponse, err error) {
 	response = NewDeleteCloudRouterResponse()
 	err = c.ApiCall(request, response)
@@ -1452,7 +1452,7 @@ func NewDestroyCloudRouterResponse() (response *DestroyCloudRouterResponse) {
 	return
 }
 
-// DestroyCloudRouter 销毁三层网络
+// DestroyCloudRouter 销毁三层网络。
 func (c *Client) DestroyCloudRouter(request *DestroyCloudRouterRequest) (response *DestroyCloudRouterResponse, err error) {
 	response = NewDestroyCloudRouterResponse()
 	err = c.ApiCall(request, response)
@@ -1475,7 +1475,7 @@ func NewDescribeCloudRouterEdgePointTrafficResponse() (response *DescribeCloudRo
 	return
 }
 
-// DescribeCloudRouterEdgePointTraffic 查询连接点流量
+// DescribeCloudRouterEdgePointTraffic 查询连接点流量。
 func (c *Client) DescribeCloudRouterEdgePointTraffic(request *DescribeCloudRouterEdgePointTrafficRequest) (response *DescribeCloudRouterEdgePointTrafficResponse, err error) {
 	response = NewDescribeCloudRouterEdgePointTrafficResponse()
 	err = c.ApiCall(request, response)
@@ -1498,7 +1498,7 @@ func NewDescribeCloudRouterDCToDCTrafficResponse() (response *DescribeCloudRoute
 	return
 }
 
-// DescribeCloudRouterDCToDCTraffic 查询数据中心间流量
+// DescribeCloudRouterDCToDCTraffic 查询数据中心间流量。
 func (c *Client) DescribeCloudRouterDCToDCTraffic(request *DescribeCloudRouterDCToDCTrafficRequest) (response *DescribeCloudRouterDCToDCTrafficResponse, err error) {
 	response = NewDescribeCloudRouterDCToDCTrafficResponse()
 	err = c.ApiCall(request, response)

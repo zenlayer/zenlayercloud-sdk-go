@@ -485,13 +485,13 @@ type InstanceType struct {
     // 单位：GB。
     DiskInfo *InstanceDiskInfo `json:"diskInfo,omitempty"`
 
-    // VpuVendor 
+    // VpuVendor VPU 供应商
     VpuVendor *string `json:"vpuVendor,omitempty"`
 
-    // VpuCard 
+    // VpuCard VPU 型号。示例：T1U
     VpuCard *string `json:"vpuCard,omitempty"`
 
-    // VpuCount 
+    // VpuCount VPU 数量
     VpuCount *int `json:"vpuCount,omitempty"`
 
 }
@@ -1241,6 +1241,10 @@ type InstanceInfo struct {
     // EnableGatewayMode 网关模式是否开启。
     EnableGatewayMode *bool `json:"enableGatewayMode,omitempty"`
 
+    // IpmiEnabled IPMI控制台是否已开启。
+    // 通过 ~~ResetInstanceIpmiPassword~~ 设置IPMI密码后开启，登录用户名固定为operator；重装系统后会关闭，需要重新设置密码。
+    IpmiEnabled *bool `json:"ipmiEnabled,omitempty"`
+
 }
 
 // Tags 描述资源关联的标签信息。
@@ -1882,6 +1886,57 @@ type InstanceHealth struct {
 
 }
 
+type ResetInstanceIpmiPasswordRequest struct {
+    *common.BaseRequest
+
+    // InstanceId 实例ID。
+    InstanceId *string `json:"instanceId,omitempty"`
+
+    // Password IPMI控制台密码。
+    // 必须以字母开头，长度为8-16个字符，可包含字母、数字以及特殊字符!@#+_,.。
+    // 登录IPMI控制台的用户名固定为operator。
+    Password *string `json:"password,omitempty"`
+
+}
+
+type ResetInstanceIpmiPasswordResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+type DescribeInstanceIpmiUrlRequest struct {
+    *common.BaseRequest
+
+    // InstanceId 实例ID。
+    InstanceId *string `json:"instanceId,omitempty"`
+
+}
+
+type DescribeInstanceIpmiUrlResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeInstanceIpmiUrlResponseParams `json:"response,omitempty"`
+
+}
+
+type DescribeInstanceIpmiUrlResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // Url IPMI控制台访问地址。
+    // 登录用户名固定为operator，密码为通过 ~~ResetInstanceIpmiPassword~~ 设置的密码。
+    Url *string `json:"url,omitempty"`
+
+}
+
 type DescribeAvailableIpv4ResourcesRequest struct {
     *common.BaseRequest
 
@@ -2519,6 +2574,10 @@ type CreateByoipRequest struct {
     // PublicVirtualInterfaceId 公网VLAN 唯一标识。
     PublicVirtualInterfaceId *string `json:"publicVirtualInterfaceId,omitempty"`
 
+    // Tags 创建byoip时关联的标签。
+    // 注意：关联`标签键`不能重复。
+    Tags *TagAssociation `json:"tags,omitempty"`
+
 }
 
 type CreateByoipResponse struct {
@@ -2791,12 +2850,16 @@ type ModifyEipAddressesResourceGroupResponse struct {
 
 }
 
+// DescribeInstanceAvailableEipResourcesRequest 
 type DescribeInstanceAvailableEipResourcesRequest struct {
     *common.BaseRequest
 
     // InstanceId 机器实例ID 。
     // 可通过DescribeInstances接口返回的instanceId获取。
     InstanceId *string `json:"instanceId,omitempty"`
+
+    // IpType EIP 类型，取值：IPv4、IPv6。不填默认查询 IPv4。
+    IpType *string `json:"ipType,omitempty"`
 
 }
 
@@ -2809,6 +2872,7 @@ type DescribeInstanceAvailableEipResourcesResponse struct {
 
 }
 
+// DescribeInstanceAvailableEipResourcesResponseParams 
 type DescribeInstanceAvailableEipResourcesResponseParams struct {
 
     RequestId *string `json:"requestId,omitempty"`
@@ -2833,6 +2897,7 @@ type InstanceAvailableEip struct {
 
 }
 
+// AssociateEipAddressRequest 
 type AssociateEipAddressRequest struct {
     *common.BaseRequest
 
@@ -3617,6 +3682,9 @@ type BackendInfo struct {
     // InstanceId 实例ID。
     InstanceId *string `json:"instanceId,omitempty"`
 
+    // InstanceType 实例类型。
+    InstanceType *string `json:"instanceType,omitempty"`
+
     // InstanceName 实例名称。
     InstanceName *string `json:"instanceName,omitempty"`
 
@@ -3943,6 +4011,9 @@ type DescribeBackendsRequest struct {
     // BackendName 后端配置服务器的名称。
     BackendName *string `json:"backendName,omitempty"`
 
+    // InstanceType 实例类型。默认为`BM`
+    InstanceType *string `json:"instanceType,omitempty"`
+
     // PageNum 返回的分页数。
     PageNum *int `json:"pageNum,omitempty"`
 
@@ -3982,8 +4053,11 @@ type RegisterBackendRequest struct {
     // 不得超过64个字符。仅支持输入字母、数字、-和英文句点(.)。
     BackendName *string `json:"backendName,omitempty"`
 
-    // InstanceId 裸金属实例ID。
+    // InstanceId 裸金属或虚拟机实例ID。
     InstanceId *string `json:"instanceId,omitempty"`
+
+    // InstanceType 实例类型。
+    InstanceType *string `json:"instanceType,omitempty"`
 
     // ClientToken 用于保证请求的幂等性。
     ClientToken *string `json:"clientToken,omitempty"`

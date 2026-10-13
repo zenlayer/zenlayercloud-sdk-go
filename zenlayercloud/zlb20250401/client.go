@@ -233,7 +233,7 @@ func NewTerminateLoadBalancerResponse() (response *TerminateLoadBalancerResponse
 	return
 }
 
-// TerminateLoadBalancer 本接口用户删除一个指定的负载均衡器实例。
+// TerminateLoadBalancer 删除一个指定的负载均衡实例。
 func (c *Client) TerminateLoadBalancer(request *TerminateLoadBalancerRequest) (response *TerminateLoadBalancerResponse, err error) {
 	response = NewTerminateLoadBalancerResponse()
 	err = c.ApiCall(request, response)
@@ -256,7 +256,7 @@ func NewRestoreLoadBalancerResponse() (response *RestoreLoadBalancerResponse) {
 	return
 }
 
-// RestoreLoadBalancer 将在回收站的负载均衡实例进行恢复。
+// RestoreLoadBalancer 恢复处于回收状态的负载均衡实例，使其重新可用。
 func (c *Client) RestoreLoadBalancer(request *RestoreLoadBalancerRequest) (response *RestoreLoadBalancerResponse, err error) {
 	response = NewRestoreLoadBalancerResponse()
 	err = c.ApiCall(request, response)
@@ -279,7 +279,7 @@ func NewDescribeLoadBalancerMonitorDataResponse() (response *DescribeLoadBalance
 	return
 }
 
-// DescribeLoadBalancerMonitorData 查询负载均衡监控指标数据，包括并发连接数, 新建连接数以及网络带宽等指标数据。
+// DescribeLoadBalancerMonitorData 查询负载均衡监控指标数据，包括并发连接数、新建连接数以及网络带宽等指标数据。
 func (c *Client) DescribeLoadBalancerMonitorData(request *DescribeLoadBalancerMonitorDataRequest) (response *DescribeLoadBalancerMonitorDataResponse, err error) {
 	response = NewDescribeLoadBalancerMonitorDataResponse()
 	err = c.ApiCall(request, response)
@@ -302,7 +302,7 @@ func NewSetSecurityGroupForLoadBalancersResponse() (response *SetSecurityGroupFo
 	return
 }
 
-// SetSecurityGroupForLoadBalancers 批量更换负载器均衡的安全组。
+// SetSecurityGroupForLoadBalancers 批量更换负载均衡实例绑定的安全组。
 func (c *Client) SetSecurityGroupForLoadBalancers(request *SetSecurityGroupForLoadBalancersRequest) (response *SetSecurityGroupForLoadBalancersResponse, err error) {
 	response = NewSetSecurityGroupForLoadBalancersResponse()
 	err = c.ApiCall(request, response)
@@ -325,7 +325,7 @@ func NewUnbindSecurityGroupFromLoadBalancersResponse() (response *UnbindSecurity
 	return
 }
 
-// UnbindSecurityGroupFromLoadBalancers 批量解绑负载器均衡的安全组。
+// UnbindSecurityGroupFromLoadBalancers 批量解绑负载均衡实例绑定的安全组。
 func (c *Client) UnbindSecurityGroupFromLoadBalancers(request *UnbindSecurityGroupFromLoadBalancersRequest) (response *UnbindSecurityGroupFromLoadBalancersResponse, err error) {
 	response = NewUnbindSecurityGroupFromLoadBalancersResponse()
 	err = c.ApiCall(request, response)
@@ -371,7 +371,7 @@ func NewDescribeListenersResponse() (response *DescribeListenersResponse) {
 	return
 }
 
-// DescribeListeners 本接口接口可根据负载均衡器 ID、监听器的协议作为过滤条件获取监听器列表。如果不指定任何过滤条件，则返回指定负载均衡实例下的所有监听器。
+// DescribeListeners 可根据负载均衡器ID、监听器的协议作为过滤条件获取监听器列表。如果不指定任何过滤条件，则返回指定负载均衡实例下的所有监听器。
 func (c *Client) DescribeListeners(request *DescribeListenersRequest) (response *DescribeListenersResponse, err error) {
 	response = NewDescribeListenersResponse()
 	err = c.ApiCall(request, response)
@@ -394,7 +394,7 @@ func NewCreateListenerResponse() (response *CreateListenerResponse) {
 	return
 }
 
-// CreateListener 查询创建负载均衡监听器。
+// CreateListener 创建负载均衡的监听器。
 func (c *Client) CreateListener(request *CreateListenerRequest) (response *CreateListenerResponse, err error) {
 	response = NewCreateListenerResponse()
 	err = c.ApiCall(request, response)
@@ -440,7 +440,7 @@ func NewDeleteListenerResponse() (response *DeleteListenerResponse) {
 	return
 }
 
-// DeleteListener 查询删除一个负载均衡监听器。
+// DeleteListener 删除一个负载均衡监听器。
 func (c *Client) DeleteListener(request *DeleteListenerRequest) (response *DeleteListenerResponse, err error) {
 	response = NewDeleteListenerResponse()
 	err = c.ApiCall(request, response)
@@ -463,7 +463,7 @@ func NewDescribeBackendsResponse() (response *DescribeBackendsResponse) {
 	return
 }
 
-// DescribeBackends 查询负载均衡实例的绑定的后端服务列表。
+// DescribeBackends 查询负载均衡实例已绑定的后端服务及其转发配置。
 func (c *Client) DescribeBackends(request *DescribeBackendsRequest) (response *DescribeBackendsResponse, err error) {
 	response = NewDescribeBackendsResponse()
 	err = c.ApiCall(request, response)
@@ -509,7 +509,7 @@ func NewModifyBackendResponse() (response *ModifyBackendResponse) {
 	return
 }
 
-// ModifyBackend 修改一台或多台绑定在指定监听器上的后端服务的配置，包括权重和和后端服务器转发端口。
+// ModifyBackend 修改一台或多台绑定在指定监听器上的后端服务的配置，包括权重和转发端口。
 func (c *Client) ModifyBackend(request *ModifyBackendRequest) (response *ModifyBackendResponse, err error) {
 	response = NewModifyBackendResponse()
 	err = c.ApiCall(request, response)
@@ -555,7 +555,7 @@ func NewDescribeBackendHealthResponse() (response *DescribeBackendHealthResponse
 	return
 }
 
-// DescribeBackendHealth 查询负载均衡实例的绑定的后端服务列表。
+// DescribeBackendHealth 查询负载均衡实例已绑定的后端服务的健康检查状态。
 func (c *Client) DescribeBackendHealth(request *DescribeBackendHealthRequest) (response *DescribeBackendHealthResponse, err error) {
 	response = NewDescribeBackendHealthResponse()
 	err = c.ApiCall(request, response)

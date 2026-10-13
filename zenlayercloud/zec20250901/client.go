@@ -118,7 +118,7 @@ func NewDescribeZoneInstanceConfigInfosResponse() (response *DescribeZoneInstanc
 	return
 }
 
-// DescribeZoneInstanceConfigInfos 查询可用区售卖的机型信息。
+// DescribeZoneInstanceConfigInfos 查询可用区售卖的机型规格及价格信息。
 func (c *Client) DescribeZoneInstanceConfigInfos(request *DescribeZoneInstanceConfigInfosRequest) (response *DescribeZoneInstanceConfigInfosResponse, err error) {
 	response = NewDescribeZoneInstanceConfigInfosResponse()
 	err = c.ApiCall(request, response)
@@ -164,7 +164,7 @@ func NewDescribeTimeZonesResponse() (response *DescribeTimeZonesResponse) {
 	return
 }
 
-// DescribeTimeZones 查询时区信息。
+// DescribeTimeZones 查询创建实例时可选的时区列表。
 func (c *Client) DescribeTimeZones(request *DescribeTimeZonesRequest) (response *DescribeTimeZonesResponse, err error) {
 	response = NewDescribeTimeZonesResponse()
 	err = c.ApiCall(request, response)
@@ -187,7 +187,7 @@ func NewInquiryPriceCreateInstanceResponse() (response *InquiryPriceCreateInstan
 	return
 }
 
-// InquiryPriceCreateInstance 创建虚拟机实例询价。
+// InquiryPriceCreateInstance 查询创建虚拟机实例的价格。
 func (c *Client) InquiryPriceCreateInstance(request *InquiryPriceCreateInstanceRequest) (response *InquiryPriceCreateInstanceResponse, err error) {
 	response = NewInquiryPriceCreateInstanceResponse()
 	err = c.ApiCall(request, response)
@@ -256,7 +256,7 @@ func NewDescribeInstancesStatusResponse() (response *DescribeInstancesStatusResp
 	return
 }
 
-// DescribeInstancesStatus 批量查询一个或多个弹性计算实例的当前运行状态，支持按实例 ID 列表和资源组筛选，支持分页查询。
+// DescribeInstancesStatus 批量查询一个或多个弹性计算实例的当前运行状态，支持按实例ID列表和资源组筛选，支持分页查询。
 func (c *Client) DescribeInstancesStatus(request *DescribeInstancesStatusRequest) (response *DescribeInstancesStatusResponse, err error) {
 	response = NewDescribeInstancesStatusResponse()
 	err = c.ApiCall(request, response)
@@ -440,7 +440,7 @@ func NewStartIpForwardResponse() (response *StartIpForwardResponse) {
 	return
 }
 
-// StartIpForward 为指定弹性计算实例开启 IP 转发，开启后该实例可作为路由器或网关转发来自其他资源的网络流量。
+// StartIpForward 为指定弹性计算实例开启IP转发，开启后该实例可作为路由器或网关转发来自其他资源的网络流量。
 func (c *Client) StartIpForward(request *StartIpForwardRequest) (response *StartIpForwardResponse, err error) {
 	response = NewStartIpForwardResponse()
 	err = c.ApiCall(request, response)
@@ -463,7 +463,7 @@ func NewStopIpForwardResponse() (response *StopIpForwardResponse) {
 	return
 }
 
-// StopIpForward 为指定弹性计算实例关闭 IP 转发功能，关闭后该实例将不再转发非本机目的地的网络流量。
+// StopIpForward 为指定弹性计算实例关闭IP转发功能，关闭后该实例将不再转发非本机目的地的网络流量。
 func (c *Client) StopIpForward(request *StopIpForwardRequest) (response *StopIpForwardResponse, err error) {
 	response = NewStopIpForwardResponse()
 	err = c.ApiCall(request, response)
@@ -486,7 +486,7 @@ func NewStartAgentMonitorResponse() (response *StartAgentMonitorResponse) {
 	return
 }
 
-// StartAgentMonitor 为指定弹性计算实例开启 QEMU Guest Agent（QGA）监控数据采集，开启后可通过监控接口获取实例内部性能指标数据。
+// StartAgentMonitor 为指定弹性计算实例开启QEMU Guest Agent（QGA）监控数据采集，开启后可通过监控接口获取实例内部性能指标数据。
 func (c *Client) StartAgentMonitor(request *StartAgentMonitorRequest) (response *StartAgentMonitorResponse, err error) {
 	response = NewStartAgentMonitorResponse()
 	err = c.ApiCall(request, response)
@@ -509,7 +509,7 @@ func NewStopAgentMonitorResponse() (response *StopAgentMonitorResponse) {
 	return
 }
 
-// StopAgentMonitor 为指定弹性计算实例关闭 QEMU Guest Agent（QGA）监控数据采集功能，关闭后将无法通过监控接口获取实例内部性能数据。
+// StopAgentMonitor 为指定弹性计算实例关闭QEMU Guest Agent（QGA）监控数据采集功能，关闭后将无法通过监控接口获取实例内部性能数据。
 func (c *Client) StopAgentMonitor(request *StopAgentMonitorRequest) (response *StopAgentMonitorResponse, err error) {
 	response = NewStopAgentMonitorResponse()
 	err = c.ApiCall(request, response)
@@ -601,7 +601,7 @@ func NewDescribeVncUrlResponse() (response *DescribeVncUrlResponse) {
 	return
 }
 
-// DescribeVncUrl 获取实例VNC地址。
+// DescribeVncUrl 查询指定实例的VNC登录地址。
 func (c *Client) DescribeVncUrl(request *DescribeVncUrlRequest) (response *DescribeVncUrlResponse, err error) {
 	response = NewDescribeVncUrlResponse()
 	err = c.ApiCall(request, response)
@@ -624,7 +624,7 @@ func NewDescribeInstanceMonitorDataResponse() (response *DescribeInstanceMonitor
 	return
 }
 
-// DescribeInstanceMonitorData 查询一段时间的实例的监控指标数据。包括CPU,内存等相关指标数据。
+// DescribeInstanceMonitorData 查询一段时间的实例的监控指标数据。包括CPU、内存等相关指标数据。
 func (c *Client) DescribeInstanceMonitorData(request *DescribeInstanceMonitorDataRequest) (response *DescribeInstanceMonitorDataResponse, err error) {
 	response = NewDescribeInstanceMonitorDataResponse()
 	err = c.ApiCall(request, response)
@@ -647,7 +647,7 @@ func NewInquiryPriceModifyInstanceTypeResponse() (response *InquiryPriceModifyIn
 	return
 }
 
-// InquiryPriceModifyInstanceType 查询变更实例规格后的价格，同时通过 previousPrices 返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
+// InquiryPriceModifyInstanceType 查询变更实例规格后的价格，同时通过previousPrices返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
 func (c *Client) InquiryPriceModifyInstanceType(request *InquiryPriceModifyInstanceTypeRequest) (response *InquiryPriceModifyInstanceTypeResponse, err error) {
 	response = NewInquiryPriceModifyInstanceTypeResponse()
 	err = c.ApiCall(request, response)
@@ -670,7 +670,7 @@ func NewDescribeZoneGpuInstanceConfigInfosResponse() (response *DescribeZoneGpuI
 	return
 }
 
-// DescribeZoneGpuInstanceConfigInfos 查询可用区售卖的 GPU 规格信息。
+// DescribeZoneGpuInstanceConfigInfos 查询可用区售卖的GPU规格信息。
 func (c *Client) DescribeZoneGpuInstanceConfigInfos(request *DescribeZoneGpuInstanceConfigInfosRequest) (response *DescribeZoneGpuInstanceConfigInfosResponse, err error) {
 	response = NewDescribeZoneGpuInstanceConfigInfosResponse()
 	err = c.ApiCall(request, response)
@@ -693,7 +693,7 @@ func NewDescribeZoneAcceleratorConfigInfosResponse() (response *DescribeZoneAcce
 	return
 }
 
-// DescribeZoneAcceleratorConfigInfos 查询可用区售卖的加速卡规格信息。
+// DescribeZoneAcceleratorConfigInfos 查询可用区售卖的加速卡规格及价格信息。
 func (c *Client) DescribeZoneAcceleratorConfigInfos(request *DescribeZoneAcceleratorConfigInfosRequest) (response *DescribeZoneAcceleratorConfigInfosResponse, err error) {
 	response = NewDescribeZoneAcceleratorConfigInfosResponse()
 	err = c.ApiCall(request, response)
@@ -900,7 +900,7 @@ func NewDescribeDiskRegionsResponse() (response *DescribeDiskRegionsResponse) {
 	return
 }
 
-// DescribeDiskRegions 查询支持售卖云硬盘的节点信息。
+// DescribeDiskRegions 查询支持售卖云硬盘的节点列表。
 func (c *Client) DescribeDiskRegions(request *DescribeDiskRegionsRequest) (response *DescribeDiskRegionsResponse, err error) {
 	response = NewDescribeDiskRegionsResponse()
 	err = c.ApiCall(request, response)
@@ -923,7 +923,7 @@ func NewDescribeDiskCategoryResponse() (response *DescribeDiskCategoryResponse) 
 	return
 }
 
-// DescribeDiskCategory 查询可用区支持的云盘类型。
+// DescribeDiskCategory 查询指定可用区支持售卖的云硬盘类型。
 func (c *Client) DescribeDiskCategory(request *DescribeDiskCategoryRequest) (response *DescribeDiskCategoryResponse, err error) {
 	response = NewDescribeDiskCategoryResponse()
 	err = c.ApiCall(request, response)
@@ -1015,7 +1015,7 @@ func NewAttachDisksResponse() (response *AttachDisksResponse) {
 	return
 }
 
-// AttachDisks 云硬盘挂载到实例上。
+// AttachDisks 将一块或多块云硬盘挂载到指定实例上。
 func (c *Client) AttachDisks(request *AttachDisksRequest) (response *AttachDisksResponse, err error) {
 	response = NewAttachDisksResponse()
 	err = c.ApiCall(request, response)
@@ -1107,7 +1107,7 @@ func NewReleaseDiskResponse() (response *ReleaseDiskResponse) {
 	return
 }
 
-// ReleaseDisk 删除释放一块云硬盘。
+// ReleaseDisk 释放一块云硬盘。
 func (c *Client) ReleaseDisk(request *ReleaseDiskRequest) (response *ReleaseDiskResponse, err error) {
 	response = NewReleaseDiskResponse()
 	err = c.ApiCall(request, response)
@@ -1199,7 +1199,7 @@ func NewInquiryPriceResizeDiskResponse() (response *InquiryPriceResizeDiskRespon
 	return
 }
 
-// InquiryPriceResizeDisk 查询云硬盘扩容后的新价格。同时通过 previousPrices 返回扩容前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
+// InquiryPriceResizeDisk 查询云硬盘扩容后的新价格。同时通过previousPrices返回扩容前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
 func (c *Client) InquiryPriceResizeDisk(request *InquiryPriceResizeDiskRequest) (response *InquiryPriceResizeDiskResponse, err error) {
 	response = NewInquiryPriceResizeDiskResponse()
 	err = c.ApiCall(request, response)
@@ -1291,7 +1291,7 @@ func NewApplySnapshotResponse() (response *ApplySnapshotResponse) {
 	return
 }
 
-// ApplySnapshot 回滚快照到原云盘。
+// ApplySnapshot 将快照回滚到其所属的云硬盘。
 func (c *Client) ApplySnapshot(request *ApplySnapshotRequest) (response *ApplySnapshotResponse, err error) {
 	response = NewApplySnapshotResponse()
 	err = c.ApiCall(request, response)
@@ -1383,7 +1383,7 @@ func NewApplyAutoSnapshotPolicyResponse() (response *ApplyAutoSnapshotPolicyResp
 	return
 }
 
-// ApplyAutoSnapshotPolicy 云硬盘添加到指定的自动快照策略。
+// ApplyAutoSnapshotPolicy 将一块或多块云硬盘添加到指定的自动快照策略。
 func (c *Client) ApplyAutoSnapshotPolicy(request *ApplyAutoSnapshotPolicyRequest) (response *ApplyAutoSnapshotPolicyResponse, err error) {
 	response = NewApplyAutoSnapshotPolicyResponse()
 	err = c.ApiCall(request, response)
@@ -1406,7 +1406,7 @@ func NewCancelAutoSnapshotPolicyResponse() (response *CancelAutoSnapshotPolicyRe
 	return
 }
 
-// CancelAutoSnapshotPolicy 云硬盘从指定的自动快照策略中移除。
+// CancelAutoSnapshotPolicy 将一块或多块云硬盘从指定的自动快照策略中移除。
 func (c *Client) CancelAutoSnapshotPolicy(request *CancelAutoSnapshotPolicyRequest) (response *CancelAutoSnapshotPolicyResponse, err error) {
 	response = NewCancelAutoSnapshotPolicyResponse()
 	err = c.ApiCall(request, response)
@@ -1475,7 +1475,7 @@ func NewDescribeNetworkInterfaceRegionsResponse() (response *DescribeNetworkInte
 	return
 }
 
-// DescribeNetworkInterfaceRegions 支持售卖网卡的区域信息。
+// DescribeNetworkInterfaceRegions 查询支持创建网卡的节点列表。
 func (c *Client) DescribeNetworkInterfaceRegions(request *DescribeNetworkInterfaceRegionsRequest) (response *DescribeNetworkInterfaceRegionsResponse, err error) {
 	response = NewDescribeNetworkInterfaceRegionsResponse()
 	err = c.ApiCall(request, response)
@@ -1498,7 +1498,7 @@ func NewDescribeNetworkInterfacesResponse() (response *DescribeNetworkInterfaces
 	return
 }
 
-// DescribeNetworkInterfaces 查询一个或多个指定网卡的信息。用户可以根据 网卡ID、网卡名称等信息来搜索网卡信息。
+// DescribeNetworkInterfaces 查询一个或多个指定网卡的信息。用户可以根据网卡ID、网卡名称等信息搜索。
 func (c *Client) DescribeNetworkInterfaces(request *DescribeNetworkInterfacesRequest) (response *DescribeNetworkInterfacesResponse, err error) {
 	response = NewDescribeNetworkInterfacesResponse()
 	err = c.ApiCall(request, response)
@@ -1613,7 +1613,7 @@ func NewAttachNetworkInterfaceResponse() (response *AttachNetworkInterfaceRespon
 	return
 }
 
-// AttachNetworkInterface 网卡绑定实例。
+// AttachNetworkInterface 将一张网卡绑定到指定实例上。
 func (c *Client) AttachNetworkInterface(request *AttachNetworkInterfaceRequest) (response *AttachNetworkInterfaceResponse, err error) {
 	response = NewAttachNetworkInterfaceResponse()
 	err = c.ApiCall(request, response)
@@ -1659,7 +1659,7 @@ func NewAssignNetworkInterfaceIpv4Response() (response *AssignNetworkInterfaceIp
 	return
 }
 
-// AssignNetworkInterfaceIpv4 网卡绑定内网IPv4。
+// AssignNetworkInterfaceIpv4 为指定网卡分配一个内网IPv4地址。
 func (c *Client) AssignNetworkInterfaceIpv4(request *AssignNetworkInterfaceIpv4Request) (response *AssignNetworkInterfaceIpv4Response, err error) {
 	response = NewAssignNetworkInterfaceIpv4Response()
 	err = c.ApiCall(request, response)
@@ -1774,7 +1774,7 @@ func NewDescribePoolsResponse() (response *DescribePoolsResponse) {
 	return
 }
 
-// DescribePools 查询账户下的公网 IP 池信息，支持按 IP 池 ID、地域或名称进行筛选，支持分页查询。
+// DescribePools 查询账户下的公网IP池信息，支持按IP池ID、地域或名称进行筛选，支持分页查询。
 func (c *Client) DescribePools(request *DescribePoolsRequest) (response *DescribePoolsResponse, err error) {
 	response = NewDescribePoolsResponse()
 	err = c.ApiCall(request, response)
@@ -1797,7 +1797,7 @@ func NewDescribeCidrRegionsResponse() (response *DescribeCidrRegionsResponse) {
 	return
 }
 
-// DescribeCidrRegions 支持售卖CIDR的节点信息。
+// DescribeCidrRegions 查询支持售卖CIDR的节点信息。
 func (c *Client) DescribeCidrRegions(request *DescribeCidrRegionsRequest) (response *DescribeCidrRegionsResponse, err error) {
 	response = NewDescribeCidrRegionsResponse()
 	err = c.ApiCall(request, response)
@@ -1820,7 +1820,7 @@ func NewDescribeCidrPriceResponse() (response *DescribeCidrPriceResponse) {
 	return
 }
 
-// DescribeCidrPrice 查询 IPv4 CIDR 地址块售卖价格。
+// DescribeCidrPrice 查询创建IPv4 CIDR地址块的价格。
 func (c *Client) DescribeCidrPrice(request *DescribeCidrPriceRequest) (response *DescribeCidrPriceResponse, err error) {
 	response = NewDescribeCidrPriceResponse()
 	err = c.ApiCall(request, response)
@@ -1843,7 +1843,7 @@ func NewDescribeCidrsResponse() (response *DescribeCidrsResponse) {
 	return
 }
 
-// DescribeCidrs 查询IPv4 CIDR地址块列表。
+// DescribeCidrs 查询一个或多个IPv4 CIDR地址块的详细信息。
 func (c *Client) DescribeCidrs(request *DescribeCidrsRequest) (response *DescribeCidrsResponse, err error) {
 	response = NewDescribeCidrsResponse()
 	err = c.ApiCall(request, response)
@@ -1889,7 +1889,7 @@ func NewModifyCidrAttributeResponse() (response *ModifyCidrAttributeResponse) {
 	return
 }
 
-// ModifyCidrAttribute 修改IPv4 CIDR地址段的属性。 目前只能修改名称。
+// ModifyCidrAttribute 修改IPv4 CIDR地址段的属性。目前只能修改名称。
 func (c *Client) ModifyCidrAttribute(request *ModifyCidrAttributeRequest) (response *ModifyCidrAttributeResponse, err error) {
 	response = NewModifyCidrAttributeResponse()
 	err = c.ApiCall(request, response)
@@ -1958,7 +1958,7 @@ func NewRenewIpv6CidrResponse() (response *RenewIpv6CidrResponse) {
 	return
 }
 
-// RenewIpv6Cidr 将一个处于回收站的IPv6 CIDR地址段恢复回正常。
+// RenewIpv6Cidr 恢复处于回收状态的IPv6 CIDR地址段，使其重新可用。
 func (c *Client) RenewIpv6Cidr(request *RenewIpv6CidrRequest) (response *RenewIpv6CidrResponse, err error) {
 	response = NewRenewIpv6CidrResponse()
 	err = c.ApiCall(request, response)
@@ -1981,7 +1981,7 @@ func NewDescribeIpv6CidrsResponse() (response *DescribeIpv6CidrsResponse) {
 	return
 }
 
-// DescribeIpv6Cidrs 查询账户下的 IPv6 CIDR 地址块信息，支持按 CIDR ID、地域、名称、地址段筛选，支持标签过滤和分页查询。
+// DescribeIpv6Cidrs 查询账户下的IPv6 CIDR地址块信息，支持按CIDR ID、地域、名称、地址段筛选，支持标签过滤和分页查询。
 func (c *Client) DescribeIpv6Cidrs(request *DescribeIpv6CidrsRequest) (response *DescribeIpv6CidrsResponse, err error) {
 	response = NewDescribeIpv6CidrsResponse()
 	err = c.ApiCall(request, response)
@@ -2004,7 +2004,7 @@ func NewDeleteIpv6CidrResponse() (response *DeleteIpv6CidrResponse) {
 	return
 }
 
-// DeleteIpv6Cidr 删除IPv6 CIDR地址块。
+// DeleteIpv6Cidr 删除指定的IPv6 CIDR地址块。
 func (c *Client) DeleteIpv6Cidr(request *DeleteIpv6CidrRequest) (response *DeleteIpv6CidrResponse, err error) {
 	response = NewDeleteIpv6CidrResponse()
 	err = c.ApiCall(request, response)
@@ -2027,7 +2027,7 @@ func NewRenewCidrResponse() (response *RenewCidrResponse) {
 	return
 }
 
-// RenewCidr 将一个处于回收站的IPv4 CIDR地址段恢复回正常。
+// RenewCidr 恢复处于回收状态的IPv4 CIDR地址段，使其重新可用。
 func (c *Client) RenewCidr(request *RenewCidrRequest) (response *RenewCidrResponse, err error) {
 	response = NewRenewCidrResponse()
 	err = c.ApiCall(request, response)
@@ -2050,7 +2050,7 @@ func NewCreateByoipResponse() (response *CreateByoipResponse) {
 	return
 }
 
-// CreateByoip 提交自带 IP 段（BYOIP）创建 CIDR。返回 RPKI/IRR 校验失败列表。
+// CreateByoip 提交自带IP段（BYOIP）创建CIDR。返回RPKI/IRR校验失败列表。
 func (c *Client) CreateByoip(request *CreateByoipRequest) (response *CreateByoipResponse, err error) {
 	response = NewCreateByoipResponse()
 	err = c.ApiCall(request, response)
@@ -2073,7 +2073,7 @@ func NewDescribeByoipRegionsResponse() (response *DescribeByoipRegionsResponse) 
 	return
 }
 
-// DescribeByoipRegions 返回支持售卖 BYOIP 的区域及对应网段、网络类型等信息。
+// DescribeByoipRegions 返回支持售卖BYOIP的区域及对应网段、网络类型等信息。
 func (c *Client) DescribeByoipRegions(request *DescribeByoipRegionsRequest) (response *DescribeByoipRegionsResponse, err error) {
 	response = NewDescribeByoipRegionsResponse()
 	err = c.ApiCall(request, response)
@@ -2096,7 +2096,7 @@ func NewDescribeByoipPriceResponse() (response *DescribeByoipPriceResponse) {
 	return
 }
 
-// DescribeByoipPrice 根据宣告 IP 段、区域、线路类型等查询 BYOIP 价格。
+// DescribeByoipPrice 根据宣告IP段、区域、线路类型等查询BYOIP价格。
 func (c *Client) DescribeByoipPrice(request *DescribeByoipPriceRequest) (response *DescribeByoipPriceResponse, err error) {
 	response = NewDescribeByoipPriceResponse()
 	err = c.ApiCall(request, response)
@@ -2165,7 +2165,7 @@ func NewDescribeEipInternetChargeTypesResponse() (response *DescribeEipInternetC
 	return
 }
 
-// DescribeEipInternetChargeTypes 查询 EIP 支持的网络计费模式。
+// DescribeEipInternetChargeTypes 查询EIP支持的网络计费模式。
 func (c *Client) DescribeEipInternetChargeTypes(request *DescribeEipInternetChargeTypesRequest) (response *DescribeEipInternetChargeTypesResponse, err error) {
 	response = NewDescribeEipInternetChargeTypesResponse()
 	err = c.ApiCall(request, response)
@@ -2211,7 +2211,7 @@ func NewDescribeEipPriceResponse() (response *DescribeEipPriceResponse) {
 	return
 }
 
-// DescribeEipPrice 创建公网弹性IP询价。
+// DescribeEipPrice 查询创建弹性公网IP的价格。
 func (c *Client) DescribeEipPrice(request *DescribeEipPriceRequest) (response *DescribeEipPriceResponse, err error) {
 	response = NewDescribeEipPriceResponse()
 	err = c.ApiCall(request, response)
@@ -2303,7 +2303,7 @@ func NewAvailableLanIpResponse() (response *AvailableLanIpResponse) {
 	return
 }
 
-// AvailableLanIp 查询可与指定弹性公网 IP（EIP）进行绑定的弹性网卡（vNIC）及其内网 IPv4 地址列表。
+// AvailableLanIp 查询可与指定弹性公网IP（EIP）进行绑定的弹性网卡（vNIC）及其内网IPv4地址列表。
 func (c *Client) AvailableLanIp(request *AvailableLanIpRequest) (response *AvailableLanIpResponse, err error) {
 	response = NewAvailableLanIpResponse()
 	err = c.ApiCall(request, response)
@@ -2395,7 +2395,7 @@ func NewChangeEipInternetChargeTypeResponse() (response *ChangeEipInternetCharge
 	return
 }
 
-// ChangeEipInternetChargeType 变更弹性公网IP更网络计费模式。
+// ChangeEipInternetChargeType 变更弹性公网IP的网络计费模式。
 func (c *Client) ChangeEipInternetChargeType(request *ChangeEipInternetChargeTypeRequest) (response *ChangeEipInternetChargeTypeResponse, err error) {
 	response = NewChangeEipInternetChargeTypeResponse()
 	err = c.ApiCall(request, response)
@@ -2487,7 +2487,7 @@ func NewConfigEipEgressIpResponse() (response *ConfigEipEgressIpResponse) {
 	return
 }
 
-// ConfigEipEgressIp 指定IP作为出口IP。
+// ConfigEipEgressIp 将绑定在网卡上的指定弹性公网IP设置为该网卡的出口IP。
 func (c *Client) ConfigEipEgressIp(request *ConfigEipEgressIpRequest) (response *ConfigEipEgressIpResponse, err error) {
 	response = NewConfigEipEgressIpResponse()
 	err = c.ApiCall(request, response)
@@ -2533,7 +2533,7 @@ func NewRenewEipResponse() (response *RenewEipResponse) {
 	return
 }
 
-// RenewEip 恢复弹性公网IP。
+// RenewEip 恢复处于回收状态的弹性公网IP，使其重新可用。
 func (c *Client) RenewEip(request *RenewEipRequest) (response *RenewEipResponse, err error) {
 	response = NewRenewEipResponse()
 	err = c.ApiCall(request, response)
@@ -2556,7 +2556,7 @@ func NewDescribeEipTrafficResponse() (response *DescribeEipTrafficResponse) {
 	return
 }
 
-// DescribeEipTraffic 查询指定弹性公网 IP 在指定时间段内的流量监控数据，支持按统计粒度（step）聚合，可按出口公网 IP 过滤。
+// DescribeEipTraffic 查询指定弹性公网IP在指定时间段内的流量监控数据，支持按统计粒度（step）聚合，可按出口公网IP过滤。
 func (c *Client) DescribeEipTraffic(request *DescribeEipTrafficRequest) (response *DescribeEipTrafficResponse, err error) {
 	response = NewDescribeEipTrafficResponse()
 	err = c.ApiCall(request, response)
@@ -2625,7 +2625,7 @@ func NewInquiryPriceModifyEipBandwidthResponse() (response *InquiryPriceModifyEi
 	return
 }
 
-// InquiryPriceModifyEipBandwidth 查询调整EIP带宽后的价格。同时通过 previousPrices 返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
+// InquiryPriceModifyEipBandwidth 查询调整EIP带宽后的价格。同时通过previousPrices返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
 func (c *Client) InquiryPriceModifyEipBandwidth(request *InquiryPriceModifyEipBandwidthRequest) (response *InquiryPriceModifyEipBandwidthResponse, err error) {
 	response = NewInquiryPriceModifyEipBandwidthResponse()
 	err = c.ApiCall(request, response)
@@ -2648,7 +2648,7 @@ func NewInquiryPriceModifyEipFlowPackageResponse() (response *InquiryPriceModify
 	return
 }
 
-// InquiryPriceModifyEipFlowPackage 查询调整EIP流量包后的价格。同时通过 previousPrices 返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
+// InquiryPriceModifyEipFlowPackage 查询调整EIP流量包后的价格。同时通过previousPrices返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
 func (c *Client) InquiryPriceModifyEipFlowPackage(request *InquiryPriceModifyEipFlowPackageRequest) (response *InquiryPriceModifyEipFlowPackageResponse, err error) {
 	response = NewInquiryPriceModifyEipFlowPackageResponse()
 	err = c.ApiCall(request, response)
@@ -2671,7 +2671,7 @@ func NewInquiryPriceChangeEipInternetChargeTypeResponse() (response *InquiryPric
 	return
 }
 
-// InquiryPriceChangeEipInternetChargeType 查询变更EIP网络计费模式后的价格。同时通过 previousPrices 返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
+// InquiryPriceChangeEipInternetChargeType 查询变更EIP网络计费模式后的价格。同时通过previousPrices返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
 func (c *Client) InquiryPriceChangeEipInternetChargeType(request *InquiryPriceChangeEipInternetChargeTypeRequest) (response *InquiryPriceChangeEipInternetChargeTypeResponse, err error) {
 	response = NewInquiryPriceChangeEipInternetChargeTypeResponse()
 	err = c.ApiCall(request, response)
@@ -2720,6 +2720,52 @@ func NewModifyEipBlockThresholdResponse() (response *ModifyEipBlockThresholdResp
 // ModifyEipBlockThreshold 修改弹性公网IP（EIP）的自定义封堵阈值。
 func (c *Client) ModifyEipBlockThreshold(request *ModifyEipBlockThresholdRequest) (response *ModifyEipBlockThresholdResponse, err error) {
 	response = NewModifyEipBlockThresholdResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeEipConcurrentConnsMonitorDataRequest() (request *DescribeEipConcurrentConnsMonitorDataRequest) {
+	request = &DescribeEipConcurrentConnsMonitorDataRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeEipConcurrentConnsMonitorData")
+
+	return
+}
+
+func NewDescribeEipConcurrentConnsMonitorDataResponse() (response *DescribeEipConcurrentConnsMonitorDataResponse) {
+	response = &DescribeEipConcurrentConnsMonitorDataResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeEipConcurrentConnsMonitorData 查询一段时间的弹性公网IP并发连接数（Concurrent Connections）监控数据；也可传实例ID，查询其名下所有EIP的聚合数据。
+func (c *Client) DescribeEipConcurrentConnsMonitorData(request *DescribeEipConcurrentConnsMonitorDataRequest) (response *DescribeEipConcurrentConnsMonitorDataResponse, err error) {
+	response = NewDescribeEipConcurrentConnsMonitorDataResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeEipNewConnsMonitorDataRequest() (request *DescribeEipNewConnsMonitorDataRequest) {
+	request = &DescribeEipNewConnsMonitorDataRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeEipNewConnsMonitorData")
+
+	return
+}
+
+func NewDescribeEipNewConnsMonitorDataResponse() (response *DescribeEipNewConnsMonitorDataResponse) {
+	response = &DescribeEipNewConnsMonitorDataResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeEipNewConnsMonitorData 查询一段时间的弹性公网IP每秒新建连接数（CPS，All/In/Out）监控数据；也可传实例ID，查询其名下所有EIP的聚合数据。
+func (c *Client) DescribeEipNewConnsMonitorData(request *DescribeEipNewConnsMonitorDataRequest) (response *DescribeEipNewConnsMonitorDataResponse, err error) {
+	response = NewDescribeEipNewConnsMonitorDataResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -2832,7 +2878,7 @@ func NewDescribeCrossRegionBandwidthRegionsResponse() (response *DescribeCrossRe
 	return
 }
 
-// DescribeCrossRegionBandwidthRegions 查询支持售卖内网跨区域带宽的区域信息。
+// DescribeCrossRegionBandwidthRegions 查询支持售卖VPC跨区域带宽的区域信息。
 func (c *Client) DescribeCrossRegionBandwidthRegions(request *DescribeCrossRegionBandwidthRegionsRequest) (response *DescribeCrossRegionBandwidthRegionsResponse, err error) {
 	response = NewDescribeCrossRegionBandwidthRegionsResponse()
 	err = c.ApiCall(request, response)
@@ -2855,7 +2901,7 @@ func NewInquiryPriceCreateCrossRegionBandwidthResponse() (response *InquiryPrice
 	return
 }
 
-// InquiryPriceCreateCrossRegionBandwidth 创建内网跨区域带宽询价。
+// InquiryPriceCreateCrossRegionBandwidth 查询创建VPC跨区域带宽的价格。
 func (c *Client) InquiryPriceCreateCrossRegionBandwidth(request *InquiryPriceCreateCrossRegionBandwidthRequest) (response *InquiryPriceCreateCrossRegionBandwidthResponse, err error) {
 	response = NewInquiryPriceCreateCrossRegionBandwidthResponse()
 	err = c.ApiCall(request, response)
@@ -2878,7 +2924,7 @@ func NewCreateCrossRegionBandwidthResponse() (response *CreateCrossRegionBandwid
 	return
 }
 
-// CreateCrossRegionBandwidth 创建内网跨区域带宽。
+// CreateCrossRegionBandwidth 创建VPC跨区域带宽。
 func (c *Client) CreateCrossRegionBandwidth(request *CreateCrossRegionBandwidthRequest) (response *CreateCrossRegionBandwidthResponse, err error) {
 	response = NewCreateCrossRegionBandwidthResponse()
 	err = c.ApiCall(request, response)
@@ -2901,7 +2947,7 @@ func NewDescribeCrossRegionBandwidthResponse() (response *DescribeCrossRegionBan
 	return
 }
 
-// DescribeCrossRegionBandwidth 查询内网跨区域带宽列表。
+// DescribeCrossRegionBandwidth 查询VPC跨区域带宽列表。
 func (c *Client) DescribeCrossRegionBandwidth(request *DescribeCrossRegionBandwidthRequest) (response *DescribeCrossRegionBandwidthResponse, err error) {
 	response = NewDescribeCrossRegionBandwidthResponse()
 	err = c.ApiCall(request, response)
@@ -2924,7 +2970,7 @@ func NewInquiryPriceModifyCrossRegionBandwidthResponse() (response *InquiryPrice
 	return
 }
 
-// InquiryPriceModifyCrossRegionBandwidth 调整内网跨区域带宽询价。同时通过 previousPrices 返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
+// InquiryPriceModifyCrossRegionBandwidth 查询调整VPC跨区域带宽后的价格。同时通过previousPrices返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
 func (c *Client) InquiryPriceModifyCrossRegionBandwidth(request *InquiryPriceModifyCrossRegionBandwidthRequest) (response *InquiryPriceModifyCrossRegionBandwidthResponse, err error) {
 	response = NewInquiryPriceModifyCrossRegionBandwidthResponse()
 	err = c.ApiCall(request, response)
@@ -2947,7 +2993,7 @@ func NewModifyCrossRegionBandwidthAttributeResponse() (response *ModifyCrossRegi
 	return
 }
 
-// ModifyCrossRegionBandwidthAttribute 修改内网跨区域带宽属性（名称）。
+// ModifyCrossRegionBandwidthAttribute 修改VPC跨区域带宽属性（名称）。
 func (c *Client) ModifyCrossRegionBandwidthAttribute(request *ModifyCrossRegionBandwidthAttributeRequest) (response *ModifyCrossRegionBandwidthAttributeResponse, err error) {
 	response = NewModifyCrossRegionBandwidthAttributeResponse()
 	err = c.ApiCall(request, response)
@@ -2970,7 +3016,7 @@ func NewModifyCrossRegionBandwidthResponse() (response *ModifyCrossRegionBandwid
 	return
 }
 
-// ModifyCrossRegionBandwidth 调整内网跨区域带宽。
+// ModifyCrossRegionBandwidth 调整VPC跨区域带宽。
 func (c *Client) ModifyCrossRegionBandwidth(request *ModifyCrossRegionBandwidthRequest) (response *ModifyCrossRegionBandwidthResponse, err error) {
 	response = NewModifyCrossRegionBandwidthResponse()
 	err = c.ApiCall(request, response)
@@ -2993,7 +3039,7 @@ func NewDeleteCrossRegionBandwidthResponse() (response *DeleteCrossRegionBandwid
 	return
 }
 
-// DeleteCrossRegionBandwidth 删除内网跨区域带宽。
+// DeleteCrossRegionBandwidth 删除VPC跨区域带宽。
 func (c *Client) DeleteCrossRegionBandwidth(request *DeleteCrossRegionBandwidthRequest) (response *DeleteCrossRegionBandwidthResponse, err error) {
 	response = NewDeleteCrossRegionBandwidthResponse()
 	err = c.ApiCall(request, response)
@@ -3016,7 +3062,7 @@ func NewRenewCrossRegionBandwidthResponse() (response *RenewCrossRegionBandwidth
 	return
 }
 
-// RenewCrossRegionBandwidth 恢复内网跨区域带宽。
+// RenewCrossRegionBandwidth 恢复VPC跨区域带宽。
 func (c *Client) RenewCrossRegionBandwidth(request *RenewCrossRegionBandwidthRequest) (response *RenewCrossRegionBandwidthResponse, err error) {
 	response = NewRenewCrossRegionBandwidthResponse()
 	err = c.ApiCall(request, response)
@@ -3039,7 +3085,7 @@ func NewDescribeCrossRegionBandwidthMonitorDataResponse() (response *DescribeCro
 	return
 }
 
-// DescribeCrossRegionBandwidthMonitorData 查询内网跨区域带宽监控指标数据。
+// DescribeCrossRegionBandwidthMonitorData 查询VPC跨区域带宽监控指标数据。
 func (c *Client) DescribeCrossRegionBandwidthMonitorData(request *DescribeCrossRegionBandwidthMonitorDataRequest) (response *DescribeCrossRegionBandwidthMonitorDataResponse, err error) {
 	response = NewDescribeCrossRegionBandwidthMonitorDataResponse()
 	err = c.ApiCall(request, response)
@@ -3131,7 +3177,7 @@ func NewAttachDhcpOptionsSetToSubnetResponse() (response *AttachDhcpOptionsSetTo
 	return
 }
 
-// AttachDhcpOptionsSetToSubnet 将DHCP选项集关联到Subnet。
+// AttachDhcpOptionsSetToSubnet 将DHCP选项集关联到一个或多个子网。
 func (c *Client) AttachDhcpOptionsSetToSubnet(request *AttachDhcpOptionsSetToSubnetRequest) (response *AttachDhcpOptionsSetToSubnetResponse, err error) {
 	response = NewAttachDhcpOptionsSetToSubnetResponse()
 	err = c.ApiCall(request, response)
@@ -3154,7 +3200,7 @@ func NewDetachDhcpOptionsSetFromSubnetResponse() (response *DetachDhcpOptionsSet
 	return
 }
 
-// DetachDhcpOptionsSetFromSubnet 将DHCP选项集与Subnet取消关联。
+// DetachDhcpOptionsSetFromSubnet 将DHCP选项集与一个或多个子网取消关联。
 func (c *Client) DetachDhcpOptionsSetFromSubnet(request *DetachDhcpOptionsSetFromSubnetRequest) (response *DetachDhcpOptionsSetFromSubnetResponse, err error) {
 	response = NewDetachDhcpOptionsSetFromSubnetResponse()
 	err = c.ApiCall(request, response)
@@ -3292,7 +3338,7 @@ func NewDescribeAvailableNatsResponse() (response *DescribeAvailableNatsResponse
 	return
 }
 
-// DescribeAvailableNats 获取可绑定边界网关的NAT网关列表。
+// DescribeAvailableNats 查询可绑定边界网关的NAT网关列表。
 func (c *Client) DescribeAvailableNats(request *DescribeAvailableNatsRequest) (response *DescribeAvailableNatsResponse, err error) {
 	response = NewDescribeAvailableNatsResponse()
 	err = c.ApiCall(request, response)
@@ -3315,7 +3361,7 @@ func NewAssignBorderGatewayResponse() (response *AssignBorderGatewayResponse) {
 	return
 }
 
-// AssignBorderGateway 边界网关绑定NAT网关。
+// AssignBorderGateway 将NAT网关绑定到指定边界网关。
 func (c *Client) AssignBorderGateway(request *AssignBorderGatewayRequest) (response *AssignBorderGatewayResponse, err error) {
 	response = NewAssignBorderGatewayResponse()
 	err = c.ApiCall(request, response)
@@ -3338,7 +3384,7 @@ func NewUnassignBorderGatewayResponse() (response *UnassignBorderGatewayResponse
 	return
 }
 
-// UnassignBorderGateway 解除指定边界网关（ZBG）与 NAT 网关的绑定关系，解绑后边界网关将不再为该 NAT 网关广播路由。
+// UnassignBorderGateway 解除指定边界网关（ZBG）与NAT网关的绑定关系，解绑后边界网关将不再为该NAT网关广播路由。
 func (c *Client) UnassignBorderGateway(request *UnassignBorderGatewayRequest) (response *UnassignBorderGatewayResponse, err error) {
 	response = NewUnassignBorderGatewayResponse()
 	err = c.ApiCall(request, response)
@@ -3361,7 +3407,7 @@ func NewAssignBorderGatewayRouteResponse() (response *AssignBorderGatewayRouteRe
 	return
 }
 
-// AssignBorderGatewayRoute 边界网关绑定自定义路由。即自定义路由发布到zbg网关。
+// AssignBorderGatewayRoute 将自定义路由绑定到指定边界网关，即把该路由发布到边界网关。
 func (c *Client) AssignBorderGatewayRoute(request *AssignBorderGatewayRouteRequest) (response *AssignBorderGatewayRouteResponse, err error) {
 	response = NewAssignBorderGatewayRouteResponse()
 	err = c.ApiCall(request, response)
@@ -3384,7 +3430,7 @@ func NewUnassignBorderGatewayRouteResponse() (response *UnassignBorderGatewayRou
 	return
 }
 
-// UnassignBorderGatewayRoute 边界网关路由宣告中移除指定的自定义路由。
+// UnassignBorderGatewayRoute 从边界网关的路由宣告中移除指定的自定义路由。
 func (c *Client) UnassignBorderGatewayRoute(request *UnassignBorderGatewayRouteRequest) (response *UnassignBorderGatewayRouteResponse, err error) {
 	response = NewUnassignBorderGatewayRouteResponse()
 	err = c.ApiCall(request, response)
@@ -3430,9 +3476,32 @@ func NewDescribeInterconnectBorderGatewayRegionsResponse() (response *DescribeIn
 	return
 }
 
-// DescribeInterconnectBorderGatewayRegions 查询当前账号下边界网关可支持互联的节点与数据中心信息。边界网关可绑定 CloudRouter 以实现 VPC 的 L3 互联，本接口返回支持此功能的节点列表，可按节点ID或数据中心进行过滤。
+// DescribeInterconnectBorderGatewayRegions 查询当前账号下边界网关可支持互联的节点与数据中心信息。边界网关可绑定CloudRouter以实现VPC的L3互联，本接口返回支持此功能的节点列表，可按节点ID或数据中心进行过滤。
 func (c *Client) DescribeInterconnectBorderGatewayRegions(request *DescribeInterconnectBorderGatewayRegionsRequest) (response *DescribeInterconnectBorderGatewayRegionsResponse, err error) {
 	response = NewDescribeInterconnectBorderGatewayRegionsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyBorderGatewayInterconnectCidrRequest() (request *ModifyBorderGatewayInterconnectCidrRequest) {
+	request = &ModifyBorderGatewayInterconnectCidrRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyBorderGatewayInterconnectCidr")
+
+	return
+}
+
+func NewModifyBorderGatewayInterconnectCidrResponse() (response *ModifyBorderGatewayInterconnectCidrResponse) {
+	response = &ModifyBorderGatewayInterconnectCidrResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyBorderGatewayInterconnectCidr 修改边界网关的互联IP网段。
+func (c *Client) ModifyBorderGatewayInterconnectCidr(request *ModifyBorderGatewayInterconnectCidrRequest) (response *ModifyBorderGatewayInterconnectCidrResponse, err error) {
+	response = NewModifyBorderGatewayInterconnectCidrResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -3499,7 +3568,7 @@ func NewInquiryPriceModifyUnmanagedEgressIpBandwidthResponse() (response *Inquir
 	return
 }
 
-// InquiryPriceModifyUnmanagedEgressIpBandwidth 查询调整非托管出口IP带宽后的价格。同时通过 previousPrices 返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
+// InquiryPriceModifyUnmanagedEgressIpBandwidth 查询调整非托管出口IP带宽后的价格。同时通过previousPrices返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
 func (c *Client) InquiryPriceModifyUnmanagedEgressIpBandwidth(request *InquiryPriceModifyUnmanagedEgressIpBandwidthRequest) (response *InquiryPriceModifyUnmanagedEgressIpBandwidthResponse, err error) {
 	response = NewInquiryPriceModifyUnmanagedEgressIpBandwidthResponse()
 	err = c.ApiCall(request, response)
@@ -3522,7 +3591,7 @@ func NewInquiryPriceChangeUnmanagedEgressIpInternetChargeTypeResponse() (respons
 	return
 }
 
-// InquiryPriceChangeUnmanagedEgressIpInternetChargeType 查询变更非托管出口IP网络计费模式后的价格。同时通过 previousPrices 返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
+// InquiryPriceChangeUnmanagedEgressIpInternetChargeType 查询变更非托管出口IP网络计费模式后的价格。同时通过previousPrices返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
 func (c *Client) InquiryPriceChangeUnmanagedEgressIpInternetChargeType(request *InquiryPriceChangeUnmanagedEgressIpInternetChargeTypeRequest) (response *InquiryPriceChangeUnmanagedEgressIpInternetChargeTypeResponse, err error) {
 	response = NewInquiryPriceChangeUnmanagedEgressIpInternetChargeTypeResponse()
 	err = c.ApiCall(request, response)
@@ -3706,7 +3775,7 @@ func NewDescribeVpcsResponse() (response *DescribeVpcsResponse) {
 	return
 }
 
-// DescribeVpcs 查询私有网络（VPC）列表，用户可以根据 VPC ID、VPC 名称等信息来筛选过滤VPC信息。
+// DescribeVpcs 查询私有网络（VPC）列表，用户可以根据VPC ID、VPC名称等信息筛选。
 func (c *Client) DescribeVpcs(request *DescribeVpcsRequest) (response *DescribeVpcsResponse, err error) {
 	response = NewDescribeVpcsResponse()
 	err = c.ApiCall(request, response)
@@ -3798,7 +3867,7 @@ func NewDeleteVpcResponse() (response *DeleteVpcResponse) {
 	return
 }
 
-// DeleteVpc 删除VPC。
+// DeleteVpc 删除指定的VPC。
 func (c *Client) DeleteVpc(request *DeleteVpcRequest) (response *DeleteVpcResponse, err error) {
 	response = NewDeleteVpcResponse()
 	err = c.ApiCall(request, response)
@@ -3821,7 +3890,7 @@ func NewDescribeSubnetRegionsResponse() (response *DescribeSubnetRegionsResponse
 	return
 }
 
-// DescribeSubnetRegions 查询支持创建子网区域以及是否IPv6。
+// DescribeSubnetRegions 查询支持创建子网的节点，以及各节点是否支持IPv6。
 func (c *Client) DescribeSubnetRegions(request *DescribeSubnetRegionsRequest) (response *DescribeSubnetRegionsResponse, err error) {
 	response = NewDescribeSubnetRegionsResponse()
 	err = c.ApiCall(request, response)
@@ -3844,7 +3913,7 @@ func NewDescribeSubnetsResponse() (response *DescribeSubnetsResponse) {
 	return
 }
 
-// DescribeSubnets 查询子网列表信息。可以根据子网ID, 名称等信息筛选查询子网。
+// DescribeSubnets 查询子网列表信息。可以根据子网ID、名称等信息筛选子网。
 func (c *Client) DescribeSubnets(request *DescribeSubnetsRequest) (response *DescribeSubnetsResponse, err error) {
 	response = NewDescribeSubnetsResponse()
 	err = c.ApiCall(request, response)
@@ -3936,7 +4005,7 @@ func NewModifySubnetStackTypeResponse() (response *ModifySubnetStackTypeResponse
 	return
 }
 
-// ModifySubnetStackType 修改指定子网的 IP 地址堆栈类型（IPv4 / IPv4_IPv6 / IPv6）。变更为双栈或纯 IPv6 时须配置 IPv6 类型及对应的 CIDR 地址块。
+// ModifySubnetStackType 修改指定子网的IP地址堆栈类型（IPv4 / IPv4_IPv6 / IPv6）。变更为双栈或纯IPv6时须配置IPv6类型及对应的CIDR地址块。
 func (c *Client) ModifySubnetStackType(request *ModifySubnetStackTypeRequest) (response *ModifySubnetStackTypeResponse, err error) {
 	response = NewModifySubnetStackTypeResponse()
 	err = c.ApiCall(request, response)
@@ -4012,6 +4081,52 @@ func (c *Client) DeleteSubnets(request *DeleteSubnetsRequest) (response *DeleteS
 	return
 }
 
+func NewAssociateVpcCidrBlockRequest() (request *AssociateVpcCidrBlockRequest) {
+	request = &AssociateVpcCidrBlockRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "AssociateVpcCidrBlock")
+
+	return
+}
+
+func NewAssociateVpcCidrBlockResponse() (response *AssociateVpcCidrBlockResponse) {
+	response = &AssociateVpcCidrBlockResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// AssociateVpcCidrBlock 为指定VPC添加一个附属IPv4网段。
+func (c *Client) AssociateVpcCidrBlock(request *AssociateVpcCidrBlockRequest) (response *AssociateVpcCidrBlockResponse, err error) {
+	response = NewAssociateVpcCidrBlockResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewUnassociateVpcCidrBlockRequest() (request *UnassociateVpcCidrBlockRequest) {
+	request = &UnassociateVpcCidrBlockRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "UnassociateVpcCidrBlock")
+
+	return
+}
+
+func NewUnassociateVpcCidrBlockResponse() (response *UnassociateVpcCidrBlockResponse) {
+	response = &UnassociateVpcCidrBlockResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// UnassociateVpcCidrBlock 移除指定VPC的一个附属IPv4网段。
+func (c *Client) UnassociateVpcCidrBlock(request *UnassociateVpcCidrBlockRequest) (response *UnassociateVpcCidrBlockResponse, err error) {
+	response = NewUnassociateVpcCidrBlockResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewDescribeNatGatewayRegionsRequest() (request *DescribeNatGatewayRegionsRequest) {
 	request = &DescribeNatGatewayRegionsRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -4028,7 +4143,7 @@ func NewDescribeNatGatewayRegionsResponse() (response *DescribeNatGatewayRegions
 	return
 }
 
-// DescribeNatGatewayRegions 支持售卖NAT网关的区域信息。
+// DescribeNatGatewayRegions 查询支持售卖NAT网关的区域信息。
 func (c *Client) DescribeNatGatewayRegions(request *DescribeNatGatewayRegionsRequest) (response *DescribeNatGatewayRegionsResponse, err error) {
 	response = NewDescribeNatGatewayRegionsResponse()
 	err = c.ApiCall(request, response)
@@ -4051,7 +4166,7 @@ func NewDescribeAvailableBorderGatewayResponse() (response *DescribeAvailableBor
 	return
 }
 
-// DescribeAvailableBorderGateway 获取可绑定NAT的边界网关。
+// DescribeAvailableBorderGateway 查询可绑定NAT网关的边界网关列表。
 func (c *Client) DescribeAvailableBorderGateway(request *DescribeAvailableBorderGatewayRequest) (response *DescribeAvailableBorderGatewayResponse, err error) {
 	response = NewDescribeAvailableBorderGatewayResponse()
 	err = c.ApiCall(request, response)
@@ -4120,7 +4235,7 @@ func NewDescribeNatGatewaysResponse() (response *DescribeNatGatewaysResponse) {
 	return
 }
 
-// DescribeNatGateways 查询NAT网关列表。
+// DescribeNatGateways 查询一个或多个NAT网关的详细信息。
 func (c *Client) DescribeNatGateways(request *DescribeNatGatewaysRequest) (response *DescribeNatGatewaysResponse, err error) {
 	response = NewDescribeNatGatewaysResponse()
 	err = c.ApiCall(request, response)
@@ -4143,7 +4258,7 @@ func NewDescribeNatGatewayDetailResponse() (response *DescribeNatGatewayDetailRe
 	return
 }
 
-// DescribeNatGatewayDetail 查询NAT网关详情规则表。
+// DescribeNatGatewayDetail 查询指定NAT网关的详情，包含其DNAT与SNAT规则。
 func (c *Client) DescribeNatGatewayDetail(request *DescribeNatGatewayDetailRequest) (response *DescribeNatGatewayDetailResponse, err error) {
 	response = NewDescribeNatGatewayDetailResponse()
 	err = c.ApiCall(request, response)
@@ -4166,7 +4281,7 @@ func NewModifyNatGatewayAttributeResponse() (response *ModifyNatGatewayAttribute
 	return
 }
 
-// ModifyNatGatewayAttribute 修改指定 NAT 网关的名称、关联子网、ICMP 回应及安全组配置。
+// ModifyNatGatewayAttribute 修改指定NAT网关的名称、关联子网、ICMP回应及安全组配置。
 func (c *Client) ModifyNatGatewayAttribute(request *ModifyNatGatewayAttributeRequest) (response *ModifyNatGatewayAttributeResponse, err error) {
 	response = NewModifyNatGatewayAttributeResponse()
 	err = c.ApiCall(request, response)
@@ -4373,7 +4488,7 @@ func NewCreatePolicyResponse() (response *CreatePolicyResponse) {
 	return
 }
 
-// CreatePolicy 创建防护策略。
+// CreatePolicy 创建一个DDoS防护策略。
 func (c *Client) CreatePolicy(request *CreatePolicyRequest) (response *CreatePolicyResponse, err error) {
 	response = NewCreatePolicyResponse()
 	err = c.ApiCall(request, response)
@@ -4396,7 +4511,7 @@ func NewDescribePolicysResponse() (response *DescribePolicysResponse) {
 	return
 }
 
-// DescribePolicys 查询账户下的 DDoS 防护策略信息，支持按策略 ID、策略名称筛选，支持标签过滤和分页查询。
+// DescribePolicys 查询账户下的DDoS防护策略信息，支持按策略ID、策略名称筛选，支持标签过滤和分页查询。
 func (c *Client) DescribePolicys(request *DescribePolicysRequest) (response *DescribePolicysResponse, err error) {
 	response = NewDescribePolicysResponse()
 	err = c.ApiCall(request, response)
@@ -4419,7 +4534,7 @@ func NewDescribePolicyDetailResponse() (response *DescribePolicyDetailResponse) 
 	return
 }
 
-// DescribePolicyDetail 查询指定 DDoS 防护策略的详细配置，包括黑白名单、封禁协议、区域封禁、特征过滤及流量控制规则等。
+// DescribePolicyDetail 查询指定DDoS防护策略的详细配置，包括黑白名单、封禁协议、区域封禁、特征过滤及流量控制规则等。
 func (c *Client) DescribePolicyDetail(request *DescribePolicyDetailRequest) (response *DescribePolicyDetailResponse, err error) {
 	response = NewDescribePolicyDetailResponse()
 	err = c.ApiCall(request, response)
@@ -4442,7 +4557,7 @@ func NewModifyPolicyResponse() (response *ModifyPolicyResponse) {
 	return
 }
 
-// ModifyPolicy 修改指定 DDoS 防护策略的配置，包括策略名称、IP 黑白名单、封禁协议、区域封禁、特征过滤及流量控制规则。
+// ModifyPolicy 修改指定DDoS防护策略的配置，包括策略名称、IP黑白名单、封禁协议、区域封禁、特征过滤及流量控制规则。
 func (c *Client) ModifyPolicy(request *ModifyPolicyRequest) (response *ModifyPolicyResponse, err error) {
 	response = NewModifyPolicyResponse()
 	err = c.ApiCall(request, response)
@@ -4465,7 +4580,7 @@ func NewAttachToPolicyResponse() (response *AttachToPolicyResponse) {
 	return
 }
 
-// AttachToPolicy 防护对象关联防护策略。
+// AttachToPolicy 将一个或多个IP添加到指定DDoS防护策略的防护对象中。
 func (c *Client) AttachToPolicy(request *AttachToPolicyRequest) (response *AttachToPolicyResponse, err error) {
 	response = NewAttachToPolicyResponse()
 	err = c.ApiCall(request, response)
@@ -4488,7 +4603,7 @@ func NewDetachFromPolicyResponse() (response *DetachFromPolicyResponse) {
 	return
 }
 
-// DetachFromPolicy 防护对象取消关联防护策略。
+// DetachFromPolicy 将一个或多个IP从指定DDoS防护策略的防护对象中移除。
 func (c *Client) DetachFromPolicy(request *DetachFromPolicyRequest) (response *DetachFromPolicyResponse, err error) {
 	response = NewDetachFromPolicyResponse()
 	err = c.ApiCall(request, response)
@@ -4511,7 +4626,7 @@ func NewDescribePolicyRegionsResponse() (response *DescribePolicyRegionsResponse
 	return
 }
 
-// DescribePolicyRegions 查询 DDoS 防护策略中区域封禁功能支持的可选地区列表，用于配置防护策略 `blockRegions` 参数前的参考。
+// DescribePolicyRegions 查询DDoS防护策略中区域封禁功能支持的可选地区列表，用于配置防护策略`blockRegions`参数前的参考。
 func (c *Client) DescribePolicyRegions(request *DescribePolicyRegionsRequest) (response *DescribePolicyRegionsResponse, err error) {
 	response = NewDescribePolicyRegionsResponse()
 	err = c.ApiCall(request, response)
@@ -4534,7 +4649,7 @@ func NewDescribeReflectUdpPortOptionsResponse() (response *DescribeReflectUdpPor
 	return
 }
 
-// DescribeReflectUdpPortOptions 查询 DDoS 防护策略中 UDP 反射攻击防护功能的默认封禁源端口列表，用于配置防护策略 `reflectUdpPort` 参数前的参考。
+// DescribeReflectUdpPortOptions 查询DDoS防护策略中UDP反射攻击防护功能的默认封禁源端口列表，用于配置防护策略`reflectUdpPort`参数前的参考。
 func (c *Client) DescribeReflectUdpPortOptions(request *DescribeReflectUdpPortOptionsRequest) (response *DescribeReflectUdpPortOptionsResponse, err error) {
 	response = NewDescribeReflectUdpPortOptionsResponse()
 	err = c.ApiCall(request, response)
@@ -4557,7 +4672,7 @@ func NewDeletePolicyResponse() (response *DeletePolicyResponse) {
 	return
 }
 
-// DeletePolicy 删除防护策略。
+// DeletePolicy 删除指定的DDoS防护策略。
 func (c *Client) DeletePolicy(request *DeletePolicyRequest) (response *DeletePolicyResponse, err error) {
 	response = NewDeletePolicyResponse()
 	err = c.ApiCall(request, response)
@@ -4580,7 +4695,7 @@ func NewDescribeDDosEventDetailResponse() (response *DescribeDDosEventDetailResp
 	return
 }
 
-// DescribeDDosEventDetail 获取攻击事件详情。
+// DescribeDDosEventDetail 查询指定DDoS攻击事件的详细信息。
 func (c *Client) DescribeDDosEventDetail(request *DescribeDDosEventDetailRequest) (response *DescribeDDosEventDetailResponse, err error) {
 	response = NewDescribeDDosEventDetailResponse()
 	err = c.ApiCall(request, response)
@@ -4603,7 +4718,7 @@ func NewDescribeDDosAllEventListResponse() (response *DescribeDDosAllEventListRe
 	return
 }
 
-// DescribeDDosAllEventList 获取攻击事件列表。
+// DescribeDDosAllEventList 查询DDoS攻击事件列表。
 func (c *Client) DescribeDDosAllEventList(request *DescribeDDosAllEventListRequest) (response *DescribeDDosAllEventListResponse, err error) {
 	response = NewDescribeDDosAllEventListResponse()
 	err = c.ApiCall(request, response)
@@ -4626,7 +4741,7 @@ func NewDescribeSecurityGroupsResponse() (response *DescribeSecurityGroupsRespon
 	return
 }
 
-// DescribeSecurityGroups 查询账户下的安全组信息，支持按安全组 ID 或名称进行筛选，支持分页查询。
+// DescribeSecurityGroups 查询账户下的安全组信息，支持按安全组ID或名称进行筛选，支持分页查询。
 func (c *Client) DescribeSecurityGroups(request *DescribeSecurityGroupsRequest) (response *DescribeSecurityGroupsResponse, err error) {
 	response = NewDescribeSecurityGroupsResponse()
 	err = c.ApiCall(request, response)
@@ -4764,7 +4879,7 @@ func NewAssignSecurityGroupVpcResponse() (response *AssignSecurityGroupVpcRespon
 	return
 }
 
-// AssignSecurityGroupVpc VPC更换绑定安全组。
+// AssignSecurityGroupVpc 为指定VPC更换绑定的安全组。
 func (c *Client) AssignSecurityGroupVpc(request *AssignSecurityGroupVpcRequest) (response *AssignSecurityGroupVpcResponse, err error) {
 	response = NewAssignSecurityGroupVpcResponse()
 	err = c.ApiCall(request, response)
@@ -4787,7 +4902,7 @@ func NewUnAssignSecurityGroupVpcResponse() (response *UnAssignSecurityGroupVpcRe
 	return
 }
 
-// UnAssignSecurityGroupVpc VPC解绑安全组。
+// UnAssignSecurityGroupVpc 解除指定VPC与安全组的绑定关系。
 func (c *Client) UnAssignSecurityGroupVpc(request *UnAssignSecurityGroupVpcRequest) (response *UnAssignSecurityGroupVpcResponse, err error) {
 	response = NewUnAssignSecurityGroupVpcResponse()
 	err = c.ApiCall(request, response)
@@ -4810,7 +4925,7 @@ func NewCreatePlacementGroupResponse() (response *CreatePlacementGroupResponse) 
 	return
 }
 
-// CreatePlacementGroup 创建置放组。
+// CreatePlacementGroup 创建一个置放组。
 func (c *Client) CreatePlacementGroup(request *CreatePlacementGroupRequest) (response *CreatePlacementGroupResponse, err error) {
 	response = NewCreatePlacementGroupResponse()
 	err = c.ApiCall(request, response)
@@ -5063,7 +5178,7 @@ func NewAssignNetworkInterfaceIpv6Response() (response *AssignNetworkInterfaceIp
 	return
 }
 
-// AssignNetworkInterfaceIpv6 给网卡添加IPv6。
+// AssignNetworkInterfaceIpv6 为指定网卡分配IPv6地址。
 func (c *Client) AssignNetworkInterfaceIpv6(request *AssignNetworkInterfaceIpv6Request) (response *AssignNetworkInterfaceIpv6Response, err error) {
 	response = NewAssignNetworkInterfaceIpv6Response()
 	err = c.ApiCall(request, response)
@@ -5086,7 +5201,7 @@ func NewUnassignNetworkInterfaceIpv6Response() (response *UnassignNetworkInterfa
 	return
 }
 
-// UnassignNetworkInterfaceIpv6 删除网卡IPv6。
+// UnassignNetworkInterfaceIpv6 释放指定网卡上的IPv6地址。
 func (c *Client) UnassignNetworkInterfaceIpv6(request *UnassignNetworkInterfaceIpv6Request) (response *UnassignNetworkInterfaceIpv6Response, err error) {
 	response = NewUnassignNetworkInterfaceIpv6Response()
 	err = c.ApiCall(request, response)
@@ -5155,7 +5270,7 @@ func NewDeleteIpv6AddressesResponse() (response *DeleteIpv6AddressesResponse) {
 	return
 }
 
-// DeleteIpv6Addresses 批量删除公网 IPv6。逐个独立处理，部分失败不影响其余项，失败项通过 failedIpv6Addresses 返回其错误码与错误信息。
+// DeleteIpv6Addresses 批量删除公网IPv6。逐个独立处理，部分失败不影响其余项，失败项通过failedIpv6Addresses返回其错误码与错误信息。
 func (c *Client) DeleteIpv6Addresses(request *DeleteIpv6AddressesRequest) (response *DeleteIpv6AddressesResponse, err error) {
 	response = NewDeleteIpv6AddressesResponse()
 	err = c.ApiCall(request, response)
@@ -5178,7 +5293,7 @@ func NewInquiryPricePublicIpv6Response() (response *InquiryPricePublicIpv6Respon
 	return
 }
 
-// InquiryPricePublicIpv6 公网Ipv6流量包或固定带宽询价。
+// InquiryPricePublicIpv6 查询分配公网IPv6的价格，支持流量包与固定带宽两种计费方式。
 func (c *Client) InquiryPricePublicIpv6(request *InquiryPricePublicIpv6Request) (response *InquiryPricePublicIpv6Response, err error) {
 	response = NewInquiryPricePublicIpv6Response()
 	err = c.ApiCall(request, response)
@@ -5201,7 +5316,7 @@ func NewInquiryPriceModifyIpv6BandwidthResponse() (response *InquiryPriceModifyI
 	return
 }
 
-// InquiryPriceModifyIpv6Bandwidth 查询调整IPv6带宽后的价格。同时通过 previousPrices 返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
+// InquiryPriceModifyIpv6Bandwidth 查询调整IPv6带宽后的价格。同时通过previousPrices返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
 func (c *Client) InquiryPriceModifyIpv6Bandwidth(request *InquiryPriceModifyIpv6BandwidthRequest) (response *InquiryPriceModifyIpv6BandwidthResponse, err error) {
 	response = NewInquiryPriceModifyIpv6BandwidthResponse()
 	err = c.ApiCall(request, response)
@@ -5224,7 +5339,7 @@ func NewInquiryPriceChangeIpv6InternetChargeTypeResponse() (response *InquiryPri
 	return
 }
 
-// InquiryPriceChangeIpv6InternetChargeType 查询变更IPv6网络计费模式后的价格。同时通过 previousPrices 返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
+// InquiryPriceChangeIpv6InternetChargeType 查询变更IPv6网络计费模式后的价格。同时通过previousPrices返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
 func (c *Client) InquiryPriceChangeIpv6InternetChargeType(request *InquiryPriceChangeIpv6InternetChargeTypeRequest) (response *InquiryPriceChangeIpv6InternetChargeTypeResponse, err error) {
 	response = NewInquiryPriceChangeIpv6InternetChargeTypeResponse()
 	err = c.ApiCall(request, response)
@@ -5270,7 +5385,7 @@ func NewDescribeIpv6AddressesResponse() (response *DescribeIpv6AddressesResponse
 	return
 }
 
-// DescribeIpv6Addresses 指定条件查询已分配的公网 IPv6 信息。用户可以根据 ID、名称、绑定的资源等信息来搜索。
+// DescribeIpv6Addresses 指定条件查询已分配的公网IPv6信息。用户可以根据ID、名称、绑定的资源等信息来搜索。
 func (c *Client) DescribeIpv6Addresses(request *DescribeIpv6AddressesRequest) (response *DescribeIpv6AddressesResponse, err error) {
 	response = NewDescribeIpv6AddressesResponse()
 	err = c.ApiCall(request, response)
@@ -5293,7 +5408,7 @@ func NewDescribeNetworkInterfacePublicIPv6Response() (response *DescribeNetworkI
 	return
 }
 
-// DescribeNetworkInterfacePublicIPv6 查询指定弹性网卡（vNIC）上已分配的公网 IPv6 地址及其计费、带宽配置信息。
+// DescribeNetworkInterfacePublicIPv6 查询指定弹性网卡（vNIC）上已分配的公网IPv6地址及其计费、带宽配置信息。
 func (c *Client) DescribeNetworkInterfacePublicIPv6(request *DescribeNetworkInterfacePublicIPv6Request) (response *DescribeNetworkInterfacePublicIPv6Response, err error) {
 	response = NewDescribeNetworkInterfacePublicIPv6Response()
 	err = c.ApiCall(request, response)
@@ -5316,7 +5431,7 @@ func NewDescribeUsableByoAsnsResponse() (response *DescribeUsableByoAsnsResponse
 	return
 }
 
-// DescribeUsableByoAsns 返回可作为 BYOIP 起源ASN使用的ASN号列表。
+// DescribeUsableByoAsns 返回可作为BYOIP起源ASN使用的ASN号列表。
 func (c *Client) DescribeUsableByoAsns(request *DescribeUsableByoAsnsRequest) (response *DescribeUsableByoAsnsResponse, err error) {
 	response = NewDescribeUsableByoAsnsResponse()
 	err = c.ApiCall(request, response)
@@ -5339,7 +5454,7 @@ func NewVerifyByoAsnResponse() (response *VerifyByoAsnResponse) {
 	return
 }
 
-// VerifyByoAsn 确认指定自带ASN在 RIR 上的 export 声明是否已生效。
+// VerifyByoAsn 确认指定自带ASN在RIR上的export声明是否已生效。
 func (c *Client) VerifyByoAsn(request *VerifyByoAsnRequest) (response *VerifyByoAsnResponse, err error) {
 	response = NewVerifyByoAsnResponse()
 	err = c.ApiCall(request, response)
@@ -5408,7 +5523,7 @@ func NewDeleteByoAsnResponse() (response *DeleteByoAsnResponse) {
 	return
 }
 
-// DeleteByoAsn 删除指定自带ASN。删除前需确保该ASN下没有已宣告的 BYOIP 段。
+// DeleteByoAsn 删除指定自带ASN。删除前需确保该ASN下没有已宣告的BYOIP段。
 func (c *Client) DeleteByoAsn(request *DeleteByoAsnRequest) (response *DeleteByoAsnResponse, err error) {
 	response = NewDeleteByoAsnResponse()
 	err = c.ApiCall(request, response)
