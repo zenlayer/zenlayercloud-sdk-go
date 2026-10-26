@@ -2103,6 +2103,144 @@ func (c *Client) DescribeByoipPrice(request *DescribeByoipPriceRequest) (respons
 	return
 }
 
+func NewDescribeIpv6CidrPriceRequest() (request *DescribeIpv6CidrPriceRequest) {
+	request = &DescribeIpv6CidrPriceRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeIpv6CidrPrice")
+
+	return
+}
+
+func NewDescribeIpv6CidrPriceResponse() (response *DescribeIpv6CidrPriceResponse) {
+	response = &DescribeIpv6CidrPriceResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeIpv6CidrPrice 查询指定掩码和数量的IPv6 CIDR地址块价格。
+func (c *Client) DescribeIpv6CidrPrice(request *DescribeIpv6CidrPriceRequest) (response *DescribeIpv6CidrPriceResponse, err error) {
+	response = NewDescribeIpv6CidrPriceResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyIpv6CidrAttributeRequest() (request *ModifyIpv6CidrAttributeRequest) {
+	request = &ModifyIpv6CidrAttributeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyIpv6CidrAttribute")
+
+	return
+}
+
+func NewModifyIpv6CidrAttributeResponse() (response *ModifyIpv6CidrAttributeResponse) {
+	response = &ModifyIpv6CidrAttributeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyIpv6CidrAttribute 修改IPv6 CIDR地址段的属性。 目前只能修改名称。
+func (c *Client) ModifyIpv6CidrAttribute(request *ModifyIpv6CidrAttributeRequest) (response *ModifyIpv6CidrAttributeResponse, err error) {
+	response = NewModifyIpv6CidrAttributeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewCreateIpv6CidrRequest() (request *CreateIpv6CidrRequest) {
+	request = &CreateIpv6CidrRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateIpv6Cidr")
+
+	return
+}
+
+func NewCreateIpv6CidrResponse() (response *CreateIpv6CidrResponse) {
+	response = &CreateIpv6CidrResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CreateIpv6Cidr 购买指定掩码和数量的IPv6 CIDR地址段。
+func (c *Client) CreateIpv6Cidr(request *CreateIpv6CidrRequest) (response *CreateIpv6CidrResponse, err error) {
+	response = NewCreateIpv6CidrResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeIpv6CidrNetmasksRequest() (request *DescribeIpv6CidrNetmasksRequest) {
+	request = &DescribeIpv6CidrNetmasksRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeIpv6CidrNetmasks")
+
+	return
+}
+
+func NewDescribeIpv6CidrNetmasksResponse() (response *DescribeIpv6CidrNetmasksResponse) {
+	response = &DescribeIpv6CidrNetmasksResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeIpv6CidrNetmasks 查询指定节点当前可售的IPv6 CIDR掩码档位、库存与单价。
+func (c *Client) DescribeIpv6CidrNetmasks(request *DescribeIpv6CidrNetmasksRequest) (response *DescribeIpv6CidrNetmasksResponse, err error) {
+	response = NewDescribeIpv6CidrNetmasksResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeIpv6CidrRegionsRequest() (request *DescribeIpv6CidrRegionsRequest) {
+	request = &DescribeIpv6CidrRegionsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeIpv6CidrRegions")
+
+	return
+}
+
+func NewDescribeIpv6CidrRegionsResponse() (response *DescribeIpv6CidrRegionsResponse) {
+	response = &DescribeIpv6CidrRegionsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeIpv6CidrRegions 查询支持售卖IPv6 CIDR地址块的节点信息。
+func (c *Client) DescribeIpv6CidrRegions(request *DescribeIpv6CidrRegionsRequest) (response *DescribeIpv6CidrRegionsResponse, err error) {
+	response = NewDescribeIpv6CidrRegionsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeByoipRegionAvailabilityRequest() (request *DescribeByoipRegionAvailabilityRequest) {
+	request = &DescribeByoipRegionAvailabilityRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeByoipRegionAvailability")
+
+	return
+}
+
+func NewDescribeByoipRegionAvailabilityResponse() (response *DescribeByoipRegionAvailabilityResponse) {
+	response = &DescribeByoipRegionAvailabilityResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeByoipRegionAvailability 查询各区域各线路的BYOIP支持状态，包括已支持、计划支持和暂不支持。
+func (c *Client) DescribeByoipRegionAvailability(request *DescribeByoipRegionAvailabilityRequest) (response *DescribeByoipRegionAvailabilityResponse, err error) {
+	response = NewDescribeByoipRegionAvailabilityResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewDescribeEipNetworkLineTypesRequest() (request *DescribeEipNetworkLineTypesRequest) {
 	request = &DescribeEipNetworkLineTypesRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -2766,6 +2904,29 @@ func NewDescribeEipNewConnsMonitorDataResponse() (response *DescribeEipNewConnsM
 // DescribeEipNewConnsMonitorData 查询一段时间的弹性公网IP每秒新建连接数（CPS，All/In/Out）监控数据；也可传实例ID，查询其名下所有EIP的聚合数据。
 func (c *Client) DescribeEipNewConnsMonitorData(request *DescribeEipNewConnsMonitorDataRequest) (response *DescribeEipNewConnsMonitorDataResponse, err error) {
 	response = NewDescribeEipNewConnsMonitorDataResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyEipsBlockThresholdRequest() (request *ModifyEipsBlockThresholdRequest) {
+	request = &ModifyEipsBlockThresholdRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyEipsBlockThreshold")
+
+	return
+}
+
+func NewModifyEipsBlockThresholdResponse() (response *ModifyEipsBlockThresholdResponse) {
+	response = &ModifyEipsBlockThresholdResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyEipsBlockThreshold 批量修改多个弹性公网IP（EIP）的自定义封堵阈值，所有EIP使用同一组阈值。
+func (c *Client) ModifyEipsBlockThreshold(request *ModifyEipsBlockThresholdRequest) (response *ModifyEipsBlockThresholdResponse, err error) {
+	response = NewModifyEipsBlockThresholdResponse()
 	err = c.ApiCall(request, response)
 	return
 }
@@ -4472,6 +4633,29 @@ func (c *Client) DeleteDnatEntry(request *DeleteDnatEntryRequest) (response *Del
 	return
 }
 
+func NewDescribeNatGatewayNewConnsMonitorDataRequest() (request *DescribeNatGatewayNewConnsMonitorDataRequest) {
+	request = &DescribeNatGatewayNewConnsMonitorDataRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeNatGatewayNewConnsMonitorData")
+
+	return
+}
+
+func NewDescribeNatGatewayNewConnsMonitorDataResponse() (response *DescribeNatGatewayNewConnsMonitorDataResponse) {
+	response = &DescribeNatGatewayNewConnsMonitorDataResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeNatGatewayNewConnsMonitorData 查询一段时间的NAT网关每秒新建连接数（CPS，All/In/Out）监控数据。
+func (c *Client) DescribeNatGatewayNewConnsMonitorData(request *DescribeNatGatewayNewConnsMonitorDataRequest) (response *DescribeNatGatewayNewConnsMonitorDataResponse, err error) {
+	response = NewDescribeNatGatewayNewConnsMonitorDataResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewCreatePolicyRequest() (request *CreatePolicyRequest) {
 	request = &CreatePolicyRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -4741,7 +4925,7 @@ func NewDescribeSecurityGroupsResponse() (response *DescribeSecurityGroupsRespon
 	return
 }
 
-// DescribeSecurityGroups 查询账户下的安全组信息，支持按安全组ID或名称进行筛选，支持分页查询。
+// DescribeSecurityGroups 查询账户下的安全组信息，支持按安全组ID、名称或是否为默认安全组进行筛选，支持分页查询。
 func (c *Client) DescribeSecurityGroups(request *DescribeSecurityGroupsRequest) (response *DescribeSecurityGroupsResponse, err error) {
 	response = NewDescribeSecurityGroupsResponse()
 	err = c.ApiCall(request, response)

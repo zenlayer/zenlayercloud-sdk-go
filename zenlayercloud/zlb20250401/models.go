@@ -46,11 +46,11 @@ type DescribeLoadBalancersRequest struct {
     *common.BaseRequest
 
     // RegionId 节点ID。
-    // 可通过调用 ~~zec:DescribeRegions~~ 获取。
+    // 可通过调用 **zec:DescribeRegions** 获取。
     RegionId *string `json:"regionId,omitempty"`
 
     // VpcId 根据负载均衡后端服务器所属的VPC网络ID过滤。
-    // 可通过调用 ~~zec:DescribeVpcs~~ 获取。
+    // 可通过调用 **zec:DescribeVpcs** 获取。
     VpcId *string `json:"vpcId,omitempty"`
 
     // IpStackType 根据IP堆栈类型过滤。
@@ -84,7 +84,7 @@ type DescribeLoadBalancersRequest struct {
     Tags []*Tag `json:"tags,omitempty"`
 
     // SecurityGroupId 负载均衡实例绑定的安全组ID。
-    // 可通过调用 ~~zec:DescribeSecurityGroups~~ 获取。
+    // 可通过调用 **zec:DescribeSecurityGroups** 获取。
     SecurityGroupId *string `json:"securityGroupId,omitempty"`
 
 }
@@ -207,12 +207,12 @@ type InquiryPriceCreateLoadBalancerRequest struct {
     *common.BaseRequest
 
     // RegionId 区域节点ID。
-    // 可通过调用 ~~zec:DescribeRegions~~ 获取。
+    // 可通过调用 **zec:DescribeRegions** 获取。
     RegionId *string `json:"regionId,omitempty"`
 
     // IpStackType IP堆栈类型。
     // 负载均衡实例只支持单栈，即`IPv4`或`IPv6`，不支持双栈。
-    // 指定为`IPv6`时不支持配置公网网络参数（`internetChargeType`、`networkLineType`、`bandwidthMbps`、`trafficPackageSize`、`bandwidthClusterId`）——IPv6负载均衡的公网地址通过 ~~zlb:AssignLoadBalancerIpv6~~ 接口单独分配。
+    // 指定为`IPv6`时不支持配置公网网络参数（`internetChargeType`、`networkLineType`、`bandwidthMbps`、`trafficPackageSize`、`bandwidthClusterId`）——IPv6负载均衡的公网地址通过 **zlb:AssignLoadBalancerIpv6** 接口单独分配。
     IpStackType *string `json:"ipStackType,omitempty"`
 
     // InternetChargeType IP网络计费模式。
@@ -361,24 +361,24 @@ type CreateLoadBalancerRequest struct {
     *common.BaseRequest
 
     // RegionId 区域节点ID。
-    // 可通过调用 ~~zec:DescribeRegions~~ 获取。
+    // 可通过调用 **zec:DescribeRegions** 获取。
     RegionId *string `json:"regionId,omitempty"`
 
     // VpcId 负载均衡后端服务器所属的VPC网络ID。
     // `vpcId`和`subnetId`至少指定一个。
     // 仅指定`subnetId`时，取该子网所属的VPC。
-    // 可通过调用 ~~zec:DescribeVpcs~~ 获取。
+    // 可通过调用 **zec:DescribeVpcs** 获取。
     VpcId *string `json:"vpcId,omitempty"`
 
     // SubnetId 子网ID。
-    // 可以通过调用 ~~zec:DescribeSubnets~~ 获取。
+    // 可以通过调用 **zec:DescribeSubnets** 获取。
     // `vpcId`和`subnetId`至少指定一个。
     // 该子网需与`regionId`同区域，同时指定`vpcId`时还须属于该VPC。
     // `ipStackType`为`IPv4`时该子网需支持IPv4，此参数可不指定（由系统在该VPC内选择）；为`IPv6`时该子网需含公网IPv6网段（内网IPv6不满足），且**此参数必填**——公网IPv6 VIP与健康检查段都从该子网分配，不指定将返回`MISSING_PARAMETER`。
     SubnetId *string `json:"subnetId,omitempty"`
 
     // HealthCheckPrivateIps 健康检查内网源IP地址，数量必须为2。
-    // 指定`subnetId`时，不填则从该子网中随机分配2个可用的内网IPv4地址作为健康检查源IP，每个负载均衡实例占用2个地址，该子网剩余可用内网IPv4地址不足时将返回`INVALID_SUBNET_IPV4_INSUFFICIENT`，分配结果可调用 ~~DescribeLoadBalancers~~ 查询。
+    // 指定`subnetId`时，不填则从该子网中随机分配2个可用的内网IPv4地址作为健康检查源IP，每个负载均衡实例占用2个地址，该子网剩余可用内网IPv4地址不足时将返回`INVALID_SUBNET_IPV4_INSUFFICIENT`，分配结果可调用 **DescribeLoadBalancers** 查询。
     // 不指定`subnetId`时，此参数无效。
     // 仅`ipStackType`为`IPv4`时可指定：为`IPv6`时健康检查段由系统从该子网的公网IPv6网段自动分配，指定本参数将返回`INVALID_PARAMETER_CONFLICT`。
     HealthCheckPrivateIps []string `json:"healthCheckPrivateIps,omitempty"`
@@ -389,11 +389,11 @@ type CreateLoadBalancerRequest struct {
 
     // IpStackType IP堆栈类型。
     // 负载均衡实例只支持单栈，即`IPv4`或`IPv6`，不支持双栈。
-    // 指定为`IPv6`时不支持配置公网网络参数（`internetChargeType`、`networkLineType`、`bandwidthMbps`、`trafficPackageSize`、`bandwidthClusterId`），也不能指定`eipIds`——EIP均为IPv4，IPv6负载均衡的公网地址通过 ~~zlb:AssignLoadBalancerIpv6~~ 接口单独分配。
+    // 指定为`IPv6`时不支持配置公网网络参数（`internetChargeType`、`networkLineType`、`bandwidthMbps`、`trafficPackageSize`、`bandwidthClusterId`），也不能指定`eipIds`——EIP均为IPv4，IPv6负载均衡的公网地址通过 **zlb:AssignLoadBalancerIpv6** 接口单独分配。
     IpStackType *string `json:"ipStackType,omitempty"`
 
     // EipIds 指定绑定到新建负载均衡实例的已有弹性公网IP的ID列表。
-    // 支持单IP（掩码`/32`）与网段类型的EIP，可调用 ~~zec:DescribeEips~~ 查询。
+    // 支持单IP（掩码`/32`）与网段类型的EIP，可调用 **zec:DescribeEips** 查询。
     // 所有EIP需与`regionId`同区域且处于未绑定状态。
     // 指定此参数时，`internetChargeType`、`networkLineType`、`bandwidthMbps`、`trafficPackageSize`、`bandwidthClusterId`均不生效，系统不再为该实例新建EIP，且`number`只能为1。
     // 仅`ipStackType`为`IPv4`时可指定。
@@ -438,7 +438,7 @@ type CreateLoadBalancerRequest struct {
     Tags *TagAssociation `json:"tags,omitempty"`
 
     // SecurityGroupId 负载均衡实例绑定的安全组ID。
-    // 可以通过调用 ~~zec:DescribeSecurityGroups~~ 获取。
+    // 可以通过调用 **zec:DescribeSecurityGroups** 获取。
     SecurityGroupId *string `json:"securityGroupId,omitempty"`
 
 }
@@ -491,7 +491,7 @@ type ModifyLoadBalancersAttributeRequest struct {
     *common.BaseRequest
 
     // LoadBalancerIds 负载均衡实例ID列表。
-    // 可通过调用 ~~DescribeLoadBalancers~~ 获取。
+    // 可通过调用 **DescribeLoadBalancers** 获取。
     LoadBalancerIds []string `json:"loadBalancerIds,omitempty"`
 
     // LoadBalancerName 负载均衡实例的名称。
@@ -520,11 +520,11 @@ type AddLoadBalancersPrivateIpsRequest struct {
     PrivateIps []string `json:"privateIps,omitempty"`
 
     // LoadBalancerId 负载均衡ID。
-    // 可通过调用 ~~DescribeLoadBalancers~~ 获取。
+    // 可通过调用 **DescribeLoadBalancers** 获取。
     LoadBalancerId *string `json:"loadBalancerId,omitempty"`
 
     // SubnetId 作为内网IP所在的子网ID。
-    // 可以通过调用 ~~zec:DescribeSubnets~~ 获取。
+    // 可以通过调用 **zec:DescribeSubnets** 获取。
     // 该子网所属的区域和VPC需与负载均衡实例一致。
     SubnetId *string `json:"subnetId,omitempty"`
 
@@ -549,7 +549,7 @@ type DeleteLoadBalancersPrivateIpsRequest struct {
     PrivateIps []string `json:"privateIps,omitempty"`
 
     // LoadBalancerId 负载均衡ID。
-    // 可通过调用 ~~DescribeLoadBalancers~~ 获取。
+    // 可通过调用 **DescribeLoadBalancers** 获取。
     LoadBalancerId *string `json:"loadBalancerId,omitempty"`
 
 }
@@ -570,8 +570,14 @@ type TerminateLoadBalancerRequest struct {
     *common.BaseRequest
 
     // LoadBalancerId 负载均衡实例ID。
-    // 可通过调用 ~~DescribeLoadBalancers~~ 获取。
+    // 可通过调用 **DescribeLoadBalancers** 获取。
     LoadBalancerId *string `json:"loadBalancerId,omitempty"`
+
+    // EipIds 需要随实例一同释放的EIP ID列表。
+    // 可通过调用 **DescribeEips** 并指定`associatedId`为该负载均衡实例ID获取。
+    // 仅释放已绑定在该实例上的非默认EIP，其余ID将被忽略。
+    // 不指定时不释放任何EIP。
+    EipIds []string `json:"eipIds,omitempty"`
 
 }
 
@@ -591,7 +597,7 @@ type RestoreLoadBalancerRequest struct {
     *common.BaseRequest
 
     // LoadBalancerId 负载均衡实例ID。
-    // 可通过调用 ~~DescribeLoadBalancers~~ 获取。
+    // 可通过调用 **DescribeLoadBalancers** 获取。
     LoadBalancerId *string `json:"loadBalancerId,omitempty"`
 
 }
@@ -612,11 +618,11 @@ type DescribeLoadBalancerMonitorDataRequest struct {
     *common.BaseRequest
 
     // LoadBalancerId 负载均衡实例ID。
-    // 可通过调用 ~~DescribeLoadBalancers~~ 获取。
+    // 可通过调用 **DescribeLoadBalancers** 获取。
     LoadBalancerId *string `json:"loadBalancerId,omitempty"`
 
     // ListenerId 负载均衡器的监听器ID。
-    // 可通过调用 ~~DescribeListeners~~ 获取。
+    // 可通过调用 **DescribeListeners** 获取。
     ListenerId *string `json:"listenerId,omitempty"`
 
     // MetricType 监控指标类型。
@@ -682,11 +688,11 @@ type SetSecurityGroupForLoadBalancersRequest struct {
     *common.BaseRequest
 
     // SecurityGroupId 要更换的安全组ID。
-    // 可以通过调用 ~~zec:DescribeSecurityGroups~~ 获取。
+    // 可以通过调用 **zec:DescribeSecurityGroups** 获取。
     SecurityGroupId *string `json:"securityGroupId,omitempty"`
 
     // LoadBalancerIds 要更换安全组的负载均衡ID集合。
-    // 可通过调用 ~~DescribeLoadBalancers~~ 获取。
+    // 可通过调用 **DescribeLoadBalancers** 获取。
     LoadBalancerIds []string `json:"loadBalancerIds,omitempty"`
 
 }
@@ -715,7 +721,7 @@ type UnbindSecurityGroupFromLoadBalancersRequest struct {
     *common.BaseRequest
 
     // LoadBalancerIds 要解绑安全组的负载均衡ID集合。
-    // 可通过调用 ~~DescribeLoadBalancers~~ 获取。
+    // 可通过调用 **DescribeLoadBalancers** 获取。
     LoadBalancerIds []string `json:"loadBalancerIds,omitempty"`
 
 }
@@ -745,7 +751,7 @@ type AssignLoadBalancerIpv6Request struct {
 
     // LoadBalancerId 要分配公网IPv6的负载均衡实例ID。
     // 仅`ipStackType`为`IPv6`的负载均衡实例可用。
-    // 可通过调用 ~~DescribeLoadBalancers~~ 获取。
+    // 可通过调用 **DescribeLoadBalancers** 获取。
     LoadBalancerId *string `json:"loadBalancerId,omitempty"`
 
     // VipCount 本次分配的公网IPv6数量。
@@ -792,7 +798,7 @@ type DescribeListenersRequest struct {
     *common.BaseRequest
 
     // LoadBalancerId 负载均衡实例的ID。
-    // 可通过调用 ~~DescribeLoadBalancers~~ 获取。
+    // 可通过调用 **DescribeLoadBalancers** 获取。
     LoadBalancerId *string `json:"loadBalancerId,omitempty"`
 
     // ListenerIds 要查询的负载均衡监听器ID列表。
@@ -867,6 +873,11 @@ type Listener struct {
     // 开启后与会话保持（`persistent`）互斥。
     AlgoOpts *string `json:"algoOpts,omitempty"`
 
+    // ProxyProtocol 是否开启ProxyProtocol。
+    // `2`表示开启，`0`表示关闭。
+    // 仅IPv4负载均衡实例的`TCP`协议、`FNAT`/`DNAT`工作模式监听器才可能开启，历史监听器均为关闭。
+    ProxyProtocol *int `json:"proxyProtocol,omitempty"`
+
     // IdleTimeout 空闲超时时间，单位秒。
     IdleTimeout *int `json:"idleTimeout,omitempty"`
 
@@ -907,6 +918,12 @@ type HealthCheck struct {
     // 如果指定，必须以/开头。
     CheckHttpGetUrl *string `json:"checkHttpGetUrl,omitempty"`
 
+    // CheckHttpGetHost 健康检查请求的 Host。
+    // 仅适用于HTTP_GET的协议。
+    // 长度不超过255个字符，由英文句点（.）分隔的若干段组成，每段1～63个字符，仅支持字母、数字、连字符（-）和下划线（_），每段不能以连字符开头或结尾，整体不能以句点开头或结尾；不包含端口。
+    // 不指定时不设置 Host。
+    CheckHttpGetHost *string `json:"checkHttpGetHost,omitempty"`
+
     // CheckHttpStatusCode 健康检查状态码。
     // 仅适用于HTTP_GET的协议。
     CheckHttpStatusCode *int `json:"checkHttpStatusCode,omitempty"`
@@ -921,7 +938,7 @@ type CreateListenerRequest struct {
     *common.BaseRequest
 
     // LoadBalancerId 负载均衡实例ID。
-    // 可通过调用 ~~DescribeLoadBalancers~~ 获取。
+    // 可通过调用 **DescribeLoadBalancers** 获取。
     LoadBalancerId *string `json:"loadBalancerId,omitempty"`
 
     // ListenerName 要创建的监听器名称。
@@ -966,6 +983,11 @@ type CreateListenerRequest struct {
     // 开启后与会话保持（`persistent`）互斥，不可同时设置非0值。
     AlgoOpts *string `json:"algoOpts,omitempty"`
 
+    // ProxyProtocol 是否开启ProxyProtocol，开启后将通过ProxyProtocol协议携带客户端地址到后端服务器。
+    // `2`表示开启，`0`表示关闭，不传等价于关闭。
+    // 仅当负载均衡实例的`ipStackType`为`IPv4`、监听协议为`TCP`且工作模式（`kind`）为`FNAT`或`DNAT`时可开启，其它组合传`2`将报错。
+    ProxyProtocol *int `json:"proxyProtocol,omitempty"`
+
 }
 
 type CreateListenerResponse struct {
@@ -992,11 +1014,11 @@ type ModifyListenerRequest struct {
     *common.BaseRequest
 
     // LoadBalancerId 负载均衡器ID。
-    // 可通过调用 ~~DescribeLoadBalancers~~ 获取。
+    // 可通过调用 **DescribeLoadBalancers** 获取。
     LoadBalancerId *string `json:"loadBalancerId,omitempty"`
 
     // ListenerId 负载均衡器的监听器ID。
-    // 可通过调用 ~~DescribeListeners~~ 获取。
+    // 可通过调用 **DescribeListeners** 获取。
     ListenerId *string `json:"listenerId,omitempty"`
 
     // ListenerName 负载均衡器的监听器名称。
@@ -1041,6 +1063,11 @@ type ModifyListenerRequest struct {
     // 开启后与会话保持（`persistent`）互斥：若该监听器已开启此选项，把`persistent`改为非0值同样会报错，需一并传`None`将其清空。
     AlgoOpts *string `json:"algoOpts,omitempty"`
 
+    // ProxyProtocol 是否开启ProxyProtocol。
+    // `2`表示开启，`0`表示关闭，不传表示不修改。
+    // 仅当负载均衡实例的`ipStackType`为`IPv4`、监听协议为`TCP`且工作模式（`kind`）为`FNAT`或`DNAT`时可开启；校验按修改后生效的最终状态判定：若该监听器已开启，把`kind`改为`DR`时需一并传`0`关闭。
+    ProxyProtocol *int `json:"proxyProtocol,omitempty"`
+
 }
 
 type ModifyListenerResponse struct {
@@ -1059,11 +1086,11 @@ type DeleteListenerRequest struct {
     *common.BaseRequest
 
     // LoadBalancerId 负载均衡实例ID。
-    // 可通过调用 ~~DescribeLoadBalancers~~ 获取。
+    // 可通过调用 **DescribeLoadBalancers** 获取。
     LoadBalancerId *string `json:"loadBalancerId,omitempty"`
 
     // ListenerId 监听器ID。
-    // 可通过调用 ~~DescribeListeners~~ 获取。
+    // 可通过调用 **DescribeListeners** 获取。
     ListenerId *string `json:"listenerId,omitempty"`
 
 }
@@ -1084,12 +1111,12 @@ type DescribeBackendsRequest struct {
     *common.BaseRequest
 
     // LoadBalancerId 负载均衡实例ID。
-    // 可通过调用 ~~DescribeLoadBalancers~~ 获取。
+    // 可通过调用 **DescribeLoadBalancers** 获取。
     LoadBalancerId *string `json:"loadBalancerId,omitempty"`
 
     // ListenerId 负载均衡监听器的ID。
     // 如果未指定，则查询所有后端。
-    // 可通过调用 ~~DescribeListeners~~ 获取。
+    // 可通过调用 **DescribeListeners** 获取。
     ListenerId *string `json:"listenerId,omitempty"`
 
 }
@@ -1117,7 +1144,7 @@ type DescribeBackendsResponseParams struct {
 type ListenerBackend struct {
 
     // InstanceId 实例ID。
-    // 可通过调用 ~~zec:DescribeInstances~~ 从返回的instanceId字段获取。
+    // 可通过调用 **zec:DescribeInstances** 从返回的instanceId字段获取。
     InstanceId *string `json:"instanceId,omitempty"`
 
     // PrivateIpAddress 实例上绑定网卡的私网IP地址。
@@ -1155,11 +1182,11 @@ type RegisterBackendRequest struct {
     *common.BaseRequest
 
     // LoadBalancerId 负载均衡实例的ID。
-    // 可通过调用 ~~DescribeLoadBalancers~~ 获取。
+    // 可通过调用 **DescribeLoadBalancers** 获取。
     LoadBalancerId *string `json:"loadBalancerId,omitempty"`
 
     // ListenerId 负载均衡监听器的ID。
-    // 可通过调用 ~~DescribeListeners~~ 获取。
+    // 可通过调用 **DescribeListeners** 获取。
     ListenerId *string `json:"listenerId,omitempty"`
 
     // BackendServers 要绑定的后端服务器列表。
@@ -1172,7 +1199,7 @@ type RegisterBackendRequest struct {
 type BackendServer struct {
 
     // InstanceId 实例ID。
-    // 如果是zec实例作为后端服务器，可通过调用 ~~zec:DescribeInstances~~ 从返回的instanceId字段获取。
+    // 如果是zec实例作为后端服务器，可通过调用 **zec:DescribeInstances** 从返回的instanceId字段获取。
     // 解绑时，对于存在实例ID的，该字段必传。
     InstanceId *string `json:"instanceId,omitempty"`
 
@@ -1209,11 +1236,11 @@ type ModifyBackendRequest struct {
     *common.BaseRequest
 
     // LoadBalancerId 负载均衡实例ID。
-    // 可通过调用 ~~DescribeLoadBalancers~~ 获取。
+    // 可通过调用 **DescribeLoadBalancers** 获取。
     LoadBalancerId *string `json:"loadBalancerId,omitempty"`
 
     // ListenerId 负载均衡监听器的ID。
-    // 可通过调用 ~~DescribeListeners~~ 获取。
+    // 可通过调用 **DescribeListeners** 获取。
     ListenerId *string `json:"listenerId,omitempty"`
 
     // BackendServers 要修改的后端服务器集合。
@@ -1237,11 +1264,11 @@ type DeregisterBackendRequest struct {
     *common.BaseRequest
 
     // LoadBalancerId 负载均衡实例ID。
-    // 可通过调用 ~~DescribeLoadBalancers~~ 获取。
+    // 可通过调用 **DescribeLoadBalancers** 获取。
     LoadBalancerId *string `json:"loadBalancerId,omitempty"`
 
     // ListenerId 负载均衡监听器ID。
-    // 可通过调用 ~~DescribeListeners~~ 获取。
+    // 可通过调用 **DescribeListeners** 获取。
     ListenerId *string `json:"listenerId,omitempty"`
 
     // BackendServers 要删除的后端服务器列表。
@@ -1265,12 +1292,12 @@ type DescribeBackendHealthRequest struct {
     *common.BaseRequest
 
     // LoadBalancerId 负载均衡实例ID。
-    // 可通过调用 ~~DescribeLoadBalancers~~ 获取。
+    // 可通过调用 **DescribeLoadBalancers** 获取。
     LoadBalancerId *string `json:"loadBalancerId,omitempty"`
 
     // ListenerId 负载均衡监听器的ID。
     // 如果未指定，则查询所有后端。
-    // 可通过调用 ~~DescribeListeners~~ 获取。
+    // 可通过调用 **DescribeListeners** 获取。
     ListenerId *string `json:"listenerId,omitempty"`
 
 }
@@ -1305,7 +1332,7 @@ type ListenerBackendHealth struct {
     HealthStatusDetail []*BackendHealthStatusDetail `json:"healthStatusDetail,omitempty"`
 
     // InstanceId 实例ID。
-    // 可通过调用 ~~zec:DescribeInstances~~ 从返回的instanceId字段获取。
+    // 可通过调用 **zec:DescribeInstances** 从返回的instanceId字段获取。
     InstanceId *string `json:"instanceId,omitempty"`
 
     // PrivateIpAddress 实例上绑定网卡的私网IP地址。
