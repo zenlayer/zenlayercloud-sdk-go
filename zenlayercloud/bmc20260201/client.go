@@ -861,6 +861,29 @@ func (c *Client) DescribeInstanceIpmiUrl(request *DescribeInstanceIpmiUrlRequest
 	return
 }
 
+func NewResetInstanceIpRequest() (request *ResetInstanceIpRequest) {
+	request = &ResetInstanceIpRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ResetInstanceIp")
+
+	return
+}
+
+func NewResetInstanceIpResponse() (response *ResetInstanceIpResponse) {
+	response = &ResetInstanceIpResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ResetInstanceIp 按平台分配的IP重新配置裸金属实例的网络。
+func (c *Client) ResetInstanceIp(request *ResetInstanceIpRequest) (response *ResetInstanceIpResponse, err error) {
+	response = NewResetInstanceIpResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewDescribeAvailableIpv4ResourcesRequest() (request *DescribeAvailableIpv4ResourcesRequest) {
 	request = &DescribeAvailableIpv4ResourcesRequest{
 		BaseRequest: &common.BaseRequest{},

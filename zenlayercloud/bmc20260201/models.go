@@ -1242,7 +1242,7 @@ type InstanceInfo struct {
     EnableGatewayMode *bool `json:"enableGatewayMode,omitempty"`
 
     // IpmiEnabled IPMI控制台是否已开启。
-    // 通过 ~~ResetInstanceIpmiPassword~~ 设置IPMI密码后开启，登录用户名固定为operator；重装系统后会关闭，需要重新设置密码。
+    // 通过 **ResetInstanceIpmiPassword** 设置IPMI密码后开启，登录用户名固定为operator；重装系统后会关闭，需要重新设置密码。
     IpmiEnabled *bool `json:"ipmiEnabled,omitempty"`
 
 }
@@ -1932,8 +1932,27 @@ type DescribeInstanceIpmiUrlResponseParams struct {
     RequestId *string `json:"requestId,omitempty"`
 
     // Url IPMI控制台访问地址。
-    // 登录用户名固定为operator，密码为通过 ~~ResetInstanceIpmiPassword~~ 设置的密码。
+    // 登录用户名固定为operator，密码为通过 **ResetInstanceIpmiPassword** 设置的密码。
     Url *string `json:"url,omitempty"`
+
+}
+
+type ResetInstanceIpRequest struct {
+    *common.BaseRequest
+
+    // InstanceId 实例ID。
+    InstanceId *string `json:"instanceId,omitempty"`
+
+}
+
+type ResetInstanceIpResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
 
 }
 
