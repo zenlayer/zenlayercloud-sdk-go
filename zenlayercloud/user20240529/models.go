@@ -703,3 +703,71 @@ type DeleteResourceGroupResponse struct {
 
 }
 
+
+type AssumeRoleRequest struct {
+    *common.BaseRequest
+
+    RoleZrn *string `json:"roleZrn,omitempty"`
+
+    RoleSessionName *string `json:"roleSessionName,omitempty"`
+
+    DurationSeconds *int `json:"durationSeconds,omitempty"`
+
+    Tags []*SessionTag `json:"tags,omitempty"`
+
+    SourceIdentity *string `json:"sourceIdentity,omitempty"`
+
+}
+
+type SessionTag struct {
+
+    Key *string `json:"key,omitempty"`
+
+    Value *string `json:"value,omitempty"`
+
+}
+
+type AssumeRoleResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *AssumeRoleResponseParams `json:"response,omitempty"`
+
+}
+
+type AssumeRoleResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Credentials *StsCredentials `json:"credentials,omitempty"`
+
+    AssumedRole *AssumedRole `json:"assumedRole,omitempty"`
+
+    SourceIdentity *string `json:"sourceIdentity,omitempty"`
+
+}
+
+type StsCredentials struct {
+
+    AccessKeyId *string `json:"accessKeyId,omitempty"`
+
+    AccessKeySecret *string `json:"accessKeySecret,omitempty"`
+
+    SecurityToken *string `json:"securityToken,omitempty"`
+
+    Expiration *string `json:"expiration,omitempty"`
+
+}
+
+type AssumedRole struct {
+
+    SessionId *string `json:"sessionId,omitempty"`
+
+    Zrn *string `json:"zrn,omitempty"`
+
+    RoleName *string `json:"roleName,omitempty"`
+
+    RoleSessionName *string `json:"roleSessionName,omitempty"`
+
+}

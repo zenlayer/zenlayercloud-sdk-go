@@ -493,3 +493,25 @@ func (c *Client) DeleteResourceGroup(request *DeleteResourceGroupRequest) (respo
 	return
 }
 
+
+func NewAssumeRoleRequest() (request *AssumeRoleRequest) {
+	request = &AssumeRoleRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "AssumeRole")
+
+	return
+}
+
+func NewAssumeRoleResponse() (response *AssumeRoleResponse) {
+	response = &AssumeRoleResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+func (c *Client) AssumeRole(request *AssumeRoleRequest) (response *AssumeRoleResponse, err error) {
+	response = NewAssumeRoleResponse()
+	err = c.ApiCall(request, response)
+	return
+}

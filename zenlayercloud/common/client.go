@@ -14,13 +14,16 @@ import (
 	"os"
 	"regexp"
 	"strconv"
+	"strings"
 	"time"
 )
 
 // version this value will be replaced while build: -ldflags="-X 'common.version=x.x.x'"
-var version = "0.2.57"
+var version = "0.2.58"
 
 const SdkLang = "go"
+
+const securityTokenHeader = "x-zc-security-token"
 
 type Client struct {
 	credential    CredentialIface
@@ -49,8 +52,17 @@ func (c *Client) InitWithTokenCredential(credential *TokenCredential) (err error
 	return
 }
 
+// InitWithStsCredential initializes the client with a temporary credential issued by AssumeRole.
+func (c *Client) InitWithStsCredential(credential *StsCredential) (err error) {
+	if credential.SecretKeyId == "" || credential.SecretKeyPassword == "" || credential.SecurityToken == "" {
+		return NewZenlayerCloudSdkError(CredentialMissingError, "SecretKeyId, SecretKeyPassword or SecurityToken is missing", "")
+	}
+	c.credential = credential
+	return
+}
+
 // WithCredential sets the credential on the client and returns the client for chaining.
-// Accepts any CredentialIface implementation (Credential or TokenCredential).
+// Accepts any CredentialIface implementation (Credential, StsCredential or TokenCredential).
 func (c *Client) WithCredential(credential CredentialIface) *Client {
 	c.credential = credential
 	return c
@@ -146,6 +158,9 @@ func (c *Client) ApiCall(request Request, response Response) (err error) {
 		headers["Authorization"] = "Bearer " + token
 	} else {
 		headers["x-zc-signature-method"] = "ZC2-HMAC-SHA256"
+		if sts, ok := c.credential.(SecurityTokenCredential); ok && sts.GetSecurityToken() != "" {
+			headers[securityTokenHeader] = sts.GetSecurityToken()
+		}
 		authorization, err := c.signRequest(request)
 		if err != nil {
 			return err
@@ -230,7 +245,15 @@ func (c *Client) sendWithNetworkFailureRetry(request Request) (resp *http.Respon
 
 func (c *Client) sendHttp(request *http.Request) (response *http.Response, err error) {
 	if c.debug {
+		// the security token is a credential; mask it in the dump and restore it before sending
+		token, hasToken := request.Header[securityTokenHeader]
+		if hasToken {
+			request.Header[securityTokenHeader] = []string{"***"}
+		}
 		outBytes, err := httputil.DumpRequest(request, true)
+		if hasToken {
+			request.Header[securityTokenHeader] = token
+		}
 		if err != nil {
 			c.logger.Printf("[ERROR] dump request failed, error %s", err)
 			return nil, err
@@ -262,6 +285,11 @@ func (c *Client) signRequest(request Request) (string, error) {
 	hashedRequestPayload := sha256hex(request.GetBodyStr())
 	canonicalHeaders := fmt.Sprintf("content-type:%s\nhost:%s\n", headers["Content-Type"], headers["Host"])
 	signedHeaders := "content-type;host"
+	// the gateway lower-cases signed header values when it rebuilds the canonical headers
+	if token, ok := headers[securityTokenHeader]; ok {
+		canonicalHeaders += fmt.Sprintf("%s:%s\n", securityTokenHeader, strings.ToLower(strings.TrimSpace(token)))
+		signedHeaders += ";" + securityTokenHeader
+	}
 
 	canonicalRequest := fmt.Sprintf("%s\n%s\n%s\n%s\n%s\n%s",
 		httpRequestMethod,
