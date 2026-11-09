@@ -3941,6 +3941,130 @@ type ReplaceNetworkInterfacePrimaryIpv4ResponseParams struct {
 
 }
 
+// CreateNetworkInterfacePermissionRequest 
+type CreateNetworkInterfacePermissionRequest struct {
+    *common.BaseRequest
+
+    // NicId 要授权的网卡ID。
+    // 可通过调用 **DescribeNetworkInterfaces** 获取。
+    // 不支持主网卡，网卡状态须为 `AVAILABLE`。
+    NicId *string `json:"nicId,omitempty"`
+
+    // GranteeCid 被授权账号的cid，不能是网卡所属账号。
+    // 一张网卡只能授权给一个账号；对同一账号重复授权同一操作时，返回已有的授权。
+    GranteeCid *string `json:"granteeCid,omitempty"`
+
+    // Permission 授权的操作。
+    Permission *string `json:"permission,omitempty"`
+
+}
+
+type CreateNetworkInterfacePermissionResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *CreateNetworkInterfacePermissionResponseParams `json:"response,omitempty"`
+
+}
+
+// CreateNetworkInterfacePermissionResponseParams 
+type CreateNetworkInterfacePermissionResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // PermissionId 网卡授权ID。
+    PermissionId *string `json:"permissionId,omitempty"`
+
+}
+
+// DescribeNetworkInterfacePermissionsRequest 
+type DescribeNetworkInterfacePermissionsRequest struct {
+    *common.BaseRequest
+
+    // NicIds 根据网卡ID过滤。
+    // 最多传入100个ID。
+    NicIds []string `json:"nicIds,omitempty"`
+
+    // PermissionIds 根据网卡授权ID过滤。
+    // 最多传入100个ID。
+    PermissionIds []string `json:"permissionIds,omitempty"`
+
+    // PageSize 返回的分页大小。
+    PageSize *int `json:"pageSize,omitempty"`
+
+    // PageNum 返回的分页数。
+    PageNum *int `json:"pageNum,omitempty"`
+
+}
+
+type DescribeNetworkInterfacePermissionsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeNetworkInterfacePermissionsResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeNetworkInterfacePermissionsResponseParams 
+type DescribeNetworkInterfacePermissionsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // TotalCount 符合条件的数据总数。
+    TotalCount *int `json:"totalCount,omitempty"`
+
+    // DataSet 网卡授权的结果集。
+    DataSet []*NetworkInterfacePermission `json:"dataSet,omitempty"`
+
+}
+
+// NetworkInterfacePermission 网卡授权信息。
+type NetworkInterfacePermission struct {
+
+    // PermissionId 网卡授权ID。
+    PermissionId *string `json:"permissionId,omitempty"`
+
+    // NicId 网卡ID。
+    NicId *string `json:"nicId,omitempty"`
+
+    // GranteeCid 被授权账号的cid。
+    GranteeCid *string `json:"granteeCid,omitempty"`
+
+    // Permission 授权的操作。
+    Permission *string `json:"permission,omitempty"`
+
+    // CreateTime 授权的创建时间。
+    CreateTime *string `json:"createTime,omitempty"`
+
+}
+
+// DeleteNetworkInterfacePermissionRequest 
+type DeleteNetworkInterfacePermissionRequest struct {
+    *common.BaseRequest
+
+    // PermissionId 要删除的网卡授权ID。
+    // 可通过调用 **DescribeNetworkInterfacePermissions** 获取。
+    PermissionId *string `json:"permissionId,omitempty"`
+
+    // Force 被授权账号已把网卡绑定到它的实例时，是否仍然删除授权。
+    // 为 `false` 时拒绝删除；删除授权不会解绑网卡。
+    Force *bool `json:"force,omitempty"`
+
+}
+
+type DeleteNetworkInterfacePermissionResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
 // DescribePoolsRequest 
 type DescribePoolsRequest struct {
     *common.BaseRequest
@@ -4224,7 +4348,7 @@ type CidrInfo struct {
     // 无可用网段时为空列表。
     AvailableCidr []*AvailableCidrInfo `json:"availableCidr,omitempty"`
 
-    // AvailableCount CIDR中当前可用的IP地址数量（= totalCount − 实际已占用地址数，网段(Block)型EIP按其掩码长度占用的全部地址计算）。
+    // AvailableCount CIDR中当前可用的IP地址数量（段内非`.0`/`.255`地址中未被占用的数量）。
     AvailableCount *int `json:"availableCount,omitempty"`
 
 }

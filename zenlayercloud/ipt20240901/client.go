@@ -72,7 +72,7 @@ func NewDescribeIPTransitDatacentersResponse() (response *DescribeIPTransitDatac
 	return
 }
 
-// DescribeIPTransitDatacenters 查询IP Transit可连接数据中心。
+// DescribeIPTransitDatacenters 查询Internet可连接数据中心。本接口已弃用，请改用 **sdn:DescribeInternetDatacenters**。
 func (c *Client) DescribeIPTransitDatacenters(request *DescribeIPTransitDatacentersRequest) (response *DescribeIPTransitDatacentersResponse, err error) {
 	response = NewDescribeIPTransitDatacentersResponse()
 	err = c.ApiCall(request, response)
@@ -95,7 +95,7 @@ func NewDescribeIPTransitAvailableAsnsResponse() (response *DescribeIPTransitAva
 	return
 }
 
-// DescribeIPTransitAvailableAsns 查询IP Transit可用 ASN。
+// DescribeIPTransitAvailableAsns 查询Internet可用 ASN。本接口已弃用，请改用 **sdn:DescribeInternetAvailableAsns**。
 func (c *Client) DescribeIPTransitAvailableAsns(request *DescribeIPTransitAvailableAsnsRequest) (response *DescribeIPTransitAvailableAsnsResponse, err error) {
 	response = NewDescribeIPTransitAvailableAsnsResponse()
 	err = c.ApiCall(request, response)
@@ -118,7 +118,7 @@ func NewDescribeIPTransitAvailableCidrBlocksResponse() (response *DescribeIPTran
 	return
 }
 
-// DescribeIPTransitAvailableCidrBlocks 查询IP Transit可用公网地址段。
+// DescribeIPTransitAvailableCidrBlocks 查询Internet可用公网地址段。本接口已弃用，请改用 **sdn:DescribeInternetAvailableCidrBlocks**。
 func (c *Client) DescribeIPTransitAvailableCidrBlocks(request *DescribeIPTransitAvailableCidrBlocksRequest) (response *DescribeIPTransitAvailableCidrBlocksResponse, err error) {
 	response = NewDescribeIPTransitAvailableCidrBlocksResponse()
 	err = c.ApiCall(request, response)
@@ -141,7 +141,7 @@ func NewInquiryCreateIPTransitPriceResponse() (response *InquiryCreateIPTransitP
 	return
 }
 
-// InquiryCreateIPTransitPrice IP Transit创建询价。
+// InquiryCreateIPTransitPrice Internet创建询价。本接口已弃用，请改用 **sdn:InquiryCreateInternetPrice**。
 func (c *Client) InquiryCreateIPTransitPrice(request *InquiryCreateIPTransitPriceRequest) (response *InquiryCreateIPTransitPriceResponse, err error) {
 	response = NewInquiryCreateIPTransitPriceResponse()
 	err = c.ApiCall(request, response)
@@ -164,7 +164,7 @@ func NewCreateIPTransitResponse() (response *CreateIPTransitResponse) {
 	return
 }
 
-// CreateIPTransit 创建IP Transit。
+// CreateIPTransit 创建Internet。本接口已弃用，请改用 **sdn:CreateInternet**。
 func (c *Client) CreateIPTransit(request *CreateIPTransitRequest) (response *CreateIPTransitResponse, err error) {
 	response = NewCreateIPTransitResponse()
 	err = c.ApiCall(request, response)
@@ -187,7 +187,7 @@ func NewDescribeIPTransitsResponse() (response *DescribeIPTransitsResponse) {
 	return
 }
 
-// DescribeIPTransits 查询IP Transit列表。
+// DescribeIPTransits 查询Internet列表。本接口已弃用，请改用 **sdn:DescribeInternets**。
 func (c *Client) DescribeIPTransits(request *DescribeIPTransitsRequest) (response *DescribeIPTransitsResponse, err error) {
 	response = NewDescribeIPTransitsResponse()
 	err = c.ApiCall(request, response)
@@ -210,7 +210,7 @@ func NewModifyIPTransitBandwidthResponse() (response *ModifyIPTransitBandwidthRe
 	return
 }
 
-// ModifyIPTransitBandwidth 修改IP Transit带宽。
+// ModifyIPTransitBandwidth 修改Internet带宽。本接口已弃用，请改用 **sdn:ModifyInternetConfig**（`type=BANDWIDTH`）。
 func (c *Client) ModifyIPTransitBandwidth(request *ModifyIPTransitBandwidthRequest) (response *ModifyIPTransitBandwidthResponse, err error) {
 	response = NewModifyIPTransitBandwidthResponse()
 	err = c.ApiCall(request, response)
@@ -233,7 +233,7 @@ func NewModifyIPTransitsAttributeResponse() (response *ModifyIPTransitsAttribute
 	return
 }
 
-// ModifyIPTransitsAttribute 修改IP Transit属性。
+// ModifyIPTransitsAttribute 修改Internet属性。本接口已弃用，请改用 **sdn:ModifyInternetsAttribute**。
 func (c *Client) ModifyIPTransitsAttribute(request *ModifyIPTransitsAttributeRequest) (response *ModifyIPTransitsAttributeResponse, err error) {
 	response = NewModifyIPTransitsAttributeResponse()
 	err = c.ApiCall(request, response)
@@ -256,7 +256,7 @@ func NewDeleteIPTransitResponse() (response *DeleteIPTransitResponse) {
 	return
 }
 
-// DeleteIPTransit 删除IP Transit。
+// DeleteIPTransit 删除Internet。本接口已弃用，请改用 **sdn:DeleteInternet**。
 func (c *Client) DeleteIPTransit(request *DeleteIPTransitRequest) (response *DeleteIPTransitResponse, err error) {
 	response = NewDeleteIPTransitResponse()
 	err = c.ApiCall(request, response)
@@ -279,7 +279,7 @@ func NewDescribeIPTransitTrafficResponse() (response *DescribeIPTransitTrafficRe
 	return
 }
 
-// DescribeIPTransitTraffic 查询IP Transit流量。
+// DescribeIPTransitTraffic 查询Internet流量。本接口已弃用，请改用 **sdn:DescribeInternetTraffic**。
 func (c *Client) DescribeIPTransitTraffic(request *DescribeIPTransitTrafficRequest) (response *DescribeIPTransitTrafficResponse, err error) {
 	response = NewDescribeIPTransitTrafficResponse()
 	err = c.ApiCall(request, response)
@@ -302,7 +302,7 @@ func NewInquiryModifyIPTransitPriceResponse() (response *InquiryModifyIPTransitP
 	return
 }
 
-// InquiryModifyIPTransitPrice IP Transit变配询价。
+// InquiryModifyIPTransitPrice Internet变配询价。本接口已弃用，请改用 **sdn:InquiryModifyInternetPrice**。
 func (c *Client) InquiryModifyIPTransitPrice(request *InquiryModifyIPTransitPriceRequest) (response *InquiryModifyIPTransitPriceResponse, err error) {
 	response = NewInquiryModifyIPTransitPriceResponse()
 	err = c.ApiCall(request, response)
@@ -325,7 +325,7 @@ func NewModifyIPTransitConfigResponse() (response *ModifyIPTransitConfigResponse
 	return
 }
 
-// ModifyIPTransitConfig 修改IP Transit配置。
+// ModifyIPTransitConfig 修改Internet配置。本接口已弃用，请改用 **sdn:ModifyInternetConfig**。
 func (c *Client) ModifyIPTransitConfig(request *ModifyIPTransitConfigRequest) (response *ModifyIPTransitConfigResponse, err error) {
 	response = NewModifyIPTransitConfigResponse()
 	err = c.ApiCall(request, response)

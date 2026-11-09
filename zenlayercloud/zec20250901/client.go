@@ -1758,6 +1758,75 @@ func (c *Client) ReplaceNetworkInterfacePrimaryIpv4(request *ReplaceNetworkInter
 	return
 }
 
+func NewCreateNetworkInterfacePermissionRequest() (request *CreateNetworkInterfacePermissionRequest) {
+	request = &CreateNetworkInterfacePermissionRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateNetworkInterfacePermission")
+
+	return
+}
+
+func NewCreateNetworkInterfacePermissionResponse() (response *CreateNetworkInterfacePermissionResponse) {
+	response = &CreateNetworkInterfacePermissionResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CreateNetworkInterfacePermission 授权其他账号把一张网卡绑定到它自己的实例上。
+func (c *Client) CreateNetworkInterfacePermission(request *CreateNetworkInterfacePermissionRequest) (response *CreateNetworkInterfacePermissionResponse, err error) {
+	response = NewCreateNetworkInterfacePermissionResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeNetworkInterfacePermissionsRequest() (request *DescribeNetworkInterfacePermissionsRequest) {
+	request = &DescribeNetworkInterfacePermissionsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeNetworkInterfacePermissions")
+
+	return
+}
+
+func NewDescribeNetworkInterfacePermissionsResponse() (response *DescribeNetworkInterfacePermissionsResponse) {
+	response = &DescribeNetworkInterfacePermissionsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeNetworkInterfacePermissions 查询网卡授权给其他账号的记录。
+func (c *Client) DescribeNetworkInterfacePermissions(request *DescribeNetworkInterfacePermissionsRequest) (response *DescribeNetworkInterfacePermissionsResponse, err error) {
+	response = NewDescribeNetworkInterfacePermissionsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteNetworkInterfacePermissionRequest() (request *DeleteNetworkInterfacePermissionRequest) {
+	request = &DeleteNetworkInterfacePermissionRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteNetworkInterfacePermission")
+
+	return
+}
+
+func NewDeleteNetworkInterfacePermissionResponse() (response *DeleteNetworkInterfacePermissionResponse) {
+	response = &DeleteNetworkInterfacePermissionResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeleteNetworkInterfacePermission 删除一条网卡授权。
+func (c *Client) DeleteNetworkInterfacePermission(request *DeleteNetworkInterfacePermissionRequest) (response *DeleteNetworkInterfacePermissionResponse, err error) {
+	response = NewDeleteNetworkInterfacePermissionResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewDescribePoolsRequest() (request *DescribePoolsRequest) {
 	request = &DescribePoolsRequest{
 		BaseRequest: &common.BaseRequest{},

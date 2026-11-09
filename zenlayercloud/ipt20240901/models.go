@@ -15,7 +15,7 @@ type DescribeIPTransitDatacentersRequest struct {
     PeerDcId *string `json:"peerDcId,omitempty"`
 
     // ZbgRegionId ZBG 接入节点 ID。
-    // 非空时查询以该 ZBG 节点为接入侧的 Router RIPT 可连接 DC 列表。
+    // 非空时查询以该 ZBG 节点为接入侧的基于 Router 的 Internet 可连接 DC 列表。
     ZbgRegionId *string `json:"zbgRegionId,omitempty"`
 
 }
@@ -79,7 +79,7 @@ type DatacenterInfo struct {
 
 }
 
-// IPTransitAvailableRoutingType IP Transit可用路由模式信息。
+// IPTransitAvailableRoutingType Internet可用路由模式信息。
 type IPTransitAvailableRoutingType struct {
 
     // RoutingType 路由模式。
@@ -216,7 +216,7 @@ type InquiryCreateIPTransitPriceRequest struct {
     PeerPortId *string `json:"peerPortId,omitempty"`
 
     // IptDcId 本端数据中心 ID。
-    // 为空代表本地连接（Local IPT）。
+    // 为空代表本地连接（Local Internet）。
     IptDcId *string `json:"iptDcId,omitempty"`
 
     // InternetType 网络计费方式。
@@ -246,7 +246,7 @@ type InquiryCreateIPTransitPriceRequest struct {
 
     // BgpTier BGP 档位。
     // 不传默认 PREMIUM（优质档）。
-    // `zbgRegionId` 非空（基于 router 的 IP Transit）时不支持 STANDARD。
+    // `zbgRegionId` 非空（基于 Router 的 Internet）时不支持 STANDARD。
     BgpTier *string `json:"bgpTier,omitempty"`
 
     // IpType IP 类型（IPV4 / IPV6）。
@@ -259,7 +259,7 @@ type InquiryCreateIPTransitPriceRequest struct {
     PublicIpList []*IPTransitIpRequest `json:"publicIpList,omitempty"`
 
     // ZbgRegionId ZBG 接入节点 ID。
-    // 非空时走 Router RIPT 询价流程。
+    // 非空时走基于 Router 的 Internet 询价流程。
     ZbgRegionId *string `json:"zbgRegionId,omitempty"`
 
     // HaConfig HA 高可用配置。
@@ -293,7 +293,7 @@ type IPTransitIpRequest struct {
 
 }
 
-// IPTransitHaConfig IP Transit HA配置信息。
+// IPTransitHaConfig Internet HA配置信息。
 type IPTransitHaConfig struct {
 
     // HaMode HA 运行模式。
@@ -326,7 +326,7 @@ type InquiryCreateIPTransitPriceResponseParams struct {
     // 可能为空。
     PrivateConnectPrice *PriceItem `json:"privateConnectPrice,omitempty"`
 
-    // IptBandwidthPrice IP Transit带宽价格。
+    // IptBandwidthPrice Internet带宽价格。
     IptBandwidthPrice *PriceItem `json:"iptBandwidthPrice,omitempty"`
 
     // PublicIpPrices 公网 IP 价格列表。
@@ -430,10 +430,10 @@ type IPPrice struct {
 type CreateIPTransitRequest struct {
     *common.BaseRequest
 
-    // IptName IP Transit名称。
+    // IptName Internet名称。
     IptName *string `json:"iptName,omitempty"`
 
-    // IptDescription IP Transit描述。
+    // IptDescription Internet描述。
     IptDescription *string `json:"iptDescription,omitempty"`
 
     // PeerPortId 对端数据中心端口 ID。
@@ -443,8 +443,8 @@ type CreateIPTransitRequest struct {
     PeerPortVlan *int `json:"peerPortVlan,omitempty"`
 
     // IptDcId 本端数据中心 ID。
-    // 为空代表本地连接（Local IPT）。
-    // 传 `haConfig` 创建高可用 IP Transit 时必传。
+    // 为空代表本地连接（Local Internet）。
+    // 传 `haConfig` 创建高可用 Internet 时必传。
     IptDcId *string `json:"iptDcId,omitempty"`
 
     // InternetType 网络计费方式。
@@ -466,7 +466,7 @@ type CreateIPTransitRequest struct {
     PublicIPv4BlockSize []int `json:"publicIPv4BlockSize,omitempty"`
 
     // Bfd BFD 配置。
-    // 传 `haConfig` 创建高可用 IP Transit 时必传，且后续不允许关闭。
+    // 传 `haConfig` 创建高可用 Internet 时必传，且后续不允许关闭。
     Bfd *BFDConfig `json:"bfd,omitempty"`
 
     // ResourceGroupId 资源组 ID。
@@ -486,8 +486,8 @@ type CreateIPTransitRequest struct {
     PublicIpList []*IPTransitIpRequest `json:"publicIpList,omitempty"`
 
     // ZbgRegionId ZBG 接入节点 ID。
-    // 非空时走 Router RIPT 流程，与 `haConfig` 互斥。
-    // 调用 ~~zec:DescribeInterconnectBorderGatewayRegions~~ 以获取可用的节点信息。
+    // 非空时走基于 Router 的 Internet 流程，与 `haConfig` 互斥。
+    // 调用 **zec:DescribeInterconnectBorderGatewayRegions** 以获取可用的节点信息。
     ZbgRegionId *string `json:"zbgRegionId,omitempty"`
 
     // HaConfig HA 高可用配置。
@@ -496,7 +496,7 @@ type CreateIPTransitRequest struct {
 
     // PublicInterconnectNetmask 公网互联块掩码。
     // 非空启用公网地址互联，仅 BGP / Static 路由支持。
-    // 合法值见 ~~DescribeIPTransitDatacenters~~ 响应中 availableRoutingTypes[].publicInterconnectNetmasks。
+    // 合法值见 **DescribeIPTransitDatacenters** 响应中 availableRoutingTypes[].publicInterconnectNetmasks。
     PublicInterconnectNetmask *int `json:"publicInterconnectNetmask,omitempty"`
 
 }
@@ -583,7 +583,7 @@ type CreateIPTransitResponseParams struct {
     // OrderNumber 订单号。
     OrderNumber *string `json:"orderNumber,omitempty"`
 
-    // IptId IP Transit ID。
+    // IptId Internet ID。
     IptId *string `json:"iptId,omitempty"`
 
 }
@@ -592,16 +592,16 @@ type CreateIPTransitResponseParams struct {
 type DescribeIPTransitsRequest struct {
     *common.BaseRequest
 
-    // IptIds IP Transit ID 列表。
+    // IptIds Internet ID 列表。
     // 最多支持 100 个 ID 查询。
     IptIds []string `json:"iptIds,omitempty"`
 
-    // IptName IP Transit名称。
+    // IptName Internet名称。
     // 模糊匹配。
     IptName *string `json:"iptName,omitempty"`
 
     // ResourceGroupId 资源组 ID。
-    // 不传则返回该用户可见的所有资源组内的IP Transit。
+    // 不传则返回该用户可见的所有资源组内的Internet。
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 
     // PeerPortId 对端数据中心端口 ID 过滤。
@@ -645,24 +645,24 @@ type DescribeIPTransitsResponseParams struct {
     // TotalCount 符合条件的数据总数。
     TotalCount *int `json:"totalCount,omitempty"`
 
-    // DataSet IP Transit结果集。
+    // DataSet Internet结果集。
     DataSet []*IPTransit `json:"dataSet,omitempty"`
 
 }
 
-// IPTransit IP Transit信息。
+// IPTransit Internet信息。
 type IPTransit struct {
 
-    // IptId IP Transit ID。
+    // IptId Internet ID。
     IptId *string `json:"iptId,omitempty"`
 
-    // IptName IP Transit名称。
+    // IptName Internet名称。
     IptName *string `json:"iptName,omitempty"`
 
-    // IptDescription IP Transit描述。
+    // IptDescription Internet描述。
     IptDescription *string `json:"iptDescription,omitempty"`
 
-    // DataCenter IP Transit所在数据中心。
+    // DataCenter Internet所在数据中心。
     DataCenter *DatacenterInfo `json:"dataCenter,omitempty"`
 
     // PeerPortId 对端数据中心端口 ID。
@@ -732,7 +732,7 @@ type IPTransit struct {
     HaMode *string `json:"haMode,omitempty"`
 
     // ZbgRegionId ZBG 区域 ID。
-    // ZBG 场景下的 IP Transit 将返回此字段。
+    // ZBG 场景下的 Internet 将返回此字段。
     ZbgRegionId *string `json:"zbgRegionId,omitempty"`
 
     // PeerPortType 对端数据中心端口类型。
@@ -783,7 +783,7 @@ type Tags struct {
 
 }
 
-// IPTransitIpAddress IP Transit公网 IP 地址信息。
+// IPTransitIpAddress Internet公网 IP 地址信息。
 type IPTransitIpAddress struct {
 
     // IpUuid IP 块 UUID。
@@ -847,7 +847,7 @@ type HaLink struct {
 type ModifyIPTransitBandwidthRequest struct {
     *common.BaseRequest
 
-    // IptId IP Transit ID。
+    // IptId Internet ID。
     IptId *string `json:"iptId,omitempty"`
 
     // Bandwidth 目标带宽（Mbps）。
@@ -874,14 +874,14 @@ type ModifyIPTransitBandwidthResponse struct {
 type ModifyIPTransitsAttributeRequest struct {
     *common.BaseRequest
 
-    // IptIds IP Transit ID 列表。
+    // IptIds Internet ID 列表。
     // 最多支持 100 个。
     IptIds []string `json:"iptIds,omitempty"`
 
-    // IptName IP Transit名称。
+    // IptName Internet名称。
     IptName *string `json:"iptName,omitempty"`
 
-    // IptDescription IP Transit描述。
+    // IptDescription Internet描述。
     IptDescription *string `json:"iptDescription,omitempty"`
 
 }
@@ -901,7 +901,7 @@ type ModifyIPTransitsAttributeResponse struct {
 type DeleteIPTransitRequest struct {
     *common.BaseRequest
 
-    // IptId IP Transit ID。
+    // IptId Internet ID。
     IptId *string `json:"iptId,omitempty"`
 
 }
@@ -921,7 +921,7 @@ type DeleteIPTransitResponse struct {
 type DescribeIPTransitTrafficRequest struct {
     *common.BaseRequest
 
-    // IptId IP Transit ID。
+    // IptId Internet ID。
     IptId *string `json:"iptId,omitempty"`
 
     // StartTime 查询开始时间。
@@ -1008,7 +1008,7 @@ type TrafficData struct {
 type InquiryModifyIPTransitPriceRequest struct {
     *common.BaseRequest
 
-    // IptId IP Transit 实例 ID。
+    // IptId Internet 实例 ID。
     IptId *string `json:"iptId,omitempty"`
 
     // Type 变配类型。
@@ -1070,14 +1070,14 @@ type InquiryModifyIPTransitPriceResponseParams struct {
     RequestId *string `json:"requestId,omitempty"`
 
     // PrivateConnectPrice 专线（VLL）价格。
-    // BANDWIDTH 类型时可能有值，Router RIPT 为空。
+    // BANDWIDTH 类型时可能有值，基于 Router 的 Internet 为空。
     PrivateConnectPrice *PriceItem `json:"privateConnectPrice,omitempty"`
 
     // PrivateConnectBandwidth 专线带宽（Mbps）。
     // BANDWIDTH 类型时有值。
     PrivateConnectBandwidth *int `json:"privateConnectBandwidth,omitempty"`
 
-    // IptPrice RIPT 带宽价格。
+    // IptPrice Internet 带宽价格。
     IptPrice *PriceItem `json:"iptPrice,omitempty"`
 
     // IptIpPrices 公网 CIDR 块价格列表。
@@ -1111,7 +1111,7 @@ type IPTransitIpPriceItem struct {
 type ModifyIPTransitConfigRequest struct {
     *common.BaseRequest
 
-    // IptId IP Transit 实例 ID。
+    // IptId Internet 实例 ID。
     IptId *string `json:"iptId,omitempty"`
 
     // Type 变配操作类型。
@@ -1128,7 +1128,7 @@ type ModifyIPTransitConfigRequest struct {
 
     // Bfd BFD 配置。
     // type=BFD 时填写；传 null 表示关闭 BFD。
-    // 高可用 IP Transit 不允许关闭 BFD。
+    // 高可用 Internet 不允许关闭 BFD。
     Bfd *BFDConfig `json:"bfd,omitempty"`
 
     // Bgp BGP 配置参数。

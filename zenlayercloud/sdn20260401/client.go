@@ -1505,3 +1505,256 @@ func (c *Client) DescribeCloudRouterDCToDCTraffic(request *DescribeCloudRouterDC
 	return
 }
 
+func NewInquiryCreateInternetPriceRequest() (request *InquiryCreateInternetPriceRequest) {
+	request = &InquiryCreateInternetPriceRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryCreateInternetPrice")
+
+	return
+}
+
+func NewInquiryCreateInternetPriceResponse() (response *InquiryCreateInternetPriceResponse) {
+	response = &InquiryCreateInternetPriceResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// InquiryCreateInternetPrice Internet创建询价。
+func (c *Client) InquiryCreateInternetPrice(request *InquiryCreateInternetPriceRequest) (response *InquiryCreateInternetPriceResponse, err error) {
+	response = NewInquiryCreateInternetPriceResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeInternetTrafficRequest() (request *DescribeInternetTrafficRequest) {
+	request = &DescribeInternetTrafficRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeInternetTraffic")
+
+	return
+}
+
+func NewDescribeInternetTrafficResponse() (response *DescribeInternetTrafficResponse) {
+	response = &DescribeInternetTrafficResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeInternetTraffic 查询Internet流量。
+func (c *Client) DescribeInternetTraffic(request *DescribeInternetTrafficRequest) (response *DescribeInternetTrafficResponse, err error) {
+	response = NewDescribeInternetTrafficResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyInternetsAttributeRequest() (request *ModifyInternetsAttributeRequest) {
+	request = &ModifyInternetsAttributeRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyInternetsAttribute")
+
+	return
+}
+
+func NewModifyInternetsAttributeResponse() (response *ModifyInternetsAttributeResponse) {
+	response = &ModifyInternetsAttributeResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyInternetsAttribute 修改Internet属性。
+func (c *Client) ModifyInternetsAttribute(request *ModifyInternetsAttributeRequest) (response *ModifyInternetsAttributeResponse, err error) {
+	response = NewModifyInternetsAttributeResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDeleteInternetRequest() (request *DeleteInternetRequest) {
+	request = &DeleteInternetRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteInternet")
+
+	return
+}
+
+func NewDeleteInternetResponse() (response *DeleteInternetResponse) {
+	response = &DeleteInternetResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DeleteInternet 删除Internet。
+func (c *Client) DeleteInternet(request *DeleteInternetRequest) (response *DeleteInternetResponse, err error) {
+	response = NewDeleteInternetResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewModifyInternetConfigRequest() (request *ModifyInternetConfigRequest) {
+	request = &ModifyInternetConfigRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "ModifyInternetConfig")
+
+	return
+}
+
+func NewModifyInternetConfigResponse() (response *ModifyInternetConfigResponse) {
+	response = &ModifyInternetConfigResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// ModifyInternetConfig 修改Internet配置。
+func (c *Client) ModifyInternetConfig(request *ModifyInternetConfigRequest) (response *ModifyInternetConfigResponse, err error) {
+	response = NewModifyInternetConfigResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeInternetAvailableAsnsRequest() (request *DescribeInternetAvailableAsnsRequest) {
+	request = &DescribeInternetAvailableAsnsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeInternetAvailableAsns")
+
+	return
+}
+
+func NewDescribeInternetAvailableAsnsResponse() (response *DescribeInternetAvailableAsnsResponse) {
+	response = &DescribeInternetAvailableAsnsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeInternetAvailableAsns 查询Internet可用 ASN。
+func (c *Client) DescribeInternetAvailableAsns(request *DescribeInternetAvailableAsnsRequest) (response *DescribeInternetAvailableAsnsResponse, err error) {
+	response = NewDescribeInternetAvailableAsnsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeInternetDatacentersRequest() (request *DescribeInternetDatacentersRequest) {
+	request = &DescribeInternetDatacentersRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeInternetDatacenters")
+
+	return
+}
+
+func NewDescribeInternetDatacentersResponse() (response *DescribeInternetDatacentersResponse) {
+	response = &DescribeInternetDatacentersResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeInternetDatacenters 查询Internet可连接数据中心。
+func (c *Client) DescribeInternetDatacenters(request *DescribeInternetDatacentersRequest) (response *DescribeInternetDatacentersResponse, err error) {
+	response = NewDescribeInternetDatacentersResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeInternetAvailableCidrBlocksRequest() (request *DescribeInternetAvailableCidrBlocksRequest) {
+	request = &DescribeInternetAvailableCidrBlocksRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeInternetAvailableCidrBlocks")
+
+	return
+}
+
+func NewDescribeInternetAvailableCidrBlocksResponse() (response *DescribeInternetAvailableCidrBlocksResponse) {
+	response = &DescribeInternetAvailableCidrBlocksResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeInternetAvailableCidrBlocks 查询Internet可用公网地址段。
+func (c *Client) DescribeInternetAvailableCidrBlocks(request *DescribeInternetAvailableCidrBlocksRequest) (response *DescribeInternetAvailableCidrBlocksResponse, err error) {
+	response = NewDescribeInternetAvailableCidrBlocksResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewInquiryModifyInternetPriceRequest() (request *InquiryModifyInternetPriceRequest) {
+	request = &InquiryModifyInternetPriceRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InquiryModifyInternetPrice")
+
+	return
+}
+
+func NewInquiryModifyInternetPriceResponse() (response *InquiryModifyInternetPriceResponse) {
+	response = &InquiryModifyInternetPriceResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// InquiryModifyInternetPrice Internet变配询价。
+func (c *Client) InquiryModifyInternetPrice(request *InquiryModifyInternetPriceRequest) (response *InquiryModifyInternetPriceResponse, err error) {
+	response = NewInquiryModifyInternetPriceResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewCreateInternetRequest() (request *CreateInternetRequest) {
+	request = &CreateInternetRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "CreateInternet")
+
+	return
+}
+
+func NewCreateInternetResponse() (response *CreateInternetResponse) {
+	response = &CreateInternetResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// CreateInternet 创建Internet。
+func (c *Client) CreateInternet(request *CreateInternetRequest) (response *CreateInternetResponse, err error) {
+	response = NewCreateInternetResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewDescribeInternetsRequest() (request *DescribeInternetsRequest) {
+	request = &DescribeInternetsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeInternets")
+
+	return
+}
+
+func NewDescribeInternetsResponse() (response *DescribeInternetsResponse) {
+	response = &DescribeInternetsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeInternets 查询Internet列表。
+func (c *Client) DescribeInternets(request *DescribeInternetsRequest) (response *DescribeInternetsResponse, err error) {
+	response = NewDescribeInternetsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+

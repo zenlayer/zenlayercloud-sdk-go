@@ -39,6 +39,9 @@ type Region struct {
     // CityCode 城市对应的三字码。
     CityCode *string `json:"cityCode,omitempty"`
 
+    // SupportPrivateIp 该区域是否支持负载均衡内网IP。
+    SupportPrivateIp *bool `json:"supportPrivateIp,omitempty"`
+
 }
 
 // DescribeLoadBalancersRequest 
@@ -139,9 +142,10 @@ type LoadBalancer struct {
     // VpcId 负载均衡后端服务器所属的VPC网络ID。
     VpcId *string `json:"vpcId,omitempty"`
 
-    // SubnetId 负载均衡实例所属的子网ID。
-    // 健康检查内网IP分配在该子网；`ipStackType`为`IPv6`时，公网IPv6网段也分配在该子网。
-    // 创建时未指定子网的实例该字段为空。
+    // Deprecated: SubnetId 已废弃，请不要使用。
+    // SubnetId 已废弃。
+    // 仅对`IPv4`负载均衡有意义：创建时指定的子网，健康检查源IP分配在该子网，未指定时为空。
+    // `IPv6`负载均衡不使用该字段，新建实例恒为空；其公网VIP可分配自同一VPC下的多个子网。
     SubnetId *string `json:"subnetId,omitempty"`
 
     // IpStackType IP堆栈类型。
@@ -212,7 +216,7 @@ type InquiryPriceCreateLoadBalancerRequest struct {
 
     // IpStackType IP堆栈类型。
     // 负载均衡实例只支持单栈，即`IPv4`或`IPv6`，不支持双栈。
-    // 指定为`IPv6`时不支持配置公网网络参数（`internetChargeType`、`networkLineType`、`bandwidthMbps`、`trafficPackageSize`、`bandwidthClusterId`）——IPv6负载均衡的公网地址通过 **zlb:AssignLoadBalancerIpv6** 接口单独分配。
+    // 指定为`IPv6`且指定`internetChargeType`时，按创建时一并分配1个公网IPv6网段计价（网段免费，返回`ipv6Price`与`ipv6NetworkPrice`），线路固定为BGP，不能指定`networkLineType`。
     IpStackType *string `json:"ipStackType,omitempty"`
 
     // InternetChargeType IP网络计费模式。
@@ -225,6 +229,7 @@ type InquiryPriceCreateLoadBalancerRequest struct {
     IpNetworkType *string `json:"ipNetworkType,omitempty"`
 
     // NetworkLineType IP的网络类型。
+    // 仅`ipStackType`为`IPv4`时可指定；`IPv6`的线路固定为BGP，指定将返回`INVALID_PARAMETER_CONFLICT`。
     NetworkLineType *string `json:"networkLineType,omitempty"`
 
     // BandwidthMbps EIP的最大出带宽。单位为Mbps。最大限制通常为10000，如果有额外要求，请联系Support。当`internetChargeType`为`ByBandwidth`时，此参数必填。
@@ -270,6 +275,14 @@ type InquiryPriceCreateLoadBalancerResponseParams struct {
 
     // LcuPrice 负载均衡实例LCU的价格。
     LcuPrice *PriceItem `json:"lcuPrice,omitempty"`
+
+    // Ipv6Price 公网IPv6网段的价格。
+    // 仅`ipStackType`为`IPv6`且指定了`internetChargeType`时返回，公网IPv6网段免费，价格恒为0。
+    Ipv6Price *PriceItem `json:"ipv6Price,omitempty"`
+
+    // Ipv6NetworkPrice 公网IPv6的网络计费的价格。
+    // 仅`ipStackType`为`IPv6`且指定了`internetChargeType`时返回；共享带宽包计费(`BandwidthCluster`)时为空。
+    Ipv6NetworkPrice *PriceItem `json:"ipv6NetworkPrice,omitempty"`
 
 }
 
@@ -374,8 +387,17 @@ type CreateLoadBalancerRequest struct {
     // 可以通过调用 **zec:DescribeSubnets** 获取。
     // `vpcId`和`subnetId`至少指定一个。
     // 该子网需与`regionId`同区域，同时指定`vpcId`时还须属于该VPC。
-    // `ipStackType`为`IPv4`时该子网需支持IPv4，此参数可不指定（由系统在该VPC内选择）；为`IPv6`时该子网需含公网IPv6网段（内网IPv6不满足），且**此参数必填**——公网IPv6 VIP与健康检查段都从该子网分配，不指定将返回`MISSING_PARAMETER`。
+    // `ipStackType`为`IPv4`时该子网需支持IPv4，用于分配健康检查内网IP，此参数可不指定（由系统在该VPC内选择）；为`IPv6`时该参数仅表示公网IPv6的来源子网：指定了`internetChargeType`时**必填**，且该子网需含公网IPv6网段（内网IPv6不满足），不指定将返回`MISSING_PARAMETER`；未指定`internetChargeType`时不生效。
     SubnetId *string `json:"subnetId,omitempty"`
+
+    // PrivateIpSubnetId 内网VIP的来源子网ID。
+    // 可以通过调用 **zec:DescribeSubnets** 获取。
+    // 指定后，每个负载均衡实例创建时从该子网自动分配1个内网VIP；不指定则创建时不分配内网VIP，可在创建后调用 **AddLoadBalancersPrivateIps** 添加。
+    // 该子网需支持IPv4，与`regionId`同区域且属于负载均衡所在的VPC。
+    // 仅`ipStackType`为`IPv4`时可指定。
+    // `regionId`所在地域需支持负载均衡内网IP，可调用 **DescribeLoadBalancerRegions** 查看`supportPrivateIp`；不支持时返回`OPERATION_DENIED_LB_REGION_NOT_SUPPORT_PRIVATE_IP`。
+    // 内网VIP与公网IP共同占用单个负载均衡的VIP配额。
+    PrivateIpSubnetId *string `json:"privateIpSubnetId,omitempty"`
 
     // HealthCheckPrivateIps 健康检查内网源IP地址，数量必须为2。
     // 指定`subnetId`时，不填则从该子网中随机分配2个可用的内网IPv4地址作为健康检查源IP，每个负载均衡实例占用2个地址，该子网剩余可用内网IPv4地址不足时将返回`INVALID_SUBNET_IPV4_INSUFFICIENT`，分配结果可调用 **DescribeLoadBalancers** 查询。
@@ -389,7 +411,8 @@ type CreateLoadBalancerRequest struct {
 
     // IpStackType IP堆栈类型。
     // 负载均衡实例只支持单栈，即`IPv4`或`IPv6`，不支持双栈。
-    // 指定为`IPv6`时不支持配置公网网络参数（`internetChargeType`、`networkLineType`、`bandwidthMbps`、`trafficPackageSize`、`bandwidthClusterId`），也不能指定`eipIds`——EIP均为IPv4，IPv6负载均衡的公网地址通过 **zlb:AssignLoadBalancerIpv6** 接口单独分配。
+    // 指定为`IPv6`时：指定`internetChargeType`表示创建时一并为每个实例分配1个公网IPv6网段，线路固定为BGP，此时`subnetId`必填、不能指定`networkLineType`；不指定则创建时不分配公网IPv6，之后可通过 **zlb:AssignLoadBalancerIpv6** 接口分配。
+    // `IPv6`不能指定`eipIds`——EIP均为IPv4。
     IpStackType *string `json:"ipStackType,omitempty"`
 
     // EipIds 指定绑定到新建负载均衡实例的已有弹性公网IP的ID列表。
@@ -401,6 +424,7 @@ type CreateLoadBalancerRequest struct {
 
     // InternetChargeType IP网络计费模式。
     // 指定`eipIds`时该参数不生效。
+    // `ipStackType`为`IPv6`时作用于创建时分配的公网IPv6。
     InternetChargeType *string `json:"internetChargeType,omitempty"`
 
     // Deprecated: IpNetworkType 已废弃，请不要使用。
@@ -409,6 +433,7 @@ type CreateLoadBalancerRequest struct {
     IpNetworkType *string `json:"ipNetworkType,omitempty"`
 
     // NetworkLineType IP的网络类型。
+    // 仅`ipStackType`为`IPv4`时可指定；`IPv6`的线路固定为BGP，指定将返回`INVALID_PARAMETER_CONFLICT`。
     NetworkLineType *string `json:"networkLineType,omitempty"`
 
     // BandwidthMbps EIP的最大出带宽。单位为Mbps。最大限制通常为10000，如果有额外要求，请联系Support。当`internetChargeType`为`ByBandwidth`时，此参数必填。
@@ -754,6 +779,12 @@ type AssignLoadBalancerIpv6Request struct {
     // 可通过调用 **DescribeLoadBalancers** 获取。
     LoadBalancerId *string `json:"loadBalancerId,omitempty"`
 
+    // SubnetId 公网IPv6的来源子网ID。
+    // 该子网须属于负载均衡实例所在的VPC、与负载均衡实例同区域，且含公网IPv6网段（内网IPv6不满足）。
+    // 同一负载均衡实例的公网IPv6可分配自同一VPC下的多个子网。
+    // 可通过调用 **zec:DescribeSubnets** 获取。
+    SubnetId *string `json:"subnetId,omitempty"`
+
     // VipCount 本次分配的公网IPv6数量。
     // 子网剩余可用公网IPv6不足时将返回`INVALID_SUBNET_IPV6_INSUFFICIENT`。
     VipCount *int `json:"vipCount,omitempty"`
@@ -981,6 +1012,7 @@ type CreateListenerRequest struct {
     // 仅当工作模式（`kind`）为`DR`且调度算法（`scheduler`）为`mh`时可设置，其它组合传入将报错。
     // 创建时传`None`等价于不设置该字段。
     // 开启后与会话保持（`persistent`）互斥，不可同时设置非0值。
+    // 负载均衡已绑定内网IP时不支持开启。
     AlgoOpts *string `json:"algoOpts,omitempty"`
 
     // ProxyProtocol 是否开启ProxyProtocol，开启后将通过ProxyProtocol协议携带客户端地址到后端服务器。
@@ -1061,6 +1093,7 @@ type ModifyListenerRequest struct {
     // 不传表示不修改该字段；传`None`表示显式清空已开启的选项。
     // 校验按修改后生效的最终状态判定：若该监听器已开启此选项，把`kind`或`scheduler`改为其它组合时也需一并传`None`。
     // 开启后与会话保持（`persistent`）互斥：若该监听器已开启此选项，把`persistent`改为非0值同样会报错，需一并传`None`将其清空。
+    // 负载均衡已绑定内网IP时不支持开启。
     AlgoOpts *string `json:"algoOpts,omitempty"`
 
     // ProxyProtocol 是否开启ProxyProtocol。
