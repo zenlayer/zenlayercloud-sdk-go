@@ -1206,6 +1206,29 @@ func (c *Client) DescribePrivateConnectTraffic(request *DescribePrivateConnectTr
 	return
 }
 
+func NewDescribePartnerDcNniCandidatesRequest() (request *DescribePartnerDcNniCandidatesRequest) {
+	request = &DescribePartnerDcNniCandidatesRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribePartnerDcNniCandidates")
+
+	return
+}
+
+func NewDescribePartnerDcNniCandidatesResponse() (response *DescribePartnerDcNniCandidatesResponse) {
+	response = &DescribePartnerDcNniCandidatesResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribePartnerDcNniCandidates 查询合作对接点候选与推荐。
+func (c *Client) DescribePartnerDcNniCandidates(request *DescribePartnerDcNniCandidatesRequest) (response *DescribePartnerDcNniCandidatesResponse, err error) {
+	response = NewDescribePartnerDcNniCandidatesResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewDescribeCloudRouterAvailablePortsRequest() (request *DescribeCloudRouterAvailablePortsRequest) {
 	request = &DescribeCloudRouterAvailablePortsRequest{
 		BaseRequest: &common.BaseRequest{},

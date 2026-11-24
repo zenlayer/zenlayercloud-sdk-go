@@ -70,6 +70,17 @@ type DataCenterAssemble struct {
     // RegionId 节点 ID。
     RegionId *string `json:"regionId,omitempty"`
 
+    // DcType 数据中心类型。
+    // 可能的值：<br/>ZENLAYER：Zenlayer 数据中心。
+    // <br/>EXTENDED：扩展数据中心。
+    // <br/>PARTNER：合作伙伴数据中心。
+    // <br/>THIRD_PARTY：其它第三方数据中心。
+    DcType *string `json:"dcType,omitempty"`
+
+    // Partner 数据中心所属合作伙伴。
+    // Zenlayer 数据中心为 Zenlayer。
+    Partner *string `json:"partner,omitempty"`
+
 }
 
 // DescribeVirtualEdgeDatacentersRequest 
@@ -229,6 +240,17 @@ type DataCenterWithServiceResponse struct {
 
     // ServiceTypes 支持的服务类型集合。
     ServiceTypes []string `json:"serviceTypes,omitempty"`
+
+    // DcType 数据中心类型。
+    // 可能的值：<br/>ZENLAYER：Zenlayer 数据中心。
+    // <br/>EXTENDED：扩展数据中心。
+    // <br/>PARTNER：合作伙伴数据中心。
+    // <br/>THIRD_PARTY：其它第三方数据中心。
+    DcType *string `json:"dcType,omitempty"`
+
+    // Partner 数据中心所属合作伙伴。
+    // Zenlayer 数据中心为 Zenlayer。
+    Partner *string `json:"partner,omitempty"`
 
 }
 
@@ -664,6 +686,7 @@ type CreatePortRequest struct {
 
     // BusinessEntityName 商业实体名称。
     // 用于 LOA 抬头。
+    // 合作伙伴数据中心的 LOA 由合作伙伴出具，此字段不生效。
     BusinessEntityName *string `json:"businessEntityName,omitempty"`
 
     // MarketingOptions 市场营销活动相关信息。
@@ -957,6 +980,10 @@ type PortInfo struct {
     // 端口加入 LAG 后只能使用该 LAG 创建业务，不能再单独使用 LAG 的成员口创建业务。
     Lag *LagInfo `json:"lag,omitempty"`
 
+    // PartnerDc 合作伙伴数据中心端口的交付与计费信息。
+    // 仅端口位于合作伙伴数据中心时返回。
+    PartnerDc *PartnerDcPortInfo `json:"partnerDc,omitempty"`
+
 }
 
 // Tags 描述资源关联的标签信息。
@@ -975,6 +1002,34 @@ type LagInfo struct {
 
     // LagName LAG 名称。
     LagName *string `json:"lagName,omitempty"`
+
+}
+
+// PartnerDcPortInfo 合作伙伴数据中心端口的交付与计费信息。
+type PartnerDcPortInfo struct {
+
+    // Partner 交付该端口的合作伙伴。
+    Partner *string `json:"partner,omitempty"`
+
+    // Status 交付状态。
+    Status *string `json:"status,omitempty"`
+
+    // LoaIssuedTime 合作伙伴出具 LOA 的时间。
+    // LOA 未出具时为空。
+    LoaIssuedTime *string `json:"loaIssuedTime,omitempty"`
+
+    // FreePeriodEndTime 免费对接期截止时间。
+    // 端口在此之前 Up 则从 Up 时开始计费，否则从此时开始计费。
+    // LOA 未出具时为空。
+    FreePeriodEndTime *string `json:"freePeriodEndTime,omitempty"`
+
+    // BillBeginTime 计费开始时间。
+    // 尚未开始计费时为空。
+    BillBeginTime *string `json:"billBeginTime,omitempty"`
+
+    // BillBeginReason 开始计费的原因。
+    // 尚未开始计费时为空。
+    BillBeginReason *string `json:"billBeginReason,omitempty"`
 
 }
 
@@ -2086,6 +2141,39 @@ type PrivateConnectEndpoint struct {
     // 公有云接入点对应的云侧连接标识，仅公有云类型接入点时有值。
     SharedChannelId *string `json:"sharedChannelId,omitempty"`
 
+    // PartnerDcNni 合作对接信息。
+    // 仅连接点为合作伙伴数据中心端口时返回。
+    PartnerDcNni *PartnerDcNniInfo `json:"partnerDcNni,omitempty"`
+
+}
+
+// PartnerDcNniInfo 合作伙伴数据中心端口的合作对接信息。
+type PartnerDcNniInfo struct {
+
+    // Partner 所属合作伙伴。
+    Partner *string `json:"partner,omitempty"`
+
+    // ZenDc 合作对接点所在的数据中心 ID。
+    ZenDc *string `json:"zenDc,omitempty"`
+
+    // ZenDcName 合作对接点所在的数据中心名称。
+    ZenDcName *string `json:"zenDcName,omitempty"`
+
+    // CityName 合作对接点所在的城市名称。
+    CityName *string `json:"cityName,omitempty"`
+
+    // AvailabilityZone 合作对接点的可用区。
+    AvailabilityZone *string `json:"availabilityZone,omitempty"`
+
+    // PartnerLatency 合作伙伴段时延（合作伙伴提供的月度中位值）。
+    // 单位：ms。
+    // 合作伙伴未提供时为空。
+    PartnerLatency *float64 `json:"partnerLatency,omitempty"`
+
+    // PartnerSegmentStatus 合作伙伴段连通性状态。
+    // 按合作伙伴连接的生命周期判断，链路中断不一定能及时反映。
+    PartnerSegmentStatus *string `json:"partnerSegmentStatus,omitempty"`
+
 }
 
 // InquiryCreatePrivateConnectPriceRequest 
@@ -2146,6 +2234,21 @@ type CreateEndpointParam struct {
     // EndpointName 连接点名称。
     // 仅允许字母、数字和连字符。
     EndpointName *string `json:"endpointName,omitempty"`
+
+    // PartnerDcNni 合作对接点。
+    // 连接点为合作伙伴数据中心端口时使用。
+    PartnerDcNni *PartnerDcNni `json:"partnerDcNni,omitempty"`
+
+}
+
+// PartnerDcNni 合作伙伴数据中心端口接入专线时使用的合作对接点。
+type PartnerDcNni struct {
+
+    // ZenDc 合作对接点所在的数据中心 ID。
+    ZenDc *string `json:"zenDc,omitempty"`
+
+    // AvailabilityZone 合作对接点的可用区。
+    AvailabilityZone *string `json:"availabilityZone,omitempty"`
 
 }
 
@@ -2413,6 +2516,95 @@ type DescribePrivateConnectTrafficResponseParams struct {
     // Unit 流量单位。
     // 如 bps。
     Unit *string `json:"unit,omitempty"`
+
+}
+
+// DescribePartnerDcNniCandidatesRequest 
+type DescribePartnerDcNniCandidatesRequest struct {
+    *common.BaseRequest
+
+    // PortId 合作伙伴数据中心的端口 ID。
+    PortId *string `json:"portId,omitempty"`
+
+    // PeerDcId 对端连接点所在的数据中心 ID。
+    // 可通过 **DescribeDataCenters** 接口获取。
+    PeerDcId *string `json:"peerDcId,omitempty"`
+
+    // Bandwidth 专线带宽。
+    // 单位：Mbps。
+    Bandwidth *int `json:"bandwidth,omitempty"`
+
+}
+
+type DescribePartnerDcNniCandidatesResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribePartnerDcNniCandidatesResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribePartnerDcNniCandidatesResponseParams 
+type DescribePartnerDcNniCandidatesResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // FeaturedCandidates 带标签的候选，1~5 个，第一个为推荐项。
+    FeaturedCandidates []*PartnerDcNniCandidate `json:"featuredCandidates,omitempty"`
+
+    // OtherCandidates 其余候选，按总时延升序。
+    OtherCandidates []*PartnerDcNniCandidate `json:"otherCandidates,omitempty"`
+
+}
+
+// PartnerDcNniCandidate 合作对接点候选。
+type PartnerDcNniCandidate struct {
+
+    // ZenDc 合作对接点所在的数据中心 ID。
+    // 创建专线时原样填入 partnerDcNni.zenDc。
+    ZenDc *string `json:"zenDc,omitempty"`
+
+    // ZenDcName 合作对接点所在的数据中心名称。
+    ZenDcName *string `json:"zenDcName,omitempty"`
+
+    // CityName 合作对接点所在的城市名称。
+    CityName *string `json:"cityName,omitempty"`
+
+    // AvailabilityZone 合作对接点的可用区。
+    // 创建专线时原样填入 partnerDcNni.availabilityZone。
+    AvailabilityZone *string `json:"availabilityZone,omitempty"`
+
+    // Tags 标签，可能为空。
+    // 可能的值：<br/>RECOMMENDED：推荐。
+    // <br/>LOWEST_LATENCY：总时延最低。
+    // <br/>LOWEST_PRICE：总价最低。
+    // <br/>推荐项可能同时带有其他标签。
+    Tags []string `json:"tags,omitempty"`
+
+    // AvailableBandwidth 该合作对接点当前可用的最大带宽。
+    // 单位：Mbps。
+    AvailableBandwidth *int `json:"availableBandwidth,omitempty"`
+
+    // PartnerLatency 合作伙伴段时延（合作伙伴提供的月度中位值）。
+    // 单位：ms。
+    // 合作伙伴未提供时为空。
+    PartnerLatency *float64 `json:"partnerLatency,omitempty"`
+
+    // BackboneLatency 骨干段时延，即合作对接点到对端数据中心的时延。
+    // 单位：ms。
+    BackboneLatency *float64 `json:"backboneLatency,omitempty"`
+
+    // TotalLatency 总时延。
+    // 单位：ms。
+    TotalLatency *float64 `json:"totalLatency,omitempty"`
+
+    // PrivateConnectPrice 二层网络专线带宽价格。
+    // 对端为合作伙伴数据中心、按同城 Zenlayer 数据中心估算时可能为空。
+    PrivateConnectPrice *PriceItem `json:"privateConnectPrice,omitempty"`
+
+    // ConnectionPrice 合作伙伴连接价格。
+    ConnectionPrice *PriceItem `json:"connectionPrice,omitempty"`
 
 }
 
@@ -3419,6 +3611,7 @@ type DescribeInternetTrafficResponse struct {
 
 }
 
+// DescribeInternetTrafficResponseParams 
 type DescribeInternetTrafficResponseParams struct {
 
     RequestId *string `json:"requestId,omitempty"`
@@ -3464,6 +3657,7 @@ type ModifyInternetsAttributeRequest struct {
     InternetIds []string `json:"internetIds,omitempty"`
 
     // InternetName Internet名称。
+    // 长度不超过 128 个字符。
     InternetName *string `json:"internetName,omitempty"`
 
     // InternetDescription Internet描述。
@@ -3557,7 +3751,7 @@ type BFDConfig struct {
     BfdTxInterval *int `json:"bfdTxInterval,omitempty"`
 
     // BfdRxInterval 接收间隔。
-    // 单位：ms
+    // 单位：ms。
     // 取值范围：100～6000。
     BfdRxInterval *int `json:"bfdRxInterval,omitempty"`
 
@@ -3872,6 +4066,7 @@ type CreateInternetRequest struct {
     *common.BaseRequest
 
     // InternetName Internet名称。
+    // 长度不超过 128 个字符。
     InternetName *string `json:"internetName,omitempty"`
 
     // InternetDescription Internet描述。
@@ -3957,6 +4152,7 @@ type InternetBgpConfig struct {
     Asn *int64 `json:"asn,omitempty"`
 
     // Password 加密认证秘钥。
+    // 长度 8–64。
     Password *string `json:"password,omitempty"`
 
     // AsnList 宣告出站路由的ASN号列表。

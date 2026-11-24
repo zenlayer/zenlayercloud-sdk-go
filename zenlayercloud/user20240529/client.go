@@ -35,6 +35,7 @@ func NewClient(config *common.Config, secretKeyId, secretKeyPassword string) (cl
 	}
 	return client, nil
 }
+
 func NewClientWithToken(token string) (client *Client, err error) {
 	return NewClientWithTokenAndConfig(common.NewConfig(), token)
 }
@@ -53,7 +54,6 @@ func NewClientWithTokenAndConfig(config *common.Config, token string) (client *C
 	}
 	return client, nil
 }
-
 
 
 func NewDescribeMembersRequest() (request *DescribeMembersRequest) {
@@ -98,75 +98,6 @@ func NewDescribeMemberResponse() (response *DescribeMemberResponse) {
 // DescribeMember 查询单个成员信息。
 func (c *Client) DescribeMember(request *DescribeMemberRequest) (response *DescribeMemberResponse, err error) {
 	response = NewDescribeMemberResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewInviteMemberRequest() (request *InviteMemberRequest) {
-	request = &InviteMemberRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "InviteMember")
-
-	return
-}
-
-func NewInviteMemberResponse() (response *InviteMemberResponse) {
-	response = &InviteMemberResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// InviteMember 邀请单个成员信息。
-func (c *Client) InviteMember(request *InviteMemberRequest) (response *InviteMemberResponse, err error) {
-	response = NewInviteMemberResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewDeleteMemberRequest() (request *DeleteMemberRequest) {
-	request = &DeleteMemberRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DeleteMember")
-
-	return
-}
-
-func NewDeleteMemberResponse() (response *DeleteMemberResponse) {
-	response = &DeleteMemberResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// DeleteMember 删除一个成员信息。
-func (c *Client) DeleteMember(request *DeleteMemberRequest) (response *DeleteMemberResponse, err error) {
-	response = NewDeleteMemberResponse()
-	err = c.ApiCall(request, response)
-	return
-}
-
-func NewSendInviteMemberEmailRequest() (request *SendInviteMemberEmailRequest) {
-	request = &SendInviteMemberEmailRequest{
-		BaseRequest: &common.BaseRequest{},
-	}
-	request.Init().InitWithApiInfo(SERVICE, APIVersion, "SendInviteMemberEmail")
-
-	return
-}
-
-func NewSendInviteMemberEmailResponse() (response *SendInviteMemberEmailResponse) {
-	response = &SendInviteMemberEmailResponse{
-		BaseResponse: &common.BaseResponse{},
-	}
-	return
-}
-
-// SendInviteMemberEmail 重新发送一个成员信息的邮件。
-func (c *Client) SendInviteMemberEmail(request *SendInviteMemberEmailRequest) (response *SendInviteMemberEmailResponse, err error) {
-	response = NewSendInviteMemberEmailResponse()
 	err = c.ApiCall(request, response)
 	return
 }

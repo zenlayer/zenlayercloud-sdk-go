@@ -1206,6 +1206,29 @@ func (c *Client) InquiryPriceResizeDisk(request *InquiryPriceResizeDiskRequest) 
 	return
 }
 
+func NewDescribeLocalDiskSpecsRequest() (request *DescribeLocalDiskSpecsRequest) {
+	request = &DescribeLocalDiskSpecsRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "DescribeLocalDiskSpecs")
+
+	return
+}
+
+func NewDescribeLocalDiskSpecsResponse() (response *DescribeLocalDiskSpecsResponse) {
+	response = &DescribeLocalDiskSpecsResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// DescribeLocalDiskSpecs 查询指定可用区可售的本地盘规格。本地盘只能在创建实例时购买，按固定容量档位售卖。
+func (c *Client) DescribeLocalDiskSpecs(request *DescribeLocalDiskSpecsRequest) (response *DescribeLocalDiskSpecsResponse, err error) {
+	response = NewDescribeLocalDiskSpecsResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
 func NewDescribeSnapshotsRequest() (request *DescribeSnapshotsRequest) {
 	request = &DescribeSnapshotsRequest{
 		BaseRequest: &common.BaseRequest{},
@@ -2119,7 +2142,7 @@ func NewCreateByoipResponse() (response *CreateByoipResponse) {
 	return
 }
 
-// CreateByoip 提交自带IP段（BYOIP）创建CIDR。返回RPKI/IRR校验失败列表。
+// CreateByoip 提交自带IP段（BYOIP）创建CIDR。返回RPKI校验失败列表。
 func (c *Client) CreateByoip(request *CreateByoipRequest) (response *CreateByoipResponse, err error) {
 	response = NewCreateByoipResponse()
 	err = c.ApiCall(request, response)
@@ -4353,6 +4376,52 @@ func NewUnassociateVpcCidrBlockResponse() (response *UnassociateVpcCidrBlockResp
 // UnassociateVpcCidrBlock 移除指定VPC的一个附属IPv4网段。
 func (c *Client) UnassociateVpcCidrBlock(request *UnassociateVpcCidrBlockRequest) (response *UnassociateVpcCidrBlockResponse, err error) {
 	response = NewUnassociateVpcCidrBlockResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewAssociateSubnetIpv6CidrBlocksRequest() (request *AssociateSubnetIpv6CidrBlocksRequest) {
+	request = &AssociateSubnetIpv6CidrBlocksRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "AssociateSubnetIpv6CidrBlocks")
+
+	return
+}
+
+func NewAssociateSubnetIpv6CidrBlocksResponse() (response *AssociateSubnetIpv6CidrBlocksResponse) {
+	response = &AssociateSubnetIpv6CidrBlocksResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// AssociateSubnetIpv6CidrBlocks 为公网IPv6子网添加一个或多个IPv6网段。
+func (c *Client) AssociateSubnetIpv6CidrBlocks(request *AssociateSubnetIpv6CidrBlocksRequest) (response *AssociateSubnetIpv6CidrBlocksResponse, err error) {
+	response = NewAssociateSubnetIpv6CidrBlocksResponse()
+	err = c.ApiCall(request, response)
+	return
+}
+
+func NewUnassociateSubnetIpv6CidrBlockRequest() (request *UnassociateSubnetIpv6CidrBlockRequest) {
+	request = &UnassociateSubnetIpv6CidrBlockRequest{
+		BaseRequest: &common.BaseRequest{},
+	}
+	request.Init().InitWithApiInfo(SERVICE, APIVersion, "UnassociateSubnetIpv6CidrBlock")
+
+	return
+}
+
+func NewUnassociateSubnetIpv6CidrBlockResponse() (response *UnassociateSubnetIpv6CidrBlockResponse) {
+	response = &UnassociateSubnetIpv6CidrBlockResponse{
+		BaseResponse: &common.BaseResponse{},
+	}
+	return
+}
+
+// UnassociateSubnetIpv6CidrBlock 释放子网的一个IPv6网段。
+func (c *Client) UnassociateSubnetIpv6CidrBlock(request *UnassociateSubnetIpv6CidrBlockRequest) (response *UnassociateSubnetIpv6CidrBlockResponse, err error) {
+	response = NewUnassociateSubnetIpv6CidrBlockResponse()
 	err = c.ApiCall(request, response)
 	return
 }

@@ -328,6 +328,11 @@ type InquiryPriceCreateInstanceRequest struct {
     // 若不指定该参数，则回退使用`dataDisk`。
     DataDisks []*DataDisk `json:"dataDisks,omitempty"`
 
+    // LocalDisks 本地盘相关信息。
+    // 若不指定该参数，则不询价本地盘。
+    // 可售规格可通过调用 **DescribeLocalDiskSpecs** 获取。
+    LocalDisks []*LocalDisk `json:"localDisks,omitempty"`
+
 }
 
 // SystemDisk 描述系统盘的基本信息。
@@ -385,6 +390,32 @@ type DataDisk struct {
 
 }
 
+// LocalDisk 描述了本地盘的信息。
+type LocalDisk struct {
+
+    // DiskId 本地盘ID。
+    // 该参数仅作为 **DescribeInstances** 等查询类接口的返回参数，不可用于 **CreateZecInstances** 等写接口的入参。
+    DiskId *string `json:"diskId,omitempty"`
+
+    // DiskName 本地盘的名称。
+    // 该参数仅作为 **DescribeInstances** 等查询类接口的返回参数。
+    DiskName *string `json:"diskName,omitempty"`
+
+    // DiskSize 本地盘大小。
+    // 单位：GiB。
+    // 只能取可用区支持的固定容量档位，可通过调用 **DescribeLocalDiskSpecs** 获取。
+    DiskSize *int `json:"diskSize,omitempty"`
+
+    // DiskAmount 本地盘数量。
+    // 该参数仅用于 **CreateZecInstances**、**InquiryPriceCreateInstance** 等接口的入参。
+    DiskAmount *int `json:"diskAmount,omitempty"`
+
+    // DiskCategory 本地盘种类。
+    // 可通过调用 **DescribeLocalDiskSpecs** 获取可用区支持的种类。
+    DiskCategory *string `json:"diskCategory,omitempty"`
+
+}
+
 type InquiryPriceCreateInstanceResponse struct {
     *common.BaseResponse
 
@@ -433,6 +464,10 @@ type InquiryPriceCreateInstanceResponseParams struct {
 
     // DataDiskPrices 数据盘的价格明细，与请求中的`dataDisks`按顺序一一对应。
     DataDiskPrices []*PriceItem `json:"dataDiskPrices,omitempty"`
+
+    // LocalDiskPrices 本地盘的价格明细，与请求中的`localDisks`按顺序一一对应。
+    // 仅当请求指定`localDisks`时返回。
+    LocalDiskPrices []*PriceItem `json:"localDiskPrices,omitempty"`
 
 }
 
@@ -577,6 +612,13 @@ type CreateZecInstancesRequest struct {
 
     // DataDisks 实例数据盘配置信息。若不指定该参数，则默认不额外购买数据盘。列表中每一项对应一块独立的数据盘，数据盘总数量受团队配额限制。
     DataDisks []*DataDisk `json:"dataDisks,omitempty"`
+
+    // LocalDisks 实例本地盘配置信息。
+    // 若不指定该参数，则不购买本地盘。
+    // 本地盘只能在创建实例时购买，随实例删除而删除，不支持卸载、扩容和快照。
+    // 列表中每一项对应一种规格，可通过`diskAmount`指定同规格的数量。
+    // 可售规格可通过调用 **DescribeLocalDiskSpecs** 获取，本地盘数量与容量计入团队的云盘配额。
+    LocalDisks []*LocalDisk `json:"localDisks,omitempty"`
 
     // SecurityGroupId 要配置在实例主网卡的安全组ID。
     // 目前只能关联1个安全组。
@@ -751,7 +793,12 @@ type DiskWithInstance struct {
     InstanceId *string `json:"instanceId,omitempty"`
 
     // DiskIdSet 随机器创建的数据盘ID集合。
+    // 不包含本地盘。
     DiskIdSet []string `json:"diskIdSet,omitempty"`
+
+    // LocalDiskIdSet 随机器创建的本地盘ID集合。
+    // 如果请求中没有指定本地盘，返回空数组。
+    LocalDiskIdSet []string `json:"localDiskIdSet,omitempty"`
 
 }
 
@@ -876,7 +923,12 @@ type InstanceInfo struct {
     SystemDisk *SystemDisk `json:"systemDisk,omitempty"`
 
     // DataDisks 实例上挂载的数据盘信息。
+    // 不包含本地盘，本地盘见`localDisks`。
     DataDisks []*DataDisk `json:"dataDisks,omitempty"`
+
+    // LocalDisks 实例上的本地盘信息。
+    // 本地盘随实例创建和删除，不支持卸载、扩容和快照。
+    LocalDisks []*LocalDisk `json:"localDisks,omitempty"`
 
     // PublicIpAddresses 实例上公网IPv4列表。
     PublicIpAddresses []string `json:"publicIpAddresses,omitempty"`
@@ -969,6 +1021,11 @@ type NicInfo struct {
     // 如果堆栈类型是V4,该值取值为空。
     Ipv6Cidr *string `json:"ipv6Cidr,omitempty"`
 
+    // Ipv6CidrBlocks 网卡上的全部IPv6 CIDR。
+    // `primaryIpv6`、`ipv6Cidr`取其中第一个的值。
+    // 如果堆栈类型是V4,该值为空列表。
+    Ipv6CidrBlocks []*NicIpv6CidrBlockInfo `json:"ipv6CidrBlocks,omitempty"`
+
     // SecondaryIpv4s 网卡上的辅助IPv4地址。
     SecondaryIpv4s []string `json:"secondaryIpv4s,omitempty"`
 
@@ -998,6 +1055,27 @@ type NicInfo struct {
 
     // Tags 该网卡关联的标签。
     Tags *Tags `json:"tags,omitempty"`
+
+}
+
+// NicIpv6CidrBlockInfo 网卡上的一个IPv6 CIDR。
+type NicIpv6CidrBlockInfo struct {
+
+    // Ipv6Id IPv6的ID。
+    // 仅公网IPv6有值。
+    Ipv6Id *string `json:"ipv6Id,omitempty"`
+
+    // CidrBlock 网卡上的IPv6 CIDR，例如`2001:db8::/96`。
+    CidrBlock *string `json:"cidrBlock,omitempty"`
+
+    // PrimaryIpv6 该IPv6 CIDR的主IPv6地址。
+    PrimaryIpv6 *string `json:"primaryIpv6,omitempty"`
+
+    // Ipv6Type IPv6的类型。
+    Ipv6Type *string `json:"ipv6Type,omitempty"`
+
+    // SubnetIpv6CidrBlock 该IPv6 CIDR所属的子网IPv6网段。
+    SubnetIpv6CidrBlock *string `json:"subnetIpv6CidrBlock,omitempty"`
 
 }
 
@@ -2470,7 +2548,12 @@ type DiskInfo struct {
     Portable *bool `json:"portable,omitempty"`
 
     // DiskCategory 云盘的类别。
+    // 本地盘（`diskType`为`LOCAL`）不返回该字段，种类见`localDiskCategory`。
     DiskCategory *string `json:"diskCategory,omitempty"`
+
+    // LocalDiskCategory 本地盘种类。
+    // 仅本地盘（`diskType`为`LOCAL`）返回。
+    LocalDiskCategory *string `json:"localDiskCategory,omitempty"`
 
     // DiskSize 云盘的大小。
     // 单位：GiB。
@@ -2940,6 +3023,50 @@ type ResizeDiskPreviousPrices struct {
     // AcceleratorPrice 扩容前对应实例的加速卡价格。
     // 仅系统盘扩容且实例类型为加速卡时返回。
     AcceleratorPrice *PriceItem `json:"acceleratorPrice,omitempty"`
+
+}
+
+// DescribeLocalDiskSpecsRequest 
+type DescribeLocalDiskSpecsRequest struct {
+    *common.BaseRequest
+
+    // ZoneId 可用区ID。
+    // 可通过调用 **DescribeZones** 获取。
+    ZoneId *string `json:"zoneId,omitempty"`
+
+}
+
+type DescribeLocalDiskSpecsResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *DescribeLocalDiskSpecsResponseParams `json:"response,omitempty"`
+
+}
+
+// DescribeLocalDiskSpecsResponseParams 
+type DescribeLocalDiskSpecsResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // LocalDiskSpecs 可用区可售的本地盘规格列表。
+    // 返回空列表表示该可用区不售卖本地盘。
+    LocalDiskSpecs []*LocalDiskSpec `json:"localDiskSpecs,omitempty"`
+
+}
+
+// LocalDiskSpec 描述了一种可售的本地盘规格。
+type LocalDiskSpec struct {
+
+    // DiskCategory 本地盘种类。
+    // 创建实例或询价时作为`localDisks.diskCategory`传入。
+    DiskCategory *string `json:"diskCategory,omitempty"`
+
+    // DiskSize 本地盘大小。
+    // 单位：GiB。
+    // 本地盘只能按固定容量档位购买，创建实例或询价时作为`localDisks.diskSize`传入。
+    DiskSize *int `json:"diskSize,omitempty"`
 
 }
 
@@ -9286,7 +9413,9 @@ type SubnetInfo struct {
     // GatewayIpAddress 网关地址。
     GatewayIpAddress *string `json:"gatewayIpAddress,omitempty"`
 
-    // Ipv6CidrBlock 子网的IPv6 CIDR地址段。当IP堆栈类型不包含IPv6时为null。
+    // Ipv6CidrBlock 子网主IPv6网段。
+    // 全部网段见`ipv6CidrBlocks`。
+    // 当IP堆栈类型不包含IPv6时为null。
     Ipv6CidrBlock *string `json:"ipv6CidrBlock,omitempty"`
 
     // Ipv6GatewayIpAddress IPv6的网关地址。
@@ -9321,6 +9450,51 @@ type SubnetInfo struct {
 
     // Ipv6MaskLength 分配给虚拟机的IPv6前缀长度。当IP堆栈类型不包含IPv6时为null。
     Ipv6MaskLength *int `json:"ipv6MaskLength,omitempty"`
+
+    // Ipv6CidrBlocks 子网的全部IPv6网段。
+    // `ipv6CidrBlock`、`ipv6GatewayIpAddress`、`ipv6MaskLength`取其中主网段的值。
+    // 当IP堆栈类型不包含IPv6时为空列表。
+    Ipv6CidrBlocks []*SubnetIpv6CidrBlockInfo `json:"ipv6CidrBlocks,omitempty"`
+
+}
+
+// SubnetIpv6CidrBlockInfo 子网的IPv6网段信息。
+type SubnetIpv6CidrBlockInfo struct {
+
+    // CidrBlock IPv6网段，例如`2001:db8::/64`。
+    CidrBlock *string `json:"cidrBlock,omitempty"`
+
+    // Ipv6Type IPv6的类型。
+    Ipv6Type *string `json:"ipv6Type,omitempty"`
+
+    // IsPrimary 是否为子网的主IPv6网段。
+    // 新建网卡或实例时，IPv6地址从主网段分配。
+    IsPrimary *bool `json:"isPrimary,omitempty"`
+
+    // Ipv6MaskLength 分配给虚拟机（VM）的IPv6前缀长度。
+    Ipv6MaskLength *int `json:"ipv6MaskLength,omitempty"`
+
+    // GatewayIpAddress IPv6网关地址。
+    GatewayIpAddress *string `json:"gatewayIpAddress,omitempty"`
+
+    // Isp 公网IPv6网段的线路类型。
+    // 内网IPv6网段为null。
+    Isp *string `json:"isp,omitempty"`
+
+    // PoolId 网段所属的IP池ID。
+    // 仅公网IPv6网段有值。
+    PoolId *string `json:"poolId,omitempty"`
+
+    // IsDefaultPool 是否来自系统默认IP池。
+    // 内网IPv6网段恒为`false`。
+    IsDefaultPool *bool `json:"isDefaultPool,omitempty"`
+
+    // Ipv6CidrBlockId 网段来源的公网IPv6 CIDR ID。
+    // 仅当网段从指定的公网IPv6 CIDR切分时有值。
+    Ipv6CidrBlockId *string `json:"ipv6CidrBlockId,omitempty"`
+
+    // UsedIpv6Count 网段内已分配的IPv6数量（包括网卡和负载均衡占用的地址）。
+    UsedIpv6Count *int `json:"usedIpv6Count,omitempty"`
 
 }
 
@@ -9365,9 +9539,9 @@ type CreateSubnetRequest struct {
     Ipv6CidrBlockId *string `json:"ipv6CidrBlockId,omitempty"`
 
     // Ipv6MaskLength 分配给虚拟机（VM）的IPv6 CIDR前缀的大小。
-    // 该参数必须与`ipv6CidrBlockId`参数配合使用。
     // 当未显式传递时，默认值为96。
-    // 最小必须大于或等于指定`ipv6CidrBlockId`的前缀，最大不能超过96。
+    // 最小必须大于或等于子网IPv6网段的前缀（指定`ipv6CidrBlockId`时为该CIDR的子网前缀；内网IPv6或从系统默认IP池分配时为64），最大不能超过96。
+    // 设置后不支持修改。
     Ipv6MaskLength *int `json:"ipv6MaskLength,omitempty"`
 
 }
@@ -9471,9 +9645,9 @@ type ModifySubnetStackTypeRequest struct {
     Ipv6CidrBlockId *string `json:"ipv6CidrBlockId,omitempty"`
 
     // Ipv6MaskLength 分配给虚拟机（VM）的IPv6 CIDR前缀的大小。
-    // 该参数必须与`ipv6CidrBlockId`参数配合使用。
     // 当未显式传递时，默认值为96。
-    // 最小必须大于或等于指定`ipv6CidrBlockId`的前缀，最大不能超过96。
+    // 最小必须大于或等于子网IPv6网段的前缀（指定`ipv6CidrBlockId`时为该CIDR的子网前缀；内网IPv6或从系统默认IP池分配时为64），最大不能超过96。
+    // 设置后不支持修改。
     Ipv6MaskLength *int `json:"ipv6MaskLength,omitempty"`
 
 }
@@ -9571,9 +9745,9 @@ type SubnetCreateItem struct {
     Ipv6CidrBlockId *string `json:"ipv6CidrBlockId,omitempty"`
 
     // Ipv6MaskLength 分配给虚拟机（VM）的IPv6 CIDR前缀的大小。
-    // 该参数必须与`ipv6CidrBlockId`参数配合使用。
     // 当未显式传递时，默认值为96。
-    // 最小必须大于或等于指定`ipv6CidrBlockId`的前缀，最大不能超过96。
+    // 最小必须大于或等于子网IPv6网段的前缀（指定`ipv6CidrBlockId`时为该CIDR的子网前缀；内网IPv6或从系统默认IP池分配时为64），最大不能超过96。
+    // 设置后不支持修改。
     Ipv6MaskLength *int `json:"ipv6MaskLength,omitempty"`
 
 }
@@ -9690,6 +9864,87 @@ type UnassociateVpcCidrBlockRequest struct {
 }
 
 type UnassociateVpcCidrBlockResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response struct {
+		RequestId string `json:"requestId,omitempty"`
+	} `json:"response,omitempty"`
+
+}
+
+// AssociateSubnetIpv6CidrBlocksRequest 
+type AssociateSubnetIpv6CidrBlocksRequest struct {
+    *common.BaseRequest
+
+    // SubnetId 子网的ID。
+    // 仅支持IPv6类型为公网(`Public`)的子网。
+    // 可通过调用 **DescribeSubnets** 获取。
+    SubnetId *string `json:"subnetId,omitempty"`
+
+    // Ipv6CidrBlocks 要添加的IPv6网段列表。
+    // 单个子网的IPv6网段数量上限由配额`ZEC_CIDR_IPv6_Blocks_per_subnet`控制，默认为10个，可申请提升；该配额统计的是子网已有网段与本次添加网段的**总数**。
+    Ipv6CidrBlocks []*Ipv6CidrBlockItem `json:"ipv6CidrBlocks,omitempty"`
+
+}
+
+// Ipv6CidrBlockItem 要添加的IPv6网段。
+type Ipv6CidrBlockItem struct {
+
+    // Ipv6CidrBlockId 公网IPv6 CIDR ID，将从该CIDR中切分网段。
+    // 必须与子网在同一节点。
+    // 如果不指定，将从系统默认IP池里分配，且每个子网最多只能有1个来自系统默认IP池的网段。
+    // 可通过调用 **DescribeIpv6Cidrs** 获取。
+    Ipv6CidrBlockId *string `json:"ipv6CidrBlockId,omitempty"`
+
+    // Amount 要添加的网段数量。
+    // 默认为1。
+    // 指定`ipv6CidrBlockId`时，不能超过该CIDR剩余可切分的网段数；未指定`ipv6CidrBlockId`时只能为1。
+    Amount *int `json:"amount,omitempty"`
+
+    // Ipv6MaskLength 分配给虚拟机（VM）的IPv6前缀长度。
+    // 未传时默认为96。
+    // 最小必须大于或等于网段的前缀长度（指定`ipv6CidrBlockId`时为该CIDR的子网前缀；从系统默认IP池分配时为64），最大不能超过96。
+    Ipv6MaskLength *int `json:"ipv6MaskLength,omitempty"`
+
+}
+
+type AssociateSubnetIpv6CidrBlocksResponse struct {
+    *common.BaseResponse
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    Response *AssociateSubnetIpv6CidrBlocksResponseParams `json:"response,omitempty"`
+
+}
+
+// AssociateSubnetIpv6CidrBlocksResponseParams 
+type AssociateSubnetIpv6CidrBlocksResponseParams struct {
+
+    RequestId *string `json:"requestId,omitempty"`
+
+    // Ipv6CidrBlocks 本次添加的IPv6网段列表。
+    Ipv6CidrBlocks []*SubnetIpv6CidrBlockInfo `json:"ipv6CidrBlocks,omitempty"`
+
+}
+
+// UnassociateSubnetIpv6CidrBlockRequest 
+type UnassociateSubnetIpv6CidrBlockRequest struct {
+    *common.BaseRequest
+
+    // SubnetId 子网的ID。
+    // 可通过调用 **DescribeSubnets** 获取。
+    SubnetId *string `json:"subnetId,omitempty"`
+
+    // Ipv6CidrBlock 要释放的IPv6网段，例如`2001:db8::/64`。
+    // 网段内不能有已分配的IPv6地址；子网至少需保留1个IPv6网段。
+    // 可通过调用 **DescribeSubnets** 获取。
+    Ipv6CidrBlock *string `json:"ipv6CidrBlock,omitempty"`
+
+}
+
+type UnassociateSubnetIpv6CidrBlockResponse struct {
     *common.BaseResponse
 
     RequestId *string `json:"requestId,omitempty"`
@@ -11949,6 +12204,17 @@ type AssignNetworkInterfaceIpv6Request struct {
     // 可通过调用 **DescribeNetworkInterfaces** 获取。
     NicId *string `json:"nicId,omitempty"`
 
+    // SubnetIpv6CidrBlock IPv6地址的来源网段，必须是网卡所在子网的IPv6网段之一。
+    // 如果不指定，将从子网的主网段分配。
+    // 可通过调用 **DescribeSubnets** 的`ipv6CidrBlocks`获取。
+    SubnetIpv6CidrBlock *string `json:"subnetIpv6CidrBlock,omitempty"`
+
+    // Amount 要添加的IPv6数量。
+    // 默认为1，单次最多50个。
+    // 单张网卡的IPv6数量上限由实例规格决定。
+    // 公网IPv6时，每个IPv6按相同的计费配置分别计费。
+    Amount *int `json:"amount,omitempty"`
+
     // InternetChargeType 公网IPv6的网络计费方式。
     // 当子网的堆栈类型包括V6且为公网时，需要指定。
     InternetChargeType *string `json:"internetChargeType,omitempty"`
@@ -11992,6 +12258,11 @@ type UnassignNetworkInterfaceIpv6Request struct {
     // NicId 要删除IPv6的网卡ID。
     // 可通过调用 **DescribeNetworkInterfaces** 获取。
     NicId *string `json:"nicId,omitempty"`
+
+    // Ipv6CidrBlock 要删除的网卡IPv6 CIDR。
+    // 不指定时删除网卡全部IPv6（堆栈类型为`IPv4_IPv6`的网卡随之降级为`IPv4`）；堆栈类型为`IPv6`的网卡必须指定，且不支持删除最后一个IPv6。
+    // 可通过调用 **DescribeNetworkInterfaces** 的`ipv6CidrBlocks`获取。
+    Ipv6CidrBlock *string `json:"ipv6CidrBlock,omitempty"`
 
 }
 
@@ -12570,7 +12841,7 @@ type CreateByoAsnRequest struct {
     *common.BaseRequest
 
     // Asn 待接入的公网ASN号。
-    // 支持2字节与4字节ASN，最大值4294967295。
+    // 支持2字节与4字节ASN，取值范围1~4294967295。
     Asn *int64 `json:"asn,omitempty"`
 
     // ResourceGroupId 创建后BYO ASN所在的资源组ID。
@@ -12654,6 +12925,9 @@ type DescribeByoAsnsRequest struct {
     // Status 根据状态进行过滤。
     Status *string `json:"status,omitempty"`
 
+    // Type 根据来源类型进行过滤。
+    Type *string `json:"type,omitempty"`
+
     // ResourceGroupId 根据资源组ID进行过滤。
     ResourceGroupId *string `json:"resourceGroupId,omitempty"`
 
@@ -12722,10 +12996,12 @@ type ByoAsnInfo struct {
 
     // VerifyCode 校验码。
     // 需要客户将其写入RIR上该ASN的aut-num对象。
+    // 来源类型为`AUTHORIZED`时为空。
     VerifyCode *string `json:"verifyCode,omitempty"`
 
     // ExportDeclaration 完整的export声明语句。
     // 客户直接复制该语句写入RIR上该ASN的aut-num对象即可。
+    // 来源类型为`AUTHORIZED`时为空。
     ExportDeclaration *string `json:"exportDeclaration,omitempty"`
 
     // Ipv4CidrCount 该ASN下已宣告的IPv4 CIDR数量。

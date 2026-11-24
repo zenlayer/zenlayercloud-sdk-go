@@ -123,72 +123,6 @@ type DescribeMemberResponseParams struct {
 
 }
 
-// InviteMemberRequest 
-type InviteMemberRequest struct {
-    *common.BaseRequest
-
-    // Email 用户邮箱。
-    Email *string `json:"email,omitempty"`
-
-    // MemberGroupId 成员组唯一ID。
-    MemberGroupId *string `json:"memberGroupId,omitempty"`
-
-    // OpenApi 是否生成API访问密钥。
-    OpenApi *bool `json:"openApi,omitempty"`
-
-}
-
-type InviteMemberResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// DeleteMemberRequest 
-type DeleteMemberRequest struct {
-    *common.BaseRequest
-
-    // UserUid 用户唯一ID。
-    UserUid *string `json:"userUid,omitempty"`
-
-}
-
-type DeleteMemberResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
-// SendInviteMemberEmailRequest 
-type SendInviteMemberEmailRequest struct {
-    *common.BaseRequest
-
-    // UserUid 用户唯一ID。
-    UserUid *string `json:"userUid,omitempty"`
-
-}
-
-type SendInviteMemberEmailResponse struct {
-    *common.BaseResponse
-
-    RequestId *string `json:"requestId,omitempty"`
-
-    Response struct {
-		RequestId string `json:"requestId,omitempty"`
-	} `json:"response,omitempty"`
-
-}
-
 // DescribeMemberGroupsRequest 
 type DescribeMemberGroupsRequest struct {
     *common.BaseRequest
@@ -452,7 +386,7 @@ type Permission struct {
     MemberGroupId *string `json:"memberGroupId,omitempty"`
 
     // Associated 权限类别。
-    // 成员：SELF，成员组：USER_GROUP
+    // 成员：BY_SELF，成员组：BY_MEMBER_GROUP
     Associated *string `json:"associated,omitempty"`
 
 }
@@ -575,7 +509,7 @@ type DescribeResourceGroupsResponseParams struct {
 
 }
 
-// ResourceGroup 描述资源组的信息。
+// ResourceGroup 描述资源组的响应信息。包括资源组ID，名称等。
 type ResourceGroup struct {
 
     // ResourceGroupId 资源组唯一ID。
